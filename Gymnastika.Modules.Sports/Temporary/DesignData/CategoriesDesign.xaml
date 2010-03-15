@@ -1,8 +1,0 @@
-﻿<CategoriesDesign xmlns="clr-namespace:Gymnastika.Modules.Sports.DesignData"
-            xmlns:d="clr-namespace:Gymnastika.Modules.Sports.Models">
-    <CategoriesDesign.Categories>
-        <d:SportsCategory ImageUri="/Gymnastika.Modules.Sports;component/DesignData/1.jpg" Name="跑步" Note="各种搞笑的跑步方法"/>
-        <d:SportsCategory ImageUri="/Gymnastika.Modules.Sports;component/DesignData/2.jpg" Name="跳楼" Note="千奇百怪的跳楼"/>
-        <d:SportsCategory ImageUri="/Gymnastika.Modules.Sports;component/DesignData/3.jpg" Name="无氧运动" Note="其实就是不呼吸。。"/>
-    </CategoriesDesign.Categories>
-</CategoriesDesign>

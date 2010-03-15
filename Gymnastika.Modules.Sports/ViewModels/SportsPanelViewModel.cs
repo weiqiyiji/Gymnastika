@@ -37,6 +37,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         SportsCategory Category { get; set; }
 
+        IList<Sport> SportsInMemory { get; }
+
         int CurrentPage { get; }
 
         int Count { get; }
@@ -203,7 +205,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         IList<Sport> _sportsInMemory;
-        IList<Sport> SportsInMemory 
+        public IList<Sport> SportsInMemory 
         {
             get { return _sportsInMemory; }
             set { _sportsInMemory = value; }

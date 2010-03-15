@@ -11,27 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Widgets;
 
-namespace Gymnastika.Modules.Sports.Temporary.Widget
+namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for Widget.xaml
+    /// Interaction logic for CalendarButtonView.xaml
     /// </summary>
-    public partial class Widget : UserControl , IWidget
+    public partial class CalendarButtonView : UserControl
     {
-        public Widget()
+        public CalendarButtonView()
         {
             InitializeComponent();
         }
-
-        #region IWidget Members
-
-        public void Initialize()
-        {
-            //throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

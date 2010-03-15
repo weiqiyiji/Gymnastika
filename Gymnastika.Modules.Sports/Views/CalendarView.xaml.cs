@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Gymnastika.Modules.Sports.ViewModels;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -21,7 +23,15 @@ namespace Gymnastika.Modules.Sports.Views
     {
         public CalendarView()
         {
+            ViewModel = ServiceLocator.Current.GetInstance<ICalendarViewModel>();
             InitializeComponent();
         }
+
+        public ICalendarViewModel ViewModel
+        {
+            set { DataContext = value; }
+            get { return DataContext as ICalendarViewModel; }
+        }
+
     }
 }
