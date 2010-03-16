@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Widgets;
+using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Widget
 {
@@ -44,7 +45,7 @@ namespace Gymnastika.Modules.Sports.Widget
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             FrameworkElement element = container as FrameworkElement;
-            if (item == null)
+            if (item is SportsPlan)
                 return element.FindResource("NoPlanTemplate") as DataTemplate;
             else
                 return element.FindResource("WithPlanTemplate") as DataTemplate;

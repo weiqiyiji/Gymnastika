@@ -3,9 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
              d:DesignHeight="192" d:DesignWidth="239">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="NoPlanTemplate"/>
+            <DataTemplate x:Key="WithPlanTemplate"/>
+            <view:PlanTemplateSelecter x:Key="PlanTemplateSelecter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Plan}"/>
+        <UserControl DataContext="{Binding DataContext,RelativeSource={RelativeSource AncestorType={x:Type view:CalendarButtonView}}}" ContentTemplateSelector="{StaticResource ResourceKey=PlanTemplateSelecter}"/>
     </Grid>
 </UserControl>

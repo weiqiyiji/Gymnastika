@@ -8,9 +8,12 @@ using Gymnastika.Modules.Sports.Services.Providers;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+
+
     public interface ICalendarButtonViewModel
     {
         SportsPlan Plan { get; }
+        IList<SportsPlanItem> Items { get; }
     }
 
     public class CalendarButtonViewModel : ICalendarButtonViewModel
@@ -21,5 +24,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         public SportsPlan Plan { get; set; }
+
+        public IList<SportsPlanItem> Items
+        {
+            get 
+            {
+                if (Plan == null)
+                    return null;
+                else
+                    return Plan.SportsPlanItems; 
+            }
+        }
     }
 }
