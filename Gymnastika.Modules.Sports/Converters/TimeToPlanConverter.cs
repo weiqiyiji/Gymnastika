@@ -17,11 +17,14 @@ namespace Gymnastika.Modules.Sports.Converters
 
         public IList<SportsPlan> Plans
         {
-            get { return (IList<SportsPlan>)GetValue(PlansProperty); }
+            get 
+            {
+                var val = GetValue(PlansProperty);
+                return val as IList<SportsPlan>;
+            }
             set { SetValue(PlansProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Plans.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PlansProperty =
             DependencyProperty.Register("Plans", typeof(IList<SportsPlan>), typeof(TimeToPlanConverter));
 
@@ -30,21 +33,6 @@ namespace Gymnastika.Modules.Sports.Converters
             if (Plans == null)
                 Plans = new List<SportsPlan>();
         }
-
-        //IList<SportsPlan> LoadPlans()
-        //{
-        //    IList<SportsPlan> plans = null;
-        //    using (_planProvider.GetContextScope())
-        //    {
-        //        plans = _planProvider.All().ToList();
-        //        foreach (var plan in plans)
-        //        {
-        //            foreach (var item in plan.SportsPlanItems)
-        //                item.Sport = _sportProvider.Get(item.Sport.Id);
-        //        }
-        //    }
-        //    return plans;
-        //}
 
         bool TheSameDay(DateTime date,SportsPlan plan)
         {
@@ -56,6 +44,7 @@ namespace Gymnastika.Modules.Sports.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            //return null;
             return new CalendarButtonViewModel(Plans.Where(t => TheSameDay((DateTime)value, t)).FirstOrDefault());
         }
 

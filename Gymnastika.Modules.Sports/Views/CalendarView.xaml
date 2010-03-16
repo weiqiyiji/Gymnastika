@@ -6,9 +6,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views"
-             xmlns:cov="clr-namespace:Gymnastika.Modules.Sports.Converters">
+             xmlns:cov="clr-namespace:Gymnastika.Modules.Sports.Converters" x:Name="calendar">
 	<UserControl.Resources>
-        <cov:TimeToPlanConverter x:Key="TimeToPlanConverter" Plans="{Binding DataContext.Plans,RelativeSource={RelativeSource AncestorType={x:Type view:CalendarView}}}"/>
 		<Style x:Key="CalendarItemStyle" TargetType="{x:Type CalendarItem}">
 			<Setter Property="Margin" Value="0,3,0,3"/>
 			<Setter Property="Template">
@@ -332,6 +331,6 @@
     	<Grid.RowDefinitions>
     		<RowDefinition/>
     	</Grid.RowDefinitions>
-		<Calendar x:Name="calendar" Margin="50" Style="{DynamicResource CalendarStyle}" CalendarDayButtonStyle="{DynamicResource CalendarDayButtonStyle}" Background="{x:Null}"/>
+		<Calendar Margin="50" Style="{DynamicResource CalendarStyle}" CalendarDayButtonStyle="{DynamicResource CalendarDayButtonStyle}" Background="{x:Null}"/>
     </Grid>
 </UserControl>

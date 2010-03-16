@@ -22,7 +22,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             _sportProvider = sportProvider;
             _sportsPlanProvider = sportsPlanProvider;
-            Plans = LoadPlans();
         }
 
         IList<SportsPlan> LoadPlans()
@@ -40,6 +39,15 @@ namespace Gymnastika.Modules.Sports.ViewModels
             return plans;
         }
 
-        public IList<SportsPlan> Plans { get; set; }
+        IList<SportsPlan> _plans = null;
+        public IList<SportsPlan> Plans 
+        {
+            get
+            {
+                if (_plans == null)
+                    _plans = LoadPlans();
+                return _plans;
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Sports.ViewModels;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Modules.Sports.Converters;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -24,6 +25,9 @@ namespace Gymnastika.Modules.Sports.Views
         public CalendarView()
         {
             ViewModel = ServiceLocator.Current.GetInstance<ICalendarViewModel>();
+            var converter = new TimeToPlanConverter();
+            converter.Plans = ViewModel.Plans;
+            this.Resources.Add("TimeToPlanConverter", converter); 
             InitializeComponent();
         }
 
