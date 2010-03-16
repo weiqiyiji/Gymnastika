@@ -40,6 +40,11 @@ namespace Gymnastika.Views
         {
             InitializeComponent();
             Model = model;
+            this.Loaded += new RoutedEventHandler(StartupView_Loaded);
+        }
+
+        void StartupView_Loaded(object sender, RoutedEventArgs e)
+        {
         }    
 
         public StartupViewModel Model

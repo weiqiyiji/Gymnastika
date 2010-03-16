@@ -16,7 +16,7 @@ namespace Gymnastika.Widgets.Views
             InitializeComponent();
         }
 
-        //TODO find the usage of Id
+        //TODO: find the usage of Id
         public int Id { get; set; }
 
         public IWidgetManager WidgetManager { get; set; }

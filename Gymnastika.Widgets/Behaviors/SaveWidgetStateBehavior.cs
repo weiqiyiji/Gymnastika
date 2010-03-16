@@ -74,6 +74,9 @@ namespace Gymnastika.Widgets.Behaviors
                     else
                     {
                         widgetInstances.Remove(instance);
+                        instance.X = descriptor.Position.X;
+                        instance.Y = descriptor.Position.Y;
+                        _widgetRepository.Update(instance);
                     }
                 }
 
