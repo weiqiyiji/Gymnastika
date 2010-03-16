@@ -13,15 +13,21 @@ namespace Gymnastika.Modules.Sports.ViewModels
     public interface ICalendarButtonViewModel
     {
         SportsPlan Plan { get; }
+
         IList<SportsPlanItem> Items { get; }
+
+        DateTime Date { get; }
     }
 
     public class CalendarButtonViewModel : ICalendarButtonViewModel
     {
-        public CalendarButtonViewModel(SportsPlan plan)
+        public CalendarButtonViewModel(SportsPlan plan,DateTime date)
         {
             Plan = plan;
+            Date = date;
         }
+
+        public DateTime Date { get; set; }
 
         public SportsPlan Plan { get; set; }
 

@@ -39,16 +39,4 @@ namespace Gymnastika.Modules.Sports.Widget
 
         #endregion
     }
-
-    public class WidgetSelecter : DataTemplateSelector
-    {
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            FrameworkElement element = container as FrameworkElement;
-            if (item is SportsPlan)
-                return element.FindResource("NoPlanTemplate") as DataTemplate;
-            else
-                return element.FindResource("WithPlanTemplate") as DataTemplate;
-        }
-    }
 }

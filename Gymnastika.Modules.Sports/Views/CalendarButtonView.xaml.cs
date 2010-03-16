@@ -25,23 +25,5 @@ namespace Gymnastika.Modules.Sports.Views
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(DataContext.ToString());
-        }
-    }
-
-    public class PlanTemplateSelecter : DataTemplateSelector
-    {
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            return null;
-            FrameworkElement element = container as FrameworkElement;
-            ICalendarButtonViewModel viewmodel = item as ICalendarButtonViewModel;
-            if (viewmodel.Plan == null)
-                return element.FindResource("NoPlanTemplate") as DataTemplate;
-            else
-                return element.FindResource("WithPlanTemplate") as DataTemplate;
-        }
     }
 }

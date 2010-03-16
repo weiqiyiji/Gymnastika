@@ -23,13 +23,9 @@
                     </Grid>
                 </Border>
             </DataTemplate>
-            <DataTemplate x:Key="NoPlanTemplate">
-                <Button>添加计划</Button>
-            </DataTemplate>
             <DataTemplate x:Key="WithPlanTemplate">
                 <ItemsControl ItemsSource="{Binding Plan.SportsPlanItems}" ItemTemplate="{StaticResource ResourceKey=PlanItemTemplate}" />
             </DataTemplate>
-            <widget:WidgetSelecter x:Key="WidgetSelecter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <StackPanel>
@@ -37,6 +33,6 @@
         	<TextBlock x:Name="Title" Text="今日计划" FontSize="15" HorizontalAlignment="Right" />
         	<TextBlock Text="{Binding Time}" x:Name="Time" VerticalAlignment="Bottom"/>
     	</StackPanel>
-        <UserControl Content="{Binding}" ContentTemplateSelector="{StaticResource ResourceKey=WidgetSelecter}"/>
+        <UserControl Content="{Binding}" ContentTemplate="{StaticResource ResourceKey=WithPlanTemplate}"/>
     </StackPanel>
 </UserControl>

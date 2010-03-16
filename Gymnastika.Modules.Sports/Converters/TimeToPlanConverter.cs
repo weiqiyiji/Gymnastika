@@ -44,8 +44,7 @@ namespace Gymnastika.Modules.Sports.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            //return null;
-            return new CalendarButtonViewModel(Plans.Where(t => TheSameDay((DateTime)value, t)).FirstOrDefault());
+            return new CalendarButtonViewModel(Plans.Where(t => TheSameDay((DateTime)value, t)).FirstOrDefault(),(DateTime)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
