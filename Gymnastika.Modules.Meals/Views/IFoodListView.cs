@@ -10,6 +10,6 @@ namespace Gymnastika.Modules.Meals.Views
     public interface IFoodListView
     {
         IFoodListViewModel Context { get; set; }
-        event SelectionChangedEventHandler SubCategorySelectionChanged;
+        event SelectionChangedEventHandler FoodItemSelectionChanged;
     }
 }

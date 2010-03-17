@@ -14,7 +14,10 @@ namespace Gymnastika.Common.Navigation
 
         public NavigationDescriptor TargetDescriptor { get; set; }
 
-        public NavigationEventArgs(NavigationDescriptor sourceDescriptor, NavigationDescriptor targetDescriptor)
+        public ViewState TargetState { get; set; }
+
+        public NavigationEventArgs(
+            NavigationDescriptor sourceDescriptor, NavigationDescriptor targetDescriptor)
         {
             SourceDescriptor = sourceDescriptor;
             TargetDescriptor = targetDescriptor;
@@ -24,6 +27,7 @@ namespace Gymnastika.Common.Navigation
     public interface INavigationService
     {
         void RequestNavigate(string regionName, string viewName);
+        void RequestNavigate(string regionName, string viewName, string stateName);
         event NavigationHandler NavigationStart;
         event NavigationHandler NavigationCompleted;
     }

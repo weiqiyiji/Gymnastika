@@ -20,6 +20,18 @@
         <ControlTemplate x:Key="commandButtonTemplate" TargetType="{x:Type Button}">
             <ContentPresenter />
         </ControlTemplate>
+        <DataTemplate DataType="{x:Type vm:NavigationItemViewModel}">
+            <Border Margin="20,6,6,10">
+                <Button Content="{Binding Header}" FontSize="14" Foreground="White"
+                          Command="{Binding RequestNavigateCommand}" Template="{StaticResource commandButtonTemplate}" />
+            </Border>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StateNavigationViewModel}">
+            <Border Margin="40,6,6,10">
+                <Button Content="{Binding Header}" FontSize="14" Foreground="White"
+                          Command="{Binding RequestNavigateCommand}" Template="{StaticResource commandButtonTemplate}" />
+            </Border>
+        </DataTemplate>
         <Style x:Key="navigationRegionContentStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Cursor" Value="Hand" />
@@ -28,11 +40,7 @@
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Grid>
                             <Border BorderThickness="0" Background="#C1E096" Visibility="{Binding IsSelected, Converter={StaticResource boolToVisibilityConverter}}" />
-                            <Border Margin="20,6,6,10">
-                                <Button Content="{Binding Header}" FontSize="14" Foreground="White"
-                                            Command="{Binding RequestNavigateCommand}" 
-                                            Template="{StaticResource commandButtonTemplate}" />
-                            </Border>
+                            <ContentPresenter />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>

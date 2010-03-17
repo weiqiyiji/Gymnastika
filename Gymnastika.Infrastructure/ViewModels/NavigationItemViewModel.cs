@@ -66,7 +66,7 @@ namespace Gymnastika.ViewModels
 
         private void OnNavigationStart(object sender, NavigationEventArgs e)
         {
-            IsSelected = (e.TargetDescriptor == _navigationDescriptor);
+            IsSelected = (e.TargetDescriptor == _navigationDescriptor && e.TargetState == null);
         }
     }
 }

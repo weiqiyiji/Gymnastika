@@ -6,21 +6,21 @@ using Gymnastika.Common.Navigation;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using Microsoft.Practices.Prism.ViewModel;
+using System.Collections;
 
 namespace Gymnastika.ViewModels
 {
     public class NavigationRegionViewModel : NotificationObject
     {
         private INavigationRegion _navigationRegion;
-        private ObservableCollection<NavigationItemViewModel> _viewItems;
+        private ObservableCollection<object> _viewItems;
 
         public NavigationRegionViewModel(INavigationRegion navigationRegion)
         {
-            _viewItems = new ObservableCollection<NavigationItemViewModel>(
-                navigationRegion.NavigationViews.Select(
-                    x => new NavigationItemViewModel(x, navigationRegion.Name)));
-
             _navigationRegion = navigationRegion;
+            _viewItems = new ObservableCollection<object>();
+            PopulateRegion(navigationRegion.NavigationViews);
+
             _navigationRegion.NavigationViews.CollectionChanged += OnNavigationViewsChanged;
         }
 
@@ -28,15 +28,28 @@ namespace Gymnastika.ViewModels
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                foreach (NavigationDescriptor descriptor in e.NewItems)
+                PopulateRegion(e.NewItems);
+            }
+        }
+
+        private void PopulateRegion(IEnumerable descriptors)
+        {
+            foreach (NavigationDescriptor descriptor in descriptors)
+            {
+                _viewItems.Add(new NavigationItemViewModel(descriptor, _navigationRegion.Name));
+                if (descriptor.States != null && descriptor.States.Count > 0)
                 {
-                    _viewItems.Add(new NavigationItemViewModel(descriptor, _navigationRegion.Name));
+                    foreach (var viewState in descriptor.States)
+                    {
+                        _viewItems.Add(
+                            new StateNavigationViewModel(viewState, descriptor, _navigationRegion.Name));
+                    }
                 }
             }
         }
 
         public string Header { get { return _navigationRegion.Header; } }
 
-        public IEnumerable<NavigationItemViewModel> ViewItems { get { return _viewItems; } }
+        public IEnumerable ViewItems { get { return _viewItems; } }
     }
 }
