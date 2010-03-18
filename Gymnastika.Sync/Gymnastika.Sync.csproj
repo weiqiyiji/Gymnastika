@@ -58,8 +58,7 @@
       <HintPath>..\Libs\NHibernate.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -92,10 +91,25 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\ConnectionAutoMappingOverride.cs" />
+    <Compile Include="Infrastructure\CustomSqlCeDataServicesProvider.cs" />
+    <Compile Include="Infrastructure\CustomSqlCeDataServicesProviderFactory.cs" />
+    <Compile Include="Infrastructure\SessionPerRequestBehavior.cs" />
+    <Compile Include="Infrastructure\SessionPerRequestCallContextInitializer.cs" />
     <Compile Include="Infrastructure\UnityInstanceProvider.cs" />
     <Compile Include="Infrastructure\UnityServiceBehavior.cs" />
-    <Compile Include="RegistrationService.cs" />
-    <Compile Include="SampleItem.cs" />
+    <Compile Include="Infrastructure\UnityWebServiceHost.cs" />
+    <Compile Include="Infrastructure\UnityWebServiceHostFactory.cs" />
+    <Compile Include="Infrastructure\WcfAutomappingConfigurer.cs" />
+    <Compile Include="Infrastructure\WcfSessionLocator.cs" />
+    <Compile Include="Infrastructure\WebContextScope.cs" />
+    <Compile Include="Infrastructure\WebEnvironment.cs" />
+    <Compile Include="Migration\Migration_Connections_20110317222106.cs" />
+    <Compile Include="Migration\Migration_Endpoints_20110316220240.cs" />
+    <Compile Include="Migration\Migration_Endpoints_20110317234721.cs" />
+    <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\Endpoint.cs" />
+    <Compile Include="SyncService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -124,16 +138,14 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50897</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/gym</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:8090</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

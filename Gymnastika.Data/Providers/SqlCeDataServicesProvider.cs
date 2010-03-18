@@ -69,8 +69,7 @@ namespace Gymnastika.Data.Providers
                             c.Add(ForeignKey.Format((x, t) => t.Name + "Id"));
                             c.Add(DefaultLazy.Always());
                             c.AddFromAssemblyOf<TablePluralizationConvention>();
-                        }))
-                    .ExportTo(Directory.GetCurrentDirectory()));
+                        })));
         }
 
         public override IPersistenceConfigurer GetPersistenceConfigurer(bool createDatabase)

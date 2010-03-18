@@ -15,6 +15,8 @@ using Gymnastika.Common.Configuration;
 using Gymnastika.Common.Logging;
 using System.Configuration;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Sync.Infrastructure;
+using System.IO;
 
 namespace Gymnastika.Sync
 {
@@ -24,14 +26,25 @@ namespace Gymnastika.Sync
 
         void Application_Start(object sender, EventArgs e)
         {
+            AppDomain.CurrentDomain.SetData("SQLServerCompactEditionUnderWebHosting", true);
             RegisterRoutes();
             InitializeDataService();
+            MigrateData();
+        }
+
+        private void MigrateData()
+        {
+            using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
+            {
+                IDataMigrationManager manager = _container.Resolve<IDataMigrationManager>();
+                manager.Migrate();
+            }
         }
 
         private void RegisterRoutes()
         {
             RouteTable.Routes.Add(
-                new ServiceRoute("registration", new WebServiceHostFactory(), typeof(RegistrationService)));
+                new ServiceRoute("", new UnityWebServiceHostFactory(), typeof(RegistrationService)));
         }
 
         private void InitializeDataService()
@@ -42,27 +55,27 @@ namespace Gymnastika.Sync
                 .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()
-                .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>()
+                .RegisterType<IAutomappingConfigurer, WcfAutomappingConfigurer>()
                 .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>()
+                .RegisterType<IDataServicesProviderFactory, CustomSqlCeDataServicesProviderFactory>()
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>()
                 .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof(IRepository<>), typeof(Repository<>))
-                .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
+                .RegisterType<IWorkEnvironment, WebEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(_container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
-                        .AddFromAssemblyOf(this.GetType())
+                        .AddFromAssemblyOf<RegistrationService>()
                         .AddFromAssemblyOf<SchemaBuilder>())
                 .RegisterInstance(
                     new ShellSettings
                     {
                         DataProvider = ConfigurationManager.AppSettings["DataProvider"],
                         DatabaseName = ConfigurationManager.AppSettings["DatabaseName"],
-                        DataFolder = ConfigurationManager.AppSettings["DataFolder"]
+                        DataFolder = Server.MapPath("~/" + ConfigurationManager.AppSettings["DataFolder"])
                     });
 
             IServiceLocator serviceLocator = new UnityServiceLocator(_container);

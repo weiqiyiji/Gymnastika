@@ -262,8 +262,14 @@ namespace Gymnastika.ViewModels
             }
         }
 
+        private bool _lockLogOn = false;
+
         private void ProcessLogOn()
         {
+            if (_lockLogOn) return;
+
+            _lockLogOn = true;
+
             User savedUser = null;
             bool isLogOnOk = false;
 
@@ -279,6 +285,8 @@ namespace Gymnastika.ViewModels
             {
                 GoBack(savedUser);
             }
+
+            _lockLogOn = false;
         }
 
         private bool ValidateCreateUserForm()

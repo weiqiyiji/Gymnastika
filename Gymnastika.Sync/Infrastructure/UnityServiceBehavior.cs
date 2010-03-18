@@ -20,10 +20,16 @@ namespace Gymnastika.Sync.Infrastructure
         #region IServiceBehavior Members
 
         public void AddBindingParameters(
-            ServiceDescription serviceDescription, 
-            System.ServiceModel.ServiceHostBase serviceHostBase, 
-            System.Collections.ObjectModel.Collection<ServiceEndpoint> endpoints, 
+            ServiceDescription serviceDescription,
+            System.ServiceModel.ServiceHostBase serviceHostBase,
+            System.Collections.ObjectModel.Collection<ServiceEndpoint> endpoints,
             System.ServiceModel.Channels.BindingParameterCollection bindingParameters)
+        {
+        }
+
+        public void ApplyDispatchBehavior(
+            ServiceDescription serviceDescription, 
+            System.ServiceModel.ServiceHostBase serviceHostBase)
         {
             foreach (ChannelDispatcherBase dispatcher in serviceHostBase.ChannelDispatchers)
             {
@@ -31,15 +37,12 @@ namespace Gymnastika.Sync.Infrastructure
                 if (cd != null)
                 {
                     foreach (EndpointDispatcher endpoint in cd.Endpoints)
-                    { 
-                        
+                    {
+                        endpoint.DispatchRuntime.InstanceProvider =
+                            new UnityInstanceProvider(serviceDescription.ServiceType, _container);
                     }
                 }
             }
-        }
-
-        public void ApplyDispatchBehavior(ServiceDescription serviceDescription, System.ServiceModel.ServiceHostBase serviceHostBase)
-        {
         }
 
         public void Validate(ServiceDescription serviceDescription, System.ServiceModel.ServiceHostBase serviceHostBase)
