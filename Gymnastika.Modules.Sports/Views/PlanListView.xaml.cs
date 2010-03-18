@@ -15,6 +15,7 @@ using Gymnastika.Modules.Sports.ViewModels;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Common.Navigation;
+using System.Windows.Media.Animation;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -23,6 +24,7 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class PlanListView : UserControl, IPlanListView
     {
+
         public PlanListView()
         {
             InitializeComponent();
@@ -38,6 +40,7 @@ namespace Gymnastika.Modules.Sports.Views
                     ViewModel = servicelocator.GetInstance<IPlanListViewModel>();
             }catch(Exception)
             {
+
             }
         }
 
@@ -46,14 +49,42 @@ namespace Gymnastika.Modules.Sports.Views
             get { return DataContext as IPlanListViewModel; }
             set { DataContext = value; }
         }
-        public void StateChanging(ViewState targetState)
-        {
 
+
+
+        public bool IsExpanded
+        {
+            get { return (bool)GetValue(IsExpandedProperty); }
+            private set { SetValue(IsExpandedProperty, value); }
         }
+
+        // Using a DependencyProperty as the backing store for IsExpanded.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsExpandedProperty =
+            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(PlanListView), new PropertyMetadata(false));
+        
+        public void Expand()
+        {
+            if (IsExpanded == false)
+            {
+                IsExpanded = true;
+                (FindResource("FlyOutStoryboard") as Storyboard).Begin();
+                //LastWeek.BeginAnimation(LastWeek.RenderTransform
+            }
+        }
+
+        public void Minimize()
+        {
+            if (IsExpanded == true)
+            {
+                IsExpanded = false;
+                (FindResource("FlyInStoryboard") as Storyboard).Begin();
+            }
+        }
+
     }
 
     public interface IPlanListView
     {
-        void StateChanging(ViewState targetState);
+
     }
 }

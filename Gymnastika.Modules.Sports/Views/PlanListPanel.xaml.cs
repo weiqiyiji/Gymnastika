@@ -12,6 +12,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Animation;
+using Gymnastika.Common.Navigation;
+using Gymnastika.Modules.Sports.Models;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -20,33 +23,107 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class PlanListPanel : UserControl
     {
+        IPlanListViewModel _listViewModel;
+        
         public PlanListPanel()
         {
             InitializeComponent();
+            _listViewModel = ListView.DataContext as IPlanListViewModel;
+            _listViewModel.SelectedItemChangedEvent += OnSelectedItemChanged;
         }
 
-        void SwitchToDetail()
+        public bool IsExpanded { get; set; }
+
+        void Expand()
         {
-            DoubleAnimation DetailViewWidth = new DoubleAnimation(this.Width, TimeSpan.FromSeconds(0.1));
-            DoubleAnimation ListViewWidth = new DoubleAnimation(0, TimeSpan.FromSeconds(0.1));
-            Storyboard storyBoard = new Storyboard();
-            storyBoard.Children.Add(DetailViewWidth);
-            storyBoard.Children.Add(ListViewWidth);
-            Storyboard.SetTargetName(DetailViewWidth, "DetailView");
-            Storyboard.SetTargetName(ListViewWidth, "ListView");
-            Storyboard.SetTargetProperty(DetailViewWidth, new PropertyPath("WidthProperty"));
-            Storyboard.SetTargetProperty(ListViewWidth, new PropertyPath("WidthProperty"));
-            storyBoard.Begin();
+            if (IsExpanded == false)
+            {
+                IsExpanded = true;
+                ListView.Expand();
+                (FindResource("ExpandStoryboard") as Storyboard).Begin();
+                UpdateViewModel();
+            }
+        }
+
+        void Minimize()
+        {
+            if (IsExpanded == true)
+            {
+                IsExpanded = false;
+                ListView.Minimize();
+                (FindResource("MinimizeStoryboard") as Storyboard).Begin();
+            }
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            SwitchToDetail();
+            Expand();
         }
 
         private void surfaceButton1_Click(object sender, RoutedEventArgs e)
         {
-            SwitchToDetail();
+            Minimize();
+        }
+
+        
+        public void StateChanging(ViewState targetState)
+        {
+            Expand();
+            IPlanListViewModel viewModel = _listViewModel;
+            if(viewModel!=null)
+            {
+                int day = -1;
+                switch (targetState.Name)
+                {
+                    case "Sunday":
+                        day = 0;
+                        break;
+                    case "Monday":
+                        day = 1;
+                        break;
+                    case "Tuesday":
+                        day = 2;
+                        break;
+                    case "Wednesday":
+                        day = 3;
+                        break;
+                    case "Thursday":
+                        day = 4;
+                        break;
+                    case "Friday":
+                        day = 5;
+                        break;
+                    case "Saturday":
+                        day = 6;
+                        break;
+                }
+                viewModel.GotoDayOfWeek(day);
+            }
+        }
+
+        private void surfaceButton1_Click_1(object sender, RoutedEventArgs e)
+        {
+            Expand();
+        }
+
+        private void surfaceButton2_Click(object sender, RoutedEventArgs e)
+        {
+            Minimize();
+        }
+
+
+        void OnSelectedItemChanged(object sender, EventArgs e)
+        {
+            if (IsExpanded)
+            {
+                UpdateViewModel();
+            }
+        }
+
+        void UpdateViewModel()
+        {
+            if (DetailView.DataContext != _listViewModel.SelectedItem)
+                DetailView.DataContext = _listViewModel.SelectedItem;
         }
     }
 }

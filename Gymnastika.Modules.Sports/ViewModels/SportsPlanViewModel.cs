@@ -40,7 +40,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         string Date { get; }
 
-        string DayOfWeek { get; }
+        string DayOfWeekDes { get; }
+
+        int DayOfWeek { get; }
 
         SportsPlan SportsPlan { get; }
 
@@ -79,12 +81,20 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get { return _itemsBuffer; }
         }
 
-        public string DayOfWeek
+        public int DayOfWeek
         {
             get
             {
                 DateTime date = new DateTime(SportsPlan.Year, SportsPlan.Month, SportsPlan.Day);
-                return Week[(int)date.DayOfWeek];
+                return (int)date.DayOfWeek;
+            }
+        }
+
+        public string DayOfWeekDes
+        {
+            get
+            {
+                return Week[DayOfWeek];
             }
         }
 

@@ -4,11 +4,75 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="363" d:DesignWidth="732" xmlns:View="clr-namespace:Gymnastika.Modules.Sports.Views" xmlns:my="http://schemas.microsoft.com/surface/2008">
-    <Grid>
-        <View:PlanListView x:Name="ListView"/>
-        <View:PlanDetailView x:Name="DetailView" Width="0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="363" />
-        <Button Content="Button" Height="23" HorizontalAlignment="Right" Margin="0,328,12,0" Name="button1" VerticalAlignment="Top" Width="75" Click="button1_Click" />
-        <my:SurfaceButton Content="Button" Height="23" HorizontalAlignment="Left" Margin="502,320,0,0" Name="surfaceButton1" VerticalAlignment="Top" Width="75" Click="surfaceButton1_Click" />
+             d:DesignHeight="366" d:DesignWidth="732" xmlns:View="clr-namespace:Gymnastika.Modules.Sports.Views" xmlns:my="http://schemas.microsoft.com/surface/2008">
+	<UserControl.Resources>
+		<Storyboard x:Key="ExpandStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="242.78"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.333"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="122"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="122.75"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.996"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-1.5"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Key="MinimizeStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-2"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-1.5"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+			<BeginStoryboard Storyboard="{StaticResource MinimizeStoryboard}"/>
+		</EventTrigger>
+	</UserControl.Triggers>
+    <Grid x:Name="grid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0*" />
+            <RowDefinition Height="0.874*"/>
+            <RowDefinition Height="0.126*" />
+        </Grid.RowDefinitions>
+        <View:PlanDetailView x:Name="DetailView" Height="1" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
+        	<View:PlanDetailView.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</View:PlanDetailView.RenderTransform>
+        </View:PlanDetailView>
+        <View:PlanListView x:Name="ListView" Grid.RowSpan="2" Grid.Row="1" RenderTransformOrigin="0.5,0.5" >
+        	<View:PlanListView.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</View:PlanListView.RenderTransform>
+        </View:PlanListView>
+        <my:SurfaceButton Content="Expand" Height="23" Margin="0,4,12,12" Name="surfaceButton1" Width="75" Click="surfaceButton1_Click_1" Grid.Row="2" HorizontalAlignment="Right" />
+        <my:SurfaceButton Content="Minimize" Height="23" Margin="0,4,209,12" Name="surfaceButton2" Width="75" Click="surfaceButton2_Click" Grid.Row="2" HorizontalAlignment="Right" />
     </Grid>
 </UserControl>

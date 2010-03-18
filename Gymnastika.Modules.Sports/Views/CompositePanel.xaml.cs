@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using Gymnastika.Modules.Sports.ViewModels;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -34,8 +35,14 @@ namespace Gymnastika.Modules.Sports.Views
 
         public void Run()
         {
-            IServiceLocator locator = ServiceLocator.Current;
-            SetModel(locator.GetInstance<ICategoriesPanelViewModel>(), locator.GetInstance<ISportsPanelViewModel>(), locator.GetInstance<ISportViewModel>());
+            try
+            {
+                IServiceLocator locator = ServiceLocator.Current;
+                SetModel(locator.GetInstance<ICategoriesPanelViewModel>(), locator.GetInstance<ISportsPanelViewModel>(), locator.GetInstance<ISportViewModel>());
+            }
+            catch (Exception)
+            {
+            }
         }
 
         void SetModel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel,ISportViewModel sportViewModel)
@@ -49,6 +56,7 @@ namespace Gymnastika.Modules.Sports.Views
         {
             BindingViewModels();
             LinkEvents();
+
             _sportsPanelModel.Category = _categoryPanelModel.CurrentSelectedItem;
         }
 
@@ -62,11 +70,23 @@ namespace Gymnastika.Modules.Sports.Views
         void LinkEvents()
         {
            _categoryPanelModel.CategorySelectedEvent += CategorySelectedChanged;
+           _sportsPanelModel.RequestShowDetailEvent += OnRequestShowDetail;
         }
 
         void CategorySelectedChanged(object sender, EventArgs args)
         {
             _sportsPanelModel.Category = _categoryPanelModel.CurrentSelectedItem;
+        }
+
+        public void StateChanging(ViewState targetState)
+        {
+
+        }
+
+        public void OnRequestShowDetail(object sender, SportEventArgs args)
+        {
+
+            _sportViewModel.Sport = args.Sport;
         }
     }
 }

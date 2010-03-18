@@ -13,7 +13,7 @@ using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Services.Models;
 using System.Collections.Specialized;
 using Gymnastika.Common.Extensions;
-using Gymnastika.Modules.Sports.Facility;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -32,6 +32,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
         string DayRange { get; }
 
         DateTime Now { get; }
+
+        bool GotoDayOfWeek(int dayOfWeek);
+
+        bool HasPlan(int dayOfWeek);
+
+        ISportsPlanViewModel SelectedItem { get; set; }
+
+        event EventHandler SelectedItemChangedEvent;
 
         DateTime CurrentWeek { get; }
     }
@@ -54,6 +62,31 @@ namespace Gymnastika.Modules.Sports.ViewModels
             CurrentWeek = DateTime.Now;
             GotoWeek(CurrentWeek);
         }
+
+        bool DayOfWeekIsInRange(int dayOfWeek)
+        {
+            return (dayOfWeek >= 0 && dayOfWeek <= 6);
+        }
+
+        public bool GotoDayOfWeek(int dayOfWeek)
+        {
+            if (!DayOfWeekIsInRange(dayOfWeek)) return false;
+            var viewmodel = ViewModels.Where(t => t.DayOfWeek == dayOfWeek).FirstOrDefault();
+            if (viewmodel == null)
+                return false;
+            else
+            {
+                SelectedItem = viewmodel;
+                return true;
+            }
+        }
+
+        public bool HasPlan(int dayOfWeek)
+        {
+            if (!DayOfWeekIsInRange(dayOfWeek)) return false;
+            return ViewModels.Where(t => t.DayOfWeek == dayOfWeek).FirstOrDefault() != null;
+        }
+
         string _dayRange;
         public string DayRange
         {
@@ -77,7 +110,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (_currentWeek != value)
                 {
                     _currentWeek = value;
-                    DateTime sunday = Facility.Facility.Sunday(value);
+                    DateTime sunday = Facilities.MathFacility.Sunday(value);
                     DateTime sat = sunday.AddDays(6);
                     DayRange = String.Format("{0}年 {1}月{2}日-{3}月{4}日",sunday.Year,sunday.Month, sunday.Day, sat.Month, sat.Day);
                     RaisePropertyChanged(() => CurrentWeek);
@@ -85,13 +118,32 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+      public  event EventHandler SelectedItemChangedEvent = delegate { };
+
+       ISportsPlanViewModel _selectedItem;
+      public ISportsPlanViewModel SelectedItem
+       {
+           get
+           {
+               return _selectedItem;
+           }
+           set
+           {
+               if (_selectedItem != value)
+               {
+                   _selectedItem = value;
+                   RaisePropertyChanged(() => SelectedItem);
+                   SelectedItemChangedEvent(this, EventArgs.Empty);
+               }
+           }
+       }
 
         IList<SportsPlan> GetWeekPlans(DateTime timeInThisWeek)
         {
             int dayOfWeek = (int)timeInThisWeek.DayOfWeek;
             DateTime Sunday = timeInThisWeek.AddDays(-dayOfWeek);
             IList<SportsPlan> plansInThisWeek = PlansInMemory
-                .Where(t=>Facility.Facility.TheSameWeek(timeInThisWeek,t))
+                .Where(t=>Facilities.MathFacility.TheSameWeek(timeInThisWeek,t))
                 .OrderBy(t=>t.Year)
                 .OrderBy(t=>t.Month)
                 .OrderBy(t=>t.Day)

@@ -71,7 +71,7 @@ namespace Gymnastika.Modules.Sports
                 {
                     Header = "历史计划",
                     ViewName = NavigationNames.PlanPanel,
-                    ViewResolver = ()=>_container.Resolve<PlanListView>(),
+                    ViewResolver = ()=>_container.Resolve<PlanListPanel>(),
                     States = new List<ViewState>()
                     {
                         new ViewState()
@@ -110,7 +110,7 @@ namespace Gymnastika.Modules.Sports
                             Name = "Saturday"
                         }
                     },
-                    StateChanging  = _container.Resolve<PlanListView>().StateChanging
+                    StateChanging = _container.Resolve<PlanListPanel>().StateChanging
                 });
 
             //创建计划
@@ -133,7 +133,8 @@ namespace Gymnastika.Modules.Sports
                             Name = "SportDetail",
                         },
 
-                    }
+                    },
+                    StateChanging = _container.Resolve<CompositePanel>().StateChanging,
                 });
             //图表
             region.Add(
@@ -219,6 +220,7 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportsPlanView, SportsPlanView>()
 
                 .RegisterType<PlanListView>(new ContainerControlledLifetimeManager())
+                .RegisterType<PlanListPanel>(new ContainerControlledLifetimeManager())
                 .RegisterType<CompositePanel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ModuleShell>(new ContainerControlledLifetimeManager())
                 .RegisterType<ChartView>(new ContainerControlledLifetimeManager());

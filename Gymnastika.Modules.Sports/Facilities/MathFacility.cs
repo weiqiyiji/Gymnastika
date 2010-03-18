@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.Facility
+namespace Gymnastika.Modules.Sports.Facilities
 {
-    public class Facility
+    public static class MathFacility
     {
         static public bool TheSameDay(DateTime time, int year, int month, int day)
         {
@@ -47,4 +47,5 @@ namespace Gymnastika.Modules.Sports.Facility
             return Sunday(new DateTime(year, month, day));
         }
     }
+
 }

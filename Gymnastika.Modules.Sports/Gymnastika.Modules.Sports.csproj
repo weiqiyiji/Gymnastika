@@ -78,6 +78,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigFile.cs" />
     <Compile Include="Converters\CalorieDecriptionConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeConverter.cs" />
@@ -85,7 +86,8 @@
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
-    <Compile Include="Facility\Facility.cs" />
+    <Compile Include="Facilities\MathFacility.cs" />
+    <Compile Include="Facilities\PathFacility.cs" />
     <Compile Include="ModuleShell.xaml.cs">
       <DependentUpon>ModuleShell.xaml</DependentUpon>
     </Compile>
