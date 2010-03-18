@@ -41,11 +41,6 @@
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
 	</UserControl.Resources>
-	<UserControl.Triggers>
-		<EventTrigger RoutedEvent="FrameworkElement.Loaded">
-			<BeginStoryboard Storyboard="{StaticResource MinimizeStoryboard}"/>
-		</EventTrigger>
-	</UserControl.Triggers>
     <Grid x:Name="grid">
         <Grid.RowDefinitions>
             <RowDefinition Height="0*" />
@@ -72,7 +67,7 @@
         		</TransformGroup>
         	</View:PlanListView.RenderTransform>
         </View:PlanListView>
-        <my:SurfaceButton Content="Expand" Height="23" Margin="0,4,12,12" Name="surfaceButton1" Width="75" Click="surfaceButton1_Click_1" Grid.Row="2" HorizontalAlignment="Right" />
-        <my:SurfaceButton Content="Minimize" Height="23" Margin="0,4,209,12" Name="surfaceButton2" Width="75" Click="surfaceButton2_Click" Grid.Row="2" HorizontalAlignment="Right" />
+        <my:SurfaceButton Content="详细" Height="23" Margin="0,4,12,12" Name="surfaceButton1" Width="75" Click="surfaceButton1_Click_1" Grid.Row="2" HorizontalAlignment="Right" />
+        <my:SurfaceButton Content="总览" Height="23" Margin="0,4,209,12" Name="surfaceButton2" Width="75" Click="surfaceButton2_Click" Grid.Row="2" HorizontalAlignment="Right" />
     </Grid>
 </UserControl>

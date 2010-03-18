@@ -88,9 +88,6 @@
     <Compile Include="Converters\UriToDocumentConverter.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
-    <Compile Include="ModuleShell.xaml.cs">
-      <DependentUpon>ModuleShell.xaml</DependentUpon>
-    </Compile>
     <Compile Include="NavigationNames.cs" />
     <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Services\DataImport\Importers\CategoryImporter.cs" />
@@ -173,10 +170,6 @@
     <Compile Include="Widget\DailySportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ModuleShell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\AddPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

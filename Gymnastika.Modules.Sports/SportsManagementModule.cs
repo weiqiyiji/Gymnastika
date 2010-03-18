@@ -69,7 +69,7 @@ namespace Gymnastika.Modules.Sports
             region.Add(
                 new NavigationDescriptor()
                 {
-                    Header = "历史计划",
+                    Header = "本周计划",
                     ViewName = NavigationNames.PlanPanel,
                     ViewResolver = ()=>_container.Resolve<PlanListPanel>(),
                     States = new List<ViewState>()
@@ -145,14 +145,6 @@ namespace Gymnastika.Modules.Sports
                     ViewResolver = () => _container.Resolve<ChartView>(),
                 });
 
-            //测试
-            region.Add(
-                new NavigationDescriptor()
-                {
-                    Header = "测试",
-                    ViewName = "Test",
-                    ViewResolver = () => _container.Resolve<ModuleShell>(),
-                });
         }
 
 
@@ -222,7 +214,6 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<PlanListView>(new ContainerControlledLifetimeManager())
                 .RegisterType<PlanListPanel>(new ContainerControlledLifetimeManager())
                 .RegisterType<CompositePanel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ModuleShell>(new ContainerControlledLifetimeManager())
                 .RegisterType<ChartView>(new ContainerControlledLifetimeManager());
        }
 
