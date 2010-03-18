@@ -46,6 +46,7 @@ namespace Gymnastika.Modules.Sports
 
         public void Initialize()
         {
+            //return;
             RegisterDependencies();
 
             ImportData();
@@ -59,20 +60,97 @@ namespace Gymnastika.Modules.Sports
 
         private void RegisterNavigations()
         {
-            _navigationManager.AddRegionIfMissing(ModuleRegionNames.SportManagementRegion, "运动");
-            _navigationManager.Regions[ModuleRegionNames.SportManagementRegion].Add(
+            const string RegionName = "SportManagementRegion";
+            _navigationManager.AddRegionIfMissing(RegionName, "运动");
+
+            INavigationRegion region = _navigationManager.Regions[RegionName];
+            
+            //历史计划
+            region.Add(
                 new NavigationDescriptor()
                 {
-                    Header = "运动计划",
-                    ViewName = "SportsPlan",
-                    ViewResolver = () => _container.Resolve<CalendarView>()
+                    Header = "历史计划",
+                    ViewName = NavigationNames.PlanPanel,
+                    ViewResolver = ()=>_container.Resolve<PlanListView>(),
+                    States = new List<ViewState>()
+                    {
+                        new ViewState()
+                        {
+                            Header = "星期日",
+                            Name = "Sunday"
+                        },
+                        new ViewState()
+                        {
+                            Header = "星期一",
+                            Name = "Monday"
+                        },
+                        new ViewState()
+                        {
+                            Header = "星期二",
+                            Name = "Tuesday"
+                        },
+                        new ViewState()
+                        {
+                            Header = "星期三",
+                            Name = "Wednesday"
+                        },
+                        new ViewState()
+                        {
+                            Header = "星期四",
+                            Name = "Thursday"
+                        },
+                        new ViewState()
+                        {
+                            Header = "星期五",
+                            Name = "Friday"
+                        },
+                        new ViewState()
+                        {
+                            Header = "星期六",
+                            Name = "Saturday"
+                        }
+                    },
+                    StateChanging  = _container.Resolve<PlanListView>().StateChanging
                 });
-            _navigationManager.Regions[ModuleRegionNames.SportManagementRegion].Add(
+
+            //创建计划
+            region.Add(
                 new NavigationDescriptor()
                 {
-                    Header = "运动面板",
-                    ViewName = "SportsPanel",
-                    ViewResolver = () => _container.Resolve<ModuleShell>()
+                    Header = "定制运动计划",
+                    ViewName = NavigationNames.CreatePlanPanel,
+                    ViewResolver = () => _container.Resolve<CompositePanel>(),
+                    States = new List<ViewState>()
+                    {
+                        new ViewState()
+                        {
+                            Header = "制定计划",
+                            Name = "CreatePlan",
+                        },
+                        new ViewState()
+                        { 
+                            Header = "查看运动详情",
+                            Name = "SportDetail",
+                        },
+
+                    }
+                });
+            //图表
+            region.Add(
+                new NavigationDescriptor()
+                {
+                    Header = "运动情况图表",
+                    ViewName = NavigationNames.ChartPanel,
+                    ViewResolver = () => _container.Resolve<ChartView>(),
+                });
+
+            //测试
+            region.Add(
+                new NavigationDescriptor()
+                {
+                    Header = "测试",
+                    ViewName = "Test",
+                    ViewResolver = () => _container.Resolve<ModuleShell>(),
                 });
         }
 
@@ -134,18 +212,17 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()
                 .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>()
                 .RegisterType<IPlanListViewModel, PlanListViewModel>()
-                .RegisterType<ICalendarViewModel,CalendarViewModel>()
-
+                .RegisterType<ISportViewModel, SportViewModel>()
                 //Views
                 .RegisterType<ISportsPanelView, SportsPanelView>()
                 .RegisterType<ICategoriesPanelView, CategoriesPanelView>()
                 .RegisterType<ISportsPlanView, SportsPlanView>()
-                .RegisterType<IPlanListView, PlanListView>()
 
-                .RegisterType<CalendarView>(new ContainerControlledLifetimeManager())
-
-                .RegisterType<ModuleShell>(new ContainerControlledLifetimeManager());
-        }
+                .RegisterType<PlanListView>(new ContainerControlledLifetimeManager())
+                .RegisterType<CompositePanel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ModuleShell>(new ContainerControlledLifetimeManager())
+                .RegisterType<ChartView>(new ContainerControlledLifetimeManager());
+       }
 
         #endregion
     

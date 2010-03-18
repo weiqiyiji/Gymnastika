@@ -11,19 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for CalendarButtonView.xaml
+    /// Interaction logic for AddPlan.xaml
     /// </summary>
-    public partial class CalendarButtonView : UserControl
+    public partial class AddPlanView : UserControl
     {
-        public CalendarButtonView()
+        public AddPlanView()
         {
             InitializeComponent();
         }
-
     }
 }

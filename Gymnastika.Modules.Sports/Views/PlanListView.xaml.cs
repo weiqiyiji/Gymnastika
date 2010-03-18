@@ -13,6 +13,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Sports.ViewModels;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -24,18 +26,34 @@ namespace Gymnastika.Modules.Sports.Views
         public PlanListView()
         {
             InitializeComponent();
+            SetViewModel();
         }
 
-        [Dependency]
+        private void SetViewModel()
+        {
+            try
+            {
+                IServiceLocator servicelocator = ServiceLocator.Current;
+                if (servicelocator != null)
+                    ViewModel = servicelocator.GetInstance<IPlanListViewModel>();
+            }catch(Exception)
+            {
+            }
+        }
+
         public IPlanListViewModel ViewModel
         {
             get { return DataContext as IPlanListViewModel; }
             set { DataContext = value; }
         }
+        public void StateChanging(ViewState targetState)
+        {
+
+        }
     }
 
     public interface IPlanListView
     {
-
+        void StateChanging(ViewState targetState);
     }
 }

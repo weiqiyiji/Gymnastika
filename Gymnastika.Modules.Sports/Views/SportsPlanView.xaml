@@ -5,12 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="566" d:DesignWidth="401"
+             d:DesignHeight="300" d:DesignWidth="596"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" 
              xmlns:my="http://schemas.microsoft.com/surface/2008">
-	<UserControl.Triggers>
-		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
-	</UserControl.Triggers>
     <Grid>
         <Grid.RowDefinitions>
         	<RowDefinition Height="47*" />
@@ -30,14 +27,13 @@
     			</ListBox.ItemTemplate>
     		</ListBox>
     	</StackPanel>
-        <StackPanel Margin="0,0,12,0" Orientation="Vertical" d:LayoutOverrides="Width">
-        	<TextBlock x:Name="Date" Text="{Binding Date}" HorizontalAlignment="Left" />
-        	<Border Margin="0,1,0,4" Width="115" HorizontalAlignment="Right">
-        		<Grid>
-        			<my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,0,0,1" x:Name="Save" HorizontalAlignment="Right"  />
-        			<my:SurfaceButton Content="取消" Command="{Binding CancelCommand}" x:Name="Cancel" HorizontalAlignment="Left"  />
-        		</Grid>
-        	</Border>
+        <StackPanel Orientation="Vertical" d:LayoutOverrides="Width">
+            <TextBlock x:Name="Date" Text="{Binding Date}" HorizontalAlignment="Left" />
+        	<Border Margin="0,1,0,4" Width="115" HorizontalAlignment="Right"></Border>
         </StackPanel>
+        <Grid Width="113" HorizontalAlignment="Right">
+            <my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,0,0,1" x:Name="Save" HorizontalAlignment="Right" />
+            <my:SurfaceButton Content="取消" Command="{Binding CancelCommand}" x:Name="Cancel" HorizontalAlignment="Left" />
+        </Grid>
     </Grid>
 </UserControl>

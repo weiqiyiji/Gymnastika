@@ -12,14 +12,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Gymnastika.Modules.Sports
+namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for ModuleShell.xaml
+    /// Interaction logic for ChartView.xaml
     /// </summary>
-    public partial class ModuleShell : UserControl
+    public partial class ChartView : UserControl
     {
-        public ModuleShell()
+        public ChartView()
         {
             InitializeComponent();
         }

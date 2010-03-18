@@ -40,11 +40,19 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         string Date { get; }
 
+        string DayOfWeek { get; }
+
         SportsPlan SportsPlan { get; }
+
+        IList<SportsPlanItem> ItemsBuffer { get; }
+
+        IList<SportsPlanItem> RemoveBuffer { get; }
     }
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
+        string[] Week = { "星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六" };
+
         ISportsPlanItemViewModelFactory _factory;
         ISportsPlanProvider _planProvider;
         IPlanItemProvider _itemProvider;
@@ -59,8 +67,26 @@ namespace Gymnastika.Modules.Sports.ViewModels
             SportsPlan = plan;
         }
 
-        private IList<SportsPlanItem> RemoveBuffer = new List<SportsPlanItem>();
-        private IList<SportsPlanItem> ItemsBuffer = new List<SportsPlanItem>();
+        IList<SportsPlanItem> _removeBuffer = new List<SportsPlanItem>();
+        public IList<SportsPlanItem> RemoveBuffer
+        {
+            get { return _removeBuffer; }
+        }
+
+        IList<SportsPlanItem> _itemsBuffer = new List<SportsPlanItem>();
+        public IList<SportsPlanItem> ItemsBuffer 
+        {
+            get { return _itemsBuffer; }
+        }
+
+        public string DayOfWeek
+        {
+            get
+            {
+                DateTime date = new DateTime(SportsPlan.Year, SportsPlan.Month, SportsPlan.Day);
+                return Week[(int)date.DayOfWeek];
+            }
+        }
 
         public string Date
         {
@@ -124,13 +150,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
        IList<ISportsPlanItemViewModel>  InitViewModels(SportsPlan plan)
        {
-           IList<SportsPlanItem> items = null;
-           using (_itemProvider.GetContextScope())
-           {
-               items = _itemProvider.Fetch((t) => t.SportsPlan.Id == plan.Id).ToList();
-               foreach (var item in items)
-                   item.Sport = _sportProvider.Get(item.Sport.Id);
-           }
+           IList<SportsPlanItem> items = plan.SportsPlanItems;
+           //using (_itemProvider.GetContextScope())
+           //{
+           //    items = _itemProvider.Fetch((t) => t.SportsPlan.Id == plan.Id).ToList();
+           //    foreach (var item in items)
+           //        item.Sport = _sportProvider.Get(item.Sport.Id);
+           //}
            return CreateViewmodels(items);
        }
 
@@ -185,7 +211,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             viewmodel.RequestCancleEvent -= OnItemCancleRequest;
             viewmodel.PropertyChanged -= ItemPropertyChanged;
-            //SportsPlanItemViewModels.Remove(viewmodel);
         }
 
         private ISportsPlanItemViewModel CreateViewmodel(SportsPlanItem item)
@@ -292,36 +317,37 @@ namespace Gymnastika.Modules.Sports.ViewModels
             item.Id = 0;
         }
 
-        void UpdateOrCreateItemToRepository(SportsPlanItem item)
-        {
-            _itemProvider.CreateOrUpdate(item);
-        }
-        void UpdatePlan()
-        {
-            SportsPlan.SportsPlanItems = ItemsBuffer;
+        //void UpdateOrCreateItemToRepository(SportsPlanItem item)
+        //{
+        //    _itemProvider.CreateOrUpdate(item);
+        //}
 
-            using (_itemProvider.GetContextScope())
-            {
-                foreach (var item in RemoveBuffer)
-                {
-                    DeleteItemFromRepository(item);
-                }
-                foreach (var item in SportsPlan.SportsPlanItems)
-                {
-                    UpdateOrCreateItemToRepository(item);
-                }
-            }
-            RemoveBuffer.Clear();
-        }
+        //void UpdatePlan()
+        //{
+        //    SportsPlan.SportsPlanItems = ItemsBuffer;
+
+        //    using (_itemProvider.GetContextScope())
+        //    {
+        //        foreach (var item in RemoveBuffer)
+        //        {
+        //            DeleteItemFromRepository(item);
+        //        }
+        //        foreach (var item in SportsPlan.SportsPlanItems)
+        //        {
+        //            UpdateOrCreateItemToRepository(item);
+        //        }
+        //    }
+        //    RemoveBuffer.Clear();
+        //}
 
         void Sumbmit()
         {
-            UpdatePlan();
+            //UpdatePlan();
 
-            using (_planProvider.GetContextScope())
-            {
-                _planProvider.CreateOrUpdate(SportsPlan);
-            }
+            //using (_planProvider.GetContextScope())
+            //{
+            //    _planProvider.CreateOrUpdate(SportsPlan);
+            //}
 
             if (RequestSubmitEvent != null)
                 RequestSubmitEvent(this, EventArgs.Empty);

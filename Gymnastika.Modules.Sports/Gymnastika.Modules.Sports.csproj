@@ -84,9 +84,12 @@
     <Compile Include="Converters\DivideConverter.cs" />
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
-    <Compile Include="Converters\TimeToPlanConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
-    <Compile Include="AnimatedPanel.cs" />
+    <Compile Include="Facility\Facility.cs" />
+    <Compile Include="ModuleShell.xaml.cs">
+      <DependentUpon>ModuleShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationNames.cs" />
     <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Services\DataImport\Importers\CategoryImporter.cs" />
     <Compile Include="Services\DataImport\DataImportManager.cs" />
@@ -103,14 +106,11 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
-    <Compile Include="ModuleRegionNames.cs" />
-    <Compile Include="ViewModels\CalendarButtonViewModel.cs" />
-    <Compile Include="ViewModels\CalendarViewModel.cs" />
-    <Compile Include="Views\CalendarButtonView.xaml.cs">
-      <DependentUpon>CalendarButtonView.xaml</DependentUpon>
+    <Compile Include="Views\AddPlanView.xaml.cs">
+      <DependentUpon>AddPlanView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CalendarView.xaml.cs">
-      <DependentUpon>CalendarView.xaml</DependentUpon>
+    <Compile Include="Views\ChartView.xaml.cs">
+      <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CompositePanel.xaml.cs">
       <DependentUpon>CompositePanel.xaml</DependentUpon>
@@ -132,11 +132,14 @@
     <Compile Include="ViewModels\SportsPlanViewModel.cs" />
     <Compile Include="ViewModels\SportsPanelViewModel.cs" />
     <Compile Include="ViewModels\SportViewModel.cs" />
-    <Compile Include="ModuleShell.xaml.cs">
-      <DependentUpon>ModuleShell.xaml</DependentUpon>
+    <Compile Include="Views\PlanDetailView.xaml.cs">
+      <DependentUpon>PlanDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlanItemDetailView.xaml.cs">
       <DependentUpon>PlanItemDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlanListPanel.xaml.cs">
+      <DependentUpon>PlanListPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlanListView.xaml.cs">
       <DependentUpon>PlanListView.xaml</DependentUpon>
@@ -168,11 +171,15 @@
     <Compile Include="Widget\DailySportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\CalendarButtonView.xaml">
+    <Page Include="ModuleShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CalendarView.xaml">
+    <Page Include="Views\AddPlanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,11 +191,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ModuleShell.xaml">
+    <Page Include="Views\PlanDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlanItemDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlanListPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -259,7 +270,7 @@
     <Resource Include="Resources\Images\Sport.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Temporary\" />
+    <Folder Include="Services\Controller\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

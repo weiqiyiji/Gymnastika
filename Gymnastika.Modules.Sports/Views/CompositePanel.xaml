@@ -15,11 +15,16 @@
              Background="Transparent"
              >
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="382*" />
+            <ColumnDefinition Width="379*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="27*" />
             <RowDefinition Height="461*" />
         </Grid.RowDefinitions>
-        <my1:CategoriesPanelView x:Name="categoriesPanelView" />
-        <my1:SportsPanelView Grid.Row="1" x:Name="sportsPanelView" />        
+        <my1:CategoriesPanelView x:Name="categoriesPanelView" Grid.ColumnSpan="2" />
+        <my1:SportsPanelView Grid.Row="1" x:Name="sportsPanelView" />
+        <my1:SportView Grid.Row="1" x:Name="sportView" Grid.Column="1" />
     </Grid>
 </UserControl>

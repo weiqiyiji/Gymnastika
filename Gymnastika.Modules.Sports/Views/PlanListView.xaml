@@ -4,29 +4,61 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="388" d:DesignWidth="209"
+             d:DesignHeight="385" d:DesignWidth="601"
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" 
              xmlns:my="http://schemas.microsoft.com/surface/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports">
-    <StackPanel Height="391" Width="511">
-        <Grid>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding User.UserName}"/>
-                <Label Content="的运动计划"/>
-            </StackPanel>
-            <my:SurfaceButton HorizontalAlignment="Right" Command="{Binding CreatePlanCommand}"  Content="创建计划" Height="23" Name="surfaceButton1" />
-        </Grid>
-        <ListBox ItemsSource="{Binding ViewModels}" Grid.Row="1" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListBox.ItemTemplate>
+            <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="199*" />
+            <ColumnDefinition Width="116*" />
+            <ColumnDefinition Width="90*" />
+            <ColumnDefinition Width="95*" />
+            <ColumnDefinition Width="101*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45*" />
+            <RowDefinition Height="55*" />
+            <RowDefinition Height="228*" />
+            <RowDefinition Height="57*" />
+        </Grid.RowDefinitions>
+        <Label x:Name="UserName" Content="{Binding User.UserName}" />
+        <Label Content="的运动计划" Grid.Column="1" />
+        <my:SurfaceListBox x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="5">
+            <my:SurfaceListBox.ItemTemplate>
                 <DataTemplate>
-                    <view:SportsPlanView/>
+                    <Grid Height="360" Width="285">
+                    	<Grid.RowDefinitions>
+                    		<RowDefinition Height="0.064*"/>
+                    		<RowDefinition Height="0.936*"/>
+                    	</Grid.RowDefinitions>
+                        <ItemsControl x:Name="PlanItems" ItemsSource="{Binding SportsPlanItemViewModels}" Margin="0" Grid.Row="1">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                	<Grid Height="81" Width="263">
+										<TextBlock x:Name="Time" Text="{Binding Time}" HorizontalAlignment="Left"/>
+                                		<TextBlock x:Name="SportName" Text="{Binding SportName}" HorizontalAlignment="Right" Margin="0"/>                       	
+									</Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <TextBlock x:Name="DayOfWeek" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding DayOfWeek}" VerticalAlignment="Stretch"/>
+                    </Grid>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
+            </my:SurfaceListBox.ItemTemplate>
+            <my:SurfaceListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <local:AnimatedPanel ItemSize="200"/>
+                    <StackPanel Orientation="Horizontal"/>
                 </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
-    </StackPanel>
+            </my:SurfaceListBox.ItemsPanel>
+            </my:SurfaceListBox>
+        <my:SurfaceButton Content="下一周" Height="23" Command="{Binding NextWeekCommand}" HorizontalAlignment="Right" Margin="0,12,12,0" x:Name="NextWeek" VerticalAlignment="Top" Width="75" Grid.Column="4" />
+        <my:SurfaceButton Content="上一周" Height="23" Command="{Binding LastWeekCommand}" HorizontalAlignment="Right" Margin="0,12,12,0" x:Name="LastWeek" VerticalAlignment="Top" Width="75" Grid.Column="3" />
+        <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="2" VerticalAlignment="Center" />
+        <Expander Grid.Row="1" Grid.RowSpan="2" Header="创建计划" Height="193" HorizontalAlignment="Left" Margin="6,9,0,0" x:Name="CreatePlan" VerticalAlignment="Top" Width="313" Grid.ColumnSpan="3">
+            <Grid>
+                <view:AddPlanView x:Name="addPlanView1" />
+            </Grid>
+        </Expander>
+    </Grid>
 </UserControl>

@@ -13,6 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Practices.Unity;
 using Gymnastika.Modules.Sports.ViewModels;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -23,33 +24,42 @@ namespace Gymnastika.Modules.Sports.Views
     {
         ICategoriesPanelViewModel _categoryPanelModel;
         ISportsPanelViewModel _sportsPanelModel;
+        ISportViewModel _sportViewModel;
 
         public CompositePanel()
         {
-
             InitializeComponent();
-
+            Run();
         }
-        public void SetModel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel)
+
+        public void Run()
+        {
+            IServiceLocator locator = ServiceLocator.Current;
+            SetModel(locator.GetInstance<ICategoriesPanelViewModel>(), locator.GetInstance<ISportsPanelViewModel>(), locator.GetInstance<ISportViewModel>());
+        }
+
+        void SetModel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel,ISportViewModel sportViewModel)
         {
             _categoryPanelModel = viewmodel;
+            _sportViewModel = sportViewModel;
             _sportsPanelModel = sportsPanelModel;
             Initialize();
         }
-        private void Initialize()
+        void Initialize()
         {
             BindingViewModels();
             LinkEvents();
             _sportsPanelModel.Category = _categoryPanelModel.CurrentSelectedItem;
         }
 
-        private void BindingViewModels()
+        void BindingViewModels()
         {
             categoriesPanelView.DataContext = _categoryPanelModel;
             sportsPanelView.DataContext = _sportsPanelModel;
+            sportView.DataContext = _sportViewModel;
         }
 
-        private void LinkEvents()
+        void LinkEvents()
         {
            _categoryPanelModel.CategorySelectedEvent += CategorySelectedChanged;
         }

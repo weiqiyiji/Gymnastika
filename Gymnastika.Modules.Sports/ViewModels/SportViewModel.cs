@@ -33,20 +33,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     public class SportViewModel : NotificationObject, ISportViewModel
     {
+
         public SportViewModel()
-            : this(new Sport())
         {
-
-        }
-
-        public SportViewModel(Sport sport)
-        {
-            Sport = sport;
         }
 
         #region Properties
 
-        private Sport _sport;
+        private Sport _sport = new Sport();
         public Sport Sport
         {
             get { return _sport; }
