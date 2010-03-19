@@ -7,7 +7,7 @@
              d:DesignHeight="385" d:DesignWidth="601"
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" 
              xmlns:my="http://schemas.microsoft.com/surface/2008"
-             xmlns:local="clr-namespace:Gymnastika.Modules.Sports">
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports" >
     <UserControl.Resources>
         <Storyboard x:Key="FlyOutStoryboard">
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
@@ -55,32 +55,8 @@
         	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DateRange">
         		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
         	</ObjectAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CreatePlan">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-349"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="CreatePlan">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CreatePlan">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="PlanList">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.689"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="PlanList">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-21.5"/>
-        	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="FlyInStoryboard">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CreatePlan">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="CreatePlan">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="CreatePlan">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
-        	</ColorAnimationUsingKeyFrames>
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
         		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
         	</DoubleAnimationUsingKeyFrames>
@@ -126,12 +102,6 @@
         	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DateRange">
         		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
         	</ObjectAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="PlanList">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="PlanList">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0.5"/>
-        	</DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
     <Grid>
@@ -233,18 +203,5 @@
         		</TransformGroup>
         	</Label.RenderTransform>
         </Label>
-        <Expander Grid.Row="1" Grid.RowSpan="2" Header="创建计划" Height="193" HorizontalAlignment="Left" Margin="6,9,0,0" x:Name="CreatePlan" VerticalAlignment="Top" Width="313" Grid.ColumnSpan="3" RenderTransformOrigin="0.5,0.5" OpacityMask="Black">
-            <Expander.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Expander.RenderTransform>
-            <Grid>
-                <view:AddPlanView x:Name="addPlanView" />
-            </Grid>
-        </Expander>
     </Grid>
 </UserControl>

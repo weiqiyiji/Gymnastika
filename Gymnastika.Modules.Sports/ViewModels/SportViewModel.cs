@@ -27,8 +27,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
         string IntroductionUri { get; }
 
         ICommand CloseCommand { get; }
+        ICommand ExpandCommand { get; }
+        ICommand MinimizeCommand { get; }
 
-        event EventHandler CloseRequest;
+        
+        event EventHandler RequestCloseEvent;
+        event EventHandler RequestExpandCommandEvent;
+        event EventHandler RequestMinimizeEvent;
     }
 
     public class SportViewModel : NotificationObject, ISportViewModel
@@ -87,9 +92,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         #endregion
 
-        public event EventHandler CloseRequest = delegate { };
+        public event EventHandler RequestCloseEvent = delegate { };
 
-        #region CloseCommnad
 
         ICommand _closeCommnad;
         public ICommand CloseCommand
@@ -98,7 +102,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             {
                 if (_closeCommnad == null)
                 {
-                    _closeCommnad = new DelegateCommand(Close, CanCloseDelegate);
+                    _closeCommnad = new DelegateCommand(Close);
                 }
                 return _closeCommnad;
             }
@@ -106,28 +110,47 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void Close()
         {
-            CloseRequest(this, EventArgs.Empty);
+            RequestCloseEvent(this, EventArgs.Empty);
         }
 
-        bool CanClose()
-        {
-            return CloseRequest != null;
-        }
 
-        Func<bool> _canCloseDelegate;
-        public Func<bool> CanCloseDelegate
+
+        ICommand _expandCommand;
+        public ICommand ExpandCommand
         {
-            get
+            get 
             {
-                if (_canCloseDelegate == null)
-                {
-                    _canCloseDelegate = CanClose;
-                }
-                return _canCloseDelegate;
+                if (_expandCommand == null)
+                    _expandCommand = new DelegateCommand(Expand);
+                return _expandCommand;
             }
         }
 
-        #endregion
+        void Expand()
+        {
+            if (RequestExpandCommandEvent != null)
+                RequestExpandCommandEvent(this,EventArgs.Empty);
+        }
 
+        ICommand _minimizeCommand;
+        public ICommand MinimizeCommand
+        {
+            get 
+            {
+                if (_minimizeCommand == null)
+                    _minimizeCommand = new DelegateCommand(Minimize);
+                return _minimizeCommand;
+            }
+        }
+
+        void Minimize()
+        {
+            if (RequestMinimizeEvent != null)
+                RequestMinimizeEvent(this, EventArgs.Empty);
+        }
+
+        public event EventHandler RequestExpandCommandEvent = delegate { };
+
+        public event EventHandler RequestMinimizeEvent = delegate { };
     }
 }

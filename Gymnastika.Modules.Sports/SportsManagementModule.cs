@@ -76,6 +76,11 @@ namespace Gymnastika.Modules.Sports
                     {
                         new ViewState()
                         {
+                            Header = "总览",
+                            Name = "Total"
+                        },
+                        new ViewState()
+                        {
                             Header = "星期日",
                             Name = "Sunday"
                         },

@@ -4,7 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="366" d:DesignWidth="732" xmlns:View="clr-namespace:Gymnastika.Modules.Sports.Views" xmlns:my="http://schemas.microsoft.com/surface/2008">
+             d:DesignHeight="366" d:DesignWidth="732" 
+             xmlns:View="clr-namespace:Gymnastika.Modules.Sports.Views" 
+             xmlns:my="http://schemas.microsoft.com/surface/2008" 
+             Loaded="UserControl_Loaded">
 	<UserControl.Resources>
 		<Storyboard x:Key="ExpandStoryboard">
 			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="DetailView">
@@ -41,13 +44,8 @@
 			</DoubleAnimationUsingKeyFrames>
 		</Storyboard>
 	</UserControl.Resources>
-    <Grid x:Name="grid">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0*" />
-            <RowDefinition Height="0.874*"/>
-            <RowDefinition Height="0.126*" />
-        </Grid.RowDefinitions>
-        <View:PlanDetailView x:Name="DetailView" Height="1" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
+    <Canvas x:Name="grid" SizeChanged="grid_SizeChanged">
+        <View:PlanDetailView x:Name="DetailView" Height="1" RenderTransformOrigin="0.5,0.5" Canvas.Top="0" Canvas.Left="0" Canvas.Right="0">
         	<View:PlanDetailView.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>
@@ -57,7 +55,7 @@
         		</TransformGroup>
         	</View:PlanDetailView.RenderTransform>
         </View:PlanDetailView>
-        <View:PlanListView x:Name="ListView" Grid.RowSpan="2" Grid.Row="1" RenderTransformOrigin="0.5,0.5" >
+        <View:PlanListView x:Name="ListView" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="0" Canvas.Bottom="0"  Height="212" Canvas.Right="0">
         	<View:PlanListView.RenderTransform>
         		<TransformGroup>
         			<ScaleTransform/>
@@ -67,7 +65,5 @@
         		</TransformGroup>
         	</View:PlanListView.RenderTransform>
         </View:PlanListView>
-        <my:SurfaceButton Content="详细" Height="23" Margin="0,4,12,12" Name="surfaceButton1" Width="75" Click="surfaceButton1_Click_1" Grid.Row="2" HorizontalAlignment="Right" />
-        <my:SurfaceButton Content="总览" Height="23" Margin="0,4,209,12" Name="surfaceButton2" Width="75" Click="surfaceButton2_Click" Grid.Row="2" HorizontalAlignment="Right" />
-    </Grid>
+    </Canvas>
 </UserControl>
