@@ -7,23 +7,25 @@ using Gymnastika.Data.Migration;
 
 namespace Gymnastika.Migrations
 {
-    public class Migration_Endpoints_20110317234721 : IDataMigration
+    public class Migration_DesktopClients_20110318214633 : IDataMigration
     {
         public string TableName 
         { 
-            get { return "Endpoints"; }
+            get { return "DesktopClients"; }
         }
             
         public string Version 
         { 
-            get { return "20110317234721"; }
+            get { return "20110318214633"; }
         }
             
         public SchemaBuilder SchemaBuilder { get; set; }
             
         public void Up()
         {
-            SchemaBuilder.AlterTable(TableName, x => x.AddColumn<string>("Type"));
+            SchemaBuilder.CreateTable(TableName, 
+                c => c.Column<int>("Id", x => x.PrimaryKey().Identity())
+                      .Column<string>("Placeholder"));
         }
             
         public void Down()

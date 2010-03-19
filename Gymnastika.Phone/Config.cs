@@ -30,5 +30,7 @@ namespace Gymnastika.Phone
         /// </summary>
         public static string StoredProfileIconFilename = StoredProfileIconFolder + "\\{0}.jpg";
 
+        public static string RegistrationServiceUri = "http://localhost/gym/reg_phone?uri={0}";
+
     }
 }

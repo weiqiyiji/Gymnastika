@@ -14,8 +14,6 @@ namespace Gymnastika.Sync.Infrastructure
 
         public void Override(AutoMapping<Connection> mapping)
         {
-            mapping.References<Endpoint>(x => x.Source).Column("SourceId");
-            mapping.References<Endpoint>(x => x.Target).Column("TargetId");
         }
 
         #endregion

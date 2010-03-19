@@ -53,7 +53,6 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
     <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
-    <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
@@ -89,6 +88,7 @@
     <Compile Include="Controls\SportsManager.xaml.cs">
       <DependentUpon>SportsManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PushNotification\PushNotificationService.cs" />
     <Compile Include="PushNotification\TileNotification.cs" />
     <Compile Include="Views\LoginProgressPage.xaml.cs">
       <DependentUpon>LoginProgressPage.xaml</DependentUpon>

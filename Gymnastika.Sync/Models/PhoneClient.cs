@@ -5,10 +5,9 @@ using System.Web;
 
 namespace Gymnastika.Sync.Models
 {
-    public class Endpoint
+    public class PhoneClient
     {
         public virtual int Id { get; set; }
         public virtual string Uri { get; set; }
-        public virtual string Type { get; set; }
     }
 }

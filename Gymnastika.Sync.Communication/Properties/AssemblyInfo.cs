@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Gymnastika.Repositories.LinqToSqlProvider")]
+[assembly: AssemblyTitle("Gymnastika.Sync.Communication")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Gymnastika.Repositories.LinqToSqlProvider")]
+[assembly: AssemblyProduct("Gymnastika.Sync.Communication")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2011")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a043dc91-9344-42a7-9fa9-2b15e5a22465")]
+[assembly: Guid("716fb4cb-d359-47f4-ad23-538bf50fbe23")]
 
 // Version information for an assembly consists of the following four values:
 //
