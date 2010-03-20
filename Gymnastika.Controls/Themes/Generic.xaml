@@ -9,6 +9,7 @@
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/WatermarkTextBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/CheckButtonGroup.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/AnimatedTabControl.xaml"/>
-	</ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/AnimatedProgressBar.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

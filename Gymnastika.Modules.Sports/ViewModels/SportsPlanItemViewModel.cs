@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using System.ComponentModel;
 using Gymnastika.Modules.Sports.Services.Providers;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -40,7 +41,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             get 
             {
-                return (new DateTime(1,1,1,Hour,Minute,0)).ToString("HH:mm"); 
+                return DateFacility.GetShortTime(Hour, Minute);
             }
         }
 

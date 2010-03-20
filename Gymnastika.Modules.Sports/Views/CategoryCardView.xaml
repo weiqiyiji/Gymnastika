@@ -6,16 +6,18 @@
              xmlns:Views="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
              d:DesignHeight="83" d:DesignWidth="122" xmlns:my="http://schemas.microsoft.com/surface/2008">
-    <my:SurfaceButton Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:CategoriesPanelView}}}" CommandParameter="{Binding}" d:DesignWidth="344" d:DesignHeight="110" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
-            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Padding="5" Text="{Binding Name}" FontSize="26.667" RenderTransformOrigin="0.5,0.5">
-        				<TextBlock.RenderTransform>
-        					<TransformGroup>
-        						<ScaleTransform/>
-        						<SkewTransform/>
-        						<RotateTransform/>
-        						<TranslateTransform/>
-        					</TransformGroup>
-        				</TextBlock.RenderTransform>
-            </TextBlock>
-    </my:SurfaceButton>
+    <Grid>
+		<my:SurfaceButton Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource AncestorType={x:Type Views:CategoriesPanelView}, Mode=FindAncestor}}" CommandParameter="{Binding}" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
+			<TextBlock x:Name="textBlock" TextWrapping="Wrap" Padding="5" Text="{Binding Name}" FontSize="26.667" RenderTransformOrigin="0.5,0.5">
+				<TextBlock.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</TextBlock.RenderTransform>
+			</TextBlock>
+		</my:SurfaceButton>
+	</Grid>
 </UserControl>

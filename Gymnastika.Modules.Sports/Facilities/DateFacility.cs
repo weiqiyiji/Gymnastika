@@ -14,7 +14,12 @@ namespace Gymnastika.Modules.Sports.Facilities
 
         public static string GetShortTime(DateTime time)
         {
-            return time.ToString("h:mm");
+            return time.ToString("t");
+        }
+
+        public static string GetShortTime(int Hour, int Minute)
+        {
+            return GetShortTime(new DateTime(1, 1, 1, Hour, Minute, 0));
         }
 
         public static string GetShortDate(DateTime time)
