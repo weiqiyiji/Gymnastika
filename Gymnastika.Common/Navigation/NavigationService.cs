@@ -64,13 +64,13 @@ namespace Gymnastika.Common.Navigation
             }
             else
             {
-                _isInTransition = false;
+                PostTransition();
             }
 
             _previousDescriptor = descriptor;
         }
 
-        private void OnTransitionCompleted(object sender, EventArgs e)
+        private void PostTransition()
         {
             OnNavigationCompleted(_sourceDescriptor, _targetDescriptor, _targetState);
 
@@ -80,6 +80,11 @@ namespace Gymnastika.Common.Navigation
             }
 
             _isInTransition = false;
+        }
+
+        private void OnTransitionCompleted(object sender, EventArgs e)
+        {
+            PostTransition();
         }
 
         private NavigationDescriptor ActivateView(string viewName, INavigationRegion region)

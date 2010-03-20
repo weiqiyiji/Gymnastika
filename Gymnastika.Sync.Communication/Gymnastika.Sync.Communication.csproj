@@ -49,7 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client\Configuration.cs" />
+    <Compile Include="Client\ConnectionStore.cs" />
     <Compile Include="Client\NetworkAdapterHelper.cs" />
+    <Compile Include="Client\ResponseMessage.cs" />
     <Compile Include="Client\RegistrationService.cs" />
     <Compile Include="NetworkAdapter.cs" />
     <Compile Include="NetworkAdapterCollection.cs" />

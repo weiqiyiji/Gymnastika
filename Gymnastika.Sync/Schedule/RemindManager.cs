@@ -34,13 +34,20 @@ namespace Gymnastika.Sync.Schedule
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 DateTime now = DateTime.Now;
+                IRepository<Connection> connectionRepository = ServiceLocator.Current.GetInstance<IRepository<Connection>>();
 
                 foreach (ScheduleItem item in e.NewItems)
                 {
                     TimeSpan countDown = item.StartTime - now;
+                    Connection connection = connectionRepository.Get(x => x.Id == item.ConnectionId);
+                    var source = connection.Source.NetworkAdapters.Count();
+                    var target = connection.Target.Uri;
 
                     Timer timer = new Timer();
-                    _metadataCollection.Add(new TimerMetadata(timer, item));
+                    TimerMetadata metadata = new TimerMetadata(timer, item);
+                    metadata.Connection = connection;
+                    _metadataCollection.Add(metadata);
+
                     timer.Interval = countDown.TotalMilliseconds;
                     timer.Elapsed += OnTimerElapsed;
                     timer.Enabled = true;
@@ -53,39 +60,26 @@ namespace Gymnastika.Sync.Schedule
         {
             Timer timer = (Timer)sender;
             TimerMetadata metadata = _metadataCollection.Single(x => x.Timer == timer);
-            ScheduleItem scheduleItem = metadata.ScheduleItem;
-            DesktopClient src = null;
-            PhoneClient desc = null;
+            timer.Stop();
+            timer.Elapsed -= OnTimerElapsed;
 
-            byte[] payload = PreparePayload(scheduleItem, out src, out desc);
+            byte[] payload = PreparePayload(metadata);
             var utility = new NotificationSenderUtility();
             utility.SendRawNotification(
-                new List<Uri>() { new Uri(desc.Uri) }, payload, null);
+                new List<Uri>() { new Uri(metadata.Connection.Target.Uri) }, payload, null);
 
-            _scheduleItems.Remove(scheduleItem);
             _metadataCollection.Remove(metadata);
         }
 
-        private byte[] PreparePayload(ScheduleItem scheduleItem, out DesktopClient src, out PhoneClient desc)
+        private byte[] PreparePayload(TimerMetadata metadata)
         {
             MemoryStream stream = new MemoryStream();
-            IServiceLocator serviceLocator = ServiceLocator.Current;
-            int connectionId = scheduleItem.ConnectionId;
-
-            using (serviceLocator.GetInstance<IWorkEnvironment>().GetWorkContextScope())
-            {
-                IRepository<Connection> connectionRepository = serviceLocator.GetInstance<IRepository<Connection>>();
-                Connection connection = connectionRepository.Get(x => x.Id == connectionId);
-
-                src = connection.Source;
-                desc = connection.Target;
-            }
 
             XDocument doc = new XDocument(
-                new XElement("plan", 
+                new XElement("plan",
                     new XElement("connection",
-                        new XAttribute("id", connectionId)),
-                    new XElement("data", scheduleItem.Message)));
+                        new XAttribute("id", metadata.Connection.Id)),
+                    new XElement("data", metadata.ScheduleItem.Message)));
 
             doc.Save(stream);
             byte[] payload = stream.ToArray();
