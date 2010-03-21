@@ -14,6 +14,8 @@ using Gymnastika.Services.Models;
 using System.Collections.Specialized;
 using Gymnastika.Common.Extensions;
 using Gymnastika.Modules.Sports.Facilities;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Sports.Events;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -51,7 +53,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         readonly ISessionManager _sessionManager;
         readonly ISportsPlanViewModelFactory _planFactory;
         readonly ISportProvider _sportProvider;
-        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory)
+        readonly IEventAggregator _aggregator;
+
+        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory,IEventAggregator eventAggregator)
         {
             _planProvider = planProvider;
             _itemProvider = itemProvider;
@@ -60,6 +64,19 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _sportProvider = sportProvider;
             ViewModels.CollectionChanged += OnPlansChanged;
             CurrentWeek = DateTime.Now;
+            _aggregator = eventAggregator;
+            _aggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Subscribe(OnSportsPlanModified);
+            GotoWeek(CurrentWeek);
+        }
+
+        void OnSportsPlanModified(SportsPlan plan)
+        {
+            SportsPlan planInMemory =  PlansInMemory.FirstOrDefault(t => t.Id == plan.Id);
+            if (planInMemory != null)
+            {
+                PlansInMemory.Remove(planInMemory);
+            }
+            PlansInMemory.Add(plan);
             GotoWeek(CurrentWeek);
         }
 
@@ -179,6 +196,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _plansInMemory = LoadPlans().ToObservableCollection();
                 return _plansInMemory;
             }
+            set
+            {
+                if (_plansInMemory != value)
+                    _plansInMemory = value;
+            }
+        }
+
+        void RefreshPlansInMemory()
+        {
+            PlansInMemory = LoadPlans().ToObservableCollection();
         }
 
         IList<SportsPlan> LoadPlans()

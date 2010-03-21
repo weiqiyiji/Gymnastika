@@ -21,6 +21,7 @@ using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Services.Session;
 using Gymnastika.Modules.Sports.Facilities;
 using Gymnastika.Services.Models;
+using Gymnastika.Modules.Sports.Events;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -55,6 +56,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
         IList<SportsPlanItem> ItemsBuffer { get; }
 
         IList<SportsPlanItem> RemoveBuffer { get; }
+
+        bool SetPlan(DateTime date);
     }
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
@@ -65,8 +68,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         IPlanItemProvider _itemProvider;
         ISportProvider _sportProvider;
         ISessionManager _sessionManager;
+        IEventAggregator _eventAggregator;
 
-        public SportsPlanViewModel(SportsPlan plan,ISessionManager sessionManager,ISportProvider sportProvider,ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory)
+        public SportsPlanViewModel(SportsPlan plan, ISessionManager sessionManager, ISportProvider sportProvider, ISportsPlanProvider planProvider, IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory,IEventAggregator eventAggregator)
         {
             _sportProvider = sportProvider;
             _planProvider = planProvider;
@@ -75,6 +79,32 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _sessionManager = sessionManager;
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
             SportsPlan = plan;
+            _eventAggregator = eventAggregator;
+        }
+
+        public bool SetPlan(DateTime date)
+        {
+            SportsPlan plan = null;
+            using (_planProvider.GetContextScope())
+            {
+                plan = _planProvider.FetchFirstOrDefault(date);
+                if (plan != null)
+                {
+                    plan.SportsPlanItems = _itemProvider.All().ToList();
+                    foreach (var item in plan.SportsPlanItems)
+                        item.Sport = _sportProvider.Get(item.Sport.Id);
+                }
+            }
+            if (plan != null)
+            {
+                this.SportsPlan = plan;
+                return true;
+            }
+            else
+            {
+                this.SportsPlan = new SportsPlan() { User = this.User };
+                return false;
+            }
         }
 
         public DateTime DateTime
@@ -375,7 +405,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
                 
                 _planProvider.CreateOrUpdate(SportsPlan);
+
             }
+            _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Publish(SportsPlan);
         }
 
         void Sumbmit()

@@ -53,10 +53,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
             PlanViewModel = sportsPlanViewModel;
             CategoriesPanelViewModel.CategorySelectedEvent += OnSelectedCategoryChanged;
             SportsPanelViewModel.Category = CategoriesPanelViewModel.CurrentSelectedItem;
-            //=>
-            //    {
-            //        SportsPanelViewModel. = CategoriesPanelViewModel.CurrentSelectedItem;
-            //    };
+
+            PlanViewModel.SetPlan(DateTime.Now);
+
         }
 
         public void OnSelectedCategoryChanged(object sender, EventArgs e)

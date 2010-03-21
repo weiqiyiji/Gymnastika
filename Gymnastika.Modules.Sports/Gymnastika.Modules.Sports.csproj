@@ -90,6 +90,7 @@
     <Compile Include="Converters\TimeToDoubleConverter.cs" />
     <Compile Include="Converters\ToIntConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
+    <Compile Include="Events\SportsPlanCreatedOrModifiedEvent.cs" />
     <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
