@@ -1,54 +1,65 @@
-﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.CompositePanel"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="772" d:DesignWidth="1125"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
              xmlns:module="clr-namespace:Gymnastika.Modules.Sports" 
-             BorderBrush="Transparent" 
-             SizeChanged="UserControl_SizeChanged"
-             BorderThickness="1" 
              xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views" 
              xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit"
              xmlns:my3="http://schemas.microsoft.com/surface/2008"
-             Background="#FFD4DEC1"
-             Loaded="UserControl_Loaded">
-    <Grid>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="0.101*" />
-			<RowDefinition Height="0.073*"/>
-			<RowDefinition Height="0.458*" />
-			<RowDefinition Height="0.368*" />
-		</Grid.RowDefinitions>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.056*" />
-			<ColumnDefinition Width="0.269*" />
-			<ColumnDefinition Width="0.675*" />
-		</Grid.ColumnDefinitions>
-		<my1:SportsPlanView x:Name="sportsPlanView"  Grid.RowSpan="3" Grid.ColumnSpan="2" />
-		<my1:CategoriesPanelView x:Name="categoriesPanelView" Grid.Column="2" Grid.Row="1" Margin="38,0,42,0" />
-		<my1:SportsPanelView  x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Grid.RowSpan="2" Grid.Row="2">
-			<my1:SportsPanelView.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform/>
-					<RotateTransform/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</my1:SportsPanelView.RenderTransform>
-		</my1:SportsPanelView>
-		<my1:SportView x:Name="sportView" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="345" Height="517" Margin="0,-47,-370,-1.056" Grid.Column="2" Grid.RowSpan="3">
-			<my1:SportView.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform/>
-					<RotateTransform/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</my1:SportView.RenderTransform>
-		</my1:SportView>
-		<my1:SportCalorieChartView Grid.Row="3" x:Name="sportCalorieChartView1" Grid.Column="1" Margin="0,0,22,0" />
-	</Grid>
+             xmlns:FluidKit_Experimental="clr-namespace:FluidKit.Experimental;assembly=FluidKit" x:Class="Gymnastika.Modules.Sports.Views.CompositePanel" 
+             mc:Ignorable="d" 
+             BorderBrush="Transparent" 
+             BorderThickness="1"
+             Background="#FFD4DEC1" d:DesignHeight="900" d:DesignWidth="1000"
+             >
+    <Border Margin="10">
+		<Grid>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="86*" />
+				<RowDefinition Height="34*"/>
+				<RowDefinition Height="413*" />
+                <RowDefinition Height="21*" />
+                <RowDefinition Height="322*" />
+			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0.02*" />
+				<ColumnDefinition Width="0.287*" />
+				<ColumnDefinition Width="0.134*" />
+				<ColumnDefinition Width="0.128*"/>
+				<ColumnDefinition Width="0.168*"/>
+				<ColumnDefinition Width="0.236*"/>
+				<ColumnDefinition Width="0.027*" />
+			</Grid.ColumnDefinitions>
+			<my1:SportsPlanView DataContext="{Binding PlanViewModel}" x:Name="sportsPlanView"  Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,0,22,0" />
+			<my1:CategoriesPanelView DataContext="{Binding CategoriesPanelViewModel}" x:Name="categoriesPanelView" Grid.Column="3" Grid.Row="1" Margin="-95.129,0,71,0" Grid.ColumnSpan="3" d:LayoutOverrides="GridBox" />
+			<my1:SportsPanelView DataContext="{Binding SportsPanelViewModel}" x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Grid.RowSpan="3" Grid.Row="2" Grid.ColumnSpan="4">
+				<my1:SportsPanelView.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</my1:SportsPanelView.RenderTransform>
+			</my1:SportsPanelView>
+			<my1:SportView DataContext="{Binding SportsViewModel}" x:Name="sportView" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="345" Height="517" Margin="0,77,-492,282" Grid.Column="6" Grid.RowSpan="5">
+				<my1:SportView.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform/>
+						<SkewTransform/>
+						<RotateTransform/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</my1:SportView.RenderTransform>
+			</my1:SportView>
+			<my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" Margin="0,0,22,0" />
+			<TextBlock FontSize="20" Grid.Column="2" Margin="4,2.345,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center"><Run Text="{Binding PlanViewModel.User.UserName}"/><Run Text=" "/><Run Text="的运动计划"/></TextBlock>
+			<Border Grid.Column="3" Margin="34,33.024,34.853,30.679" BorderBrush="#FF7C836B" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+				<TextBlock x:Name="Time" TextWrapping="Wrap" Text="{Binding PlanViewModel.Date}"/>
+			</Border>
+			<FluidKit_Experimental:AutoCompleteBox  x:Name="searchBox" Grid.Column="5"  VerticalAlignment="Center"  ItemsSource="{Binding SportsPanelViewModel.SportsInMemory}" KeyDown="AutoCompleteBox_KeyDown" d:LayoutOverrides="VerticalMargin"/>
+		</Grid>
+	</Border>
 </UserControl>

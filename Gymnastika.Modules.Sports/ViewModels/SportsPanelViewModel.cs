@@ -50,6 +50,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         int MaxPage { get; }
 
+        string SearchName { set; get; }
+
         event EventHandler<SportEventArgs> RequestAddToFavorateEvent;
         event EventHandler<SportEventArgs> RequestAddToPlanEvent;
         event EventHandler<SportEventArgs> RequestShowDetailEvent;
@@ -57,7 +59,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel 
     {
-        const int MaxItemsPerPage = 5;
+        const int MaxItemsPerPage = 9;
 
         ISportCardViewModelFactory _factory;
         ISportProvider _sportProvider;

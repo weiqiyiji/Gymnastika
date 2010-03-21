@@ -20,6 +20,7 @@ using Gymnastika.Modules.Sports.Services.Providers;
 using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Services.Session;
 using Gymnastika.Modules.Sports.Facilities;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -46,6 +47,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
         string DayOfWeekDes { get; }
 
         int DayOfWeek { get; }
+
+        User User { get; }
 
         SportsPlan SportsPlan { get; }
 
@@ -339,6 +342,11 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _itemProvider.CreateOrUpdate(item);
         }
 
+        public User User
+        {
+            get { return _sessionManager.GetCurrentSession().AssociatedUser; }
+        }
+
         void SavePlanToRepository()
         {
             using (_planProvider.GetContextScope())
@@ -354,7 +362,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (SportsPlan.Id == 0)
                 {
                     SportsPlan.SportsPlanItems = new List<SportsPlanItem>();
-                    SportsPlan.User = _sessionManager.GetCurrentSession().AssociatedUser;
+                    SportsPlan.User = User;
                     _planProvider.Create(SportsPlan);
                 }
 

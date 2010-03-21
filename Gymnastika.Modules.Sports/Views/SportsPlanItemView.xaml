@@ -7,9 +7,9 @@
              xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" 
     		xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
     		xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
-             mc:Ignorable="d"  x:Name="Root" Height="48" Foreground="#FF9DA290" 
-			 
-			 >
+             mc:Ignorable="d"  x:Name="Root" Height="28" Foreground="#FF9DA290" 
+			 d:DesignWidth="300"
+			 FontSize="10">
     <UserControl.Resources>
         <ResourceDictionary>
             <converters:TimeToDoubleConverter x:Key="TimeToDoubleConverter"/>
@@ -17,17 +17,18 @@
     </UserControl.Resources>
     <Grid>
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0.806*"/>
-    		<ColumnDefinition Width="0.194*"/>
+    		<ColumnDefinition Width="0.71*"/>
+    		<ColumnDefinition Width="0.17*"/>
+    		<ColumnDefinition Width="0.12*"/>
     	</Grid.ColumnDefinitions>
-		<StackPanel Margin="4,10,0,10" Orientation="Horizontal">
-    		<Border BorderThickness="0.5" BorderBrush="#FF7C836B" Width="40" HorizontalAlignment="Left" Height="28">
-    			<TextBlock FontSize="12" x:Name="Time" Text="9:30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		<StackPanel Margin="4,0,0,0" Orientation="Horizontal">
+    		<Border BorderThickness="0.5" BorderBrush="#FF7C836B" Width="30" HorizontalAlignment="Left" Height="18">
+    			<TextBlock x:Name="Time" Text="9:30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
     			 		
     			<!--</TextBlock>Text="{Binding Time}" />-->
     		</Border>
     		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Margin="25,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
     	</StackPanel>
-		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF286226" Style="{DynamicResource NavigationButtonStyle}" Grid.Column="1" Margin="-0.002,10,0,8" HorizontalAlignment="Right" Width="11.5" VerticalAlignment="Center" />
+		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF286226" Style="{DynamicResource NavigationButtonStyle}" Grid.Column="1" Margin="0" HorizontalAlignment="Right" Width="11.5" d:LayoutOverrides="Height" />
 	</Grid>
 </UserControl>

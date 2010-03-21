@@ -57,8 +57,9 @@
     		<ColumnDefinition Width="0.18*"/>
     		<ColumnDefinition Width="0.247*"/>
     		<ColumnDefinition Width="0.143*"/>
-    		<ColumnDefinition Width="0.167*"/>
-    		<ColumnDefinition Width="0.263*"/>
+    		<ColumnDefinition Width="0.197*"/>
+    		<ColumnDefinition Width="0.076*"/>
+    		<ColumnDefinition Width="0.157*"/>
     	</Grid.ColumnDefinitions>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="0.125*"/>
@@ -69,9 +70,9 @@
     		<RowDefinition Height="0.163*"/>
     		<RowDefinition Height="0.167*"/>
     	</Grid.RowDefinitions>
-		<Ellipse Fill="White"  Grid.RowSpan="7" Grid.ColumnSpan="5"/>
-		<Border BorderThickness="0,1" Background="White" Grid.Column="2" Panel.ZIndex="-1" Grid.ColumnSpan="3" Grid.RowSpan="4"/>
-    	<Gymnastika_Controls:AnimatedProgressBar x:Name="animatedProgressBar" Maximum="100" TargetValue="70" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="5" Grid.Row="1" Background="{x:Null}" Margin="0,5,0,0">
+		<Ellipse Fill="White"  Grid.RowSpan="7" Grid.ColumnSpan="6"/>
+		<Border BorderThickness="0,1" Background="White" Grid.Column="2" Panel.ZIndex="-1" Grid.ColumnSpan="4" Grid.RowSpan="4"/>
+    	<Gymnastika_Controls:AnimatedProgressBar x:Name="animatedProgressBar" Maximum="100" TargetValue="70" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="6" Grid.Row="1" Background="{x:Null}" Margin="0,5,0,0">
     		<Gymnastika_Controls:AnimatedProgressBar.Foreground>
     			<LinearGradientBrush EndPoint="1,0.432" StartPoint="-0.026,0.46">
     				<GradientStop Color="#FFE9AE8B" Offset="0"/>
@@ -89,10 +90,10 @@
     			</TransformGroup>
     		</Gymnastika_Controls:AnimatedProgressBar.RenderTransform>
     	</Gymnastika_Controls:AnimatedProgressBar>
-		<TextBlock TextWrapping="Wrap" Text="每分钟消耗" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="128.1"/>
-		<TextBlock TextWrapping="Wrap" Text="665" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="32" Grid.Column="2" FontWeight="Bold" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
-		<TextBlock TextWrapping="Wrap" Text="大卡" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="18.667" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+		<TextBlock TextWrapping="Wrap" Text="665" Foreground="{Binding Foreground, ElementName=textBlock}" FontSize="32" Grid.Column="3" FontWeight="Bold" Margin="8,0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		<TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="大卡" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="18.667" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 		<Button Content="添加" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFEEFAF3" FontSize="24"/>
 		<Button Content="详细" Style="{DynamicResource ButtonStyle}" Grid.Row="5" Grid.Column="3" Foreground="#FFEEFAF3" FontSize="18.667"/>
+		<TextBlock TextWrapping="Wrap" Text="每分钟消耗" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="18.667" VerticalAlignment="Bottom" Margin="0,0,0,-1.247" HorizontalAlignment="Right" Grid.Column="1" Grid.ColumnSpan="2" Width="102.9"/>
 	</Grid>
 </UserControl>
