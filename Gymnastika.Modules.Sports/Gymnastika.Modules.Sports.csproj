@@ -39,6 +39,9 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynamicDataDisplay">
+      <HintPath>..\Libs\DynamicDataDisplay.dll</HintPath>
+    </Reference>
     <Reference Include="FluidKit">
       <HintPath>..\Libs\FluidKit.dll</HintPath>
     </Reference>

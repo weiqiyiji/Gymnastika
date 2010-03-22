@@ -7,7 +7,7 @@
              d:DesignHeight="385" d:DesignWidth="601"
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" 
              xmlns:my="http://schemas.microsoft.com/surface/2008"
-             xmlns:local="clr-namespace:Gymnastika.Modules.Sports" >
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports" xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0">
     <UserControl.Resources>
         <Storyboard x:Key="FlyOutStoryboard">
         	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
@@ -140,7 +140,7 @@
 					</TransformGroup>
 				</Label.RenderTransform>
 			</Label>
-			<my:SurfaceListBox VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Margin="0,0,0,1">
+			<my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Margin="0,0,0,1">
 				<my:SurfaceListBox.RenderTransform>
 					<TransformGroup>
 						<ScaleTransform/>
@@ -250,6 +250,11 @@
 					</TransformGroup>
 				</Label.RenderTransform>
 			</Label>
-		</Grid>
+            <d3:ChartPlotter Grid.ColumnSpan="7" FontSize="9" Background="Transparent" BorderBrush="Transparent" Grid.Row="1" Name="chartPlotter1" >
+                <d3:ChartPlotter.HorizontalAxis>
+                    <d3:IntegerAxis/>
+                </d3:ChartPlotter.HorizontalAxis>
+            </d3:ChartPlotter>
+        </Grid>
 	</Border>
 </UserControl>
