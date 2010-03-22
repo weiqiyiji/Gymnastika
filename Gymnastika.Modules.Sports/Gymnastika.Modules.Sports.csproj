@@ -87,6 +87,7 @@
     <Compile Include="Converters\DoubleTimeToString.cs" />
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
+    <Compile Include="Converters\HourMinuteToStringConverter.cs" />
     <Compile Include="Converters\TimeToDoubleConverter.cs" />
     <Compile Include="Converters\ToIntConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
@@ -111,7 +112,9 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
+    <Compile Include="Validations\TimeExpressionValidation.cs" />
     <Compile Include="ViewModels\CompositePanelViewModel.cs" />
+    <Compile Include="ViewModels\SportCalorieChartViewModel.cs" />
     <Compile Include="Views\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>

@@ -59,7 +59,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel 
     {
-        const int MaxItemsPerPage = 6;
+        const int MaxItemsPerPage = 12;
 
         ISportCardViewModelFactory _factory;
         ISportProvider _sportProvider;

@@ -13,18 +13,15 @@ namespace Gymnastika.Modules.Sports.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-
-            if (!String.IsNullOrEmpty(value as String))
+            try
             {
                 string basePath = Directory.GetCurrentDirectory();
                 string relativePath = value.ToString();
                 string fullPath = basePath + relativePath;
                 return fullPath;
             }
-            else
-            {
-                return null;
-            }
+            catch (Exception) { }
+            return "";
 
 
         }

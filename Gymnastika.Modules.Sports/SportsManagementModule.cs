@@ -212,6 +212,7 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<IPlanListViewModel, PlanListViewModel>()
                 .RegisterType<ISportViewModel, SportViewModel>()
                 .RegisterType<ICompositePanelViewModel,CompositePanelViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISportCalorieChartViewModel,SportCalorieChartViewModel>(new ContainerControlledLifetimeManager())
                 //Views
                 .RegisterType<ISportsPanelView, SportsPanelView>()
                 .RegisterType<ICategoriesPanelView, CategoriesPanelView>()

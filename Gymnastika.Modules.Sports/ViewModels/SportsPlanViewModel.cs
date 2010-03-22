@@ -58,7 +58,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
         IList<SportsPlanItem> RemoveBuffer { get; }
 
         bool SetPlan(DateTime date);
+
+        void AddPlanItem(SportsPlanItem item);
     }
+
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
@@ -80,6 +83,15 @@ namespace Gymnastika.Modules.Sports.ViewModels
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
             SportsPlan = plan;
             _eventAggregator = eventAggregator;
+        }
+
+        public void AddPlanItem(SportsPlanItem item)
+        {
+            if (item !=  null && !ItemsBuffer.Contains(item))
+            {
+                ISportsPlanItemViewModel viewmodel = CreateViewmodel(item);
+                SportsPlanItemViewModels.Add(viewmodel);
+            }
         }
 
         public bool SetPlan(DateTime date)
@@ -236,16 +248,22 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public void DragOver(DropInfo dropInfo)
         {
-            Sport sport = null;
+            //Sport sport = null;
 
-            if (dropInfo.Data is ISportCardViewModel)
-                sport = (dropInfo.Data as ISportCardViewModel).Sport;
-            else if (dropInfo.Data is Sport)
-                sport = dropInfo.Data as Sport;
+            //if (dropInfo.Data is ISportCardViewModel)
+            //    sport = (dropInfo.Data as ISportCardViewModel).Sport;
+            //else if (dropInfo.Data is Sport)
+            //    sport = dropInfo.Data as Sport;
 
-            if (sport != null)
+            //if (sport != null)
+            //{
+            //    dropInfo.Effects = DragDropEffects.Copy;
+            //    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            //}
+            SportsPlanItem item = dropInfo.Data as SportsPlanItem;
+            if (item != null)
             {
-                dropInfo.Effects = DragDropEffects.Copy;
+                dropInfo.Effects = DragDropEffects.All;
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             }
         }
@@ -266,7 +284,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         private ISportsPlanItemViewModel CreateViewmodel(SportsPlanItem item)
         {
             var viewmodel = _factory.Create(item);
-            viewmodel.Item.Duration = 30;
+            //viewmodel.Item.Duration = 30;
             viewmodel.RequestCancleEvent += OnItemCancleRequest;
             viewmodel.PropertyChanged += ItemPropertyChanged;
             return viewmodel;
@@ -291,11 +309,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public void Drop(DropInfo dropInfo)
         {
-            Sport sourceItem = dropInfo.Data as Sport;
-            object target = dropInfo.TargetItem;
-            SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
-            ISportsPlanItemViewModel viewmodel = CreateViewmodel(item);
-            SportsPlanItemViewModels.Add(viewmodel);
+
+            SportsPlanItem item = dropInfo.Data as SportsPlanItem;
+            AddPlanItem(item);
         }
 
 

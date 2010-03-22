@@ -12,29 +12,30 @@
              mc:Ignorable="d" 
              BorderBrush="Transparent" 
              BorderThickness="1"
-             Background="#FFD4DEC1" d:DesignHeight="900" d:DesignWidth="1000"
+             Background="#FFD4DEC1" d:DesignHeight="700" d:DesignWidth="1000" FontFamily="黑体"
              >
-    <Border Margin="10">
+    <Border Margin="20">
 		<Grid>
 			<Grid.RowDefinitions>
-				<RowDefinition Height="86*" />
-				<RowDefinition Height="34*"/>
-				<RowDefinition Height="413*" />
-                <RowDefinition Height="21*" />
-                <RowDefinition Height="322*" />
+				<RowDefinition Height="0.069*" />
+				<RowDefinition Height="0.045*"/>
+				<RowDefinition Height="0.494*" />
+                <RowDefinition Height="0.022*" />
+                <RowDefinition Height="0.37*" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0.02*" />
-				<ColumnDefinition Width="0.287*" />
-				<ColumnDefinition Width="0.134*" />
-				<ColumnDefinition Width="0.128*"/>
+				<ColumnDefinition Width="0.056*" />
+				<ColumnDefinition Width="0.236*" />
+				<ColumnDefinition Width="0.04*"/>
+				<ColumnDefinition Width="0.123*" />
+				<ColumnDefinition Width="0.114*"/>
 				<ColumnDefinition Width="0.168*"/>
 				<ColumnDefinition Width="0.236*"/>
 				<ColumnDefinition Width="0.027*" />
 			</Grid.ColumnDefinitions>
-			<my1:SportsPlanView DataContext="{Binding PlanViewModel}" x:Name="sportsPlanView"  Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,0,22,0" />
-			<my1:CategoriesPanelView DataContext="{Binding CategoriesPanelViewModel}" x:Name="categoriesPanelView" Grid.Column="3" Grid.Row="1" Margin="-95.129,0,71,0" Grid.ColumnSpan="3" d:LayoutOverrides="GridBox" />
-			<my1:SportsPanelView DataContext="{Binding SportsPanelViewModel}" x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Grid.RowSpan="3" Grid.Row="2" Grid.ColumnSpan="4">
+			<my1:SportsPlanView DataContext="{Binding PlanViewModel}" x:Name="sportsPlanView"  Grid.RowSpan="3" Grid.ColumnSpan="2" />
+			<my1:CategoriesPanelView DataContext="{Binding CategoriesPanelViewModel}" x:Name="categoriesPanelView" Grid.Column="3" Grid.Row="1" Margin="49.2,0,65,0" Grid.ColumnSpan="4" />
+			<my1:SportsPanelView DataContext="{Binding SportsPanelViewModel}" x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Grid.Column="3" Grid.RowSpan="3" Grid.Row="2" Grid.ColumnSpan="4">
 				<my1:SportsPanelView.RenderTransform>
 					<TransformGroup>
 						<ScaleTransform/>
@@ -44,7 +45,7 @@
 					</TransformGroup>
 				</my1:SportsPanelView.RenderTransform>
 			</my1:SportsPanelView>
-			<my1:SportView DataContext="{Binding SportsViewModel}" x:Name="sportView" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="345" Height="517" Margin="0,77,-492,282" Grid.Column="6" Grid.RowSpan="5">
+			<my1:SportView DataContext="{Binding SportsViewModel}" x:Name="sportView" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="345" Height="517" Margin="0,-5.41,-492,-40.104" Grid.Column="7" Grid.RowSpan="2" Grid.Row="2">
 				<my1:SportView.RenderTransform>
 					<TransformGroup>
 						<ScaleTransform/>
@@ -54,12 +55,16 @@
 					</TransformGroup>
 				</my1:SportView.RenderTransform>
 			</my1:SportView>
-			<my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" Margin="0,0,22,0" />
-			<TextBlock FontSize="20" Grid.Column="2" Margin="4,2.345,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center"><Run Text="{Binding PlanViewModel.User.UserName}"/><Run Text=" "/><Run Text="的运动计划"/></TextBlock>
-			<Border Grid.Column="3" Margin="34,33.024,34.853,30.679" BorderBrush="#FF7C836B" BorderThickness="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-				<TextBlock x:Name="Time" TextWrapping="Wrap" Text="{Binding PlanViewModel.Date}"/>
+            <my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" DataContext="{Binding CalorieChartViewModel}" Width="Auto" Height="Auto"/>
+			<TextBlock FontSize="20" Grid.Column="3" Margin="4,2.345,0,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center" Foreground="#FF828970">
+				<Run Text="{Binding PlanViewModel.User.UserName}"/>
+				<Run Text=" "/>
+				<Run Text="的运动计划"/>
+			</TextBlock>
+			<Border Grid.Column="4" BorderBrush="#FF7C836B" BorderThickness="1" Width="100" Height="30" Margin="5.746,9.584">
+				<TextBlock x:Name="Time" FontSize="14" TextWrapping="Wrap" Text="{Binding PlanViewModel.Date}" Foreground="#FF7C836B" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 			</Border>
-			<FluidKit_Experimental:AutoCompleteBox  x:Name="searchBox" Grid.Column="5"  VerticalAlignment="Center"  ItemsSource="{Binding SportsPanelViewModel.SportsInMemory}" KeyDown="AutoCompleteBox_KeyDown" d:LayoutOverrides="VerticalMargin"/>
+			<FluidKit_Experimental:AutoCompleteBox  x:Name="searchBox" Grid.Column="6"  VerticalAlignment="Center"  ItemsSource="{Binding SportsPanelViewModel.SportsInMemory}" KeyDown="AutoCompleteBox_KeyDown" d:LayoutOverrides="VerticalMargin"/>
 		</Grid>
 	</Border>
 </UserControl>
