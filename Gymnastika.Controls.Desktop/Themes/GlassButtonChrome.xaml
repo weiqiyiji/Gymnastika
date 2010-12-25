@@ -1,0 +1,79 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Gymnastika.Controls.Desktop">
+    <Style TargetType="{x:Type local:GlassButtonChrome}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:GlassButtonChrome}">
+                	<ControlTemplate.Resources>
+                		<Storyboard x:Key="MouseOverOn">
+                			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MouseOverLayer">
+                				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                			</DoubleAnimationUsingKeyFrames>
+                		</Storyboard>
+                		<Storyboard x:Key="MouseOverOff">
+                			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MouseOverLayer">
+                				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                			</DoubleAnimationUsingKeyFrames>
+                		</Storyboard>
+                		<Storyboard x:Key="PressedOn">
+                			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MouseOverLayer">
+                				<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Hidden}"/>
+                			</ObjectAnimationUsingKeyFrames>
+                			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PressLayer">
+                				<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
+                			</DoubleAnimationUsingKeyFrames>
+                		</Storyboard>
+                		<Storyboard x:Key="PressedOff">
+                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="PressLayer">
+                                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0"/>
+                            </DoubleAnimationUsingKeyFrames>
+                			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MouseOverLayer">
+                				<DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{x:Static Visibility.Hidden}"/>
+                			</ObjectAnimationUsingKeyFrames>
+                		</Storyboard>
+                	</ControlTemplate.Resources>
+                	<Grid x:Name="grid" Height="Auto" Width="Auto">
+                		<Grid.RowDefinitions>
+                			<RowDefinition Height="0.529*"/>
+                			<RowDefinition Height="0.471*"/>
+                		</Grid.RowDefinitions>
+	                    <Border Background="{TemplateBinding Background}"
+	                            BorderBrush="{TemplateBinding BorderBrush}"
+	                            BorderThickness="{TemplateBinding BorderThickness}"
+	                            CornerRadius="{TemplateBinding CornerRadius}" Grid.RowSpan="2">
+	                    	<ContentPresenter />
+	                    </Border>
+	                    <Border x:Name="MouseOverLayer" BorderThickness="0"
+	                            CornerRadius="{TemplateBinding CornerRadius}" Grid.RowSpan="2" Visibility="Visible" Opacity="0">
+	                    	<Border.Background>
+	                    		<RadialGradientBrush Center="0.476,0.989" GradientOrigin="0.476,0.989" RadiusY="1.129" RadiusX="0.628">
+	                    			<GradientStop Color="White"/>
+	                    			<GradientStop Color="#33FFFFFF" Offset="0.991"/>
+	                    		</RadialGradientBrush>
+	                    	</Border.Background>
+	                    </Border>
+	                    <Border x:Name="PressLayer" BorderBrush="{x:Null}" BorderThickness="1" Grid.RowSpan="2" Background="#33000000" Visibility="Visible" Opacity="0"/>
+					</Grid>
+                	<ControlTemplate.Triggers>
+                		<EventTrigger RoutedEvent="UIElement.MouseLeftButtonUp">
+                			<BeginStoryboard x:Name="PressedOff_BeginStoryboard" Storyboard="{StaticResource PressedOff}"/>
+                		</EventTrigger>
+                		<Trigger Property="IsMouseOver" Value="True">
+                			<Trigger.ExitActions>
+                				<BeginStoryboard x:Name="MouseOverOff_BeginStoryboard" Storyboard="{StaticResource MouseOverOff}"/>
+                			</Trigger.ExitActions>
+                			<Trigger.EnterActions>
+                				<BeginStoryboard x:Name="MouseOverOn_BeginStoryboard" Storyboard="{StaticResource MouseOverOn}"/>
+                			</Trigger.EnterActions>
+                		</Trigger>
+                		<EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown">
+                			<BeginStoryboard x:Name="PressedOn_BeginStoryboard" Storyboard="{StaticResource PressedOn}"/>
+                		</EventTrigger>
+                	</ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush" Value="{x:Null}"/>
+    </Style>
+</ResourceDictionary>
