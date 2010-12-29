@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/ImageButton.xaml" />
-        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/GlassButtonChrome.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/ButtonChrome.xaml" />
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

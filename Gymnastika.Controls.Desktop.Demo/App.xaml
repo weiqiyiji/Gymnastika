@@ -4,5 +4,12 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+    			<ResourceDictionary Source="/Gymnastika.Controls.Desktop;component/Themes/DefaultBrushes.xaml"/>
+    			<ResourceDictionary Source="/Gymnastika.Controls.Desktop;component/Themes/ButtonChrome.xaml"/>
+    		</ResourceDictionary.MergedDictionaries>
+    	</ResourceDictionary>
+         
     </Application.Resources>
 </Application>
