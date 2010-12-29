@@ -32,6 +32,19 @@ namespace Gymnastika.Controls.Desktop
             DependencyProperty.Register("ImageSource", typeof(ImageSource), typeof(ImageButton), new UIPropertyMetadata(null));
 
 
+
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(ImageButton), new UIPropertyMetadata(new CornerRadius(0)));
+
+        
+
         public Stretch Stretch
         {
             get { return (Stretch)GetValue(StretchProperty); }
@@ -41,8 +54,6 @@ namespace Gymnastika.Controls.Desktop
         // Using a DependencyProperty as the backing store for Stretch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StretchProperty =
             DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageButton), new UIPropertyMetadata(Stretch.None));
-
-        
         
     }
 }

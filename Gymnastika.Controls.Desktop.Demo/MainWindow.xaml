@@ -6,6 +6,7 @@
     <Grid>
         <StackPanel Margin="5">
             <Button Content="ImageButton" Click="Button_Click" HorizontalAlignment="Stretch" />
+            <Button Content="InstantSearchBox" Click="Button_Click" HorizontalAlignment="Stretch" />
         </StackPanel>
     </Grid>
 </Window>

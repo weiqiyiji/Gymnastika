@@ -22,12 +22,10 @@ namespace Gymnastika.Controls.Desktop.Demo
     {
         private const string DemoNamespace = "Gymnastika.Controls.Desktop.Demo.Sub.";
         private Assembly _controlAssembly;
-        private IDictionary<string, Window> _demoWindowCache;
 
         public MainWindow()
         {
             InitializeComponent();
-            _demoWindowCache = new Dictionary<string, Window>();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -38,21 +36,8 @@ namespace Gymnastika.Controls.Desktop.Demo
 
             string windowName = button.Content.ToString() + "Demo";
 
-            Window targetWindow = GetTargetWindow(DemoNamespace + windowName);
+            Window targetWindow = (Window)_controlAssembly.CreateInstance(DemoNamespace + windowName);
             targetWindow.Show();
-        }
-
-        private Window GetTargetWindow(string windowName)
-        {
-            Window targetWindow = null;
-
-            if (!_demoWindowCache.TryGetValue(windowName, out targetWindow))
-            {
-                targetWindow = (Window)_controlAssembly.CreateInstance(windowName);
-                _demoWindowCache.Add(windowName, targetWindow);
-            }
-
-            return targetWindow;
         }
     }
 }

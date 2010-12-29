@@ -1,18 +1,18 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Gymnastika.Controls.Desktop">
-	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="GlassButtonChrome.xaml"/>
-	</ResourceDictionary.MergedDictionaries>
+                    xmlns:local="clr-namespace:Gymnastika.Controls.Desktop" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
     <Style TargetType="{x:Type local:ImageButton}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:ImageButton}">
-                    <local:GlassButtonChrome>
-                    	<Image Source="{TemplateBinding ImageSource}" Stretch="{TemplateBinding Stretch}" />               
-					</local:GlassButtonChrome>
+                	<Grid Height="Auto" Width="Auto">
+						<local:ButtonChrome IsPressed="{TemplateBinding IsPressed}" Padding="{TemplateBinding Padding}">
+                			<Image Source="{TemplateBinding ImageSource}" Stretch="{TemplateBinding Stretch}" d:LayoutOverrides="Width, Height" Margin="{TemplateBinding Margin}" />
+						</local:ButtonChrome>
+                	</Grid>  
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="Padding" Value="5" />
     </Style>
 </ResourceDictionary>
