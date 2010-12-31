@@ -4,6 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/ImageButton.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/ButtonChrome.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/InstantSearchBox.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

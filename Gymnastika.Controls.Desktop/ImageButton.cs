@@ -14,6 +14,13 @@ using System.Windows.Shapes;
 
 namespace Gymnastika.Controls.Desktop
 {
+    public enum ImageButtonMode
+    { 
+        Single,
+        Switchover
+    }
+
+
     public class ImageButton : Button
     {
         static ImageButton()
@@ -54,6 +61,34 @@ namespace Gymnastika.Controls.Desktop
         // Using a DependencyProperty as the backing store for Stretch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty StretchProperty =
             DependencyProperty.Register("Stretch", typeof(Stretch), typeof(ImageButton), new UIPropertyMetadata(Stretch.None));
+
+        public ImageButtonMode ImageMode
+        {
+            get { return (ImageButtonMode)GetValue(ImageModeProperty); }
+            set { SetValue(ImageModeProperty, value); }
+        }
+
+        public static readonly DependencyProperty ImageModeProperty =
+            DependencyProperty.Register("ImageMode", typeof(ImageButtonMode), typeof(ImageButton), new UIPropertyMetadata(ImageButtonMode.Single));
+
+        public ImageSource MouseOverImageSource
+        {
+            get { return (ImageSource)GetValue(MouseOverImageSourceProperty); }
+            set { SetValue(MouseOverImageSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty MouseOverImageSourceProperty =
+            DependencyProperty.Register("MouseOverImageSource", typeof(ImageSource), typeof(ImageButton), new UIPropertyMetadata(null));
+
+        public ImageSource MousePressedImageSource
+        {
+            get { return (ImageSource)GetValue(MousePressedImageSourceProperty); }
+            set { SetValue(MousePressedImageSourceProperty, value); }
+        }
+
+        public static readonly DependencyProperty MousePressedImageSourceProperty =
+            DependencyProperty.Register("MousePressedImageSource", typeof(ImageSource), typeof(ImageButton), new UIPropertyMetadata(null));
+
         
     }
 }

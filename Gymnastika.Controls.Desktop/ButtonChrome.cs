@@ -91,9 +91,5 @@ namespace Gymnastika.Controls.Desktop
         public static readonly DependencyProperty MousePressedBackgroundProperty =
             DependencyProperty.Register("MousePressedBackground", typeof(Brush), typeof(ButtonChrome), new UIPropertyMetadata(null));
 
-        
-        
-        
-        
     }
 }

@@ -8,6 +8,7 @@
     		<ResourceDictionary.MergedDictionaries>
     			<ResourceDictionary Source="/Gymnastika.Controls.Desktop;component/Themes/DefaultBrushes.xaml"/>
     			<ResourceDictionary Source="/Gymnastika.Controls.Desktop;component/Themes/ButtonChrome.xaml"/>
+    			<ResourceDictionary Source="/Gymnastika.Controls.Desktop;component/Themes/InstantSearchBox.xaml"/>
     		</ResourceDictionary.MergedDictionaries>
     	</ResourceDictionary>
          

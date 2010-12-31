@@ -1,0 +1,46 @@
+﻿<ResourceDictionary
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="clr-namespace:Gymnastika.Controls.Desktop">
+    
+    <Style TargetType="{x:Type controls:InstantSearchBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:InstantSearchBox}">
+                	<Grid Height="Auto" Background="{TemplateBinding Background}">
+                		<Grid.ColumnDefinitions>
+                			<ColumnDefinition />
+                			<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="Auto"/>
+                		</Grid.ColumnDefinitions>
+                		<TextBox x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" 
+								 TextWrapping="Wrap" 
+								 BorderThickness="0" VerticalContentAlignment="Center"
+								 VerticalScrollBarVisibility="Disabled" Padding="2"
+								 BorderBrush="{x:Null}" Background="Transparent" />
+                		<Popup x:Name="PART_Popup" IsOpen="{TemplateBinding CanSearch}">
+                			<Grid Background="{TemplateBinding SearchResultsBackground}" >
+                				<ListBox ItemsSource="{TemplateBinding ItemsSource}" 
+								         ItemContainerStyle="{TemplateBinding ItemContainerStyle}" 
+										 BorderThickness="0" />
+                			</Grid>
+                		</Popup>
+                		<Image Name="SearchImage" HorizontalAlignment="Stretch" Width="Auto" Grid.Column="1" Stretch="None" Source="{TemplateBinding SearchImageSource}"/>
+                		<StackPanel x:Name="ButtonStack" Orientation="Horizontal" Grid.Column="1" Visibility="Collapsed">
+                			<Button x:Name="PART_CancelButton" Content="C" HorizontalAlignment="Stretch" Width="Auto" Margin="1"/>
+                			<Button x:Name="PART_SearchButton" Content="S" HorizontalAlignment="Stretch" Width="Auto" Margin="1"/>
+                		</StackPanel>
+                	</Grid>
+                    <ControlTemplate.Triggers>
+                    	<Trigger Property="CanSearch" Value="True">
+                    		<Setter TargetName="SearchImage" Property="Visibility" Value="Collapsed" />              	
+							<Setter TargetName="ButtonStack" Property="Visibility" Value="Visible" />              	
+						</Trigger>               
+					</ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+	
+</ResourceDictionary>

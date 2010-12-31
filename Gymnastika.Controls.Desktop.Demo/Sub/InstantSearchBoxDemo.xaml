@@ -1,8 +1,10 @@
 ﻿<Window x:Class="Gymnastika.Controls.Desktop.Demo.Sub.InstantSearchBoxDemo"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Gymnastika.Controls.Desktop;assembly=Gymnastika.Controls.Desktop"
         Title="InstantSearchBoxDemo" Height="300" Width="300">
-    <Grid>
-        <Popup />
+    <Grid Name="grid">
+        <controls:InstantSearchBox SearchImageSource="/Images/search.png">
+        </controls:InstantSearchBox>
     </Grid>
 </Window>

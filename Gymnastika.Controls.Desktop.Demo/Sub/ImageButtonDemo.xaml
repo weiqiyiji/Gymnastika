@@ -4,6 +4,14 @@
         xmlns:controls="clr-namespace:Gymnastika.Controls.Desktop;assembly=Gymnastika.Controls.Desktop"
         Title="ImageButtonDemo" Height="300" Width="300">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
         <controls:ImageButton ImageSource="/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <controls:ImageButton ImageMode="Switchover" ImageSource="/Images/search.png" 
+                              MouseOverImageSource="/Images/setting_mouseover.png"
+                              MousePressedImageSource="/Images/setting_pressed.png"
+                              HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" />
     </Grid>
 </Window>
