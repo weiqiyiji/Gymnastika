@@ -19,5 +19,4 @@
 	</LinearGradientBrush>
     <SolidColorBrush x:Key="ButtonChrome_MouseOver_BorderBrush" Color="#80C8B280" />
     <SolidColorBrush x:Key="ButtonChrome_Pressed_BorderBrush" Color="#FFC8B280" />
-	<!-- Resource dictionary entries should be defined here. -->
 </ResourceDictionary>

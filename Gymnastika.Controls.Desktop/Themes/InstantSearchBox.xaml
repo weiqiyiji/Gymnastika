@@ -2,11 +2,6 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:Gymnastika.Controls.Desktop">
-
-    <Style x:Key="TextBoxFocusStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="{x:Null}" />
-    </Style>
     
     <Style TargetType="{x:Type controls:InstantSearchBox}">
         <Setter Property="BorderThickness" Value="1" />
@@ -26,18 +21,18 @@
                             <Image Name="SearchImage" Focusable="False" HorizontalAlignment="Stretch" 
                                    Width="Auto" Stretch="None" Margin="2, 1" 
                                    Source="{TemplateBinding SearchImageSource}"/>
-                            <Popup x:Name="PART_Popup" Grid.ColumnSpan="3" StaysOpen="False" 
-                                   Focusable="False" PopupAnimation="Fade" VerticalOffset="4" HorizontalOffset="-1">
-                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
-                                        HorizontalAlignment="Stretch" Width="{TemplateBinding ActualWidth}"
-                                        Background="{TemplateBinding SearchResultsBackground}">
-                                    <Grid>
+                            <Popup x:Name="PART_Popup" Grid.ColumnSpan="3" StaysOpen="False" AllowsTransparency="True"
+                                   Focusable="False" PopupAnimation="Fade" VerticalOffset="4" HorizontalOffset="-1" Width="{TemplateBinding ActualWidth}">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}"  BorderThickness="{TemplateBinding BorderThickness}"
+                                        HorizontalAlignment="Stretch" 
+                                        Background="{TemplateBinding SearchResultsBackground}" CornerRadius="{TemplateBinding CornerRadius}">
+                                    <Border>
                                         <ItemsPresenter />
-                                    </Grid>
+                                    </Border>
                                 </Border>
                             </Popup>
                             <TextBox Grid.Column="1" x:Name="PART_EditableTextBox" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-								     FocusVisualStyle="{StaticResource TextBoxFocusStyle}"
+								     FocusVisualStyle="{x:Null}"
 								     BorderThickness="0" VerticalContentAlignment="Center"
 								     VerticalScrollBarVisibility="Disabled"
                                      HorizontalScrollBarVisibility="Hidden"
@@ -53,7 +48,6 @@
                             <Setter TargetName="PART_CancelButton" Property="Visibility" Value="Visible" />              	
 						</Trigger>
 					</ControlTemplate.Triggers>
-                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

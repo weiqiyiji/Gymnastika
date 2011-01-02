@@ -2,6 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:Gymnastika.Controls.Desktop"
                     xmlns:cov="clr-namespace:Gymnastika.Controls.Desktop.Converters">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/DefaultBrushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
     <cov:RoundedCornerResizeConverter x:Key="RoundedCornerConverter" />
     
     <Style TargetType="{x:Type controls:ButtonChrome}">
@@ -44,9 +48,9 @@
         <Setter Property="CornerRadius" Value="4"/>
         <Setter Property="InnerBorderThickness" Value="1"/>
 		<Setter Property="Padding" Value="2" />
-        <Setter Property="MouseOverBorderBrush" Value="{DynamicResource ButtonChrome_MouseOver_BorderBrush}" />
-        <Setter Property="MouseOverBackground" Value="{DynamicResource ButtonChrome_MouseOver_Background}" />
-        <Setter Property="MousePressedBorderBrush" Value="{DynamicResource ButtonChrome_Pressed_BorderBrush}" />
-        <Setter Property="MousePressedBackground" Value="{DynamicResource ButtonChrome_Pressed_Background}" />
+        <Setter Property="MouseOverBorderBrush" Value="{StaticResource ButtonChrome_MouseOver_BorderBrush}" />
+        <Setter Property="MouseOverBackground" Value="{StaticResource ButtonChrome_MouseOver_Background}" />
+        <Setter Property="MousePressedBorderBrush" Value="{StaticResource ButtonChrome_Pressed_BorderBrush}" />
+        <Setter Property="MousePressedBackground" Value="{StaticResource ButtonChrome_Pressed_Background}" />
     </Style>
 </ResourceDictionary>

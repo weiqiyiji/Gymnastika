@@ -10,6 +10,11 @@ namespace Gymnastika.Controls.Desktop
 {
     public class ButtonChrome : ContentControl
     {
+        static ButtonChrome()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(ButtonChrome), new FrameworkPropertyMetadata(typeof(ButtonChrome)));
+        }
 
         public CornerRadius CornerRadius
         {
@@ -21,9 +26,6 @@ namespace Gymnastika.Controls.Desktop
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(ButtonChrome), new UIPropertyMetadata(new CornerRadius(0)));
 
-
-
-
         public bool IsPressed
         {
             get { return (bool)GetValue(IsPressedProperty); }
@@ -33,8 +35,6 @@ namespace Gymnastika.Controls.Desktop
         // Using a DependencyProperty as the backing store for IsPressed.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsPressedProperty =
             DependencyProperty.Register("IsPressed", typeof(bool), typeof(ButtonChrome), new UIPropertyMetadata(false));
-
-        
 
         public Thickness InnerBorderThickness
         {

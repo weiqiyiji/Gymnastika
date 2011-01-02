@@ -32,7 +32,6 @@ namespace Gymnastika.Controls.Desktop
             set { SetValue(SearchResultsBackgroundProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SearchResultsBackground.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SearchResultsBackgroundProperty =
             DependencyProperty.Register("SearchResultsBackground", typeof(Brush), typeof(InstantSearchBox), new UIPropertyMetadata(new SolidColorBrush(Color.FromRgb(255, 255, 255))));
 
@@ -43,7 +42,6 @@ namespace Gymnastika.Controls.Desktop
             set { SetValue(SearchImageSourceProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for SearchImageSource.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SearchImageSourceProperty =
             DependencyProperty.Register("SearchImageSource", typeof(ImageSource), typeof(InstantSearchBox), new UIPropertyMetadata(null));
 
@@ -53,11 +51,8 @@ namespace Gymnastika.Controls.Desktop
             set { SetValue(IsPopupOpenProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CanSearch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsPopupOpenProperty =
             DependencyProperty.Register("IsPopupOpen", typeof(bool), typeof(InstantSearchBox), new UIPropertyMetadata(false));
-
-
 
         public CornerRadius CornerRadius
         {
@@ -65,11 +60,8 @@ namespace Gymnastika.Controls.Desktop
             set { SetValue(CornerRadiusProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CornerRadiusProperty =
-            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(InstantSearchBox), new UIPropertyMetadata(new CornerRadius(0)));
-
-        
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(InstantSearchBox), new UIPropertyMetadata(new CornerRadius(0)));  
 
         public SearchHandler DoSearch
         {
@@ -77,7 +69,6 @@ namespace Gymnastika.Controls.Desktop
             set { SetValue(DoSearchProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for DoSearch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DoSearchProperty =
             DependencyProperty.Register("DoSearch", typeof(SearchHandler), typeof(InstantSearchBox), new UIPropertyMetadata(null));
         
@@ -103,8 +94,6 @@ namespace Gymnastika.Controls.Desktop
             TextBox textBox = (TextBox)sender;
             if (textBox.Text.Length > 0)
             {
-                OpenPopup(true);
-
                 if (DoSearch != null)
                 {
                     DoSearch.BeginInvoke(textBox.Text, OnSearchCompleted, null);
@@ -133,7 +122,15 @@ namespace Gymnastika.Controls.Desktop
             this.Dispatcher.BeginInvoke(
                 (Action)(() => 
                 {
-                    this.ItemsSource = searchResults;
+                    if (searchResults.Count > 0)
+                    {
+                        this.ItemsSource = searchResults;
+                        OpenPopup(true);
+                    }
+                    else
+                    {
+                        OpenPopup(false);
+                    }
                 }));
         }
 

@@ -3,5 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/DefaultBrushes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/ImageButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/ButtonChrome.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/InstantSearchBox.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls.Desktop;Component/Themes/SeperatedListBox.xaml"/>-->
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
