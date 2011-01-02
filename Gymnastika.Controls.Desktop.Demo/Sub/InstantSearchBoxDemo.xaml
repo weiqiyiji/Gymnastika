@@ -4,7 +4,12 @@
         xmlns:controls="clr-namespace:Gymnastika.Controls.Desktop;assembly=Gymnastika.Controls.Desktop"
         Title="InstantSearchBoxDemo" Height="300" Width="300">
     <Grid Name="grid">
-        <controls:InstantSearchBox SearchImageSource="/Images/search.png">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <controls:InstantSearchBox Grid.Row="1" x:Name="searchBox" MinHeight="26" DoSearch="OnDoSearch" Margin="10, 0"
+                                   VerticalAlignment="Center" SearchImageSource="/Images/search.png"
+                                   CornerRadius="4" Background="Transparent" BorderBrush="#DBDBDB">
         </controls:InstantSearchBox>
     </Grid>
 </Window>

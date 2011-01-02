@@ -7,16 +7,24 @@ using System.Windows.Media;
 using System.Windows;
 using System.Collections.ObjectModel;
 using System.Runtime.Remoting.Messaging;
+using System.Windows.Input;
+using System.Diagnostics;
+using System.Windows.Controls.Primitives;
 
 namespace Gymnastika.Controls.Desktop
 {
     [TemplatePart(Name = InstantSearchBox.PART_CancelButton, Type = typeof(Button))]
-    [TemplatePart(Name = InstantSearchBox.PART_SearchButton, Type = typeof(Button))]
     public class InstantSearchBox : ComboBox
     {
+        public const string PART_Popup = "PART_Popup";
         public const string PART_CancelButton = "PART_CancelButton";
-        public const string PART_SearchButton = "PART_SearchButton";
         public const string PART_EditableTextBox = "PART_EditableTextBox";
+
+        static InstantSearchBox()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(InstantSearchBox), new FrameworkPropertyMetadata(typeof(InstantSearchBox)));
+        }
 
         public Brush SearchResultsBackground
         {
@@ -39,18 +47,29 @@ namespace Gymnastika.Controls.Desktop
         public static readonly DependencyProperty SearchImageSourceProperty =
             DependencyProperty.Register("SearchImageSource", typeof(ImageSource), typeof(InstantSearchBox), new UIPropertyMetadata(null));
 
-
-
-        public bool CanSearch
+        public bool IsPopupOpen
         {
-            get { return (bool)GetValue(CanSearchProperty); }
-            set { SetValue(CanSearchProperty, value); }
+            get { return (bool)GetValue(IsPopupOpenProperty); }
+            set { SetValue(IsPopupOpenProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CanSearch.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CanSearchProperty =
-            DependencyProperty.Register("CanSearch", typeof(bool), typeof(InstantSearchBox), new UIPropertyMetadata(false));
- 
+        public static readonly DependencyProperty IsPopupOpenProperty =
+            DependencyProperty.Register("IsPopupOpen", typeof(bool), typeof(InstantSearchBox), new UIPropertyMetadata(false));
+
+
+
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(InstantSearchBox), new UIPropertyMetadata(new CornerRadius(0)));
+
+        
 
         public SearchHandler DoSearch
         {
@@ -60,14 +79,13 @@ namespace Gymnastika.Controls.Desktop
 
         // Using a DependencyProperty as the backing store for DoSearch.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty DoSearchProperty =
-            DependencyProperty.Register("DoSearch", typeof(SearchHandler), typeof(InstantSearchBox), new UIPropertyMetadata(null)); 
+            DependencyProperty.Register("DoSearch", typeof(SearchHandler), typeof(InstantSearchBox), new UIPropertyMetadata(null));
         
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
             TextBox searchBox = GetTemplateChild(InstantSearchBox.PART_EditableTextBox) as TextBox;
             Button cancelButton = GetTemplateChild(InstantSearchBox.PART_CancelButton) as Button;
-            Button searchButton = GetTemplateChild(InstantSearchBox.PART_SearchButton) as Button;
 
             if (searchBox != null)
             {
@@ -78,11 +96,6 @@ namespace Gymnastika.Controls.Desktop
             {
                 cancelButton.Click += PART_CancelButton_Click;
             }
-
-            if (searchButton != null)
-            {
-                searchButton.Click += PART_SearchButton_Click;
-            }
         }
 
         private void PART_EditableTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -90,10 +103,26 @@ namespace Gymnastika.Controls.Desktop
             TextBox textBox = (TextBox)sender;
             if (textBox.Text.Length > 0)
             {
+                OpenPopup(true);
+
                 if (DoSearch != null)
                 {
                     DoSearch.BeginInvoke(textBox.Text, OnSearchCompleted, null);
                 }
+            }
+            else
+            {
+                OpenPopup(false);
+            }
+        }
+
+        private void OpenPopup(bool isOpen)
+        {
+            Popup popup = this.GetTemplateChild(PART_Popup) as Popup;
+            if (popup != null)
+            {
+                IsPopupOpen = isOpen;
+                popup.IsOpen = isOpen;
             }
         }
 
@@ -108,14 +137,13 @@ namespace Gymnastika.Controls.Desktop
                 }));
         }
 
-        private void PART_SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
         private void PART_CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            TextBox tb = GetTemplateChild(PART_EditableTextBox) as TextBox;
+            if (tb != null)
+            {
+                tb.Text = string.Empty;
+            }
         }
     }
 
