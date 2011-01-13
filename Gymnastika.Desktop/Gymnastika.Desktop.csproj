@@ -67,7 +67,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="ModulesCatalog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -75,8 +79,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="GymnastikaBootstrapper.cs" />
+    <Compile Include="Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -108,6 +113,18 @@
     <ProjectReference Include="..\Gymnastika.Desktop.Core\Gymnastika.Desktop.Core.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Modules.MealsManagement\Gymnastika.Modules.MealsManagement.csproj">
+      <Project>{E697A4E3-B016-4716-BB3D-E774F7BD3B29}</Project>
+      <Name>Gymnastika.Modules.MealsManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Modules.SportsManagement\Gymnastika.Modules.SportsManagement.csproj">
+      <Project>{595AB87C-2639-4577-88BB-6C5073AF2CBC}</Project>
+      <Name>Gymnastika.Modules.SportsManagement</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
+      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
+      <Name>Gymnastika.Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
