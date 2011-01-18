@@ -20,6 +20,8 @@ namespace Gymnastika.UserManagement
         public int Height { get; set; }
 
         public int Weight { get; set; }
+
+        public bool IsActive { get; set; }
     }
 
     public enum Gender

@@ -16,7 +16,7 @@ namespace Gymnastika.UserManagement.Tests
         [SetUp]
         public void Init()
         {
-            _userService = new UserService(new InMemoryMembershipService());
+            _userService = new UserService(new InMemoryUserRepository());
         }
 
         [Test]
@@ -114,26 +114,33 @@ namespace Gymnastika.UserManagement.Tests
         [Test]
         public void LogOn_InfoValid_ReturnTrue()
         {
+            _userService.Register(
+                new User { UserName = "Martin", Password = "Pwd", IsActive = false });
+
             bool result = _userService.LogOn("Martin", "Pwd");
 
             Assert.IsTrue(result);
+
+            User user = _userService.GetUser("Martin");
+
+            Assert.IsTrue(user.IsActive);
         }
 
         [Test]
         public void LogOn_UserNamePasswordMissmatch_ReturnFalse()
         {
-            var mockMembership = new Mock<IMembershipService>();
-            mockMembership
-                .Setup(m => m.Validate("Martin", "InvalidPassword"))
-                .Returns(LogOnStatus.InvalidPassword);
+            var mockRepository = new Mock<IUserRepository>();
+            mockRepository
+                .Setup(m => m.Get("Martin"))
+                .Returns(new User { Password = "Pwd" });
 
-            UserService userService = new UserService(mockMembership.Object);
+            UserService userService = new UserService(mockRepository.Object);
             bool result = userService.LogOn("Martin", "InvalidPassword");
 
             Assert.IsFalse(result);
             Assert.AreEqual(Resources.InvalidPassword, userService.ErrorString);
 
-            mockMembership.VerifyAll();
+            mockRepository.VerifyAll();
         }
 
         [Test]
@@ -148,9 +155,15 @@ namespace Gymnastika.UserManagement.Tests
         [Test]
         public void LogOut_UserNameExists_ReturnTrue()
         {
+            _userService.Register(
+                new User { UserName = "Martin", Password = "Pwd", IsActive = true });
+
             bool result = _userService.LogOut("Martin");
 
             Assert.IsTrue(result);
+
+            User user = _userService.GetUser("Martin");
+            Assert.IsFalse(user.IsActive);
         }
 
         [Test]

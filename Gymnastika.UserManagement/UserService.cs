@@ -8,11 +8,11 @@ namespace Gymnastika.UserManagement
 {
     public class UserService
     {
-        private IMembershipService _membershipService;
+        private IUserRepository _userRepository;
 
-        public UserService(IMembershipService membershipService)
+        public UserService(IUserRepository userRepository)
         {
-            _membershipService = membershipService;
+            _userRepository = userRepository;
         }
 
         public string ErrorString { get; private set; }
@@ -23,12 +23,15 @@ namespace Gymnastika.UserManagement
                 return null;
 
             user.Id = Guid.NewGuid();
-            MembershipCreateStatus status = _membershipService.Create(user);
-
-            ErrorString = ErrorCodeToString(status);
-
-            if(status == MembershipCreateStatus.Success)
+            User savedUser = _userRepository.Get(user.UserName);
+            if (savedUser == null)
+            {
+                ErrorString = null;
+                _userRepository.Add(user);
                 return user;
+            }
+
+            ErrorString = Resources.DuplicateUserName;
 
             return null;
         }
@@ -41,15 +44,50 @@ namespace Gymnastika.UserManagement
                 return false;
             }
 
-            LogOnStatus status = _membershipService.Validate(userName, password);
-            ErrorString = ErrorCodeToString(status);
+            User savedUser = _userRepository.Get(userName);
+            if (savedUser != null)
+            {
+                if (ComparePassword(password, savedUser.Password))
+                {
+                    savedUser.IsActive = true;
+                    _userRepository.Update(savedUser);
+                    return true;
+                }
 
-            return status == LogOnStatus.Success;
+                ErrorString = Resources.InvalidPassword;
+                return false;
+            }
+
+            ErrorString = Resources.InvalidUserName;
+
+            return false;
         }
 
         public bool LogOut(string userName)
         {
+            User user = _userRepository.Get(userName);
+
+            if (user == null)
+            {
+                ErrorString = Resources.InvalidUserName;
+                return false;
+            }
+
+            if (user.IsActive)
+            {
+                user.IsActive = false;
+                _userRepository.Update(user);
+            }
+
             return true;
+        }
+
+        private bool ComparePassword(string actual, string expected)
+        { 
+            if(string.IsNullOrEmpty(actual) && string.IsNullOrEmpty(expected))
+                return true;
+
+            return actual == expected;
         }
 
         private bool ValidateUser(User user)
@@ -67,39 +105,16 @@ namespace Gymnastika.UserManagement
 
             if (string.IsNullOrEmpty(user.UserName))
             {
-                ErrorString = ErrorCodeToString(MembershipCreateStatus.InvalidUserName);
+                ErrorString = Resources.InvalidUserName;
                 validateResult = false;
             }
 
             return validateResult;
         }
 
-        private string ErrorCodeToString(MembershipCreateStatus status)
+        public User GetUser(string userName)
         {
-            switch (status)
-            { 
-                case MembershipCreateStatus.InvalidUserName:
-                    return Resources.InvalidUserName;
-
-                case MembershipCreateStatus.DuplicateUserName:
-                    return Resources.DuplicateUserName;
-            }
-
-            return null;
-        }
-
-        private string ErrorCodeToString(LogOnStatus status)
-        {
-            switch (status)
-            {
-                case LogOnStatus.InvalidUserName:
-                    return Resources.InvalidUserName;
-
-                case LogOnStatus.InvalidPassword:
-                    return Resources.InvalidPassword;
-            }
-
-            return null;
+            return _userRepository.Get(userName);
         }
     }
 }
