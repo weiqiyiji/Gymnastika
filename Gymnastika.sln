@@ -15,6 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.SportsMa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.MealsManagement", "Gymnastika.Modules.MealsManagement\Gymnastika.Modules.MealsManagement.csproj", "{E697A4E3-B016-4716-BB3D-E774F7BD3B29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.UserManagement", "Gymnastika.UserManagement\Gymnastika.UserManagement.csproj", "{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CA821CDF-AA0B-4069-A55C-C5BF19D764FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.UserManagement.Tests", "Gymnastika.UserManagement.Tests\Gymnastika.UserManagement.Tests.csproj", "{67E8C9AE-93A0-4A04-A000-31F03241E02C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,8 +101,31 @@ Global
 		{E697A4E3-B016-4716-BB3D-E774F7BD3B29}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E697A4E3-B016-4716-BB3D-E774F7BD3B29}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E697A4E3-B016-4716-BB3D-E774F7BD3B29}.Release|x86.ActiveCfg = Release|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}.Release|x86.ActiveCfg = Release|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{67E8C9AE-93A0-4A04-A000-31F03241E02C} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 	EndGlobalSection
 EndGlobal

@@ -7,8 +7,9 @@ namespace Gymnastika.Desktop.Core
 {
     public class RegionNames
     {
-        public const string MainBarRegion = "MainBarRegion";
-        public const string CenterRegion = "CenterRegion";
         public const string OptionRegion = "OptionRegion";
+        public const string MainRegion = "MainRegion";
+        public const string MenuRegion = "MenuRegion";
+        public const string InfoRegion = "InfoRegion";
     }
 }

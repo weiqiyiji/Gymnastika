@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</ProjectGuid>
+    <ProjectGuid>{67E8C9AE-93A0-4A04-A000-31F03241E02C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.ProjectResources</RootNamespace>
-    <AssemblyName>Gymnastika.Resources</AssemblyName>
+    <RootNamespace>Gymnastika.UserManagement.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.UserManagement.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\Libs\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Libs\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,18 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InMemoryMembershipService.cs" />
+    <Compile Include="UserServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
+      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
+      <Name>Gymnastika.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.UserManagement\Gymnastika.UserManagement.csproj">
+      <Project>{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}</Project>
+      <Name>Gymnastika.UserManagement</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

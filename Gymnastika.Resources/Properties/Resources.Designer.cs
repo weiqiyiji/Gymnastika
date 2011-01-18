@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Gymnastika.Resources.Properties {
+namespace Gymnastika.ProjectResources.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Gymnastika.Resources.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Gymnastika.Resources.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Gymnastika.ProjectResources.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,51 @@ namespace Gymnastika.Resources.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gymnastika健康平台.
+        /// </summary>
+        public static string AppTitle {
+            get {
+                return ResourceManager.GetString("AppTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 用户已存在.
+        /// </summary>
+        public static string DuplicateUserName {
+            get {
+                return ResourceManager.GetString("DuplicateUserName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无效的年龄.
+        /// </summary>
+        public static string InvalidAge {
+            get {
+                return ResourceManager.GetString("InvalidAge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 密码错误.
+        /// </summary>
+        public static string InvalidPassword {
+            get {
+                return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无效的用户名.
+        /// </summary>
+        public static string InvalidUserName {
+            get {
+                return ResourceManager.GetString("InvalidUserName", resourceCulture);
             }
         }
         

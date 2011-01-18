@@ -55,7 +55,7 @@ namespace Gymnastika.Desktop
                 return;
 
             //ExceptionPolicy.HandleException(ex, "Default Policy");
-            MessageBox.Show(Gymnastika.Resources.Properties.Resources.UnhandledException);
+            MessageBox.Show(Gymnastika.ProjectResources.Properties.Resources.UnhandledException);
             Environment.Exit(1);
         }
     }

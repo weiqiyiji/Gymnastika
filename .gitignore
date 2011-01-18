@@ -4,3 +4,6 @@
 *~
 *.TestResults
 *.xap
+*.nunit
+TestResult.xml
+*.swp
