@@ -12,14 +12,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Gymnastika.Desktop
+namespace Gymnastika.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainView.xaml
     /// </summary>
-    public partial class Shell : Window
+    public partial class MainView : UserControl
     {
-        public Shell()
+        public MainView()
         {
             InitializeComponent();
         }

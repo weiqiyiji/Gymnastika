@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}</ProjectGuid>
+    <ProjectGuid>{713CBE56-506D-4690-89B9-C2D997BE0909}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.UserManagement</RootNamespace>
-    <AssemblyName>Gymnastika.UserManagement</AssemblyName>
+    <RootNamespace>Gymnastika.Desktop.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Desktop.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\Libs\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Libs\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,16 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IUserRepository.cs" />
-    <Compile Include="IUserService.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserService.cs" />
+    <Compile Include="ViewModels\StartupViewModelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
-      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
-      <Name>Gymnastika.Resources</Name>
+    <ProjectReference Include="..\Gymnastika.Desktop\Gymnastika.Desktop.csproj">
+      <Project>{77D43A9C-B3F8-4B5A-9A16-11FB6E6D8B15}</Project>
+      <Name>Gymnastika.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

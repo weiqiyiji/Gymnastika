@@ -9,6 +9,7 @@ namespace Gymnastika.UserManagement
     {
         User Get(Guid id);
         User Get(string userName);
+        IEnumerable<User> GetAll();
         bool Add(User user);
 
         /// <summary>

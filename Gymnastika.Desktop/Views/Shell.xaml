@@ -1,0 +1,15 @@
+﻿<Window x:Class="Gymnastika.Desktop.Views.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="clr-namespace:Gymnastika.Desktop.Core;assembly=Gymnastika.Desktop.Core"
+        xmlns:res="clr-namespace:Gymnastika.ProjectResources.Properties;assembly=Gymnastika.Resources"
+        xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.AppTitle}" d:DesignHeight="350" d:DesignWidth="525" WindowState="Maximized">
+    <Grid>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.DisplayRegion}" 
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Grid>
+</Window>

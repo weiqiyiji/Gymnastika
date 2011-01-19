@@ -59,6 +59,11 @@ namespace Gymnastika.UserManagement.Tests
             return false;
         }
 
+        public IEnumerable<User> GetAll()
+        {
+            return _userDb.Values;
+        }
+
         #endregion
     }
 }

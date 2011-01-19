@@ -173,5 +173,19 @@ namespace Gymnastika.UserManagement.Tests
 
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void Update()
+        {
+            _userService.Register(
+                new User { UserName = "Martin", Password = "Pwd", IsActive = true, Age = 20 });
+
+            User user = _userService.GetUser("Martin");
+            user.Age = 30;
+            _userService.Update(user);
+
+            user = _userService.GetUser("Martin");
+            Assert.AreEqual(30, user.Age);
+        }
     }
 }

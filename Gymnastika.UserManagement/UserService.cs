@@ -6,7 +6,7 @@ using Gymnastika.ProjectResources.Properties;
 
 namespace Gymnastika.UserManagement
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IUserRepository _userRepository;
 
@@ -112,9 +112,24 @@ namespace Gymnastika.UserManagement
             return validateResult;
         }
 
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _userRepository.GetAll();
+        }
+
         public User GetUser(string userName)
         {
             return _userRepository.Get(userName);
+        }
+
+        public User GetUser(Guid id)
+        {
+            return _userRepository.Get(id);
+        }
+
+        public void Update(User u)
+        {
+            _userRepository.Update(u);
         }
     }
 }
