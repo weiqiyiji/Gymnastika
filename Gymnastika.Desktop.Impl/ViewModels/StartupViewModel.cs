@@ -5,6 +5,8 @@ using System.Text;
 using System.Collections.ObjectModel;
 using Gymnastika.UserManagement;
 using Microsoft.Practices.Prism.ViewModel;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Gymnastika.Desktop.ViewModels
 {
@@ -52,6 +54,45 @@ namespace Gymnastika.Desktop.ViewModels
                     RaisePropertyChanged("SelectedUser");
                 }
             }
-        }	
+        }
+
+        private ICommand _logOnCommand;
+
+        public ICommand LogOnCommand
+        {
+            get
+            {
+                if (_logOnCommand == null)
+                {
+                    _logOnCommand = new DelegateCommand<object>(
+                        LogOn, obj => RegisteredUsers.Count > 0 && SelectedUser != null);
+                }
+
+                return _logOnCommand;
+            }
+        }
+
+        private ICommand _createNewUserCommand;
+
+        public ICommand CreateNewUserCommand
+        {
+            get
+            {
+                if(_createNewUserCommand == null)
+                    _createNewUserCommand = new DelegateCommand<object>(CreateNewUser);
+
+                return _createNewUserCommand;
+            }
+        }
+
+        private void LogOn(object parameter)
+        { 
+            
+        }
+
+        private void CreateNewUser(object parameter)
+        { 
+            
+        }
     }
 }

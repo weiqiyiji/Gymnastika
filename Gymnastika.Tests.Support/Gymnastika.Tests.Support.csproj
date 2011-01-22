@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{713CBE56-506D-4690-89B9-C2D997BE0909}</ProjectGuid>
+    <ProjectGuid>{40426CD2-BF24-4938-9415-38D4AF4D199C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Desktop.Tests</RootNamespace>
-    <AssemblyName>Gymnastika.Desktop.Tests</AssemblyName>
+    <RootNamespace>Gymnastika.Tests.Support</RootNamespace>
+    <AssemblyName>Gymnastika.Tests.Support</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,16 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq">
-      <HintPath>..\Libs\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\Libs\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,22 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ViewModels\StartupViewModelTests.cs" />
+    <Compile Include="InMemoryUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gymnastika.Desktop.Impl\Gymnastika.Desktop.Impl.csproj">
-      <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
-      <Name>Gymnastika.Desktop.Impl</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Desktop\Gymnastika.Desktop.csproj">
-      <Project>{77D43A9C-B3F8-4B5A-9A16-11FB6E6D8B15}</Project>
-      <Name>Gymnastika.Desktop</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj">
-      <Project>{40426CD2-BF24-4938-9415-38D4AF4D199C}</Project>
-      <Name>Gymnastika.Tests.Support</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.UserManagement\Gymnastika.UserManagement.csproj">
       <Project>{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}</Project>
       <Name>Gymnastika.UserManagement</Name>

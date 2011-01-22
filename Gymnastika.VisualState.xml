@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
   <TopNode>[0-1000]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.nunit</TopNode>
-  <SelectedNode>[0-1001]Gymnastika.UserManagement.Tests.UserServiceTests</SelectedNode>
+  <SelectedNode>[0-1021]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Desktop.Tests\bin\Debug\Gymnastika.Desktop.Tests.dll</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
     <Node UniqueName="[0-1000]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.nunit" Expanded="true" />
@@ -10,5 +10,11 @@
     <Node UniqueName="[0-1016]Gymnastika.UserManagement" Expanded="true" />
     <Node UniqueName="[0-1017]Gymnastika.UserManagement.Tests" Expanded="true" />
     <Node UniqueName="[0-1001]Gymnastika.UserManagement.Tests.UserServiceTests" Expanded="true" />
+    <Node UniqueName="[0-1021]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Desktop.Tests\bin\Debug\Gymnastika.Desktop.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1022]Gymnastika" Expanded="true" />
+    <Node UniqueName="[0-1023]Gymnastika.Desktop" Expanded="true" />
+    <Node UniqueName="[0-1024]Gymnastika.Desktop.Tests" Expanded="true" />
+    <Node UniqueName="[0-1025]Gymnastika.Desktop.Tests.ViewModels" Expanded="true" />
+    <Node UniqueName="[0-1018]Gymnastika.Desktop.Tests.ViewModels.StartupViewModelTests" Expanded="true" />
   </Nodes>
 </VisualState>

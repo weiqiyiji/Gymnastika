@@ -25,7 +25,7 @@ namespace Gymnastika.Desktop
         protected override void InitializeShell()
         {
             IRegionManager regionManager = Container.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => Container.Resolve<MainView>());
+            regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => Container.Resolve<StartupView>());
         }
 
         protected override IModuleCatalog CreateModuleCatalog()

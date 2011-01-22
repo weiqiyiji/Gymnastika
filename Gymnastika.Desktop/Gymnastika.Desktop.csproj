@@ -67,38 +67,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\StartupViewModel.cs" />
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StartupView.xaml.cs">
-      <DependentUpon>StartupView.xaml</DependentUpon>
-    </Compile>
     <Page Include="ModulesCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Shell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GymnastikaBootstrapper.cs" />
-    <Compile Include="Views\Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\StartupView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -128,6 +105,10 @@
     <ProjectReference Include="..\Gymnastika.Desktop.Core\Gymnastika.Desktop.Core.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Desktop.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Desktop.Impl\Gymnastika.Desktop.Impl.csproj">
+      <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
+      <Name>Gymnastika.Desktop.Impl</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Modules.MealsManagement\Gymnastika.Modules.MealsManagement.csproj">
       <Project>{E697A4E3-B016-4716-BB3D-E774F7BD3B29}</Project>
