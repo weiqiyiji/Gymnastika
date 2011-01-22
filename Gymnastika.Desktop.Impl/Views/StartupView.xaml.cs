@@ -18,12 +18,21 @@ namespace Gymnastika.Desktop.Views
     /// <summary>
     /// Interaction logic for StartupView.xaml
     /// </summary>
-    public partial class StartupView : UserControl
+    public partial class StartupView : UserControl, IStartupView
     {
-        public StartupView(StartupViewModel model)
+        public StartupView()
         {
             InitializeComponent();
-            this.DataContext = model;
         }
+
+        #region IStartupView Members
+
+        public object Model
+        {
+            get { return DataContext; }
+            set { DataContext = value; }
+        }
+
+        #endregion
     }
 }

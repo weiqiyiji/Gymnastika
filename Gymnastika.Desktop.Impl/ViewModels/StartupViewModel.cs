@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
-using Gymnastika.UserManagement;
+using Gymnastika.Desktop.Core.UserManagement;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Gymnastika.Desktop.Views;
+using System.Collections.Specialized;
+using Microsoft.Practices.Prism.Events;
+using System.Windows;
 
 namespace Gymnastika.Desktop.ViewModels
 {
@@ -14,17 +18,20 @@ namespace Gymnastika.Desktop.ViewModels
     {
         private IUserService _userService;
 
-        public StartupViewModel(IUserService userService)
+        public StartupViewModel(IStartupView view, IUserService userService)
         {
+            View = view;
+            View.Model = this;
+            
             _userService = userService;
+
             RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
             RegisteredUsers.CollectionChanged += RegisteredUsers_CollectionChanged;
         }
 
-        private void RegisteredUsers_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            RaisePropertyChanged("RegisteredUsers");
-        }
+        private void RegisteredUsers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) { }
+
+        public IStartupView View { get; set; }
 
         private ObservableCollection<User> _registeredUsers;
 
@@ -86,12 +93,12 @@ namespace Gymnastika.Desktop.ViewModels
         }
 
         private void LogOn(object parameter)
-        { 
+        {
             
         }
 
         private void CreateNewUser(object parameter)
-        { 
+        {
             
         }
     }

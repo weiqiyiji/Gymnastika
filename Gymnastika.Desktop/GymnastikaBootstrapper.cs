@@ -11,7 +11,8 @@ using Gymnastika.Desktop.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Desktop.Core;
-using Gymnastika.UserManagement;
+using Gymnastika.Desktop.Core.UserManagement;
+using Gymnastika.Desktop.Controllers;
 
 namespace Gymnastika.Desktop
 {
@@ -24,8 +25,7 @@ namespace Gymnastika.Desktop
 
         protected override void InitializeShell()
         {
-            IRegionManager regionManager = Container.Resolve<IRegionManager>();
-            regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => Container.Resolve<StartupView>());
+            
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
@@ -36,18 +36,9 @@ namespace Gymnastika.Desktop
         
         protected override void ConfigureContainer()
         {
-            //Register Views
             Container
-                .RegisterType<MainView>()
-                .RegisterType<StartupView>()
-                .RegisterType<Shell>();
-
-            //Register ViewModels
-            Container
-                .RegisterType<StartupViewModel>();
-
-            Container
-                .RegisterType<IUserService, UserService>();
+                .RegisterType<IUserService, UserService>()
+                .RegisterType<StartupController>();
 
             base.ConfigureContainer();
         }

@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gymnastika.Desktop.Core\Gymnastika.Desktop.Core.csproj">
+      <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
+      <Name>Gymnastika.Desktop.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Desktop.Impl\Gymnastika.Desktop.Impl.csproj">
       <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
       <Name>Gymnastika.Desktop.Impl</Name>
@@ -65,10 +69,6 @@
     <ProjectReference Include="..\Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj">
       <Project>{40426CD2-BF24-4938-9415-38D4AF4D199C}</Project>
       <Name>Gymnastika.Tests.Support</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.UserManagement\Gymnastika.UserManagement.csproj">
-      <Project>{2E4CFDD8-3D3C-4416-AA08-DACD04A485DB}</Project>
-      <Name>Gymnastika.UserManagement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

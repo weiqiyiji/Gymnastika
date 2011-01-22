@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</ProjectGuid>
+    <ProjectGuid>{42C00391-65D8-4E77-85A7-365475DCBDFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Desktop</RootNamespace>
-    <AssemblyName>Gymnastika.Desktop.Impl</AssemblyName>
+    <RootNamespace>Gymnastika.Desktop.Core.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Desktop.Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,58 +31,23 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\Libs\Moq.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
-      <HintPath>..\Libs\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Libs\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\StartupController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\StartupViewModel.cs" />
-    <Compile Include="Views\IStartupView.cs" />
-    <Compile Include="Views\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StartupView.xaml.cs">
-      <DependentUpon>StartupView.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\MainView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Shell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\StartupView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="UserManagement\UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Desktop.Core\Gymnastika.Desktop.Core.csproj">
@@ -92,6 +57,10 @@
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
       <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
       <Name>Gymnastika.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj">
+      <Project>{40426CD2-BF24-4938-9415-38D4AF4D199C}</Project>
+      <Name>Gymnastika.Tests.Support</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

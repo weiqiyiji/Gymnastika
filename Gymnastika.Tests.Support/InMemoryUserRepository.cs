@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Gymnastika.UserManagement.Tests
+namespace Gymnastika.Desktop.Core.UserManagement.Tests
 {
     public class InMemoryUserRepository : IUserRepository
     {
