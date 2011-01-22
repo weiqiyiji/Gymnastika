@@ -13,12 +13,12 @@ using System.Windows.Controls.Primitives;
 
 namespace Gymnastika.Controls.Desktop
 {
-    [TemplatePart(Name = InstantSearchBox.PART_CancelButton, Type = typeof(Button))]
+    [TemplatePart(Name = PART_CancelButton, Type = typeof(Button))]
     public class InstantSearchBox : ComboBox
     {
-        public const string PART_Popup = "PART_Popup";
-        public const string PART_CancelButton = "PART_CancelButton";
-        public const string PART_EditableTextBox = "PART_EditableTextBox";
+        protected const string PART_Popup = "PART_Popup";
+        protected const string PART_CancelButton = "PART_CancelButton";
+        protected const string PART_EditableTextBox = "PART_EditableTextBox";
 
         static InstantSearchBox()
         {
