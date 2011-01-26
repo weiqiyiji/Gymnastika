@@ -8,8 +8,8 @@
     <ProjectGuid>{713CBE56-506D-4690-89B9-C2D997BE0909}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Desktop.Tests</RootNamespace>
-    <AssemblyName>Gymnastika.Desktop.Tests</AssemblyName>
+    <RootNamespace>Gymnastika.Infrastructure.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Infrastructure.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -68,7 +68,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
-      <Name>Gymnastika.Core</Name>
+      <Name>Gymnastika.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Infrastructure\Gymnastika.Infrastructure.csproj">
       <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>

@@ -99,7 +99,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
-      <Name>Gymnastika.Core</Name>
+      <Name>Gymnastika.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
       <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>

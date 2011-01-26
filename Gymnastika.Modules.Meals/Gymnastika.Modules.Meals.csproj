@@ -8,8 +8,8 @@
     <ProjectGuid>{E697A4E3-B016-4716-BB3D-E774F7BD3B29}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Modules.MealsManagement</RootNamespace>
-    <AssemblyName>Gymnastika.Modules.MealsManagement</AssemblyName>
+    <RootNamespace>Gymnastika.Modules.Meals</RootNamespace>
+    <AssemblyName>Gymnastika.Modules.Meals</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -31,7 +31,7 @@ namespace Gymnastika
         protected override IModuleCatalog CreateModuleCatalog()
         {
             return Microsoft.Practices.Prism.Modularity.ModuleCatalog.CreateFromXaml(
-                new Uri("/Gymnastika;Component/ModulesCatalog.xaml"));
+                new Uri("/Gymnastika;Component/Data/ModulesCatalog.xaml"));
         }
         
         protected override void ConfigureContainer()

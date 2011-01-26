@@ -14,7 +14,7 @@
         </mod:ModuleInfo>
     </mod:ModuleInfoGroup>-->
 
-    <mod:ModuleInfo ModuleName="SportsManagementModule" ModuleType="Gymnastika.Modules.Sports.SportsManagementModule, Gymnastika.Module.SportsManagement" />
-    <mod:ModuleInfo ModuleName="MealsManagementModule" ModuleType="Gymnastika.Modules.Meals.MealsManagementModule, Gymnastika.Module.MealsManagement" />
+    <mod:ModuleInfo ModuleName="SportsManagementModule" ModuleType="Gymnastika.Modules.Sports.SportsManagementModule, Gymnastika.Module.Sports" />
+    <mod:ModuleInfo ModuleName="MealsManagementModule" ModuleType="Gymnastika.Modules.Meals.MealsManagementModule, Gymnastika.Module.Meals" />
 </mod:ModuleCatalog>
 

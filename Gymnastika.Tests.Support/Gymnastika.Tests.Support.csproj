@@ -46,7 +46,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
-      <Name>Gymnastika.Core</Name>
+      <Name>Gymnastika.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
