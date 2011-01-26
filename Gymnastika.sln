@@ -1,30 +1,31 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Desktop", "Gymnastika.Desktop\Gymnastika.Desktop.csproj", "{77D43A9C-B3F8-4B5A-9A16-11FB6E6D8B15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika", "Gymnastika\Gymnastika.csproj", "{77D43A9C-B3F8-4B5A-9A16-11FB6E6D8B15}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Controls.Desktop", "Gymnastika.Controls.Desktop\Gymnastika.Controls.Desktop.csproj", "{491D4668-34B5-446C-82C5-2805A24B0A35}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Controls", "Gymnastika.Controls\Gymnastika.Controls.csproj", "{491D4668-34B5-446C-82C5-2805A24B0A35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Desktop.Core", "Gymnastika.Desktop.Core\Gymnastika.Desktop.Core.csproj", "{F7C4886B-B079-4A15-87F6-6504E82B9389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Common", "Gymnastika.Common\Gymnastika.Common.csproj", "{F7C4886B-B079-4A15-87F6-6504E82B9389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Controls.Desktop.Demo", "Gymnastika.Controls.Desktop.Demo\Gymnastika.Controls.Desktop.Demo.csproj", "{348143C8-994B-4CAF-B05D-8FC243C1E891}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Controls.Demo", "Gymnastika.Controls.Demo\Gymnastika.Controls.Demo.csproj", "{348143C8-994B-4CAF-B05D-8FC243C1E891}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Resources", "Gymnastika.Resources\Gymnastika.Resources.csproj", "{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.SportsManagement", "Gymnastika.Modules.SportsManagement\Gymnastika.Modules.SportsManagement.csproj", "{595AB87C-2639-4577-88BB-6C5073AF2CBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.Sports", "Gymnastika.Modules.Sports\Gymnastika.Modules.Sports.csproj", "{595AB87C-2639-4577-88BB-6C5073AF2CBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.MealsManagement", "Gymnastika.Modules.MealsManagement\Gymnastika.Modules.MealsManagement.csproj", "{E697A4E3-B016-4716-BB3D-E774F7BD3B29}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.Meals", "Gymnastika.Modules.Meals\Gymnastika.Modules.Meals.csproj", "{E697A4E3-B016-4716-BB3D-E774F7BD3B29}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{CA821CDF-AA0B-4069-A55C-C5BF19D764FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Desktop.Tests", "Gymnastika.Desktop.Tests\Gymnastika.Desktop.Tests.csproj", "{713CBE56-506D-4690-89B9-C2D997BE0909}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Infrastructure.Tests", "Gymnastika.Infrastructure.Tests\Gymnastika.Infrastructure.Tests.csproj", "{713CBE56-506D-4690-89B9-C2D997BE0909}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Tests.Support", "Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj", "{40426CD2-BF24-4938-9415-38D4AF4D199C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Desktop.Impl", "Gymnastika.Desktop.Impl\Gymnastika.Desktop.Impl.csproj", "{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Infrastructure", "Gymnastika.Infrastructure\Gymnastika.Infrastructure.csproj", "{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Desktop.Core.Tests", "Gymnastika.Desktop.Core.Tests\Gymnastika.Desktop.Core.Tests.csproj", "{42C00391-65D8-4E77-85A7-365475DCBDFA}"
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.SportsManagement.Test", "Gymnastika.Modules.SportsManagement.Test\Gymnastika.Modules.SportsManagement.Test.csproj", "{B3297644-A9C1-4048-ABD4-8D6E2E606819}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Common.Tests", "Gymnastika.Common.Tests\Gymnastika.Common.Tests.csproj", "{42C00391-65D8-4E77-85A7-365475DCBDFA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{59D175BE-4CFC-47CF-A20F-A6B120FA93B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -146,16 +147,6 @@ Global
 		{42C00391-65D8-4E77-85A7-365475DCBDFA}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{42C00391-65D8-4E77-85A7-365475DCBDFA}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{42C00391-65D8-4E77-85A7-365475DCBDFA}.Release|x86.ActiveCfg = Release|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -164,6 +155,7 @@ Global
 		{713CBE56-506D-4690-89B9-C2D997BE0909} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 		{40426CD2-BF24-4938-9415-38D4AF4D199C} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 		{42C00391-65D8-4E77-85A7-365475DCBDFA} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
-		{B3297644-A9C1-4048-ABD4-8D6E2E606819} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
+		{E697A4E3-B016-4716-BB3D-E774F7BD3B29} = {59D175BE-4CFC-47CF-A20F-A6B120FA93B7}
+		{595AB87C-2639-4577-88BB-6C5073AF2CBC} = {59D175BE-4CFC-47CF-A20F-A6B120FA93B7}
 	EndGlobalSection
 EndGlobal

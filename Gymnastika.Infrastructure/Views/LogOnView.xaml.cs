@@ -1,0 +1,42 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+
+namespace Gymnastika.Views
+{
+    /// <summary>
+    /// Interaction logic for LogOnView.xaml
+    /// </summary>
+    public partial class LogOnView : Window, ILogOnView
+    {
+        public LogOnView()
+        {
+            InitializeComponent();
+        }
+
+        #region IViewWithContext Members
+
+        public object Model
+        {
+            get
+            {
+                return DataContext;
+            }
+            set
+            {
+                DataContext = value;
+            }
+        }
+
+        #endregion
+    }
+}

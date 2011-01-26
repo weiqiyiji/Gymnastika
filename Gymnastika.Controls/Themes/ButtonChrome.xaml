@@ -1,0 +1,56 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:Gymnastika.Controls"
+                    xmlns:cov="clr-namespace:Gymnastika.Controls.Converters">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;Component/Themes/DefaultBrushes.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+    
+    <cov:RoundedCornerResizeConverter x:Key="RoundedCornerConverter" />
+    
+    <Style TargetType="{x:Type controls:ButtonChrome}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:ButtonChrome}">
+                	<Grid Height="Auto">
+                		<Border x:Name="MouseOverLayer" BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="{TemplateBinding CornerRadius}" 
+                                BorderBrush="{TemplateBinding MouseOverBorderBrush}" 
+                                Background="{TemplateBinding MouseOverBackground}" Visibility="Hidden">
+                			<Border x:Name="MouseOverInnerLayer" BorderThickness="{TemplateBinding InnerBorderThickness}" 
+                                    CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource RoundedCornerConverter}, ConverterParameter=-1}" 
+                                    BorderBrush="#BFFFFFFF"/>
+                		</Border>
+                		<Border x:Name="MousePressedLayer" BorderBrush="{TemplateBinding MousePressedBorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="{TemplateBinding CornerRadius}" 
+                                Background="{TemplateBinding MousePressedBackground}" Visibility="Hidden">
+                            <Border Margin="0" ClipToBounds="True" x:Name="MousePressedInnerLayer" 
+                                    BorderThickness="0.2,1.6,0.2,0" 
+                                    CornerRadius="{Binding CornerRadius, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource RoundedCornerConverter}, ConverterParameter=-1}" 
+                                    BorderBrush="#30000000" />
+                		</Border>
+                		<ContentPresenter Margin="{TemplateBinding Padding}"/>
+                	</Grid>
+                	<ControlTemplate.Triggers>
+                		<Trigger Property="IsPressed" Value="True">
+                			<Setter TargetName="MousePressedLayer" Property="Visibility" Value="Visible" />
+                        </Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+                			<Setter TargetName="MouseOverLayer" Property="Visibility" Value="Visible" />          		
+						</Trigger>
+                	</ControlTemplate.Triggers>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="InnerBorderThickness" Value="1"/>
+		<Setter Property="Padding" Value="2" />
+        <Setter Property="MouseOverBorderBrush" Value="{StaticResource ButtonChrome_MouseOver_BorderBrush}" />
+        <Setter Property="MouseOverBackground" Value="{StaticResource ButtonChrome_MouseOver_Background}" />
+        <Setter Property="MousePressedBorderBrush" Value="{StaticResource ButtonChrome_Pressed_BorderBrush}" />
+        <Setter Property="MousePressedBackground" Value="{StaticResource ButtonChrome_Pressed_Background}" />
+    </Style>
+</ResourceDictionary>
