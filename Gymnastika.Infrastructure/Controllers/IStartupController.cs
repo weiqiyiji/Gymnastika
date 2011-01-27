@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Gymnastika.Common
+namespace Gymnastika.Controllers
 {
-    public interface IViewWithContext
+    public interface IStartupController
     {
-        object Model { get; set; }
+        void Run();
     }
 }

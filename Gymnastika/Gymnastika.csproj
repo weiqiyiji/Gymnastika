@@ -48,7 +48,11 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,7 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="ModulesCatalog.xaml">
+    <Page Include="Data\ModulesCatalog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -95,6 +99,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -117,6 +122,10 @@
     <ProjectReference Include="..\Gymnastika.Modules.Sports\Gymnastika.Modules.Sports.csproj">
       <Project>{595AB87C-2639-4577-88BB-6C5073AF2CBC}</Project>
       <Name>Gymnastika.Modules.Sports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Repositories.LinqToSqlProvider\Gymnastika.Repositories.LinqToSqlProvider.csproj">
+      <Project>{785AB8C4-05FA-41AD-8825-B2DFBA1784E4}</Project>
+      <Name>Gymnastika.Repositories.LinqToSqlProvider</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
       <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>

@@ -2,28 +2,30 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gymnastika.Common.Services;
+using Gymnastika.Common.Models;
 
-namespace Gymnastika.Common.UserManagement
+namespace Gymnastika.Common.Repositories
 {
     public interface IUserRepository
     {
-        User Get(Guid id);
-        User Get(string userName);
-        IEnumerable<User> GetAll();
-        bool Add(User user);
+        UserModel Get(int id);
+        UserModel Get(string userName);
+        IEnumerable<UserModel> GetAll();
+        bool Add(UserModel user);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="user"></param>
         /// <returns>false if user does not exists</returns>
-        bool Update(User user);
+        bool Update(UserModel user);
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns>false if user does not exists</returns>
-        bool Delete(Guid id);
+        bool Delete(int id);
     }
 }

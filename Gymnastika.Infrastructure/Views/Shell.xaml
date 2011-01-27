@@ -7,9 +7,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="{x:Static res:Resources.AppTitle}" d:DesignHeight="350" d:DesignWidth="525" WindowState="Maximized">
+        Title="{Binding Title}" d:DesignHeight="350" d:DesignWidth="525" WindowState="Maximized">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.DisplayRegion}" 
+        <ContentControl Background="Black" prism:RegionManager.RegionName="{x:Static core:RegionNames.DisplayRegion}" 
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
 </Window>

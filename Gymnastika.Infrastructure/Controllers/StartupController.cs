@@ -10,11 +10,13 @@ using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Common.Events;
-using Gymnastika.Common.UserManagement;
+using Gymnastika.Common.Services;
+using Microsoft.Practices.Prism.Modularity;
+using Gymnastika.Common.Models;
 
 namespace Gymnastika.Controllers
 {
-    public class StartupController
+    public class StartupController : IStartupController
     {
         private IUnityContainer _container;
         private IRegionManager _regionManager;
@@ -28,28 +30,27 @@ namespace Gymnastika.Controllers
         public void Run()
         {
             RegisterDependencies();
-            RegisterViewsWithRegions();
+            RegisterStartupViewWithRegion();
             SubscribeEvents();
         }
 
         protected void RegisterDependencies()
-        { 
+        {
             //Register Views
             _container
-                .RegisterType<IStartupView, StartupView>()
-                .RegisterType<IMainView, MainView>()
-                .RegisterType<Shell>();
+                .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
+                .RegisterType<IMainView, MainView>(new ContainerControlledLifetimeManager());
 
             //Register ViewModels
             _container
-                .RegisterType<StartupViewModel>();
+                .RegisterType<StartupViewModel>()
+                .RegisterType<MainViewModel>();
         }
 
-        protected void RegisterViewsWithRegions()
+        protected void RegisterStartupViewWithRegion()
         {
             _regionManager.RegisterViewWithRegion(
-                    RegionNames.DisplayRegion, 
-                    () => _container.Resolve<StartupViewModel>().View);
+                    RegionNames.DisplayRegion, () => _container.Resolve<IStartupView>());
         }
 
         protected void SubscribeEvents()
@@ -60,11 +61,27 @@ namespace Gymnastika.Controllers
                 .Subscribe(ProcessUserLogOnSuccess);
         }
 
-        private void ProcessUserLogOnSuccess(User user)
+        private void ProcessUserLogOnSuccess(UserModel user)
         {
-            var view = _container.Resolve<MainViewModel>().View;
-            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => view);
-            _regionManager.Regions[RegionNames.DisplayRegion].Activate(view);
+            var view = _container.Resolve<IMainView>();
+            var startupView = _container.Resolve<IStartupView>();
+            var displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
+            displayRegion.Remove(startupView);
+            displayRegion.Add(view);
+            displayRegion.Activate(view);
+
+            LoadModules();
+        }
+
+        private void LoadModules()
+        {
+            IModuleCatalog moduleCatelog = _container.Resolve<IModuleCatalog>();
+            IModuleManager moduleManager = _container.Resolve<IModuleManager>();
+
+            foreach (var moduleInfo in moduleCatelog.Modules)
+            {
+                moduleManager.LoadModule(moduleInfo.ModuleName);
+            }
         }
     }
 }

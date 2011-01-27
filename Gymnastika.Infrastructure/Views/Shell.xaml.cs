@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Gymnastika.ViewModels;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Views
 {
@@ -22,6 +24,13 @@ namespace Gymnastika.Views
         public Shell()
         {
             InitializeComponent();
+        }
+
+        [Dependency]
+        public ShellViewModel Model
+        {
+            get { return DataContext as ShellViewModel; }
+            set { DataContext = value; }
         }
     }
 }
