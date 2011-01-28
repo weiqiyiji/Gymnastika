@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
-  <TopNode>[0-1000]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.nunit</TopNode>
-  <SelectedNode>[0-1014]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.UserManagement.Tests\bin\Debug\Gymnastika.UserManagement.Tests.dll</SelectedNode>
+  <TopNode>[0-1015]Gymnastika</TopNode>
+  <SelectedNode>[0-1036]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Repositories.LinqToSqlProvider.Tests\bin\Debug\Gymnastika.Repositories.LinqToSqlProvider.Tests.dll</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
     <Node UniqueName="[0-1000]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.nunit" Expanded="true" />
-    <Node UniqueName="[0-1014]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.UserManagement.Tests\bin\Debug\Gymnastika.UserManagement.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1014]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Common.Tests\bin\Debug\Gymnastika.Common.Tests.dll" Expanded="true" />
     <Node UniqueName="[0-1015]Gymnastika" Expanded="true" />
-    <Node UniqueName="[0-1016]Gymnastika.UserManagement" Expanded="true" />
-    <Node UniqueName="[0-1017]Gymnastika.UserManagement.Tests" Expanded="true" />
-    <Node UniqueName="[0-1001]Gymnastika.UserManagement.Tests.UserServiceTests" Expanded="true" />
-    <Node UniqueName="[0-1024]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Desktop.Tests\bin\Debug\Gymnastika.Desktop.Tests.dll" Expanded="true" />
-    <Node UniqueName="[0-1025]Gymnastika" Expanded="true" />
-    <Node UniqueName="[0-1026]Gymnastika.Desktop" Expanded="true" />
-    <Node UniqueName="[0-1027]Gymnastika.Desktop.Tests" Expanded="true" />
-    <Node UniqueName="[0-1029]Gymnastika.Desktop.Tests.Controllers" Expanded="true" />
-    <Node UniqueName="[0-1022]Gymnastika.Desktop.Tests.Controllers.StartupControllerTests" Expanded="true" />
-    <Node UniqueName="[0-1028]Gymnastika.Desktop.Tests.ViewModels" Expanded="true" />
-    <Node UniqueName="[0-1018]Gymnastika.Desktop.Tests.ViewModels.StartupViewModelTests" Expanded="true" />
+    <Node UniqueName="[0-1016]Gymnastika.Common" Expanded="true" />
+    <Node UniqueName="[0-1017]Gymnastika.Common.Tests" Expanded="true" />
+    <Node UniqueName="[0-1018]Gymnastika.Common.Tests.Services" Expanded="true" />
+    <Node UniqueName="[0-1001]Gymnastika.Common.Tests.Services.UserServiceTests" Expanded="true" />
+    <Node UniqueName="[0-1025]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Infrastructure.Tests\bin\Debug\Gymnastika.Infrastructure.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1026]Gymnastika" Expanded="true" />
+    <Node UniqueName="[0-1027]Gymnastika.Tests" Expanded="true" />
+    <Node UniqueName="[0-1028]Gymnastika.Tests.Controllers" Expanded="true" />
+    <Node UniqueName="[0-1019]Gymnastika.Tests.Controllers.StartupControllerTests" Expanded="true" />
+    <Node UniqueName="[0-1029]Gymnastika.Tests.ViewModels" Expanded="true" />
+    <Node UniqueName="[0-1021]Gymnastika.Tests.ViewModels.StartupViewModelTests" Expanded="true" />
+    <Node UniqueName="[0-1036]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Repositories.LinqToSqlProvider.Tests\bin\Debug\Gymnastika.Repositories.LinqToSqlProvider.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1037]Gymnastika" Expanded="true" />
+    <Node UniqueName="[0-1038]Gymnastika.Repositories" Expanded="true" />
+    <Node UniqueName="[0-1039]Gymnastika.Repositories.LinqToSqlProvider" Expanded="true" />
+    <Node UniqueName="[0-1040]Gymnastika.Repositories.LinqToSqlProvider.Tests" Expanded="true" />
+    <Node UniqueName="[0-1030]Gymnastika.Repositories.LinqToSqlProvider.Tests.UserRepositoryTests" Expanded="true" />
   </Nodes>
 </VisualState>

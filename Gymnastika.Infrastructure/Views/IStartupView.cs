@@ -6,7 +6,7 @@ using Gymnastika.Common;
 
 namespace Gymnastika.Views
 {
-    public interface IStartupView : IViewWithContext
+    public interface IStartupView
     {
         void DisplayLogOnField();
     }

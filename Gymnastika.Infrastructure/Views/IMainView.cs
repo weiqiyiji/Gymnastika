@@ -6,7 +6,7 @@ using Gymnastika.Common;
 
 namespace Gymnastika.Views
 {
-    public interface IMainView : IViewWithContext
+    public interface IMainView
     {
     }
 }

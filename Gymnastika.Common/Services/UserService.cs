@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Gymnastika.ProjectResources.Properties;
+using Gymnastika.Common.Repositories;
+using Gymnastika.Common.Models;
 
-namespace Gymnastika.Common.UserManagement
+namespace Gymnastika.Common.Services
 {
     public class UserService : IUserService
     {
@@ -17,13 +19,12 @@ namespace Gymnastika.Common.UserManagement
 
         public string ErrorString { get; private set; }
 
-        public User Register(User user)
+        public UserModel Register(UserModel user)
         {
             if (!ValidateUser(user))
                 return null;
 
-            user.Id = Guid.NewGuid();
-            User savedUser = _userRepository.Get(user.UserName);
+            UserModel savedUser = _userRepository.Get(user.UserName);
             if (savedUser == null)
             {
                 ErrorString = null;
@@ -44,7 +45,7 @@ namespace Gymnastika.Common.UserManagement
                 return false;
             }
 
-            User savedUser = _userRepository.Get(userName);
+            UserModel savedUser = _userRepository.Get(userName);
             if (savedUser != null)
             {
                 if (ComparePassword(password, savedUser.Password))
@@ -65,7 +66,7 @@ namespace Gymnastika.Common.UserManagement
 
         public bool LogOut(string userName)
         {
-            User user = _userRepository.Get(userName);
+            UserModel user = _userRepository.Get(userName);
 
             if (user == null)
             {
@@ -90,7 +91,7 @@ namespace Gymnastika.Common.UserManagement
             return actual == expected;
         }
 
-        private bool ValidateUser(User user)
+        private bool ValidateUser(UserModel user)
         {
             bool validateResult = true;
 
@@ -112,22 +113,22 @@ namespace Gymnastika.Common.UserManagement
             return validateResult;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public IEnumerable<UserModel> GetAllUsers()
         {
             return _userRepository.GetAll();
         }
 
-        public User GetUser(string userName)
+        public UserModel GetUser(string userName)
         {
             return _userRepository.Get(userName);
         }
 
-        public User GetUser(Guid id)
+        public UserModel GetUser(int id)
         {
             return _userRepository.Get(id);
         }
 
-        public void Update(User u)
+        public void Update(UserModel u)
         {
             _userRepository.Update(u);
         }

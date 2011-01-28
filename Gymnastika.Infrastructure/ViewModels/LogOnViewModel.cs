@@ -6,7 +6,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Views;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Gymnastika.Common.UserManagement;
+using Gymnastika.Common.Services;
 
 namespace Gymnastika.ViewModels
 {

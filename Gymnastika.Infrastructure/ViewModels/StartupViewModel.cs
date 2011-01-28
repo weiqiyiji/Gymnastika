@@ -2,13 +2,14 @@
 using System.Collections.Specialized;
 using System.Windows.Input;
 using Gymnastika.Common.Events;
-using Gymnastika.Common.UserManagement;
+using Gymnastika.Common.Services;
 using Gymnastika.Views;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
+using Gymnastika.Common.Models;
 
 namespace Gymnastika.ViewModels
 {
@@ -17,25 +18,20 @@ namespace Gymnastika.ViewModels
         private IUserService _userService;
         private IUnityContainer _container;
 
-        public StartupViewModel(IUnityContainer container, IStartupView view, IUserService userService)
+        public StartupViewModel(IUnityContainer container, IUserService userService)
         {
-            View = view;
-            View.Model = this;
-
             _container = container;
             _userService = userService;
 
-            RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
+            RegisteredUsers = new ObservableCollection<UserModel>(_userService.GetAllUsers());
             RegisteredUsers.CollectionChanged += RegisteredUsers_CollectionChanged;
         }
 
         private void RegisteredUsers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) { }
 
-        public IStartupView View { get; set; }
+        private ObservableCollection<UserModel> _registeredUsers;
 
-        private ObservableCollection<User> _registeredUsers;
-
-        public ObservableCollection<User> RegisteredUsers
+        public ObservableCollection<UserModel> RegisteredUsers
         {
             get { return _registeredUsers; }
             set
@@ -47,10 +43,10 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
-        private User _selectedUser;
 
-        public User SelectedUser
+        private UserModel _selectedUser;
+
+        public UserModel SelectedUser
         {
             get { return _selectedUser; }
             set

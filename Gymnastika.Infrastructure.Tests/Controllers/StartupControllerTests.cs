@@ -25,7 +25,6 @@ namespace Gymnastika.Tests.Controllers
 
             Assert.That(container.IsRegistered<IStartupView>(), Is.True);
             Assert.That(container.IsRegistered<IMainView>(), Is.True);
-            Assert.That(container.IsRegistered<Shell>(), Is.True);
         }
     }
 
@@ -38,11 +37,6 @@ namespace Gymnastika.Tests.Controllers
         public void CallRegisterDependencies()
         {
             base.RegisterDependencies();
-        }
-
-        public void CallRegisterViewsWithRegions()
-        {
-            base.RegisterViewsWithRegions();
         }
 
         public void CallSubscribeEvents()

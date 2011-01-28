@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Gymnastika.Common.UserManagement;
+using Gymnastika.Common.Services;
 using Microsoft.Practices.Prism.Events;
+using Gymnastika.Common.Models;
 
 namespace Gymnastika.Common.Events
 {
-    public class LogOnSuccessEvent : CompositePresentationEvent<User>
+    public class LogOnSuccessEvent : CompositePresentationEvent<UserModel>
     {
     }
 }

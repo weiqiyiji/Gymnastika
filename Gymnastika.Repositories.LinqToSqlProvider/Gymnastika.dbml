@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Gymnastika" EntityNamespace="Gymnastika.Repositories.LinqToSqlProvider" ContextNamespace="Gymnastika.Repositories.LinqToSqlProvider" Class="GymnastikaDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="IsActive" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Height" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Weight" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Age" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Gender" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+</Database>

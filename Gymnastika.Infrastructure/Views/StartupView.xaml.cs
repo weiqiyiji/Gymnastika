@@ -21,18 +21,19 @@ namespace Gymnastika.Views
     /// </summary>
     public partial class StartupView : UserControl, IStartupView
     {
-        public StartupView()
+        public StartupView(StartupViewModel model)
         {
             InitializeComponent();
+            Model = model;
+        }    
+
+        public StartupViewModel Model
+        {
+            get { return DataContext as StartupViewModel; }
+            set { DataContext = value; }
         }
 
         #region IStartupView Members
-
-        public object Model
-        {
-            get { return DataContext; }
-            set { DataContext = value; }
-        }
 
         public void DisplayLogOnField()
         {

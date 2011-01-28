@@ -5,10 +5,12 @@ using System.Text;
 using NUnit.Framework;
 using Gymnastika.ProjectResources.Properties;
 using Moq;
-using Gymnastika.Common.UserManagement;
-using Gymnastika.Common.UserManagement.Tests;
+using Gymnastika.Common.Services;
+using Gymnastika.Common.Repositories;
+using Gymnastika.Common.Models;
+using Gymnastika.Tests.Support;
 
-namespace Gymnastika.UserManagement.Tests
+namespace Gymnastika.Common.Tests.Services
 {
     [TestFixture]
     public class UserServiceTests
@@ -24,8 +26,8 @@ namespace Gymnastika.UserManagement.Tests
         [Test]
         public void Register_InfoValid_ReturnUserWithId()
         {
-            User user = _userService.Register(
-                new User 
+            UserModel user = _userService.Register(
+                new UserModel 
                 { 
                     UserName = "Martin", 
                     Password = "Pwd",
@@ -44,8 +46,8 @@ namespace Gymnastika.UserManagement.Tests
         [Test]
         public void Register_PasswordNull_CanPass()
         {
-            User user = _userService.Register(
-                new User
+            UserModel user = _userService.Register(
+                new UserModel
                 {
                     UserName = "Martin",
                     Gender = Gender.Male,
@@ -64,15 +66,15 @@ namespace Gymnastika.UserManagement.Tests
         public void Register_UserExists_ReturnNull()
         {
             _userService.Register(
-                new User
+                new UserModel
                 {
                     UserName = "Martin",
                     Gender = Gender.Male,
                     Age = 21
                 });
 
-            User user = _userService.Register(
-                new User
+            UserModel user = _userService.Register(
+                new UserModel
                 {
                     UserName = "Martin",
                     Gender = Gender.Male,
@@ -86,8 +88,8 @@ namespace Gymnastika.UserManagement.Tests
         [Test]
         public void Register_AgeNotValid_ReturnNull()
         {
-            User user = _userService.Register(
-                new User
+            UserModel user = _userService.Register(
+                new UserModel
                 {
                     UserName = "Martin",
                     Gender = Gender.Male,
@@ -101,7 +103,7 @@ namespace Gymnastika.UserManagement.Tests
         [Test]
         public void Register_UserNameNull_ReturnNull()
         {
-            User user = _userService.Register(new User());
+            UserModel user = _userService.Register(new UserModel());
             Assert.IsNull(user);
             Assert.AreEqual(Resources.InvalidUserName, _userService.ErrorString);
         }
@@ -117,13 +119,13 @@ namespace Gymnastika.UserManagement.Tests
         public void LogOn_InfoValid_ReturnTrue()
         {
             _userService.Register(
-                new User { UserName = "Martin", Password = "Pwd", IsActive = false });
+                new UserModel { UserName = "Martin", Password = "Pwd", IsActive = false });
 
             bool result = _userService.LogOn("Martin", "Pwd");
 
             Assert.IsTrue(result);
 
-            User user = _userService.GetUser("Martin");
+            UserModel user = _userService.GetUser("Martin");
 
             Assert.IsTrue(user.IsActive);
         }
@@ -134,7 +136,7 @@ namespace Gymnastika.UserManagement.Tests
             var mockRepository = new Mock<IUserRepository>();
             mockRepository
                 .Setup(m => m.Get("Martin"))
-                .Returns(new User { Password = "Pwd" });
+                .Returns(new UserModel { Password = "Pwd" });
 
             UserService userService = new UserService(mockRepository.Object);
             bool result = userService.LogOn("Martin", "InvalidPassword");
@@ -158,13 +160,13 @@ namespace Gymnastika.UserManagement.Tests
         public void LogOut_UserNameExists_ReturnTrue()
         {
             _userService.Register(
-                new User { UserName = "Martin", Password = "Pwd", IsActive = true });
+                new UserModel { UserName = "Martin", Password = "Pwd", IsActive = true });
 
             bool result = _userService.LogOut("Martin");
 
             Assert.IsTrue(result);
 
-            User user = _userService.GetUser("Martin");
+            UserModel user = _userService.GetUser("Martin");
             Assert.IsFalse(user.IsActive);
         }
 
@@ -180,9 +182,9 @@ namespace Gymnastika.UserManagement.Tests
         public void Update()
         {
             _userService.Register(
-                new User { UserName = "Martin", Password = "Pwd", IsActive = true, Age = 20 });
+                new UserModel { UserName = "Martin", Password = "Pwd", IsActive = true, Age = 20 });
 
-            User user = _userService.GetUser("Martin");
+            UserModel user = _userService.GetUser("Martin");
             user.Age = 30;
             _userService.Update(user);
 
