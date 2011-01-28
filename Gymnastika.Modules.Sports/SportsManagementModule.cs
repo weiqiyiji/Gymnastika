@@ -5,29 +5,40 @@ using System.Text;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Modules.Sports
 {
     public class SportsManagementModule : IModule
     {
-        readonly private IRegionViewRegistry _regionViewRegistry;
-
-        public SportsManagementModule(IRegionViewRegistry regionViewRegistry)
+        readonly private IRegionManager _regionManager;
+        readonly private IUnityContainer _container;
+        public SportsManagementModule(IUnityContainer container, IRegionManager regionManager)
         {
-            _regionViewRegistry = regionViewRegistry;
+            _regionManager = regionManager;
+            _container = container;
         }
 
         #region IModule Members
 
         public void Initialize()
         {
-#if (DEBUG)
-            if (_regionViewRegistry == null)
-                throw new Exception("SportsModule:Initialize:RegionViewRegistry is null");
-#endif
-            //_regionViewRegistry.RegisterViewWithRegion(RegionNames.MainRegion, typeof(SportsManagementView));
+            RegisterService();
+            Run();
         }
 
         #endregion
+
+        private void Run()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void RegisterService()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
