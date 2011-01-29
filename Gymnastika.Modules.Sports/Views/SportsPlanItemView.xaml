@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="90" d:DesignWidth="299">
+    <Border BorderThickness="1" CornerRadius="8">
+        <Border.Background>
+            <LinearGradientBrush EndPoint="0.488,2.256" StartPoint="0.484,-0.001">
+                <GradientStop Color="#FFA8F0F1" Offset="0" />
+                <GradientStop Color="#CCD5F3F3" Offset="0.511" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Border.BorderBrush>
+            <SolidColorBrush Color="#FF88CFED" Opacity="0.9" />
+        </Border.BorderBrush>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Margin="0,0,129,0">
+                <Label.Content>
+                    <Binding Path="Model.Sport.Name" Mode="TwoWay"></Binding>
+                </Label.Content>
+            </Label>
+        </Grid>
+    </Border>
+</UserControl>
