@@ -31,12 +31,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{204B1096-6
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Modules.Sports.Test", "Gymnastika.Modules.Sports.Test\Gymnastika.Modules.Sports.Test.csproj", "{4C4CC307-FF8E-44D1-A4FD-1D393DBE16CC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D570E4DA-6DF5-44D8-8A7D-F2F9FEF74B90}"
-	ProjectSection(SolutionItems) = preProject
-		Gymnastika.vsmdi = Gymnastika.vsmdi
-		Local.testsettings = Local.testsettings
-		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
-	EndProjectSection
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Repositories.LinqToSqlProvider", "Gymnastika.Repositories.LinqToSqlProvider\Gymnastika.Repositories.LinqToSqlProvider.csproj", "{785AB8C4-05FA-41AD-8825-B2DFBA1784E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Repositories.LinqToSqlProvider.Tests", "Gymnastika.Repositories.LinqToSqlProvider.Tests\Gymnastika.Repositories.LinqToSqlProvider.Tests.csproj", "{1E6D296B-427E-40CA-882E-225D80A6DD5D}"
@@ -206,7 +200,6 @@ Global
 		{40426CD2-BF24-4938-9415-38D4AF4D199C} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 		{42C00391-65D8-4E77-85A7-365475DCBDFA} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 		{4C4CC307-FF8E-44D1-A4FD-1D393DBE16CC} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
-		{D570E4DA-6DF5-44D8-8A7D-F2F9FEF74B90} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 		{1E6D296B-427E-40CA-882E-225D80A6DD5D} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}
 	EndGlobalSection
 EndGlobal
