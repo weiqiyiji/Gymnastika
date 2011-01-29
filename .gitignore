@@ -7,3 +7,6 @@
 *.nunit
 TestResult.xml
 *.swp
+*.testsettings
+VisualState.xml
+*.vsmdi
