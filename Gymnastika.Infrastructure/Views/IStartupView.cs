@@ -8,6 +8,5 @@ namespace Gymnastika.Views
 {
     public interface IStartupView
     {
-        void DisplayLogOnField();
     }
 }

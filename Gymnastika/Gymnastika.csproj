@@ -134,7 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\Gymnastika.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup />

@@ -13,6 +13,7 @@ using Gymnastika.Common.Models;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using System;
+using Gymnastika.Controllers;
 
 namespace Gymnastika.ViewModels
 {
@@ -58,6 +59,7 @@ namespace Gymnastika.ViewModels
                 {
                     _selectedUser = value;
                     RaisePropertyChanged("SelectedUser");
+                    (LogOnCommand as DelegateCommand).RaiseCanExecuteChanged();
                 }
             }
         }
@@ -70,8 +72,7 @@ namespace Gymnastika.ViewModels
             {
                 if (_logOnCommand == null)
                 {
-                    _logOnCommand = new DelegateCommand<object>(
-                        LogOn, obj => RegisteredUsers.Count > 0 && SelectedUser != null);
+                    _logOnCommand = new DelegateCommand(LogOn, LogOnCommandCanExecutePredicate);
                 }
 
                 return _logOnCommand;
@@ -85,30 +86,23 @@ namespace Gymnastika.ViewModels
             get
             {
                 if(_createNewUserCommand == null)
-                    _createNewUserCommand = new DelegateCommand<object>(CreateNewUser);
+                    _createNewUserCommand = new DelegateCommand(CreateNewUser);
 
                 return _createNewUserCommand;
             }
         }
 
-        private void LogOn(object parameter)
+        private void LogOn()
         {
-            LogOnViewModel vm = _container.Resolve<LogOnViewModel>();
-            vm.UserName = SelectedUser.UserName;
-            vm.LogOnComplete += LogOnViewModel_LogOnComplete;
-            vm.DoLogOn();
+            _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
         }
 
-        private void LogOnViewModel_LogOnComplete(object sender, LogOnCompleteEventArgs e)
+        private bool LogOnCommandCanExecutePredicate()
         {
-            if (e.IsSucceed)
-            {
-                _container.Resolve<IEventAggregator>()
-                    .GetEvent<LogOnSuccessEvent>().Publish(SelectedUser);
-            }
+            return RegisteredUsers.Count > 0 && SelectedUser != null;
         }
 
-        private void CreateNewUser(object parameter)
+        private void CreateNewUser()
         {
             IRegionManager regionManager = _container.Resolve<IRegionManager>();
             regionManager.AddToRegion(RegionNames.DisplayRegion, _container.Resolve<ICreateNewUserView>());

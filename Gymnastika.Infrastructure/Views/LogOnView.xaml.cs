@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Gymnastika.ViewModels;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Views
 {
@@ -23,20 +25,17 @@ namespace Gymnastika.Views
             InitializeComponent();
         }
 
-        #region IViewWithContext Members
-
-        public object Model
+        [Dependency]
+        public LogOnViewModel Model
         {
             get
             {
-                return DataContext;
+                return DataContext as LogOnViewModel;
             }
             set
             {
                 DataContext = value;
             }
         }
-
-        #endregion
     }
 }

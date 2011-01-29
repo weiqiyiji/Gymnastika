@@ -7,19 +7,21 @@ using Gymnastika.Views;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using Gymnastika.Common.Services;
+using Gymnastika.Common.Models;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Common.Events;
 
 namespace Gymnastika.ViewModels
 {
     public class LogOnViewModel : NotificationObject
     {
         private IUserService _userService;
+        private IEventAggregator _eventAggregator;
 
-        public ILogOnView View { get; set; }
-
-        public LogOnViewModel(ILogOnView logOnView, IUserService userService)
+        public LogOnViewModel(IUserService userService, IEventAggregator eventAggregator)
         {
-            View = logOnView;
             _userService = userService;
+            _eventAggregator = eventAggregator;
         }
      
         private string _userName;
@@ -51,11 +53,22 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
+        
+        private bool _isSuccess;
 
-        public void DoLogOn()
+        public bool IsSuccess
         {
-            View.Show();
+            get { return _isSuccess; }
+            set
+            {
+                if (_isSuccess != value)
+                {
+                    _isSuccess = value;
+                    RaisePropertyChanged("IsSuccess");
+                }
+            }
         }
+				
 
         private ICommand _logOnCommand;
 
@@ -70,30 +83,14 @@ namespace Gymnastika.ViewModels
             }
         }
 
-        public event LogOnCompleteHandler LogOnComplete;
-
-        private void OnLogOnComplete(bool result)
-        {
-            if (LogOnComplete != null)
-                LogOnComplete(this, new LogOnCompleteEventArgs(result));
-        }
-
         private void DoProcessLogOn()
         {
-            bool result = _userService.LogOn(UserName, Password);
-            OnLogOnComplete(result);
+            IsSuccess = _userService.LogOn(UserName, Password);
+
+            if (IsSuccess)
+            {
+                _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(_userService.GetUser(UserName));
+            }
         }
-    }
-
-    public delegate void LogOnCompleteHandler(object sender, LogOnCompleteEventArgs e);
-
-    public class LogOnCompleteEventArgs : EventArgs
-    {
-        public LogOnCompleteEventArgs(bool result)
-        {
-            IsSucceed = result;
-        }
-
-        public bool IsSucceed { get; set; }
     }
 }

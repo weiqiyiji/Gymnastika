@@ -21,6 +21,7 @@ namespace Gymnastika.Controllers
     {
         private IUnityContainer _container;
         private IRegionManager _regionManager;
+        private IStartupView _startupView;
 
         public StartupController(IUnityContainer container, IRegionManager regionManager)
         {
@@ -45,10 +46,12 @@ namespace Gymnastika.Controllers
             _container
                 .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMainView, MainView>(new ContainerControlledLifetimeManager())
+                .RegisterType<ILogOnView, LogOnView>()
                 .RegisterType<ICreateNewUserView, CreateNewUserView>();
 
             //Register ViewModels
             _container
+                .RegisterType<LogOnViewModel>()
                 .RegisterType<StartupViewModel>()
                 .RegisterType<MainViewModel>()
                 .RegisterType<CreateNewUserViewModel>();
@@ -56,8 +59,10 @@ namespace Gymnastika.Controllers
 
         protected void RegisterStartupViewWithRegion()
         {
+            _startupView = _container.Resolve<IStartupView>();
+
             _regionManager.RegisterViewWithRegion(
-                    RegionNames.DisplayRegion, () => _container.Resolve<IStartupView>());
+                    RegionNames.DisplayRegion, () => _startupView);
         }
 
         protected void SubscribeEvents()
@@ -71,10 +76,9 @@ namespace Gymnastika.Controllers
         private void OnUserLogOnSuccess(UserModel user)
         {
             IMainView view = _container.Resolve<IMainView>();
-            IStartupView startupView = _container.Resolve<IStartupView>();
             IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
 
-            displayRegion.Remove(startupView);
+            displayRegion.Remove(_startupView);
             displayRegion.Add(view);
             displayRegion.Activate(view);
 
@@ -90,6 +94,15 @@ namespace Gymnastika.Controllers
             {
                 moduleManager.LoadModule(moduleInfo.ModuleName);
             }
+        }
+
+        public void RequestLogOn(string userName)
+        {
+            ILogOnView view = _container.Resolve<ILogOnView>();
+            LogOnViewModel vm = view.Model;
+            vm.UserName = userName;
+            
+            view.Show();
         }
     }
 }

@@ -11,7 +11,7 @@
     		<RowDefinition Height="Auto"/>
     	</Grid.RowDefinitions>
         
-        <ListBox DisplayMemberPath="UserName" HorizontalAlignment="Center" VerticalAlignment="Center" ItemsSource="{Binding RegisteredUsers}" SelectedItem="{Binding SelectedUser}" />
+        <ListBox DisplayMemberPath="UserName" ItemsSource="{Binding RegisteredUsers}" SelectedItem="{Binding SelectedUser}" Margin="10" />
         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
         	<Button Command="{Binding LogOnCommand}" Content="登录" Margin="4" />
         	<Button Content="新用户" Margin="4" Command="{Binding CreateNewUserCommand}" />

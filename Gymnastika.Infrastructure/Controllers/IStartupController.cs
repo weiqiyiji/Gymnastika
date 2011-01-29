@@ -8,5 +8,6 @@ namespace Gymnastika.Controllers
     public interface IStartupController
     {
         void Run();
+        void RequestLogOn(string userName);
     }
 }
