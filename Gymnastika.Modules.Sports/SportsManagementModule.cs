@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using Microsoft.Practices.Unity;
+using System.Windows;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -39,6 +40,16 @@ namespace Gymnastika.Modules.Sports
         {
             throw new NotImplementedException();
         }
+
+#if(DEBUG)
+        public static void Main()
+        {
+            Application app = new Application();
+            Window wnd = new Window();
+            wnd.Content = new SportsShell();
+            app.Run(wnd);
+        }
+#endif
 
     }
 }
