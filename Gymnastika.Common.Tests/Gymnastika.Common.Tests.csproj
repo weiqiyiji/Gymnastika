@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\UserServiceTests.cs" />
+    <Compile Include="Session\SessionManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\GenderToBoolConverter.cs" />
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
     <Compile Include="IMenuManager.cs" />
@@ -55,6 +56,9 @@
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Services\UserService.cs" />
+    <Compile Include="Session\ISessionManager.cs" />
+    <Compile Include="Session\SessionContext.cs" />
+    <Compile Include="Session\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">

@@ -25,7 +25,8 @@ namespace Gymnastika.Repositories.LinqToSqlProvider.Tests
                 Age = 1,
                 IsActive = true,
                 Height = 12,
-                Weight = 12
+                Weight = 12,
+                Gender = Gender.Female
             };
         }
 

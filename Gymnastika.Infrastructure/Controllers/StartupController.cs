@@ -13,6 +13,7 @@ using Gymnastika.Common.Events;
 using Gymnastika.Common.Services;
 using Microsoft.Practices.Prism.Modularity;
 using Gymnastika.Common.Models;
+using Gymnastika.Common.Session;
 
 namespace Gymnastika.Controllers
 {
@@ -36,15 +37,21 @@ namespace Gymnastika.Controllers
 
         protected void RegisterDependencies()
         {
+            _container
+                .RegisterType<IUserService, UserService>()
+                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager());
+
             //Register Views
             _container
                 .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
-                .RegisterType<IMainView, MainView>(new ContainerControlledLifetimeManager());
+                .RegisterType<IMainView, MainView>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICreateNewUserView, CreateNewUserView>();
 
             //Register ViewModels
             _container
                 .RegisterType<StartupViewModel>()
-                .RegisterType<MainViewModel>();
+                .RegisterType<MainViewModel>()
+                .RegisterType<CreateNewUserViewModel>();
         }
 
         protected void RegisterStartupViewWithRegion()
@@ -58,14 +65,15 @@ namespace Gymnastika.Controllers
             _container
                 .Resolve<IEventAggregator>()
                 .GetEvent<LogOnSuccessEvent>()
-                .Subscribe(ProcessUserLogOnSuccess);
+                .Subscribe(OnUserLogOnSuccess);
         }
 
-        private void ProcessUserLogOnSuccess(UserModel user)
+        private void OnUserLogOnSuccess(UserModel user)
         {
-            var view = _container.Resolve<IMainView>();
-            var startupView = _container.Resolve<IStartupView>();
-            var displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
+            IMainView view = _container.Resolve<IMainView>();
+            IStartupView startupView = _container.Resolve<IStartupView>();
+            IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
+
             displayRegion.Remove(startupView);
             displayRegion.Add(view);
             displayRegion.Activate(view);

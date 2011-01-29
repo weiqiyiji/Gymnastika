@@ -12,7 +12,7 @@ namespace Gymnastika.Modules.Meals
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+        
         }
 
         #endregion

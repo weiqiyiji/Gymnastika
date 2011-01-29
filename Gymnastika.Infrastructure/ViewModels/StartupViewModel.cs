@@ -10,6 +10,9 @@ using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 using Gymnastika.Common.Models;
+using Microsoft.Practices.Prism.Regions;
+using Gymnastika.Common;
+using System;
 
 namespace Gymnastika.ViewModels
 {
@@ -100,14 +103,16 @@ namespace Gymnastika.ViewModels
         {
             if (e.IsSucceed)
             {
-                ServiceLocator.Current.GetInstance<IEventAggregator>()
+                _container.Resolve<IEventAggregator>()
                     .GetEvent<LogOnSuccessEvent>().Publish(SelectedUser);
             }
         }
 
         private void CreateNewUser(object parameter)
         {
-            
+            IRegionManager regionManager = _container.Resolve<IRegionManager>();
+            regionManager.AddToRegion(RegionNames.DisplayRegion, _container.Resolve<ICreateNewUserView>());
+            regionManager.RequestNavigate(RegionNames.DisplayRegion, "CreateNewUserView");
         }
     }
 }

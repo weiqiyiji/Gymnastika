@@ -47,9 +47,7 @@ namespace Gymnastika
         {
             Container
                 .RegisterType<Shell>()
-                .RegisterType<IUserService, UserService>()
                 .RegisterType<IStartupController, StartupController>();
-
 
             base.ConfigureContainer();
         }

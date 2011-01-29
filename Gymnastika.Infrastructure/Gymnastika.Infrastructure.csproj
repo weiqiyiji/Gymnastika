@@ -57,6 +57,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\CreateNewUserViewModel.cs" />
+    <Compile Include="Views\ICreateNewUserView.cs" />
     <Compile Include="Controllers\IStartupController.cs" />
     <Compile Include="Controllers\StartupController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +66,9 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StartupViewModel.cs" />
+    <Compile Include="Views\CreateNewUserView.xaml.cs">
+      <DependentUpon>CreateNewUserView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ILogOnView.cs" />
     <Compile Include="Views\IMainView.cs" />
     <Compile Include="Views\IStartupView.cs" />
@@ -81,6 +86,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\CreateNewUserView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LogOnView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
