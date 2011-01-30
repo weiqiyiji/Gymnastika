@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.DietPlanListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:layoutToolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit"
+             xmlns:vsm="clr-namespace:System.Windows;assembly=WPFToolkit"
+             xmlns:layoutToolkitPrimitives="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows.Controls.Layout.Toolkit"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary Source="DietPlanSubListView.xaml" />
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        
+        <layoutToolkit:Accordion ItemsSource="{Binding DietPlanList}">
+            <layoutToolkit:Accordion.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding MealName}" />
+                        <TextBlock>
+                            
+                        </TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </layoutToolkit:Accordion.ItemTemplate>
+            
+            <layoutToolkit:Accordion.ContentTemplate>
+                <DataTemplate>
+                    <ItemsControl ItemsSource="{Binding DietPlanSubList}" Style="{StaticResource DietPlanSubListStyle}" />
+                </DataTemplate>
+            </layoutToolkit:Accordion.ContentTemplate>
+        </layoutToolkit:Accordion>
+        
+        <Border Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock>
+                    <Run Text="饮食摄入：" />
+                    <TextBlock Text="{Binding TotalCalories}" />
+                    <Run Text="大卡" />
+                </TextBlock>
+                
+                <Button Grid.Column="1" Content="保存" Command="{Binding SaveCommand}" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

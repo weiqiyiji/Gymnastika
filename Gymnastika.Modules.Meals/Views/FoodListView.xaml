@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.FoodListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <TextBlock Text="食物分类" HorizontalAlignment="Center"></TextBlock>
+            <ItemsControl ItemsSource="{Binding Category}" />
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <ItemsControl ItemsSource="{Binding SubCategory}" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <Button Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" />
+            <ItemsControl ItemsSource="{Binding CurrentPageFoodList}" />
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White">
+                    <Run Text="第" />
+                    <TextBlock Text="{Binding CurrentPage}" />
+                    <Run Text="/" />
+                    <TextBlock Text="{Binding PageCount}" />
+                    <Run Text="页" />
+                </TextBlock>
+                <Button Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>
