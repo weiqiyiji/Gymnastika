@@ -75,7 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Gymnastika.sdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

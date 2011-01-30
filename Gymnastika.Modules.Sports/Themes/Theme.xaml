@@ -2,7 +2,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://applicaiton,,,/Gymnastika.Modules.Sports;Component/Themes/SportsPlanItem.xaml"></ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

@@ -32,24 +32,13 @@ namespace Gymnastika.Modules.Sports
 
         private void Run()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
 
         private void RegisterService()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
-
-#if(DEBUG)
-        public static void Main()
-        {
-            Application app = new Application();
-            Window wnd = new Window();
-            wnd.Content = new SportsShell();
-            app.Run(wnd);
-        }
-#endif
-
     }
 }

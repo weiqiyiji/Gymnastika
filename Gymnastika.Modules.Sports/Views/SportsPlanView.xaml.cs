@@ -24,7 +24,7 @@ namespace Gymnastika.Modules.Sports.Views
         public SportsPlanView()
         {
             InitializeComponent();
-            ////for debug
+            //for debug
             //DataContext = new SportsPlanItemViewModel()
             //{
             //    Model = new SportsPlan()

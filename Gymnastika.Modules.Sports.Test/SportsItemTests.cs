@@ -10,9 +10,9 @@ namespace Gymnastika.Modules.Sports.Test
     /// Summary description for UnitTest1
     /// </summary>
     [TestFixture]
-    public class SportsItemTest
+    public class SportsItemTests
     {
-        public SportsItemTest()
+        public SportsItemTests()
         {
             //
             // TODO: Add constructor logic here
@@ -63,10 +63,10 @@ namespace Gymnastika.Modules.Sports.Test
         #endregion
         
         
-        [Test]
-        public void TestMethod1()
-        {
-            throw new NotImplementedException();
-        }
+        //[Test]
+        //public void TestMethod1()
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
