@@ -11,7 +11,7 @@ namespace Gymnastika.ViewModels
     {
         public string Title
         {
-            get { return Resources.AppTitle;            }
+            get { return Resources.AppTitle; }
         }
     }
 }

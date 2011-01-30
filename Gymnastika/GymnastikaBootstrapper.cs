@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Windows;
+using Gymnastika.Controllers;
+using Gymnastika.Views;
+using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using System.Windows;
-using Microsoft.Practices.Prism.Modularity;
-using Gymnastika.Views;
-using Gymnastika.ViewModels;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Prism.Regions;
-using Gymnastika.Common;
-using Gymnastika.Common.Services;
-using Gymnastika.Controllers;
 
 namespace Gymnastika
 {

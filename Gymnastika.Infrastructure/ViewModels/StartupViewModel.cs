@@ -28,10 +28,7 @@ namespace Gymnastika.ViewModels
             _userService = userService;
 
             RegisteredUsers = new ObservableCollection<UserModel>(_userService.GetAllUsers());
-            RegisteredUsers.CollectionChanged += RegisteredUsers_CollectionChanged;
         }
-
-        private void RegisteredUsers_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e) { }
 
         private ObservableCollection<UserModel> _registeredUsers;
 
