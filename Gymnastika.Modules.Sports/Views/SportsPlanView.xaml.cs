@@ -12,33 +12,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Sports.ViewModels;
-using System.ComponentModel.Composition;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Collections.ObjectModel;
-using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for SportsListView.xaml
+    /// Interaction logic for SportsPlanView.xaml
     /// </summary>
-    public partial class SportsListView : UserControl
+    public partial class SportsPlanView : UserControl
     {
-        public SportsListView()
+        public SportsPlanView()
         {
             InitializeComponent();
         }
-
-        public ISportsListViewModel ViewModel
+        public ISportsPlanViewModel ViewModel
         {
+            get
+            {
+                return this.DataContext as ISportsPlanViewModel;
+            }
             set
             {
                 this.DataContext = value;
-            }
-            get
-            {
-                return this.DataContext as ISportsListViewModel;
             }
         }
     }

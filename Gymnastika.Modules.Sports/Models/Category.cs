@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections.ObjectModel;
 
 namespace Gymnastika.Modules.Sports.Models
 {
@@ -13,6 +14,6 @@ namespace Gymnastika.Modules.Sports.Models
 
         public string ImageUri { get; set; }
 
-        public IList<Sport> Sports { get; set; }
+        public ObservableCollection<Sport> Sports { get; set; }
     }
 }

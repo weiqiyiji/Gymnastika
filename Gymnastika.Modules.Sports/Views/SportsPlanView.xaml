@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.SportsPlanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="361" d:DesignWidth="135">
+	<UserControl.Resources>
+		<DataTemplate x:Key="PlanListItemTemplate">
+			<Grid d:DesignWidth="267" d:DesignHeight="59.833">
+				<Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
+					<StackPanel Margin="-1">
+						<TextBlock TextWrapping="Wrap" Text="{Binding Sport.Name}" Height="43.833"/>
+					</StackPanel>
+				</Border>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+    <StackPanel>
+		<TextBlock x:Name="textBlock1" Text="我的计划" Height="24.5" />
+        <ListBox Height="338.5" HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource PlanListItemTemplate}" ItemsSource="{Binding SportsPlan.SportsPlanItems}" />
+	</StackPanel>
+</UserControl>

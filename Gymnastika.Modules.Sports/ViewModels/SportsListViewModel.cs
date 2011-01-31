@@ -8,6 +8,9 @@ using System.Windows.Data;
 using Gymnastika.Modules.Sports.Models;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using Gymnastika.Controls;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -15,9 +18,63 @@ namespace Gymnastika.Modules.Sports.ViewModels
     public class SportsListViewModel : NotificationObject, ISportsListViewModel
     {
 
-        #region ISportsListViewModel Members
-        ObservableCollection<Category> _categories = new ObservableCollection<Category>();
-        public System.Collections.ObjectModel.ObservableCollection<Category> Categories
+        public Predicate<object> _sportsFilter;
+        public Predicate<object> SportsFilter
+        {
+            get
+            {
+                return _sportsFilter;
+            }
+            set
+            {
+                if (_sportsFilter != value)
+                {
+                    _sportsFilter = value;
+                    if (SportsView != null) 
+                        SportsView.Filter = _sportsFilter;
+                }
+            }
+        }
+
+        public ICollectionView SportsView
+        {
+            get
+            {
+                return CollectionViewSource.GetDefaultView(_selectedCategory.Sports);
+            }
+
+        }
+
+        string _sportsNameFilter;
+        public string SportsNameFilter
+        {
+            get
+            {
+              return  _sportsNameFilter; 
+            }
+            set
+            {
+                if (_sportsNameFilter != value)
+                {
+                    _sportsNameFilter = value;
+                    ICollectionView view = SportsView;
+                    if (view == null)  return;
+                    if (_sportsNameFilter == null || _sportsNameFilter == "")
+                        view.Filter = null;
+                    else
+                    {
+                        Application.Current.Dispatcher.BeginInvoke(
+                        (Action)(() =>
+                        {
+                            view.Filter = (Predicate<object>)(n => (n as Sport).Name.Contains(_sportsNameFilter));
+                        }));
+                    }
+                }
+            }
+        }
+
+        ObservableCollection<Category> _categories;
+        public ObservableCollection<Category> Categories
         {
             get
             {
@@ -32,11 +89,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 }
             }
         }
-
-        #endregion
-
-        #region ISportsListViewModel Members
-
 
         Category _selectedCategory;
         public Category SelectedCategory
@@ -55,6 +107,5 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        #endregion
     }
 }

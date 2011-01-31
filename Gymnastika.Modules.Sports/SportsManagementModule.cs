@@ -6,6 +6,7 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 using System.Windows;
+using Gymnastika.Modules.Sports.Views;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -40,5 +41,6 @@ namespace Gymnastika.Modules.Sports
         }
 
         #endregion
+        
     }
 }
