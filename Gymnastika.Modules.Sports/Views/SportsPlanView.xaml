@@ -16,8 +16,12 @@
 			</Grid>
 		</DataTemplate>
 	</UserControl.Resources>
-    <StackPanel>
-		<TextBlock x:Name="textBlock1" Text="我的计划" Height="24.5" />
-        <ListBox Height="338.5" HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource PlanListItemTemplate}" ItemsSource="{Binding SportsPlan.SportsPlanItems}" />
-	</StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="44*" />
+            <RowDefinition Height="317*" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="textBlock1" Text="我的计划" />
+        <ListBox HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource PlanListItemTemplate}" ItemsSource="{Binding SportsPlan.SportsPlanItems,Mode=TwoWay}" Grid.Row="1" />
+    </Grid>
 </UserControl>

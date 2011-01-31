@@ -31,5 +31,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
 
         #endregion
+
+        //private void DragEnter(object sender, DragEventArgs e)
     }
 }

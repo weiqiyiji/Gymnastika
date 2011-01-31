@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    [Export(typeof(ISportsListViewModel))]
+    //[Export(typeof(ISportsListViewModel))]
     public class SportsListViewModel : NotificationObject, ISportsListViewModel
     {
 
@@ -73,7 +73,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        ObservableCollection<Category> _categories;
+        ObservableCollection<Category> _categories = new ObservableCollection<Category>();
         public ObservableCollection<Category> Categories
         {
             get
@@ -90,7 +90,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        Category _selectedCategory;
+        Category _selectedCategory = new Category();
         public Category SelectedCategory
         {
             get
