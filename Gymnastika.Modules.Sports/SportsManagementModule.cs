@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
-using Gymnastika.Common;
 using Microsoft.Practices.Unity;
 using System.Windows;
 
@@ -16,6 +15,14 @@ namespace Gymnastika.Modules.Sports
         readonly private IUnityContainer _container;
         public SportsManagementModule(IUnityContainer container, IRegionManager regionManager)
         {
+            if (container == null)
+            {
+                throw new ArgumentNullException("container");
+            }
+            if (regionManager == null)
+            {
+                throw new ArgumentNullException("regionManager");
+            }
             _regionManager = regionManager;
             _container = container;
         }
@@ -24,21 +31,14 @@ namespace Gymnastika.Modules.Sports
 
         public void Initialize()
         {
-            RegisterService();
-            Run();
+            RegisterViews();
+        }
+
+        private void RegisterViews()
+        {
+            
         }
 
         #endregion
-
-        private void Run()
-        {
-            //throw new NotImplementedException();
-        }
-
-
-        private void RegisterService()
-        {
-            //throw new NotImplementedException();
-        }
     }
 }
