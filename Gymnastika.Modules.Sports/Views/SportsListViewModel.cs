@@ -12,10 +12,10 @@ using Gymnastika.Controls;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 
-namespace Gymnastika.Modules.Sports.ViewModels
+namespace Gymnastika.Modules.Sports.Views
 {
-    //[Export(typeof(ISportsListViewModel))]
-    public class SportsListViewModel : NotificationObject, ISportsListViewModel
+    [Export(typeof(ISportsListViewModel))]
+    public class SportsListViewModel : NotificationObject, ISportsListViewModel, IDragSource
     {
 
         public Predicate<object> _sportsFilter;
@@ -30,7 +30,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (_sportsFilter != value)
                 {
                     _sportsFilter = value;
-                    if (SportsView != null) 
+                    if (SportsView != null)
                         SportsView.Filter = _sportsFilter;
                 }
             }
@@ -50,16 +50,15 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             get
             {
-              return  _sportsNameFilter; 
+                return _sportsNameFilter;
             }
             set
             {
-                if (_sportsNameFilter != value)
+                _sportsNameFilter = value;
+                ICollectionView view = SportsView;
+                if (view != null)
                 {
-                    _sportsNameFilter = value;
-                    ICollectionView view = SportsView;
-                    if (view == null)  return;
-                    if (_sportsNameFilter == null || _sportsNameFilter == "")
+                    if (String.IsNullOrWhiteSpace(_sportsNameFilter))
                         view.Filter = null;
                     else
                     {
@@ -106,6 +105,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 }
             }
         }
+
+
+
+        #region IDragSource Members
+
+        public void StartDrag(DragInfo dragInfo)
+        {
+            dragInfo.Data = SportsView.CurrentItem;
+            dragInfo.Effects = DragDropEffects.All;
+        }
+
+        #endregion
 
     }
 }

@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="361" d:DesignWidth="135">
+             d:DesignHeight="361" d:DesignWidth="135"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop">
 	<UserControl.Resources>
 		<DataTemplate x:Key="PlanListItemTemplate">
 			<Grid d:DesignWidth="267" d:DesignHeight="59.833">
@@ -22,6 +23,6 @@
             <RowDefinition Height="317*" />
         </Grid.RowDefinitions>
         <TextBlock x:Name="textBlock1" Text="我的计划" />
-        <ListBox HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource PlanListItemTemplate}" ItemsSource="{Binding SportsPlan.SportsPlanItems,Mode=TwoWay}" Grid.Row="1" />
+        <ListBox dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}"  HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource PlanListItemTemplate}" ItemsSource="{Binding SportsPlan.SportsPlanItems,Mode=TwoWay}" Grid.Row="1" />
     </Grid>
 </UserControl>

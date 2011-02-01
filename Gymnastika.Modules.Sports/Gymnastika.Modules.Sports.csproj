@@ -76,24 +76,21 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
-    <Compile Include="SampleData\SampleDataSource\SampleDataSource.xaml.cs">
-      <DependentUpon>SampleDataSource.xaml</DependentUpon>
-    </Compile>
     <Compile Include="SportsManagementModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ISportsListViewModel.cs" />
     <Compile Include="ViewModels\ISportsPlanViewModel.cs" />
     <Compile Include="ViewModels\ISportViewModel.cs" />
-    <Compile Include="ViewModels\SportsListViewModel.cs" />
-    <Compile Include="ViewModels\SportsPlanViewModel.cs" />
-    <Compile Include="ViewModels\SportViewModel.cs" />
+    <Compile Include="Views\SportsListViewModel.cs" />
+    <Compile Include="Views\SportsPlanViewModel.cs" />
+    <Compile Include="Views\SportViewModel.cs" />
     <Compile Include="Views\SportsListView.xaml.cs">
       <DependentUpon>SportsListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SportsPlanView.xaml.cs">
       <DependentUpon>SportsPlanView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SportsShell.xaml.cs">
+    <Compile Include="SportsShell.xaml.cs">
       <DependentUpon>SportsShell.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SportView.xaml.cs">
@@ -101,10 +98,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="SampleData\SampleDataSource\SampleDataSource.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Themes\Theme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,7 +110,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SportsShell.xaml">
+    <Page Include="SportsShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,12 +127,6 @@
       <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
       <Name>Gymnastika.Controls</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="search.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <DesignTimeOnly Include="SampleData\SampleDataSource\SampleDataSource.xsd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

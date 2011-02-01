@@ -11,13 +11,15 @@ namespace Gymnastika.Modules.Sports.Models
     {
         public string Name { get; set; }
 
-        public string ID { get; set; }
+        public string Id { get; set; }
 
         public string SmallImageUri { get; set; }
 
         public string LargeImageUri { get; set; }
 
-        public string Introduction { get; set; }
+        public string BriefIntroduction { get; set; }
+
+        public string DetailIntroduction { get; set; }
 
         public int Calorie { get; set; }
 

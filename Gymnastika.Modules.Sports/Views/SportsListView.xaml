@@ -5,24 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="431" d:DesignWidth="736" xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
-             xmlns:lcoal="clr-namespace:Gymnastika.Modules.Sports.Views" >
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop">
         <UserControl.Resources>
 		<DataTemplate x:Key="SportItemTemplate">
-			<Grid>
-				<Border BorderBrush="Black" BorderThickness="1">
-                    <Grid Margin="0,0,-1,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.635*"/>
-                            <RowDefinition Height="0.365*"/>
-                        </Grid.RowDefinitions>
-                        <Expander x:Name="More_Information" Header="More Information" Margin="0" Grid.Row="1" Cursor="Hand">
-                            <Grid Background="#FFE5E5E5"/>
-                        </Expander>
-                        <TextBlock HorizontalAlignment="Left" Margin="8,8,0,16.168" TextWrapping="Wrap" Text="{Binding Name}" d:LayoutOverrides="Height"/>
-                    </Grid>
-                </Border>
-			</Grid>
-		</DataTemplate>
+            <Grid Height="75" Width="588">
+            	<Grid.RowDefinitions>
+            		<RowDefinition Height="0.293*"/>
+            		<RowDefinition Height="0.707*"/>
+            	</Grid.RowDefinitions>
+            	<Grid.ColumnDefinitions>
+            		<ColumnDefinition Width="0.225*"/>
+            		<ColumnDefinition Width="0.775*"/>
+            	</Grid.ColumnDefinitions>
+                <TextBlock Text="{Binding BriefIntroduction}" Grid.ColumnSpan="1" Grid.Column="1" Margin="0" Grid.Row="1"/>
+                <Image Source="{Binding SmallImageUri}" Grid.ColumnSpan="1" Margin="0" Grid.Row="1"></Image>
+                <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+            </Grid>
+        </DataTemplate>
         <DataTemplate x:Key="CategoryTemplate">
             <TextBlock Text="{Binding Name}"></TextBlock>
         </DataTemplate>
@@ -31,10 +31,11 @@
         <Grid Name="grid1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="49*" />
-                <RowDefinition Height="382*" />
+                <RowDefinition Height="64*" />
+                <RowDefinition Height="318*" />
             </Grid.RowDefinitions>
-            <Label Content="运动类别" Name="label1" />
-            <ListBox Name="ListBoxCategory" Grid.Row="1" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"  HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource ResourceKey=CategoryTemplate}">
+            <Label Content="运动类别" Name="label1" Grid.Row="1" />
+            <ListBox Name="ListBoxCategory" Grid.Row="2" SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"  HorizontalContentAlignment="Stretch" ItemTemplate="{DynamicResource ResourceKey=CategoryTemplate}">
                 <ListBox.ItemsSource>
                     <Binding Path="Categories" Mode="TwoWay"/>
                 </ListBox.ItemsSource>
@@ -45,7 +46,7 @@
                 <RowDefinition Height="49*" />
                 <RowDefinition Height="382*" />
             </Grid.RowDefinitions>
-            <ListBox SelectedIndex="1" Name="listBox1" Grid.Row="1"  ItemsSource="{Binding SelectedCategory.Sports}" HorizontalContentAlignment="Stretch">
+            <ListBox dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}"  SelectedIndex="1" Name="listBox1" Grid.Row="1"  ItemsSource="{Binding SelectedCategory.Sports}" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DynamicResource ResourceKey="SportItemTemplate"></DynamicResource>
                 </ListBox.ItemTemplate>

@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.ViewModels;
+using Gymnastika.Modules.Sports.Views;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -34,6 +34,11 @@ namespace Gymnastika.Modules.Sports.Views
             {
                 return this.DataContext as ISportViewModel;
             }
+        }
+
+        private void UserControl_Drop(object sender, DragEventArgs e)
+        {
+            
         }
     }
 }

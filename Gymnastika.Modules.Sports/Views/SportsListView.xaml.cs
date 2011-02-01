@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.ViewModels;
+using Gymnastika.Modules.Sports.Views;
 using System.ComponentModel.Composition;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -30,6 +30,7 @@ namespace Gymnastika.Modules.Sports.Views
             InitializeComponent();
         }
 
+        [Export(typeof(ISportsListViewModel))]
         public ISportsListViewModel ViewModel
         {
             set

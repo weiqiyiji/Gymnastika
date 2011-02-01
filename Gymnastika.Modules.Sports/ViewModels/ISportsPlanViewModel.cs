@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.ViewModels
+namespace Gymnastika.Modules.Sports.Views
 {
     public interface ISportsPlanViewModel
     {
