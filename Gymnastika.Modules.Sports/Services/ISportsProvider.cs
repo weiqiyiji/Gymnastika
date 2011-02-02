@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.Views
+namespace Gymnastika.Modules.Sports.Services
 {
-    public interface ISportsPlanViewModel
+    public interface ISportsProvider
     {
-        SportsPlan SportsPlan { get; set; }
-        
+        IEnumerable<ISportsCategory> SportsCategories { get; }
     }
 }

@@ -15,5 +15,8 @@ namespace Gymnastika.Modules.Sports.Models
         public int SportsTime_Min { get; set; }
 
         public int Duration { get; set; }   //Min
+
+        public bool Completed { get; set; }
+
     }
 }

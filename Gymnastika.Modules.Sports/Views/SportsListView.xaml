@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="431" d:DesignWidth="736" xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
-             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop">
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" Name="root">
         <UserControl.Resources>
 		<DataTemplate x:Key="SportItemTemplate">
             <Grid Height="75" Width="588">
@@ -21,6 +21,7 @@
                 <TextBlock Text="{Binding BriefIntroduction}" Grid.ColumnSpan="1" Grid.Column="1" Margin="0" Grid.Row="1"/>
                 <Image Source="{Binding SmallImageUri}" Grid.ColumnSpan="1" Margin="0" Grid.Row="1"></Image>
                 <TextBlock Text="{Binding Name}" TextWrapping="Wrap"/>
+                <Button Command="{Binding DataContext.ShowMoreCommand, ElementName=root}" Content="More" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,0,4" Width="75" d:LayoutOverrides="Height"/>
             </Grid>
         </DataTemplate>
         <DataTemplate x:Key="CategoryTemplate">
@@ -40,13 +41,14 @@
                     <Binding Path="Categories" Mode="TwoWay"/>
                 </ListBox.ItemsSource>
             </ListBox>
+            <Button Command="{Binding CloseCommand}" Content="关闭" HorizontalAlignment="Right" Margin="0,9,15,14" Name="button1" Width="30" />
         </Grid>
         <Grid Name="grid2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="49*" />
                 <RowDefinition Height="382*" />
             </Grid.RowDefinitions>
-            <ListBox dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}"  SelectedIndex="1" Name="listBox1" Grid.Row="1"  ItemsSource="{Binding SelectedCategory.Sports}" HorizontalContentAlignment="Stretch">
+            <ListBox dd:DragDrop.IsDragSource="True" SelectedItem="{Binding SelectedSport}" dd:DragDrop.DragHandler="{Binding}"  SelectedIndex="1" Name="listBox1" Grid.Row="1"  ItemsSource="{Binding SelectedCategory.Sports}" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
                     <DynamicResource ResourceKey="SportItemTemplate"></DynamicResource>
                 </ListBox.ItemTemplate>

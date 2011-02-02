@@ -10,6 +10,16 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class SportsPlan
     {
-        public ObservableCollection<SportsPlanItem> SportsPlanItems { get; set; }
+        public string Id { get; set; }
+
+        public int Year { get; set; }
+
+        public int Month { get; set; }
+
+        public int Day { get; set; }
+
+        public int Score { get; set; }
+
+        public IList<SportsPlanItem> SportsPlanItems { get; set; }
     }
 }

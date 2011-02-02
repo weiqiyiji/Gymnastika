@@ -33,7 +33,7 @@ namespace Gymnastika.Modules.Sports.Views
         public void DragOver(DropInfo dropInfo)
         {
             
-            if (dropInfo.Data is Sport)
+            if (dropInfo.Data is Sport || dropInfo.Data is SportsPlanItem)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.All;
@@ -43,7 +43,10 @@ namespace Gymnastika.Modules.Sports.Views
 
         public void Drop(DropInfo dropInfo)
         {
-            this.Sport = dropInfo.Data as Sport;
+            if (dropInfo.Data is Sport)
+                this.Sport = dropInfo.Data as Sport;
+            else if (dropInfo.Data is SportsPlanItem)
+                this.Sport = (dropInfo.Data as SportsPlanItem).Sport;
         }
 
         #endregion

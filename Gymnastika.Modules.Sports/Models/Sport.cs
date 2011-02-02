@@ -21,8 +21,7 @@ namespace Gymnastika.Modules.Sports.Models
 
         public string DetailIntroduction { get; set; }
 
-        public int Calorie { get; set; }
+        public int CaloriePerHour { get; set; }
 
-        public string Catalog { get; set; }
     }
 }
