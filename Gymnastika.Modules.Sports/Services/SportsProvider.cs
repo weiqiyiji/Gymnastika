@@ -12,11 +12,11 @@ namespace Gymnastika.Modules.Sports.Services
 
         #region ISportsProvider Members
 
-        public IEnumerable<ISportsCategory> SportsCategories
+        public IEnumerable<SportsCategory> SportsCategories
         {
             get
             {
-                return new List<ISportsCategory>();
+                return new List<SportsCategory>();
             }
         }
 

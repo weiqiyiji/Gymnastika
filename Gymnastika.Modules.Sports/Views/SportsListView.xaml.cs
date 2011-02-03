@@ -23,10 +23,12 @@ namespace Gymnastika.Modules.Sports.Views
     /// <summary>
     /// Interaction logic for SportsListView.xaml
     /// </summary>
-    public partial class SportsListView : UserControl
+    public partial class SportsListView : UserControl, ISportsListView
     {
-        public SportsListView()
+        [ImportingConstructor]
+        public SportsListView(ISportsListViewModel model) 
         {
+            ViewModel = model;
             InitializeComponent();
         }
 

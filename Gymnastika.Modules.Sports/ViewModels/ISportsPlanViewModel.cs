@@ -8,7 +8,6 @@ namespace Gymnastika.Modules.Sports.Views
 {
     public interface ISportsPlanViewModel
     {
-        SportsPlan SportsPlan { get; set; }
-        
+
     }
 }

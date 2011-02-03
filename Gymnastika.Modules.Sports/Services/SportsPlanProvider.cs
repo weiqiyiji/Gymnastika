@@ -6,14 +6,8 @@ using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    public interface ISportsCategory
+    public class SportsPlanProvider : ISportsPlanProvider
     {
-        string Id { get;}
-
-        string Name { get;}
-
-        string ImageUri { get; }
-
-        IEnumerable<Sport> Sports { get;}
+        IEnumerable<SportsPlan> SportsCategories { get; set; }
     }
 }

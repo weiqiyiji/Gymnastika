@@ -9,8 +9,8 @@ using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    [Export(typeof(ISportsCategory))]
-    public class SportsCategory : ISportsCategory
+
+    public class SportsCategory 
     {
 
         #region ISportsCategory Members

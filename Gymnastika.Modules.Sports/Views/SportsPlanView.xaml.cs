@@ -20,10 +20,12 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class SportsPlanView : UserControl
     {
-        public SportsPlanView()
+        public SportsPlanView(ISportsPlanViewModel model)
         {
+            ViewModel = model;
             InitializeComponent();
         }
+
         public ISportsPlanViewModel ViewModel
         {
             get

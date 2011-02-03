@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.ComponentModel.Composition;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Windows.Data;
 using Gymnastika.Modules.Sports.Models;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
-using Gymnastika.Controls;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using Gymnastika.Modules.Sports.Services;
-using Microsoft.Practices.Unity;
 using Microsoft.Practices.Prism.Commands;
 using System.Windows.Input;
 
@@ -21,14 +17,15 @@ namespace Gymnastika.Modules.Sports.Views
     [Export(typeof(ISportsListViewModel))]
     public class SportsListViewModel : NotificationObject, ISportsListViewModel, IDragSource
     {
-        ISportsProvider SportsProvider { set; get; }
-        [ImportingConstructor]
+        ISportsProvider _SportsProvider;
+        
         public SportsListViewModel(ISportsProvider provider)
         {
-            SportsProvider = provider;
-            this.Categories = new ObservableCollection<ISportsCategory>(SportsProvider.SportsCategories);
-            if (Categories.Count > 0)
-                this.SelectedCategory = Categories[0];
+            _SportsProvider = provider;
+            
+            Categories = new ObservableCollection<SportsCategory>(_SportsProvider.SportsCategories);
+            
+            if (Categories.Count > 0) SelectedCategory = Categories[0];
         }
 
         int _sportsNumPerPage = 5;
@@ -39,6 +36,7 @@ namespace Gymnastika.Modules.Sports.Views
                 return _sportsNumPerPage;
             }
         }
+
 
         int TotalPage
         {
@@ -51,26 +49,31 @@ namespace Gymnastika.Modules.Sports.Views
 
         }
 
-        void UpdateSports()
+        bool GoToPage(int page)
         {
-            if (CurrentPage > 0 && CurrentPage < TotalPage)
+            if (page > 0 && page < TotalPage)
             {
                 CurrentSports = new ObservableCollection<Sport>
                     (SelectedCategory.Sports
-                    .Take(CurrentPage*SportsNumPerPage)
-                    .Skip((CurrentPage-1)*SportsNumPerPage));
+                    .Take(page * SportsNumPerPage)
+                    .Skip((page - 1) * SportsNumPerPage));
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
+
 
         int _currentPage = 1;
         public int CurrentPage
         {
             set
             {
-                if (_currentPage != value && _currentPage > 0 && _currentPage <= TotalPage)
+                if (GoToPage(value))
                 {
                     _currentPage = value;
-                    UpdateSports();
                     RaisePropertyChanged("CurrentPage");
                 }
             }
@@ -127,6 +130,7 @@ namespace Gymnastika.Modules.Sports.Views
         void SetSportsNameFilter(string strFilter)
         {
             ICollectionView view = SportsView;
+            
             if (view != null)
             {
                 Predicate<object> filter = null;
@@ -134,6 +138,7 @@ namespace Gymnastika.Modules.Sports.Views
                 {
                     filter = new Predicate<object>(n => (n as Sport).Name.Contains(_sportsNameFilter));
                 }
+
                 Application.Current.Dispatcher.BeginInvoke(
                     (Action)(() =>
                     {
@@ -160,8 +165,8 @@ namespace Gymnastika.Modules.Sports.Views
             }
         }
 
-        ObservableCollection<ISportsCategory> _categories = new ObservableCollection<ISportsCategory>();
-        public ObservableCollection<ISportsCategory> Categories
+        ObservableCollection<SportsCategory> _categories = new ObservableCollection<SportsCategory>();
+        public ObservableCollection<SportsCategory> Categories
         {
             get
             {
@@ -177,8 +182,8 @@ namespace Gymnastika.Modules.Sports.Views
             }
         }
 
-        ISportsCategory _selectedCategory = null;
-        public ISportsCategory SelectedCategory
+        SportsCategory _selectedCategory = null;
+        public SportsCategory SelectedCategory
         {
             get
             {
@@ -241,6 +246,7 @@ namespace Gymnastika.Modules.Sports.Views
             }
         }
    
+
         ICommand _showMoreCommand = new DelegateCommand
             (new Action(() => { }),
             new Func<bool>(()=>false))
