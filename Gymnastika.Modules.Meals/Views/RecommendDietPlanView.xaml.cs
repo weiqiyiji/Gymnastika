@@ -16,22 +16,22 @@ using Gymnastika.Modules.Meals.ViewModels;
 namespace Gymnastika.Modules.Meals.Views
 {
     /// <summary>
-    /// Interaction logic for DietPlanListView.xaml
+    /// Interaction logic for RecommendDietPlanView.xaml
     /// </summary>
-    public partial class DietPlanListView : IDietPlanListView
+    public partial class RecommendDietPlanView : IRecommendDietPlanView
     {
-        public DietPlanListView()
+        public RecommendDietPlanView()
         {
             InitializeComponent();
         }
 
-        #region IDietPlanView Members
+        #region IRecommendDietPlanView Members
 
-        public IDietPlanListViewModel Context
+        public IRecommendDietPlanViewModel Context
         {
             get
             {
-                return this.DataContext as IDietPlanListViewModel;
+                return this.DataContext as IRecommendDietPlanViewModel;
             }
             set
             {
@@ -39,10 +39,9 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
-        public void ExpandAll()
+        public void ShowView()
         {
-            DietPlanList.SelectionMode = AccordionSelectionMode.OneOrMore;
-            DietPlanList.SelectAll();
+            this.Show();
         }
 
         #endregion

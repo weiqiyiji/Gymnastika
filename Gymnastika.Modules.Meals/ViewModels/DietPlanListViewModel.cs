@@ -14,7 +14,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public class DietPlanListViewModel : NotificationObject, IDietPlanListViewModel
     {
         private int _totalCalories;
-        private ICommand _saveCommand;
 
         public DietPlanListViewModel(IDietPlanListView view)
         {
@@ -45,17 +44,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IList<DietPlanSubListViewModel> DietPlanList { get; set; }
 
-        public ICommand SaveCommand
-        {
-            get
-            {
-                if (_saveCommand == null)
-                    _saveCommand = new DelegateCommand(Save);
-
-                return _saveCommand;
-            }
-        }
-
         #endregion
 
         private void InitializeDietPlanList()
@@ -84,11 +72,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
 
             TotalCalories = totalCalories;
-        }
-
-        private void Save()
-        {
-
         }
     }
 }

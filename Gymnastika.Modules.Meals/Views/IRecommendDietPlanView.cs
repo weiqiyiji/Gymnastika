@@ -6,9 +6,9 @@ using Gymnastika.Modules.Meals.ViewModels;
 
 namespace Gymnastika.Modules.Meals.Views
 {
-    public interface IDietPlanListView
+    public interface IRecommendDietPlanView
     {
-        IDietPlanListViewModel Context { get; set; }
-        void ExpandAll();
+        IRecommendDietPlanViewModel Context { get; set; }
+        void ShowView();
     }
 }

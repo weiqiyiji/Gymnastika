@@ -46,6 +46,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
+        public void AddFoodItem(FoodItemViewModel foodItem)
+        {
+            Refresh(foodItem);
+
+            DietPlanSubList.Add(foodItem);
+
+            SubTotalCalories += foodItem.Calories;
+        }
+
         public event EventHandler DietPlanListPropertyChanged;
 
         #region IDropTarget Members
@@ -62,8 +71,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
         void IDropTarget.Drop(DropInfo dropInfo)
         {
             FoodItemViewModel foodItem = (FoodItemViewModel)dropInfo.Data;
-            foodItem.DeleteFoodFromPlan += new EventHandler(DeleteFoodFromPlan);
-            foodItem.DietPlanSubListPropertyChanged += new EventHandler(DietPlanSubListPropertyChanged);
+
+            Refresh(foodItem);
 
             ObservableCollection<FoodItemViewModel> targetDietPlanSubList = (ObservableCollection<FoodItemViewModel>)dropInfo.TargetCollection;
             targetDietPlanSubList.Add(foodItem);
@@ -72,12 +81,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         }
 
         #endregion
-
-        private void OnDietPlanListPropertyChanged()
-        {
-            if (DietPlanListPropertyChanged != null)
-                DietPlanListPropertyChanged(this, new EventArgs());
-        }
 
         private void DeleteFoodFromPlan(object sender, EventArgs e)
         {
@@ -90,6 +93,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
             SubTotalCalories -= foodItem.Calories;
         }
 
+        private void OnDietPlanListPropertyChanged()
+        {
+            if (DietPlanListPropertyChanged != null)
+                DietPlanListPropertyChanged(this, new EventArgs());
+        }
+
         private void DietPlanSubListPropertyChanged(object sender, EventArgs e)
         {
             int subTotalCalories = 0;
@@ -100,6 +109,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
 
             SubTotalCalories = subTotalCalories;
+        }
+
+        private void Refresh(FoodItemViewModel foodItem)
+        {
+            foodItem.DeleteFoodFromPlan += new EventHandler(DeleteFoodFromPlan);
+            foodItem.DietPlanSubListPropertyChanged += new EventHandler(DietPlanSubListPropertyChanged);
         }
     }
 }

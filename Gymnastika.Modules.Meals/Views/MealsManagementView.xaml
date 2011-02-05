@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.MealsManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:inputToolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+            <controls:ImageButton Command="{Binding SearchCommand}" ImageSource="/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Width="200" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
+                                          ItemsSource="{Binding InMemoryFoods}" KeyDown="SearchBox_KeyDown" />
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ContentControl Content="{Binding FoodListViewModel.View}" />
+            <StackPanel Grid.Column="1">
+                <ContentControl Content="{Binding CreateDietPlanViewModel.View}" />
+                <Button Content="推荐食谱" Command="{Binding RecommendDietPlanCommand}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

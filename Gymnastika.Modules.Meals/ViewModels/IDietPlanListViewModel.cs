@@ -14,6 +14,5 @@ namespace Gymnastika.Modules.Meals.ViewModels
         IDietPlanListView View { get; set; }
         int TotalCalories { get; set; }
         IList<DietPlanSubListViewModel> DietPlanList { get; set; }
-        ICommand SaveCommand { get; }
     }
 }

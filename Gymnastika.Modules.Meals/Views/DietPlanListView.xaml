@@ -7,25 +7,25 @@
              xmlns:vsm="clr-namespace:System.Windows;assembly=WPFToolkit"
              xmlns:layoutToolkitPrimitives="clr-namespace:System.Windows.Controls.Primitives;assembly=System.Windows.Controls.Layout.Toolkit"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
+             xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <ResourceDictionary Source="DietPlanSubListView.xaml" />
-    </UserControl.Resources>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        <layoutToolkit:Accordion ItemsSource="{Binding DietPlanList}">
+        <layoutToolkit:Accordion x:Name="DietPlanList" ItemsSource="{Binding DietPlanList}">
             <layoutToolkit:Accordion.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding MealName}" />
                         <TextBlock>
-                            
+                            <Run Text="（" />
+                            <TextBlock Text="{Binding SubTotalCalories}" />
+                            <Run Text="大卡）" />
                         </TextBlock>
                     </StackPanel>
                 </DataTemplate>
@@ -33,26 +33,23 @@
             
             <layoutToolkit:Accordion.ContentTemplate>
                 <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding DietPlanSubList}" Style="{StaticResource DietPlanSubListStyle}" />
+                    <ItemsControl ItemsSource="{Binding DietPlanSubList}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="{x:Type viewModel:DietPlanSubListViewModel}">
+                                <view:DietPlanSubListView />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
                 </DataTemplate>
             </layoutToolkit:Accordion.ContentTemplate>
         </layoutToolkit:Accordion>
         
         <Border Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock>
+                <TextBlock HorizontalAlignment="Center">
                     <Run Text="饮食摄入：" />
                     <TextBlock Text="{Binding TotalCalories}" />
                     <Run Text="大卡" />
                 </TextBlock>
-                
-                <Button Grid.Column="1" Content="保存" Command="{Binding SaveCommand}" />
-            </Grid>
         </Border>
     </Grid>
 </UserControl>

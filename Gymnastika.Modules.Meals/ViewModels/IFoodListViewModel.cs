@@ -22,9 +22,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
         ICollection<FoodItemViewModel> MyFavoriteFoodList { get; set; }
         int CurrentPage { get; set; }
         int PageCount { get; set; }
-        ICommand ShowMyFavoriteCommand { get; }
         ICommand ShowPreviousPageCommand { get; }
         ICommand ShowNextPageCommand { get; }
-        void Update();
+        ICommand ShowMyFavoriteCommand { get; }
+        void Initialize();
     }
 }

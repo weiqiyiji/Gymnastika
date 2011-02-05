@@ -50,6 +50,10 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\System.Windows.Controls.Input.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
@@ -74,18 +78,31 @@
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\NutritiveElement.cs" />
+    <Compile Include="Models\RecommendedDietPlan.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\DietPlanListViewModel.cs" />
     <Compile Include="ViewModels\DietPlanSubListViewModel.cs" />
     <Compile Include="ViewModels\FoodDetailViewModel.cs" />
     <Compile Include="ViewModels\FoodItemViewModel.cs" />
     <Compile Include="ViewModels\FoodListViewModel.cs" />
+    <Compile Include="ViewModels\ICreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\IDietPlanListViewModel.cs" />
     <Compile Include="ViewModels\IFoodDetailViewModel.cs" />
     <Compile Include="ViewModels\IFoodListViewModel.cs" />
+    <Compile Include="ViewModels\IMealsManagementViewModel.cs" />
+    <Compile Include="ViewModels\IRecommendDietPlanViewModel.cs" />
+    <Compile Include="ViewModels\MealsManagementViewModel.cs" />
+    <Compile Include="ViewModels\RecommendDietPlanViewModel.cs" />
+    <Compile Include="Views\CreateDietPlanView.xaml.cs">
+      <DependentUpon>CreateDietPlanView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DietPlanListView.xaml.cs">
       <DependentUpon>DietPlanListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DietPlanSubListView.xaml.cs">
+      <DependentUpon>DietPlanSubListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FoodDetailView.xaml.cs">
       <DependentUpon>FoodDetailView.xaml</DependentUpon>
@@ -93,19 +110,41 @@
     <Compile Include="Views\FoodListView.xaml.cs">
       <DependentUpon>FoodListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ICreateDietPlanView.cs" />
     <Compile Include="Views\IDietPlanListView.cs" />
     <Compile Include="Views\IFoodDetailView.cs" />
     <Compile Include="Views\IFoodListView.cs" />
+    <Compile Include="Views\IMealsManagementView.cs" />
+    <Compile Include="Views\IRecommendDietPlanView.cs" />
+    <Compile Include="Views\MealsManagementView.xaml.cs">
+      <DependentUpon>MealsManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RecommendDietPlanView.xaml.cs">
+      <DependentUpon>RecommendDietPlanView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
+      <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
+      <Name>Gymnastika.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Controls\Gymnastika.Controls.csproj">
+      <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
+      <Name>Gymnastika.Controls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\CreateDietPlanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DietPlanListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\DietPlanSubListView.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FoodDetailView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -119,6 +158,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\MealsManagementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RecommendDietPlanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

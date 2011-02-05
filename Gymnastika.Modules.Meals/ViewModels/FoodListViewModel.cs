@@ -28,7 +28,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             View = view;
             View.Context = this;
-            InitializeFoodList();
+            //InMemoryFoodList = new Collection<FoodItemViewModel>();
+            Initialize();
         }
 
         #region IFoodListViewModel Members
@@ -98,17 +99,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public ICommand ShowMyFavoriteCommand
-        {
-            get
-            {
-                if (_showMyFavoriteCommand == null)
-                    _showMyFavoriteCommand = new DelegateCommand(ShowMyFavorite);
-
-                return _showMyFavoriteCommand;
-            }
-        }
-
         public ICommand ShowPreviousPageCommand
         {
             get
@@ -131,24 +121,27 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public void Update()
+        public ICommand ShowMyFavoriteCommand
         {
-            foreach (var foodItem in CurrentPageFoodList)
+            get
             {
-                foodItem.AddFoodToMyFavorite += new EventHandler(AddFoodToMyFavorite);
+                if (_showMyFavoriteCommand == null)
+                    _showMyFavoriteCommand = new DelegateCommand(ShowMyFavorite);
+
+                return _showMyFavoriteCommand;
             }
         }
 
-        #endregion
-
-        private void InitializeFoodList()
+        public void Initialize()
         {
-            //InMemoryFoodList = ...
             CurrentPage = 1;
             PageCount = (InMemoryFoodList.Count() % PageSize == 0) ? (InMemoryFoodList.Count() / PageSize) : (InMemoryFoodList.Count() / PageSize + 1);
             CurrentPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoodList.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1));
             NextPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoodList.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage);
+            Refresh();
         }
+
+        #endregion
 
         private void AddFoodToMyFavorite(object sender, EventArgs e)
         {
@@ -161,6 +154,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             CurrentPage = 1;
             PageCount = (MyFavoriteFoodList.Count % PageSize == 0) ? (MyFavoriteFoodList.Count / PageSize) : (MyFavoriteFoodList.Count / PageSize + 1);
             CurrentPageFoodList = (ObservableCollection<FoodItemViewModel>)MyFavoriteFoodList.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1));
+            NextPageFoodList = (ObservableCollection<FoodItemViewModel>)MyFavoriteFoodList.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage);
+            Refresh();
         }
 
         private void ShowPreviousPage()
@@ -168,10 +163,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
             if (CurrentPage == 1) return;
 
             CurrentPage--;
+            NextPageFoodList = CurrentPageFoodList;
             CurrentPageFoodList = PreviousPageFoodList;
             PreviousPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoodList.Take(PageSize * (CurrentPage - 1)).Skip(PageSize * (CurrentPage - 2));
-            NextPageFoodList = CurrentPageFoodList;
-
+            Refresh();
         }
 
         private void ShowNextPage()
@@ -179,9 +174,18 @@ namespace Gymnastika.Modules.Meals.ViewModels
             if (CurrentPage == PageCount) return;
 
             CurrentPage++;
+            PreviousPageFoodList = CurrentPageFoodList;
             CurrentPageFoodList = NextPageFoodList;
             NextPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoodList.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage);
-            PreviousPageFoodList = CurrentPageFoodList;
+            Refresh();
+        }
+
+        private void Refresh()
+        {
+            foreach (var foodItem in CurrentPageFoodList)
+            {
+                foodItem.AddFoodToMyFavorite += new EventHandler(AddFoodToMyFavorite);
+            }
         }
     }
 }

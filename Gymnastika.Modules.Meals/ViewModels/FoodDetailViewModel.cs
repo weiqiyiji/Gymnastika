@@ -11,8 +11,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class FoodDetailViewModel : IFoodDetailViewModel
     {
-        private ICommand _showRelatedFoodsCommand;
-
         public FoodDetailViewModel(IFoodDetailView view)
         {
             View = view;
