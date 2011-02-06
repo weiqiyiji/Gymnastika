@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{F7C4886B-B079-4A15-87F6-6504E82B9389}</ProjectGuid>
+    <ProjectGuid>{C550D899-9E1D-46D9-A043-B05236648BA4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Common</RootNamespace>
-    <AssemblyName>Gymnastika.Common</AssemblyName>
+    <RootNamespace>Gymnastika.Data.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Data.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,51 +31,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Prism">
-      <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
-    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviors\CloseWindowBehavior.cs" />
-    <Compile Include="Configuration\ShellSettings.cs" />
-    <Compile Include="Converters\GenderToBoolConverter.cs" />
-    <Compile Include="Converters\IntegerToBoolConverter.cs" />
-    <Compile Include="Events\LogOnSuccessEvent.cs" />
-    <Compile Include="IMenuManager.cs" />
-    <Compile Include="IShareServiceManager.cs" />
-    <Compile Include="Logging\ConsoleLogger.cs" />
-    <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Logging\LoggerExtensions.cs" />
-    <Compile Include="Logging\NullLogger.cs" />
-    <Compile Include="RegionNames.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Services\UserService.cs" />
-    <Compile Include="Session\ISessionManager.cs" />
-    <Compile Include="Session\SessionContext.cs" />
-    <Compile Include="Session\SessionManager.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
-      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
-      <Name>Gymnastika.Resources</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
