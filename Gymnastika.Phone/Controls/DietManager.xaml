@@ -1,0 +1,24 @@
+﻿<UserControl
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Gymnastika.Phone.Controls" x:Class="Gymnastika.Phone.Controls.DietManager"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}" Height="762" Width="603">
+    
+    <Grid x:Name="LayoutRoot">
+
+    	<StackPanel Orientation="Vertical" HorizontalAlignment="Left" Width="528" Height="522" VerticalAlignment="Top">
+    		<RadioButton Content="早餐" Height="80" Margin="8,0,0,0" x:Name="rb1" />
+    		<local:DietItem Height="141" Margin="8,0,6,0" x:Name="di1" Width="520" />
+    		<RadioButton Content="午餐" Height="86" Margin="8,0" x:Name="rb2" />
+    		<local:DietItem Height="25" Margin="8,0" x:Name="di2" />
+    		<RadioButton Content="晚餐" Height="82" Margin="8,0" x:Name="rb3" />
+    		<local:DietItem Height="133" Margin="8,0,6,0" x:Name="di3" />
+    	</StackPanel>
+
+    </Grid>
+</UserControl>
