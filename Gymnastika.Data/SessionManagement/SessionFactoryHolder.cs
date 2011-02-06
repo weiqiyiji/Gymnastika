@@ -10,7 +10,7 @@ using Gymnastika.Common.Configuration;
 
 namespace Gymnastika.Data.SessionManagement
 {
-    public class SessionFactoryHolder
+    public class SessionFactoryHolder : ISessionFactoryHolder
     {
         private readonly ShellSettings _shellSettings;
         private readonly IDataServicesProviderFactory _dataServicesProviderFactory;

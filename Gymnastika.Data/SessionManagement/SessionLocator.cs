@@ -7,7 +7,7 @@ using NHibernate;
 
 namespace Gymnastika.Data.SessionManagement
 {
-    public class SessionLocator
+    public class SessionLocator : ISessionLocator
     {
         private readonly ISessionFactoryHolder _sessionFactoryHolder;
         private ISession _session;

@@ -25,9 +25,11 @@ namespace Gymnastika
 
             foreach (ModuleInfo mi in _moduleCatalog.Modules)
             {
-                Assembly assembly = Assembly.GetAssembly(mi.ModuleType);
-                IEnumerable<IDataMigration> migrations = assembly.GetExportedTypes().Where(
-                    t => t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null);
+                Assembly assembly = Assembly.GetAssembly(Type.GetType(mi.ModuleType));
+                IEnumerable<IDataMigration> migrations = 
+                    assembly.GetExportedTypes()
+                            .Where(t => t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null)
+                            .Select(t => (IDataMigration)Activator.CreateInstance(t));
                 
                 foreach(IDataMigration dm in migrations)
                     dataMigrations.Add(dm);
