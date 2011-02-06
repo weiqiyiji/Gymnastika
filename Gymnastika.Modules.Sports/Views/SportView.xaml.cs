@@ -16,27 +16,30 @@ using Gymnastika.Modules.Sports.Views;
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for SportsPlanView.xaml
+    /// Interaction logic for SportView.xaml
     /// </summary>
-    public partial class SportsPlanView : UserControl
+    public partial class SportView : UserControl, ISportView
     {
-        public SportsPlanView(ISportsPlanViewModel model)
+        public SportView(ISportViewModel model)
         {
             ViewModel = model;
             InitializeComponent();
         }
-
-        public ISportsPlanViewModel ViewModel
+        public ISportViewModel ViewModel
         {
-            get
-            {
-                return this.DataContext as ISportsPlanViewModel;
-            }
             set
             {
                 this.DataContext = value;
             }
+            get
+            {
+                return this.DataContext as ISportViewModel;
+            }
         }
 
+        private void UserControl_Drop(object sender, DragEventArgs e)
+        {
+            
+        }
     }
 }

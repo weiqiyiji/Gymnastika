@@ -1,0 +1,34 @@
+﻿<extToolkit:ChildWindow x:Class="Gymnastika.Modules.Meals.Views.RecommendDietPlanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:extToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ContentControl Content="{Binding DietPlanListViewModel.View}" />
+        <Button Grid.Row="1" Content="应用" HorizontalAlignment="Center" Command="{Binding ApplyCommand}" />
+        <Grid Grid.Row="2" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
+            <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White">
+                    <Run Text="第" />
+                    <TextBlock Text="{Binding CurrentPage}" />
+                    <Run Text="/" />
+                    <TextBlock Text="{Binding PageCount}" />
+                    <Run Text="页" />
+                </TextBlock>
+            <Button Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
+        </Grid>
+    </Grid>
+</extToolkit:ChildWindow>

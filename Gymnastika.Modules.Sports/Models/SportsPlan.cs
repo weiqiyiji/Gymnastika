@@ -2,33 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Gymnastika.Modules.Sports.Interface;
 using System.ComponentModel;
 using Microsoft.Practices.Prism.ViewModel;
+using System.Collections.ObjectModel;
 
 namespace Gymnastika.Modules.Sports.Models
 {
-    public class SportsPlan :NotificationObject , ISportsPlan
+    public class SportsPlan
     {
-        #region ISportsPlan Members
+        public string Id { get; set; }
 
-        IList<ISportsPlanItem> _sportsPlanItems = new BindingList<ISportsPlanItem>();
-        IList<ISportsPlanItem> ISportsPlan.SportsPlanItems
-        {
-            get
-            {
-                return _sportsPlanItems;
-            }
-            set
-            {
-                if (value != _sportsPlanItems)
-                {
-                    _sportsPlanItems = value;
-                    RaisePropertyChanged("SportsPlanItems");
-                }
-            }
-        }
+        public int Year { get; set; }
 
-        #endregion
+        public int Month { get; set; }
+
+        public int Day { get; set; }
+
+        public int Score { get; set; }
+
+        public IList<SportsPlanItem> SportsPlanItems { get; set; }
     }
 }

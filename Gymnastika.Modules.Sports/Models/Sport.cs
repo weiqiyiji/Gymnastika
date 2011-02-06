@@ -3,51 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Practices.Prism.ViewModel;
-using Gymnastika.Modules.Sports.Interface;
 using System.Windows.Media;
 
 namespace Gymnastika.Modules.Sports.Models
 {
-    public class Sport : NotificationObject , ISport
+    public class Sport
     {
+        public string Name { get; set; }
 
-        #region ISport Members
+        public string Id { get; set; }
 
-        string _name;
-        public string Name
-        {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if (value != _name)
-                {
-                    _name = value;
-                    RaisePropertyChanged("Name");
-                }
-            }
-        }
+        public string SmallImageUri { get; set; }
 
+        public string LargeImageUri { get; set; }
 
-        ImageSource _image;
-        public ImageSource Image
-        {
-            get
-            {
-                return _image;
-            }
-            set
-            {
-                if (value != _image)
-                {
-                    _image = value;
-                    RaisePropertyChanged("Image");
-                }
-            }
-        }
+        public string BriefIntroduction { get; set; }
 
-        #endregion
+        public string DetailIntroduction { get; set; }
+
+        public int CaloriePerHour { get; set; }
+
     }
 }

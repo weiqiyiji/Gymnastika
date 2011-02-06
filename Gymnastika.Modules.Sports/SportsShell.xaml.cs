@@ -11,11 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.ViewModels;
-using System.Reflection;
-using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports
+namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
     /// Interaction logic for SportsShell.xaml

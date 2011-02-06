@@ -11,26 +11,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.Views;
+using Gymnastika.Modules.Meals.ViewModels;
 
-namespace Gymnastika.Modules.Sports.Views
+namespace Gymnastika.Modules.Meals.Views
 {
     /// <summary>
-    /// Interaction logic for SportsPlanView.xaml
+    /// Interaction logic for FoodListView.xaml
     /// </summary>
-    public partial class SportsPlanView : UserControl
+    public partial class FoodListView : IFoodListView
     {
-        public SportsPlanView(ISportsPlanViewModel model)
+        public FoodListView()
         {
-            ViewModel = model;
             InitializeComponent();
         }
 
-        public ISportsPlanViewModel ViewModel
+        #region IFoodListView Members
+
+        public IFoodListViewModel Context
         {
             get
             {
-                return this.DataContext as ISportsPlanViewModel;
+                return this.DataContext as IFoodListViewModel;
             }
             set
             {
@@ -38,5 +39,6 @@ namespace Gymnastika.Modules.Sports.Views
             }
         }
 
+        #endregion
     }
 }
