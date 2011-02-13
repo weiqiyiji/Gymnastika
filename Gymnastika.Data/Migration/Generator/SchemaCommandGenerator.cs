@@ -8,16 +8,13 @@ namespace Gymnastika.Data.Migration.Generator
     public class SchemaCommandGenerator : ISchemaCommandGenerator
     {
         private readonly ISessionFactoryHolder _sessionFactoryHolder;
-        private readonly ShellSettings _shellSettings;
         private readonly IDataServicesProviderFactory _dataServicesProviderFactory;
 
         public SchemaCommandGenerator(
             ISessionFactoryHolder sessionFactoryHolder,
-            ShellSettings shellSettings,
             IDataServicesProviderFactory dataServicesProviderFactory)
         {
             _sessionFactoryHolder = sessionFactoryHolder;
-            _shellSettings = shellSettings;
             _dataServicesProviderFactory = dataServicesProviderFactory;
         }
 

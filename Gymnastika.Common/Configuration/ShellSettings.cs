@@ -11,6 +11,8 @@ namespace Gymnastika.Common.Configuration
         public string Name { get; set; }
         public string DataProvider { get; set; }
         public string DataConnectionString { get; set; }
+        public string DatabaseName { get; set; }
+        public string DataFolder { get; set; }
         public string DataTablePrefix { get; set; }
     }
 }

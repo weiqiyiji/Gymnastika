@@ -19,9 +19,9 @@ namespace Gymnastika.Data.Providers {
             var database = GetPersistenceConfigurer(parameters.CreateDatabase);
 
             FluentConfiguration cfg = Fluently.Configure().Database(database);
-            return Configuration(cfg).BuildConfiguration();
+            return InnerConfiguration(cfg).BuildConfiguration();
         }
 
-        protected virtual FluentConfiguration Configuration(FluentConfiguration cfg) { return cfg; }
+        protected virtual FluentConfiguration InnerConfiguration(FluentConfiguration cfg) { return cfg; }
     }
 }

@@ -10,3 +10,5 @@ TestResult.xml
 *.testsettings
 VisualState.xml
 *.vsmdi
+*.sdf
+*.txt

@@ -20,12 +20,13 @@ namespace Gymnastika.Data.SessionManagement
 
         public SessionFactoryHolder(
             ShellSettings shellSettings,
-            IDataServicesProviderFactory dataServicesProviderFactory)
+            IDataServicesProviderFactory dataServicesProviderFactory,
+            ILogger logger)
         {
             _shellSettings = shellSettings;
             _dataServicesProviderFactory = dataServicesProviderFactory;
 
-            Logger = NullLogger.Instance;
+            Logger = logger;
         }
 
         public ILogger Logger { get; set; }
@@ -75,6 +76,8 @@ namespace Gymnastika.Data.SessionManagement
         {
             return new DataServiceParameters
             {
+                DatabaseName = _shellSettings.DatabaseName,
+                DataFolder = _shellSettings.DataFolder,
                 Provider = _shellSettings.DataProvider,
                 ConnectionString = _shellSettings.DataConnectionString
             };

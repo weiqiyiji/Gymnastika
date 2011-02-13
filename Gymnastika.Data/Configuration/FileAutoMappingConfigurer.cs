@@ -11,7 +11,7 @@ namespace Gymnastika.Data.Configuration
     {
         #region IAutomappingConfiguration Members
 
-        public IEnumerable<AutomappingConfigurationMetadata> GetAutomappingAssemblies()
+        public IEnumerable<AutomappingConfigurationMetadata> GetAutomappingMetadata()
         {
             AutomappingConfigurationSection AutomappingSection =
                 ConfigurationManager.GetSection("auto-mappings") as AutomappingConfigurationSection;

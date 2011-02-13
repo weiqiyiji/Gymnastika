@@ -5,107 +5,136 @@ using System.Reflection;
 using Gymnastika.Common.Logging;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Data.Migration.Interpreters;
+using Gymnastika.Data.SessionManagement;
+using Gymnastika.Common.Extensions;
+using NHibernate;
+using NHibernate.Linq;
+using Gymnastika.Data.Models;
+using Gymnastika.Common.Utils;
+using System.Threading;
 
 namespace Gymnastika.Data.Migration
 {
-    public class DataMigrationManager : IDataMigrationManager 
+    public class DataMigrationManager : IDataMigrationManager
     {
-        private SchemaBuilder _schemaBuilder;
-        private IDataMigrationFinder _migrationFinder;
+        private ISessionLocator _sessionLocator;
+        private IDataMigrationInterpreter _interpreter;
+        private IRepository<MigrationRecord> _migrationRecordRepository;
+        private IMigrationLoader[] _migrationLoaders;
 
         public DataMigrationManager(
-            SchemaBuilder schemaBuilder, IDataMigrationFinder migrationFinder, ILogger logger)
+            IMigrationLoader[] migrationLoaders,
+            ISessionLocator sessionLocator,
+            IDataMigrationInterpreter interpreter,
+            IRepository<MigrationRecord> migrationRecordRepository,
+            ILogger logger)
         {
-            _schemaBuilder = schemaBuilder;
-            _migrationFinder = migrationFinder;
-            DataMigrations = new List<IDataMigration>(migrationFinder.Find());
+            _migrationLoaders = migrationLoaders;
+            _sessionLocator = sessionLocator;
+            _interpreter = interpreter;
+            _migrationRecordRepository = migrationRecordRepository;
             Logger = logger;
         }
 
         public ILogger Logger { get; set; }
 
-        private static Tuple<int, MethodInfo> GetUpdateMethod(IDataMigration migration)
+        protected IEnumerable<IDataMigration> LoadDataMigrations()
         {
-            const string updatefromPrefix = "UpdateFrom";
+            IList<IDataMigration> foundMigrations = new List<IDataMigration>();
 
-            MethodInfo mi = 
-                migration.GetType().GetMethods().FirstOrDefault(m => m.Name.StartsWith(updatefromPrefix));
-
-            if (mi != null) 
+            foreach (IMigrationLoader loader in _migrationLoaders)
             {
-                var version = mi.Name.Substring(updatefromPrefix.Length);
-                int versionValue;
-                if (int.TryParse(version, out versionValue)) 
-                {
-                    return new Tuple<int, MethodInfo>(versionValue, mi);
-                }
+                foundMigrations.AddRange(loader.Load());
             }
 
-            return null;
+            return foundMigrations;
         }
 
-        /// <summary>
-        /// Returns the Create method from a data migration class if it's found
-        /// </summary>
-        private static MethodInfo GetCreateMethod(IDataMigration dataMigration) 
+        public void EnsureMigrationRecordsExists()
         {
-            var methodInfo = dataMigration.GetType().GetMethod("Create", BindingFlags.Public | BindingFlags.Instance);
-            if(methodInfo != null && methodInfo.ReturnType == typeof(int)) 
+            try
             {
-                return methodInfo;
+                Logger.Debug("DataMigrationManager", "Check the table MigrationRecords exists");
+                //Check whether the table already existed
+                _migrationRecordRepository.Get(m => true);
             }
-
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the Uninstall method from a data migration class if it's found
-        /// </summary>
-        private static MethodInfo GetUninstallMethod(IDataMigration dataMigration) 
-        {
-            var methodInfo = dataMigration.GetType().GetMethod("Uninstall", BindingFlags.Public | BindingFlags.Instance);
-            if ( methodInfo != null && methodInfo.ReturnType == typeof(void) ) 
+            catch
             {
-                return methodInfo;
-            }
+                Logger.Debug("DataMigrationManager", "MigrationRecords does not exist");
+                SchemaBuilder builder = new SchemaBuilder(_interpreter);
 
-            return null;
+                builder.CreateTable("MigrationRecords",
+                    t => t.Column<int>("Id", column => column.PrimaryKey().Identity())
+                          .Column<string>("Version", column => column.WithLength(16))
+                          .Column<string>("TableName"));
+            }
         }
 
         #region IDataMigrationManager Members
 
         public void Migrate()
         {
-            foreach(IDataMigration migration in DataMigrations)
+            EnsureMigrationRecordsExists();
+
+            IEnumerable<IDataMigration> migrations = LoadDataMigrations();
+
+            IEnumerable<MigrationRecord> migrationRecords = _migrationRecordRepository.Fetch(m => true);
+            string minRecordVersion = migrationRecords.Min(m => m.Version);
+
+            IEnumerable<IDataMigration> newMigrations =
+                migrations.Where(m => m.Version.CompareTo(minRecordVersion) > 0).OrderBy(m => m.Version);
+
+            foreach (IDataMigration migration in newMigrations)
             {
-                migration.SchemaBuilder = _schemaBuilder;
-                MethodInfo mi = GetCreateMethod(migration);
-                if (mi != null)
-                {
-                    mi.Invoke(mi, new object[0]);
-                    continue;
-                }
+                migration.SchemaBuilder = new SchemaBuilder(_interpreter);
+                migration.Up();
 
-                Tuple<int, MethodInfo> tuple = GetUpdateMethod(migration);
-                if (tuple != null)
-                {
-                    tuple.Item2.Invoke(tuple.Item2, new object[0]);
-                    continue;
-                }
-
-                mi = GetUninstallMethod(migration);
-                if (mi != null)
-                {
-                    mi.Invoke(mi, new object[0]);
-                    continue;
-                }
+                DoUpdateMigrationRecord(migration);
             }
-
-            DataMigrations.Clear();
         }
 
-        public IList<IDataMigration> DataMigrations { get; set; }
+        public void Migrate(string version)
+        {
+            EnsureMigrationRecordsExists();
+
+            IEnumerable<IDataMigration> migrations = LoadDataMigrations();
+            IDataMigration migration = migrations.SingleOrDefault(m => m.Version == version);
+
+            if (migration == null)
+                throw new MigrationNullException(version);
+
+            IEnumerable<IDataMigration> readyToUndoMigrations =
+                    migrations.Where(m => m.TableName == migration.TableName
+                                        && m.Version.CompareTo(version) > 0)
+                              .OrderByDescending(m => m.Version);
+
+            foreach (IDataMigration m in readyToUndoMigrations)
+            {
+                m.SchemaBuilder = new SchemaBuilder(_interpreter);
+                m.Down();
+            }
+
+            DoUpdateMigrationRecord(migration);
+        }
 
         #endregion
+
+        protected void DoUpdateMigrationRecord(IDataMigration dataMigration)
+        {
+            MigrationRecord record = _migrationRecordRepository.Get(m => m.TableName == dataMigration.TableName);
+
+            if (record == null)
+            {
+                record = new MigrationRecord
+                {
+                    TableName = dataMigration.TableName
+                };
+            }
+
+            record.Version = dataMigration.Version;
+            _migrationRecordRepository.CreateOrUpdate(record);
+        }
     }
 }

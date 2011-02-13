@@ -61,19 +61,21 @@ namespace Gymnastika
                 .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IStartupController, StartupController>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataMigrationFinder, DataMigrationInModuleFinder>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDataMigrationManager, DataMigrationManager>(new ContainerControlledLifetimeManager())
+                .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()
                 .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>()
                 .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>()
                 .RegisterType<ISessionLocator, SessionLocator>()
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
-                .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>();
+                .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>()
+                .RegisterType<IMigrationLoader, DataMigrationLoader>("Data")
+                .RegisterType<IMigrationLoader, ModuleMigrationLoader>("Module");
 
             var shellSettings = new ShellSettings
             {
-                DataProvider = ConfigurationSettings.AppSettings["DataProvider"],
-                DataConnectionString = ConfigurationSettings.AppSettings["DataServiceConnectionString"]
+                DataProvider = ConfigurationManager.AppSettings["DataProvider"],
+                DataConnectionString = ConfigurationManager.AppSettings["DataServiceConnectionString"]
             };
 
             Container

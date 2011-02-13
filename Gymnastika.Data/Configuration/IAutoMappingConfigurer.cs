@@ -4,6 +4,6 @@ namespace Gymnastika.Data.Configuration
 {
     public interface IAutomappingConfigurer
     {
-        IEnumerable<AutomappingConfigurationMetadata> GetAutomappingAssemblies();
+        IEnumerable<AutomappingConfigurationMetadata> GetAutomappingMetadata();
     }
 }

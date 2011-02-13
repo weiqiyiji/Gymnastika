@@ -11,6 +11,7 @@ using Gymnastika.Data.Migration.Commands;
 using Gymnastika.Common.Logging;
 using Gymnastika.Data.SessionManagement;
 using Gymnastika.Common.Configuration;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Data.Migration.Interpreters
 {
@@ -366,7 +367,6 @@ namespace Gymnastika.Data.Migration.Interpreters
 
         private void RunPendingStatements()
         {
-
             var connection = _session.Connection;
 
             foreach (var sqlStatement in _sqlStatements)
@@ -376,9 +376,9 @@ namespace Gymnastika.Data.Migration.Interpreters
                 {
                     command.CommandText = sqlStatement;
                     command.ExecuteNonQuery();
-                }
 
-                Logger.Information("Data Migration", String.Format("Executing SQL Query: {0}", sqlStatement));
+                    Logger.Information("Data Migration", String.Format("Executing SQL Query: {0}", sqlStatement));
+                }
             }
 
             _sqlStatements.Clear();

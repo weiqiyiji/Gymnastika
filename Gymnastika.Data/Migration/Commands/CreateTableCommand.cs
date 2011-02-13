@@ -28,26 +28,5 @@ namespace Gymnastika.Data.Migration.Commands
             var dbType = SchemaUtils.ToDbType(typeof(T));
             return Column(columnName, dbType, column);
         }
-
-        /// <summary>
-        /// Defines a primary column as for content parts
-        /// </summary>
-        public CreateTableCommand ContentPartRecord()
-        {
-            Column<int>("Id", column => column.PrimaryKey().NotNull());
-
-            return this;
-        }
-
-        /// <summary>
-        /// Defines a primary column as for versionnable content parts
-        /// </summary>
-        public CreateTableCommand ContentPartVersionRecord()
-        {
-            Column<int>("Id", column => column.PrimaryKey().NotNull());
-            Column<int>("ContentItemRecord_id");
-            return this;
-        }
-
     }
 }

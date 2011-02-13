@@ -10,5 +10,7 @@ namespace Gymnastika.Data.Providers
         public bool CreateDatabase { get; set; }
         public string Provider { get; set; }
         public string ConnectionString { get; set; }
+        public string DatabaseName { get; set; }
+        public string DataFolder { get; set; }
     }
 }

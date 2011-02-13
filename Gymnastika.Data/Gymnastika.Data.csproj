@@ -31,14 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core">
-      <HintPath>..\Libs\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\Libs\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\Libs\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections">
+      <HintPath>..\Libs\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
@@ -46,10 +47,22 @@
     <Reference Include="NHibernate">
       <HintPath>..\Libs\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\Libs\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Linq">
+      <HintPath>..\Libs\NHibernate.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,16 +77,28 @@
     <Compile Include="Configuration\AutoMappingConfigurationSection.cs" />
     <Compile Include="Configuration\FileAutoMappingConfigurer.cs" />
     <Compile Include="Configuration\IAutoMappingConfigurer.cs" />
+    <Compile Include="Conventions\TablePluralizationConvention.cs" />
+    <Compile Include="Conventions\UnsavedIdConvention.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IWorkEnvironment.cs" />
+    <Compile Include="Migration\DataMigrationLoader.cs" />
     <Compile Include="Migration\DataMigrationManager.cs" />
     <Compile Include="Migration\IDataMigration.cs" />
     <Compile Include="Migration\IDataMigrationManager.cs" />
     <Compile Include="Migration\IDataMigrationFinder.cs" />
+    <Compile Include="Migration\IMigrationLoader.cs" />
+    <Compile Include="Migration\MigrationException.cs" />
+    <Compile Include="Migration\MigrationNullException.cs" />
+    <Compile Include="Migration\ModuleMigrationLoader.cs" />
+    <Compile Include="Models\MigrationRecord.cs" />
+    <Compile Include="Orderable.cs" />
     <Compile Include="Providers\AbstractDataServicesProvider.cs" />
     <Compile Include="Providers\DataServiceParameters.cs" />
     <Compile Include="Providers\SqlCeDataServicesProviderFactory.cs" />
     <Compile Include="Providers\IDataServicesProvider.cs" />
     <Compile Include="Providers\IDataServicesProviderFactory.cs" />
     <Compile Include="Providers\SqlCeDataServicesProvider.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="SessionManagement\ISessionFactoryHolder.cs" />
     <Compile Include="SessionManagement\ISessionLocator.cs" />
     <Compile Include="Migration\Generator\ISchemaCommandGenerator.cs" />
@@ -104,6 +129,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionManagement\SessionFactoryHolder.cs" />
     <Compile Include="SessionManagement\SessionLocator.cs" />
+    <Compile Include="TransactionManager.cs" />
+    <Compile Include="WorkEnvironment.cs" />
+    <Compile Include="WorkContextScope.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">

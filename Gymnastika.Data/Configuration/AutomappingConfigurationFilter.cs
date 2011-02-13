@@ -10,7 +10,7 @@ namespace Gymnastika.Data.Configuration
     {
         public override bool ShouldMap(Type type)
         {
-            return type.Namespace.Contains(".Models.");
+            return type.Namespace.Contains(".Models");
         }
     }
 }

@@ -10,6 +10,9 @@ using NHibernate.SqlTypes;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Automapping;
 using Gymnastika.Data.Configuration;
+using FluentNHibernate.Conventions.Helpers;
+using Gymnastika.Common.Utils;
+using Gymnastika.Data.Conventions;
 
 namespace Gymnastika.Data.Providers
 {
@@ -17,15 +20,15 @@ namespace Gymnastika.Data.Providers
     {
         private readonly string _fileName;
         private readonly string _dataFolder;
-        private readonly string _connectionString;
 
         public IAutomappingConfigurer AutomappingConfigurer { get; set; }
 
-        public SqlCeDataServicesProvider(string dataFolder, string connectionString)
+        public SqlCeDataServicesProvider(string dataFolder, string dbName)
         {
             _dataFolder = dataFolder;
-            _connectionString = connectionString;
-            _fileName = Path.Combine(_dataFolder, "Gymnastika.sdf");
+            _fileName = Path.Combine(
+                _dataFolder, 
+                dbName.EndsWith("sdf") ? dbName : (dbName + ".sdf"));
         }
 
         public SqlCeDataServicesProvider(string fileName)
@@ -39,17 +42,25 @@ namespace Gymnastika.Data.Providers
             get { return "SqlCe"; }
         }
 
-        protected override FluentConfiguration Configuration(FluentConfiguration cfg)
+        protected override FluentConfiguration InnerConfiguration(FluentConfiguration cfg)
         {
             if (this.AutomappingConfigurer == null) return cfg;
 
-            var autoMappingMetadataCollection = AutomappingConfigurer.GetAutomappingAssemblies();
-            var persistenceModels = autoMappingMetadataCollection
+            var autoMappingMetadataCollection = AutomappingConfigurer.GetAutomappingMetadata();
+            var persistenceAssemblies = autoMappingMetadataCollection
                 .Select(metadata => Assembly.LoadFrom(metadata.AssemblyName));
-            
-            return cfg.Mappings(
-                        m => m.AutoMappings.Add(
-                            AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceModels)));
+
+            return cfg.Mappings(m => m.AutoMappings.Add(GetPersistenceModel(persistenceAssemblies)));
+        }
+
+        private AutoPersistenceModel GetPersistenceModel(IEnumerable<Assembly> persistenceAssemblies)
+        {
+            return AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
+                          .Conventions.Add(
+                                PrimaryKey.Name.Is(x => "Id"),
+                                DefaultLazy.Never(),
+                                new TablePluralizationConvention(),
+                                new UnsavedIdConvention());
         }
 
         public override IPersistenceConfigurer GetPersistenceConfigurer(bool createDatabase)
@@ -67,8 +78,7 @@ namespace Gymnastika.Data.Providers
                 CreateSqlCeDatabaseFile(localConnectionString);
             }
 
-            return persistence.ConnectionString(localConnectionString)
-                              .Driver(typeof(SqlServerCeDriver).AssemblyQualifiedName);
+            return persistence.ConnectionString(localConnectionString);
         }
 
         private void CreateSqlCeDatabaseFile(string connectionString)

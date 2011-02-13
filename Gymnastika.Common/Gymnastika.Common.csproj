@@ -53,8 +53,8 @@
     <Compile Include="Converters\GenderToBoolConverter.cs" />
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
-    <Compile Include="IMenuManager.cs" />
-    <Compile Include="IShareServiceManager.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\LoggerExtensions.cs" />
@@ -68,6 +68,8 @@
     <Compile Include="Session\ISessionManager.cs" />
     <Compile Include="Session\SessionContext.cs" />
     <Compile Include="Session\SessionManager.cs" />
+    <Compile Include="Utils\UniqueExecuteHelper.cs" />
+    <Compile Include="Utils\Inflector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">

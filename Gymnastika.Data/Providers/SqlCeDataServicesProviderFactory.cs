@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gymnastika.Data.Configuration;
 
 namespace Gymnastika.Data.Providers
 {
     public class SqlCeDataServicesProviderFactory : IDataServicesProviderFactory
     {
-        public SqlCeDataServicesProviderFactory() { }
+        private IAutomappingConfigurer _configurer;
+
+        public SqlCeDataServicesProviderFactory(IAutomappingConfigurer configurer) 
+        {
+            _configurer = configurer;
+        }
 
         public IDataServicesProvider CreateProvider(DataServiceParameters parameters)
         {
-            return new SqlCeDataServicesProvider("~/Data", parameters.ConnectionString);
+            return new SqlCeDataServicesProvider(parameters.DataFolder, parameters.DatabaseName)
+            {
+                AutomappingConfigurer = _configurer
+            };
         }
     }
 }
