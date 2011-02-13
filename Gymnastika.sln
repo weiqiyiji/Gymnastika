@@ -40,6 +40,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Data", "Gymnastika.Data\Gymnastika.Data.csproj", "{5599B439-EA67-4E8A-AE08-AB4FABF074C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.MigrationGen", "Gymnastika.MigrationGen\Gymnastika.MigrationGen.csproj", "{629AD67E-C3E8-415D-97F7-9036BB2BE812}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Phone", "Gymnastika.Phone\Gymnastika.Phone.csproj", "{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -227,6 +228,20 @@ Global
 		{629AD67E-C3E8-415D-97F7-9036BB2BE812}.Release|Mixed Platforms.Build.0 = Release|x86
 		{629AD67E-C3E8-415D-97F7-9036BB2BE812}.Release|x86.ActiveCfg = Release|x86
 		{629AD67E-C3E8-415D-97F7-9036BB2BE812}.Release|x86.Build.0 = Release|x86
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
+		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

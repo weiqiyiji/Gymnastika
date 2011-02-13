@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Gymnastika.Phone.Controls.MicroBlog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="335" d:DesignWidth="612" xmlns:my="clr-namespace:Gymnastika.Phone.Controls" xmlns:my1="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps" xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+    
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBorderBrush}">
+        <TextBlock Height="51" Margin="109,38,1,0" Name="txtCurrentItem" Text="TextBlock" VerticalAlignment="Top" />
+        <Rectangle Height="51" Margin="2,95,-2,0" Name="rectangle2" Stroke="{x:Null}" StrokeThickness="1" VerticalAlignment="Top" Fill="#FFE2E2E2" />
+        <TextBlock Height="32" Margin="109,0,0,0" Name="textBlock2" Text="" VerticalAlignment="Top" />
+        <TextBox Height="61" Margin="-5,91,201,0" Name="textBox1" Text="TextBox" VerticalAlignment="Top" Padding="0" BorderThickness="0" />
+        <Button Content="POST" Height="71" HorizontalAlignment="Right" Margin="0,85,1,0" Name="button1" VerticalAlignment="Top" Width="123" Foreground="Black" BorderBrush="Gray" />
+        <StackPanel Margin="2,144,0,12" Name="stackPanel1" Background="#91383838">
+            <my:MicroBlogItem x:Name="microBlogItem1" />
+            <my:MicroBlogItem x:Name="microBlogItem2" />
+            <my:MicroBlogItem x:Name="microBlogItem3" />
+        </StackPanel>
+        <Rectangle Margin="0,0,-2,0" Name="rectDrag" Stroke="{x:Null}" StrokeThickness="1" Fill="White" Height="13" VerticalAlignment="Bottom" />
+        <Image Height="82" HorizontalAlignment="Left" Margin="4,7,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="99" />
+    </Grid>
+</UserControl>
