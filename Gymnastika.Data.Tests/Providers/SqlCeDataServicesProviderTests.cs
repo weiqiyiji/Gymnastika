@@ -12,7 +12,15 @@ namespace Gymnastika.Data.Tests.Providers
     [TestFixture]
     public class SqlCeDataServicesProviderTests
     {
-        private readonly string DbFilePath = Path.Combine("/", "GymnastikaTests.sdf");
+        private readonly string DbName = "GymnastikaForTests.sdf";
+        private readonly string CurrentDirectory = Directory.GetCurrentDirectory();
+        private string _dbFilePath;
+
+        [TestFixtureSetUp]
+        public void TestFixtureSetUp()
+        {
+            _dbFilePath = Path.Combine(CurrentDirectory, DbName);
+        }
 
         [Test]
         public void EnsureProviderName()
@@ -25,7 +33,7 @@ namespace Gymnastika.Data.Tests.Providers
         {
             DeleteDatabase();
 
-            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider("/", "GymnastikaTests.sdf")
+            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider(CurrentDirectory, DbName)
             {
                 AutomappingConfigurer = new MockAutomappingConfigurer()
             };
@@ -39,21 +47,38 @@ namespace Gymnastika.Data.Tests.Providers
         [Test]
         public void ClassMappingCorrectAfterConfiguration()
         {
-            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider("/", "GymnastikaTests.sdf")
+            var mockConfigurer = new MockAutomappingConfigurer();
+
+            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider(CurrentDirectory, DbName)
             {
-                AutomappingConfigurer = new MockAutomappingConfigurer()
+                AutomappingConfigurer = mockConfigurer
             };
 
             NHibernate.Cfg.Configuration cfg = provider.BuildConfiguration(
                 new DataServiceParameters { CreateDatabase = EnsureDatabase() });
 
-            Assert.That(cfg.ClassMappings.Count, Is.EqualTo(1));
+            Assert.That(cfg.ClassMappings.Count, Is.EqualTo(mockConfigurer.ModelCount));
+        }
 
-            var classMapping = cfg.ClassMappings.First();
+        [Test]
+        [ExpectedException(typeof(DataServicesProviderInitializationException))]
+        public void ThrowForDatabaseNameMissing()
+        {
+            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider("/", "");
+        }
 
-            Assert.That(classMapping.IdentifierProperty.Name, Is.EqualTo("Id"));
-            Assert.That(classMapping.EntityName, Is.StringContaining("TestTable"));
-            Assert.That(classMapping.Table.Name, Is.EqualTo("TestTables"));
+        [Test]
+        [ExpectedException(typeof(DataServicesProviderInitializationException))]
+        public void ThrowForDataFolderMissing()
+        {
+            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider("", "Null");
+        }
+
+        [Test]
+        [ExpectedException(typeof(DataServicesProviderInitializationException))]
+        public void ThrowForFileNameMissing()
+        {
+            SqlCeDataServicesProvider provider = new SqlCeDataServicesProvider("");
         }
 
         [TestFixtureTearDown]
@@ -64,14 +89,14 @@ namespace Gymnastika.Data.Tests.Providers
 
         private bool EnsureDatabase()
         {
-            return File.Exists(DbFilePath);
+            return File.Exists(_dbFilePath);
         }
 
         private void DeleteDatabase()
         {
             if (EnsureDatabase())
             {
-                File.Delete(DbFilePath);
+                File.Delete(_dbFilePath);
             }
         }
     }

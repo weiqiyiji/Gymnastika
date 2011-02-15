@@ -7,15 +7,21 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Data.Migration;
 
-namespace Gymnastika.MigrationGen
+namespace Gymnastika.Migrations
 {
     public class Migration_{table_name}_{version} : IDataMigration
     {
-        public string TableName { return "{table_name}"; }
+        public string TableName 
+        { 
+            get { return "{table_name}"; }
+        }
             
-        public string Version { return "{version}"; }
+        public string Version 
+        { 
+            get { return "{version}"; }
+        }
             
-        public SchemaBuilder { get; set; }
+        public SchemaBuilder SchemaBuilder { get; set; }
             
         public void Up()
         {

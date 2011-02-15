@@ -40,6 +40,9 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\Libs\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\Libs\NHibernate.dll</HintPath>
     </Reference>

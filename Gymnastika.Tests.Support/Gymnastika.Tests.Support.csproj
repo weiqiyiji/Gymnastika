@@ -41,13 +41,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileLogger.cs" />
-    <Compile Include="InMemoryUserRepository.cs" />
+    <Compile Include="InMemoryRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
+      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
+      <Name>Gymnastika.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

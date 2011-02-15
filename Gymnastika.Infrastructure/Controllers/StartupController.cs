@@ -9,11 +9,14 @@ using Gymnastika.ViewModels;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using Microsoft.Practices.Prism.Events;
-using Gymnastika.Common.Events;
-using Gymnastika.Common.Services;
+
+using Gymnastika.Services;
 using Microsoft.Practices.Prism.Modularity;
-using Gymnastika.Common.Models;
-using Gymnastika.Common.Session;
+using Gymnastika.Services.Models;
+using Gymnastika.Services.Session;
+using Gymnastika.Services.Impl;
+using Gymnastika.Services.Contracts;
+using Gymnastika.Events;
 
 namespace Gymnastika.Controllers
 {
@@ -73,7 +76,7 @@ namespace Gymnastika.Controllers
                 .Subscribe(OnUserLogOnSuccess);
         }
 
-        private void OnUserLogOnSuccess(UserModel user)
+        private void OnUserLogOnSuccess(User user)
         {
             IMainView view = _container.Resolve<IMainView>();
             IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];

@@ -34,7 +34,7 @@ namespace Gymnastika.Data.SessionManagement
         {
             Logger.Debug("Acquiring session for {0}", entityType);
 
-            IWorkContextScope currentScope = _workEnvironment.CreateWorkContextScope();
+            IWorkContextScope currentScope = _workEnvironment.GetWorkContextScope();
             object session = null;
 
             if (!currentScope.Items.TryGetValue(ContextKey, out session))
@@ -53,6 +53,7 @@ namespace Gymnastika.Data.SessionManagement
 
                 currentScope.Items.Add(ContextKey, session);
             }
+
             return session as ISession;
         }
 
@@ -65,15 +66,5 @@ namespace Gymnastika.Data.SessionManagement
             ISession session = scope.Items[ContextKey] as ISession;
             session.Close();
         }
-
-        #region ISessionLocator Members
-
-
-        public void CloseSession(Type entityType)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

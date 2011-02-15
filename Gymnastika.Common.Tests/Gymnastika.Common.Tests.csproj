@@ -47,17 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\UserServiceTests.cs" />
     <Compile Include="Session\SessionManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
-      <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
-      <Name>Gymnastika.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
       <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
       <Name>Gymnastika.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj">
       <Project>{40426CD2-BF24-4938-9415-38D4AF4D199C}</Project>

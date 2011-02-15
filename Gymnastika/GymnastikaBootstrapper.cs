@@ -40,8 +40,11 @@ namespace Gymnastika
 
         private void MigrateData()
         {
-            IDataMigrationManager manager = Container.Resolve<IDataMigrationManager>();
-            manager.Migrate();
+            using (IWorkContextScope scope = Container.Resolve<IWorkEnvironment>().GetWorkContextScope())
+            {
+                IDataMigrationManager manager = Container.Resolve<IDataMigrationManager>();
+                manager.Migrate();
+            }
         }
 
         protected override IModuleCatalog CreateModuleCatalog()
@@ -51,7 +54,7 @@ namespace Gymnastika
 
         protected override IUnityContainer CreateContainer()
         {
-            return new UnityContainer().LoadConfiguration();
+            return new UnityContainer();
         }
 
         protected override void ConfigureContainer()
@@ -60,7 +63,6 @@ namespace Gymnastika
                 .RegisterType<Shell>()
                 .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IStartupController, StartupController>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDataMigrationFinder, DataMigrationInModuleFinder>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()
                 .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>()
@@ -69,13 +71,19 @@ namespace Gymnastika
                 .RegisterType<ISessionLocator, SessionLocator>()
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>()
+                .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITransactionManager, TransactionManager>()
+                .RegisterType(typeof(IRepository<>), typeof(Repository<>))
+                .RegisterType<ILogger, NullLogger>()
+                .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMigrationLoader, DataMigrationLoader>("Data")
                 .RegisterType<IMigrationLoader, ModuleMigrationLoader>("Module");
 
             var shellSettings = new ShellSettings
             {
                 DataProvider = ConfigurationManager.AppSettings["DataProvider"],
-                DataConnectionString = ConfigurationManager.AppSettings["DataServiceConnectionString"]
+                DatabaseName = ConfigurationManager.AppSettings["DatabaseName"],
+                DataFolder = ConfigurationManager.AppSettings["DataFolder"]
             };
 
             Container

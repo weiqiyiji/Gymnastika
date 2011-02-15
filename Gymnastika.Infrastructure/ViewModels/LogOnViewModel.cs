@@ -6,10 +6,11 @@ using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Views;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Gymnastika.Common.Services;
-using Gymnastika.Common.Models;
+using Gymnastika.Services;
+using Gymnastika.Services.Models;
 using Microsoft.Practices.Prism.Events;
-using Gymnastika.Common.Events;
+using Gymnastika.Services.Contracts;
+using Gymnastika.Events;
 
 namespace Gymnastika.ViewModels
 {

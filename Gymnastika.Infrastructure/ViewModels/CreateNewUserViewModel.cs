@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Windows;
-using Gymnastika.Common.Models;
+using Gymnastika.Services.Models;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Gymnastika.Common.Services;
-using Gymnastika.Common.Session;
+using Gymnastika.Services;
+using Gymnastika.Services.Session;
 using Microsoft.Practices.Prism.Events;
-using Gymnastika.Common.Events;
+
+using Gymnastika.Services.Contracts;
+using Gymnastika.Events;
 
 namespace Gymnastika.ViewModels
 {
@@ -19,7 +21,7 @@ namespace Gymnastika.ViewModels
         private IUserService _userService;
         private ISessionManager _sessionManager;
         private IEventAggregator _eventAggregator;
-        private UserModel _user;
+        private User _user;
 
         public CreateNewUserViewModel(
             IUserService userService, ISessionManager sessionManager, IEventAggregator eventAggregator)
@@ -27,7 +29,7 @@ namespace Gymnastika.ViewModels
             _userService = userService;
             _sessionManager = sessionManager;
             _eventAggregator = eventAggregator;
-            _user = new UserModel();
+            _user = new User();
         }
         
         public string UserName
@@ -165,10 +167,10 @@ namespace Gymnastika.ViewModels
             IsRegisterFailed = false;
             ErrorMessage = string.Empty;
 
-            UserModel registeredUser = _userService.GetUser(UserName);
+            User registeredUser = _userService.GetUser(UserName);
             if (registeredUser == null)
             {
-                UserModel savedUser = _userService.Register(_user);
+                User savedUser = _userService.Register(_user);
                 _sessionManager.Add(savedUser);
                 _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
             }

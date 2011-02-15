@@ -1,19 +1,19 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
-using Gymnastika.Common.Events;
-using Gymnastika.Common.Services;
+using Gymnastika.Services;
 using Gymnastika.Views;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
-using Gymnastika.Common.Models;
+using Gymnastika.Services.Models;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using System;
 using Gymnastika.Controllers;
+using Gymnastika.Services.Contracts;
 
 namespace Gymnastika.ViewModels
 {
@@ -27,12 +27,12 @@ namespace Gymnastika.ViewModels
             _container = container;
             _userService = userService;
 
-            RegisteredUsers = new ObservableCollection<UserModel>(_userService.GetAllUsers());
+            RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
         }
 
-        private ObservableCollection<UserModel> _registeredUsers;
+        private ObservableCollection<User> _registeredUsers;
 
-        public ObservableCollection<UserModel> RegisteredUsers
+        public ObservableCollection<User> RegisteredUsers
         {
             get { return _registeredUsers; }
             set
@@ -45,9 +45,9 @@ namespace Gymnastika.ViewModels
             }
         }
 
-        private UserModel _selectedUser;
+        private User _selectedUser;
 
-        public UserModel SelectedUser
+        public User SelectedUser
         {
             get { return _selectedUser; }
             set

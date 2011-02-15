@@ -9,7 +9,7 @@ namespace Gymnastika.Data
     {
         #region IWorkEnvironment Members
 
-        public IWorkContextScope CreateWorkContextScope()
+        public IWorkContextScope GetWorkContextScope()
         {
             return WorkContextScope.Current;
         }

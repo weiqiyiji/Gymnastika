@@ -8,6 +8,9 @@ namespace Gymnastika.Data.Configuration
 {
     public class AutomappingConfigurationElementCollection : ConfigurationElementCollection
     {
+        public AutomappingConfigurationElementCollection()
+        { }
+
         public AutomappingConfigurationElementCollection(AutomappingConfigurationElement[] automappings)
         { 
             if(automappings == null) throw new ArgumentNullException("automappings");
@@ -41,6 +44,11 @@ namespace Gymnastika.Data.Configuration
                 }
             }
             return found;
+        }
+
+        public override ConfigurationElementCollectionType CollectionType
+        {
+            get { return ConfigurationElementCollectionType.BasicMap; }
         }
 
         protected override string ElementName

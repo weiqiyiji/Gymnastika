@@ -50,9 +50,6 @@
   <ItemGroup>
     <Compile Include="Behaviors\CloseWindowBehavior.cs" />
     <Compile Include="Configuration\ShellSettings.cs" />
-    <Compile Include="Converters\GenderToBoolConverter.cs" />
-    <Compile Include="Converters\IntegerToBoolConverter.cs" />
-    <Compile Include="Events\LogOnSuccessEvent.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs" />
     <Compile Include="Logging\ConsoleLogger.cs" />
@@ -61,13 +58,6 @@
     <Compile Include="Logging\NullLogger.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\IUserRepository.cs" />
-    <Compile Include="Services\IUserService.cs" />
-    <Compile Include="Models\UserModel.cs" />
-    <Compile Include="Services\UserService.cs" />
-    <Compile Include="Session\ISessionManager.cs" />
-    <Compile Include="Session\SessionContext.cs" />
-    <Compile Include="Session\SessionManager.cs" />
     <Compile Include="Utils\UniqueExecuteHelper.cs" />
     <Compile Include="Utils\Inflector.cs" />
   </ItemGroup>

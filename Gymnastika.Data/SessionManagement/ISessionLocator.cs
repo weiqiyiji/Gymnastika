@@ -9,6 +9,5 @@ namespace Gymnastika.Data.SessionManagement
     public interface ISessionLocator
     {
         ISession For(Type entityType);
-        void CloseSession(Type entityType);
     }
 }

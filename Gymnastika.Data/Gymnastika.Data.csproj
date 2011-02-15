@@ -85,15 +85,14 @@
     <Compile Include="Migration\DataMigrationManager.cs" />
     <Compile Include="Migration\IDataMigration.cs" />
     <Compile Include="Migration\IDataMigrationManager.cs" />
-    <Compile Include="Migration\IDataMigrationFinder.cs" />
     <Compile Include="Migration\IMigrationLoader.cs" />
     <Compile Include="Migration\MigrationException.cs" />
     <Compile Include="Migration\MigrationNullException.cs" />
-    <Compile Include="Migration\ModuleMigrationLoader.cs" />
     <Compile Include="Models\MigrationRecord.cs" />
     <Compile Include="Orderable.cs" />
     <Compile Include="Providers\AbstractDataServicesProvider.cs" />
     <Compile Include="Providers\DataServiceParameters.cs" />
+    <Compile Include="Providers\DataServicesProviderInitializationException.cs" />
     <Compile Include="Providers\SqlCeDataServicesProviderFactory.cs" />
     <Compile Include="Providers\IDataServicesProvider.cs" />
     <Compile Include="Providers\IDataServicesProviderFactory.cs" />

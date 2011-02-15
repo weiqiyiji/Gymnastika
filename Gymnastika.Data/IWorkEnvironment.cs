@@ -7,6 +7,6 @@ namespace Gymnastika.Data
 {
     public interface IWorkEnvironment
     {
-        IWorkContextScope CreateWorkContextScope();
+        IWorkContextScope GetWorkContextScope();
     }
 }

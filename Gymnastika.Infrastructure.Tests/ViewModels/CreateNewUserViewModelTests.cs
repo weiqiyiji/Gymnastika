@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Gymnastika.ViewModels;
-using Gymnastika.Common.Services;
-using Gymnastika.Common.Models;
-using Gymnastika.Common.Session;
+using Gymnastika.Services;
+using Gymnastika.Services.Models;
+using Gymnastika.Services.Session;
 using Moq;
 using Microsoft.Practices.Prism.Events;
-using Gymnastika.Common.Events;
+
+using Gymnastika.Services.Contracts;
+using Gymnastika.Events;
 
 namespace Gymnastika.Infrastructure.Tests.ViewModels
 {
@@ -21,7 +23,7 @@ namespace Gymnastika.Infrastructure.Tests.ViewModels
         {
             IEventAggregator eventAggregator = new EventAggregator();
             bool eventRegistered = false;
-            UserModel um = new UserModel();
+            User um = new User();
 
             eventAggregator.GetEvent<LogOnSuccessEvent>().Subscribe(u => um.Id = u.Id);
 
@@ -60,7 +62,7 @@ namespace Gymnastika.Infrastructure.Tests.ViewModels
             var mockUserService = new Mock<IUserService>();
             mockUserService
                 .Setup(us => us.GetUser(It.IsAny<string>()))
-                .Returns(new UserModel());
+                .Returns(new User());
 
             ISessionManager sessionManager = new SessionManager();
             CreateNewUserViewModel vm = new CreateNewUserViewModel(
@@ -76,7 +78,7 @@ namespace Gymnastika.Infrastructure.Tests.ViewModels
 
     internal class MockUserService : IUserService
     {
-        public UserModel RegisteredUser { get; set; }
+        public User RegisteredUser { get; set; }
 
         #region IUserService Members
 
@@ -85,17 +87,17 @@ namespace Gymnastika.Infrastructure.Tests.ViewModels
             get { return string.Empty; }
         }
 
-        public UserModel GetUser(int id)
+        public User GetUser(int id)
         {
             return null;
         }
 
-        public UserModel GetUser(string userName)
+        public User GetUser(string userName)
         {
             return null;
         }
 
-        public UserModel GetCurrentUser()
+        public User GetCurrentUser()
         {
             throw new NotImplementedException();
         }
@@ -110,19 +112,19 @@ namespace Gymnastika.Infrastructure.Tests.ViewModels
             throw new NotImplementedException();
         }
 
-        public UserModel Register(UserModel user)
+        public User Register(User user)
         {
             RegisteredUser = user;
             RegisteredUser.Id = 1;
             return RegisteredUser;
         }
 
-        public void Update(UserModel u)
+        public void Update(User u)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<UserModel> GetAllUsers()
+        public IEnumerable<User> GetAllUsers()
         {
             throw new NotImplementedException();
         }

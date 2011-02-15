@@ -134,6 +134,8 @@ namespace Gymnastika.Data.Migration
             }
 
             record.Version = dataMigration.Version;
+
+            Logger.Debug("DataMigrationManager", "Migrate {0} to version:{1}", record.TableName, record.Version);
             _migrationRecordRepository.CreateOrUpdate(record);
         }
     }

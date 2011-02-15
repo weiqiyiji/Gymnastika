@@ -71,9 +71,17 @@
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
+      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
+      <Name>Gymnastika.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Infrastructure\Gymnastika.Infrastructure.csproj">
       <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
       <Name>Gymnastika.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika\Gymnastika.csproj">
       <Project>{77D43A9C-B3F8-4B5A-9A16-11FB6E6D8B15}</Project>

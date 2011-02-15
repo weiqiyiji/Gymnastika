@@ -25,6 +25,12 @@ namespace Gymnastika.Data.Providers
 
         public SqlCeDataServicesProvider(string dataFolder, string dbName)
         {
+            if (string.IsNullOrEmpty(dataFolder))
+                throw new DataServicesProviderInitializationException(this, "dataFolder missing");
+
+            if (string.IsNullOrEmpty(dbName))
+                throw new DataServicesProviderInitializationException(this, "dbName missing");
+
             _dataFolder = dataFolder;
             _fileName = Path.Combine(
                 _dataFolder, 
@@ -33,6 +39,9 @@ namespace Gymnastika.Data.Providers
 
         public SqlCeDataServicesProvider(string fileName)
         {
+            if(string.IsNullOrEmpty(fileName))
+                throw new DataServicesProviderInitializationException(this, "fileName missing");
+
             _dataFolder = Path.GetDirectoryName(fileName);
             _fileName = fileName;
         }
@@ -58,7 +67,7 @@ namespace Gymnastika.Data.Providers
             return AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
                           .Conventions.Add(
                                 PrimaryKey.Name.Is(x => "Id"),
-                                DefaultLazy.Never(),
+                                DefaultLazy.Always(),
                                 new TablePluralizationConvention(),
                                 new UnsavedIdConvention());
         }

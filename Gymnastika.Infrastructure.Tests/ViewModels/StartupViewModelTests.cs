@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using Gymnastika.ViewModels;
-using Gymnastika.Common.Services;
+using Gymnastika.Services;
 using System.Windows.Input;
 using Moq;
 using Gymnastika.Views;
 using Microsoft.Practices.Unity;
-using Gymnastika.Common.Models;
+using Gymnastika.Services.Models;
 using Gymnastika.Tests.Support;
+using Gymnastika.Services.Impl;
 
 namespace Gymnastika.Tests.ViewModels
 {
@@ -24,7 +25,7 @@ namespace Gymnastika.Tests.ViewModels
         {
             _startViewModel = new StartupViewModel(
                 new UnityContainer(),
-                new UserService(new InMemoryUserRepository()));
+                new UserService(new InMemoryRepository<User>()));
         }
 
         [Test]
@@ -36,14 +37,14 @@ namespace Gymnastika.Tests.ViewModels
         [Test]
         public void LogOnCommand_SelectedUserNotNull_CanNotExecute()
         { 
-            _startViewModel.SelectedUser = new UserModel();
+            _startViewModel.SelectedUser = new User();
             Assert.That(_startViewModel.LogOnCommand.CanExecute(null), Is.False);
         }
 
         [Test]
         public void LogOnCommand_UserSelected_CanExecute()
         {
-            UserModel user = new UserModel();
+            User user = new User();
             _startViewModel.RegisteredUsers.Add(user);
             _startViewModel.SelectedUser = user;
 

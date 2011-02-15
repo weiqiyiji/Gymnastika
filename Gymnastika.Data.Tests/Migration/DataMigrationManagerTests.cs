@@ -20,6 +20,7 @@ using Gymnastika.Tests.Support;
 using System;
 using System.Data.SqlServerCe;
 using System.Transactions;
+using Moq;
 
 namespace Gymnastika.Data.Tests.Migration
 {
@@ -28,11 +29,13 @@ namespace Gymnastika.Data.Tests.Migration
     {
         private IUnityContainer _container;
         private UnityServiceLocator _serviceLocator;
+        private readonly string DbName = "GymnastikaForTests.sdf";
+        private readonly string DbFolder = Directory.GetCurrentDirectory();
 
         [SetUp]
         public void SetUp()
         {
-            string dbPath = Path.Combine(Directory.GetCurrentDirectory(), "GymnastikaTest.sdf");
+            string dbPath = Path.Combine(DbFolder, DbName);
             if (File.Exists(dbPath))
             {
                 File.Delete(dbPath);
@@ -51,7 +54,13 @@ namespace Gymnastika.Data.Tests.Migration
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ILogger, FileLogger>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
-                .RegisterInstance<ShellSettings>(new ShellSettings());
+                .RegisterInstance<ShellSettings>(
+                    new ShellSettings 
+                    {
+                        DatabaseName = DbName,
+                        DataFolder = DbFolder,
+                        DataProvider = "SqlCe"
+                    });
 
             _serviceLocator = new UnityServiceLocator(_container);
             ServiceLocator.SetLocatorProvider(() => _serviceLocator);
@@ -66,36 +75,38 @@ namespace Gymnastika.Data.Tests.Migration
         [Test]
         public void LoadMigrations()
         {
-            StubDataMigrationManager manager = _container.Resolve<IDataMigrationManager>() as StubDataMigrationManager;
+            var mockMigrationLoader = new MockMigrationLoader();
+            var mockSession = new Mock<ISession>();
+            var mockSessionLocator = new Mock<ISessionLocator>();
+            mockSessionLocator
+                .Setup(s => s.For(It.IsAny<Type>()))
+                .Returns(mockSession.Object);
+
+            StubDataMigrationManager manager = new StubDataMigrationManager(
+                new IMigrationLoader[] { mockMigrationLoader },
+                mockSessionLocator.Object,
+                null,
+                new InMemoryRepository<MigrationRecord>(),
+                new NullLogger()
+                );
+
             IEnumerable<IDataMigration> dataMigrations = manager.CallLoadDataMigrations();        
 
-            Assert.That(dataMigrations.Count(), Is.EqualTo(1));
-
-            IDataMigration migration = dataMigrations.First();
-            Assert.That(migration.Version, Is.EqualTo("00000000000000"));
-            Assert.That(migration.TableName, Is.EqualTo("TestTables"));
+            Assert.That(dataMigrations.Count(), Is.EqualTo(mockMigrationLoader.MigrationCount));
         }
 
         [Test]
-        public void MigrateToLatestVersion()
+        public void TestWhat()
         {
-            using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
+            using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
             {
-                StubDataMigrationManager manager = _container.Resolve<IDataMigrationManager>() as StubDataMigrationManager;
-                manager.Migrate();
-            }
-
-            using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
-            {
-                IRepository<MigrationRecord> repository = _container.Resolve<IRepository<MigrationRecord>>();
-
-                int count = repository.Count(m => true);
-                Assert.That(count, Is.EqualTo(2));
+                StubDataMigrationManager migrationManager = _container.Resolve<IDataMigrationManager>() as StubDataMigrationManager;
+                migrationManager.Migrate();
             }
         }
 
         //[Test]
-        //public void MigrateToSpecificVersion()
+        //public void MigrateToLatestVersion()
         //{
         //    using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
         //    {
@@ -105,44 +116,10 @@ namespace Gymnastika.Data.Tests.Migration
 
         //    using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
         //    {
-        //        StubDataMigrationManager manager = _container.Resolve<IDataMigrationManager>() as StubDataMigrationManager;
-        //        manager.Migrate("00000000000000");
-        //    }
+        //        IRepository<MigrationRecord> repository = _container.Resolve<IRepository<MigrationRecord>>();
 
-        //    using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
-        //    {
-        //        ISessionLocator sessionLocator = _container.Resolve<ISessionLocator>();
-        //        ISession session = sessionLocator.For(this.GetType());
-        //        session.Clear();
-
-        //        int count = session.Linq<MigrationRecord>().Count();
-        //        Assert.That(count, Is.EqualTo(1));
-        //    }
-        //}
-
-        //[Test]
-        //public void TransactionScopeComplete()
-        //{
-        //    string dbPath = Path.Combine(Directory.GetCurrentDirectory(), "TestDb.sdf");
-        //    string connectionString = "Data Source=" + dbPath;
-
-        //    if (!File.Exists(dbPath))
-        //    {
-        //        SqlCeEngine engine = new SqlCeEngine();
-        //        engine.LocalConnectionString = connectionString;
-        //        engine.CreateDatabase();
-        //        engine.Dispose();
-        //    }
-
-        //    using (var scope = new TransactionScope())
-        //    {
-        //        SqlCeConnection conn = new SqlCeConnection(connectionString);
-        //        conn.Open();
-        //        SqlCeCommand cmd = conn.CreateCommand();
-        //        cmd.CommandText = "create table MigrationRecords (Id INT IDENTITY NOT NULL, Version NVARCHAR(16) null, TableName NVARCHAR(255) null, primary key ( Id ) )";
-        //        cmd.ExecuteNonQuery();
-
-        //        scope.Complete();
+        //        int count = repository.Count(m => true);
+        //        Assert.That(count, Is.EqualTo(2));
         //    }
         //}
     }
