@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Sports.Views;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -20,9 +21,8 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class SportView : UserControl, ISportView
     {
-        public SportView(ISportViewModel model)
+        public SportView()
         {
-            ViewModel = model;
             InitializeComponent();
         }
         public ISportViewModel ViewModel

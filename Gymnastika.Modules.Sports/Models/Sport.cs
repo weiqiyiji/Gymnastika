@@ -11,8 +11,6 @@ namespace Gymnastika.Modules.Sports.Models
     {
         public string Name { get; set; }
 
-        public string Id { get; set; }
-
         public string SmallImageUri { get; set; }
 
         public string LargeImageUri { get; set; }
@@ -22,6 +20,7 @@ namespace Gymnastika.Modules.Sports.Models
         public string DetailIntroduction { get; set; }
 
         public int CaloriePerHour { get; set; }
+
 
     }
 }

@@ -17,6 +17,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Models;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {

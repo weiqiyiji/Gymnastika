@@ -10,8 +10,6 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class SportsPlan
     {
-        public string Id { get; set; }
-
         public int Year { get; set; }
 
         public int Month { get; set; }

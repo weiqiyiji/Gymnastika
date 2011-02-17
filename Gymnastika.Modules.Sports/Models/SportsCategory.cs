@@ -12,17 +12,14 @@ namespace Gymnastika.Modules.Sports.Services
 
     public class SportsCategory 
     {
-
-        #region ISportsCategory Members
-
-        public string Id { get; set; }
-
+        
         public string Name { get; set; }
 
         public string ImageUri { set; get; }
 
+        public string Note { get; set; }
+
         public IEnumerable<Sport> Sports { get; set; }
 
-        #endregion
     }
 }
