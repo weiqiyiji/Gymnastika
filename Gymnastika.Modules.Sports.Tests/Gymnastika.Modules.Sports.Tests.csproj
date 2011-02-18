@@ -92,9 +92,6 @@
     <Compile Include="SportsMigrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Badminton.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
       <Name>Gymnastika.Data</Name>
@@ -103,9 +100,6 @@
       <Project>{595AB87C-2639-4577-88BB-6C5073AF2CBC}</Project>
       <Name>Gymnastika.Modules.Sports</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
