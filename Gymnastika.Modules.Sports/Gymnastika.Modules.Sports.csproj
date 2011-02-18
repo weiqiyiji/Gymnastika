@@ -77,8 +77,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entity\CategoryEntity.cs" />
-    <Compile Include="Entity\SportEntity.cs" />
     <Compile Include="Events\ShowPlanDetailEvent.cs" />
     <Compile Include="Migration\Migration_SportsCategories_20110217223043.cs" />
     <Compile Include="Models\SportsCategory.cs" />
