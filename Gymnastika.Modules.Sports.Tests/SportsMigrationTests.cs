@@ -17,6 +17,10 @@ using Gymnastika.Data;
 using Gymnastika.Data.Migration;
 using Gymnastika.Data.Configuration;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Common.Logging;
+using Gymnastika.Tests.Support;
+using Gymnastika.Data.Migration.Interpreters;
+using Gymnastika.Common.Configuration;
 
 
 namespace Gymnastika.Modules.Sports.Test
@@ -38,12 +42,25 @@ namespace Gymnastika.Modules.Sports.Test
 
             _container = new UnityContainer();
             _container
-                .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITransactionManager, TransactionManager>()
-                .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
-                .RegisterType(typeof(IRepository<>), typeof(Repository<>))
-                .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager());
+               .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>(new ContainerControlledLifetimeManager())
+               .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
+               .RegisterType<ITransactionManager, TransactionManager>()
+               .RegisterType<IDataMigrationManager, DataMigrationManager>()
+               .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>(new PerThreadLifetimeManager())
+               .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
+               .RegisterType<IMigrationLoader, DataMigrationLoader>("Default")
+               .RegisterType(typeof(IRepository<>), typeof(Repository<>))
+               .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
+               .RegisterType<ILogger, FileLogger>()
+               .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
+               .RegisterInstance<ShellSettings>(
+                   new ShellSettings
+                   {
+                       DatabaseName = DbName,
+                       DataFolder = DbFolder,
+                       DataProvider = "SqlCe"
+                   });
+
 
             _serviceLocator = new UnityServiceLocator(_container);
             ServiceLocator.SetLocatorProvider(() => _serviceLocator);
@@ -56,6 +73,15 @@ namespace Gymnastika.Modules.Sports.Test
         }
 
 
+        [Test]
+        public void test()
+        {
+            using (var scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
+            {
+                var repository = _container.Resolve<IRepository<Sport>>();
+                repository.Count(t => true);
+            }
+        }
 
     }
 }
