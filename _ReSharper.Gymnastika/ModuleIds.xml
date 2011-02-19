@@ -1,6 +1,0 @@
-<Modules>
-  <Module PersistentId="5599B439-EA67-4E8A-AE08-AB4FABF074C2" ModuleId="Gymnastika.Data" />
-  <Module PersistentId="F7C4886B-B079-4A15-87F6-6504E82B9389" ModuleId="Gymnastika.Common" />
-  <Module PersistentId="C550D899-9E1D-46D9-A043-B05236648BA4" ModuleId="Gymnastika.Data.Tests" />
-  <Module PersistentId="40426CD2-BF24-4938-9415-38D4AF4D199C" ModuleId="Gymnastika.Tests.Support" />
-</Modules>
