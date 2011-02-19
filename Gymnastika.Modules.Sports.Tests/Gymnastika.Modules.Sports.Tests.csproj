@@ -9,8 +9,8 @@
     <ProjectGuid>{4C4CC307-FF8E-44D1-A4FD-1D393DBE16CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Modules.Sports.Test</RootNamespace>
-    <AssemblyName>Gymnastika.Modules.Sports.Test</AssemblyName>
+    <RootNamespace>Gymnastika.Modules.Sports.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Modules.Sports.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -67,6 +67,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\Libs\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate.Linq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\NHibernate.Linq.dll</HintPath>
@@ -108,6 +111,10 @@
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data.Tests\Gymnastika.Data.Tests.csproj">
+      <Project>{C550D899-9E1D-46D9-A043-B05236648BA4}</Project>
+      <Name>Gymnastika.Data.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>

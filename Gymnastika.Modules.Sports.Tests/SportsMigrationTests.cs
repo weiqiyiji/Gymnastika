@@ -21,10 +21,48 @@ using Gymnastika.Common.Logging;
 using Gymnastika.Tests.Support;
 using Gymnastika.Data.Migration.Interpreters;
 using Gymnastika.Common.Configuration;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
+using Gymnastika.Data.Models;
+using NHibernate;
+using Gymnastika.Data.Tests.MockMigration;
 
-
-namespace Gymnastika.Modules.Sports.Test
+namespace Gymnastika.Modules.Sports.Tests
 {
+    public class MockAutomappingConfigurer : IAutomappingConfigurer
+    {
+        #region IAutomappingConfigurer Members
+
+        public System.Collections.Generic.IEnumerable<AutomappingConfigurationMetadata> GetAutomappingMetadata()
+        {
+            yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Data.Tests.dll" };
+            yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Data.dll" };
+            yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Modules.Sports.Tests.dll" };
+            yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Modules.Sports.dll" };
+        }
+
+        #endregion
+    }
+
+    public class MockMigrationLoader : IMigrationLoader
+    {
+        #region IMigrationLoader Members
+
+        public IEnumerable<IDataMigration> Load()
+        {
+           return new List<IDataMigration>()
+           {
+               new  Migration_AnotherTestTables_00000000000001()
+           };
+            //return Assembly.GetAssembly(typeof(Sport))
+            //            .GetExportedTypes()
+            //            .Where(t => t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null)
+            //            .Select(t => (IDataMigration)Activator.CreateInstance(t));
+        }
+
+        #endregion
+    }
 
     [TestFixture]
     public class SportsMigrationTests
@@ -46,9 +84,14 @@ namespace Gymnastika.Modules.Sports.Test
                .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                .RegisterType<ITransactionManager, TransactionManager>()
                .RegisterType<IDataMigrationManager, DataMigrationManager>()
-               .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>(new PerThreadLifetimeManager())
+               .RegisterType<IAutomappingConfigurer, MockAutomappingConfigurer>(new PerThreadLifetimeManager())
                .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
-               .RegisterType<IMigrationLoader, DataMigrationLoader>("Default")
+               .RegisterInstance<IMigrationLoader[]>(
+               new IMigrationLoader[]
+               {
+                    new MockMigrationLoader()
+               })
+               .RegisterType<IMigrationLoader, MockMigrationLoader>("Default")
                .RegisterType(typeof(IRepository<>), typeof(Repository<>))
                .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                .RegisterType<ILogger, FileLogger>()
@@ -74,14 +117,13 @@ namespace Gymnastika.Modules.Sports.Test
 
 
         [Test]
-        public void test()
+        public void Test()
         {
-            using (var scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
-            {
-                var repository = _container.Resolve<IRepository<Sport>>();
-                repository.Count(t => true);
-            }
+            IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope();
+            var migrationManager = _container.Resolve<IDataMigrationManager>();
+            migrationManager.Migrate();
+            Repository<Sport> re = new Repository<Sport>(_container.Resolve<ISessionLocator>(), _container.Resolve<ILogger>());
+            scope.Dispose();
         }
-
     }
 }

@@ -10,7 +10,7 @@ using NUnit.Framework;
 using Moq;
 using Gymnastika.Modules.Sports.ViewModels;
 
-namespace Gymnastika.Modules.Sports.Test
+namespace Gymnastika.Modules.Sports.Tests
 {
 
     [TestFixture]
