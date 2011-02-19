@@ -56,14 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Sub\FormDemo.xaml.cs">
-      <DependentUpon>FormDemo.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Sub\ImageButtonDemo.xaml.cs">
       <DependentUpon>ImageButtonDemo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Sub\InstantSearchBoxDemo.xaml.cs">
       <DependentUpon>InstantSearchBoxDemo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Sub\SlidePanelDemo.xaml.cs">
+      <DependentUpon>SlidePanelDemo.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -77,15 +77,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Sub\FormDemo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Sub\ImageButtonDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Sub\InstantSearchBoxDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Sub\SlidePanelDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +128,13 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\img01.JPG" />
+    <Resource Include="Images\img02.JPG" />
+    <Resource Include="Images\img03.JPG" />
+    <Resource Include="Images\img04.JPG" />
+    <Resource Include="Images\img05.JPG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

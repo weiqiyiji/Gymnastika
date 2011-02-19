@@ -21,8 +21,8 @@ namespace Gymnastika.Common.Logging
                 "[{0}] {1}: ({2}) {3}", 
                 level.ToString(), 
                 category, 
-                DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"),
-                string.Format(format, args));
+                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"),
+                args == null ? format : string.Format(format, args));
         }
 
         #endregion

@@ -5,7 +5,6 @@
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;Component/Themes/ImageButton.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;Component/Themes/ButtonChrome.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;Component/Themes/InstantSearchBox.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;Component/Themes/Form.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

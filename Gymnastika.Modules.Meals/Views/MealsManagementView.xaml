@@ -13,7 +13,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <controls:ImageButton Command="{Binding SearchCommand}" ImageSource="/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <controls:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Width="200" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
                                           ItemsSource="{Binding InMemoryFoods}" KeyDown="SearchBox_KeyDown" />
         </StackPanel>

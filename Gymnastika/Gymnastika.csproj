@@ -16,6 +16,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -58,6 +60,7 @@
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\Libs\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
@@ -108,7 +111,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -119,6 +124,10 @@
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Controls\Gymnastika.Controls.csproj">
+      <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
+      <Name>Gymnastika.Controls</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
@@ -139,6 +148,10 @@
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
       <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
       <Name>Gymnastika.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
