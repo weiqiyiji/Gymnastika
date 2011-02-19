@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</ProjectGuid>
+    <ProjectGuid>{CC3CE178-B02F-4467-B189-64B2D3C4D2C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Services</RootNamespace>
-    <AssemblyName>Gymnastika.Services</AssemblyName>
+    <RootNamespace>Gymnastika.Controls.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Controls.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,38 +31,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\Libs\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\Migration_Users_20110215161221.cs" />
-    <Compile Include="Migrations\Migration_Users_20110218202256.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="SlidePanelTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Contracts\IUserService.cs" />
-    <Compile Include="Impl\UserService.cs" />
-    <Compile Include="ServiceMigrationLoader.cs" />
-    <Compile Include="Session\ISessionManager.cs" />
-    <Compile Include="Session\SessionContext.cs" />
-    <Compile Include="Session\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
-      <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
-      <Name>Gymnastika.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
-      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
-      <Name>Gymnastika.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
-      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
-      <Name>Gymnastika.Resources</Name>
+    <ProjectReference Include="..\Gymnastika.Controls\Gymnastika.Controls.csproj">
+      <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
+      <Name>Gymnastika.Controls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

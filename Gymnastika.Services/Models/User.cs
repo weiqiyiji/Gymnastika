@@ -22,11 +22,13 @@ namespace Gymnastika.Services.Models
         public virtual int Weight { get; set; }
 
         public virtual bool IsActive { get; set; }
+
+        public virtual string AvatarPath { get; set; }
     }
 
     public enum Gender
     { 
-        Male,
-        Female
+        Male = 0,
+        Female = 1
     }
 }

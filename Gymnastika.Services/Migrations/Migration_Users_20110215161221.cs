@@ -30,7 +30,7 @@ namespace Gymnastika.Services.Migrations
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                       .Column<string>("UserName")
                       .Column<string>("Password")
-                      .Column<bool>("Gender")
+                      .Column<int>("Gender")
                       .Column<int>("Age")
                       .Column<int>("Height")
                       .Column<int>("Weight")

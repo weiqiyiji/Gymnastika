@@ -17,6 +17,7 @@ using System.Configuration;
 using Gymnastika.Common.Logging;
 using System.Collections.Generic;
 using Gymnastika.Data.Configuration;
+using Gymnastika.Services;
 
 namespace Gymnastika
 {
@@ -74,10 +75,11 @@ namespace Gymnastika
                 .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof(IRepository<>), typeof(Repository<>))
-                .RegisterType<ILogger, NullLogger>()
+                .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMigrationLoader, DataMigrationLoader>("Data")
-                .RegisterType<IMigrationLoader, ModuleMigrationLoader>("Module");
+                .RegisterType<IMigrationLoader, ModuleMigrationLoader>("Module")
+                .RegisterType<IMigrationLoader, ServiceMigrationLoader>("Service");
 
             var shellSettings = new ShellSettings
             {

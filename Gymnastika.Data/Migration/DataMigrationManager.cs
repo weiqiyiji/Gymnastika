@@ -60,7 +60,7 @@ namespace Gymnastika.Data.Migration
                 //Check whether the table already existed
                 _migrationRecordRepository.Get(m => true);
             }
-            catch
+            catch(Exception e)
             {
                 Logger.Debug("DataMigrationManager", "MigrationRecords does not exist");
                 SchemaBuilder builder = new SchemaBuilder(_interpreter);

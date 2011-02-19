@@ -9,16 +9,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Gymnastika.Controls.Demo.Sub
 {
     /// <summary>
-    /// Interaction logic for FormDemo.xaml
+    /// Interaction logic for SlideWindowDemo.xaml
     /// </summary>
-    public partial class FormDemo : Window
+    public partial class SlidePanelDemo : Window
     {
-        public FormDemo()
+        public SlidePanelDemo()
         {
             InitializeComponent();
         }

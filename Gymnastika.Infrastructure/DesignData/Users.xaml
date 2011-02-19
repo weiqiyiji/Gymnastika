@@ -1,0 +1,12 @@
+﻿<d:StartupViewModel_Design xmlns:models="clr-namespace:Gymnastika.Services.Models;assembly=Gymnastika.Services"
+                           xmlns:d="clr-namespace:Gymnastika.DesignData">
+    <d:StartupViewModel_Design.RegisteredUsers>
+        <d:UserCollection>
+            <models:User UserName="User 1" AvatarPath="/Gymnastika.Infrastructure;component/DesignData/Images/user1.jpg" />
+            <models:User UserName="User 2" AvatarPath="/Gymnastika.Infrastructure;component/DesignData/Images/user2.png" />
+            <models:User UserName="User 3" AvatarPath="/Gymnastika.Infrastructure;component/DesignData/Images/user3.jpg" />
+            <models:User UserName="User 4" AvatarPath="/Gymnastika.Infrastructure;component/DesignData/Images/user4.jpg" />
+            <models:User UserName="User 5" AvatarPath="/Gymnastika.Infrastructure;component/DesignData/Images/user5.jpg" />
+        </d:UserCollection>
+    </d:StartupViewModel_Design.RegisteredUsers>
+</d:StartupViewModel_Design>
