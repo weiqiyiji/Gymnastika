@@ -7,17 +7,14 @@ using Microsoft.Practices.Prism.ViewModel;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 
-namespace Gymnastika.Modules.Sports.Views
+namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public class SportViewModel : NotificationObject, ISportViewModel , IDropTarget,IDragSource
+    public class SportViewModel : NotificationObject, ISportViewModel, IDropTarget, IDragSource
     {
         Sport _sport;
         public Sport Sport
         {
-            get
-            {
-                return _sport;
-            }
+            get { return _sport; }
             set
             {
                 if (_sport != value)
@@ -29,16 +26,16 @@ namespace Gymnastika.Modules.Sports.Views
         }
 
         #region IDropTarget Members
-        
+
         public void DragOver(DropInfo dropInfo)
         {
-            
+
             if (dropInfo.Data is Sport || dropInfo.Data is SportsPlanItem)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.All;
             }
-            
+
         }
 
         public void Drop(DropInfo dropInfo)

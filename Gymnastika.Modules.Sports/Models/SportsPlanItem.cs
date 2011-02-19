@@ -8,15 +8,16 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class SportsPlanItem
     {
-        public Sport Sport { get; set; }
+        public virtual int Id { get; set; }
 
-        public int SportsTime_Hour { set; get; }
+        public virtual int SportsTime_Hour { set; get; }
 
-        public int SportsTime_Min { get; set; }
+        public virtual int SportsTime_Min { get; set; }
 
-        public int Duration { get; set; }   //Min
+        public virtual int Duration { get; set; }   //Min
+        
+        public virtual bool Completed { get; set; }
 
-        public bool Completed { get; set; }
-
+        public virtual Sport Sport { get; set; }
     }
 }

@@ -9,11 +9,19 @@ using System.Windows;
 using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Unity;
+using Gymnastika.Modules.Sports.Events;
 
-namespace Gymnastika.Modules.Sports.Views
+namespace Gymnastika.Modules.Sports.ViewModels
 {
     public class SportsPlanViewModel :NotificationObject, ISportsPlanViewModel , IDropTarget , IDragSource
     {
+        IUnityContainer _container;
+
+        public SportsPlanViewModel(IUnityContainer container)
+        {
+            this._container = container;
+        }
 
         #region ISportsPlanViewModel Members
 
@@ -37,7 +45,6 @@ namespace Gymnastika.Modules.Sports.Views
 
         #endregion
 
-        //private void DragEnter(object sender, DragEventArgs e)
 
         #region IDropTarget Members
 
@@ -102,14 +109,6 @@ namespace Gymnastika.Modules.Sports.Views
                 }
                 return _cancleCommand;
             }
-            set
-            {
-                if (value != _cancleCommand)
-                {
-                    _cancleCommand = value;
-                    RaisePropertyChanged("CancleCommand");
-                }
-            }
         }
 
         #region IDragSource Members
@@ -121,5 +120,32 @@ namespace Gymnastika.Modules.Sports.Views
         }
 
         #endregion
+
+
+        ICommand _showPlanDetail = null;
+        public ICommand ShowPlanDetail
+        {
+            get
+            {
+                if (_showPlanDetail == null)
+                {
+                    _showPlanDetail = new DelegateCommand(ShowSportsPlanDetail, CanShowSportsPlanDetail);
+                }
+                return _showPlanDetail; 
+            }
+            
+        }
+
+        bool CanShowSportsPlanDetail()
+        {
+            return this.SportsPlan.SportsPlanItems.Count() != 0;
+        }
+
+        void ShowSportsPlanDetail()
+        {
+            _container.Resolve<ShowPlanDetailEvent>().Publish(this.SportsPlan);
+        }
+
+
     }
 }
