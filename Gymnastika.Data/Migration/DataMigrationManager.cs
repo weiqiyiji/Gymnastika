@@ -58,7 +58,7 @@ namespace Gymnastika.Data.Migration
             {
                 Logger.Debug("DataMigrationManager", "Check the table MigrationRecords exists");
                 //Check whether the table already existed
-                _migrationRecordRepository.Get(m => true);
+                _migrationRecordRepository.Fetch(m => true);
             }
             catch(Exception e)
             {
@@ -81,10 +81,10 @@ namespace Gymnastika.Data.Migration
             IEnumerable<IDataMigration> migrations = LoadDataMigrations();
 
             IEnumerable<MigrationRecord> migrationRecords = _migrationRecordRepository.Fetch(m => true);
-            string minRecordVersion = migrationRecords.Min(m => m.Version);
+            string maxRecordVersion = migrationRecords.Max(m => m.Version);
 
             IEnumerable<IDataMigration> newMigrations =
-                migrations.Where(m => m.Version.CompareTo(minRecordVersion) > 0).OrderBy(m => m.Version);
+                migrations.Where(m => m.Version.CompareTo(maxRecordVersion) > 0).OrderBy(m => m.Version);
 
             foreach (IDataMigration migration in newMigrations)
             {

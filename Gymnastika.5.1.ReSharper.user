@@ -1,0 +1,35 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Qualified:Gymnastika.Data.IRepository`1">
+      <Item value="Fetch`0" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="5599B439-EA67-4E8A-AE08-AB4FABF074C2/d:Migration/f:IDataMigrationManager.cs" caret="207" fromTop="8" />
+      <File id="C550D899-9E1D-46D9-A043-B05236648BA4/d:Migration/f:DataMigrationManagerTests.cs" caret="4304" fromTop="13" />
+      <File id="5599B439-EA67-4E8A-AE08-AB4FABF074C2/d:Migration/f:DataMigrationManager.cs" caret="2679" fromTop="18" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="5599B439-EA67-4E8A-AE08-AB4FABF074C2/d:Migration/f:DataMigrationManager.cs" caret="2122" fromTop="6" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+</Configuration>
