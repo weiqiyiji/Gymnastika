@@ -15,7 +15,7 @@ namespace Gymnastika.Migrations
 
         public string Version
         {
-            get { return "20110212165552"; }
+            get { return "20110217165552"; }
         }
 
         public SchemaBuilder SchemaBuilder { get; set; }
@@ -29,10 +29,11 @@ namespace Gymnastika.Migrations
                       .Column<string>("LargeImageUri")
                       .Column<string>("BriefIntroduction")
                       .Column<string>("DetailIntroduction")
-                      .Column<int>("CaloriePerHour"));
+                      .Column<int>("CaloriePerHour")
+                      .Column<int>("CategoryId"));
             
-        //    SchemaBuilder
-        //              .CreateForeignKey("SPO_CAT_FK", TableName, new string[] { "Id" }, "SportsCategories", new string[] { "Id" });
+            //SchemaBuilder
+                      //.CreateForeignKey("FK_SPTCAT", TableName, new string[] { "CategoryId" }, "SportsCategories", new string[] { "Id" });
         }
 
         public void Down()

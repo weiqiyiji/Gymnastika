@@ -78,7 +78,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\ShowPlanDetailEvent.cs" />
+    <Compile Include="Migration\Migration_SportCategoryMappings_20110220114204.cs" />
     <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
+    <Compile Include="Migration\Migration_SportsPlanItems_20110220115125.cs" />
+    <Compile Include="Migration\Migration_SportsPlans_20110220115704.cs" />
+    <Compile Include="Models\SportCategoryMapping.cs" />
     <Compile Include="Models\SportsCategory.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />

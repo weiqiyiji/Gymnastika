@@ -54,8 +54,8 @@ namespace Gymnastika.Modules.Sports.Tests
         {
            return new List<IDataMigration>()
            {
-               new  Migration_Sports_20110217165552(),
                new Migration_SportsCategories_20110216223043(),
+               new  Migration_Sports_20110217165552(),
            };
             //return Assembly.GetAssembly(typeof(Sport))
             //            .GetExportedTypes()
@@ -125,14 +125,18 @@ namespace Gymnastika.Modules.Sports.Tests
             var migrationManager = _container.Resolve<IDataMigrationManager>();
             migrationManager.Migrate();
             ILogger logger = _container.Resolve<ILogger>();
-            
-            var spts = _container.Resolve<IRepository<Sport>>();
-            spts.Create(new Sport() { Name = "bd" });
 
             var cats = _container.Resolve<IRepository<SportsCategory>>();
-            cats.Create(new SportsCategory());
+            var cat = new SportsCategory();
+            cats.Create(cat);
 
-            logger.Debug("{0}", cats.Get(1).Sports.Count());
+            var spts = _container.Resolve<IRepository<Sport>>();
+            spts.Create(new Sport() { Name = "bd"});
+
+            cats.Delete(cat);
+
+            //logger.Debug("{0}", cats.Get(1).Sports.Count());
+            
             scope.Dispose();
         }
     }

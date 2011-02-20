@@ -28,7 +28,7 @@ namespace Gymnastika.Migrations
                                                        .Column<string>("ImageUri")
                                                        .Column<string>("Note"));
             
-            SchemaBuilder.CreateForeignKey("Sports", TableName, new string[] { "Id" }, "Sports", new string[] { "Id" });
+            //SchemaBuilder.CreateForeignKey("Sports", TableName, new string[] { "Id" }, "Sports", new string[] { "Id" });
         }
 
         public void Down()
