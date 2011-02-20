@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
+using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Services
 {

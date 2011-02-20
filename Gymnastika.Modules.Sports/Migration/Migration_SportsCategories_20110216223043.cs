@@ -7,7 +7,7 @@ using Gymnastika.Data.Migration;
 
 namespace Gymnastika.Migrations
 {
-    public class Migration_SportsCategories_20110217223043 : IDataMigration
+    public class Migration_SportsCategories_20110216223043 : IDataMigration
     {
         public string TableName 
         { 
@@ -16,7 +16,7 @@ namespace Gymnastika.Migrations
             
         public string Version 
         {
-            get { return "20110217223043"; }
+            get { return "20110216223043"; }
         }
             
         public SchemaBuilder SchemaBuilder { get; set; }
@@ -25,7 +25,10 @@ namespace Gymnastika.Migrations
         {
             SchemaBuilder.CreateTable(TableName, t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                                                        .Column<string>("Name")
-                                                       .Column<string>("ImageUri"));
+                                                       .Column<string>("ImageUri")
+                                                       .Column<string>("Note"));
+            
+            SchemaBuilder.CreateForeignKey("Sports", TableName, new string[] { "Id" }, "Sports", new string[] { "Id" });
         }
 
         public void Down()

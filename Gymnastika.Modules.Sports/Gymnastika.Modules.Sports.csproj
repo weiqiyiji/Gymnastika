@@ -78,7 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\ShowPlanDetailEvent.cs" />
-    <Compile Include="Migration\Migration_SportsCategories_20110217223043.cs" />
+    <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
     <Compile Include="Models\SportsCategory.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
