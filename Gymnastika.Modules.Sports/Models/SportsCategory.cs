@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Services;
-using System.ComponentModel.Composition;
 
 namespace Gymnastika.Modules.Sports.Models
 {
