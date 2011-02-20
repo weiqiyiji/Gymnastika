@@ -35,11 +35,11 @@ namespace Gymnastika.Data.Tests.Migration
         [SetUp]
         public void SetUp()
         {
-            string dbPath = Path.Combine(DbFolder, DbName);
-            if (File.Exists(dbPath))
-            {
-                File.Delete(dbPath);
-            }
+            //string dbPath = Path.Combine(DbFolder, DbName);
+            //if (File.Exists(dbPath))
+            //{
+            //    File.Delete(dbPath);
+            //}
 
             _container = new UnityContainer();
             _container

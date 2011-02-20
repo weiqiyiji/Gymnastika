@@ -66,7 +66,7 @@ namespace Gymnastika.Data.Providers
                         AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
                             .Conventions
                             .Add(PrimaryKey.Name.Is(x => "Id"),
-                                 DefaultLazy.Always())
+                                 DefaultLazy.Never())
                             .Conventions.AddFromAssemblyOf<TablePluralizationConvention>());
                 });
         }
