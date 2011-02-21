@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Linq;
-using System.ComponentModel.Composition;
-using Microsoft.Practices.Prism.ViewModel;
 using System.Windows.Data;
 using Gymnastika.Modules.Sports.Models;
 using System.ComponentModel;
@@ -12,10 +10,10 @@ using Gymnastika.Modules.Sports.Services;
 using Microsoft.Practices.Prism.Commands;
 using System.Windows.Input;
 using Gymnastika.Modules.Sports.Views;
+using Microsoft.Practices.Prism.ViewModel;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    [Export(typeof(ISportsListViewModel))]
     public class SportsListViewModel : NotificationObject, ISportsListViewModel, IDragSource
     {
         ISportsProvider _SportsProvider;

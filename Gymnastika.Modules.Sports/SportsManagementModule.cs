@@ -19,9 +19,6 @@ namespace Gymnastika.Modules.Sports
 
         public SportsManagementModule(IUnityContainer container, IRegionManager regionManager)
         {
-            if (container == null)    throw new ArgumentNullException("container");
-            if (regionManager == null)  throw new ArgumentNullException("regionManager");
-
             _regionManager = regionManager;
             _container = container;
         }

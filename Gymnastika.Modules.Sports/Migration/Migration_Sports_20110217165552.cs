@@ -29,8 +29,11 @@ namespace Gymnastika.Migrations
                       .Column<string>("LargeImageUri")
                       .Column<string>("BriefIntroduction")
                       .Column<string>("DetailIntroduction")
-                      .Column<int>("CaloriePerHour"))
-                      .CreateForeignKey("SPO_CAT_FK", TableName, new string[] { "Id" }, "SportsCategories", new string[] { "Id" });
+                      .Column<int>("CaloriePerHour")
+                      .Column<int>("CategoryId"));
+            
+            //SchemaBuilder
+                      //.CreateForeignKey("FK_SPTCAT", TableName, new string[] { "CategoryId" }, "SportsCategories", new string[] { "Id" });
         }
 
         public void Down()

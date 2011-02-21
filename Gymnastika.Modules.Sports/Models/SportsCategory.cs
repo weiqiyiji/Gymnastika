@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Services;
-using System.ComponentModel.Composition;
-using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.Services
+namespace Gymnastika.Modules.Sports.Models
 {
 
     public class SportsCategory 

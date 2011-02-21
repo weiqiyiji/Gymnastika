@@ -23,6 +23,5 @@ namespace Gymnastika.Modules.Sports.Models
 
         public virtual int CaloriePerHour { get; set; }
 
-
     }
 }

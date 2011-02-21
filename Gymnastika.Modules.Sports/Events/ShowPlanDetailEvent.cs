@@ -9,5 +9,6 @@ namespace Gymnastika.Modules.Sports.Events
 {
     public class ShowPlanDetailEvent : CompositePresentationEvent<SportsPlan>
     {
+
     }
 }
