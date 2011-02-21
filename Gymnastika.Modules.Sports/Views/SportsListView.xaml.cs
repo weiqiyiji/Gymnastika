@@ -12,11 +12,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Sports.Views;
-using System.ComponentModel.Composition;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Models;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -25,14 +25,12 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class SportsListView : UserControl, ISportsListView
     {
-        [ImportingConstructor]
         public SportsListView(ISportsListViewModel model) 
         {
             ViewModel = model;
             InitializeComponent();
         }
 
-        [Export(typeof(ISportsListViewModel))]
         public ISportsListViewModel ViewModel
         {
             set

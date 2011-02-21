@@ -9,19 +9,19 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class Sport
     {
-        public string Name { get; set; }
+        public virtual int Id { get; set; }
 
-        public string Id { get; set; }
+        public virtual string Name { get; set; }
 
-        public string SmallImageUri { get; set; }
+        public virtual string SmallImageUri { get; set; }
 
-        public string LargeImageUri { get; set; }
+        public virtual string LargeImageUri { get; set; }
 
-        public string BriefIntroduction { get; set; }
+        public virtual string BriefIntroduction { get; set; }
 
-        public string DetailIntroduction { get; set; }
+        public virtual string DetailIntroduction { get; set; }
 
-        public int CaloriePerHour { get; set; }
+        public virtual int CaloriePerHour { get; set; }
 
     }
 }

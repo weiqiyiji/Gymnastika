@@ -9,8 +9,8 @@
     <ProjectGuid>{4C4CC307-FF8E-44D1-A4FD-1D393DBE16CC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Modules.Sports.Test</RootNamespace>
-    <AssemblyName>Gymnastika.Modules.Sports.Test</AssemblyName>
+    <RootNamespace>Gymnastika.Modules.Sports.Tests</RootNamespace>
+    <AssemblyName>Gymnastika.Modules.Sports.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -33,17 +33,68 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GongSolutions.Wpf.DragDrop">
+      <HintPath>..\Libs\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
+      <HintPath>..\Libs\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Moq">
       <HintPath>..\Libs\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="NHibernate, Version=2.1.2.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Castle">
+      <HintPath>..\Libs\NHibernate.ByteCode.Castle.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.Linq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\NHibernate.Linq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\Libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\Microsoft SQL Server Compact Edition\v3.5\Desktop\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -51,12 +102,31 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SportsItemTests.cs" />
+    <Compile Include="SportsListViewModelTests.cs" />
+    <Compile Include="SportsMigrationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\Badminton.png" />
+    <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
+      <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
+      <Name>Gymnastika.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data.Tests\Gymnastika.Data.Tests.csproj">
+      <Project>{C550D899-9E1D-46D9-A043-B05236648BA4}</Project>
+      <Name>Gymnastika.Data.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
+      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
+      <Name>Gymnastika.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Modules.Sports\Gymnastika.Modules.Sports.csproj">
+      <Project>{595AB87C-2639-4577-88BB-6C5073AF2CBC}</Project>
+      <Name>Gymnastika.Modules.Sports</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj">
+      <Project>{40426CD2-BF24-4938-9415-38D4AF4D199C}</Project>
+      <Name>Gymnastika.Tests.Support</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

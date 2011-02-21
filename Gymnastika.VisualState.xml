@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
-  <TopNode>[0-1000]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.nunit</TopNode>
-  <SelectedNode>[0-1012]Gymnastika.Data.Tests.Providers.SqlCeDataServicesProviderTests.DatabaseExistsAfterConfiguration</SelectedNode>
+  <TopNode>[0-1021]Gymnastika</TopNode>
+  <SelectedNode>[0-1017]Gymnastika.Data.Tests.Migration.DataMigrationManagerTests</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
     <Node UniqueName="[0-1000]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.nunit" Expanded="true" />
@@ -28,5 +28,10 @@
     <Node UniqueName="[0-1039]Gymnastika.Tests.Controllers" Expanded="true" />
     <Node UniqueName="[0-1040]Gymnastika.Tests.ViewModels" Expanded="true" />
     <Node UniqueName="[0-1028]Gymnastika.Tests.ViewModels.StartupViewModelTests" Expanded="true" />
+    <Node UniqueName="[0-1050]D:\Documents\Visual Studio 2010\Projects\Gymnastika\Gymnastika.Controls.Tests\bin\Debug\Gymnastika.Controls.Tests.dll" Expanded="true" />
+    <Node UniqueName="[0-1051]Gymnastika" Expanded="true" />
+    <Node UniqueName="[0-1052]Gymnastika.Controls" Expanded="true" />
+    <Node UniqueName="[0-1053]Gymnastika.Controls.Tests" Expanded="true" />
+    <Node UniqueName="[0-1044]Gymnastika.Controls.Tests.SlidePanelTests" Expanded="true" />
   </Nodes>
 </VisualState>

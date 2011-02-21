@@ -46,7 +46,8 @@
         <Grid Name="grid2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="49*" />
-                <RowDefinition Height="382*" />
+                <RowDefinition Height="349*" />
+                <RowDefinition Height="33*" />
             </Grid.RowDefinitions>
             <ListBox dd:DragDrop.IsDragSource="True" SelectedItem="{Binding SelectedSport}" dd:DragDrop.DragHandler="{Binding}"  SelectedIndex="1" Name="listBox1" Grid.Row="1"  ItemsSource="{Binding SelectedCategory.Sports}" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemTemplate>
@@ -57,6 +58,10 @@
             	<TextBlock Height="29" HorizontalAlignment="Left" x:Name="textBlock2" Text="Search" VerticalAlignment="Top" Width="77" />
             	<TextBox Text="{Binding SportsNameFilter, UpdateSourceTrigger=PropertyChanged}" Height="32" x:Name="textBlock1" VerticalAlignment="Top" Width="143" />
             </WrapPanel>
+            <Button Command="{Binding NextPageCommand}" Content="Next" Grid.Row="2" Height="23" HorizontalAlignment="Right" Margin="0,4,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
+            <Button Command="{Binding PreviousPageCommand}" Content="Last" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="263,4,0,0" Name="button3" VerticalAlignment="Top" Width="75" />
+            <TextBlock Grid.Row="2" Height="22" HorizontalAlignment="Left" Margin="19,5,0,0" Name="textBlock3" Text="{Binding TotalPage}" VerticalAlignment="Top" Width="34" />
+            <TextBox Text="{Binding CurrentPage}" Grid.Row="2" Height="23" HorizontalAlignment="Right" Margin="0,4,86,0" Name="textBox1" VerticalAlignment="Top" Width="37" />
         </Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="496*" />

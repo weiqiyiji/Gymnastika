@@ -4,25 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Services;
-using System.ComponentModel.Composition;
-using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.Services
+namespace Gymnastika.Modules.Sports.Models
 {
 
     public class SportsCategory 
     {
+        public virtual int Id { set; get; }
 
-        #region ISportsCategory Members
+        public virtual string Name { get; set; }
 
-        public string Id { get; set; }
+        public virtual string ImageUri { set; get; }
 
-        public string Name { get; set; }
+        public virtual string Note { get; set; }
 
-        public string ImageUri { set; get; }
+        public virtual IEnumerable<Sport> Sports { get; set; }
 
-        public IEnumerable<Sport> Sports { get; set; }
-
-        #endregion
     }
 }

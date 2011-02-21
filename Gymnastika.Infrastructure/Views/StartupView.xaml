@@ -1,20 +1,182 @@
-﻿<UserControl x:Class="Gymnastika.Views.StartupView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Views.StartupView"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="ListBorder" Color="#828790"/>
+		<Style x:Key="UserSelectionListStyle" TargetType="{x:Type ListBox}">
+			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+			<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+			<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+			<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="ItemsPanel">
+				<Setter.Value>
+					<ItemsPanelTemplate>
+                        <controls:SlidePanel VisibleItemsCount="3" Duration="400"
+                                             SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
+					</ItemsPanelTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ListBox}">
+						<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
+							<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+								<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+							</ScrollViewer>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+							</Trigger>
+							<Trigger Property="IsGrouping" Value="true">
+								<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="BorderBrush" Value="{x:Null}"/>
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="ItemTemplate" Value="{DynamicResource AvailableUserTemplate}"/>
+		</Style>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="CreateNewUserButtonStyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="#FF649DC5"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="30, 7"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid Height="Auto" Width="Auto">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Normal">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="HighlightOuterBorder">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="MouseOver">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="NormalBorder">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="HighlightOuterBorder">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Pressed"/>
+									<VisualState x:Name="Disabled"/>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Border x:Name="NormalBorder" BorderBrush="#FF649DC5" BorderThickness="1"/>
+							<Border x:Name="HighlightOuterBorder" BorderBrush="White" BorderThickness="1" CornerRadius="3">
+								<Border.Background>
+									<LinearGradientBrush EndPoint="0.53,0.995" MappingMode="RelativeToBoundingBox" StartPoint="0.47,0.005">
+										<GradientStop Color="#FFA4B7C8" Offset="0"/>
+										<GradientStop Color="#FF1B3D69" Offset="1"/>
+										<GradientStop Color="#FF2D5680" Offset="0.323"/>
+									</LinearGradientBrush>
+								</Border.Background>
+								<Border x:Name="HighlightInnerBorder" BorderBrush="#FF1B3D69" BorderThickness="1" CornerRadius="3" Margin="0,0,-2,-2"/>
+							</Border>
+							<ContentPresenter Margin="{TemplateBinding Property=Padding}"/>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsKeyboardFocused" Value="true"/>
+							<Trigger Property="ToggleButton.IsChecked" Value="true"/>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#ADADAD"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<DataTemplate x:Key="AvailableUserTemplate">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="8*"/>
+					<RowDefinition Height="2*"/>
+				</Grid.RowDefinitions>
+				<Image Name="Avatar" Margin="8,8,8,0" Source="{Binding AvatarPath}" VerticalAlignment="Top" HorizontalAlignment="Center" />
+				<Rectangle Margin="8,4,8,-20" HorizontalAlignment="Stretch" Grid.Row="1" Stroke="{x:Null}" RenderTransformOrigin="1,0.5" StrokeThickness="0">
+					<Rectangle.OpacityMask>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Offset="0.336"/>
+							<GradientStop Color="#44000000" Offset="1"/>
+						</LinearGradientBrush>
+					</Rectangle.OpacityMask>
+					<Rectangle.RenderTransform>
+						<TransformGroup>
+							<ScaleTransform ScaleY="-1"/>
+							<SkewTransform/>
+							<RotateTransform/>
+							<TranslateTransform/>
+						</TransformGroup>
+					</Rectangle.RenderTransform>
+					<Rectangle.Fill>
+						<VisualBrush Visual="{Binding ElementName=Avatar}" />
+					</Rectangle.Fill>
+				</Rectangle>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
     <Grid>
+    	<Grid.Background>
+    		<LinearGradientBrush EndPoint="0.823,0.908" MappingMode="RelativeToBoundingBox" StartPoint="0.146,0.135">
+    			<GradientStop Color="#FF3A96B4"/>
+    			<GradientStop Color="#FF1C7FA1" Offset="1"/>
+    			<GradientStop Color="#FF134E62" Offset="0.422"/>
+    		</LinearGradientBrush>
+    	</Grid.Background>
     	<Grid.RowDefinitions>
-    		<RowDefinition />
-    		<RowDefinition Height="Auto"/>
+    		<RowDefinition Height="6.5*"/>
+    		<RowDefinition Height="2*"/>
+    		<RowDefinition Height="1.5*"/>
     	</Grid.RowDefinitions>
         
-        <ListBox DisplayMemberPath="UserName" ItemsSource="{Binding RegisteredUsers}" SelectedItem="{Binding SelectedUser}" Margin="10" />
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
-        	<Button Command="{Binding LogOnCommand}" Content="登录" Margin="4" />
-        	<Button Content="新用户" Margin="4" Command="{Binding CreateNewUserCommand}" />
-        </StackPanel>
+        <ListBox d:DataContext="{d:DesignData Source=/DesignData/Users.xaml}" ItemsSource="{Binding RegisteredUsers}" SelectedItem="{Binding SelectedUser}" Margin="10" Style="{DynamicResource UserSelectionListStyle}" Background="Transparent" />
+        <Grid Grid.Row="1">
+        	<Grid.ColumnDefinitions>
+        		<ColumnDefinition Width="Auto"/>
+        		<ColumnDefinition />
+        		<ColumnDefinition Width="Auto"/>
+        	</Grid.ColumnDefinitions>
+        	<TextBlock Grid.Column="1" TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="微软雅黑" FontSize="18.667" Foreground="White" FontWeight="Bold"/>
+        </Grid>
+        <Button Content="新用户" Command="{Binding CreateNewUserCommand}" Style="{DynamicResource CreateNewUserButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" />
     </Grid>
 </UserControl>

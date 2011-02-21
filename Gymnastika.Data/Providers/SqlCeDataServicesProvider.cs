@@ -59,17 +59,16 @@ namespace Gymnastika.Data.Providers
             var persistenceAssemblies = autoMappingMetadataCollection
                 .Select(metadata => Assembly.LoadFrom(metadata.AssemblyName));
 
-            return cfg.Mappings(m => m.AutoMappings.Add(GetPersistenceModel(persistenceAssemblies)));
-        }
-
-        private AutoPersistenceModel GetPersistenceModel(IEnumerable<Assembly> persistenceAssemblies)
-        {
-            return AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
-                          .Conventions.Add(
-                                PrimaryKey.Name.Is(x => "Id"),
-                                DefaultLazy.Always(),
-                                new TablePluralizationConvention(),
-                                new UnsavedIdConvention());
+            return cfg.Mappings(
+                m =>
+                {
+                    m.AutoMappings.Add(
+                        AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
+                            .Conventions
+                            .Add(PrimaryKey.Name.Is(x => "Id"),
+                                 DefaultLazy.Never())
+                            .Conventions.AddFromAssemblyOf<TablePluralizationConvention>());
+                });
         }
 
         public override IPersistenceConfigurer GetPersistenceConfigurer(bool createDatabase)

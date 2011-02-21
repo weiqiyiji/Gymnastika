@@ -49,21 +49,10 @@
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>..\Libs\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception">
-      <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
-      <HintPath>..\Libs\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -73,24 +62,36 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\ShowPlanDetailEvent.cs" />
+    <Compile Include="Migration\Migration_SportCategoryMappings_20110220114204.cs" />
+    <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
+    <Compile Include="Migration\Migration_SportsPlanItems_20110220115125.cs" />
+    <Compile Include="Migration\Migration_SportsPlans_20110220115704.cs" />
+    <Compile Include="Models\SportCategoryMapping.cs" />
     <Compile Include="Models\SportsCategory.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
     <Compile Include="Services\ISportsPlanProvider.cs" />
     <Compile Include="Services\ISportsProvider.cs" />
+    <Compile Include="Migration\Migration_Sports_20110217165552.cs" />
     <Compile Include="Services\SportsPlanProvider.cs" />
     <Compile Include="Services\SportsProvider.cs" />
     <Compile Include="SportsManagementModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ISportsListViewModel.cs" />
+    <Compile Include="ViewModels\ISportsPlanDetailViewModel.cs" />
     <Compile Include="ViewModels\ISportsPlanViewModel.cs" />
     <Compile Include="ViewModels\ISportViewModel.cs" />
+    <Compile Include="ViewModels\SportsPlanDetailViewModel.cs" />
     <Compile Include="Views\ISportsListView.cs" />
     <Compile Include="Views\ISportView.cs" />
-    <Compile Include="Views\SportsListViewModel.cs" />
-    <Compile Include="Views\SportsPlanViewModel.cs" />
-    <Compile Include="Views\SportViewModel.cs" />
+    <Compile Include="ViewModels\SportsListViewModel.cs" />
+    <Compile Include="ViewModels\SportsPlanViewModel.cs" />
+    <Compile Include="ViewModels\SportViewModel.cs" />
+    <Compile Include="Views\SportsPlanDetailView.xaml.cs">
+      <DependentUpon>SportsPlanDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SportsListView.xaml.cs">
       <DependentUpon>SportsListView.xaml</DependentUpon>
     </Compile>
@@ -106,6 +107,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Theme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SportsPlanDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,8 +132,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Events\" />
+    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
+      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
+      <Name>Gymnastika.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Infrastructure\Gymnastika.Infrastructure.csproj">
+      <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
+      <Name>Gymnastika.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

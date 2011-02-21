@@ -11,7 +11,8 @@
     <RootNamespace>Gymnastika.Controls</RootNamespace>
     <AssemblyName>Gymnastika.Controls</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -52,6 +53,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SlidePanel.cs" />
     <Page Include="Themes\ButtonChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -60,19 +62,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Themes\Form.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="ButtonChrome.cs" />
     <Compile Include="Converters\RoundedCornerResizeConverter.cs" />
-    <Compile Include="Form.cs" />
-    <Compile Include="FormItem.cs" />
-    <Compile Include="FormItemCollection.cs" />
     <Compile Include="ImageButton.cs">
       <SubType>Code</SubType>
     </Compile>
