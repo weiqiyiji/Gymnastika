@@ -22,7 +22,6 @@ namespace Gymnastika.Infrastructure.Tests.ViewModels
         public void SubmitCommand_EventRegistered()
         {
             IEventAggregator eventAggregator = new EventAggregator();
-            bool eventRegistered = false;
             User um = new User();
 
             eventAggregator.GetEvent<LogOnSuccessEvent>().Subscribe(u => um.Id = u.Id);

@@ -53,7 +53,7 @@ namespace Gymnastika.Modules.Sports.Tests
         {
            return new List<IDataMigration>()
            {
-               new  Migration_AnotherTestTables_00000000000001()
+               //new  Migration_AnotherTestTables_00000000000001()
            };
             //return Assembly.GetAssembly(typeof(Sport))
             //            .GetExportedTypes()

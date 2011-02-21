@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Data.Migration;
 using System.Reflection;
-using Gymnastika.Data.Tests.MockMigration;
 
 namespace Gymnastika.Data.Tests.Mocks
 {
@@ -22,8 +21,9 @@ namespace Gymnastika.Data.Tests.Mocks
 
         public IEnumerable<IDataMigration> Load()
         {
-            yield return new Migration_TestTables_00000000000000();
-            yield return new Migration_AnotherTestTables_00000000000001();
+            return Assembly.GetAssembly(this.GetType()).GetExportedTypes()
+                .Where(t => t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null)
+                .Select(t => (IDataMigration)Activator.CreateInstance(t));
         }
 
         #endregion

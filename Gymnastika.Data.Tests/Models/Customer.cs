@@ -5,9 +5,10 @@ using System.Text;
 
 namespace Gymnastika.Data.Tests.Models
 {
-    public class TestTable
+    public class Customer
     {
         public virtual int Id { get; set; }
-        public virtual string TableName { get; set; }
+        public virtual string Name { get; set; }
+        public virtual IList<Product> Products { get; set; } 
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 
-namespace Gymnastika.Converters
+namespace Gymnastika.Controls.Converters
 {
     public class IntegerToBoolConverter : IValueConverter
     {
@@ -16,7 +16,9 @@ namespace Gymnastika.Converters
 
             int origin;
             if (int.TryParse(value.ToString(), out origin))
+            {
                 return origin != 0;
+            }
             else
             {
                 throw new InvalidCastException("Cannot convert " + value + " to int");
