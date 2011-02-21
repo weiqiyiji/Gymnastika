@@ -5,14 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
+             xmlns:controls="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ContentControl Content="{Binding DietPlanListViewModel.View}" />
-        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="1" />
+        <controls:DatePicker SelectedDate="{Binding CreatedDate}" Grid.Row="1" HorizontalAlignment="Center"  />
+        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" />
     </Grid>
 </UserControl>

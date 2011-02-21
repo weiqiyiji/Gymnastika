@@ -7,12 +7,14 @@ namespace Gymnastika.Modules.Meals.Models
 {
     public class NutritiveElement
     {
-        public string Id;
+        public virtual int Id { get; set; }
 
-        public string Name;
+        public virtual string Name { get; set; }
 
-        public string Unit;
+        public virtual string Unit { get; set; }
 
-        public int Content;
+        public virtual int Content { get; set; }
+
+        public virtual Food Food { get; set; }
     }
 }

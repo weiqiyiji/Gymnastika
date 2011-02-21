@@ -12,7 +12,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class FoodItemViewModel : NotificationObject
     {
-        private readonly Food _food;
         private int _amount;
         private int _calories;
         private ICommand _deleteFoodFromPlanCommand;
@@ -21,28 +20,30 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public FoodItemViewModel(Food food)
         {
-            _food = food;
+            Food = food;
             _calories = 0;
         }
 
+        public Food Food { get; set; }
+
         public string Name
         {
-            get { return _food.Name; }
+            get { return Food.Name; }
         }
 
         public string SmallImageUri
         {
-            get { return _food.SmallImageUri; }
+            get { return Food.SmallImageUri; }
         }
 
         public string LargeImageUri
         {
-            get { return _food.LargeImageUri; }
+            get { return Food.LargeImageUri; }
         }
 
         public int Calorie
         {
-            get { return _food.Calorie; }
+            get { return Food.Calorie; }
         }
 
         public int Amount
@@ -139,7 +140,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private void ShowFoodDetail()
         {
             IFoodDetailViewModel foodDetailViewModel = ServiceLocator.Current.GetInstance<IFoodDetailViewModel>();
-            foodDetailViewModel.Food = _food;
+            foodDetailViewModel.Food = Food;
             foodDetailViewModel.View.ShowView();
         }
     }

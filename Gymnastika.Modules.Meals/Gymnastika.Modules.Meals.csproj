@@ -75,12 +75,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MealsManagementModule.cs" />
+    <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
+    <Compile Include="Migrations\Migration_Foods_20110220121913.cs" />
+    <Compile Include="Migrations\Migration_NutritiveElements_20110221121551.cs" />
+    <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
+    <Compile Include="Migrations\Migration_SubDietPlans_20110219142008.cs" />
+    <Compile Include="Migrations\Migration_SubCategories_20110217121513.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\DietPlan.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\NutritiveElement.cs" />
-    <Compile Include="Models\RecommendedDietPlan.cs" />
     <Compile Include="Models\SubCategory.cs" />
+    <Compile Include="Models\SubDietPlan.cs" />
+    <Compile Include="Models\UserDietPlanMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\FoodService.cs" />
+    <Compile Include="Services\IFoodService.cs" />
     <Compile Include="ViewModels\CreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\DietPlanListViewModel.cs" />
     <Compile Include="ViewModels\DietPlanSubListViewModel.cs" />
@@ -92,9 +102,9 @@
     <Compile Include="ViewModels\IFoodDetailViewModel.cs" />
     <Compile Include="ViewModels\IFoodListViewModel.cs" />
     <Compile Include="ViewModels\IMealsManagementViewModel.cs" />
-    <Compile Include="ViewModels\IRecommendDietPlanViewModel.cs" />
+    <Compile Include="ViewModels\ISelectDietPlanViewModel.cs" />
     <Compile Include="ViewModels\MealsManagementViewModel.cs" />
-    <Compile Include="ViewModels\RecommendDietPlanViewModel.cs" />
+    <Compile Include="ViewModels\SelectDietPlanViewModel.cs" />
     <Compile Include="Views\CreateDietPlanView.xaml.cs">
       <DependentUpon>CreateDietPlanView.xaml</DependentUpon>
     </Compile>
@@ -115,12 +125,12 @@
     <Compile Include="Views\IFoodDetailView.cs" />
     <Compile Include="Views\IFoodListView.cs" />
     <Compile Include="Views\IMealsManagementView.cs" />
-    <Compile Include="Views\IRecommendDietPlanView.cs" />
+    <Compile Include="Views\ISelectDietPlanView.cs" />
     <Compile Include="Views\MealsManagementView.xaml.cs">
       <DependentUpon>MealsManagementView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RecommendDietPlanView.xaml.cs">
-      <DependentUpon>RecommendDietPlanView.xaml</DependentUpon>
+    <Compile Include="Views\SelectDietPlanView.xaml.cs">
+      <DependentUpon>SelectDietPlanView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +141,14 @@
     <ProjectReference Include="..\Gymnastika.Controls\Gymnastika.Controls.csproj">
       <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
       <Name>Gymnastika.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
+      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
+      <Name>Gymnastika.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +180,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RecommendDietPlanView.xaml">
+    <Page Include="Views\SelectDietPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -170,6 +188,7 @@
   <ItemGroup>
     <Resource Include="Images\search.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
