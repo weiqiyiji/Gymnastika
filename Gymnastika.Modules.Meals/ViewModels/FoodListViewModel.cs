@@ -22,7 +22,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private int _pageCount;
         private IEnumerable<Category> _category;
         private IEnumerable<SubCategory> _subCategory;
-        private IEnumerable<Food> _inMemoryFoods;
+        private ObservableCollection<FoodItemViewModel> _currentPageFoodList;
         private ICommand _showMyFavoriteCommand;
         private ICommand _showPreviousPageCommand;
         private ICommand _showNextPageCommand;
@@ -30,9 +30,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public FoodListViewModel(IFoodListView view, IFoodService foodService)
         {
             _foodService = foodService;
+            Initialize();
             View = view;
             View.Context = this;
-            Initialize();
         }
 
         #region IFoodListViewModel Members
@@ -60,22 +60,24 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public IEnumerable<Food> InMemoryFoods
-        {
-            get
-            {
-                _inMemoryFoods = ((SubCategory)SubCategory.CurrentItem).Foods;
-
-                return _inMemoryFoods;
-            }
-            set { _inMemoryFoods = value; }
-        }
+        public IEnumerable<Food> InMemoryFoods { get; set; }
 
         public ObservableCollection<FoodItemViewModel> PreviousPageFoodList { get; set; }
 
         public ObservableCollection<FoodItemViewModel> NextPageFoodList { get; set; }
 
-        public ObservableCollection<FoodItemViewModel> CurrentPageFoodList { get; set; }
+        public ObservableCollection<FoodItemViewModel> CurrentPageFoodList 
+        { 
+            get
+            {
+                InMemoryFoods = ((SubCategory)SubCategory.CurrentItem).Foods;
+
+                _currentPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoods.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1));
+
+                return _currentPageFoodList;
+            }
+            set { _currentPageFoodList = value; }
+        }
 
         public ICollection<FoodItemViewModel> MyFavoriteFoodList { get; set; }
 
@@ -148,7 +150,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             CurrentPage = 1;
             PageCount = (InMemoryFoods.Count() % PageSize == 0) ? (InMemoryFoods.Count() / PageSize) : (InMemoryFoods.Count() / PageSize + 1);
-            CurrentPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoods.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1));
             NextPageFoodList = (ObservableCollection<FoodItemViewModel>)InMemoryFoods.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage);
             Refresh();
         }

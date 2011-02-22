@@ -16,6 +16,6 @@
         </Grid.RowDefinitions>
         <ContentControl Content="{Binding DietPlanListViewModel.View}" />
         <controls:DatePicker SelectedDate="{Binding CreatedDate}" Grid.Row="1" HorizontalAlignment="Center"  />
-        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" />
+        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" HorizontalAlignment="Center"  />
     </Grid>
 </UserControl>
