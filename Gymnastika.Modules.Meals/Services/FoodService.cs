@@ -14,6 +14,7 @@ namespace Gymnastika.Modules.Meals.Services
         private readonly IRepository<Food> _foodRepository;
         private readonly IRepository<DietPlan> _DietPlanRepository;
         private readonly IRepository<SubDietPlan> _SubDietPlanRepository;
+        private readonly IRepository<UserDietPlanMapping> _userDietPlanMappingRepository;
 
         public FoodService(IRepository<Category> categoryRepository,
             IRepository<SubCategory> subCategoryRepository,
@@ -57,7 +58,7 @@ namespace Gymnastika.Modules.Meals.Services
 
         public IEnumerable<DietPlan> GetAllSavedDietPlansOfUser(int userId)
         {
-            throw new NotImplementedException();
+            return _userDietPlanMappingRepository.Get(mp => mp.UserId == userId).DietPlans;
         }
 
         public IEnumerable<DietPlan> GetAllRecommendedDietPlans()
