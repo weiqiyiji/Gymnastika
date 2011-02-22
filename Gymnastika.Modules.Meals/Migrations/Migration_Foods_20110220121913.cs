@@ -9,8 +9,8 @@ namespace Gymnastika.Migrations
 {
     public class Migration_Foods_20110220121913 : IDataMigration
     {
-        private const string ForeignKeyNameWithSubCategories = "FK_Foods_SubCategories";
-        private const string ForeignKeyNameWithSubDietPlans = "FK_Foods_SubDietPlans";
+        private const string ForeignKeyNameWithSubCategories = "FK_SubCategories_Foods";
+        private const string ForeignKeyNameWithSubDietPlans = "FK_SubDietPlans_Foods";
 
         public string TableName 
         { 

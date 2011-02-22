@@ -20,7 +20,7 @@ namespace Gymnastika.Modules.Meals.Models
 
     public enum PlanType
     {
-        CreatedDietPlan,
-        RecommendedDietPlan
+        CreatedDietPlan = 0,
+        RecommendedDietPlan = 1
     }
 }

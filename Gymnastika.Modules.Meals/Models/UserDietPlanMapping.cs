@@ -11,6 +11,6 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual int UserId { get; set; }
 
-        public virtual IList<int> DietPlanId { get; set; }
+        public virtual IList<DietPlan> DietPlans { get; set; }
     }
 }
