@@ -53,7 +53,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\CloseWindowBehavior.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="SlidePanel.cs" />
+    <Compile Include="SpreadTabPanel.cs" />
+    <Compile Include="WatermarkTextBox.cs" />
     <Page Include="Themes\ButtonChrome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,6 +83,10 @@
     <Page Include="Themes\InstantSearchBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\WatermarkTextBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

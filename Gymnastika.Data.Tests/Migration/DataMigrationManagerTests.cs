@@ -29,17 +29,17 @@ namespace Gymnastika.Data.Tests.Migration
     {
         private IUnityContainer _container;
         private UnityServiceLocator _serviceLocator;
-        private readonly string DbName = "GymnastikaForTests.sdf";
-        private readonly string DbFolder = Directory.GetCurrentDirectory();
+        private const string DbName = "GymnastikaForTests.sdf";
+        private readonly string _dbFolder = Directory.GetCurrentDirectory();
 
         [SetUp]
         public void SetUp()
         {
-            //string dbPath = Path.Combine(DbFolder, DbName);
-            //if (File.Exists(dbPath))
-            //{
-            //    File.Delete(dbPath);
-            //}
+            string dbPath = Path.Combine(_dbFolder, DbName);
+            if (File.Exists(dbPath))
+            {
+                File.Delete(dbPath);
+            }
 
             _container = new UnityContainer();
             _container
@@ -54,11 +54,11 @@ namespace Gymnastika.Data.Tests.Migration
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ILogger, FileLogger>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
-                .RegisterInstance<ShellSettings>(
+                .RegisterInstance(
                     new ShellSettings 
                     {
                         DatabaseName = DbName,
-                        DataFolder = DbFolder,
+                        DataFolder = _dbFolder,
                         DataProvider = "SqlCe"
                     });
 
@@ -104,24 +104,6 @@ namespace Gymnastika.Data.Tests.Migration
                 migrationManager.Migrate();
             }
         }
-
-        //[Test]
-        //public void MigrateToLatestVersion()
-        //{
-        //    using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
-        //    {
-        //        StubDataMigrationManager manager = _container.Resolve<IDataMigrationManager>() as StubDataMigrationManager;
-        //        manager.Migrate();
-        //    }
-
-        //    using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().CreateWorkContextScope())
-        //    {
-        //        IRepository<MigrationRecord> repository = _container.Resolve<IRepository<MigrationRecord>>();
-
-        //        int count = repository.Count(m => true);
-        //        Assert.That(count, Is.EqualTo(2));
-        //    }
-        //}
     }
 
     internal class StubDataMigrationManager : DataMigrationManager

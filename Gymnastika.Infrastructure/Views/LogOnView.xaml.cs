@@ -20,12 +20,12 @@ namespace Gymnastika.Views
     /// </summary>
     public partial class LogOnView : Window, ILogOnView
     {
-        public LogOnView()
+        public LogOnView(LogOnViewModel vm)
         {
             InitializeComponent();
+            Model = vm;
         }
 
-        [Dependency]
         public LogOnViewModel Model
         {
             get
@@ -37,5 +37,18 @@ namespace Gymnastika.Views
                 DataContext = value;
             }
         }
+
+        private void HeaderTextBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+        	TextBlock block = (TextBlock)sender;
+            block.TextDecorations.Add(TextDecorations.Underline);
+        }
+		
+		private void HeaderTextBlock_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+		    TextBlock block = (TextBlock) sender;
+            block.TextDecorations.Clear();
+		    //block.TextDecorations.Remove()
+		}
     }
 }

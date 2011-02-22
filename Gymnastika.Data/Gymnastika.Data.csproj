@@ -78,8 +78,8 @@
     <Compile Include="Configuration\FileAutoMappingConfigurer.cs" />
     <Compile Include="Configuration\IAutoMappingConfigurer.cs" />
     <Compile Include="Conventions\EnumConvention.cs" />
+    <Compile Include="Conventions\ManyToManyTableConvention.cs" />
     <Compile Include="Conventions\TablePluralizationConvention.cs" />
-    <Compile Include="Conventions\UnsavedIdConvention.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IWorkEnvironment.cs" />
     <Compile Include="Migration\DataMigrationLoader.cs" />

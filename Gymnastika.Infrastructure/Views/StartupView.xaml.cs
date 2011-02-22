@@ -32,16 +32,5 @@ namespace Gymnastika.Views
             get { return DataContext as StartupViewModel; }
             set { DataContext = value; }
         }
-
-        #region IStartupView Members
-
-        public void DisplayLogOnField()
-        {
-            LogOnView logOnView = new LogOnView();
-            logOnView.Owner = Application.Current.MainWindow;
-            logOnView.Show();
-        }
-
-        #endregion
     }
 }

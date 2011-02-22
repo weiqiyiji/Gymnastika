@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using Microsoft.Practices.Prism.Commands;
 
-namespace Gymnastika.Common.Behaviors
+namespace Gymnastika.Controls.Behaviors
 {
     public static class CloseWindowBehavior
     {

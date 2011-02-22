@@ -62,7 +62,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\GenderToBoolConverter.cs" />
-    <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="DesignData\StartupViewModel_Design.cs" />
     <Compile Include="DesignData\UserCollection.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
