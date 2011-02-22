@@ -1,0 +1,12 @@
+﻿<Window x:Class="Gymnastika.Controls.Demo.Sub.CheckButtonGroupDemo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+        Title="CheckButtonGroupDemo" Height="300" Width="300">
+    <Grid>
+        <controls:CheckButtonGroup VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Male" />
+            <TextBlock Text="Female" />
+        </controls:CheckButtonGroup>
+    </Grid>
+</Window>

@@ -23,7 +23,7 @@ namespace Gymnastika.Controls
         static InstantSearchBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(
-                typeof(InstantSearchBox), new FrameworkPropertyMetadata());
+                typeof(InstantSearchBox), new FrameworkPropertyMetadata(typeof(InstantSearchBox)));
         }
 
         public Brush SearchResultsBackground

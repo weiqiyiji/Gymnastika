@@ -9,18 +9,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.ViewModels;
 
-namespace Gymnastika.Views
+namespace Gymnastika.Controls.Demo.Sub
 {
     /// <summary>
-    /// Interaction logic for CreateNewUserView.xaml
+    /// Interaction logic for CheckButtonGroupDemo.xaml
     /// </summary>
-    public partial class CreateNewUserView : UserControl
+    public partial class CheckButtonGroupDemo : Window
     {
-        public CreateNewUserView()
+        public CheckButtonGroupDemo()
         {
             InitializeComponent();
         }

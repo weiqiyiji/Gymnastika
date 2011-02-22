@@ -9,5 +9,6 @@ namespace Gymnastika.Controllers
     {
         void Run();
         void RequestLogOn(string userName);
+        void RequestCreateNewUser();
     }
 }

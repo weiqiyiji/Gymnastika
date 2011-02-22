@@ -54,12 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\CloseWindowBehavior.cs" />
+    <Compile Include="CheckButtonGroup.cs" />
+    <Compile Include="CheckButtonGroupItem.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="SlidePanel.cs" />
     <Compile Include="SpreadTabPanel.cs" />
     <Compile Include="WatermarkTextBox.cs" />
     <Page Include="Themes\ButtonChrome.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\CheckButtonGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,22 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Gymnastika.Views;
-using Gymnastika.ViewModels;
-using Microsoft.Practices.Prism.Regions;
-using Gymnastika.Common;
-using Microsoft.Practices.Prism.Events;
-
-using Gymnastika.Services;
-using Microsoft.Practices.Prism.Modularity;
+﻿using Gymnastika.Common;
+using Gymnastika.Events;
+using Gymnastika.Services.Contracts;
+using Gymnastika.Services.Impl;
 using Gymnastika.Services.Models;
 using Gymnastika.Services.Session;
-using Gymnastika.Services.Impl;
-using Gymnastika.Services.Contracts;
-using Gymnastika.Events;
+using Gymnastika.ViewModels;
+using Gymnastika.Views;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Prism.Regions;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Controllers
 {
@@ -49,15 +42,13 @@ namespace Gymnastika.Controllers
             _container
                 .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMainView, MainView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ILogOnView, LogOnView>()
-                .RegisterType<ICreateNewUserView, CreateNewUserView>();
+                .RegisterType<IUserProfileView, UserProfileView>();
 
             //Register ViewModels
             _container
-                .RegisterType<LogOnViewModel>()
                 .RegisterType<StartupViewModel>()
                 .RegisterType<MainViewModel>()
-                .RegisterType<CreateNewUserViewModel>();
+                .RegisterType<UserProfileViewModel>();
         }
 
         protected void RegisterStartupViewWithRegion()
@@ -101,11 +92,23 @@ namespace Gymnastika.Controllers
 
         public void RequestLogOn(string userName)
         {
-            ILogOnView view = _container.Resolve<ILogOnView>();
-            LogOnViewModel vm = view.Model;
+            IUserProfileView view = _container.Resolve<IUserProfileView>();
+            UserProfileViewModel vm = view.Model;
+            vm.InitialTabIndex = UserProfileViewModel.LogOnTabIndex;
             vm.UserName = userName;
-            
             view.Show();
         }
+
+        #region IStartupController Members
+
+        public void RequestCreateNewUser()
+        {
+            IUserProfileView view = _container.Resolve<IUserProfileView>();
+            UserProfileViewModel vm = view.Model;
+            vm.InitialTabIndex = UserProfileViewModel.CreateNewUserTabIndex;
+            view.Show();
+        }
+
+        #endregion
     }
 }
