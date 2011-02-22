@@ -8,6 +8,7 @@ using Gymnastika.Modules.Meals.ViewModels;
 using Gymnastika.Modules.Meals.Views;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
+using Gymnastika.Modules.Meals.Services;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -26,12 +27,18 @@ namespace Gymnastika.Modules.Meals
 
         public void Initialize()
         {
+            RegisterServices();
             RegisterViews();
             RegisterViewModels();
             RegisterViewWithRegion();
         }
 
         #endregion
+
+        private void RegisterServices()
+        {
+            _container.RegisterType<IFoodService, FoodService>();
+        }
 
         private void RegisterViews()
         {
@@ -40,7 +47,7 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IFoodDetailView, FoodDetailView>()
                 .RegisterType<IMealsManagementView, MealsManagementView>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanView, CreateDietPlanView>()
-                .RegisterType<IRecommendDietPlanView, RecommendDietPlanView>();
+                .RegisterType<ISelectDietPlanView, SelectDietPlanView>();
         }
 
         private void RegisterViewModels()
@@ -50,7 +57,7 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IFoodDetailViewModel, FoodDetailViewModel>()
                 .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanViewModel, CreateDietPlanViewModel>()
-                .RegisterType<IRecommendDietPlanViewModel, RecommendDietPlanViewModel>();
+                .RegisterType<ISelectDietPlanViewModel, SelectDietPlanViewModel>();
         }
 
         private void RegisterViewWithRegion()

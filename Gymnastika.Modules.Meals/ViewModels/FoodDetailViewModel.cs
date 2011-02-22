@@ -6,13 +6,17 @@ using Gymnastika.Modules.Meals.Views;
 using Gymnastika.Modules.Meals.Models;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using Gymnastika.Modules.Meals.Services;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class FoodDetailViewModel : IFoodDetailViewModel
     {
-        public FoodDetailViewModel(IFoodDetailView view)
+        private readonly IFoodService _foodService;
+
+        public FoodDetailViewModel(IFoodDetailView view, IFoodService foodService)
         {
+            _foodService = foodService;
             View = view;
             View.Context = this;
         }
@@ -38,14 +42,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get { return Food.Calorie.ToString(); }
         }
 
-        public string Category
+        public string CategoryName
         {
-            get { return Food.Category; }
+            get { return _foodService.GetCategory(Food.Id).Name; }
         }
 
-        public string SubCategory
+        public string SubCategoryName
         {
-            get { return Food.SubCategory; }
+            get { return _foodService.GetSubCategory(Food.Id).Name; }
         }
 
         public IEnumerable<NutritiveElement> NutritionalContent
@@ -71,11 +75,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public string SuitableCrowd
         {
             get { return Food.SuitableCrowd; }
-        }
-
-        public IEnumerable<Food> RelatedFoods
-        {
-            get { return Food.RelatedFoods; }
         }
 
         #endregion
