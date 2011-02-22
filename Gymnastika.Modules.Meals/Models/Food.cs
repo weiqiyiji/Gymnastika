@@ -7,30 +7,28 @@ namespace Gymnastika.Modules.Meals.Models
 {
     public class Food
     {
-        public string Id { get; set; }
+        public virtual int Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string SmallImageUri { get; set; }
+        public virtual string SmallImageUri { get; set; }
 
-        public string LargeImageUri { get; set; }
+        public virtual string LargeImageUri { get; set; }
 
-        public int Calorie { get; set; }
+        public virtual int Calorie { get; set; }
 
-        public string Category { get; set; }
+        public virtual IList<NutritiveElement> NutritionalContent { get; set; }
 
-        public string SubCategory { get; set; }
+        public virtual string Introduction { get; set; }
 
-        public IEnumerable<NutritiveElement> NutritionalContent { get; set; }
+        public virtual string NutritionalValue { get; set; }
 
-        public string Introduction { get; set; }
+        public virtual string Function { get; set; }
 
-        public string NutritionalValue { get; set; }
+        public virtual string SuitableCrowd { get; set; }
 
-        public string Function { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
 
-        public string SuitableCrowd { get; set; }
-
-        public IEnumerable<Food> RelatedFoods { get; set; }
+        public virtual IList<SubDietPlan> SubDietPlans { get; set; }
     }
 }

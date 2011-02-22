@@ -111,10 +111,6 @@
       <Project>{F7C4886B-B079-4A15-87F6-6504E82B9389}</Project>
       <Name>Gymnastika.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Data.Tests\Gymnastika.Data.Tests.csproj">
-      <Project>{C550D899-9E1D-46D9-A043-B05236648BA4}</Project>
-      <Name>Gymnastika.Data.Tests</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
       <Name>Gymnastika.Data</Name>

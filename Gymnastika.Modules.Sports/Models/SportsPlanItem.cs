@@ -18,6 +18,10 @@ namespace Gymnastika.Modules.Sports.Models
         
         public virtual bool Completed { get; set; }
 
+        public virtual int SportId { get; set; }  
+
         public virtual Sport Sport { get; set; }
+
+        public virtual int SportsPlanId { get; set; }
     }
 }

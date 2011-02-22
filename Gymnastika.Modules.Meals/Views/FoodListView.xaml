@@ -17,16 +17,16 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <TextBlock Text="食物分类" HorizontalAlignment="Center"></TextBlock>
-            <ItemsControl ItemsSource="{Binding Category}" />
+            <ListBox ItemsSource="{Binding Category}" IsSynchronizedWithCurrentItem="True" />
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <ItemsControl ItemsSource="{Binding SubCategory}" >
-                <ItemsControl.ItemsPanel>
+            <ListBox ItemsSource="{Binding SubCategory}" IsSynchronizedWithCurrentItem="True" >
+                <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
+                </ListBox.ItemsPanel>
+            </ListBox>
             <Button Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" />
             <ItemsControl ItemsSource="{Binding CurrentPageFoodList}" ItemTemplate="{StaticResource FoodListItem}" dd:DragDrop.IsDragSource="True" />
             <Grid HorizontalAlignment="Center">

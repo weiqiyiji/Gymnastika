@@ -7,12 +7,12 @@ namespace Gymnastika.Modules.Meals.Models
 {
     public class Category
     {
-        public string Id { get; set; }
+        public virtual int Id { get; set; }
 
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string ImageUri { get; set; }
+        public virtual string ImageUri { get; set; }
 
-        public IEnumerable<SubCategory> SubCategory { get; set; }
+        public virtual IList<SubCategory> SubCategory { get; set; }
     }
 }
