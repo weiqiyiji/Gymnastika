@@ -8,6 +8,10 @@ namespace Gymnastika.Migrations
 {
     public class Migration_SportsPlanItems_20110220115125 : IDataMigration
     {
+        public const string Sports_FK = "Sports_FK";
+        public const string SportsTable = "Sports";
+        public const string Plans_FK = "SportsPlans_FK";
+
         public string TableName 
         { 
             get { return "SportsPlanItems"; }
@@ -19,15 +23,19 @@ namespace Gymnastika.Migrations
         }
             
         public SchemaBuilder SchemaBuilder { get; set; }
-            
+
         public void Up()
         {
-            SchemaBuilder.CreateTable(TableName,t=>t.Column<int>("Id",c=>c.PrimaryKey().Identity())
+            SchemaBuilder.CreateTable(TableName, t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                                                     .Column<int>("SportsTime_Hour")
                                                     .Column<int>("SportsTime_Min")
                                                     .Column<int>("Duration")
                                                     .Column<bool>("Completed")
-                                                    .Column<int>("SportId"));
+                                                    .Column<int>("SportId")
+                                                    .Column<int>("SportsPlanId"));
+
+            SchemaBuilder.CreateForeignKey(Sports_FK, TableName, new string[] { "SportId" }, SportsTable, new string[] { "Id" })
+                         .CreateForeignKey(Plans_FK, TableName, new string[] { "SportsPlanId" }, "SportsPlans", new string[] { "Id" });
         }
 
         public void Down()
