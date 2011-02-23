@@ -88,6 +88,7 @@ namespace Gymnastika.Data.Migration
 
             foreach (IDataMigration migration in newMigrations)
             {
+                Logger.Information("DataMigration", "Migrating table: {0}, version: {1}", migration.TableName, migration.Version);
                 migration.SchemaBuilder = new SchemaBuilder(_interpreter);
                 migration.Up();
 

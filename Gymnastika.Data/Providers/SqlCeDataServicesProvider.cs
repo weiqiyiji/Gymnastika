@@ -60,15 +60,17 @@ namespace Gymnastika.Data.Providers
                 .Select(metadata => Assembly.LoadFrom(metadata.AssemblyName));
 
             return cfg.Mappings(
-                m =>
-                {
-                    m.AutoMappings.Add(
-                        AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
-                            .Conventions
-                            .Add(PrimaryKey.Name.Is(x => "Id"),
-                                 DefaultLazy.Never())
-                            .Conventions.AddFromAssemblyOf<TablePluralizationConvention>());
-                });
+                m => m.AutoMappings.Add(
+                    AutoMap.Assemblies(new AutomappingConfigurationFilter(), persistenceAssemblies)
+                        .Conventions
+                        .Setup(c =>
+                        {
+                            c.Add(PrimaryKey.Name.Is(x => "Id")); 
+                            c.Add(ForeignKey.Format((x, t) => t.Name + "Id"));
+                            c.Add(DefaultLazy.Never());
+                            c.AddFromAssemblyOf<TablePluralizationConvention>();
+                        }))
+                    .ExportTo(Directory.GetCurrentDirectory()));
         }
 
         public override IPersistenceConfigurer GetPersistenceConfigurer(bool createDatabase)

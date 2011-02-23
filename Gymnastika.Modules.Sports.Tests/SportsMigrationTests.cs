@@ -26,18 +26,17 @@ using System.Reflection;
 using System.Linq;
 using Gymnastika.Data.Models;
 using NHibernate;
-using Gymnastika.Data.Tests.MockMigration;
 using Gymnastika.Migrations;
 
 namespace Gymnastika.Modules.Sports.Tests
 {
+    #region Mocks
     public class MockAutomappingConfigurer : IAutomappingConfigurer
     {
         #region IAutomappingConfigurer Members
 
         public System.Collections.Generic.IEnumerable<AutomappingConfigurationMetadata> GetAutomappingMetadata()
         {
-            yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Data.Tests.dll" };
             yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Data.dll" };
             yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Modules.Sports.Tests.dll" };
             yield return new AutomappingConfigurationMetadata() { AssemblyName = "Gymnastika.Modules.Sports.dll" };
@@ -52,34 +51,42 @@ namespace Gymnastika.Modules.Sports.Tests
 
         public IEnumerable<IDataMigration> Load()
         {
-           return new List<IDataMigration>()
-           {
-               new Migration_SportsCategories_20110216223043(),
-               new  Migration_Sports_20110217165552(),
-           };
-            //return Assembly.GetAssembly(typeof(Sport))
-            //            .GetExportedTypes()
-            //            .Where(t => t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null)
-            //            .Select(t => (IDataMigration)Activator.CreateInstance(t));
+            var assembly = Assembly.GetAssembly(typeof(Sport));
+            var types = assembly.GetTypes().Where(t => (t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null));
+
+            List<IDataMigration> migrations = new List<IDataMigration>();
+            ILogger logger = new FileLogger();
+            logger.Debug("MockLoader:FindTables:{0}", migrations.Count);
+            foreach (var type in types)
+            {
+                IDataMigration migration = assembly.CreateInstance(type.FullName) as IDataMigration;
+                logger.Debug("MockLoader","FindTable:{0}  Version:{1}", migration.TableName,migration.Version);
+                migrations.Add(migration);
+            }
+            return migrations;
         }
 
         #endregion
     }
+    #endregion
 
     [TestFixture]
     public class SportsMigrationTests
     {
         private readonly string DbName = "GymnastikaForTests.sdf";
+        private readonly string LogFileName = "logs.txt";
         private readonly string DbFolder = Directory.GetCurrentDirectory();
         private IUnityContainer _container;
         private UnityServiceLocator _serviceLocator;
-        
+        ILogger logger = new FileLogger();
         [SetUp]
         public void SetUp()
         {
             string dbPath = Path.Combine(DbFolder, DbName);
             if (File.Exists(dbPath)) File.Delete(dbPath);
+            if (File.Exists(LogFileName)) File.Delete(LogFileName);
 
+            //Register Services
             _container = new UnityContainer();
             _container
                .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>(new ContainerControlledLifetimeManager())
@@ -109,6 +116,8 @@ namespace Gymnastika.Modules.Sports.Tests
 
             _serviceLocator = new UnityServiceLocator(_container);
             ServiceLocator.SetLocatorProvider(() => _serviceLocator);
+
+            MigrateTablesInSportsModules();
         }
 
         [TearDown]
@@ -118,26 +127,40 @@ namespace Gymnastika.Modules.Sports.Tests
         }
 
 
-        [Test]
-        public void Test()
+        public void MigrateTablesInSportsModules()
         {
             IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope();
+
             var migrationManager = _container.Resolve<IDataMigrationManager>();
             migrationManager.Migrate();
-            ILogger logger = _container.Resolve<ILogger>();
-
-            var cats = _container.Resolve<IRepository<SportsCategory>>();
-            var cat = new SportsCategory();
-            cats.Create(cat);
-
-            var spts = _container.Resolve<IRepository<Sport>>();
-            spts.Create(new Sport() { Name = "bd"});
-
-            cats.Delete(cat);
-
-            //logger.Debug("{0}", cats.Get(1).Sports.Count());
             
             scope.Dispose();
+        }
+
+        [Test]
+        public void InsertRecordsIntoTables()
+        {
+            var sportRepository = _container.Resolve<IRepository<Sport>>();
+            var categoryRepository = _container.Resolve<IRepository<SportsCategory>>();
+            var itemRepository = _container.Resolve<IRepository<SportsPlanItem>>();
+            var planRepository = _container.Resolve<IRepository<SportsPlan>>();
+
+            IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope();
+
+            Sport firstSport = new Sport() { Name = "Sport1" };
+            sportRepository.Create(firstSport);
+
+            var sports = sportRepository.Fetch(t => true).ToList();
+            Assert.AreEqual(1, sports.Count);
+
+            SportsCategory firstCategory = new SportsCategory() { Name = "Category1", Sports =  sports};
+            categoryRepository.Create(firstCategory);
+            
+
+            Assert.AreEqual(firstSport.Name, categoryRepository.Get(1).Sports.First().Name);
+            //Assert.AreEqual(firstCategory.Name, sportRepository.Get(1).SportsCategories.First().Name);
+            
+            scope.Dispose();  
         }
     }
 }

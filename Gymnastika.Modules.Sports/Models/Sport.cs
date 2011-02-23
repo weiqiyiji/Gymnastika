@@ -13,15 +13,12 @@ namespace Gymnastika.Modules.Sports.Models
 
         public virtual string Name { get; set; }
 
-        public virtual string SmallImageUri { get; set; }
+        public virtual string ImageUri { get; set; }
 
-        public virtual string LargeImageUri { get; set; }
-
-        public virtual string BriefIntroduction { get; set; }
-
-        public virtual string DetailIntroduction { get; set; }
+        public virtual string Introduction { get; set; }
 
         public virtual int CaloriePerHour { get; set; }
 
+        public virtual IList<SportsCategory> SportsCategories { get; set; }
     }
 }

@@ -47,9 +47,9 @@
             </TextBlock>
             <TextBlock>
                 <Run Text="分类：" />
-                <TextBlock Text="{Binding Category}" />
+                <TextBlock Text="{Binding CategoryName}" />
                 <Run Text="， " />
-                <TextBlock Text="{Binding SubCategory}" />
+                <TextBlock Text="{Binding SubCategoryName}" />
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
@@ -75,18 +75,6 @@
                 <StackPanel>
                     <TextBlock Text="适用人群" />
                     <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="相关食物" />
-                    <ItemsControl ItemsSource="{Binding RelatedFoods}" DisplayMemberPath="Name" >
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
                 </StackPanel>
             </Border>
         </StackPanel>

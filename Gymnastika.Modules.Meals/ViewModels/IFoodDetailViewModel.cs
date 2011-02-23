@@ -15,13 +15,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
         string Name { get; }
         string ImageUri { get; }
         string Calorie { get; }
-        string Category { get; }
-        string SubCategory { get; }
+        string CategoryName { get; }
+        string SubCategoryName { get; }
         IEnumerable<NutritiveElement> NutritionalContent { get; }
         string Introduction { get; }
         string NutritionalValue { get; }
         string Function { get; }
         string SuitableCrowd { get; }
-        IEnumerable<Food> RelatedFoods { get; }
     }
 }

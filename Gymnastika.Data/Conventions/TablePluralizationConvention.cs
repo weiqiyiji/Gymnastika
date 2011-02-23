@@ -8,6 +8,9 @@ using Gymnastika.Common.Utils;
 
 namespace Gymnastika.Data.Conventions
 {
+    /// <summary>
+    /// Table name is pluralized
+    /// </summary>
     public class TablePluralizationConvention : IClassConvention
     {
         public void Apply(IClassInstance instance)

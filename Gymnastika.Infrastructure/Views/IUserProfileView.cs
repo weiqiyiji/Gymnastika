@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Gymnastika.Common;
 using Gymnastika.ViewModels;
 
 namespace Gymnastika.Views
 {
-    public interface ILogOnView
+    public interface IUserProfileView
     {
-        LogOnViewModel Model { get; set; }
+        UserProfileViewModel Model { get; set; }
         void Show();
     }
 }

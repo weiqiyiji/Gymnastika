@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,25 +7,26 @@ using Gymnastika.Data.Migration;
 
 namespace Gymnastika.Migrations
 {
-    public class Migration_SportCategoryMappings_20110220114204 : IDataMigration
+    public class Migration_UserDietPlanMappings_20110222135718 : IDataMigration
     {
         public string TableName 
         { 
-            get { return "SportCategoryMappings"; }
+            get { return "UserDietPlanMappings"; }
         }
             
         public string Version 
         { 
-            get { return "20110220114204"; }
+            get { return "20110222135718"; }
         }
             
         public SchemaBuilder SchemaBuilder { get; set; }
             
         public void Up()
         {
-            SchemaBuilder.CreateTable(TableName,t=>t.Column<int>("Id",c=>c.PrimaryKey().Identity())
-                                                    .Column<int>("SportId")
-                                                    .Column<int>("CategoryId"));
+            SchemaBuilder.CreateTable(
+                TableName,
+                t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
+                    .Column<int>("UserId"));
         }
             
         public void Down()

@@ -62,28 +62,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\GenderToBoolConverter.cs" />
-    <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="DesignData\StartupViewModel_Design.cs" />
     <Compile Include="DesignData\UserCollection.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
     <Compile Include="ModuleMigrationLoader.cs" />
-    <Compile Include="ViewModels\CreateNewUserViewModel.cs" />
-    <Compile Include="Views\ICreateNewUserView.cs" />
+    <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="Controllers\IStartupController.cs" />
     <Compile Include="Controllers\StartupController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\LogOnViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StartupViewModel.cs" />
     <Compile Include="Views\CreateNewUserView.xaml.cs">
       <DependentUpon>CreateNewUserView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ILogOnView.cs" />
     <Compile Include="Views\IMainView.cs" />
     <Compile Include="Views\IStartupView.cs" />
+    <Compile Include="Views\IUserProfileView.cs" />
     <Compile Include="Views\LogOnView.xaml.cs">
       <DependentUpon>LogOnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserProfileView.xaml.cs">
+      <DependentUpon>UserProfileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -100,11 +100,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
+    <Page Include="Styles\ActionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateNewUserView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LogOnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserProfileView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -149,6 +157,23 @@
     <Resource Include="DesignData\Images\user3.jpg" />
     <Resource Include="DesignData\Images\user4.jpg" />
     <Resource Include="DesignData\Images\user5.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back1.png" />
+    <Resource Include="Images\back2.png" />
+    <Resource Include="Images\back3.png" />
+    <Resource Include="Images\back5.png" />
+    <Resource Include="Images\back4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back7.png" />
+    <Resource Include="Images\back6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\back8.png" />
+    <Resource Include="Images\back9.png" />
+    <Resource Include="Images\back11.png" />
+    <Resource Include="Images\back10.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
