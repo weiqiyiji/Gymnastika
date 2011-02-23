@@ -60,7 +60,7 @@
         </Setter>
         <Setter Property="SelectedBackground" Value="#FFD6D6D6"/>
         <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="SingleBorderThickness" Value="0.8"/>
+        <Setter Property="SingleBorderThickness" Value="1"/>
         <Setter Property="BorderBrush" Value="#FFB1B1B1"/>
     </Style>
     

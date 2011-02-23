@@ -32,6 +32,22 @@ namespace Gymnastika.Controls
         }
 
         public static readonly DependencyProperty WatermarkForegroundProperty =
-            DependencyProperty.Register("WatermarkForeground", typeof(Brush), typeof(WatermarkTextBox), new FrameworkPropertyMetadata(Brushes.Silver)); 
+            DependencyProperty.Register("WatermarkForeground", typeof(Brush), typeof(WatermarkTextBox), new FrameworkPropertyMetadata(Brushes.Silver));
+
+        public bool IsEmpty
+        {
+            get { return (bool)GetValue(IsEmptyProperty); }
+            set { SetValue(IsEmptyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsEmptyProperty =
+            DependencyProperty.Register("IsEmpty", typeof(bool), typeof(WatermarkTextBox), new UIPropertyMetadata(true));
+
+        protected override void OnTextChanged(TextChangedEventArgs e)
+        {
+            base.OnTextChanged(e);
+            IsEmpty = string.IsNullOrEmpty(Text);
+        }
     }
 }
