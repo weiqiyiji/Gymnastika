@@ -8,7 +8,6 @@ namespace Gymnastika.Modules.Sports.Services
 {
     public class SportsProvider : ISportsProvider
     {
-
         #region ISportsProvider Members
 
         public IEnumerable<SportsCategory> SportsCategories

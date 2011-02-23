@@ -71,6 +71,8 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
+    <Compile Include="Services\CategoriesProvider.cs" />
+    <Compile Include="Services\ICategoriesProvider.cs" />
     <Compile Include="Services\ISportsPlanProvider.cs" />
     <Compile Include="Services\ISportsProvider.cs" />
     <Compile Include="Migration\Migration_Sports_20110217165552.cs" />
@@ -78,6 +80,8 @@
     <Compile Include="Services\SportsProvider.cs" />
     <Compile Include="SportsManagementModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CategoriesPanel.cs" />
+    <Compile Include="ViewModels\ICategoriesPanel.cs" />
     <Compile Include="ViewModels\ISportsListViewModel.cs" />
     <Compile Include="ViewModels\ISportsPlanDetailViewModel.cs" />
     <Compile Include="ViewModels\ISportsPlanViewModel.cs" />
