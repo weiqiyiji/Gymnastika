@@ -38,17 +38,6 @@ namespace Gymnastika.Modules.Sports
 
         private void RegisterDependencies()
         {
-            _container
-                    .RegisterInstance(typeof(ISportsProvider), new SportsProvider())
-                    .RegisterInstance(typeof(ISportsPlanProvider), new SportsPlanProvider());
-
-            _container
-                .RegisterType<ISportsListViewModel, SportsListViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>(new ContainerControlledLifetimeManager());
-
-            _container
-                .RegisterType<ISportView, SportView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsListView, SportsListView>(new ContainerControlledLifetimeManager());
         }
 
         #endregion

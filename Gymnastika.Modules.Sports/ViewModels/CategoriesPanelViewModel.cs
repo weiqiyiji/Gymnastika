@@ -11,12 +11,12 @@ using Microsoft.Practices.Prism.Events;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public class CategoriesPanel : NotificationObject, ICategoriesPanel
+    public class CategoriesPanelViewModel : NotificationObject, ICategoriesPanelViewModel
     {
         ICategoriesProvider _provider;
         IEventAggregator _aggregator;
 
-        public CategoriesPanel(ICategoriesProvider provider,IEventAggregator aggregator)
+        public CategoriesPanelViewModel(ICategoriesProvider provider,IEventAggregator aggregator)
         {
             _provider = provider;
             _aggregator = aggregator;

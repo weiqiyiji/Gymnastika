@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Controls.CategoryItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="132" d:DesignWidth="335">
+    <Grid>
+        <StackPanel>
+            <TextBlock x:Name="Name" HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" Text="{Binding Name}" Height="28.022" Width="Auto"/>
+            <StackPanel Orientation="Horizontal" Height="102" Margin="0" VerticalAlignment="Stretch" Width="Auto">
+                <Image x:Name="Image" HorizontalAlignment="Stretch" Margin="10,10,10,8" Width="60" Source="{Binding ImageUri}" Height="Auto"/>
+                <TextBlock x:Name="Note" Margin="0" TextWrapping="Wrap" Text="{Binding Note}" Height="Auto" VerticalAlignment="Stretch" Width="252"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

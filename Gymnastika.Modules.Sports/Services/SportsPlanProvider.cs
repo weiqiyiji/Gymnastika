@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    public class SportsPlanProvider : ISportsPlanProvider
+    public class SportsPlanProvider : Provider<SportsPlan>, ISportsPlanProvider
     {
 
-        #region ISportsPlanProvider Members
 
-        public IEnumerable<SportsPlan> SportsCategories
+        IRepository<SportsPlan> _repository;
+        IWorkEnvironment _environment;
+
+        public SportsPlanProvider(IRepository<SportsPlan> repository, IWorkEnvironment environment)
+            :base(repository,environment)
         {
-            get 
-            {
-                return new List<SportsPlan>();
-            }
+
         }
 
-        #endregion
     }
 }

@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.CategoriesPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="428" d:DesignWidth="216">
+    <UserControl.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Modules.Sports;Component/Themes/Theme.xaml"/>
+    </UserControl.Resources>
+    <Grid>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="0.079*"/>
+    		<RowDefinition Height="0.921*"/>
+    	</Grid.RowDefinitions>
+        <ListBox  ItemsSource="{Binding Categories}" Grid.Row="1" ItemTemplate="{DynamicResource CategoryItemTemplate}">
+        </ListBox>
+        <TextBlock TextWrapping="Wrap"><Run Language="zh-cn" Text="我的运动库"/></TextBlock>
+    </Grid>
+</UserControl>
