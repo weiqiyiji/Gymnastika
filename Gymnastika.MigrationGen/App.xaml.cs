@@ -44,12 +44,12 @@ namespace Gymnastika.MigrationGen
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>(new PerThreadLifetimeManager())
                 .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
-                .RegisterType<IMigrationLoader, NullMigrationLoader>("Default")
                 .RegisterType(typeof(IRepository<>), typeof(Repository<>))
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ILogger, NullLogger>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(_container)
+                .RegisterInstance<IDataMigrationDiscoverer>(new DataMigrationDiscoverer())
                 .RegisterInstance<ShellSettings>(
                     new ShellSettings
                     {

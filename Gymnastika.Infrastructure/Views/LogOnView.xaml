@@ -4,8 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+             mc:Ignorable="d" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -13,7 +13,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <controls:WatermarkTextBox Text="{Binding UserName}" WatermarkText="用户名" Style="{DynamicResource WatermarkTextBoxStyle}" />
-        <controls:WatermarkTextBox Grid.Row="1" Text="{Binding Password}" WatermarkText="密码" Style="{DynamicResource WatermarkTextBoxStyle}" />
+        <PasswordBox 
+            Grid.Row="1" 
+            behaviors:WatermarkBehavior.Watermark="密码" 
+            behaviors:WatermarkBehavior.IsEmpty="True"
+            behaviors:PasswordBindingBehavior.Password="{Binding Password}"
+            Style="{DynamicResource WatermarkPasswordBoxStyle}" />
         <Button Grid.Row="2" Command="{Binding LogOnCommand}" Grid.ColumnSpan="2" Content="登录" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" Style="{DynamicResource ActionButtonStyle}" />
     </Grid>
 </UserControl>

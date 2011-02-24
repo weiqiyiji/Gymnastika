@@ -65,8 +65,7 @@ namespace Gymnastika.Controls
         // Using a DependencyProperty as the backing store for SingleBorderThickness.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty SingleBorderThicknessProperty =
             DependencyProperty.Register("SingleBorderThickness", typeof(double), typeof(CheckButtonGroupItem), new UIPropertyMetadata(0.0));
-
-        
+      
         public double CornerRadius
         {
             get { return (double)GetValue(CornerRadiusProperty); }

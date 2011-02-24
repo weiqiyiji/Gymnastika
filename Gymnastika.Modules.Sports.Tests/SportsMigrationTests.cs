@@ -45,29 +45,6 @@ namespace Gymnastika.Modules.Sports.Tests
         #endregion
     }
 
-    public class MockMigrationLoader : IMigrationLoader
-    {
-        #region IMigrationLoader Members
-
-        public IEnumerable<IDataMigration> Load()
-        {
-            var assembly = Assembly.GetAssembly(typeof(Sport));
-            var types = assembly.GetTypes().Where(t => (t.GetInterface("Gymnastika.Data.Migration.IDataMigration") != null));
-
-            List<IDataMigration> migrations = new List<IDataMigration>();
-            ILogger logger = new FileLogger();
-            logger.Debug("MockLoader:FindTables:{0}", migrations.Count);
-            foreach (var type in types)
-            {
-                IDataMigration migration = assembly.CreateInstance(type.FullName) as IDataMigration;
-                logger.Debug("MockLoader","FindTable:{0}  Version:{1}", migration.TableName,migration.Version);
-                migrations.Add(migration);
-            }
-            return migrations;
-        }
-
-        #endregion
-    }
     #endregion
 
     [TestFixture]
@@ -82,42 +59,6 @@ namespace Gymnastika.Modules.Sports.Tests
         [SetUp]
         public void SetUp()
         {
-            string dbPath = Path.Combine(DbFolder, DbName);
-            if (File.Exists(dbPath)) File.Delete(dbPath);
-            if (File.Exists(LogFileName)) File.Delete(LogFileName);
-
-            //Register Services
-            _container = new UnityContainer();
-            _container
-               .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>(new ContainerControlledLifetimeManager())
-               .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
-               .RegisterType<ITransactionManager, TransactionManager>()
-               .RegisterType<IDataMigrationManager, DataMigrationManager>()
-               .RegisterType<IAutomappingConfigurer, MockAutomappingConfigurer>(new PerThreadLifetimeManager())
-               .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
-               .RegisterInstance<IMigrationLoader[]>(
-               new IMigrationLoader[]
-               {
-                    new MockMigrationLoader()
-               })
-               .RegisterType<IMigrationLoader, MockMigrationLoader>("Default")
-               .RegisterType(typeof(IRepository<>), typeof(Repository<>))
-               .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
-               .RegisterType<ILogger, FileLogger>()
-               .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
-               .RegisterInstance<ShellSettings>(
-                   new ShellSettings
-                   {
-                       DatabaseName = DbName,
-                       DataFolder = DbFolder,
-                       DataProvider = "SqlCe"
-                   });
-
-
-            _serviceLocator = new UnityServiceLocator(_container);
-            ServiceLocator.SetLocatorProvider(() => _serviceLocator);
-
-            MigrateTablesInSportsModules();
         }
 
         [TearDown]

@@ -82,11 +82,11 @@
     <Compile Include="Conventions\TablePluralizationConvention.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="IWorkEnvironment.cs" />
-    <Compile Include="Migration\DataMigrationLoader.cs" />
+    <Compile Include="Migration\DataMigrationDiscoverer.cs" />
     <Compile Include="Migration\DataMigrationManager.cs" />
     <Compile Include="Migration\IDataMigration.cs" />
+    <Compile Include="Migration\IDataMigrationDiscoverer.cs" />
     <Compile Include="Migration\IDataMigrationManager.cs" />
-    <Compile Include="Migration\IMigrationLoader.cs" />
     <Compile Include="Migration\MigrationException.cs" />
     <Compile Include="Migration\MigrationNullException.cs" />
     <Compile Include="Models\MigrationRecord.cs" />

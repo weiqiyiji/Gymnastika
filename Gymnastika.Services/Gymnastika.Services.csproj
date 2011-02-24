@@ -46,7 +46,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Contracts\IUserService.cs" />
     <Compile Include="Impl\UserService.cs" />
-    <Compile Include="ServiceMigrationLoader.cs" />
     <Compile Include="Session\ISessionManager.cs" />
     <Compile Include="Session\SessionContext.cs" />
     <Compile Include="Session\SessionManager.cs" />
