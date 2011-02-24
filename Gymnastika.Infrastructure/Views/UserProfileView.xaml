@@ -6,12 +6,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
         xmlns:v="clr-namespace:Gymnastika.Views"
-        xmlns:vm="clr-namespace:Gymnastika.ViewModels"
-        xmlns:Gymnastika_Controls_Converters="clr-namespace:Gymnastika.Controls.Converters;assembly=Gymnastika.Controls" mc:Ignorable="d" x:Class="Gymnastika.Views.UserProfileView"
-        Width="320" Height="Auto" behaviors:CloseWindowBehavior.CloseCondition="{Binding NotifyClose}" Style="{DynamicResource WindowStyle}" 
-        WindowStyle="None" WindowStartupLocation="CenterOwner" 
-        AllowsTransparency="True" ResizeMode="NoResize">
-	<Window.Resources>
+        mc:Ignorable="d" x:Class="Gymnastika.Views.UserProfileView" x:Name="userProfileWindow" behaviors:CloseWindowBehavior.CloseCondition="{Binding NotifyClose}" 
+        Style="{DynamicResource WindowStyle}"
+        WindowStartupLocation="CenterOwner"
+		ScrollViewer.VerticalScrollBarVisibility="Disabled" WindowStyle="None" AllowsTransparency="True" OverridesDefaultStyle="True" MinWidth="320" Width="320">
+    
+    <Window.Resources>
         <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
 		<Style x:Key="UserProfileTab" TargetType="{x:Type TabControl}">
 			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -19,7 +19,7 @@
 			<Setter Property="BorderThickness" Value="1"/>
 			<Setter Property="BorderBrush" Value="{StaticResource TabControlNormalBorderBrush}"/>
 			<Setter Property="Background" Value="#F9F9F9"/>
-			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 			<Setter Property="VerticalContentAlignment" Value="Center"/>
 			<Setter Property="Template">
 				<Setter.Value>
@@ -54,7 +54,7 @@
 			<Setter Property="Foreground" Value="White"/>
 			<Setter Property="Padding" Value="30,2"/>
 			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Top"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type TabItem}">
@@ -71,6 +71,7 @@
 								<Setter Property="Panel.ZIndex" Value="1"/>
 								<Setter Property="Foreground" Value="Black" />
 								<Setter Property="Opacity" TargetName="Bd" Value="1"/>
+                                <Setter Property="Cursor" Value="Hand" />
 							</Trigger>
 							<MultiTrigger>
 								<MultiTrigger.Conditions>
@@ -85,49 +86,74 @@
 								<Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource TabItemDisabledBorderBrush}"/>
 								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
 							</Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Cursor" Value="Hand" />
+                            </MultiTrigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
 		</Style>
-		<ControlTemplate x:Key="WindowTemplateKey" TargetType="{x:Type Window}">
-			<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
-				<Grid>
-					<AdornerDecorator>
-						<ContentPresenter/>
-					</AdornerDecorator>
-					<ResizeGrip x:Name="WindowResizeGrip" HorizontalAlignment="Right" IsTabStop="false" Visibility="Collapsed" VerticalAlignment="Bottom"/>
-				</Grid>
-			</Border>
-			<ControlTemplate.Triggers>
-				<MultiTrigger>
-					<MultiTrigger.Conditions>
-						<Condition Property="ResizeMode" Value="CanResizeWithGrip"/>
-						<Condition Property="WindowState" Value="Normal"/>
-					</MultiTrigger.Conditions>
-					<Setter Property="Visibility" TargetName="WindowResizeGrip" Value="Visible"/>
-				</MultiTrigger>
-			</ControlTemplate.Triggers>
-		</ControlTemplate>
-		<Style x:Key="WindowStyle" TargetType="{x:Type Window}">
+        <Storyboard x:Key="OnWindowLoaded">
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="windowBorder" To="1">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="windowBorder" To="1">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="OnWindowClosing" Completed="OnWindowClosingStoryboard_Completed">
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="windowBorder" To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="windowBorder" To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Style x:Key="WindowStyle" TargetType="{x:Type Window}">
 			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
 			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Window}">
-						<Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="20">
-							<Grid HorizontalAlignment="Stretch" Width="Auto">
-								<ContentPresenter HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto"/>
-							</Grid>
-						</Border>
+						<StackPanel HorizontalAlignment="Stretch" Width="Auto" VerticalAlignment="Center">
+							<Border x:Name="windowBorder" BorderBrush="{TemplateBinding BorderBrush}" 
+									BorderThickness="{TemplateBinding BorderThickness}" 
+									Background="{TemplateBinding Background}" CornerRadius="20" RenderTransformOrigin="0.5,0.5">
+                                <Border.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleX="0" ScaleY="0"/>
+                                        <SkewTransform/>
+                                        <RotateTransform/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Border.RenderTransform>
+								<ContentPresenter HorizontalAlignment="Stretch" Height="Auto" Width="Auto"/>
+							</Border>
+						</StackPanel>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="v:UserProfileView.RoutedClosing">
+                                <BeginStoryboard x:Name="OnWindowClosing_BeginStoryboard" Storyboard="{StaticResource OnWindowClosing}"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard x:Name="OnWindowLoaded_BeginStoryboard" Storyboard="{StaticResource OnWindowLoaded}"/>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
-			<Style.Triggers>
-				<Trigger Property="ResizeMode" Value="CanResizeWithGrip">
-					<Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
-				</Trigger>
-			</Style.Triggers>
 		</Style>
 		
 		<ControlTemplate x:Key="BackButtonTemplate" TargetType="{x:Type Button}">
@@ -160,7 +186,15 @@
 			<GradientStop Color="#FFD0D0D0" Offset="0.728"/>
 		</LinearGradientBrush>
 	</Window.Background>
-    <Grid>
+    <Grid x:Name="grid" Margin="0">
+        <Grid.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Grid.RenderTransform>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="70"/>
     		<RowDefinition />
@@ -177,20 +211,6 @@
 				</LinearGradientBrush>
 			</TextBlock.Foreground>
 		</TextBlock>
-        <TabControl SelectedIndex="{Binding InitialTabIndex}" Style="{DynamicResource UserProfileTab}" ItemContainerStyle="{DynamicResource UserProfileTabItemStyle}" Background="White" Grid.Row="1" Margin="0,0,0,20">
-			<TabItem>
-				<TabItem.Header>
-					<TextBlock Text="登录" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave" />
-				</TabItem.Header>
-                <v:LogOnView DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type v:IUserProfileView}}}" />
-            </TabItem>
-			<TabItem>
-				<TabItem.Header>
-					<TextBlock Text="创建新账户" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave" />
-				</TabItem.Header>
-                <v:CreateNewUserView DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type v:IUserProfileView}}}" />
-            </TabItem>
-		</TabControl>
 		<Button Command="{Binding BackCommand}" Margin="8,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Template="{DynamicResource BackButtonTemplate}" RenderTransformOrigin="0.5,0.5" ToolTip="返回">
 			<Button.RenderTransform>
 				<TransformGroup>
@@ -202,5 +222,19 @@
 			</Button.RenderTransform>
 			<Image Source="/Gymnastika.Infrastructure;component/Images/back6.png" Height="24" d:LayoutOverrides="Height" Width="24"/>
 		</Button>
+        <TabControl SelectedIndex="{Binding InitialTabIndex}" Style="{DynamicResource UserProfileTab}" ItemContainerStyle="{DynamicResource UserProfileTabItemStyle}" Background="White" Grid.Row="1" Margin="0,0,0,20" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+			<TabItem>
+				<TabItem.Header>
+					<TextBlock Text="登录" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave" />
+				</TabItem.Header>
+                <v:LogOnView DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type v:IUserProfileView}}}" />
+            </TabItem>
+			<TabItem>
+				<TabItem.Header>
+                    <TextBlock Text="创建新账户" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave"/>
+				</TabItem.Header>
+                <v:CreateNewUserView DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type v:IUserProfileView}}}" />
+            </TabItem>
+		</TabControl>
 	</Grid>
 </Window>

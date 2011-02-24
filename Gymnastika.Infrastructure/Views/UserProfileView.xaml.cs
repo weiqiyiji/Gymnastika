@@ -15,15 +15,16 @@ using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Views
 {
-    /// <summary>
-    /// Interaction logic for LogOnView.xaml
-    /// </summary>
     public partial class UserProfileView : Window, IUserProfileView
     {
+        //Just a funny name
+        private bool _iAmReallyWantToClose = false;
+
         public UserProfileView(UserProfileViewModel vm)
         {
             InitializeComponent();
             Model = vm;
+            Owner = Application.Current.MainWindow;
         }
 
         public UserProfileViewModel Model
@@ -41,13 +42,45 @@ namespace Gymnastika.Views
         private void HeaderTextBlock_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
         	TextBlock block = (TextBlock)sender;
-            block.TextDecorations.Add(TextDecorations.Underline);
+            block.Cursor = Cursors.Hand;
         }
 		
 		private void HeaderTextBlock_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
 		{
 		    TextBlock block = (TextBlock) sender;
-            block.TextDecorations.Clear();
+		    block.Cursor = Cursors.Arrow;
 		}
+
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if(!_iAmReallyWantToClose && !e.Cancel)
+            {
+                e.Cancel = true;
+                this.RaiseEvent(new RoutedEventArgs(RoutedClosingEvent));
+            }
+        }
+        
+        public static readonly RoutedEvent RoutedClosingEvent = EventManager.RegisterRoutedEvent(
+          "RoutedClosing", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(UserProfileView));
+
+        public event RoutedEventHandler RoutedClosing
+        {
+            add
+            {
+                base.AddHandler(UserProfileView.RoutedClosingEvent, value);
+            }
+            remove
+            {
+                base.RemoveHandler(UserProfileView.RoutedClosingEvent, value);
+            }
+        }
+
+        private void OnWindowClosingStoryboard_Completed(object sender, EventArgs e)
+        {
+            _iAmReallyWantToClose = true;
+            this.Close();
+        }
+					
     }
 }

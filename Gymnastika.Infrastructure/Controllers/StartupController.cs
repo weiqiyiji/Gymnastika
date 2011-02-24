@@ -99,8 +99,6 @@ namespace Gymnastika.Controllers
             view.Show();
         }
 
-        #region IStartupController Members
-
         public void RequestCreateNewUser()
         {
             IUserProfileView view = _container.Resolve<IUserProfileView>();
@@ -108,7 +106,5 @@ namespace Gymnastika.Controllers
             vm.InitialTabIndex = UserProfileViewModel.CreateNewUserTabIndex;
             view.Show();
         }
-
-        #endregion
     }
 }

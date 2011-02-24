@@ -14,13 +14,13 @@
                     <Grid>
                         <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                         <TextBlock Background="Transparent" Foreground="{TemplateBinding WatermarkForeground}" Text="{TemplateBinding WatermarkText}" VerticalAlignment="Center" FontFamily="微软雅黑" FontStyle="Italic">
-						<TextBlock.Visibility>
-							<Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}">
-								<Binding.Converter>
-									<cov:BoolToVisibilityConverter/>
-								</Binding.Converter>
-							</Binding>
-						</TextBlock.Visibility>
+						    <TextBlock.Visibility>
+							    <Binding Path="IsEmpty" RelativeSource="{RelativeSource TemplatedParent}">
+								    <Binding.Converter>
+									    <cov:BoolToVisibilityConverter/>
+								    </Binding.Converter>
+							    </Binding>
+						    </TextBlock.Visibility>
                         </TextBlock>
                     </Grid>
                 </Border>
@@ -32,6 +32,7 @@
             </ControlTemplate>
 
             <Style x:Key="WatermarkTextBoxStyle" TargetType="{x:Type controls:WatermarkTextBox}">
+                <Setter Property="Cursor" Value="Arrow" />
                 <Setter Property="Margin" Value="4" />
                 <Setter Property="Template" Value="{StaticResource WatermarkTextBoxControlTemplate}" />
                 <Setter Property="CaretBrush" Value="#FF898989"/>

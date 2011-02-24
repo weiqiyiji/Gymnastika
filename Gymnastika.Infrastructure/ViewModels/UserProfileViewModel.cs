@@ -89,7 +89,10 @@ namespace Gymnastika.ViewModels
 
         public string Age
         {
-            get { return _user.Age.ToString(); }
+            get
+            {
+                return _user.Age == 0 ? string.Empty : _user.Age.ToString();
+            }
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
@@ -105,7 +108,10 @@ namespace Gymnastika.ViewModels
 
         public string Height
         {
-            get { return _user.Height.ToString(); }
+            get
+            {
+                return _user.Height == 0 ? string.Empty : _user.Height.ToString();
+            }
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
@@ -121,7 +127,10 @@ namespace Gymnastika.ViewModels
 
         public string Weight
         {
-            get { return _user.Weight.ToString(); }
+            get
+            {
+                return _user.Weight == 0 ? string.Empty : _user.Weight.ToString();
+            }
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
@@ -144,6 +153,19 @@ namespace Gymnastika.ViewModels
                 {
                     _user.Gender = value;
                     RaisePropertyChanged("Gender");
+                }
+            }
+        }
+
+        public int GenderIndex
+        {
+            get { return (int) Gender; }
+            set
+            {
+                if((int)Gender != value)
+                {
+                    Gender = (Gender)value;
+                    RaisePropertyChanged("GenderIndex");
                 }
             }
         }
@@ -205,17 +227,17 @@ namespace Gymnastika.ViewModels
                 return _backCommand;
             }
         }
+        
+        private ICommand _createNewUserCommand;
 
-        private ICommand _submitCommand;
-
-        public ICommand SubmitCommand
+        public ICommand CreateNewUserCommand
         {
             get
             {
-                if (_submitCommand == null)
-                    _submitCommand = new DelegateCommand(Submit);
+                if (_createNewUserCommand == null)
+                    _createNewUserCommand = new DelegateCommand(CreateNewUser, ValidateCreateUserForm);
 
-                return _submitCommand;
+                return _createNewUserCommand;
             }
         }
 
@@ -226,13 +248,13 @@ namespace Gymnastika.ViewModels
             get
             {
                 if (_logOnCommand == null)
-                    _logOnCommand = new DelegateCommand(DoProcessLogOn, () => !string.IsNullOrEmpty(UserName));
+                    _logOnCommand = new DelegateCommand(ProcessLogOn, () => !string.IsNullOrEmpty(UserName));
 
                 return _logOnCommand;
             }
         }
 
-        private void DoProcessLogOn()
+        private void ProcessLogOn()
         {
             if (_userService.LogOn(UserName, Password))
             {
@@ -240,7 +262,13 @@ namespace Gymnastika.ViewModels
             }
         }
 
-        private void Submit()
+        private bool ValidateCreateUserForm()
+        {
+            //TODO
+            return true;
+        }
+
+        private void CreateNewUser()
         {
             IsRegisterFailed = false;
             ErrorMessage = string.Empty;
