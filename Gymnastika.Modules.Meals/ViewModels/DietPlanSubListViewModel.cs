@@ -13,7 +13,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public class DietPlanSubListViewModel : NotificationObject, IDropTarget
     {
         private readonly string _mealName;
-        private int _subTotalCalories;
+        private decimal _subTotalCalories;
 
         public DietPlanSubListViewModel(string mealName)
         {
@@ -29,7 +29,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get { return _mealName; }
         }
 
-        public int SubTotalCalories
+        public decimal SubTotalCalories
         {
             get
             {
@@ -101,7 +101,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void DietPlanSubListPropertyChanged(object sender, EventArgs e)
         {
-            int subTotalCalories = 0;
+            decimal subTotalCalories = 0;
 
             foreach (var foodItem in DietPlanSubList)
             {

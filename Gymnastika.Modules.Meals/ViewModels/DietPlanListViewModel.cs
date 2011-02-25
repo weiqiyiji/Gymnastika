@@ -13,7 +13,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class DietPlanListViewModel : NotificationObject, IDietPlanListViewModel
     {
-        private int _totalCalories;
+        private decimal _totalCalories;
 
         public DietPlanListViewModel(IDietPlanListView view)
         {
@@ -26,7 +26,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IDietPlanListView View { get; set; }
 
-        public int TotalCalories
+        public decimal TotalCalories
         {
             get
             {
@@ -64,7 +64,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void DietPlanListPropertyChanged(object sender, EventArgs e)
         {
-            int totalCalories = 0;
+            decimal totalCalories = 0;
 
             foreach (var dietPlanSubList in DietPlanList)
             {

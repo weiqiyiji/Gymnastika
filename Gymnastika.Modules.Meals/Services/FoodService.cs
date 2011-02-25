@@ -20,13 +20,15 @@ namespace Gymnastika.Modules.Meals.Services
             IRepository<SubCategory> subCategoryRepository,
             IRepository<Food> foodRepository,
             IRepository<DietPlan> DietPlanRepository,
-            IRepository<SubDietPlan> SubDietPlanRepository)
+            IRepository<SubDietPlan> SubDietPlanRepository,
+            IRepository<UserDietPlanMapping> userDietPlanMappingRepository)
         {
             _categoryRepository = categoryRepository;
             _subCategoryRepository = subCategoryRepository;
             _foodRepository = foodRepository;
             _DietPlanRepository = DietPlanRepository;
             _SubDietPlanRepository = SubDietPlanRepository;
+            _userDietPlanMappingRepository = userDietPlanMappingRepository;
         }
 
         #region IFoodService Members
@@ -34,16 +36,6 @@ namespace Gymnastika.Modules.Meals.Services
         public IEnumerable<Category> GetAllCategories()
         {
             return _categoryRepository.Fetch(c => true);
-        }
-
-        public Category GetCategory(int foodId)
-        {
-            return _categoryRepository.Get(_subCategoryRepository.Get(foodId).Id);
-        }
-
-        public SubCategory GetSubCategory(int foodId)
-        {
-            return _subCategoryRepository.Get(foodId);
         }
 
         public IEnumerable<Food> GetFoodsByName(string foodName)

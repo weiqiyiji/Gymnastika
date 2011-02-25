@@ -9,8 +9,6 @@ namespace Gymnastika.Modules.Meals.Services
     public interface IFoodService
     {
         IEnumerable<Category> GetAllCategories();
-        Category GetCategory(int foodId);
-        SubCategory GetSubCategory(int foodId);
         IEnumerable<Food> GetFoodsByName(string foodName);
         IEnumerable<Food> GetFoodsInCount(int count);
         IEnumerable<DietPlan> GetAllSavedDietPlansOfUser(int userId);

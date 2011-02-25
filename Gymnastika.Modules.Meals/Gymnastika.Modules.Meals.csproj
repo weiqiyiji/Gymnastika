@@ -78,6 +78,7 @@
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
     <Compile Include="Migrations\Migration_Foods_20110220121913.cs" />
     <Compile Include="Migrations\Migration_Food_SubDietPlan_Relations_20110222133930.cs" />
+    <Compile Include="Migrations\Migration_Introductions_20110223125751.cs" />
     <Compile Include="Migrations\Migration_NutritiveElements_20110221121551.cs" />
     <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
     <Compile Include="Migrations\Migration_SubDietPlans_20110219142008.cs" />
@@ -85,9 +86,10 @@
     <Compile Include="Migrations\Migration_UserDietPlanMappings_20110222135718.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DietPlan.cs" />
+    <Compile Include="Models\Introduction.cs" />
     <Compile Include="Models\UserDietPlanMapping.cs" />
     <Compile Include="Models\Food.cs" />
-    <Compile Include="Models\NutritiveElement.cs" />
+    <Compile Include="Models\NutritionalElement.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubDietPlan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

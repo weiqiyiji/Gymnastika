@@ -54,7 +54,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get
             {
-                _subCategory = ((Category)Category.CurrentItem).SubCategory;
+                _subCategory = ((Category)Category.CurrentItem).SubCategories;
 
                 return CollectionViewSource.GetDefaultView(_subCategory);
             }

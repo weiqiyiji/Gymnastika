@@ -12,8 +12,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class FoodItemViewModel : NotificationObject
     {
-        private int _amount;
-        private int _calories;
+        private decimal _amount;
+        private decimal _calories;
         private ICommand _deleteFoodFromPlanCommand;
         private ICommand _addFoodToMyFavoriteCommand;
         private ICommand _showFoodDetailCommand;
@@ -41,12 +41,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get { return Food.LargeImageUri; }
         }
 
-        public int Calorie
+        public decimal Calorie
         {
             get { return Food.Calorie; }
         }
 
-        public int Amount
+        public decimal Amount
         {
             get 
             { 
@@ -63,7 +63,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public int Calories
+        public decimal Calories
         {
             get
             {

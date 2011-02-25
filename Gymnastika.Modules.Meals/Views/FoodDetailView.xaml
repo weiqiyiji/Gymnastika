@@ -18,7 +18,7 @@
         <Image Source="{Binding ImageUri}" />
         <StackPanel Grid.Row="1">
             <TextBlock Text="营养含量（每100克）" />
-            <ItemsControl ItemsSource="{Binding NutritionalContent}">
+            <ItemsControl ItemsSource="{Binding NutritionalElements}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -26,13 +26,8 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock>
-                                <TextBlock Text="{Binding Name}" />
-                                <Run Text="（" />
-                                <TextBlock Text="{Binding Unit}" />
-                                <Run Text="）" />
-                            </TextBlock>
-                            <TextBlock Grid.Column="1" Text="{Binding Content}" />
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Value}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -53,30 +48,20 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="介绍" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="营养价值" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="食用效果" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="适用人群" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
+            <ItemsControl ItemsSource="{Binding Introductions}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Grid.Row="1" Text="{Binding Content}" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
 </extToolkit:ChildWindow>

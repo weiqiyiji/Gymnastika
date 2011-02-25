@@ -12,7 +12,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public interface IDietPlanListViewModel
     {
         IDietPlanListView View { get; set; }
-        int TotalCalories { get; set; }
+        decimal TotalCalories { get; set; }
         IList<DietPlanSubListViewModel> DietPlanList { get; set; }
     }
 }

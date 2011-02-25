@@ -33,10 +33,6 @@ namespace Gymnastika.Migrations
                     .Column<string>("SmallImageUri")
                     .Column<string>("LargeImageUri")
                     .Column<int>("Calorie")
-                    .Column<string>("Introduction")
-                    .Column<string>("NutritionalValue")
-                    .Column<string>("Function")
-                    .Column<string>("SuitableCrowd")
                     .Column<int>("SubCategoryId"));
 
             SchemaBuilder.CreateForeignKey(
