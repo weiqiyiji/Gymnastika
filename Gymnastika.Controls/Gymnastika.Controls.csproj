@@ -53,6 +53,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatedListPanel.cs" />
     <Compile Include="Behaviors\CloseWindowBehavior.cs" />
     <Compile Include="CheckButtonGroup.cs" />
     <Compile Include="CheckButtonGroupItem.cs" />

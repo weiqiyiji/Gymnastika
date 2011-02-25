@@ -62,9 +62,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\CategoryItem.xaml.cs">
-      <DependentUpon>CategoryItem.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="DesignData\CategoriesDesign.cs" />
+    <Compile Include="DesignData\CategoryCollection.cs" />
     <Compile Include="Events\ShowPlanDetailEvent.cs" />
     <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
     <Compile Include="Migration\Migration_SportsPlanItems_20110220115125.cs" />
@@ -92,9 +91,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\CategoryItem.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="DesignData\CategoriesDesign.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignData\CategoryData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Theme.xaml">
       <SubType>Designer</SubType>
@@ -108,12 +111,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Themes\CategoryItemTemplate.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Gymnastika.Controls\Gymnastika.Controls.csproj">
+      <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
+      <Name>Gymnastika.Controls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
       <Name>Gymnastika.Data</Name>
@@ -123,7 +126,18 @@
       <Name>Gymnastika.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DesignData\Images\1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="DesignData\Images\2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="DesignData\Images\3.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
