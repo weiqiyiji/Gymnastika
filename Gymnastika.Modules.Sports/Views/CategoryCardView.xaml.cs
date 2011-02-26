@@ -11,26 +11,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.ViewModels;
-using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for SportsListView.xaml
+    /// Interaction logic for CategoryDetail.xaml
     /// </summary>
-    public partial class SportsPanelView : UserControl, ISportsPanelView
+    public partial class CategoryCardView : UserControl
     {
-        public SportsPanelView()
+        public CategoryCardView()
         {
             InitializeComponent();
-        }
-
-        [Dependency]
-        public ISportsPanelViewModel ViewModel
-        {
-            set { this.DataContext = value; }
-            get { return this.DataContext as ISportsPanelViewModel; }
         }
     }
 }

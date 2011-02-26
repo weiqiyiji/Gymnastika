@@ -19,7 +19,7 @@ namespace Gymnastika.Modules.Sports.Views
     /// <summary>
     /// Interaction logic for CategoriesPanelView.xaml
     /// </summary>
-    public partial class CategoriesPanelView : UserControl
+    public partial class CategoriesPanelView : UserControl , ICategoriesPanelView
     {
         public CategoriesPanelView()
         {

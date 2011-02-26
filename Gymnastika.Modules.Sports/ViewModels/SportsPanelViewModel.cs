@@ -39,7 +39,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 }
             }
         }
-
+        
 
     }
 }

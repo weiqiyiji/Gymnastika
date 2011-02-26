@@ -64,7 +64,9 @@
   <ItemGroup>
     <Compile Include="DesignData\CategoriesDesign.cs" />
     <Compile Include="DesignData\SportsPanelDesign.cs" />
+    <Compile Include="DesignData\SportsPlanDesign.cs" />
     <Compile Include="Events\CategoryChangedEvent.cs" />
+    <Compile Include="Events\SportsPlanChangedEvent.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
     <Compile Include="Migration\Migration_SportsPlanItems_20110220115125.cs" />
@@ -84,10 +86,21 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CategoriesPanelViewModel.cs" />
     <Compile Include="ViewModels\ICategoriesPanelViewModel.cs" />
+    <Compile Include="ViewModels\ISportsPlanViewModel.cs" />
     <Compile Include="ViewModels\ISportsPanelViewModel.cs" />
+    <Compile Include="ViewModels\SportsPlanViewModel.cs" />
     <Compile Include="ViewModels\SportsPanelViewModel.cs" />
+    <Compile Include="Views\ICategoriesPanelView.cs" />
+    <Compile Include="Views\ISportPlanView.cs" />
+    <Compile Include="Views\ISportsPanelView.cs" />
     <Compile Include="Views\SportCardView.xaml.cs">
       <DependentUpon>SportCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SportsPlanItemView.xaml.cs">
+      <DependentUpon>SportsPlanItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SportsPlanView.xaml.cs">
+      <DependentUpon>SportsPlanView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SportsPanelView.xaml.cs">
       <DependentUpon>SportsPanelView.xaml</DependentUpon>
@@ -95,8 +108,8 @@
     <Compile Include="Views\CategoriesPanelView.xaml.cs">
       <DependentUpon>CategoriesPanelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CategoryDetailView.xaml.cs">
-      <DependentUpon>CategoryDetailView.xaml</DependentUpon>
+    <Compile Include="Views\CategoryCardView.xaml.cs">
+      <DependentUpon>CategoryCardView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -108,6 +121,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DesignData\SportsPlanItemDesignData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="DesignData\SportData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -116,11 +133,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DesignData\SportsPlanDesignData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Theme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SportCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SportsPlanItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SportsPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -132,7 +161,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CategoryDetailView.xaml">
+    <Page Include="Views\CategoryCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -152,7 +181,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controls\" />
+    <Folder Include="Controller\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DesignData\Images\1.jpg" />

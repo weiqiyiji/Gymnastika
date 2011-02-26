@@ -12,7 +12,7 @@
 		<ListBox SelectedItem="{Binding CurrentSelectedItem, Mode=TwoWay}" HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}" Height="366">
             <ListBox.ItemTemplate>
 				<DataTemplate>
-					<local:CategoryDetailView/>
+					<local:CategoryCardView/>
 				</DataTemplate>
 			</ListBox.ItemTemplate>
 			<ListBox.ItemsPanel>

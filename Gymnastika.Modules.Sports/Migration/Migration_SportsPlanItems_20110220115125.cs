@@ -27,8 +27,7 @@ namespace Gymnastika.Migrations
         public void Up()
         {
             SchemaBuilder.CreateTable(TableName, t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
-                                                    .Column<int>("SportsTime_Hour")
-                                                    .Column<int>("SportsTime_Min")
+                                                    .Column<DateTime>("SportsTime")
                                                     .Column<int>("Duration")
                                                     .Column<bool>("Completed")
                                                     .Column<int>("SportId")

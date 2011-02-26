@@ -8,6 +8,7 @@ using Microsoft.Practices.Unity;
 using System.Windows;
 using Gymnastika.Modules.Sports.ViewModels;
 using Gymnastika.Modules.Sports.Services;
+using Gymnastika.Modules.Sports.Views;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -37,6 +38,18 @@ namespace Gymnastika.Modules.Sports
 
         private void RegisterDependencies()
         {
+            _container
+                .RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
+
+                .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISportsPlanViewModel,SportsPlanViewModel>(new ContainerControlledLifetimeManager())
+                
+
+                .RegisterType<ISportsPanelView, SportsPanelView>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICategoriesPanelView, CategoriesPanelView>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISportsPlanView, SportsPlanView>(new ContainerControlledLifetimeManager());
+                
         }
 
         #endregion
