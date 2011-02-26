@@ -6,12 +6,12 @@ using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    public class Provider<T>
+    public class ProviderBase<T>
     {
         IRepository<T> _repository;
         IWorkEnvironment _environment;
         
-        public Provider(IRepository<T> repository,IWorkEnvironment environment)
+        public ProviderBase(IRepository<T> repository,IWorkEnvironment environment)
         {
             _repository = repository;
             _environment = environment;

@@ -63,8 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DesignData\CategoriesDesign.cs" />
-    <Compile Include="DesignData\CategoryCollection.cs" />
-    <Compile Include="Events\ShowPlanDetailEvent.cs" />
+    <Compile Include="DesignData\SportsPanelDesign.cs" />
+    <Compile Include="Events\CategoryChangedEvent.cs" />
+    <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
     <Compile Include="Migration\Migration_SportsPlanItems_20110220115125.cs" />
     <Compile Include="Migration\Migration_SportsPlans_20110220115124.cs" />
@@ -77,17 +78,25 @@
     <Compile Include="Services\ICategoriesProvider.cs" />
     <Compile Include="Services\ISportsPlanProvider.cs" />
     <Compile Include="Migration\Migration_Sports_20110217165552.cs" />
-    <Compile Include="Services\Provider.cs" />
+    <Compile Include="Services\ProviderBase.cs" />
     <Compile Include="Services\SportsPlanProvider.cs" />
     <Compile Include="SportsManagementModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CategoriesPanelViewModel.cs" />
     <Compile Include="ViewModels\ICategoriesPanelViewModel.cs" />
-    <Compile Include="SportsShell.xaml.cs">
-      <DependentUpon>SportsShell.xaml</DependentUpon>
+    <Compile Include="ViewModels\ISportsPanelViewModel.cs" />
+    <Compile Include="ViewModels\SportsPanelViewModel.cs" />
+    <Compile Include="Views\SportCardView.xaml.cs">
+      <DependentUpon>SportCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SportsPanelView.xaml.cs">
+      <DependentUpon>SportsPanelView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CategoriesPanelView.xaml.cs">
       <DependentUpon>CategoriesPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryDetailView.xaml.cs">
+      <DependentUpon>CategoryDetailView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -99,15 +108,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="DesignData\SportData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DesignData\SportsPanelDesignData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Themes\Theme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SportsShell.xaml">
+    <Page Include="Views\SportCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SportsPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CategoriesPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

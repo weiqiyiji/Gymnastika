@@ -7,10 +7,12 @@ using System.Collections.ObjectModel;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public interface ICategoriesPanelViewModel
+    public interface ISportsPanelViewModel
     {
-        ObservableCollection<SportsCategory> Categories { get; set; }
-
-        SportsCategory CurrentSelectedItem { get; set; }
+    
+        void CategoryChanged(SportsCategory category);
+        
+        ObservableCollection<Sport> Sports { get; set; }
+    
     }
 }

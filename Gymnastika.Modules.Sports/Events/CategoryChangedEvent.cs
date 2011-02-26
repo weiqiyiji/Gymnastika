@@ -7,7 +7,7 @@ using Microsoft.Practices.Prism.Events;
 
 namespace Gymnastika.Modules.Sports.Events
 {
-    public class ShowPlanDetailEvent : CompositePresentationEvent<SportsPlan>
+    public class CategoryChangedEvent : CompositePresentationEvent<SportsCategory>
     {
 
     }

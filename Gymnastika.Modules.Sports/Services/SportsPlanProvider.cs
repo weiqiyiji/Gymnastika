@@ -7,7 +7,7 @@ using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    public class SportsPlanProvider : Provider<SportsPlan>, ISportsPlanProvider
+    public class SportsPlanProvider : ProviderBase<SportsPlan>, ISportsPlanProvider
     {
 
 
@@ -17,7 +17,8 @@ namespace Gymnastika.Modules.Sports.Services
         public SportsPlanProvider(IRepository<SportsPlan> repository, IWorkEnvironment environment)
             :base(repository,environment)
         {
-
+            _repository = repository;
+            _environment = environment;
         }
 
     }

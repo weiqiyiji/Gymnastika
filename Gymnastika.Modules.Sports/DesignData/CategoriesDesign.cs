@@ -11,14 +11,8 @@ namespace Gymnastika.Modules.Sports.DesignData
     {
         public CategoriesDesign()
         {
-            Categories = new CategoryCollection()
-            {
-                new SportsCategory()
-                {
-                    Name = "s"
-                }
-            };
+            Categories = new ObservableCollection<SportsCategory>();
         }
-       public CategoryCollection Categories { get; set; }
+        public ObservableCollection<SportsCategory> Categories { get; set; }
     }
 }

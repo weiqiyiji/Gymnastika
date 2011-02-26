@@ -7,7 +7,7 @@ using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    public class CategoriesProvider : Provider<SportsCategory> , ICategoriesProvider
+    public class CategoriesProvider : ProviderBase<SportsCategory> , ICategoriesProvider
     {
         IRepository<SportsCategory> _repository;
         IWorkEnvironment _environment;
@@ -15,7 +15,8 @@ namespace Gymnastika.Modules.Sports.Services
         public CategoriesProvider(IRepository<SportsCategory> repository, IWorkEnvironment environment)
             :base(repository,environment)
         {
-
+            _repository = repository;
+            _environment = environment;
         }
 
     }
