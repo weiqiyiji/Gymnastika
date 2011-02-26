@@ -8,7 +8,6 @@ using Microsoft.Practices.Unity;
 using System.Windows;
 using Gymnastika.Modules.Sports.ViewModels;
 using Gymnastika.Modules.Sports.Services;
-using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports
 {
