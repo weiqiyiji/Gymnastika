@@ -1,24 +1,22 @@
-﻿using System;
+﻿using System.Configuration;
 using System.IO;
 using System.Windows;
+using Gymnastika.Common.Configuration;
+using Gymnastika.Common.Logging;
 using Gymnastika.Controllers;
+using Gymnastika.Data;
+using Gymnastika.Data.Configuration;
+using Gymnastika.Data.Migration;
+using Gymnastika.Data.Migration.Generator;
+using Gymnastika.Data.Migration.Interpreters;
+using Gymnastika.Data.Providers;
+using Gymnastika.Data.SessionManagement;
 using Gymnastika.Views;
+using Gymnastika.Widgets;
+using Gymnastika.Widgets.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Gymnastika.Data.Migration;
-using Gymnastika.Data.Providers;
-using Gymnastika.Data.SessionManagement;
-using Gymnastika.Data.Migration.Interpreters;
-using Gymnastika.Data.Migration.Generator;
-using Gymnastika.Data;
-using Gymnastika.Common.Configuration;
-using System.Configuration;
-using Gymnastika.Common.Logging;
-using System.Collections.Generic;
-using Gymnastika.Data.Configuration;
-using Gymnastika.Services;
 
 namespace Gymnastika
 {
@@ -66,7 +64,8 @@ namespace Gymnastika
             Container
                 .RegisterType<Shell>()
                 .RegisterType<ILogger, ConsoleLogger>()
-                .RegisterType<IStartupController, StartupController>(new ContainerControlledLifetimeManager())
+                .RegisterType<IStartupController, StartupController>()
+                .RegisterType<IMainController, MainController>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()
                 .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>()
@@ -80,6 +79,7 @@ namespace Gymnastika
                 .RegisterType(typeof (IRepository<>), typeof (Repository<>))
                 .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
+                .RegisterInstance<IUnityContainer>(Container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
                         .AddFromDirectory(currentDirectory,
@@ -94,10 +94,24 @@ namespace Gymnastika
                 DataFolder = ConfigurationManager.AppSettings["DataFolder"]
             };
 
-            Container
-                .RegisterInstance(shellSettings);
+            Container.RegisterInstance(shellSettings);
+
+            ConfigureWidget();
 
             base.ConfigureContainer();
+        }
+
+        protected void ConfigureWidget()
+        {
+            Container
+                .RegisterType<IWidgetContainer, WidgetContainer>()
+                .RegisterType<IWidgetManager, WidgetManager>()
+                .RegisterType<IWidgetHost, WidgetHost>()
+                .RegisterType<IWidgetContainerAccessor, WidgetContainerAccessor>()
+                .RegisterType<IWidgetHostFactory, DefaultWidgetHostFactory>()
+                .RegisterType<IWidgetContainerAdapter, CanvasWidgetContainerAdapter>()
+                .RegisterType<IWidgetContainerInitializer, WidgetContainerInitializer>()
+                .RegisterType<IWidgetContainerBehaviorFactory, WidgetContainerBehaviorFactory>();
         }
     }
 }
