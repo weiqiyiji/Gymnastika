@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Data.Migration;
 
-namespace Gymnastika.Migrations
+namespace Gymnastika.Services.Migrations
 {
     public class Migration_Users_20110218202256 : IDataMigration
     {

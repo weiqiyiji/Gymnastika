@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="AnimatedListPanel.cs" />
     <Compile Include="Behaviors\CloseWindowBehavior.cs" />
+    <Compile Include="Behaviors\PasswordBindingBehavior.cs" />
+    <Compile Include="Behaviors\WatermarkBehavior.cs" />
     <Compile Include="CheckButtonGroup.cs" />
     <Compile Include="CheckButtonGroupItem.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

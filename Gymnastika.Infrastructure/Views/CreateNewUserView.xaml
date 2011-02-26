@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -18,8 +19,16 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <controls:WatermarkTextBox Text="{Binding UserName}" WatermarkText="用户名" Style="{DynamicResource WatermarkTextBoxStyle}" />
-        <controls:WatermarkTextBox Text="{Binding Password}" WatermarkText="密码" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="1" />
-        <controls:WatermarkTextBox Text="{Binding ConfirmPassword}" WatermarkText="确认密码" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="2" />
+        <PasswordBox 
+            behaviors:WatermarkBehavior.Watermark="密码" 
+            behaviors:WatermarkBehavior.IsEmpty="True" 
+            Style="{DynamicResource WatermarkPasswordBoxStyle}" Grid.Row="1"
+            behaviors:PasswordBindingBehavior.Password="{Binding Password}">
+        </PasswordBox>
+        <PasswordBox behaviors:PasswordBindingBehavior.Password="{Binding ConfirmPassword}" 
+                     behaviors:WatermarkBehavior.Watermark="确认密码" 
+                     behaviors:WatermarkBehavior.IsEmpty="True" 
+                     Style="{DynamicResource WatermarkPasswordBoxStyle}" Grid.Row="2" />
         <controls:WatermarkTextBox Text="{Binding Age}" WatermarkText="年龄" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="3" />
         <controls:WatermarkTextBox Text="{Binding Height}" WatermarkText="身高" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="4" />
         <controls:WatermarkTextBox Text="{Binding Weight}" WatermarkText="体重" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="5" />

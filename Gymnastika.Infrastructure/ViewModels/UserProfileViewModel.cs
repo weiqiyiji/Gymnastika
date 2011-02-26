@@ -55,6 +55,7 @@ namespace Gymnastika.ViewModels
                 {
                     _user.UserName = value;
                     RaisePropertyChanged("UserName");
+                    (LogOnCommand as DelegateCommand).RaiseCanExecuteChanged();
                 }
             }
         }
