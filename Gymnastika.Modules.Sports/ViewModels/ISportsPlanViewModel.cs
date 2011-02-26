@@ -8,6 +8,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 {
     public interface ISportsPlanViewModel
     {
-        SportsPlanItem SelectedPlanItem {set ; get; }
+        void SportsPlanChanged(SportsPlan plan);
+        SportsPlan SportsPlan { get; }
     }
 }

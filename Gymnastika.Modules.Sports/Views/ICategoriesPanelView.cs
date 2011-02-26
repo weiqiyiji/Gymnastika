@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Gymnastika.Modules.Sports.Views
 {
-    public interface ISportView
+    public interface ICategoriesPanelView
     {
     }
 }
