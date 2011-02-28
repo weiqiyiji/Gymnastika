@@ -19,7 +19,5 @@ namespace Gymnastika.Widgets
         void Collapse();
         WidgetState State { get; }
         IWidget Widget { get; set; }
-        bool IsActive { get; set; }
-        event EventHandler IsActiveChanged;
     }
 }

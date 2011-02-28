@@ -19,16 +19,38 @@ namespace Gymnastika.Widgets.Views
     /// </summary>
     public partial class WidgetHost : UserControl, IWidgetHost
     {
-        public WidgetHost()
+        private WidgetDescriptor _descriptor;
+        private IWidget _widget;
+
+        public WidgetHost(IWidgetManager widgetManager)
         {
+            WidgetManager = widgetManager;
             InitializeComponent();
             Expand();
         }
 
-        #region IWidgetHost Members
-
         //TODO find the usage of Id
         public int Id { get; set; }
+
+        public IWidgetManager WidgetManager { get; set; }
+
+        public WidgetState State { get; private set; }
+
+        public IWidget Widget
+        {
+            get { return _widget; }
+            set
+            {
+                if(_widget != value)
+                {
+                    _widget = value;
+                    if (_widget != null)
+                    {
+                        _descriptor = WidgetManager.Descriptors.Single(x => x.WidgetType == _widget.GetType());
+                    }
+                }
+            }
+        }
 
         public void Expand()
         {
@@ -40,18 +62,9 @@ namespace Gymnastika.Widgets.Views
             State = WidgetState.Collapsed;
         }
 
-        public WidgetState State { get; private set; }
-
-        public IWidget Widget { get; set; }
-
-        public bool IsActive
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
         {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
+            _descriptor.IsActive = false;
         }
-
-        public event EventHandler IsActiveChanged;
-
-        #endregion
     }
 }

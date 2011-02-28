@@ -72,7 +72,7 @@ namespace Gymnastika.Controls
         {
             if(from == to) return 0;
 
-            int count = Children.Count;
+            int count = InternalChildren.Count;
             int leftDistance = 0;
             int rightDistance = 0;
 
@@ -93,19 +93,19 @@ namespace Gymnastika.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
-            if (Children == null || Children.Count == 0) return availableSize;
-            if (VisibleItemsCount == 0 && Children.Count > 0) VisibleItemsCount = Children.Count;
+            if (InternalChildren == null || InternalChildren.Count == 0) return availableSize;
+            if (VisibleItemsCount == 0 && InternalChildren.Count > 0) VisibleItemsCount = InternalChildren.Count;
 
             Size idealSize = new Size();
             Size size = new Size();
             size.Height = availableSize.Height;
 
-            if(Children == null || Children.Count == 0)
+            if(InternalChildren == null || InternalChildren.Count == 0)
                 size.Width = availableSize.Width;
             else
                 size.Width = double.IsPositiveInfinity(availableSize.Width) ? availableSize.Width : availableSize.Width / VisibleItemsCount;          
 
-            foreach(UIElement child in Children)
+            foreach(UIElement child in InternalChildren)
             {
                 child.Measure(size);
                 idealSize.Width += child.DesiredSize.Width;
@@ -118,10 +118,10 @@ namespace Gymnastika.Controls
         
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (Children == null || Children.Count == 0) return finalSize;
+            if (InternalChildren == null || InternalChildren.Count == 0) return finalSize;
             _finalSize = finalSize;
 
-            foreach (UIElement child in Children)
+            foreach (UIElement child in InternalChildren)
             {
                 if (child.RenderTransform as TransformGroup == null)
                 {
@@ -142,13 +142,13 @@ namespace Gymnastika.Controls
 
         private void Animate()
         {
-            int childrenCount = Children.Count;
+            int childrenCount = InternalChildren.Count;
             double childWidth = _finalSize.Width / VisibleItemsCount;
             double x = 0.0, y = 0.0;
             int index = 0;
             int indexSpan = CalculateShortestDistance(_previousSelectedIndex, SelectedIndex);
 
-            foreach (UIElement child in Children)
+            foreach (UIElement child in InternalChildren)
             {
                 int distance = CalculateShortestDistance(SelectedIndex, index);
                 int centerIndex = (VisibleItemsCount - 1) / 2;

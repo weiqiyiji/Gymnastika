@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -13,25 +14,22 @@ namespace Gymnastika.Widgets
     public class WidgetManager : IWidgetManager
     {
         private readonly IWidgetContainerAccessor _containerAccessor;
-
-        public WidgetManager(IWidgetContainerAccessor containerAccessor)
+        private readonly IServiceLocator _serviceLocator;
+          
+        public WidgetManager(IWidgetContainerAccessor containerAccessor, IServiceLocator serviceLocator)
         {
             _containerAccessor = containerAccessor;
-            InternalWidgets = new List<IWidget>();
+            _serviceLocator = serviceLocator;
+            Descriptors = new ObservableCollection<WidgetDescriptor>();
         }
 
-        private IList<IWidget> InternalWidgets { get; set; }
+        public ObservableCollection<WidgetDescriptor> Descriptors { get; private set; }
 
-        public ReadOnlyCollection<IWidget> Widgets
+        public void Add(Type widgetType)
         {
-            get { return InternalWidgets.ToReadOnlyCollection(); }
-        }
-
-        public void Add(IWidget widget)
-        {
-            if(widget == null)
+            if (widgetType == null)
             {
-                throw new ArgumentNullException("widget");
+                throw new ArgumentNullException("widgetType");
             }
 
             if(_containerAccessor.Container == null)
@@ -39,13 +37,51 @@ namespace Gymnastika.Widgets
                 throw new InvalidOperationException("WidgetContainer hasn't set");
             }
 
-            InternalWidgets.Add(widget);
-            _containerAccessor.Container.Widgets.Add(widget);
+            var descriptor = new WidgetDescriptor(widgetType);
+            descriptor.IsActiveChanged += OnWidgetIsActiveChanged;
+            Descriptors.Add(descriptor);
         }
 
-        public void Remove(IWidget widget)
+        private void OnWidgetIsActiveChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            WidgetDescriptor descriptor = (WidgetDescriptor)sender;
+            var widgets = _containerAccessor.Container.Widgets;
+            if (descriptor.IsActive)
+            {
+                IWidget widget = (IWidget)_serviceLocator.GetInstance(descriptor.WidgetType);
+                widgets.Add(widget);
+            }
+            else
+            {
+                IWidget widget = widgets.SingleOrDefault(x => x.GetType() == descriptor.WidgetType);
+
+                if(widget == null)
+                {
+                    throw new InvalidOperationException(
+                        string.Format("{0} doesn't exit", descriptor.WidgetType.FullName));
+                }
+
+                widgets.Remove(widget);
+            }
+        }
+
+        public void Remove(Type widgetType)
+        {
+            if (widgetType == null)
+            {
+                throw new ArgumentNullException("widgetType");
+            }
+
+            var descriptor = Descriptors.SingleOrDefault(x => x.WidgetType == widgetType);
+
+            if(descriptor == null)
+            {
+                throw new InvalidOperationException(string.Format("{0} doesn't exit", widgetType.FullName));
+            }
+
+            Descriptors.Remove(descriptor);
+            descriptor.IsActive = false;
+            descriptor.IsActiveChanged -= OnWidgetIsActiveChanged;
         }
     }
 }

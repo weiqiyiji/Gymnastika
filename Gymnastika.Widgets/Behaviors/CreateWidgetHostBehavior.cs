@@ -11,6 +11,8 @@ namespace Gymnastika.Widgets.Behaviors
     {
         private readonly IWidgetHostFactory _hostFactory;
 
+        public const string BehaviorKey = "CreateWidgetHostBehavior";
+
         public CreateWidgetHostBehavior(IWidgetHostFactory hostFactory)
         {
             _hostFactory = hostFactory;
