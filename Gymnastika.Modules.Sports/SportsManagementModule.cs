@@ -9,6 +9,7 @@ using System.Windows;
 using Gymnastika.Modules.Sports.ViewModels;
 using Gymnastika.Modules.Sports.Services;
 using Gymnastika.Modules.Sports.Views;
+using Gymnastika.Common;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -21,6 +22,7 @@ namespace Gymnastika.Modules.Sports
         {
             _regionManager = regionManager;
             _container = container;
+            Initialize();
         }
 
 
@@ -29,6 +31,13 @@ namespace Gymnastika.Modules.Sports
         public void Initialize()
         {
             RegisterDependencies();
+            RegisterRegions();
+        }
+
+        private void RegisterRegions()
+        {
+            _regionManager
+                .RegisterViewWithRegion(RegionNames.DisplayRegion,typeof(ICategoriesPanelView));
         }
 
         #endregion

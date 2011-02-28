@@ -15,7 +15,9 @@ namespace Gymnastika.Modules.Sports.Models
 
         public virtual string ImageUri { get; set; }
 
-        public virtual string Introduction { get; set; }
+        public virtual string Brief { get; set; }
+
+        public virtual string IntroductionUri { get; set; }
 
         public virtual int CaloriePerHour { get; set; }
 

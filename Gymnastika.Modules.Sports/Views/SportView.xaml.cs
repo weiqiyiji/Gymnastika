@@ -11,30 +11,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Microsoft.Practices.Unity;
 using Gymnastika.Modules.Sports.ViewModels;
-using System.ComponentModel;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for SportPlanView.xaml
+    /// Interaction logic for SportView.xaml
     /// </summary>
-    public partial class SportsPlanView : UserControl, ISportsPlanView
+    public partial class SportView : UserControl , ISportView
     {
-        public SportsPlanView()
+        public SportView()
         {
             InitializeComponent();
-            CollectionViewSource.GetDefaultView(planListBox.Items).SortDescriptions.Add(new SortDescription("SportsTime", ListSortDirection.Ascending));
         }
 
         [Dependency]
-        public ISportsPlanViewModel ViewModel
+        public ISportViewModel ViewModel
         {
+            get { return DataContext as ISportViewModel; }
             set { DataContext = value; }
-            get { return DataContext as ISportsPlanViewModel; }
         }
-
-
     }
 }

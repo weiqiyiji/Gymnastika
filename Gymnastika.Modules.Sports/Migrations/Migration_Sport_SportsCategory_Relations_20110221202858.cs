@@ -6,19 +6,19 @@ using Gymnastika.Data.Migration;
 
 namespace Gymnastika.Migrations
 {
-    public class Migration_Sports_SportsCategories_Relations_20110221202858 : IDataMigration
+    public class Migration_Sport_SportsCategory_Relations_20110221202858 : IDataMigration
     {
         public const string Sports_FK       = "Sports_FK";
         public const string Category_FK     = "Category_FK";
         public const string SportId         = "SportId";
-        public const string CategoryId      = "CategoryId";
+        public const string CategoryId      = "SportsCategoryId";
         public const string SportsTable     = "Sports";
         public const string CategoriesTable = "SportsCategories";
 
 
         public string TableName
         {
-            get { return "Sports_SportsCategories_Relations"; }
+            get { return "Sport_SportsCategory_Relations"; }
         }
 
         public string Version

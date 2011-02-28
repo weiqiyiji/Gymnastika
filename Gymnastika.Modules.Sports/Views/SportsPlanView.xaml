@@ -8,7 +8,7 @@
              d:DesignHeight="409" d:DesignWidth="359"
              d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}">
     <Grid>
-        <ListBox HorizontalContentAlignment="Stretch" ItemsSource="{Binding SportsPlanItems}">
+        <ListBox Name="planListBox" HorizontalContentAlignment="Stretch" ItemsSource="{Binding SportsPlanItems}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:SportsPlanItemView/>

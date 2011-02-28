@@ -27,7 +27,8 @@ namespace Gymnastika.Migrations
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                       .Column<string>("Name")
                       .Column<string>("ImageUri")
-                      .Column<string>("Introduction")
+                      .Column<string>("Brief")
+                      .Column<string>("IntroductionUri")
                       .Column<int>("CaloriePerHour"));
             
         }
