@@ -1,1 +1,1 @@
-﻿<Sport xmlns="clr-namespace:Gymnastika.Modules.Sports.Models" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="跑步" Introduction="这个大家都懂的" CaloriePerHour="100" />
+﻿<Sport xmlns="clr-namespace:Gymnastika.Modules.Sports.Models" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="跑步" Brief="这个大家都懂的" CaloriePerHour="100" />

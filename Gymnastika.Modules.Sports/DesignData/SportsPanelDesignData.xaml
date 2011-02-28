@@ -1,16 +1,16 @@
 ﻿<SportsPanelDesign xmlns="clr-namespace:Gymnastika.Modules.Sports.DesignData"
             xmlns:d="clr-namespace:Gymnastika.Modules.Sports.Models">
     <SportsPanelDesign.Sports>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
-        <d:Sport Name="跑步" CaloriePerHour="100" Introduction="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
+        <d:Sport Name="跑步" CaloriePerHour="100" Brief="这个大家都懂的" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg"></d:Sport>
     </SportsPanelDesign.Sports>
 </SportsPanelDesign>
