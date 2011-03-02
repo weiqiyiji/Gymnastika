@@ -60,6 +60,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
         bool SetPlan(DateTime date);
 
         void AddPlanItem(SportsPlanItem item);
+
+        double? TotalCalories { get; }
     }
 
 
@@ -405,9 +407,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
                         item.Id = 0;
                     }
                 }
+                SportsPlan.SportsPlanItems.Clear();
+
                 if (SportsPlan.Id == 0)
                 {
-                    SportsPlan.SportsPlanItems = new List<SportsPlanItem>();
                     SportsPlan.User = User;
                     _planProvider.Create(SportsPlan);
                 }
@@ -416,11 +419,12 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     item.SportsPlan = SportsPlan;
                     _itemProvider.CreateOrUpdate(item);
+                    SportsPlan.SportsPlanItems.Add(item);
                 }
 
-                SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
+               // SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
                 
-                _planProvider.CreateOrUpdate(SportsPlan);
+               // _planProvider.CreateOrUpdate(SportsPlan);
 
             }
             _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Publish(SportsPlan);

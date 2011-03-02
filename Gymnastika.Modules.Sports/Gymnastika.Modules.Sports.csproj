@@ -80,6 +80,9 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFVisifire.Charts">
+      <HintPath>..\Libs\WPFVisifire.Charts.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigFile.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\HourMinuteToStringConverter.cs" />
+    <Compile Include="Converters\NotNullConverter.cs" />
     <Compile Include="Converters\TimeToDoubleConverter.cs" />
     <Compile Include="Converters\ToIntConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
@@ -144,9 +148,6 @@
     <Compile Include="Views\PlanDetailView.xaml.cs">
       <DependentUpon>PlanDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlanListPanel.xaml.cs">
-      <DependentUpon>PlanListPanel.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlanListView.xaml.cs">
       <DependentUpon>PlanListView.xaml</DependentUpon>
     </Compile>
@@ -190,10 +191,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlanDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlanListPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
