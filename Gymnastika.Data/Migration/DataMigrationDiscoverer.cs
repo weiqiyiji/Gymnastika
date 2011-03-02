@@ -26,7 +26,7 @@ namespace Gymnastika.Data.Migration
         {
             if(filter == null) throw new ArgumentNullException("filter");
 
-            string[] assemblyFileNames = Directory.GetFiles(directoryPath, "", SearchOption.AllDirectories);
+            string[] assemblyFileNames = Directory.GetFiles(directoryPath, "*.dll", SearchOption.AllDirectories);
             foreach (var assemblyFileName in assemblyFileNames.Where(filter))
             {
                 AddFromAssembly(assemblyFileName);

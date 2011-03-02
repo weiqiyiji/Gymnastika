@@ -19,10 +19,11 @@ namespace Gymnastika.Widgets
         public WidgetManager(IWidgetContainerAccessor containerAccessor, IServiceLocator serviceLocator)
         {
             _containerAccessor = containerAccessor;
+            _containerAccessor.ContainerReady += MonitoringWidgets;
             _serviceLocator = serviceLocator;
             Descriptors = new ObservableCollection<WidgetDescriptor>();
         }
-
+        
         public ObservableCollection<WidgetDescriptor> Descriptors { get; private set; }
 
         public void Add(Type widgetType)
@@ -32,14 +33,22 @@ namespace Gymnastika.Widgets
                 throw new ArgumentNullException("widgetType");
             }
 
-            if(_containerAccessor.Container == null)
-            {
-                throw new InvalidOperationException("WidgetContainer hasn't set");
-            }
-
             var descriptor = new WidgetDescriptor(widgetType);
-            descriptor.IsActiveChanged += OnWidgetIsActiveChanged;
+
+            if(_containerAccessor.Container != null)
+            {
+                descriptor.IsActiveChanged += OnWidgetIsActiveChanged;
+            }
+            
             Descriptors.Add(descriptor);
+        }
+
+        private void MonitoringWidgets(object sender, EventArgs e)
+        {
+            foreach (var widgetDescriptor in Descriptors)
+            {
+                widgetDescriptor.IsActiveChanged += OnWidgetIsActiveChanged;
+            }
         }
 
         private void OnWidgetIsActiveChanged(object sender, EventArgs e)

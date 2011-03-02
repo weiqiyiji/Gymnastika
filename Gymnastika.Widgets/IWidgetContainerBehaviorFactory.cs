@@ -7,7 +7,7 @@ namespace Gymnastika.Widgets
 {
     public interface IWidgetContainerBehaviorFactory : IEnumerable<string>
     {
-        void Register(string key, Type behaviorType);
+        IWidgetContainerBehaviorFactory Register(string key, Type behaviorType);
         IWidgetContainerBehavior CreateFromKey(string key);
     }
 }
