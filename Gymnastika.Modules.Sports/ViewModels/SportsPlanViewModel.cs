@@ -2,150 +2,97 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Models;
-using GongSolutions.Wpf.DragDrop;
-using System.Windows;
-using System.Diagnostics;
+using Gymnastika.Modules.Sports.Events;
+using Microsoft.Practices.Prism.ViewModel;
+using System.Collections.ObjectModel;
+using Gymnastika.Modules.Sports.Extensions;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Unity;
-using Gymnastika.Modules.Sports.Events;
+using System.Windows.Data;
+using System.ComponentModel;
+using Gymnastika.Common.Extensions;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public class SportsPlanViewModel :NotificationObject, ISportsPlanViewModel , IDropTarget , IDragSource
+    public class SportsPlanViewModel : NotificationObject , ISportsPlanViewModel
     {
-        IUnityContainer _container;
+        IEventAggregator _aggregator;
+        
 
-        public SportsPlanViewModel(IUnityContainer container)
+        public SportsPlanViewModel(IEventAggregator aggregator)
         {
-            this._container = container;
+            _aggregator = aggregator;
+            aggregator.GetEvent<SportsPlanChangedEvent>().Subscribe(SportsPlanChanged);
+
+            SortDescriptions.Add(new SortDescription("SportsTime", ListSortDirection.Ascending));
         }
 
-        #region ISportsPlanViewModel Members
+        public ICollectionView View
+        {
+            get
+            {
+                return CollectionViewSource.GetDefaultView(this.SportsPlanItems);
+            }
+        }
+
+        SortDescriptionCollection _sortDescriptions;
+        public SortDescriptionCollection SortDescriptions
+        {
+            get
+            {
+                return _sortDescriptions;
+            }
+            set
+            {
+                if (_sortDescriptions != value)
+                {
+                    _sortDescriptions = value;
+                    View.SortDescriptions.Clear();
+                    View.SortDescriptions.AddRange(value);
+                    RaisePropertyChanged(() => SortDescriptions);
+                }
+            }
+        }
+
+        public void SportsPlanChanged(SportsPlan plan)
+        {
+           SportsPlan = plan; 
+        }
 
         SportsPlan _sportsPlan;
-        public Models.SportsPlan SportsPlan
+        public SportsPlan SportsPlan
         {
-            get
-            {
-                return _sportsPlan;
-            }
+            get{return _sportsPlan;}
             set
             {
-                if (_sportsPlan != value)
+                if (value != null && value != _sportsPlan)
                 {
                     _sportsPlan = value;
-                    RaisePropertyChanged("SportsPlan");
+                    RaisePropertyChanged(() => SportsPlan);
+                    //RaisePropertyChanged(() => SportsPlanItems);
+                    SportsPlanItems = _sportsPlan.SportsPlanItems.ToObservableCollection();
                 }
             }
         }
 
-
-        #endregion
-
-
-        #region IDropTarget Members
-
-        public void DragOver(DropInfo dropInfo)
+                
+        ObservableCollection<SportsPlanItem> _sportsPlanItems;
+        ObservableCollection<SportsPlanItem> SportsPlanItems
         {
-            if (dropInfo.Data is Sport)
-            {
-                dropInfo.Effects = DragDropEffects.Copy;
-
-                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
-            }
-        }
-
-        public void Drop(DropInfo dropInfo)
-        {
-            Sport sourceItem = dropInfo.Data as Sport;
-            object target = dropInfo.TargetItem;
-            SportsPlanItem item =  new SportsPlanItem() { Sport = sourceItem };
-            if (target == null)
-            {
-                this.SportsPlan.SportsPlanItems.Add(item);
-            }
-            else
-            {
-                this.SportsPlan.SportsPlanItems.Insert(dropInfo.InsertIndex, item);
-            }
-        }
-
-        #endregion
-
-        SportsPlanItem _selectedPlanItem;
-        public SportsPlanItem SelectedPlanItem
-        {
-            get
-            { 
-                return _selectedPlanItem; 
-            }
+            get { return _sportsPlanItems; }
             set
             {
-                if (_selectedPlanItem != value)
+                if (_sportsPlanItems != value)
                 {
-                    _selectedPlanItem = value;
-                    RaisePropertyChanged("SelectedPlanItem");
+                    _sportsPlanItems = value;
+                    SportsPlan.SportsPlanItems = value;
+                    View.SortDescriptions.Clear();
+                    View.SortDescriptions.AddRange(SortDescriptions);
+                    RaisePropertyChanged(() => SportsPlanItems);
                 }
             }
         }
-
-        private void OnCancel(SportsPlanItem item)
-        {
-            this.SportsPlan.SportsPlanItems.Remove(item);
-        }
-
-
-        ICommand _cancleCommand = null;
-        public ICommand CancleCommand
-        {
-            get
-            {
-                if (_cancleCommand == null)
-                {
-                    _cancleCommand = new DelegateCommand<SportsPlanItem>(OnCancel);
-                }
-                return _cancleCommand;
-            }
-        }
-
-        #region IDragSource Members
-
-        public void StartDrag(DragInfo dragInfo)
-        {
-            dragInfo.Data = SelectedPlanItem;
-            dragInfo.Effects = DragDropEffects.All;
-        }
-
-        #endregion
-
-
-        ICommand _showPlanDetail = null;
-        public ICommand ShowPlanDetail
-        {
-            get
-            {
-                if (_showPlanDetail == null)
-                {
-                    _showPlanDetail = new DelegateCommand(ShowSportsPlanDetail, CanShowSportsPlanDetail);
-                }
-                return _showPlanDetail; 
-            }
-            
-        }
-
-        bool CanShowSportsPlanDetail()
-        {
-            return this.SportsPlan.SportsPlanItems.Count() != 0;
-        }
-
-        void ShowSportsPlanDetail()
-        {
-            _container.Resolve<ShowPlanDetailEvent>().Publish(this.SportsPlan);
-        }
-
-
     }
 }

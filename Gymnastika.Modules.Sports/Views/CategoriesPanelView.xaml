@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.CategoriesPanelView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="428" d:DesignWidth="216"
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
+             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls">
+    <StackPanel>
+		<TextBlock FontSize="32" Height="62"><Run Text="我的运动库"/></TextBlock>
+		<ListBox SelectedItem="{Binding CurrentSelectedItem, Mode=TwoWay}" HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}" Height="366">
+            <ListBox.ItemTemplate>
+				<DataTemplate>
+					<local:CategoryCardView/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<controls:AnimatedListPanel ItemsDistance="20"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
+	</StackPanel>
+</UserControl>

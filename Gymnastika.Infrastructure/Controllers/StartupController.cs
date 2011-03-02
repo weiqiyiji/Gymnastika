@@ -1,4 +1,5 @@
-﻿using Gymnastika.Common;
+﻿using System;
+using Gymnastika.Common;
 using Gymnastika.Events;
 using Gymnastika.Services.Contracts;
 using Gymnastika.Services.Impl;
@@ -14,7 +15,7 @@ using Microsoft.Practices.Unity;
 namespace Gymnastika.Controllers
 {
     public class StartupController : IStartupController
-    {
+    { 
         private IUnityContainer _container;
         private IRegionManager _regionManager;
         private IStartupView _startupView;
@@ -41,7 +42,7 @@ namespace Gymnastika.Controllers
             //Register Views
             _container
                 .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
-                .RegisterType<IMainView, MainView>(new ContainerControlledLifetimeManager())
+                .RegisterType<IMainView, MainView>("MainView", new ContainerControlledLifetimeManager())
                 .RegisterType<IUserProfileView, UserProfileView>();
 
             //Register ViewModels
@@ -55,8 +56,8 @@ namespace Gymnastika.Controllers
         {
             _startupView = _container.Resolve<IStartupView>();
 
-            _regionManager.RegisterViewWithRegion(
-                    RegionNames.DisplayRegion, () => _startupView);
+            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _startupView);
+            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _container.Resolve<IMainView>());
         }
 
         protected void SubscribeEvents()
@@ -69,25 +70,8 @@ namespace Gymnastika.Controllers
 
         private void OnUserLogOnSuccess(User user)
         {
-            IMainView view = _container.Resolve<IMainView>();
             IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
-
-            displayRegion.Remove(_startupView);
-            displayRegion.Add(view);
-            displayRegion.Activate(view);
-
-            LoadModules();
-        }
-
-        private void LoadModules()
-        {
-            IModuleCatalog moduleCatelog = _container.Resolve<IModuleCatalog>();
-            IModuleManager moduleManager = _container.Resolve<IModuleManager>();
-
-            foreach (var moduleInfo in moduleCatelog.Modules)
-            {
-                moduleManager.LoadModule(moduleInfo.ModuleName);
-            }
+            displayRegion.RequestNavigate(new Uri("MainView", UriKind.Relative)); 
         }
 
         public void RequestLogOn(string userName)

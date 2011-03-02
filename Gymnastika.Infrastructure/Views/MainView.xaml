@@ -10,9 +10,12 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <ItemsControl prism:RegionManager.RegionName="{x:Static core:RegionNames.OptionRegion}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ItemsControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}">
             <ItemsControl.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
@@ -32,32 +35,16 @@
                 </TransformGroup>
             </ContentControl.RenderTransform>
         </ContentControl>
-        <Grid Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.InfoRegion}">
-                <ContentControl.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform />
-                        <ScaleTransform />
-                        <RotateTransform />
-                        <SkewTransform />
-                    </TransformGroup>
-                </ContentControl.RenderTransform>
-            </ContentControl>
-            <ItemsControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuRegion}" Grid.Row="1">
-                <ItemsControl.RenderTransform>
-                    <TransformGroup>
-                        <TranslateTransform />
-                        <ScaleTransform />
-                        <RotateTransform />
-                        <SkewTransform />
-                    </TransformGroup>
-                </ItemsControl.RenderTransform>
-            </ItemsControl>
-        </Grid>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NotificationRegion}" Grid.Row="1" Grid.ColumnSpan="2">
+            <ContentControl.RenderTransform>
+                <TransformGroup>
+                    <TranslateTransform />
+                    <ScaleTransform />
+                    <RotateTransform />
+                    <SkewTransform />
+                </TransformGroup>
+            </ContentControl.RenderTransform>    
+        </ContentControl>
     </Grid>
 </UserControl>
 

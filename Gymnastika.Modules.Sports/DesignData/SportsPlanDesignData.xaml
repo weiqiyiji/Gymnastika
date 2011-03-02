@@ -1,0 +1,35 @@
+﻿<SportsPlanDesign xmlns="clr-namespace:Gymnastika.Modules.Sports.DesignData"
+            xmlns:d="clr-namespace:Gymnastika.Modules.Sports.Models">
+        <SportsPlanDesign.SportsPlanItems>
+        <d:SportsPlanItem SportsTime="9:30" Completed="False" Duration="30" >
+            <d:SportsPlanItem.Sport>
+                <d:Sport CaloriePerHour="500" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
+            </d:SportsPlanItem.Sport>
+        </d:SportsPlanItem>
+        <d:SportsPlanItem SportsTime="9:31" Completed="False" Duration="30" >
+            <d:SportsPlanItem.Sport>
+                <d:Sport CaloriePerHour="500" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
+            </d:SportsPlanItem.Sport>
+        </d:SportsPlanItem>
+        <d:SportsPlanItem SportsTime="9:29" Completed="False" Duration="30" >
+            <d:SportsPlanItem.Sport>
+                <d:Sport CaloriePerHour="500" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
+            </d:SportsPlanItem.Sport>
+        </d:SportsPlanItem>
+        <d:SportsPlanItem SportsTime="9:50" Completed="False" Duration="30" >
+            <d:SportsPlanItem.Sport>
+                <d:Sport CaloriePerHour="500" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
+            </d:SportsPlanItem.Sport>
+        </d:SportsPlanItem>
+        <d:SportsPlanItem SportsTime="8:30" Completed="False" Duration="30" >
+            <d:SportsPlanItem.Sport>
+                <d:Sport CaloriePerHour="500" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
+            </d:SportsPlanItem.Sport>
+        </d:SportsPlanItem>
+        <d:SportsPlanItem SportsTime="9:30" Completed="False" Duration="30" >
+            <d:SportsPlanItem.Sport>
+                <d:Sport CaloriePerHour="500" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
+            </d:SportsPlanItem.Sport>
+        </d:SportsPlanItem>
+    </SportsPlanDesign.SportsPlanItems>
+</SportsPlanDesign>

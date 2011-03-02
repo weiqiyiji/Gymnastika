@@ -11,35 +11,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Sports.Views;
 using Gymnastika.Modules.Sports.ViewModels;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
     /// Interaction logic for SportView.xaml
     /// </summary>
-    public partial class SportView : UserControl, ISportView
+    public partial class SportView : UserControl , ISportView
     {
         public SportView()
         {
             InitializeComponent();
         }
+
+        [Dependency]
         public ISportViewModel ViewModel
         {
-            set
-            {
-                this.DataContext = value;
-            }
-            get
-            {
-                return this.DataContext as ISportViewModel;
-            }
-        }
-
-        private void UserControl_Drop(object sender, DragEventArgs e)
-        {
-            
+            get { return DataContext as ISportViewModel; }
+            set { DataContext = value; }
         }
     }
 }

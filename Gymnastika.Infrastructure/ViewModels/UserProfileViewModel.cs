@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
+using Gymnastika.Data;
 using Gymnastika.Events;
 using Gymnastika.Services.Contracts;
 using Gymnastika.Services.Models;
@@ -15,16 +16,22 @@ namespace Gymnastika.ViewModels
 {
     public class UserProfileViewModel : NotificationObject
     {
+        private readonly IWorkEnvironment _workEnvironment;
         private readonly IUserService _userService;
         private readonly ISessionManager _sessionManager;
         private readonly IEventAggregator _eventAggregator;
         private User _user;
+
         public const int LogOnTabIndex = 0;
         public const int CreateNewUserTabIndex = 0;
         
         public UserProfileViewModel(
-            IUserService userService, ISessionManager sessionManager, IEventAggregator eventAggregator)
+            IWorkEnvironment workEnvironment,
+            IUserService userService, 
+            ISessionManager sessionManager, 
+            IEventAggregator eventAggregator)
         {
+            _workEnvironment = workEnvironment;
             _userService = userService;
             _sessionManager = sessionManager;
             _eventAggregator = eventAggregator;
@@ -257,9 +264,12 @@ namespace Gymnastika.ViewModels
 
         private void ProcessLogOn()
         {
-            if (_userService.LogOn(UserName, Password))
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(_userService.GetUser(UserName));
+                if (_userService.LogOn(UserName, Password))
+                {
+                    _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(_userService.GetUser(UserName));
+                }
             }
         }
 
@@ -271,20 +281,23 @@ namespace Gymnastika.ViewModels
 
         private void CreateNewUser()
         {
-            IsRegisterFailed = false;
-            ErrorMessage = string.Empty;
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                IsRegisterFailed = false;
+                ErrorMessage = string.Empty;
 
-            User registeredUser = _userService.GetUser(UserName);
-            if (registeredUser == null)
-            {
-                User savedUser = _userService.Register(_user);
-                _sessionManager.Add(savedUser);
-                _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
-            }
-            else
-            {
-                IsRegisterFailed = true;
-                ErrorMessage = _userService.ErrorString;
+                User registeredUser = _userService.GetUser(UserName);
+                if (registeredUser == null)
+                {
+                    User savedUser = _userService.Register(_user);
+                    _sessionManager.Add(savedUser);
+                    _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
+                }
+                else
+                {
+                    IsRegisterFailed = true;
+                    ErrorMessage = _userService.ErrorString;
+                }
             }
         }	
 		

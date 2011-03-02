@@ -1,0 +1,43 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:views="clr-namespace:Gymnastika.Widgets.Views" xmlns:Gymnastika_Controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" x:Class="Gymnastika.Widgets.Views.WidgetHost"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Width="200" Height="200">
+	<UserControl.Resources>
+		<Storyboard x:Key="OnMouseEnter1">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="Mouse.MouseEnter">
+			<BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
+		</EventTrigger>
+	</UserControl.Triggers>
+    <Grid>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="30"/>
+    		<RowDefinition />
+    	</Grid.RowDefinitions>
+    	<StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
+    		<Gymnastika_Controls:ImageButton Content="ImageButton" Width="21" Height="21" Margin="3" Padding="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" MouseOverImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" MousePressedImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" Stretch="Uniform"/>
+    		<Gymnastika_Controls:ImageButton Content="ImageButton" Width="21" Height="21" Margin="3" ImageSource="/Gymnastika.Widgets;component/Images/close.png" MouseOverImageSource="/Gymnastika.Widgets;component/Images/close.png" MousePressedImageSource="/Gymnastika.Widgets;component/Images/close.png" Stretch="Uniform" Padding="0" Click="ImageButton_Click"/>
+    	</StackPanel>
+            
+    	<Border Grid.Row="1" CornerRadius="8" Padding="8">
+    		<Border.Background>
+    			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    				<GradientStop Color="#669F9898" Offset="0"/>
+    				<GradientStop Color="#66FFFFFF" Offset="1"/>
+    				<GradientStop Color="#66494848" Offset="0.509"/>
+    			</LinearGradientBrush>
+    		</Border.Background>
+            <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:WidgetHost}}}"/>
+    	</Border>
+            
+    </Grid>
+</UserControl>
