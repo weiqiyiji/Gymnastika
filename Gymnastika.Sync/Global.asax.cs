@@ -12,7 +12,6 @@ using Gymnastika.Data.Migration.Generator;
 using Gymnastika.Data.Migration.Interpreters;
 using Gymnastika.Data.Providers;
 using Gymnastika.Data.SessionManagement;
-using Gymnastika.Services.Session;
 using Gymnastika.Sync.Infrastructure;
 using Gymnastika.Sync.Schedule;
 using Microsoft.Practices.ServiceLocation;
@@ -47,6 +46,7 @@ namespace Gymnastika.Sync
             UnityWebServiceHostFactory hostFactory = new UnityWebServiceHostFactory();
             RouteTable.Routes.Add(new ServiceRoute("reg", hostFactory, typeof(RegistrationService)));
             RouteTable.Routes.Add(new ServiceRoute("schedule", hostFactory, typeof(ScheduleService)));
+            RouteTable.Routes.Add(new ServiceRoute("profile", hostFactory, typeof(UserProfileService)));
         }
 
         private void InitializeDataService()
@@ -66,7 +66,6 @@ namespace Gymnastika.Sync
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof(IRepository<>), typeof(Repository<>))
                 .RegisterType<IWorkEnvironment, WebEnvironment>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterType<RemindManager>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(_container)
                 .RegisterInstance<IDataMigrationDiscoverer>(

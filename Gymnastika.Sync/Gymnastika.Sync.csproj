@@ -104,6 +104,7 @@
     <Compile Include="Migration\Migration_PhoneClients_20110318214639.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Migration\Migration_Users_20110322155719.cs" />
     <Compile Include="Models\DesktopClient.cs" />
     <Compile Include="Models\NetworkAdapter.cs" />
     <Compile Include="Common\Constants.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="Infrastructure\WebEnvironment.cs" />
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\PhoneClient.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="RegistrationService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -130,6 +132,7 @@
     <Compile Include="Schedule\RemindManager.cs" />
     <Compile Include="ScheduleService.cs" />
     <Compile Include="Schedule\TimerMetadata.cs" />
+    <Compile Include="UserProfileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -143,9 +146,9 @@
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
       <Name>Gymnastika.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
-      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
-      <Name>Gymnastika.Services</Name>
+    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
+      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
+      <Name>Gymnastika.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj">
       <Project>{B7CA2F0B-DCAC-409D-A2B3-78974C063569}</Project>

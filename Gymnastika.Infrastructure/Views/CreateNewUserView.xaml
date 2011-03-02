@@ -8,6 +8,16 @@
              xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="checkButtonGroupContainerStyle" TargetType="{x:Type controls:CheckButtonGroupItem}">
+            <Setter Property="SelectedBackground" Value="White" />
+            <Setter Property="MouseOverBackground" Value="#89D9A8" />
+            <Setter Property="Background" Value="#89D9A8" />
+        </Style>
+        <Style x:Key="checkButtonGroupStyle" TargetType="{x:Type controls:CheckButtonGroup}">
+            <Setter Property="ItemContainerStyle" Value="{StaticResource checkButtonGroupContainerStyle}" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -33,10 +43,14 @@
         <controls:WatermarkTextBox Text="{Binding Age}" WatermarkText="年龄" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="3" />
         <controls:WatermarkTextBox Text="{Binding Height}" WatermarkText="身高" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="4" />
         <controls:WatermarkTextBox Text="{Binding Weight}" WatermarkText="体重" Style="{DynamicResource WatermarkTextBoxStyle}" Grid.Row="5" />
-        <controls:CheckButtonGroup Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10" SelectedIndex="{Binding GenderIndex}">
-            <TextBlock TextWrapping="Wrap" Text="男" Cursor="Hand"/>
-            <TextBlock TextWrapping="Wrap" Text="女" Cursor="Hand"/>
+        <controls:CheckButtonGroup Style="{StaticResource checkButtonGroupStyle}" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,10" SelectedIndex="{Binding GenderIndex}">
+            <TextBlock TextWrapping="Wrap" Foreground="Silver" Text="男" Cursor="Hand"/>
+            <TextBlock TextWrapping="Wrap" Foreground="Silver" Text="女" Cursor="Hand"/>
         </controls:CheckButtonGroup>
-        <s:SurfaceButton Grid.Row="7" IsDefault="True" FontSize="13" Width="100" Height="30" Command="{Binding CreateNewUserCommand}" Grid.ColumnSpan="2" Content="创建" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button Grid.Row="7" Width="100" Height="30" Style="{DynamicResource defaultButtonStyle}"
+                Command="{Binding CreateNewUserCommand}" Grid.ColumnSpan="2" 
+                Content="创建" Margin="0,10,0,0" HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+        </Button>
     </Grid>
 </UserControl>

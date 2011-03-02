@@ -10,61 +10,108 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
+using Gymnastika.Phone.Controls;
+using System.Windows.Controls.Primitives;
+using System.Windows.Media.Imaging;
+using Microsoft.Phone.Controls.Primitives;
 using Gymnastika.Phone.UserProfile;
-namespace Gymnastika.Phone
+
+namespace Gymnastika.Phone.Views
 {
     public partial class LoginPage : PhoneApplicationPage
     {
-        public enum LoginReasons
+
+        private List<UserProfile.Profile> Users = new List<UserProfile.Profile>();
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
-            NoUserProfile,
-            SwitchUser,
-            NeedPassword
+            ClearUserList();
+            foreach (UserProfile.Profile p in UserProfileManager.GetAllStoredProfiles())
+            {
+                AddUser(p);
+            }
+            base.OnNavigatedTo(e);
         }
-        public enum CancelActions
+        void ClearUserList()
         {
-            GoBack,
-            ExitApplication
+            spUsers.Children.Clear();
         }
-        public enum ArgsType
-        {
-            CancelAction,
-            LoginReason,
-            None,
-            Both
-        }
-        public CancelActions CancelAction { get; set; }
-        public LoginReasons LoginReason { get; set; }
-        public bool LoginOK { get; protected set; }
         public LoginPage()
         {
             InitializeComponent();
-            txtReg.Text = "还没有帐号？\r\n\t请到桌面端注册。";
-            LoginOK = false;
+            Common.DefualtTransition.SetNavigationTransition(this);
+            this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(LoginPage_ManipulationCompleted);
+            this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(LoginPage_ManipulationStarted);
+            CurrentOffsetY = 0;
+            Arrange(CurrentOffsetY);
+
         }
-        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        void AddUser(UserProfile.Profile profile)
         {
-            if (UserProfileManager.ActiveProfile != null &&
-                UserProfileManager.ActiveProfile.IsOnline &&
-                NavigationService.CanGoBack)
-                NavigationService.GoBack();
-            if (State.ContainsKey("Username"))
-                txtUsername.Text = (string)State["Username"];
-            base.OnNavigatedTo(e);
+            UserSelectorItem item = new UserSelectorItem()
+            {
+                Username = profile.Username,
+                UserIcon=profile.Icon,
+                Profile=profile
+            };
+           
+            item.DeleteClick += new EventHandler<EventArgs>(item_DeleteClick);
+            item.SiginClick += new EventHandler<EventArgs>(item_SiginClick);
+            spUsers.Children.Add(item);
         }
-        protected override void OnNavigatedFrom(System.Windows.Navigation.NavigationEventArgs e)
+        void RemoveUser(UserSelectorItem item)
         {
-            if (UserProfileManager.ActiveProfile == null)
-                UserProfileManager.ActiveProfile = new Profile(txtUsername.Text, txtPassword.Password);
-            base.OnNavigatedFrom(e);
+            spUsers.Children.Remove(item);
+        }
+        void item_SiginClick(object sender, EventArgs e)
+        {
+            UserSelectorItem item = sender as UserSelectorItem;
+            item.Profile.OnLoginCompeleted += new Profile.OnLoginCompeleteHandler(Profile_OnLoginCompeleted);
+            item.Profile.BeginLogin();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        void Profile_OnLoginCompeleted(object sender, bool successful)
         {
-            UserProfileManager.ActiveProfile = new Profile(txtUsername.Text.Trim(), txtPassword.Password) { AutoLogin = cbAutoLogin.IsChecked==true };
-            State["Username"] = txtUsername.Text;
-            NavigationService.Navigate(Pages.GetPageUri<LoginProgressPage>());
+            NavigationService.Navigate(Pages.GetPageUri<MainPage>());    
+        }
+
+        void item_DeleteClick(object sender, EventArgs e)
+        {
+            UserSelectorItem item = sender as UserSelectorItem;
+            RemoveUser(item);
+            UserProfileManager.DeleteStoredPofile(item.Profile);
+        }
+
+        void LoginPage_ManipulationStarted(object sender, ManipulationStartedEventArgs e)
+        {
+
+        }
+
+        void LoginPage_ManipulationCompleted(object sender, ManipulationCompletedEventArgs e)
+        {
+
+        }
+        List<Image> imgs = new List<Image>();
+
+        private void btnAddAccount_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(Pages.GetPageUri<AddAccountPage>());
+        }
+        private double CurrentOffsetY;
+        private void Arrange(double OffsetY)
+        {
+
+        }
+        private void ScrollToNearest()
+        {
+        }
+
+        void cw_LostFocus(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
         }
 
@@ -72,5 +119,12 @@ namespace Gymnastika.Phone
         {
 
         }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+
+            NavigationService.Navigate(Pages.GetPageUri<MainPage>());
+        }
+
     }
 }

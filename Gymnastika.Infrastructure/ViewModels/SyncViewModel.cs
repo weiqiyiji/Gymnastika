@@ -13,10 +13,13 @@ namespace Gymnastika.ViewModels
     public class SyncViewModel : NotificationObject
     {
         private readonly RegistrationService _registrationService;
+        private readonly ConnectionStore _connectionStore;
 
-        public SyncViewModel(RegistrationService registrationService)
+        public SyncViewModel(RegistrationService registrationService, ConnectionStore connectionStore)
         {
             _registrationService = registrationService;
+            _connectionStore = connectionStore;
+            Status = "未连接";
         }
 
         private string _phoneId;
@@ -49,21 +52,6 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
-        private bool _isConnecting;
-
-        public bool IsConnecting
-        {
-            get { return _isConnecting; }
-            set
-            {
-                if (_isConnecting != value)
-                {
-                    _isConnecting = value;
-                    RaisePropertyChanged("IsConnecting");
-                }
-            }
-        }
 				
         private ICommand _connectToPhoneCommand;
 
@@ -80,6 +68,24 @@ namespace Gymnastika.ViewModels
 
         private void ConnectToPhone()
         {
+            if (_connectionStore.IsRegistered)
+            {
+                var response = _registrationService.Connect(_connectionStore.AssignedId.ToString(), PhoneId);
+                if (response.HasError)
+                {
+                    Status = response.ErrorMessage;
+                }
+
+                _connectionStore.SaveConnection(
+                    int.Parse(
+                        StringHelper.GetPureString(response.Response.Content.ReadAsString())));
+
+                Status = "连接成功";
+            }
+            else
+            {
+                Status = "还未注册";
+            }
         }
     }
 }
