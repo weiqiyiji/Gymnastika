@@ -56,6 +56,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Sub\CheckButtonGroupDemo.xaml.cs">
+      <DependentUpon>CheckButtonGroupDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sub\ImageButtonDemo.xaml.cs">
       <DependentUpon>ImageButtonDemo.xaml</DependentUpon>
     </Compile>
@@ -77,6 +80,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sub\CheckButtonGroupDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Sub\ImageButtonDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

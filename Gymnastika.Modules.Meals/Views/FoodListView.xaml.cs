@@ -39,6 +39,14 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
+        public event SelectionChangedEventHandler SubCategorySelectionChanged;
+
         #endregion
+
+        private void SubCateogyrListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (SubCategorySelectionChanged != null)
+                SubCategorySelectionChanged(sender, e);
+        }
     }
 }

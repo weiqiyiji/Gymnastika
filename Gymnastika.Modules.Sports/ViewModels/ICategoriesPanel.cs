@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Gymnastika.Views
+namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public interface ICreateNewUserView
+    public interface ICategoriesPanel
     {
+
     }
 }

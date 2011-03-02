@@ -63,15 +63,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\ShowPlanDetailEvent.cs" />
-    <Compile Include="Migration\Migration_SportCategoryMappings_20110220114204.cs" />
     <Compile Include="Migration\Migration_SportsCategories_20110216223043.cs" />
     <Compile Include="Migration\Migration_SportsPlanItems_20110220115125.cs" />
-    <Compile Include="Migration\Migration_SportsPlans_20110220115704.cs" />
-    <Compile Include="Models\SportCategoryMapping.cs" />
+    <Compile Include="Migration\Migration_SportsPlans_20110220115124.cs" />
+    <Compile Include="Migration\Migration_Sports_SportsCategories_Relations_20110221202858.cs" />
     <Compile Include="Models\SportsCategory.cs" />
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
+    <Compile Include="Services\CategoriesProvider.cs" />
+    <Compile Include="Services\ICategoriesProvider.cs" />
     <Compile Include="Services\ISportsPlanProvider.cs" />
     <Compile Include="Services\ISportsProvider.cs" />
     <Compile Include="Migration\Migration_Sports_20110217165552.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="Services\SportsProvider.cs" />
     <Compile Include="SportsManagementModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\CategoriesPanel.cs" />
+    <Compile Include="ViewModels\ICategoriesPanel.cs" />
     <Compile Include="ViewModels\ISportsListViewModel.cs" />
     <Compile Include="ViewModels\ISportsPlanDetailViewModel.cs" />
     <Compile Include="ViewModels\ISportsPlanViewModel.cs" />

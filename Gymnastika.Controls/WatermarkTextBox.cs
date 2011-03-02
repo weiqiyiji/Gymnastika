@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Media;
 
 namespace Gymnastika.Controls
@@ -24,7 +25,7 @@ namespace Gymnastika.Controls
 
         public static readonly DependencyProperty WatermarkTextProperty =
             DependencyProperty.Register("WatermarkText", typeof(string), typeof(WatermarkTextBox), null);
-
+        
         public Brush WatermarkForeground
         {
             get { return (Brush)GetValue(WatermarkForegroundProperty); }
@@ -32,6 +33,32 @@ namespace Gymnastika.Controls
         }
 
         public static readonly DependencyProperty WatermarkForegroundProperty =
-            DependencyProperty.Register("WatermarkForeground", typeof(Brush), typeof(WatermarkTextBox), new FrameworkPropertyMetadata(Brushes.Silver)); 
+            DependencyProperty.Register("WatermarkForeground", typeof(Brush), typeof(WatermarkTextBox), new FrameworkPropertyMetadata(Brushes.Silver));
+
+        public CornerRadius CornerRadius
+        {
+            get { return (CornerRadius)GetValue(CornerRadiusProperty); }
+            set { SetValue(CornerRadiusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CornerRadius.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CornerRadiusProperty =
+            DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(WatermarkTextBox), new UIPropertyMetadata(new CornerRadius(0)));
+
+        public bool IsEmpty
+        {
+            get { return (bool)GetValue(IsEmptyProperty); }
+            set { SetValue(IsEmptyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsEmpty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsEmptyProperty =
+            DependencyProperty.Register("IsEmpty", typeof(bool), typeof(WatermarkTextBox), new UIPropertyMetadata(true));
+
+        protected override void OnTextChanged(TextChangedEventArgs e)
+        {
+            base.OnTextChanged(e);
+            IsEmpty = string.IsNullOrEmpty(Text);
+        }
     }
 }

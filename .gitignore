@@ -12,4 +12,9 @@ TestResult.xml
 VisualState.xml
 *.vsmdi
 *.sdf
+<<<<<<< HEAD
 *.txt
+=======
+*.txt
+*.user
+>>>>>>> 3e647e50ebfd2f672f7a71e91ce7f4c20f9989b6

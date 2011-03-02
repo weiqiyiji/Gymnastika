@@ -10,7 +10,7 @@ namespace Gymnastika.Migrations
     public class Migration_Foods_20110220121913 : IDataMigration
     {
         private const string ForeignKeyNameWithSubCategories = "FK_SubCategories_Foods";
-        private const string ForeignKeyNameWithSubDietPlans = "FK_SubDietPlans_Foods";
+        private const string ForeignKeyNameWithDietPlanItems = "FK_DietPlanItems_Foods";
 
         public string TableName 
         { 
@@ -31,8 +31,9 @@ namespace Gymnastika.Migrations
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                     .Column<string>("Name")
                     .Column<string>("SmallImageUri")
+                    .Column<string>("MiddleImageUri")
                     .Column<string>("LargeImageUri")
-                    .Column<int>("Calorie")
+                    .Column<decimal>("Calorie")
                     .Column<int>("SubCategoryId"));
 
             SchemaBuilder.CreateForeignKey(
@@ -43,10 +44,10 @@ namespace Gymnastika.Migrations
                 new string[1] { "Id" });
 
             SchemaBuilder.CreateForeignKey(
-                ForeignKeyNameWithSubDietPlans,
+                ForeignKeyNameWithDietPlanItems,
                 TableName,
-                new string[1] { "SubDietPlanId" },
-                "SubDietPlans",
+                new string[1] { "DietPlanItemId" },
+                "DietPlanItems",
                 new string[1] { "Id" });
         }
         
@@ -56,7 +57,7 @@ namespace Gymnastika.Migrations
 
             SchemaBuilder.DropForeignKey(TableName, ForeignKeyNameWithSubCategories);
 
-            SchemaBuilder.DropForeignKey(TableName, ForeignKeyNameWithSubDietPlans);
+            SchemaBuilder.DropForeignKey(TableName, ForeignKeyNameWithDietPlanItems);
         }
     }
 }

@@ -14,8 +14,14 @@
         </Grid.RowDefinitions>
         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
             <controls:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Width="200" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
-                                          ItemsSource="{Binding InMemoryFoods}" KeyDown="SearchBox_KeyDown" />
+            <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Width="400" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
+                                          FilterMode="Custom" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ItemsSource="{Binding InMemoryFoods}" PreviewKeyDown="SearchBox_KeyDown">
+                <inputToolkit:AutoCompleteBox.ItemTemplate>
+                    <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </inputToolkit:AutoCompleteBox.ItemTemplate>
+            </inputToolkit:AutoCompleteBox>
         </StackPanel>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -25,7 +31,7 @@
             <ContentControl Content="{Binding FoodListViewModel.View}" />
             <StackPanel Grid.Column="1">
                 <ContentControl Content="{Binding CreateDietPlanViewModel.View}" />
-                <Button Content="推荐食谱" Command="{Binding RecommendDietPlanCommand}" />
+                <Button Content="推荐食谱" Command="{Binding RecommendDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
     </Grid>

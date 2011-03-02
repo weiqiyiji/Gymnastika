@@ -101,9 +101,7 @@ namespace Gymnastika.ViewModels
 
         private void CreateNewUser()
         {
-            IRegionManager regionManager = _container.Resolve<IRegionManager>();
-            regionManager.AddToRegion(RegionNames.DisplayRegion, _container.Resolve<ICreateNewUserView>());
-            regionManager.RequestNavigate(RegionNames.DisplayRegion, "CreateNewUserView");
+            _container.Resolve<IStartupController>().RequestCreateNewUser();
         }
     }
 }

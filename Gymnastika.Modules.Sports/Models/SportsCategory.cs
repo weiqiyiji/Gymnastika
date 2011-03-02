@@ -18,7 +18,6 @@ namespace Gymnastika.Modules.Sports.Models
 
         public virtual string Note { get; set; }
 
-        public virtual IEnumerable<Sport> Sports { get; set; }
-
+        public virtual IList<Sport> Sports { get; set; }
     }
 }

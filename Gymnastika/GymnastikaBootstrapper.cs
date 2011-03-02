@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Gymnastika.Controllers;
 using Gymnastika.Views;
@@ -60,6 +61,8 @@ namespace Gymnastika
 
         protected override void ConfigureContainer()
         {
+            var currentDirectory = Directory.GetCurrentDirectory();
+
             Container
                 .RegisterType<Shell>()
                 .RegisterType<ILogger, ConsoleLogger>()
@@ -74,12 +77,15 @@ namespace Gymnastika
                 .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>()
                 .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITransactionManager, TransactionManager>()
-                .RegisterType(typeof(IRepository<>), typeof(Repository<>))
+                .RegisterType(typeof (IRepository<>), typeof (Repository<>))
                 .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
-                .RegisterType<IMigrationLoader, DataMigrationLoader>("Data")
-                .RegisterType<IMigrationLoader, ModuleMigrationLoader>("Module")
-                .RegisterType<IMigrationLoader, ServiceMigrationLoader>("Service");
+                .RegisterInstance<IDataMigrationDiscoverer>(
+                    new DataMigrationDiscoverer()
+                        .AddFromDirectory(currentDirectory,
+                            x => x.Contains("Gymnastika.Modules.") || x.Contains("Gymnastika.Services"))
+                        .AddFromAssemblyOf<SchemaBuilder>()
+                );
 
             var shellSettings = new ShellSettings
             {

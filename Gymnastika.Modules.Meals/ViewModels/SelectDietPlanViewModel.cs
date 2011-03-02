@@ -25,11 +25,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public SelectDietPlanViewModel(
             ISelectDietPlanView view, 
             IDietPlanListViewModel dietPlanListViewModel,
-            IFoodService foodService,
+            //IFoodService foodService,
             ISessionManager sessionManager)
         {
             DietPlanListViewModel = dietPlanListViewModel;
-            _foodService = foodService;
+            //_foodService = foodService;
             _sessionManager = sessionManager;
             View = view;
             View.Context = this;
@@ -131,22 +131,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public void Initialize()
         {
-            switch (PlanType)
-            {
-                case PlanType.CreatedDietPlan:
-                    InMemoryDietPlans = _foodService.GetAllRecommendedDietPlans().ToList();
-                    break;
-                case PlanType.RecommendedDietPlan:
-                    InMemoryDietPlans = _foodService.GetAllSavedDietPlansOfUser(_sessionManager.GetCurrentSession().AssociatedUser.Id).ToList();
-                    break;
-                default:
-                    break;
-            }
+            //switch (PlanType)
+            //{
+            //    case PlanType.CreatedDietPlan:
+            //        InMemoryDietPlans = _foodService.GetAllRecommendedDietPlans().ToList();
+            //        break;
+            //    case PlanType.RecommendedDietPlan:
+            //        InMemoryDietPlans = _foodService.GetAllSavedDietPlansOfUser(_sessionManager.GetCurrentSession().AssociatedUser.Id).ToList();
+            //        break;
+            //    default:
+            //        break;
+            //}
             
-            CurrentPage = 1;
-            PageCount = InMemoryDietPlans.Count;
-            CurrentPageDietPlanList = GetDietPlanList(CurrentPage);
-            NextPageDietPlanList = GetDietPlanList(CurrentPage + 1);
+            //CurrentPage = 1;
+            //PageCount = InMemoryDietPlans.Count;
+            //CurrentPageDietPlanList = GetDietPlanList(CurrentPage);
+            //NextPageDietPlanList = GetDietPlanList(CurrentPage + 1);
         }
 
         #endregion
@@ -183,9 +183,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             for (int i = 0; i < 6; i++)
             {
-                foreach (var food in InMemoryDietPlans[index].SubDietPlans[i].Foods)
+                foreach (var dietPlanItem in InMemoryDietPlans[index].SubDietPlans[i].DietPlanItems)
                 {
-                    dietPlanList[i].AddFoodItem(new FoodItemViewModel(food));
+                    dietPlanList[i].AddFoodItem(new FoodItemViewModel(dietPlanItem.Food)
+                        {
+                            Amount = dietPlanItem.Amount
+                        });
                 }
             }
 

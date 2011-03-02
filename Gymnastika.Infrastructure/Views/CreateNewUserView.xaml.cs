@@ -18,18 +18,11 @@ namespace Gymnastika.Views
     /// <summary>
     /// Interaction logic for CreateNewUserView.xaml
     /// </summary>
-    public partial class CreateNewUserView : UserControl, ICreateNewUserView
+    public partial class CreateNewUserView : UserControl
     {
-        public CreateNewUserView(CreateNewUserViewModel model)
+        public CreateNewUserView()
         {
             InitializeComponent();
-            Model = model;
-        }
-
-        public CreateNewUserViewModel Model
-        {
-            get { return DataContext as CreateNewUserViewModel; }
-            set { DataContext = value; }
         }
     }
 }

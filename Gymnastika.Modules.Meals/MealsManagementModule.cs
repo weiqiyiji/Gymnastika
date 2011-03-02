@@ -62,9 +62,11 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterViewWithRegion()
         {
-            IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
 
-            _regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
+            IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            displayRegion.Add(mealsManagementViewModel.View);
+            displayRegion.Activate(mealsManagementViewModel.View);
         }
     }
 }

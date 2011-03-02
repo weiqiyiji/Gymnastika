@@ -2,28 +2,27 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Practices.Prism.ViewModel;
-using System.Windows;
-using Gymnastika.Services.Models;
 using System.Windows.Input;
-using Microsoft.Practices.Prism.Commands;
-using Gymnastika.Services;
-using Gymnastika.Services.Session;
-using Microsoft.Practices.Prism.Events;
-
-using Gymnastika.Services.Contracts;
 using Gymnastika.Events;
+using Gymnastika.Services.Contracts;
+using Gymnastika.Services.Models;
+using Gymnastika.Services.Session;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.Events;
+using Microsoft.Practices.Prism.ViewModel;
 
 namespace Gymnastika.ViewModels
 {
-    public class CreateNewUserViewModel : NotificationObject
+    public class UserProfileViewModel : NotificationObject
     {
-        private IUserService _userService;
-        private ISessionManager _sessionManager;
-        private IEventAggregator _eventAggregator;
+        private readonly IUserService _userService;
+        private readonly ISessionManager _sessionManager;
+        private readonly IEventAggregator _eventAggregator;
         private User _user;
-
-        public CreateNewUserViewModel(
+        public const int LogOnTabIndex = 0;
+        public const int CreateNewUserTabIndex = 0;
+        
+        public UserProfileViewModel(
             IUserService userService, ISessionManager sessionManager, IEventAggregator eventAggregator)
         {
             _userService = userService;
@@ -31,7 +30,22 @@ namespace Gymnastika.ViewModels
             _eventAggregator = eventAggregator;
             _user = new User();
         }
-        
+
+        private int _initialTabIndex;
+
+        public int InitialTabIndex
+        {
+            get { return _initialTabIndex; }
+            set
+            {
+                if (_initialTabIndex != value)
+                {
+                    _initialTabIndex = value;
+                    RaisePropertyChanged("InitialTabIndex");
+                }
+            }
+        }
+
         public string UserName
         {
             get { return _user.UserName; }
@@ -41,10 +55,26 @@ namespace Gymnastika.ViewModels
                 {
                     _user.UserName = value;
                     RaisePropertyChanged("UserName");
+                    (LogOnCommand as DelegateCommand).RaiseCanExecuteChanged();
                 }
             }
         }
         
+        private string _confirmPassword;
+
+        public string ConfirmPassword
+        {
+            get { return _confirmPassword; }
+            set
+            {
+                if (_confirmPassword != value)
+                {
+                    _confirmPassword = value;
+                    RaisePropertyChanged("ConfirmPassword");
+                }
+            }
+        }		
+
         public string Password
         {
             get { return _user.Password; }
@@ -57,10 +87,13 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
+
         public string Age
         {
-            get { return _user.Age.ToString(); }
+            get
+            {
+                return _user.Age == 0 ? string.Empty : _user.Age.ToString();
+            }
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
@@ -73,10 +106,13 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
+
         public string Height
         {
-            get { return _user.Height.ToString(); }
+            get
+            {
+                return _user.Height == 0 ? string.Empty : _user.Height.ToString();
+            }
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
@@ -89,10 +125,13 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
+
         public string Weight
         {
-            get { return _user.Weight.ToString(); }
+            get
+            {
+                return _user.Weight == 0 ? string.Empty : _user.Weight.ToString();
+            }
             set
             {
                 if (string.IsNullOrEmpty(value)) return;
@@ -105,7 +144,7 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
+
         public Gender Gender
         {
             get { return _user.Gender; }
@@ -118,7 +157,20 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
+
+        public int GenderIndex
+        {
+            get { return (int) Gender; }
+            set
+            {
+                if((int)Gender != value)
+                {
+                    Gender = (Gender)value;
+                    RaisePropertyChanged("GenderIndex");
+                }
+            }
+        }
+
         private bool _isRegisterFailed;
 
         public bool IsRegisterFailed
@@ -133,7 +185,7 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-        
+
         private string _errorMessage;
 
         public string ErrorMessage
@@ -147,22 +199,77 @@ namespace Gymnastika.ViewModels
                     RaisePropertyChanged("ErrorMessage");
                 }
             }
-        }	
+        }
         
-        private ICommand _submitCommand;
+        private bool _notifyClose;
 
-        public ICommand SubmitCommand
+        public bool NotifyClose
+        {
+            get { return _notifyClose; }
+            set
+            {
+                if (_notifyClose != value)
+                {
+                    _notifyClose = value;
+                    RaisePropertyChanged("NotifyClose");
+                }
+            }
+        }
+				
+        private ICommand _backCommand;
+
+        public ICommand BackCommand
         {
             get
             {
-                if (_submitCommand == null)
-                    _submitCommand = new DelegateCommand(Submit);
+                if (_backCommand == null)
+                    _backCommand = new DelegateCommand(GoBack);
 
-                return _submitCommand;
+                return _backCommand;
+            }
+        }
+        
+        private ICommand _createNewUserCommand;
+
+        public ICommand CreateNewUserCommand
+        {
+            get
+            {
+                if (_createNewUserCommand == null)
+                    _createNewUserCommand = new DelegateCommand(CreateNewUser, ValidateCreateUserForm);
+
+                return _createNewUserCommand;
             }
         }
 
-        private void Submit()
+        private ICommand _logOnCommand;
+
+        public ICommand LogOnCommand
+        {
+            get
+            {
+                if (_logOnCommand == null)
+                    _logOnCommand = new DelegateCommand(ProcessLogOn, () => !string.IsNullOrEmpty(UserName));
+
+                return _logOnCommand;
+            }
+        }
+
+        private void ProcessLogOn()
+        {
+            if (_userService.LogOn(UserName, Password))
+            {
+                _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(_userService.GetUser(UserName));
+            }
+        }
+
+        private bool ValidateCreateUserForm()
+        {
+            //TODO
+            return true;
+        }
+
+        private void CreateNewUser()
         {
             IsRegisterFailed = false;
             ErrorMessage = string.Empty;
@@ -180,5 +287,10 @@ namespace Gymnastika.ViewModels
                 ErrorMessage = _userService.ErrorString;
             }
         }	
+		
+	    private void GoBack()
+	    {
+	        NotifyClose = true;
+	    }
     }
 }

@@ -19,19 +19,19 @@ namespace Gymnastika.Data.Migration
 {
     public class DataMigrationManager : IDataMigrationManager
     {
+        private readonly IDataMigrationDiscoverer _dataMigrationDiscoverer;
         private ISessionLocator _sessionLocator;
         private IDataMigrationInterpreter _interpreter;
         private IRepository<MigrationRecord> _migrationRecordRepository;
-        private IMigrationLoader[] _migrationLoaders;
 
         public DataMigrationManager(
-            IMigrationLoader[] migrationLoaders,
+            IDataMigrationDiscoverer dataMigrationDiscoverer,
             ISessionLocator sessionLocator,
             IDataMigrationInterpreter interpreter,
             IRepository<MigrationRecord> migrationRecordRepository,
             ILogger logger)
         {
-            _migrationLoaders = migrationLoaders;
+            _dataMigrationDiscoverer = dataMigrationDiscoverer;
             _sessionLocator = sessionLocator;
             _interpreter = interpreter;
             _migrationRecordRepository = migrationRecordRepository;
@@ -39,18 +39,6 @@ namespace Gymnastika.Data.Migration
         }
 
         public ILogger Logger { get; set; }
-
-        protected IEnumerable<IDataMigration> LoadDataMigrations()
-        {
-            IList<IDataMigration> foundMigrations = new List<IDataMigration>();
-
-            foreach (IMigrationLoader loader in _migrationLoaders)
-            {
-                foundMigrations.AddRange(loader.Load());
-            }
-
-            return foundMigrations;
-        }
 
         public void EnsureMigrationRecordsExists()
         {
@@ -78,7 +66,7 @@ namespace Gymnastika.Data.Migration
         {
             EnsureMigrationRecordsExists();
 
-            IEnumerable<IDataMigration> migrations = LoadDataMigrations();
+            IEnumerable<IDataMigration> migrations = _dataMigrationDiscoverer.DataMigrations;
 
             IEnumerable<MigrationRecord> migrationRecords = _migrationRecordRepository.Fetch(m => true);
             string maxRecordVersion = migrationRecords.Max(m => m.Version);
@@ -100,7 +88,7 @@ namespace Gymnastika.Data.Migration
         {
             EnsureMigrationRecordsExists();
 
-            IEnumerable<IDataMigration> migrations = LoadDataMigrations();
+            IEnumerable<IDataMigration> migrations = _dataMigrationDiscoverer.DataMigrations;
             IDataMigration migration = migrations.SingleOrDefault(m => m.Version == version);
 
             if (migration == null)

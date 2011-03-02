@@ -71,10 +71,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="MealsManagementModule.cs" />
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
+    <Compile Include="Migrations\Migration_DietPlanItems_20110301211426.cs" />
     <Compile Include="Migrations\Migration_Foods_20110220121913.cs" />
-    <Compile Include="Migrations\Migration_Food_SubDietPlan_Relations_20110222133930.cs" />
     <Compile Include="Migrations\Migration_Introductions_20110223125751.cs" />
     <Compile Include="Migrations\Migration_NutritiveElements_20110221121551.cs" />
     <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Migrations\Migration_UserDietPlanMappings_20110222135718.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DietPlan.cs" />
+    <Compile Include="Models\DietPlanItem.cs" />
     <Compile Include="Models\Introduction.cs" />
     <Compile Include="Models\UserDietPlanMapping.cs" />
     <Compile Include="Models\Food.cs" />
@@ -133,6 +135,20 @@
     <Compile Include="Views\SelectDietPlanView.xaml.cs">
       <DependentUpon>SelectDietPlanView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="XDataHelpers\XDataFileManager.cs" />
+    <Compile Include="XDataHelpers\XDataRepository.cs" />
+    <Compile Include="XModels\XCategoryDataModels\XCategory.cs" />
+    <Compile Include="XModels\XCategoryDataModels\XCategoryData.cs" />
+    <Compile Include="XModels\XCategoryDataModels\XSubCategory.cs" />
+    <Compile Include="XModels\XDietPlanModels\XDietPlan.cs" />
+    <Compile Include="XModels\XDietPlanModels\XDietPlanData.cs" />
+    <Compile Include="XModels\XDietPlanModels\XDietPlanItem.cs" />
+    <Compile Include="XModels\XDietPlanModels\XSubDietPlan.cs" />
+    <Compile Include="XModels\XFoodDataModels\XCategory.cs" />
+    <Compile Include="XModels\XFoodDataModels\XFood.cs" />
+    <Compile Include="XModels\XFoodDataModels\XFoodData.cs" />
+    <Compile Include="XModels\XFoodDataModels\XIntroduction.cs" />
+    <Compile Include="XModels\XFoodDataModels\XNutritionalElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">

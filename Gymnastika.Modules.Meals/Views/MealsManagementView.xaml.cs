@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Meals.ViewModels;
+using Gymnastika.Modules.Meals.Models;
+using System.Globalization;
 
 namespace Gymnastika.Modules.Meals.Views
 {
@@ -23,6 +25,18 @@ namespace Gymnastika.Modules.Meals.Views
         public MealsManagementView()
         {
             InitializeComponent();
+
+            SearchBox.ItemFilter = (search, item) =>
+            {
+                Food food = item as Food;
+                if (food != null)
+                {
+                    string filter = search.ToUpper(CultureInfo.InvariantCulture);
+                    return (food.Name.ToUpper(CultureInfo.InvariantCulture).StartsWith(filter));
+                }
+
+                return false;
+            };
         }
 
         #region IMealsManagementView Members

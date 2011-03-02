@@ -18,11 +18,13 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _saveCommand;
 
         public CreateDietPlanViewModel(ICreateDietPlanView view, 
-            IDietPlanListViewModel dietPlanListViewModel,
-            IFoodService foodService)
+            IDietPlanListViewModel dietPlanListViewModel
+            //,
+            //IFoodService foodService
+            )
         {
             DietPlanListViewModel = dietPlanListViewModel;
-            _foodService = foodService;
+            //_foodService = foodService;
             CreatedDate = DateTime.Now;
             View = view;
             View.Context = this;
@@ -73,7 +75,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
             {
                 foreach (var foodItem in DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
                 {
-                    subDietPlans[i].Foods.Add(foodItem.Food);
+                    subDietPlans[i].DietPlanItems.Add(new DietPlanItem
+                    {
+                        Food = foodItem.Food,
+                        Amount = foodItem.Amount
+                    });
                 }
             }
 

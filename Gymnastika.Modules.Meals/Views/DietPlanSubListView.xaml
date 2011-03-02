@@ -11,8 +11,8 @@
     </UserControl.Resources>
     
     <Grid>
-        <ItemsControl ItemsSource="{Binding DietPlanSubList}" ItemTemplate="{StaticResource DietPlanSubListItem}"
+        <ListBox Height="300" Width="350" Background="White" ItemsSource="{Binding DietPlanSubList}" ItemTemplate="{StaticResource DietPlanSubListItem}"
                       dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
-        </ItemsControl>
+        </ListBox>
     </Grid>
 </UserControl>

@@ -14,7 +14,13 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Image Source="{Binding ImageUri}" />
+        <Border BorderThickness="1" Width="202" Height="202" CornerRadius="4" Margin="2">
+            <Image Width="200" Height="200" Source="{Binding ImageUri}">
+                <!--<Image.Clip>
+                    <RectangleGeometry Rect="0, 0, 200, 200" RadiusX="4" RadiusY="4" />
+                </Image.Clip>-->
+            </Image>
+        </Border>
         <StackPanel Grid.Row="1">
             <TextBlock Text="营养含量（每100克）" />
             <ItemsControl ItemsSource="{Binding NutritionalElements}">
@@ -56,7 +62,7 @@
                                 <RowDefinition />
                             </Grid.RowDefinitions>
                             <TextBlock Text="{Binding Name}" />
-                            <TextBlock Grid.Row="1" Text="{Binding Content}" />
+                            <TextBlock Grid.Row="1" Text="{Binding Content}" TextWrapping="Wrap" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

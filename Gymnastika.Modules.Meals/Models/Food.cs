@@ -13,6 +13,8 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual string SmallImageUri { get; set; }
 
+        public virtual string MiddleImageUri { get; set; }
+
         public virtual string LargeImageUri { get; set; }
 
         public virtual decimal Calorie { get; set; }
@@ -23,6 +25,11 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual SubCategory SubCategory { get; set; }
 
-        public virtual IList<SubDietPlan> SubDietPlans { get; set; }
+        public virtual IList<DietPlanItem> DietPlanItems { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -12,6 +12,8 @@ using Gymnastika.Modules.Meals.Models;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Services.Session;
+using System.Collections.ObjectModel;
+using System.Globalization;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -22,6 +24,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _searchCommand;
         private ICommand _showSavedDietPlanCommand;
         private ICommand _showRecommendDietPlanCommand;
+        private readonly XDataHelpers.XDataRepository _db;
 
         public MealsManagementViewModel(
             IMealsManagementView view,
@@ -36,6 +39,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             InitializeSelectDietPlanViewModel(SavedDietPlanViewModel, savedDietPlanViewModel, PlanType.CreatedDietPlan, ApplySavedDietPlan);
             InitializeSelectDietPlanViewModel(RecommendedDietPlanViewModel, recommendedDietPlanViewModel, PlanType.RecommendedDietPlan, ApplyRecommendedDietPlan);
             _foodService = foodService;
+            _db = new XDataHelpers.XDataRepository();
+            InMemoryFoods = _db.Foods;
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
@@ -94,7 +99,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public IEnumerable<Food> SearchResults { get; set; }
+        public IEnumerable<Food> InMemoryFoods { get; set; }
+
+        public ICollection<Food> SearchResults { get; set; }
 
         public IFoodListViewModel FoodListViewModel { get; set; }
 
@@ -139,8 +146,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
             BindingExpression binding = View.GetBindingSearchString();
             binding.UpdateSource();
 
-            SearchResults = _foodService.GetFoodsByName(SearchString);
-            FoodListViewModel.InMemoryFoods = SearchResults;
+            SearchResults = new Collection<Food>();
+            foreach (var food in InMemoryFoods)
+            {
+                string filter = SearchString.ToUpper(CultureInfo.InvariantCulture);
+                if (food.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filter))
+                    SearchResults.Add(food);
+            }
+
+            FoodListViewModel.CurrentFoods = SearchResults;
             FoodListViewModel.Initialize();
         }
 

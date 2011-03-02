@@ -74,7 +74,6 @@
     <Compile Include="MockMigration\Migration_Customer_Product_Relations_20110221151224.cs" />
     <Compile Include="MockMigration\Migration_Products_20110221150555.cs" />
     <Compile Include="Mocks\MockAutomappingConfigurer.cs" />
-    <Compile Include="Mocks\MockMigrationLoader.cs" />
     <Compile Include="Mocks\MockSessionLocator.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Customer.cs" />
