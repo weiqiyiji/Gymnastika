@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using Gymnastika.Widgets.Infrastructure;
 
 namespace Gymnastika.Widgets
 {
@@ -14,9 +14,10 @@ namespace Gymnastika.Widgets
         private Canvas _canvas;
 
         public CanvasWidgetContainerAdapter(
+            IWidgetManager widgetManager,
             IWidgetContainerBehaviorFactory widgetContainerBehaviorFactory, 
-            IWidgetContainerAccessor containerAccessor) 
-            : base(widgetContainerBehaviorFactory, containerAccessor)
+            IWidgetContainerAccessor containerAccessor)
+            : base(widgetManager, widgetContainerBehaviorFactory, containerAccessor)
         {
         }
 
@@ -37,44 +38,21 @@ namespace Gymnastika.Widgets
             {
                 foreach (IWidgetHost widgetHost in e.NewItems)
                 {
-                    if(widgetHost.IsActive)
-                    {
-                        Arrange(widgetHost);
-                    }
-
-                    widgetHost.IsActiveChanged += OnWidgetHostIsActiveChanged;
-                    //TODO
+                     Arrange(widgetHost);
                 }
             }
-        }
-
-        private void OnWidgetHostIsActiveChanged(object sender, EventArgs e)
-        {
-            IWidgetHost widget = (IWidgetHost)sender;
-
-            if(widget.IsActive)
+            else if(e.Action == NotifyCollectionChangedAction.Remove)
             {
-                Arrange(widget);
-            }
-            else
-            {
-                _canvas.Children.Remove(widget as UIElement);
+                foreach (IWidgetHost widgetHost in e.OldItems)
+                {
+                    _canvas.Children.Remove(widgetHost as UIElement);
+                }
             }
         }
 
         protected void Arrange(IWidgetHost widgetHost)
         {
-            IPositionAware positionAware = widgetHost.Widget as IPositionAware;
-            double x = 0.0, y = 0.0;
-            int z = 0;
-
-            if (positionAware != null)
-            {
-                x = positionAware.Position.X;
-                y = positionAware.Position.Y;
-                z = positionAware.ZIndex;
-            }
-
+            WidgetDescriptor descriptor = GetDescriptor(widgetHost.Widget);
             UIElement element = widgetHost as UIElement;
 
             if (element == null)
@@ -82,10 +60,15 @@ namespace Gymnastika.Widgets
                 throw new InvalidCastException();
             }
 
-            Canvas.SetTop(element, x);
-            Canvas.SetLeft(element, y);
-            Panel.SetZIndex(element, z);
+            Canvas.SetTop(element, descriptor.Position.Y);
+            Canvas.SetLeft(element, descriptor.Position.X);
+            Panel.SetZIndex(element, descriptor.ZIndex);
             _canvas.Children.Add(element);
+        }
+
+        private WidgetDescriptor GetDescriptor(IWidget widget)
+        {
+            return WidgetManager.Descriptors.Single(x => x.WidgetType == widget.GetType());
         }
 
         protected override IWidgetContainer CreateContainer()

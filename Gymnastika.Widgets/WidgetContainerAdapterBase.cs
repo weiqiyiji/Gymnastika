@@ -22,13 +22,16 @@ namespace Gymnastika.Widgets
         public static readonly DependencyProperty WidgetContainerProperty =
             DependencyProperty.RegisterAttached("WidgetContainer", typeof(IWidgetContainer), typeof(WidgetContainerAdapterBase), null);
 
+        protected IWidgetManager WidgetManager { get; set; }
         protected IWidgetContainerBehaviorFactory WidgetContainerBehaviorFactory { get; set; }
         protected IWidgetContainerAccessor ContainerAccessor { get; set; }
 
         protected WidgetContainerAdapterBase(
+            IWidgetManager widgetManager,
             IWidgetContainerBehaviorFactory widgetContainerBehaviorFactory,
             IWidgetContainerAccessor containerAccessor)
         {
+            WidgetManager = widgetManager;
             WidgetContainerBehaviorFactory = widgetContainerBehaviorFactory;
             ContainerAccessor = containerAccessor;
         }

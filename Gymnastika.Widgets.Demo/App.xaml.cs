@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
+using Gymnastika.Widgets.Behaviors;
 using Gymnastika.Widgets.Views;
 using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
@@ -22,19 +24,15 @@ namespace Gymnastika.Widgets.Demo
         {
             base.OnStartup(e);
             _container = new UnityContainer();
-            _container
-                .RegisterInstance(_container)
-                .RegisterType<IWidgetContainer, WidgetContainer>()
-                .RegisterType<IWidgetManager, WidgetManager>()
-                .RegisterType<IWidgetHost, WidgetHost>()
-                .RegisterType<IWidgetContainerAccessor, WidgetContainerAccessor>()
-                .RegisterType<IWidgetHostFactory, DefaultWidgetHostFactory>()
-                .RegisterType<IWidgetContainerAdapter, CanvasWidgetContainerAdapter>()
-                .RegisterType<IWidgetContainerInitializer, WidgetContainerInitializer>()
-                .RegisterType<IWidgetContainerBehaviorFactory, WidgetContainerBehaviorFactory>();
-
             _serviceLocator = new UnityServiceLocator(_container);
             ServiceLocator.SetLocatorProvider(() => _serviceLocator);
+            _container.RegisterInstance<IServiceLocator>(_serviceLocator);
+            _container
+                .RegisterType<IWidgetBootstrapper, WidgetBootstrapper>(new ContainerControlledLifetimeManager())
+                .RegisterInstance(_container);
+
+            IWidgetBootstrapper bootstrapper = _container.Resolve<IWidgetBootstrapper>();
+            bootstrapper.Run();
         }
     }
 }

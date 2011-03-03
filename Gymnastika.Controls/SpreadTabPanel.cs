@@ -12,7 +12,7 @@ namespace Gymnastika.Controls
         protected override Size MeasureOverride(Size availableSize)
         {
             Size size = new Size();
-            foreach (UIElement child in Children)
+            foreach (UIElement child in InternalChildren)
             {
                 child.Measure(availableSize);
                 size.Width += child.DesiredSize.Width;
@@ -25,21 +25,21 @@ namespace Gymnastika.Controls
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            if (Children == null || Children.Count == 0) return finalSize;
-            if (Children.Count == 1)
+            if (InternalChildren == null || InternalChildren.Count == 0) return finalSize;
+            if (InternalChildren.Count == 1)
             {
-               Children[0].Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+                InternalChildren[0].Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
                return finalSize;
             }
 
-            int endIndex = Children.Count / 2 + (Children.Count % 2 == 0 ? 0 : 1);
-            double averageChildWidth = finalSize.Width / Children.Count;
+            int endIndex = InternalChildren.Count / 2 + (InternalChildren.Count % 2 == 0 ? 0 : 1);
+            double averageChildWidth = finalSize.Width / InternalChildren.Count;
             double widthSoFarFromLeft = 0.0;
             double widthSoFarFromRight = 0.0;
 
             for (int i = 0; i < endIndex; i++)
             {
-                UIElement leftChild = Children[i];
+                UIElement leftChild = InternalChildren[i];
                 double leftChildWidth = GetChildWidth(leftChild, averageChildWidth);
                 leftChild.Arrange(
                     new Rect(
@@ -49,8 +49,8 @@ namespace Gymnastika.Controls
                         finalSize.Height));
                 widthSoFarFromLeft += leftChildWidth;
 
-                int rightChildIndex = Children.Count - i - 1;
-                UIElement rightChild = Children[rightChildIndex];
+                int rightChildIndex = InternalChildren.Count - i - 1;
+                UIElement rightChild = InternalChildren[rightChildIndex];
                 double rightChildWidth = GetChildWidth(rightChild, averageChildWidth);
                 rightChild.Arrange(
                     new Rect(

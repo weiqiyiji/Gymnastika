@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows.Input;
+using Gymnastika.Data;
 using Gymnastika.Services;
 using Gymnastika.Views;
 using Microsoft.Practices.Prism.Commands;
@@ -27,7 +28,10 @@ namespace Gymnastika.ViewModels
             _container = container;
             _userService = userService;
 
-            RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
+            using(container.Resolve<IWorkEnvironment>().GetWorkContextScope())
+            {
+                RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
+            }
         }
 
         private ObservableCollection<User> _registeredUsers;

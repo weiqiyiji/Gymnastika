@@ -1,57 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Gymnastika.Widgets.Views
 {
-    /// <summary>
-    /// Interaction logic for WidgetHost.xaml
-    /// </summary>
     public partial class WidgetHost : UserControl, IWidgetHost
     {
-        public WidgetHost()
-        {
-            InitializeComponent();
-            Expand();
-        }
+        private WidgetDescriptor _descriptor;
+        private IWidget _widget;
 
-        #region IWidgetHost Members
+        public WidgetHost(IWidgetManager widgetManager)
+        {
+            WidgetManager = widgetManager;
+            InitializeComponent();
+        }
 
         //TODO find the usage of Id
         public int Id { get; set; }
 
-        public void Expand()
+        public IWidgetManager WidgetManager { get; set; }
+
+        public IWidget Widget
         {
-            State = WidgetState.Expanded;
+            get { return _widget; }
+            set
+            {
+                if(_widget != value)
+                {
+                    _widget = value;
+                    if (_widget != null)
+                    {
+                        _descriptor = WidgetManager.Descriptors.Single(x => x.WidgetType == _widget.GetType());
+                    }
+                }
+            }
         }
 
-        public void Collapse()
+        private void OnCloseButtonClick(object sender, RoutedEventArgs e)
         {
-            State = WidgetState.Collapsed;
+            _descriptor.IsActive = false;
         }
-
-        public WidgetState State { get; private set; }
-
-        public IWidget Widget { get; set; }
-
-        public bool IsActive
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public event EventHandler IsActiveChanged;
-
-        #endregion
     }
 }

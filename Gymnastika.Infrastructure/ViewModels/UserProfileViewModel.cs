@@ -268,6 +268,7 @@ namespace Gymnastika.ViewModels
             {
                 if (_userService.LogOn(UserName, Password))
                 {
+                    GoBack();
                     _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(_userService.GetUser(UserName));
                 }
             }
@@ -291,6 +292,7 @@ namespace Gymnastika.ViewModels
                 {
                     User savedUser = _userService.Register(_user);
                     _sessionManager.Add(savedUser);
+                    GoBack();
                     _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
                 }
                 else

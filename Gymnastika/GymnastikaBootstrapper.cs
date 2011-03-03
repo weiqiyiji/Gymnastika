@@ -30,6 +30,8 @@ namespace Gymnastika
         protected override void InitializeShell()
         {
             MigrateData();
+            IWidgetBootstrapper widgetBootstrapper = Container.Resolve<IWidgetBootstrapper>();
+            widgetBootstrapper.Run();
 
             IStartupController controller = Container.Resolve<IStartupController>();
             controller.Run();
@@ -78,12 +80,13 @@ namespace Gymnastika
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof (IRepository<>), typeof (Repository<>))
                 .RegisterType<ILogger, ConsoleLogger>()
+                .RegisterType<IWidgetBootstrapper, WidgetBootstrapper>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(Container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
-                        .AddFromDirectory(currentDirectory,
-                            x => x.Contains("Gymnastika.Modules.") || x.Contains("Gymnastika.Services"))
+                        //.AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Modules."))
+                        .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Services"))
                         .AddFromAssemblyOf<SchemaBuilder>()
                 );
 
@@ -95,23 +98,7 @@ namespace Gymnastika
             };
 
             Container.RegisterInstance(shellSettings);
-
-            ConfigureWidget();
-
             base.ConfigureContainer();
-        }
-
-        protected void ConfigureWidget()
-        {
-            Container
-                .RegisterType<IWidgetContainer, WidgetContainer>()
-                .RegisterType<IWidgetManager, WidgetManager>()
-                .RegisterType<IWidgetHost, WidgetHost>()
-                .RegisterType<IWidgetContainerAccessor, WidgetContainerAccessor>()
-                .RegisterType<IWidgetHostFactory, DefaultWidgetHostFactory>()
-                .RegisterType<IWidgetContainerAdapter, CanvasWidgetContainerAdapter>()
-                .RegisterType<IWidgetContainerInitializer, WidgetContainerInitializer>()
-                .RegisterType<IWidgetContainerBehaviorFactory, WidgetContainerBehaviorFactory>();
         }
     }
 }

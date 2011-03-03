@@ -20,7 +20,6 @@ namespace Gymnastika.Controls
         Switchover
     }
 
-
     public class ImageButton : Button
     {
         static ImageButton()
@@ -89,6 +88,25 @@ namespace Gymnastika.Controls
         public static readonly DependencyProperty MousePressedImageSourceProperty =
             DependencyProperty.Register("MousePressedImageSource", typeof(ImageSource), typeof(ImageButton), new UIPropertyMetadata(null));
 
-        
+        public bool RenderMouseOver
+        {
+            get { return (bool)GetValue(RenderMouseOverProperty); }
+            set { SetValue(RenderMouseOverProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RenderMouseOver.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RenderMouseOverProperty =
+            DependencyProperty.Register("RenderMouseOver", typeof(bool), typeof(ImageButton), new UIPropertyMetadata(false));
+
+
+        public bool RenderPressed
+        {
+            get { return (bool)GetValue(RenderPressedProperty); }
+            set { SetValue(RenderPressedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for RenderPressed.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty RenderPressedProperty =
+            DependencyProperty.Register("RenderPressed", typeof(bool), typeof(ImageButton), new UIPropertyMetadata(false));
     }
 }
