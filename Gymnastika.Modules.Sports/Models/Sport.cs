@@ -19,7 +19,9 @@ namespace Gymnastika.Modules.Sports.Models
 
         public virtual string IntroductionUri { get; set; }
 
-        public virtual int CaloriePerHour { get; set; }
+        public virtual double Calories { get; set; }
+
+        public virtual int Minutes { get; set; }
 
         public virtual IList<SportsCategory> SportsCategories { get; set; }
     }

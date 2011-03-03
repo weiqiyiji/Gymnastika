@@ -3,9 +3,9 @@
     <PlansDesign.Plans>
         <model:SportsPlan Time="2010.3.1">
             <model:SportsPlan.SportsPlanItems>
-                <model:SportsPlanItem SportsTime="9:30" Duration="30" Completed="False">
+                <model:SportsPlanItem Time="9:30" Duration="30" Completed="False">
                     <model:SportsPlanItem.Sport>
-                        <model:Sport Brief="慢跑" CaloriePerHour="10" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="跑步"/>
+                        <model:Sport Brief="慢跑" Calories="10"  Minutes="10" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="跑步"/>
                     </model:SportsPlanItem.Sport>
                 </model:SportsPlanItem>
                 
@@ -13,9 +13,9 @@
         </model:SportsPlan>
         <model:SportsPlan Time="2010.3.2">
             <model:SportsPlan.SportsPlanItems>
-                <model:SportsPlanItem SportsTime="9:30" Duration="30" Completed="False">
+                <model:SportsPlanItem Time="9:30" Duration="30" Completed="False">
                     <model:SportsPlanItem.Sport>
-                        <model:Sport Brief="慢跑" CaloriePerHour="10" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="跑步"/>
+                        <model:Sport Brief="慢跑" Calories="10" Minutes="10" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="跑步"/>
                     </model:SportsPlanItem.Sport>
                 </model:SportsPlanItem>
 

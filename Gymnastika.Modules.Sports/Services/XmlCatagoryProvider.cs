@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
+using System.Xml;
+using System.IO;
 
 namespace Gymnastika.Modules.Sports.Services
 {
@@ -12,61 +14,37 @@ namespace Gymnastika.Modules.Sports.Services
 
         public IEnumerable<Models.SportsCategory> Fetch(Func<Models.SportsCategory, bool> predicate)
         {
-            yield return new SportsCategory()
+            IList<Sport> sports = new List<Sport>();
+            XmlDocument doc = new XmlDocument();
+            string dir = Directory.GetCurrentDirectory();
+            const string relativePath = @"\Data\SportData.xml";
+            string path = dir + relativePath;
+            doc.Load(path);
+            foreach (XmlNode node in doc.FirstChild.ChildNodes)
             {
-                Name = "有氧运动",
-                ImageUri = "/Data/cat1.jpg",
-                Note = "有氧运动就是有氧的运动",
-                Sports = new List<Sport>()
-                {
-                    new Sport()
-                    {
-                        Name = "慢跑",
-                        Brief = "慢跑是一种常用的减肥方法，他通过消耗能量达到减肥的目的",
-                    },
-                    new Sport()
-                    {
-                        Name = "散步",
-                        Brief = "散步是一种怡情的减肥策略",
-                    },
-                },
+                Sport sport = new Sport();
+                sport.Brief = "";
 
-            };
-            yield return new SportsCategory()
-            {
-                Name = "球类运动",
-                ImageUri = "/Data/cat1.jpg",
-                Note = "和球有关的运动",
-                Sports = new List<Sport>()
+                var nodes = node.ChildNodes;
+                sport.ImageUri = "Data/" + nodes.Item(1).InnerText;
+                sport.Name = nodes.Item(2).InnerText;
+                sport.Calories = Int32.Parse(nodes.Item(3).InnerText);
+                sport.Minutes = Int32.Parse(nodes.Item(4).InnerText);
+                sport.IntroductionUri = nodes.Item(5).InnerText;
+                sports.Add(sport);
+            }
+            return new List<SportsCategory>()
                 {
-                    new Sport()
+                    new SportsCategory()
                     {
-                        Name = "足球",
-                        Brief = "足球是一种用蹄子开展的运动",
-                    },
-                    new Sport()
-                    {
-                        Name = "羽毛球",
-                        Brief = "与足球相反，羽毛球用的是爪子",
-                    },
-                }
-            };
-            yield return new SportsCategory()
-            {
-                Name = "绝食运动",
-                ImageUri = "/Data/cat1.jpg",
-                Note = "不吃东西",
-                Sports = new List<Sport>()
-                {
-                    new Sport()
-                    {
-                        Name = "不吃面包",
-                        Brief = "其实你可以吃蛋糕的",
+                        Name = "默认分类",
+                        Note = "来自Yaotiao",
+                        Sports = sports
                     }
-                }
-            };
+                };
         }
 
         #endregion
+
     }
 }

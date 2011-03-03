@@ -83,19 +83,32 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        public int CaloriePerHour 
+        public double Calories
         {
-            get { return Sport.CaloriePerHour; }
-
+            get { return Sport.Calories; }
             set
             {
-                if (Sport.CaloriePerHour != value)
+                if (Sport.Calories != value)
                 {
-                    Sport.CaloriePerHour = value;
-                    RaisePropertyChanged(() => CaloriePerHour);
+                    Sport.Calories = value;
+                    RaisePropertyChanged(() => Calories);
                 }
             }
         }
+
+        public int Minutes
+        {
+            get { return Sport.Minutes; }
+            set
+            {
+                if (value != Sport.Minutes)
+                {
+                    Sport.Minutes = value;
+                    RaisePropertyChanged(() => Minutes);
+                }
+            }
+        }
+
         public String Brief
         {
             get { return Sport.Brief; }

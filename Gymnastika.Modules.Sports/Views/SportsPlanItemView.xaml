@@ -4,15 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="157" d:DesignWidth="310"
-             d:DataContext="{d:DesignData Source=/DesignData/SportsPlanItemDesignData.xaml}">
+             d:DataContext="{d:DesignData Source=/DesignData/SportsPlanItemDesignData.xaml}"
+             xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters">
     <Grid>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="31*"/>
     		<RowDefinition Height="100*"/>
     	</Grid.RowDefinitions>
-        <TextBlock FontSize="20"  Text="{Binding SportsTime}" />
+        <TextBlock FontSize="20">
+            <TextBlock.Text>
+                <Binding Path="Time">
+                    <Binding.Converter>
+                        <converters:DateTimeToDateConverter/>
+                    </Binding.Converter>
+                </Binding>
+            </TextBlock.Text>
+        </TextBlock>
     	<local:SportCardView DataContext="{Binding Sport}" Grid.Row="1" d:LayoutOverrides="Width" />
+        <Button Content="X" Height="22" HorizontalAlignment="Right" Margin="0,5,12,0" Name="button1" VerticalAlignment="Top" Width="37" Command="{Binding CloseCommand}" />
     </Grid>
 </UserControl>

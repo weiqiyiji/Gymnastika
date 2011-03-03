@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 using Microsoft.Practices.Prism.ViewModel;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -13,11 +15,31 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public SportsPlanItemViewModel(SportsPlanItem item)
         {
             Item = item;
+            CloseCommand = new DelegateCommand(Close, CanClose);
         }
 
         public SportsPlanItemViewModel()
         {
             Item = new SportsPlanItem();
+        }
+
+        public event EventHandler CloseViewRequest =  delegate { };
+
+        ICommand _closeCommand;
+        public ICommand CloseCommand
+        {
+            get
+            {
+                return _closeCommand;
+            }
+            set
+            {
+                if (_closeCommand != value)
+                {
+                    _closeCommand = value;
+                    RaisePropertyChanged(() => CloseCommand);
+                }
+            }
         }
 
         SportsPlanItem _item;
@@ -53,18 +75,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        public DateTime SportsTime
+        public DateTime Time
         {
             get
             {
-                return Item.SportsTime;
+                return Item.Time;
             }
             set
             {
-                if (value != Item.SportsTime)
+                if (value != Item.Time)
                 {
-                    Item.SportsTime = value;
-                    RaisePropertyChanged(() => SportsTime);
+                    Item.Time = value;
+                    RaisePropertyChanged(() => Time);
                 }
             }
         }
@@ -85,6 +107,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
             }
         }
+
         public int Duration
         {
             get
@@ -99,6 +122,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     RaisePropertyChanged(() => Duration);
                 }
             }
+        }
+
+        private void Close()
+        {
+            CloseViewRequest(this, EventArgs.Empty);
+        }
+
+        public bool CanClose() 
+        {
+            return true;
         }
     }
 }

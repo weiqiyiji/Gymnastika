@@ -9,13 +9,22 @@
              d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*" />
+            <ColumnDefinition Width="201*" />
+        </Grid.ColumnDefinitions>
         <ListBox Name="planListBox" HorizontalContentAlignment="Stretch"  
-                dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}">
+                dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Margin="6,0,0,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:SportsPlanItemView/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <ProgressBar HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  Background="Transparent" Name="progressBar1" Maximum="100">
+            <ProgressBar.Value>
+                <Binding Path="TotalCalories"/>
+            </ProgressBar.Value>
+        </ProgressBar>
     </Grid>
 </UserControl>

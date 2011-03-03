@@ -16,21 +16,54 @@ using Gymnastika.Common.Extensions;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using Gymnastika.Modules.Sports.Services;
+using System.Collections.Specialized;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public class SportsPlanViewModel : NotificationObject , ISportsPlanViewModel , IDropTarget
+    public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
         IEventAggregator _aggregator;
         ISportsPlanItemViewModelFactory _factory;
 
-        public SportsPlanViewModel(IEventAggregator aggregator,ISportsPlanItemViewModelFactory factory)
+
+
+        public SportsPlanViewModel(IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory,SportsPlan plan)
         {
             _factory = factory;
+            
             _aggregator = aggregator;
+            
             aggregator.GetEvent<SportsPlanChangedEvent>().Subscribe(SportsPlanChanged);
+            
+            SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
+            
+            SportsPlan = plan ?? new SportsPlan();
+
+            SportsPlan.SportsPlanItems = SportsPlan.SportsPlanItems ?? new List<SportsPlanItem>();
         }
 
+        public SportsPlanViewModel(IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory)
+        :this(aggregator, factory, new SportsPlan(){ SportsPlanItems = new List<SportsPlanItem>() })
+        {
+
+        }
+
+        double? _totalCalories = 0;
+        public double? TotalCalories
+        {
+            get
+            {
+                return _totalCalories;
+            }
+            set
+            {
+                if (_totalCalories != value)
+                {
+                    _totalCalories = value;
+                    RaisePropertyChanged(() => TotalCalories);
+                }
+            }
+        }
 
         public ICollectionView View
         {
@@ -61,13 +94,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public void SportsPlanChanged(SportsPlan plan)
         {
-           SportsPlan = plan; 
+            SportsPlan = plan;
         }
 
         SportsPlan _sportsPlan;
         public SportsPlan SportsPlan
         {
-            get{return _sportsPlan;}
+            get { return _sportsPlan; }
             set
             {
                 if (value != null && value != _sportsPlan)
@@ -101,12 +134,40 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        void OnCloseRequest(object sender, EventArgs args)
+        {
+            ISportsPlanItemViewModel viewmodel = sender as ISportsPlanItemViewModel;
+            if (viewmodel != null)
+            {
+                viewmodel.CloseViewRequest -= OnCloseRequest;
+                SportsPlanItemViewModels.Remove(viewmodel);
+            }
+        }
+
+        void UpdateCalories()
+        {
+            TotalCalories = CaculateTotalCalories();
+        }
+
+        double CaculateTotalCalories()
+        {
+            double calories = 0;
+            foreach (ISportsPlanItemViewModel viewmodel in SportsPlanItemViewModels)
+            {
+                SportsPlanItem item = viewmodel.Item;
+                Sport sport = item.Sport;
+                calories += sport.Calories * item.Duration / sport.Minutes;
+            }
+            return calories;
+        }
+
         public void Drop(DropInfo dropInfo)
         {
             Sport sourceItem = dropInfo.Data as Sport;
             object target = dropInfo.TargetItem;
             SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
-            ISportsPlanItemViewModel viewmodel =  _factory.Create(item);
+            ISportsPlanItemViewModel viewmodel = _factory.Create(item);
+            viewmodel.CloseViewRequest += OnCloseRequest;
             if (target == null)
             {
                 SportsPlanItemViewModels.Add(viewmodel);
@@ -115,9 +176,34 @@ namespace Gymnastika.Modules.Sports.ViewModels
             {
                 SportsPlanItemViewModels.Insert(dropInfo.InsertIndex, viewmodel);
             }
-            
+
         }
 
         #endregion
+
+        public void ItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            UpdateCalories();
+            var newPlans = e.NewItems;
+            var oldPlans = e.OldItems;
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (ISportsPlanItemViewModel plan in newPlans)
+                    {
+                        SportsPlan.SportsPlanItems.Add(plan.Item);
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    foreach (ISportsPlanItemViewModel plan in oldPlans)
+                    {
+                        SportsPlan.SportsPlanItems.Remove(plan.Item);
+                    }
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+        }
+
     }
 }

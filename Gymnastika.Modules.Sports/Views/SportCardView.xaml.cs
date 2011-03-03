@@ -30,5 +30,6 @@ namespace Gymnastika.Modules.Sports.Views
             get { return DataContext as ISportCardViewModel; }
             set { DataContext = value; }
         }
+
     }
 }

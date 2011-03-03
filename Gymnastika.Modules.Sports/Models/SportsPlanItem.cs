@@ -10,7 +10,7 @@ namespace Gymnastika.Modules.Sports.Models
     {
         public virtual int Id { get; set; }
 
-        public virtual DateTime SportsTime { get; set; }
+        public virtual DateTime Time { get; set; }
 
         public virtual int Duration { get; set; }   //Min
         

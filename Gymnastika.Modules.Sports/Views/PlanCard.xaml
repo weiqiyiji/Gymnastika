@@ -5,13 +5,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="184" d:DesignWidth="220"
-             d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}">
+             d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}"
+             xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="36*" />
             <RowDefinition Height="148*" />
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding Time}" />
+        <TextBlock>
+            <TextBlock.Text>
+                <Binding Path="Time">
+                    <Binding.Converter>
+                        <converters:DateTimeToDateConverter/>
+                    </Binding.Converter>
+                </Binding>
+            </TextBlock.Text>
+        </TextBlock>
     </Grid>
     
 </UserControl>

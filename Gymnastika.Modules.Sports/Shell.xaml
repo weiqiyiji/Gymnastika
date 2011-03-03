@@ -13,11 +13,11 @@
             <RowDefinition Height="339*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="160*" />
-            <ColumnDefinition Width="544*" />
+            <ColumnDefinition Width="256*" />
+            <ColumnDefinition Width="448*" />
         </Grid.ColumnDefinitions>
         <UserControl cal:RegionManager.RegionName="{x:Static local:SportRegionNames.SportPlan}" Grid.RowSpan="2" />
-        <UserControl cal:RegionManager.RegionName="{x:Static local:SportRegionNames.SportRegion}" Grid.Column="1" Grid.Row="1"></UserControl>
+        <UserControl cal:RegionManager.RegionName="{x:Static local:SportRegionNames.SportRegion}" Grid.Row="1" Grid.Column="1"></UserControl>
         <UserControl cal:RegionManager.RegionName="{x:Static local:SportRegionNames.CategoryRegion}" Grid.Column="1"></UserControl>
     </Grid>
 </UserControl>
