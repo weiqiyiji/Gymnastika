@@ -1,5 +1,5 @@
 ﻿<SportsPlanDesign xmlns="clr-namespace:Gymnastika.Modules.Sports.DesignData"
-            xmlns:d="clr-namespace:Gymnastika.Modules.Sports.Models">
+            xmlns:d="clr-namespace:Gymnastika.Modules.Sports.Models" Time="2011.3.1">
         <SportsPlanDesign.SportsPlanItems>
         <d:SportsPlanItem SportsTime="9:30" Completed="False" Duration="30" >
             <d:SportsPlanItem.Sport>

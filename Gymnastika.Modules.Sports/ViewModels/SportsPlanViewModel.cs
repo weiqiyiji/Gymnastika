@@ -13,27 +13,30 @@ using Microsoft.Practices.Prism.Commands;
 using System.Windows.Data;
 using System.ComponentModel;
 using Gymnastika.Common.Extensions;
+using GongSolutions.Wpf.DragDrop;
+using System.Windows;
+using Gymnastika.Modules.Sports.Services;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
-    public class SportsPlanViewModel : NotificationObject , ISportsPlanViewModel
+    public class SportsPlanViewModel : NotificationObject , ISportsPlanViewModel , IDropTarget
     {
         IEventAggregator _aggregator;
-        
+        ISportsPlanItemViewModelFactory _factory;
 
-        public SportsPlanViewModel(IEventAggregator aggregator)
+        public SportsPlanViewModel(IEventAggregator aggregator,ISportsPlanItemViewModelFactory factory)
         {
+            _factory = factory;
             _aggregator = aggregator;
             aggregator.GetEvent<SportsPlanChangedEvent>().Subscribe(SportsPlanChanged);
-
-            SortDescriptions.Add(new SortDescription("SportsTime", ListSortDirection.Ascending));
         }
+
 
         public ICollectionView View
         {
             get
             {
-                return CollectionViewSource.GetDefaultView(this.SportsPlanItems);
+                return CollectionViewSource.GetDefaultView(SportsPlanItemViewModels);
             }
         }
 
@@ -71,28 +74,50 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     _sportsPlan = value;
                     RaisePropertyChanged(() => SportsPlan);
-                    //RaisePropertyChanged(() => SportsPlanItems);
-                    SportsPlanItems = _sportsPlan.SportsPlanItems.ToObservableCollection();
                 }
             }
         }
 
-                
-        ObservableCollection<SportsPlanItem> _sportsPlanItems;
-        ObservableCollection<SportsPlanItem> SportsPlanItems
+
+
+        ObservableCollection<ISportsPlanItemViewModel> _sportsPlanItemViewModels = new ObservableCollection<ISportsPlanItemViewModel>();
+        public ObservableCollection<ISportsPlanItemViewModel> SportsPlanItemViewModels
         {
-            get { return _sportsPlanItems; }
-            set
+            get
             {
-                if (_sportsPlanItems != value)
-                {
-                    _sportsPlanItems = value;
-                    SportsPlan.SportsPlanItems = value;
-                    View.SortDescriptions.Clear();
-                    View.SortDescriptions.AddRange(SortDescriptions);
-                    RaisePropertyChanged(() => SportsPlanItems);
-                }
+                return _sportsPlanItemViewModels;
             }
         }
+
+        #region IDropTarget Members
+
+        public void DragOver(DropInfo dropInfo)
+        {
+            if (dropInfo.Data is Sport)
+            {
+                dropInfo.Effects = DragDropEffects.Copy;
+
+                dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            }
+        }
+
+        public void Drop(DropInfo dropInfo)
+        {
+            Sport sourceItem = dropInfo.Data as Sport;
+            object target = dropInfo.TargetItem;
+            SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
+            ISportsPlanItemViewModel viewmodel =  _factory.Create(item);
+            if (target == null)
+            {
+                SportsPlanItemViewModels.Add(viewmodel);
+            }
+            else
+            {
+                SportsPlanItemViewModels.Insert(dropInfo.InsertIndex, viewmodel);
+            }
+            
+        }
+
+        #endregion
     }
 }

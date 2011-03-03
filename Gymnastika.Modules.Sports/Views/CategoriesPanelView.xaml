@@ -4,12 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="428" d:DesignWidth="216"
+             d:DesignHeight="63" d:DesignWidth="555"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls">
-    <StackPanel>
-		<TextBlock FontSize="32" Height="62"><Run Text="我的运动库"/></TextBlock>
-		<ListBox SelectedItem="{Binding CurrentSelectedItem, Mode=TwoWay}" HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}" Height="366">
+    <!--<StackPanel Orientation="Horizontal">-->
+        <ListBox HorizontalAlignment="Stretch"  SelectedItem="{Binding CurrentSelectedItem, Mode=TwoWay}" HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}">
             <ListBox.ItemTemplate>
 				<DataTemplate>
 					<local:CategoryCardView/>
@@ -17,9 +16,9 @@
 			</ListBox.ItemTemplate>
 			<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
-					<controls:AnimatedListPanel ItemsDistance="20"/>
+                    <StackPanel Orientation="Horizontal"/>
 				</ItemsPanelTemplate>
 			</ListBox.ItemsPanel>
 		</ListBox>
-	</StackPanel>
+	<!--</StackPanel>-->
 </UserControl>

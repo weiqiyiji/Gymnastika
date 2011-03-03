@@ -25,16 +25,14 @@ namespace Gymnastika.Modules.Sports.Views
         public SportsPlanView()
         {
             InitializeComponent();
-            CollectionViewSource.GetDefaultView(planListBox.Items).SortDescriptions.Add(new SortDescription("SportsTime", ListSortDirection.Ascending));
+            //CollectionViewSource.GetDefaultView(planListBox.Items).SortDescriptions.Add(new SortDescription("SportsTime", ListSortDirection.Ascending));
         }
-
+        
         [Dependency]
         public ISportsPlanViewModel ViewModel
         {
             set { DataContext = value; }
             get { return DataContext as ISportsPlanViewModel; }
         }
-
-
     }
 }

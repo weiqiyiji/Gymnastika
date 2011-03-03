@@ -9,7 +9,7 @@
              d:DesignHeight="410" d:DesignWidth="414" d:DataContext="{d:DesignData Source=/DesignData/SportData.xaml}">
     <UserControl.Resources>
         <ResourceDictionary>
-            <converter:UriToDocumentConverter x:Key="docconverter"/>
+            <converter:RtfUriToDocumentConverter x:Key="docconverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
