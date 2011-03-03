@@ -14,7 +14,10 @@ namespace Gymnastika.Modules.Meals.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            return value.ToString().Substring(0, MaxLength) + "...";
+            if (value.ToString().Length > MaxLength)
+                return value.ToString().Substring(0, MaxLength) + "...";
+
+            return value.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)

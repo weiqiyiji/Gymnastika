@@ -14,7 +14,7 @@ namespace Gymnastika.Modules.Meals.XModels.XDietPlanModels
         [XmlAttribute("plan-type")]
         public bool PlanType { get; set; }
 
-        [XmlArray("sub-diet-plan"), XmlArrayItem("sub-diet-plan")]
+        [XmlArray("sub-diet-plans"), XmlArrayItem("sub-diet-plan")]
         public XSubDietPlan[] SubDietPlans { get; set; }
     }
 }

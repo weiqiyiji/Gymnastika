@@ -18,13 +18,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _saveCommand;
 
         public CreateDietPlanViewModel(ICreateDietPlanView view, 
-            IDietPlanListViewModel dietPlanListViewModel
-            //,
-            //IFoodService foodService
-            )
+            IDietPlanListViewModel dietPlanListViewModel,
+            IFoodService foodService)
         {
             DietPlanListViewModel = dietPlanListViewModel;
-            //_foodService = foodService;
+            _foodService = foodService;
             CreatedDate = DateTime.Now;
             View = view;
             View.Context = this;
@@ -34,7 +32,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICreateDietPlanView View { get; set; }
 
-        public IDietPlanListViewModel DietPlanListViewModel { get; set; }
+        private IDietPlanListViewModel _dietPlanListViewModel;
+        public IDietPlanListViewModel DietPlanListViewModel
+        {
+            get
+            {
+                return _dietPlanListViewModel;
+            }
+            set
+            {
+                if (_dietPlanListViewModel != value)
+                {
+                    _dietPlanListViewModel = value;
+                    RaisePropertyChanged("DietPlanListViewModel");
+                }
+            }
+        }
 
         public DietPlan DietPlan { get; set; }
 

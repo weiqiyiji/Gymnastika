@@ -102,6 +102,7 @@
     <Compile Include="ViewModels\FoodListViewModel.cs" />
     <Compile Include="ViewModels\ICreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\IDietPlanListViewModel.cs" />
+    <Compile Include="ViewModels\IDietPlanSubListViewModel.cs" />
     <Compile Include="ViewModels\IFoodDetailViewModel.cs" />
     <Compile Include="ViewModels\IFoodListViewModel.cs" />
     <Compile Include="ViewModels\IMealsManagementViewModel.cs" />
@@ -125,6 +126,7 @@
     </Compile>
     <Compile Include="Views\ICreateDietPlanView.cs" />
     <Compile Include="Views\IDietPlanListView.cs" />
+    <Compile Include="Views\IDietPlanSubListView.cs" />
     <Compile Include="Views\IFoodDetailView.cs" />
     <Compile Include="Views\IFoodListView.cs" />
     <Compile Include="Views\IMealsManagementView.cs" />

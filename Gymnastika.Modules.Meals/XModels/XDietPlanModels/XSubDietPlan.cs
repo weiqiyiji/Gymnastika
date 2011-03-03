@@ -8,7 +8,7 @@ namespace Gymnastika.Modules.Meals.XModels.XDietPlanModels
 {
     public class XSubDietPlan
     {
-        [XmlArray("foods"), XmlArrayItem("food")]
+        [XmlArray("diet-plan-items"), XmlArrayItem("diet-plan-item")]
         public XDietPlanItem[] DietPlanItems { get; set; }
     }
 }

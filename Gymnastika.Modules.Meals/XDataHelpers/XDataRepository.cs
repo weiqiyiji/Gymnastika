@@ -144,10 +144,12 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
                     {
                         DietPlanItem dietPlanItem = new DietPlanItem();
                         dietPlanItem.Food = Foods.First(f => f.Name == xDietPlanItem.FoodName);
-                        dietPlanItem.Amount = xDietPlanItem.Amount;
                         dietPlanItem.Food.DietPlanItems.Add(dietPlanItem);
+                        dietPlanItem.Amount = xDietPlanItem.Amount;
+                        subDietPlan.DietPlanItems.Add(dietPlanItem);
                     }
                     subDietPlan.DietPlan = dietPlan;
+                    dietPlan.SubDietPlans.Add(subDietPlan);
                 }
                 DietPlans.Add(dietPlan);
             }

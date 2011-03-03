@@ -6,10 +6,9 @@ using Gymnastika.Modules.Meals.ViewModels;
 
 namespace Gymnastika.Modules.Meals.Views
 {
-    public interface IDietPlanListView
+    public interface IDietPlanSubListView
     {
-        IDietPlanListViewModel Context { get; set; }
-        void ExpandAll();
-        void CollapseAll();
+        IDietPlanSubListViewModel Context { get; set; }
+        void Expand();
     }
 }

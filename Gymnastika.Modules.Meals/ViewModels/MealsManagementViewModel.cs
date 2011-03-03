@@ -23,7 +23,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private string _searchString;
         private ICommand _searchCommand;
         private ICommand _showSavedDietPlanCommand;
-        private ICommand _showRecommendDietPlanCommand;
+        private ICommand _showRecommendedDietPlanCommand;
         private readonly XDataHelpers.XDataRepository _db;
 
         public MealsManagementViewModel(
@@ -36,9 +36,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             FoodListViewModel = foodListViewModel;
             CreateDietPlanViewModel = createDietPlanViewModel;
-            InitializeSelectDietPlanViewModel(SavedDietPlanViewModel, savedDietPlanViewModel, PlanType.CreatedDietPlan, ApplySavedDietPlan);
-            InitializeSelectDietPlanViewModel(RecommendedDietPlanViewModel, recommendedDietPlanViewModel, PlanType.RecommendedDietPlan, ApplyRecommendedDietPlan);
             _foodService = foodService;
+            InitializeSavedDietPlanViewModel();
+            InitializeRecommendedDietPlanViewModel();
             _db = new XDataHelpers.XDataRepository();
             InMemoryFoods = _db.Foods;
             View = view;
@@ -92,10 +92,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get
             {
-                if (_showRecommendDietPlanCommand == null)
-                    _showRecommendDietPlanCommand = new DelegateCommand(ShowRecommendedDietPlan);
+                if (_showRecommendedDietPlanCommand == null)
+                    _showRecommendedDietPlanCommand = new DelegateCommand(ShowRecommendedDietPlan);
 
-                return _showRecommendDietPlanCommand;
+                return _showRecommendedDietPlanCommand;
             }
         }
 
@@ -113,16 +113,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        private void InitializeSelectDietPlanViewModel(
-            ISelectDietPlanViewModel destViewModel,
-            ISelectDietPlanViewModel srcViewModel,
-            PlanType planType,
-            EventHandler target)
+        private void InitializeSavedDietPlanViewModel()
         {
-            destViewModel = srcViewModel;
-            destViewModel.PlanType = planType;
-            destViewModel.Apply += target;
-            destViewModel.Initialize();
+            SavedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
+            SavedDietPlanViewModel.PlanType = PlanType.CreatedDietPlan;
+            SavedDietPlanViewModel.Apply += new EventHandler(ApplySavedDietPlan);
+            SavedDietPlanViewModel.Initialize();
+        }
+
+        private void InitializeRecommendedDietPlanViewModel()
+        {
+            RecommendedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
+            RecommendedDietPlanViewModel.PlanType = PlanType.RecommendedDietPlan;
+            RecommendedDietPlanViewModel.Apply += new EventHandler(ApplyRecommendedDietPlan);
+            RecommendedDietPlanViewModel.Initialize();
         }
 
         private void ApplySavedDietPlan(object sender, EventArgs e)
@@ -132,7 +136,16 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void ApplyRecommendedDietPlan(object sender, EventArgs e)
         {
-            CreateDietPlanViewModel.DietPlanListViewModel = RecommendedDietPlanViewModel.DietPlanListViewModel;
+            //CreateDietPlanViewModel.DietPlanListViewModel = RecommendedDietPlanViewModel.DietPlanListViewModel;
+            CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                foreach (var foodItem in RecommendedDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
+                {
+                    CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
+                }
+            }
         }
 
         private void SearchKeyDown(object sender, KeyEventArgs e)
@@ -150,6 +163,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             foreach (var food in InMemoryFoods)
             {
                 string filter = SearchString.ToUpper(CultureInfo.InvariantCulture);
+
                 if (food.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filter))
                     SearchResults.Add(food);
             }
@@ -160,11 +174,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void ShowSavedDietPlan()
         {
+            InitializeSavedDietPlanViewModel();
+
             ShowSelectDietPlan(SavedDietPlanViewModel);
         }
 
         private void ShowRecommendedDietPlan()
         {
+            InitializeRecommendedDietPlanViewModel();
+
             ShowSelectDietPlan(RecommendedDietPlanViewModel);
         }
 

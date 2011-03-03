@@ -9,10 +9,7 @@
     <UserControl.Resources>
         <ResourceDictionary Source="FoodItemView.xaml" />
     </UserControl.Resources>
-    
-    <Grid>
-        <ListBox Height="300" Width="350" Background="White" ItemsSource="{Binding DietPlanSubList}" ItemTemplate="{StaticResource DietPlanSubListItem}"
-                      dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
-        </ListBox>
-    </Grid>
+    <ListBox x:Name="SubDietPlanList" Height="200" Width="300" Background="White" ItemsSource="{Binding DietPlanSubList}" ItemTemplate="{StaticResource DietPlanSubListItem}" 
+             dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
+    </ListBox>
 </UserControl>

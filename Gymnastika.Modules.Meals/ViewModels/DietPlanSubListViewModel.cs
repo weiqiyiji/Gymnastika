@@ -7,27 +7,26 @@ using Gymnastika.Modules.Meals.Models;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using Microsoft.Practices.Prism.ViewModel;
+using Gymnastika.Modules.Meals.Views;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class DietPlanSubListViewModel : NotificationObject, IDropTarget
+    public class DietPlanSubListViewModel : NotificationObject, IDropTarget, IDietPlanSubListViewModel
     {
-        private readonly string _mealName;
         private decimal _subTotalCalories;
 
-        public DietPlanSubListViewModel(string mealName)
+        public DietPlanSubListViewModel(IDietPlanSubListView view)
         {
-            _mealName = mealName;
             _subTotalCalories = 0;
             DietPlanSubList = new ObservableCollection<FoodItemViewModel>();
+            View = view;
         }
+
+        public IDietPlanSubListView View { get; set; }
 
         public ObservableCollection<FoodItemViewModel> DietPlanSubList { get; set; }
 
-        public string MealName
-        {
-            get { return _mealName; }
-        }
+        public string MealName { get; set; }
 
         public decimal SubTotalCalories
         {
@@ -46,13 +45,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public void AddFoodItem(FoodItemViewModel foodItem)
+        public void AddFoodToPlan(FoodItemViewModel foodItem)
         {
             Refresh(foodItem);
 
             DietPlanSubList.Add(foodItem);
 
             SubTotalCalories += foodItem.Calories;
+        }
+
+        public void ClearAllFoods()
+        {
+            DietPlanSubList.Clear();
+
+            SubTotalCalories = 0;
         }
 
         public event EventHandler DietPlanListPropertyChanged;
@@ -94,6 +100,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private void DeleteFoodFromPlan(object sender, EventArgs e)
         {
             FoodItemViewModel foodItem = sender as FoodItemViewModel;
+
+            DeleteFoodFromPlan(foodItem);
+        }
+
+        private void DeleteFoodFromPlan(FoodItemViewModel foodItem)
+        {
             foodItem.DeleteFoodFromPlan -= DeleteFoodFromPlan;
             foodItem.DietPlanSubListPropertyChanged -= DietPlanSubListPropertyChanged;
 

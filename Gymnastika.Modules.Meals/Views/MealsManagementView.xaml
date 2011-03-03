@@ -31,7 +31,8 @@
             <ContentControl Content="{Binding FoodListViewModel.View}" />
             <StackPanel Grid.Column="1">
                 <ContentControl Content="{Binding CreateDietPlanViewModel.View}" />
-                <Button Content="推荐食谱" Command="{Binding RecommendDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Content="已存食谱" Command="{Binding ShowSavedDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button Content="推荐食谱" Command="{Binding ShowRecommendedDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
     </Grid>

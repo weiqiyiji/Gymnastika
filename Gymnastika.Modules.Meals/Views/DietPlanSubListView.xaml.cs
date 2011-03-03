@@ -18,11 +18,32 @@ namespace Gymnastika.Modules.Meals.Views
     /// <summary>
     /// Interaction logic for DietPlanSubListView.xaml
     /// </summary>
-    public partial class DietPlanSubListView : UserControl
+    public partial class DietPlanSubListView : IDietPlanSubListView
     {
         public DietPlanSubListView()
         {
             InitializeComponent();
         }
+
+        #region IDietPlanSubListView Members
+
+        public IDietPlanSubListViewModel Context
+        {
+            get
+            {
+                return this.DataContext as IDietPlanSubListViewModel;
+            }
+            set
+            {
+                this.DataContext = value;
+            }
+        }
+
+        public void Expand()
+        {
+            SubDietPlanList.ClearValue(Control.HeightProperty);
+        }
+
+        #endregion
     }
 }

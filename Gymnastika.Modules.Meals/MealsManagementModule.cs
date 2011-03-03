@@ -44,6 +44,7 @@ namespace Gymnastika.Modules.Meals
         {
             _container.RegisterType<IFoodListView, FoodListView>()
                 .RegisterType<IDietPlanListView, DietPlanListView>()
+                .RegisterType<IDietPlanSubListView, DietPlanSubListView>()
                 .RegisterType<IFoodDetailView, FoodDetailView>()
                 .RegisterType<IMealsManagementView, MealsManagementView>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanView, CreateDietPlanView>()
@@ -54,6 +55,7 @@ namespace Gymnastika.Modules.Meals
         {
             _container.RegisterType<IFoodListViewModel, FoodListViewModel>()
                 .RegisterType<IDietPlanListViewModel, DietPlanListViewModel>()
+                .RegisterType<IDietPlanSubListViewModel, DietPlanSubListViewModel>()
                 .RegisterType<IFoodDetailViewModel, FoodDetailViewModel>()
                 .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanViewModel, CreateDietPlanViewModel>()
