@@ -3,18 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Widgets
 {
     public class WidgetContainerBehaviorFactory : IWidgetContainerBehaviorFactory
     {
-        private readonly IUnityContainer _container;
-        private IDictionary<string, Type> _registeredBehaviors;
+        private readonly IServiceLocator _serviceLocator;
+        private readonly IDictionary<string, Type> _registeredBehaviors;
 
-        public WidgetContainerBehaviorFactory(IUnityContainer container)
+        public WidgetContainerBehaviorFactory(IServiceLocator serviceLocator)
         {
-            _container = container;
+            _serviceLocator = serviceLocator;
             _registeredBehaviors = new Dictionary<string, Type>();
         }
 
@@ -28,7 +29,7 @@ namespace Gymnastika.Widgets
             return GetEnumerator();
         }
 
-        public void Register(string key, Type behaviorType)
+        public IWidgetContainerBehaviorFactory Register(string key, Type behaviorType)
         {
             if (key == null)
             {
@@ -47,11 +48,11 @@ namespace Gymnastika.Widgets
 
             if (this._registeredBehaviors.ContainsKey(key))
             {
-                return;
+                return this;
             }
 
-            this._container.RegisterType(behaviorType);
             this._registeredBehaviors.Add(key, behaviorType);
+            return this;
         }
 
         public IWidgetContainerBehavior CreateFromKey(string key)
@@ -59,7 +60,7 @@ namespace Gymnastika.Widgets
             if (!_registeredBehaviors.ContainsKey(key))
                 throw new KeyNotFoundException(key);
 
-            return (IWidgetContainerBehavior)_container.Resolve(_registeredBehaviors[key]);
+            return (IWidgetContainerBehavior)_serviceLocator.GetInstance(_registeredBehaviors[key]);
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:core="clr-namespace:Gymnastika.Common;assembly=Gymnastika.Common"
         xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300">
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300" Background="#FFEFEFEF">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />

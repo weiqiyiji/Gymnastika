@@ -37,16 +37,10 @@ namespace Gymnastika.Controllers
         {
             _container
                 .RegisterType<IUserService, UserService>()
-                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager());
-
-            //Register Views
-            _container
+                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMainView, MainView>("MainView", new ContainerControlledLifetimeManager())
-                .RegisterType<IUserProfileView, UserProfileView>();
-
-            //Register ViewModels
-            _container
+                .RegisterType<IUserProfileView, UserProfileView>()
                 .RegisterType<StartupViewModel>()
                 .RegisterType<MainViewModel>()
                 .RegisterType<UserProfileViewModel>();
@@ -57,7 +51,7 @@ namespace Gymnastika.Controllers
             _startupView = _container.Resolve<IStartupView>();
 
             _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _startupView);
-            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _container.Resolve<IMainView>());
+            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _container.Resolve<IMainView>("MainView"));
         }
 
         protected void SubscribeEvents()

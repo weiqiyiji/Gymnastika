@@ -3,41 +3,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:views="clr-namespace:Gymnastika.Widgets.Views" xmlns:Gymnastika_Controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" x:Class="Gymnastika.Widgets.Views.WidgetHost"
+             xmlns:views="clr-namespace:Gymnastika.Widgets.Views" xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:Widgets="clr-namespace:Gymnastika.Widgets" x:Class="Gymnastika.Widgets.Views.WidgetHost"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Width="200" Height="200">
+             d:DesignHeight="300" d:DesignWidth="300" Width="200" Height="200" Background="Transparent">
 	<UserControl.Resources>
-		<Storyboard x:Key="OnMouseEnter1">
-			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
-				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
-			</DoubleAnimationUsingKeyFrames>
+		<Storyboard x:Key="OnMouseEnter">
+			<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel">
+				<DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+			</ObjectAnimationUsingKeyFrames>
 		</Storyboard>
-	</UserControl.Resources>
+        <Storyboard x:Key="OnMouseLeave">
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="stackPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
 	<UserControl.Triggers>
 		<EventTrigger RoutedEvent="Mouse.MouseEnter">
-			<BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
+            <BeginStoryboard Storyboard="{StaticResource OnMouseEnter}"/>
 		</EventTrigger>
-	</UserControl.Triggers>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave">
+            <BeginStoryboard Storyboard="{StaticResource OnMouseLeave}"/>
+        </EventTrigger>
+    </UserControl.Triggers>
     <Grid>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="30"/>
     		<RowDefinition />
     	</Grid.RowDefinitions>
-    	<StackPanel x:Name="stackPanel" VerticalAlignment="Center" HorizontalAlignment="Right" Orientation="Horizontal">
-    		<Gymnastika_Controls:ImageButton Content="ImageButton" Width="21" Height="21" Margin="3" Padding="0" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" MouseOverImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" MousePressedImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" Stretch="Uniform"/>
-    		<Gymnastika_Controls:ImageButton Content="ImageButton" Width="21" Height="21" Margin="3" ImageSource="/Gymnastika.Widgets;component/Images/close.png" MouseOverImageSource="/Gymnastika.Widgets;component/Images/close.png" MousePressedImageSource="/Gymnastika.Widgets;component/Images/close.png" Stretch="Uniform" Padding="0" Click="ImageButton_Click"/>
+        <StackPanel Visibility="Hidden" x:Name="stackPanel" 
+                    VerticalAlignment="Center" HorizontalAlignment="Right" 
+                    Orientation="Horizontal">
+    		<controls:ImageButton 
+                Content="ImageButton" Width="21" Height="21" Margin="3" Padding="0" 
+                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
+                ImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" 
+                MouseOverImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" 
+                MousePressedImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" Stretch="Uniform"/>
+    		<controls:ImageButton 
+                Content="ImageButton" Width="21" Height="21" Margin="3" 
+                ImageSource="/Gymnastika.Widgets;component/Images/close.png" 
+                MouseOverImageSource="/Gymnastika.Widgets;component/Images/close.png"
+                MousePressedImageSource="/Gymnastika.Widgets;component/Images/close.png" 
+                Stretch="Uniform" Padding="0" Click="OnCloseButtonClick"/>
     	</StackPanel>
-            
-    	<Border Grid.Row="1" CornerRadius="8" Padding="8">
-    		<Border.Background>
+    	<Border Grid.Row="1" CornerRadius="8" Padding="8" Background="#4C1B1B1B" BorderThickness="0.8">
+    		<Border.BorderBrush>
     			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-    				<GradientStop Color="#669F9898" Offset="0"/>
-    				<GradientStop Color="#66FFFFFF" Offset="1"/>
-    				<GradientStop Color="#66494848" Offset="0.509"/>
+    				<GradientStop Color="#FFB4B4B4" Offset="0.009"/>
+    				<GradientStop Color="#FF7C7C7C" Offset="1"/>
     			</LinearGradientBrush>
-    		</Border.Background>
-            <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:WidgetHost}}}"/>
+    		</Border.BorderBrush>
+    		<ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Widgets:IWidgetHost}}}"  />
     	</Border>
-            
+        <Border BorderThickness="0.5" Grid.Row="1" Height="50" VerticalAlignment="Top" Margin="1,1,1,0" CornerRadius="8">
+        	<Border.Background>
+        		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+        			<GradientStop Color="#19FFFFFF" Offset="0"/>
+        			<GradientStop Color="#19FFFFFF" Offset="1"/>
+        			<GradientStop Color="#26FFFFFF" Offset="0.483"/>
+        		</LinearGradientBrush>
+        	</Border.Background>
+        </Border>
     </Grid>
 </UserControl>

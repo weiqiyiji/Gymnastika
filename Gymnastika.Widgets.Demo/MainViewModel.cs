@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using GongSolutions.Wpf.DragDrop;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 

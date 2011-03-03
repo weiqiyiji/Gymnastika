@@ -35,10 +35,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Practices.Prism">
+    <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
+    <Reference Include="Microsoft.Practices.Prism.UnityExtensions, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
@@ -74,6 +76,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\StartupViewModel.cs" />
+    <Compile Include="ViewModels\WidgetPanelViewModel.cs" />
     <Compile Include="Views\CreateNewUserView.xaml.cs">
       <DependentUpon>CreateNewUserView.xaml</DependentUpon>
     </Compile>
@@ -100,6 +103,12 @@
     </Compile>
     <Compile Include="Views\WidgetView.xaml.cs">
       <DependentUpon>WidgetView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\DateWidget.xaml.cs">
+      <DependentUpon>DateWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DefaultWidgetPanel.xaml.cs">
+      <DependentUpon>DefaultWidgetPanel.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +152,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\DateWidget.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DefaultWidgetPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
@@ -165,6 +182,10 @@
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
+      <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
+      <Name>Gymnastika.Widgets</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="DesignData\Images\user1.jpg" />
@@ -176,7 +197,27 @@
   <ItemGroup>
     <Resource Include="Images\back.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\widget_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\no-pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\widget_mouseover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\datewidget_icon.png" />
+    <Content Include="Images\hover_widgetboxbtn.png" />
+    <Content Include="Images\normal_widgetboxbtn.png" />
+    <Content Include="Images\pressed_widgetboxbtn.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
