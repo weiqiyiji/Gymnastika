@@ -10,12 +10,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <ContentControl Content="{Binding DietPlanListViewModel.View}" />
-        <controls:DatePicker SelectedDate="{Binding CreatedDate}" Grid.Row="1" HorizontalAlignment="Center"  />
-        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" HorizontalAlignment="Center"  />
+        <ContentControl Content="{Binding DietPlanListViewModel.View}" HorizontalAlignment="Center" />
+        <controls:DatePicker SelectedDate="{Binding CreatedDate}" Grid.Row="1" HorizontalAlignment="Center" />
+        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

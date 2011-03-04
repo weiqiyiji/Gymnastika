@@ -9,6 +9,5 @@ namespace Gymnastika.Modules.Meals.Views
     public interface IDietPlanSubListView
     {
         IDietPlanSubListViewModel Context { get; set; }
-        void Expand();
     }
 }

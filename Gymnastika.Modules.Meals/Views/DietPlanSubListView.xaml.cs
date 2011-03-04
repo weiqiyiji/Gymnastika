@@ -39,11 +39,6 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
-        public void Expand()
-        {
-            SubDietPlanList.ClearValue(Control.HeightProperty);
-        }
-
         #endregion
     }
 }

@@ -85,7 +85,7 @@ namespace Gymnastika
                 .RegisterInstance<IUnityContainer>(Container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
-                        //.AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Modules."))
+                        .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Modules."))
                         .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Services"))
                         .AddFromAssemblyOf<SchemaBuilder>()
                 );

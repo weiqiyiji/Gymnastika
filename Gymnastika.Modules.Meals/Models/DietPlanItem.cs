@@ -12,5 +12,7 @@ namespace Gymnastika.Modules.Meals.Models
         public virtual decimal Amount { get; set; }
 
         public virtual Food Food { get; set; }
+
+        public virtual SubDietPlan SubDietPlan { get; set; }
     }
 }

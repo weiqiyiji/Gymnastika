@@ -8,9 +8,9 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.Prism.Commands;
 using Gymnastika.Modules.Meals.Services;
-using Gymnastika.Services.Session;
 using Microsoft.Practices.ServiceLocation;
 using System.Collections.ObjectModel;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -25,14 +25,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _applyCommand;
         private IDietPlanListViewModel _dietPlanLlistViewModel;
 
-        XDataHelpers.XDataRepository _db;
         public SelectDietPlanViewModel(
             ISelectDietPlanView view, 
             IFoodService foodService,
             ISessionManager sessionManager)
         {
-            _db = new XDataHelpers.XDataRepository();
-            InMemoryDietPlans = new List<DietPlan>(_db.DietPlans);
             _foodService = foodService;
             _sessionManager = sessionManager;
             View = view;
@@ -132,17 +129,18 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public void Initialize()
         {
-            //switch (PlanType)
-            //{
-            //    case PlanType.CreatedDietPlan:
-            //        InMemoryDietPlans = _foodService.GetAllRecommendedDietPlans().ToList();
-            //        break;
-            //    case PlanType.RecommendedDietPlan:
-            //        InMemoryDietPlans = _foodService.GetAllSavedDietPlansOfUser(_sessionManager.GetCurrentSession().AssociatedUser.Id).ToList();
-            //        break;
-            //    default:
-            //        break;
-            //}
+            switch (PlanType)
+            {
+                case PlanType.CreatedDietPlan:
+                    int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+                    InMemoryDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId).ToList();
+                    break;
+                case PlanType.RecommendedDietPlan:
+                    InMemoryDietPlans = _foodService.DietPlanProvider.GetRecommendedDietPlans().ToList();
+                    break;
+                default:
+                    break;
+            }
 
             CurrentPage = 1;
             PageCount = InMemoryDietPlans.Count;
@@ -180,7 +178,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private void InitializeDietPlanList()
         {
             DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
-            DietPlanListViewModel.Title = "RecommendedDietPlan";
 
             for (int i = 0; i < 6; i++)
             {
@@ -192,7 +189,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     });
                 }
             }
-            DietPlanListViewModel.View.ExpandAll();
         }
     }
 }

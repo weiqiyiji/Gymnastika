@@ -20,11 +20,6 @@
         <layoutToolkit:Accordion x:Name="DietPlanList" ItemsSource="{Binding DietPlanList}" HorizontalAlignment="Center">
             <layoutToolkit:Accordion.ItemTemplate>
                 <DataTemplate>
-                    <DataTemplate.Triggers>
-                        <DataTrigger Binding="{Binding Title}" Value="RecommendedDietPlan">
-                            <Setter Property="layoutToolkit:AccordionItem.IsSelected" Value="true" />
-                        </DataTrigger>
-                    </DataTemplate.Triggers>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding MealName}" />
                         <TextBlock>

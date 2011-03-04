@@ -54,13 +54,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
             SubTotalCalories += foodItem.Calories;
         }
 
-        public void ClearAllFoods()
-        {
-            DietPlanSubList.Clear();
-
-            SubTotalCalories = 0;
-        }
-
         public event EventHandler DietPlanListPropertyChanged;
 
         #region IDropTarget Members
@@ -76,8 +69,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         void IDropTarget.Drop(DropInfo dropInfo)
         {
-            FoodItemViewModel foodItem = (FoodItemViewModel)dropInfo.Data;
-
+            FoodItemViewModel foodItem = new FoodItemViewModel(((FoodItemViewModel)dropInfo.Data).Food); ;
 
             ObservableCollection<FoodItemViewModel> targetDietPlanSubList = (ObservableCollection<FoodItemViewModel>)dropInfo.TargetCollection;
             
@@ -86,13 +78,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
             {
                 targetDietPlanSubList.Add(foodItem);
                 Refresh(foodItem);
+                SubTotalCalories += foodItem.Calories;
             }
             else
             {
                 targetFoodItem.Amount += 100;
             }
-
-            SubTotalCalories += foodItem.Calories;
         }
 
         #endregion

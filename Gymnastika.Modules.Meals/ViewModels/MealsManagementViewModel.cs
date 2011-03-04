@@ -20,11 +20,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public class MealsManagementViewModel : NotificationObject, IMealsManagementViewModel
     {
         private readonly IFoodService _foodService;
+        private readonly ISessionManager _sessionManager;
         private string _searchString;
         private ICommand _searchCommand;
         private ICommand _showSavedDietPlanCommand;
         private ICommand _showRecommendedDietPlanCommand;
-        private readonly XDataHelpers.XDataRepository _db;
 
         public MealsManagementViewModel(
             IMealsManagementView view,
@@ -32,15 +32,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
             ICreateDietPlanViewModel createDietPlanViewModel,
             ISelectDietPlanViewModel recommendedDietPlanViewModel,
             ISelectDietPlanViewModel savedDietPlanViewModel,
-            IFoodService foodService)
+            IFoodService foodService,
+            ISessionManager sessionManager)
         {
             FoodListViewModel = foodListViewModel;
             CreateDietPlanViewModel = createDietPlanViewModel;
             _foodService = foodService;
-            InitializeSavedDietPlanViewModel();
-            InitializeRecommendedDietPlanViewModel();
-            _db = new XDataHelpers.XDataRepository();
-            InMemoryFoods = _db.Foods;
+            _sessionManager = sessionManager;
+            InMemoryFoods = _foodService.FoodProvider.GetAll();
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
@@ -82,7 +81,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get
             {
                 if (_showSavedDietPlanCommand == null)
-                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan);
+                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan, ValidateExistSavedDietPlans);
 
                 return _showSavedDietPlanCommand;
             }
@@ -113,6 +112,17 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
+        private bool ValidateExistSavedDietPlans()
+        {
+            int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+
+            IEnumerable<DietPlan> savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
+
+            if (savedDietPlans.Count() != 0) return true;
+
+            return false;
+        }
+
         private void InitializeSavedDietPlanViewModel()
         {
             SavedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
@@ -131,12 +141,19 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void ApplySavedDietPlan(object sender, EventArgs e)
         {
-            CreateDietPlanViewModel.DietPlanListViewModel = SavedDietPlanViewModel.DietPlanListViewModel;
+            CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                foreach (var foodItem in SavedDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
+                {
+                    CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
+                }
+            }
         }
 
         private void ApplyRecommendedDietPlan(object sender, EventArgs e)
         {
-            //CreateDietPlanViewModel.DietPlanListViewModel = RecommendedDietPlanViewModel.DietPlanListViewModel;
             CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
 
             for (int i = 0; i < 6; i++)

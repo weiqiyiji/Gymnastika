@@ -76,26 +76,57 @@
     <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="MealsManagementModule.cs" />
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
-    <Compile Include="Migrations\Migration_DietPlanItems_20110301211426.cs" />
-    <Compile Include="Migrations\Migration_Foods_20110220121913.cs" />
+    <Compile Include="Migrations\Migration_DietPlanItems_20110219142009.cs" />
+    <Compile Include="Migrations\Migration_FavoriteFoods_20110304111306.cs" />
+    <Compile Include="Migrations\Migration_FavoriteFood_Food_Relations_20110304113806.cs" />
+    <Compile Include="Migrations\Migration_Foods_20110219142007.cs" />
     <Compile Include="Migrations\Migration_Introductions_20110223125751.cs" />
     <Compile Include="Migrations\Migration_NutritiveElements_20110221121551.cs" />
     <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
     <Compile Include="Migrations\Migration_SubDietPlans_20110219142008.cs" />
     <Compile Include="Migrations\Migration_SubCategories_20110217121513.cs" />
-    <Compile Include="Migrations\Migration_UserDietPlanMappings_20110222135718.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DietPlan.cs" />
     <Compile Include="Models\DietPlanItem.cs" />
+    <Compile Include="Models\FavoriteFood.cs" />
     <Compile Include="Models\Introduction.cs" />
-    <Compile Include="Models\UserDietPlanMapping.cs" />
     <Compile Include="Models\Food.cs" />
     <Compile Include="Models\NutritionalElement.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubDietPlan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Providers\CategoryProvider.cs" />
     <Compile Include="Services\FoodService.cs" />
     <Compile Include="Services\IFoodService.cs" />
+    <Compile Include="Services\Providers\DietPlanItemProvider.cs" />
+    <Compile Include="Services\Providers\DietPlanProvider.cs" />
+    <Compile Include="Services\Providers\FavoriteFoodProvider.cs" />
+    <Compile Include="Services\Providers\FoodProvider.cs" />
+    <Compile Include="Services\Providers\ICategoryProvider.cs" />
+    <Compile Include="Services\Providers\IDietPlanItemProvider.cs" />
+    <Compile Include="Services\Providers\IDietPlanProvider.cs" />
+    <Compile Include="Services\Providers\IFavoriteFoodProvider.cs" />
+    <Compile Include="Services\Providers\IFoodProvider.cs" />
+    <Compile Include="Services\Providers\IIntroductionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\IntroductionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\INutritionalElementProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\ISubCategoryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\ISubDietPlanProvider.cs" />
+    <Compile Include="Services\Providers\NutritionalElementProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\SubCategoryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\SubDietPlanProvider.cs" />
     <Compile Include="ViewModels\CreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\DietPlanListViewModel.cs" />
     <Compile Include="ViewModels\DietPlanSubListViewModel.cs" />

@@ -9,6 +9,7 @@ using Gymnastika.Modules.Meals.Views;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using Gymnastika.Modules.Meals.Services;
+using Gymnastika.Modules.Meals.Services.Providers;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -31,13 +32,23 @@ namespace Gymnastika.Modules.Meals
             RegisterViews();
             RegisterViewModels();
             RegisterViewWithRegion();
+            StoreDataToDatabase();
         }
 
         #endregion
 
         private void RegisterServices()
         {
-            _container.RegisterType<IFoodService, FoodService>();
+            _container.RegisterType<IFoodService, FoodService>()
+                .RegisterType<ICategoryProvider, CategoryProvider>()
+                .RegisterType<ISubCategoryProvider, SubCategoryProvider>()
+                .RegisterType<IFoodProvider, FoodProvider>()
+                .RegisterType<IIntroductionProvider, IntroductionProvider>()
+                .RegisterType<INutritionalElementProvider, NutritionalElementProvider>()
+                .RegisterType<IFavoriteFoodProvider, FavoriteFoodProvider>()
+                .RegisterType<IDietPlanProvider, DietPlanProvider>()
+                .RegisterType<ISubDietPlanProvider, SubDietPlanProvider>()
+                .RegisterType<IDietPlanItemProvider, DietPlanItemProvider>();
         }
 
         private void RegisterViews()
@@ -69,6 +80,12 @@ namespace Gymnastika.Modules.Meals
             IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
             displayRegion.Add(mealsManagementViewModel.View);
             displayRegion.Activate(mealsManagementViewModel.View);
+        }
+
+        private void StoreDataToDatabase()
+        {
+            XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>());
+            dataSource.BeginStore();
         }
     }
 }

@@ -27,21 +27,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _showPreviousPageCommand;
         private ICommand _showNextPageCommand;
 
-        //public FoodListViewModel(IFoodListView view, IFoodService foodService)
-        //{
-        //    var db = new XDataHelpers.XDataRepository();
-        //    InMemoryFoods = db.Foods;
-        //    _foodService = foodService;
-        //    Initialize();
-        //    View = view;
-        //    View.Context = this;
-        //}
-        XDataHelpers.XDataRepository _db;
-        public FoodListViewModel(IFoodListView view)
+        public FoodListViewModel(IFoodListView view, IFoodService foodService)
         {
-            _db = new XDataHelpers.XDataRepository();
-            InMemoryFoods = _db.Foods;
-            _category = _db.Categories;
+            _foodService = foodService;
+            _category = _foodService.CategoryProvider.GetAll();
             Category = CollectionViewSource.GetDefaultView(_category);
             MyFavoriteFoodList = new List<FoodItemViewModel>();
             View = view;
@@ -54,8 +43,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public IFoodListView View { get; set; }
 
         public ICollectionView Category { get; set; }
-
-        public IEnumerable<Food> InMemoryFoods { get; set; }
 
         public IEnumerable<Food> CurrentFoods { get; set; }
 

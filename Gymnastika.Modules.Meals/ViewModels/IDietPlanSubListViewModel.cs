@@ -14,7 +14,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         string MealName { get; set; }
         decimal SubTotalCalories { get; set; }
         void AddFoodToPlan(FoodItemViewModel foodItem);
-        void ClearAllFoods();
         event EventHandler DietPlanListPropertyChanged;
     }
 }

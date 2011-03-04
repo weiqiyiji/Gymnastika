@@ -14,6 +14,5 @@ namespace Gymnastika.Modules.Meals.ViewModels
         IDietPlanListView View { get; set; }
         decimal TotalCalories { get; set; }
         IList<IDietPlanSubListViewModel> DietPlanList { get; set; }
-        string Title { get; set; }
     }
 }

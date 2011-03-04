@@ -27,23 +27,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IDietPlanListView View { get; set; }
 
-        private string _title;
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                if (_title != value)
-                {
-                    _title = value;
-                    RaisePropertyChanged("Title");
-                }
-            }
-        }
-
         public decimal TotalCalories
         {
             get
@@ -78,7 +61,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 dietPlanSubList.MealName = mealNames[i];
                 dietPlanSubList.DietPlanListPropertyChanged += new EventHandler(DietPlanListPropertyChanged);
                 DietPlanList.Add(dietPlanSubList);
-                dietPlanSubList.View.Expand();
             }
         }
 
