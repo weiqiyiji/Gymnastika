@@ -23,10 +23,8 @@ namespace Gymnastika.Migrations
         public void Up()
         {
             SchemaBuilder.CreateTable(TableName, t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
-                                                    .Column<int>("Year")
-                                                    .Column<int>("Month")
-                                                    .Column<int>("Day")
-                                                    .Column<int>("Score"));
+                                                       .Column<DateTime>("Time")
+                                                       .Column<int>("Score"));
        }
             
         public void Down()

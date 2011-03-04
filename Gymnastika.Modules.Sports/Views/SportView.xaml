@@ -9,7 +9,9 @@
              d:DesignHeight="410" d:DesignWidth="414" d:DataContext="{d:DesignData Source=/DesignData/SportData.xaml}">
     <UserControl.Resources>
         <ResourceDictionary>
-            <converter:UriToDocumentConverter x:Key="docconverter"/>
+            <converter:RtfUriToDocumentConverter x:Key="RtfConverter"/>
+            <converter:FullPathConverter x:Key="FullPathConverter"/>
+            <converter:CalorieDecriptionConverter x:Key="CalorieDecriptionConverter"/>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -18,15 +20,25 @@
     		<RowDefinition Height="0.763*"/>
     	</Grid.RowDefinitions>
     	<Grid>
-    		<Grid.ColumnDefinitions>
-    			<ColumnDefinition Width="0.312*"/>
-    			<ColumnDefinition Width="0.688*"/>
-    		</Grid.ColumnDefinitions>
-            <Image x:Name="Image" Source="{Binding ImageUri}"/>
-    		<TextBlock x:Name="Title" TextWrapping="Wrap" Text="{Binding Name}" Grid.Column="1"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49*" />
+                <RowDefinition Height="48*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="129*"/>
+                <ColumnDefinition Width="285*" />
+            </Grid.ColumnDefinitions>
+            <Image Stretch="Uniform" x:Name="Image" Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}" Grid.RowSpan="2" />
+    		<TextBlock x:Name="Title"  FontSize="30" TextWrapping="Wrap" Text="{Binding Name}" Grid.Column="1" />
+            <TextBlock Grid.Column="1" Name="textBlock1" Grid.Row="1">
+                <TextBlock.Text>
+                    <MultiBinding Converter="{StaticResource ResourceKey=CalorieDecriptionConverter}">
+                        <Binding Path="Minutes"/>
+                        <Binding Path="Calories"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </Grid>
-        <FlowDocumentReader Document="{Binding IntroductionUri,Converter={StaticResource ResourceKey=docconverter}}" Grid.Row="1">
-            
-        </FlowDocumentReader>
+        <FlowDocumentReader Document="{Binding IntroductionUri,Converter={StaticResource ResourceKey=RtfConverter}}" Grid.Row="1"/>
     </Grid>
 </UserControl>

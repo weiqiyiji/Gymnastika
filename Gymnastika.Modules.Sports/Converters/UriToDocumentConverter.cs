@@ -6,21 +6,24 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.IO;
+using System.Windows;
 
 namespace Gymnastika.Modules.Sports.Converters
 {
     //[ValueConversion(typeof(string), typeof(FlowDocument))]
-    public class UriToDocumentConverter : IValueConverter
+    public class RtfUriToDocumentConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object path, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var doc = new FlowDocument();
-            string path = value as string;
-            if (!string.IsNullOrEmpty(path))
+            string docPath = path as string;
+            if (!string.IsNullOrEmpty(docPath))
             {
-                using (Stream stream = File.Open(path, FileMode.Open))
+                using (Stream stream = File.Open(docPath, FileMode.Open))
                 {
-                    doc = XamlReader.Load(stream) as FlowDocument;
+                    TextRange range = new TextRange(doc.ContentStart, doc.ContentEnd);
+                    range.Load(stream, DataFormats.Rtf);
+                    //doc = XamlReader.Load(stream) as FlowDocument;
                 }
             }
             return doc;

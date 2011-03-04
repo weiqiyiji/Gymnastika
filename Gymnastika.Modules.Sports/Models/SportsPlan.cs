@@ -12,11 +12,7 @@ namespace Gymnastika.Modules.Sports.Models
     {
         public virtual int Id { set; get; }
 
-        public virtual int Year { get; set; }
-
-        public virtual int Month { get; set; }
-
-        public virtual int Day { get; set; }
+        public virtual DateTime Time { get; set; }
 
         public virtual int Score { get; set; }
 

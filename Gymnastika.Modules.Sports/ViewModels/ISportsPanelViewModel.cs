@@ -12,7 +12,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
     
         void CategoryChanged(SportsCategory category);
         
-        ObservableCollection<Sport> Sports { get; set; }
+        IList<Sport> Sports { get; set; }
     
     }
 }

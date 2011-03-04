@@ -6,18 +6,31 @@
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="367" d:DesignWidth="409" >
-
-    <ListBox d:DataContext="{d:DesignData Source=/DesignData/SportsPanelDesignData.xaml}" ItemsSource="{Binding Sports}" Background="#FF9EA561" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center">
-        <ListBox.ItemsPanel>
-            <ItemsPanelTemplate>
-                <controls:AnimatedListPanel Margin="10" ItemsDistance="20"/>
-            </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-        <ListBox.ItemTemplate>
-            <DataTemplate>
-                <local:SportCardView/>
-            </DataTemplate>
-        </ListBox.ItemTemplate> 
-    </ListBox>
+             d:DesignHeight="367" d:DesignWidth="409" 
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39*" />
+            <RowDefinition Height="328*" />
+        </Grid.RowDefinitions>
+        <ListBox x:Name="sportlist" d:DataContext="{d:DesignData Source=/DesignData/SportsPanelDesignData.xaml}" ItemsSource="{Binding ViewModels}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="1">
+                <!--<ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <controls:AnimatedListPanel Margin="10" ItemsDistance="20"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>-->
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:SportCardView/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        <my:AutoCompleteBox x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" HorizontalAlignment="Right" Margin="0,7,11,6" Width="233">
+            <my:AutoCompleteBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                </DataTemplate>
+            </my:AutoCompleteBox.ItemTemplate>
+        </my:AutoCompleteBox>
+    </Grid>
 </UserControl>

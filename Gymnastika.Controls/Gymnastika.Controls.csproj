@@ -63,6 +63,7 @@
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="SlidePanel.cs" />
     <Compile Include="SpreadTabPanel.cs" />
+    <Compile Include="TimePicker.cs" />
     <Compile Include="WatermarkTextBox.cs" />
     <Page Include="Themes\ButtonChrome.xaml">
       <SubType>Designer</SubType>
@@ -96,6 +97,10 @@
     <Page Include="Themes\WatermarkTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\TimePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -11,17 +11,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
     /// Interaction logic for SportsPlanItemView.xaml
     /// </summary>
-    public partial class SportsPlanItemView : UserControl
+    public partial class SportsPlanItemView : UserControl , ISportsPlanItemView
     {
         public SportsPlanItemView()
         {
             InitializeComponent();
+        }
+
+        public ISportsPlanItemViewModel ViewModel
+        {
+            get { return DataContext as ISportsPlanItemViewModel; }
+
+            set { DataContext = value; }
         }
     }
 }

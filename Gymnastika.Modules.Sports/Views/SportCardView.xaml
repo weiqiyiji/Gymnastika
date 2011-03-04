@@ -3,31 +3,57 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="329"
-             d:DataContext="{d:DesignData Source=/DesignData/SportData.xaml}" Height="102">
-    <Grid>
-    	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0.836*"/>
-    		<ColumnDefinition Width="0.164*"/>
-    	</Grid.ColumnDefinitions>
-		<Grid>
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="0.385*"/>
-				<ColumnDefinition Width="0.615*"/>
-			</Grid.ColumnDefinitions>
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
-			<Grid.Background>
-				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="#FF4779B6" Offset="0"/>
-					<GradientStop Color="#FF7ABBDA" Offset="1"/>
-				</LinearGradientBrush>
-			</Grid.Background>
-			<TextBlock Text="{Binding Name}" FontSize="26.667" Padding="15,10,0,0" Grid.Column="1" Height="44.952" VerticalAlignment="Top"/>
-			<Image Source="{Binding ImageUri}" Margin="4,2.96,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="95.04" Width="97.892" />
-			<TextBlock Text="{Binding Introduction}" TextWrapping="Wrap" FontSize="18.667" Grid.Column="1" Width="169.152" Margin="0,48.952,0,0" Padding="15,0,0,0"/>
-		</Grid>
-        <ProgressBar Value="{Binding CaloriePerHour}" Maximum="500" Grid.Column="1" Height="144" HorizontalAlignment="Left" Name="progressBar1"  VerticalAlignment="Top" Width="48" Orientation="Vertical" />
+             mc:Ignorable="d" d:DesignWidth="463"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
+             d:DataContext="{d:DesignData Source=/DesignData/SportData.xaml}"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" d:DesignHeight="136">
+    
+    
+    <Grid dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True" Height="129">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="99" />
+                <ColumnDefinition Width="364*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+				<RowDefinition Height="46*" />
+                <RowDefinition Height="15*" />
+                <RowDefinition Height="41*" />
+            </Grid.RowDefinitions>
+			<TextBlock Text="{Binding Name}" FontSize="26.667" HorizontalAlignment="Stretch" Padding="15,10" Grid.Column="1" Margin="0,0,60,0" />
+            <Image Margin="4,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="95" Grid.RowSpan="3" >
+                <Image.Source>
+                    <Binding Path="ImageUri">
+                        <Binding.Converter>
+                            <converter:FullPathConverter/>
+                        </Binding.Converter>
+                    </Binding>
+                </Image.Source>
+            </Image>
+            <ProgressBar Background="Transparent" Orientation="Horizontal" Maximum="50" Name="progressBar1" Grid.Row="1" Grid.Column="1" Margin="0,0,6,0">
+                
+                <ProgressBar.Value>
+                    <MultiBinding>
+                        <MultiBinding.Converter>
+                            <converter:DoubleIntDivideConverter/>
+                        </MultiBinding.Converter>
+                        <Binding Path="Calories"/>
+                        <Binding Path="Minutes"/>
+                    </MultiBinding>
+                </ProgressBar.Value>
+            </ProgressBar>
+            <TextBlock Grid.Row="2" Name="textBlock1" Grid.Column="1">
+                <TextBlock.Text>
+                    <MultiBinding>
+                        <MultiBinding.Converter>
+                            <converter:CalorieDecriptionConverter/>
+                        </MultiBinding.Converter>
+                        <Binding Path="Minutes"/>
+                        <Binding Path="Calories"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Button Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,6,6,0" Name="button1" VerticalAlignment="Top" Width="40"/>
+        </Grid>
     </Grid>
 </UserControl>
