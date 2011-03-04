@@ -10,6 +10,9 @@ using Gymnastika.Modules.Sports.ViewModels;
 using Gymnastika.Modules.Sports.Services;
 using Gymnastika.Modules.Sports.Views;
 using Gymnastika.Common;
+using Gymnastika.Modules.Sports.Models;
+using Gymnastika.Data;
+using Gymnastika.Modules.Sports.Data;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -24,14 +27,26 @@ namespace Gymnastika.Modules.Sports
             _container = container;
         }
 
-
         #region IModule Members
 
         public void Initialize()
         {
             RegisterDependencies();
+            //ImportData();
             RegisterRegions();
         }
+
+        private void ImportData()
+        {
+            IDataImporter<SportsCategory> importer = _container.Resolve<IDataImporter<SportsCategory>>();
+            
+            if (importer.NeedImport())
+            {
+                XmlCatagoryProvider provider = new XmlCatagoryProvider();
+                importer.ImportData(provider.Fetch(t=>true));
+            }
+        }
+
 
         private void RegisterRegions()
         {
@@ -52,7 +67,7 @@ namespace Gymnastika.Modules.Sports
             //Mock
             _container
              //Services
-             .RegisterInstance<ICategoriesProvider>(new XmlCatagoryProvider())
+                .RegisterType<ICategoriesProvider, XmlCatagoryProvider>(new ContainerControlledLifetimeManager())
              
              //Shell
              .RegisterInstance(new Shell());
@@ -62,7 +77,9 @@ namespace Gymnastika.Modules.Sports
             _container
 
                 //Services
+                .RegisterType<IDataImporter<SportsCategory>,CategoryDataImporter>(new ContainerControlledLifetimeManager())
                 //.RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
+
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
                 

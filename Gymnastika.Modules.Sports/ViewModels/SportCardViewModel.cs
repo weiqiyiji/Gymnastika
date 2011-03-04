@@ -6,6 +6,8 @@ using Gymnastika.Modules.Sports.Models;
 using GongSolutions.Wpf.DragDrop;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Windows;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -15,8 +17,34 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public SportCardViewModel(Models.Sport sport)
         {
             Sport = sport;
+            _showDetailCommand = new DelegateCommand(ShowDetail);
         }
-        
+
+        public event EventHandler RequestShowDetail = delegate { };
+
+        void ShowDetail()
+        {
+            RequestShowDetail(this, EventArgs.Empty);
+        }
+
+
+        #region Command
+
+        ICommand _showDetailCommand;
+        public ICommand ShowDetailCommand
+        {
+            get
+            {
+                return _showDetailCommand;
+            }
+        }
+
+        #endregion
+
+
+
+        #region Property
+
 
         Sport _sport;
         public Sport Sport
@@ -48,7 +76,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     Sport.Name = value;
                     RaisePropertyChanged(() => Name);
                 }
-            
+
             }
         }
 
@@ -117,11 +145,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (Sport.Brief != value)
                 {
                     Sport.Brief = value;
-                    RaisePropertyChanged(()=>Brief);
+                    RaisePropertyChanged(() => Brief);
                 }
             }
         }
-        
+
+        #endregion
+
 
         #region IDragSource Members
 
@@ -132,5 +162,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         #endregion
+
     }
 }

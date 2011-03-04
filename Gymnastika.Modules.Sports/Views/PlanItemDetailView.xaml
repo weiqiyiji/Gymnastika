@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.PlanItemDetailView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="80" d:DesignWidth="300" xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit" xmlns:my1="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:my2="clr-namespace:Gymnastika.Modules.Sports.Converters">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="43*" />
+            <RowDefinition Height="37*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140*" />
+            <ColumnDefinition Width="160*" />
+        </Grid.ColumnDefinitions>
+        <Label Content="持续时间(分钟):" Name="label1" Grid.Row="1" />
+        <TextBox Name="textBox1" Text="{Binding Duration}" Grid.Column="1" Grid.Row="1" />
+        <my1:TimePicker HorizontalContentAlignment="Left" Name="timePicker1" Grid.Column="1">
+            <my1:TimePicker.SelectedTime>
+                <Binding Mode="TwoWay" Path="Time" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.Converter>
+                        <my2:DateTimeToTimeSpanConverter />
+                    </Binding.Converter>
+                </Binding>
+            </my1:TimePicker.SelectedTime>
+        </my1:TimePicker>
+        <Label Content="持续时间(分钟):" Name="label2" />
+    </Grid>
+</UserControl>

@@ -6,7 +6,7 @@ using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Services
 {
-    public interface ICategoriesProvider
+    public interface ICategoriesProvider : IProvider<SportsCategory>
     {
         IEnumerable<SportsCategory> Fetch(Func<SportsCategory,bool> predicate);
     }

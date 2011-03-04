@@ -13,8 +13,9 @@ namespace Gymnastika.Modules.Sports.Converters
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
+            string basePath = Directory.GetCurrentDirectory();
             string relativePath = value.ToString();
-            string fullPath = Path.GetFullPath(relativePath);
+            string fullPath = basePath  + relativePath;
             return fullPath;
         }
 

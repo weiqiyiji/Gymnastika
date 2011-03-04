@@ -24,6 +24,11 @@ namespace Gymnastika.Modules.Sports.Views
         public SportsPanelView()
         {
             InitializeComponent();
+            //SearchBox.ItemFilter = (searchWord, item) => 
+            //{
+                
+            //    ((string)t).Contains("");
+            //};
         }
 
         [Dependency]

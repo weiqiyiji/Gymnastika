@@ -9,6 +9,12 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class Sport
     {
+        public Sport()
+        {
+            Calories = 0;
+            Minutes = 1;
+        }
+
         public virtual int Id { get; set; }
 
         public virtual string Name { get; set; }

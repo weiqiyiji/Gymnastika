@@ -6,19 +6,22 @@ using System.Windows.Data;
 
 namespace Gymnastika.Modules.Sports.Converters
 {
-    public class DateTimeToDateConverter : IValueConverter
+    public class DateTimeToTimeSpanConverter : IValueConverter
     {
         #region IValueConverter Members
 
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            DateTime dateTime = (DateTime)value;
-            return dateTime.ToShortDateString();
+            DateTime datetime = (DateTime)value;
+            TimeSpan timespan = new TimeSpan(datetime.Hour, datetime.Minute, datetime.Second);
+            return timespan;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new NotImplementedException();
+            TimeSpan timespan = (TimeSpan)value;
+            DateTime datetime = new DateTime(2000, 1, 15, timespan.Hours, timespan.Minutes, timespan.Seconds);
+            return datetime;
         }
 
         #endregion

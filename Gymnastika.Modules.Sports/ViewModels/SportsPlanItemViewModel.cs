@@ -42,6 +42,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        public string ImageUri
+        {
+            get
+            {
+                return Sport.ImageUri;
+            }
+        }
+
         SportsPlanItem _item;
         public SportsPlanItem Item
         {
@@ -59,6 +67,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        public String SportName
+        {
+            get
+            {
+                return Sport.Name;
+            }
+        }
+
         public Sport Sport
         {
             get
@@ -71,6 +87,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     Item.Sport = value;
                     RaisePropertyChanged(() => Sport);
+                    RaisePropertyChanged(() => SportName);
                 }
             }
         }

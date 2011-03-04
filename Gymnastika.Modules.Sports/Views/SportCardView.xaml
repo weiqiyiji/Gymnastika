@@ -30,7 +30,7 @@
                     </Binding>
                 </Image.Source>
             </Image>
-            <ProgressBar Background="Transparent" Orientation="Horizontal" Maximum="50" Name="progressBar1" Grid.Row="1" Grid.Column="1">
+            <ProgressBar Background="Transparent" Orientation="Horizontal" Maximum="50" Name="progressBar1" Grid.Row="1" Grid.Column="1" Margin="0,0,6,0">
                 
                 <ProgressBar.Value>
                     <MultiBinding>
@@ -53,6 +53,7 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
+            <Button Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,6,6,0" Name="button1" VerticalAlignment="Top" Width="40"/>
         </Grid>
     </Grid>
 </UserControl>

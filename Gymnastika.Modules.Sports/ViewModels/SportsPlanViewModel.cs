@@ -40,6 +40,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             SportsPlan = plan ?? new SportsPlan();
 
             SportsPlan.SportsPlanItems = SportsPlan.SportsPlanItems ?? new List<SportsPlanItem>();
+
         }
 
         public SportsPlanViewModel(IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory)
@@ -73,24 +74,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        SortDescriptionCollection _sortDescriptions;
         public SortDescriptionCollection SortDescriptions
         {
             get
             {
-                return _sortDescriptions;
-            }
-            set
-            {
-                if (_sortDescriptions != value)
-                {
-                    _sortDescriptions = value;
-                    View.SortDescriptions.Clear();
-                    View.SortDescriptions.AddRange(value);
-                    RaisePropertyChanged(() => SortDescriptions);
-                }
+                return View.SortDescriptions;
             }
         }
+
 
         public void SportsPlanChanged(SportsPlan plan)
         {
@@ -122,6 +113,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+
         #region IDropTarget Members
 
         public void DragOver(DropInfo dropInfo)
@@ -139,9 +131,15 @@ namespace Gymnastika.Modules.Sports.ViewModels
             ISportsPlanItemViewModel viewmodel = sender as ISportsPlanItemViewModel;
             if (viewmodel != null)
             {
-                viewmodel.CloseViewRequest -= OnCloseRequest;
-                SportsPlanItemViewModels.Remove(viewmodel);
+                ReleaseItem(viewmodel);
             }
+        }
+
+        private void ReleaseItem(ISportsPlanItemViewModel viewmodel)
+        {
+            viewmodel.CloseViewRequest -= OnCloseRequest;
+            viewmodel.PropertyChanged -= ItemPropertyChanged;
+            SportsPlanItemViewModels.Remove(viewmodel);
         }
 
         void UpdateCalories()
@@ -166,8 +164,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             Sport sourceItem = dropInfo.Data as Sport;
             object target = dropInfo.TargetItem;
             SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
-            ISportsPlanItemViewModel viewmodel = _factory.Create(item);
-            viewmodel.CloseViewRequest += OnCloseRequest;
+            ISportsPlanItemViewModel viewmodel = CreateItem(item);
             if (target == null)
             {
                 SportsPlanItemViewModels.Add(viewmodel);
@@ -179,7 +176,26 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         }
 
+        private ISportsPlanItemViewModel CreateItem(SportsPlanItem item)
+        {
+            var viewmodel = _factory.Create(item);
+            viewmodel.Item.Duration = 30;
+            viewmodel.CloseViewRequest += OnCloseRequest;
+            viewmodel.PropertyChanged += ItemPropertyChanged;
+            return viewmodel;
+        }
+
         #endregion
+
+        public void ItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            ISportsPlanItemViewModel viewmodel = sender as ISportsPlanItemViewModel;
+            if (viewmodel != null)
+            {
+                UpdateCalories();
+            }
+        }
+
 
         public void ItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {

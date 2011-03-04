@@ -14,7 +14,8 @@ namespace Gymnastika.Modules.Sports.Converters
         {
             double a = (double)values[0];
             int b = (int)(values[1]);
-            return a / b;
+
+            return b != 0 ? a / b : 0;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
