@@ -15,15 +15,18 @@ using Microsoft.Practices.Unity;
 namespace Gymnastika.Controllers
 {
     public class StartupController : IStartupController
-    { 
-        private IUnityContainer _container;
-        private IRegionManager _regionManager;
+    {
+        private readonly IUnityContainer _container;
+        private readonly IRegionManager _regionManager;
+        private readonly ISessionManager _sessionManager;
         private IStartupView _startupView;
 
-        public StartupController(IUnityContainer container, IRegionManager regionManager)
+        public StartupController(
+            IUnityContainer container, IRegionManager regionManager, ISessionManager sessionManager)
         {
             _container = container;
             _regionManager = regionManager;
+            _sessionManager = sessionManager;
         }
 
         public void Run()
@@ -64,6 +67,7 @@ namespace Gymnastika.Controllers
 
         private void OnUserLogOnSuccess(User user)
         {
+            _sessionManager.Add(user);
             IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
             displayRegion.RequestNavigate(new Uri("MainView", UriKind.Relative)); 
         }

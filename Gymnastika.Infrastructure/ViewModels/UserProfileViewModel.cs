@@ -23,7 +23,7 @@ namespace Gymnastika.ViewModels
         private User _user;
 
         public const int LogOnTabIndex = 0;
-        public const int CreateNewUserTabIndex = 0;
+        public const int CreateNewUserTabIndex = 1;
         
         public UserProfileViewModel(
             IWorkEnvironment workEnvironment,

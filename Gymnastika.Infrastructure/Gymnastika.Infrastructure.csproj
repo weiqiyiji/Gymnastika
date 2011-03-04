@@ -214,6 +214,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\datewidget_icon.png" />
+    <Resource Include="Images\defaultavatar.png" />
     <Content Include="Images\hover_widgetboxbtn.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />

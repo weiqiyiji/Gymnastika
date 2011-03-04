@@ -41,6 +41,12 @@
     <Reference Include="FluentNHibernate">
       <HintPath>..\Libs\FluentNHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism">
+      <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
+      <HintPath>..\Libs\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
@@ -115,10 +121,6 @@
     <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
       <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
       <Name>Gymnastika.Widgets</Name>
-    </ProjectReference>
-    <ProjectReference Include="F:\Prism4\PrismLibrary\Desktop\Prism\Prism.Desktop.csproj">
-      <Project>{77138947-1D13-4E22-AEE0-5D0DD046CA34}</Project>
-      <Name>Prism.Desktop</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

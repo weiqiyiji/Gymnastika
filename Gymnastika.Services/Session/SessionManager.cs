@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gymnastika.Data;
 using Gymnastika.Services.Models;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Services.Session
 {
@@ -19,13 +21,21 @@ namespace Gymnastika.Services.Session
         }
 
         public void Add(User user)
-        {
+        {     
             if(user == null) throw new ArgumentNullException("user");
 
             if (!_sessions.ContainsKey(user.Id))
             {
                 _currentSession = new SessionContext(user);
                 _sessions.Add(user.Id, _currentSession);
+                _currentSession.Timestamp = DateTime.Now;
+                
+                using(ServiceLocator.Current.GetInstance<IWorkEnvironment>().GetWorkContextScope())
+                {
+                    var userRepository = ServiceLocator.Current.GetInstance<IRepository<User>>();
+                    User savedUser = userRepository.Get(u => u.Id == user.Id);
+                    savedUser.IsActive = true;
+                }
             }
             else
             {
@@ -46,6 +56,18 @@ namespace Gymnastika.Services.Session
             }
 
             _sessions.Remove(user.Id);
+
+            using (ServiceLocator.Current.GetInstance<IWorkEnvironment>().GetWorkContextScope())
+            {
+                var userRepository = ServiceLocator.Current.GetInstance<IRepository<User>>();
+                User savedUser = userRepository.Get(u => u.Id == user.Id);
+                savedUser.IsActive = false;
+            }
+        }
+
+        public IEnumerable<SessionContext> GetAllActiveSessions()
+        {
+            return _sessions.Values;
         }
 
         #endregion

@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Windows.Input;
 using Gymnastika.Data;
 using Gymnastika.Services;
@@ -31,6 +32,19 @@ namespace Gymnastika.ViewModels
             using(container.Resolve<IWorkEnvironment>().GetWorkContextScope())
             {
                 RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
+            }
+
+            this.PropertyChanged += StartupViewModel_PropertyChanged;
+        }
+
+        private void StartupViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "SelectedUser")
+            {
+                if(SelectedUser != null)
+                {
+                    _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
+                }
             }
         }
 
