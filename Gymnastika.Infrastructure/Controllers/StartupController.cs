@@ -18,15 +18,13 @@ namespace Gymnastika.Controllers
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
-        private readonly ISessionManager _sessionManager;
         private IStartupView _startupView;
 
         public StartupController(
-            IUnityContainer container, IRegionManager regionManager, ISessionManager sessionManager)
+            IUnityContainer container, IRegionManager regionManager)
         {
             _container = container;
             _regionManager = regionManager;
-            _sessionManager = sessionManager;
         }
 
         public void Run()
@@ -67,7 +65,7 @@ namespace Gymnastika.Controllers
 
         private void OnUserLogOnSuccess(User user)
         {
-            _sessionManager.Add(user);
+            _container.Resolve<ISessionManager>().Add(user);
             IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
             displayRegion.RequestNavigate(new Uri("MainView", UriKind.Relative)); 
         }
