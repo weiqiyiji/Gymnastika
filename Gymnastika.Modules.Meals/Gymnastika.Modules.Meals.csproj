@@ -170,6 +170,9 @@
     <Compile Include="Views\SelectDietPlanView.xaml.cs">
       <DependentUpon>SelectDietPlanView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\BMIWidget.xaml.cs">
+      <DependentUpon>BMIWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XDataHelpers\XDataFileManager.cs" />
     <Compile Include="XDataHelpers\XDataRepository.cs" />
     <Compile Include="XModels\XCategoryDataModels\XCategory.cs" />
@@ -201,6 +204,10 @@
     <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
+      <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
+      <Name>Gymnastika.Widgets</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -236,11 +243,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\BMIWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\search.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Images\BMI.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

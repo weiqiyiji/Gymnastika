@@ -10,6 +10,8 @@ using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Modules.Meals.Services.Providers;
+using Gymnastika.Widgets;
+using Gymnastika.Modules.Meals.Widgets;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -17,17 +19,20 @@ namespace Gymnastika.Modules.Meals
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly IWidgetManager _widgetMananger;
 
-        public MealsManagementModule(IUnityContainer container, IRegionManager regionManager)
+        public MealsManagementModule(IUnityContainer container, IRegionManager regionManager, IWidgetManager widgetManager)
         {
             _container = container;
             _regionManager = regionManager;
+            _widgetMananger = widgetManager;
         }
 
         #region IModule Members
 
         public void Initialize()
         {
+            RegisterWidgets();
             RegisterServices();
             RegisterViews();
             RegisterViewModels();
@@ -36,6 +41,11 @@ namespace Gymnastika.Modules.Meals
         }
 
         #endregion
+
+        private void RegisterWidgets()
+        {
+            _widgetMananger.Add(typeof(BMIWidget));
+        }
 
         private void RegisterServices()
         {
