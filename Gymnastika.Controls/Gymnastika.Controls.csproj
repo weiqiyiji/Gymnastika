@@ -63,6 +63,7 @@
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
     <Compile Include="SlidePanel.cs" />
     <Compile Include="SpreadTabPanel.cs" />
+    <Compile Include="TimePicker.cs" />
     <Compile Include="WatermarkTextBox.cs" />
     <Page Include="Themes\ButtonChrome.xaml">
       <SubType>Designer</SubType>
@@ -97,6 +98,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Themes\TimePicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InstantSearchBox.cs" />
@@ -125,6 +130,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Specific\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

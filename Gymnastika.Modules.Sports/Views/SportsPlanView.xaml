@@ -5,15 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="409" d:DesignWidth="359"
-             d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}">
+             d:DesignHeight="355" d:DesignWidth="241"
+             d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}"
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop">
     <Grid>
-        <ListBox Name="planListBox" HorizontalContentAlignment="Stretch" ItemsSource="{Binding SportsPlanItems}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*" />
+            <ColumnDefinition Width="226*" />
+        </Grid.ColumnDefinitions>
+        <ListBox Name="planListBox" HorizontalContentAlignment="Stretch"  
+                dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:SportsPlanItemView/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <ProgressBar Orientation="Vertical" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"  Background="Transparent" Name="progressBar1" Maximum="2000">
+            <ProgressBar.Value>
+                <Binding Path="TotalCalories"/>
+            </ProgressBar.Value>
+        </ProgressBar>
     </Grid>
 </UserControl>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="90" d:DesignWidth="384">
+             d:DesignHeight="83" d:DesignWidth="122">
 
         <UserControl.Resources>
             <Storyboard x:Key="OnLoaded">
@@ -20,18 +20,10 @@
                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBlock" To="0" Duration="0:0:0.5"/>
             </Storyboard>
         </UserControl.Resources>
-        <Grid x:Name="grid" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch"  d:DesignWidth="344" d:DesignHeight="110" d:DataContext="{d:DesignData Source=/DesignData/CategoryData.xaml}" OpacityMask="Black" Cursor="Hand" Background="{x:Null}" Height="87" >
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.491*"/>
-                <RowDefinition Height="0.509*"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.183*"/>
-                <ColumnDefinition Width="0.817*"/>
-            </Grid.ColumnDefinitions>
-            <Image x:Name="Image"  Source="{Binding ImageUri}" Stretch="Uniform" VerticalAlignment="Top" Height="40.667" HorizontalAlignment="Left" Margin="2" Width="58" RenderTransformOrigin="0.49,0.48" Grid.Row="1"/>
-            <TextBlock x:Name="Note" Height="{Binding Height,ElementName=Image}" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Note}"  Grid.Row="1" FontSize="14.667" Opacity="0.95"/>
-            <TextBlock x:Name="textBlock" Margin="0" TextWrapping="Wrap" Padding="5" Text="{Binding Name}" Grid.Column="0" HorizontalAlignment="Stretch" Width="Auto" Grid.ColumnSpan="2" FontSize="26.667" RenderTransformOrigin="0.5,0.5">
+        <Grid x:Name="grid" d:DesignWidth="344" d:DesignHeight="110" d:DataContext="{d:DesignData Source=/DesignData/CategoryData.xaml}" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
+        <!--<Image x:Name="Image"  Source="{Binding ImageUri}" Stretch="Uniform" VerticalAlignment="Top" Height="40.667" HorizontalAlignment="Left" Margin="2" Width="58" RenderTransformOrigin="0.49,0.48" Grid.Row="1"/>
+            <TextBlock x:Name="Note" Height="{Binding Height,ElementName=Image}" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Note}"  Grid.Row="1" FontSize="14.667" Opacity="0.95"/>-->
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Padding="5" Text="{Binding Name}" FontSize="26.667" RenderTransformOrigin="0.5,0.5">
         				<TextBlock.RenderTransform>
         					<TransformGroup>
         						<ScaleTransform/>

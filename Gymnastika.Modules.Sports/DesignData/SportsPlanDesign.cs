@@ -18,5 +18,11 @@ namespace Gymnastika.Modules.Sports.DesignData
             get;
             set;
         }
+
+        public DateTime Time
+        {
+            get;
+            set;
+        }
     }
 }

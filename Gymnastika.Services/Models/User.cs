@@ -23,7 +23,21 @@ namespace Gymnastika.Services.Models
 
         public virtual bool IsActive { get; set; }
 
-        public virtual string AvatarPath { get; set; }
+        private string _avatarPath;
+
+        private const string DefaultAvatarPath = "/Gymnastika.Infrastructure;component/Images/defaultavatar.png";
+
+        public virtual string AvatarPath
+        {
+            get
+            {
+                return string.IsNullOrEmpty(_avatarPath) ? DefaultAvatarPath : _avatarPath;
+            }
+            set
+            {
+                _avatarPath = value;
+            }
+        }
     }
 
     public enum Gender

@@ -31,7 +31,7 @@ namespace Gymnastika.Modules.Sports.Views
         {
             set
             {
-                DataContext = ViewModel;
+                DataContext = value;
             }
             get
             {

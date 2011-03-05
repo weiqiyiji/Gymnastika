@@ -11,5 +11,6 @@ namespace Gymnastika.Services.Session
         SessionContext GetCurrentSession();
         void Add(User user);
         void Remove(User user);
+        IEnumerable<SessionContext> GetAllActiveSessions();
     }
 }

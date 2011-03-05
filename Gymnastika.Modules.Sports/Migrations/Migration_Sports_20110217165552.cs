@@ -29,7 +29,8 @@ namespace Gymnastika.Migrations
                       .Column<string>("ImageUri")
                       .Column<string>("Brief")
                       .Column<string>("IntroductionUri")
-                      .Column<int>("CaloriePerHour"));
+                      .Column<double>("Calorie")
+                      .Column<int>("Minute"));
             
         }
 
