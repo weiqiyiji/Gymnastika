@@ -30,12 +30,9 @@ namespace Gymnastika.Services.Session
                 _sessions.Add(user.Id, _currentSession);
                 _currentSession.Timestamp = DateTime.Now;
                 
-                using(ServiceLocator.Current.GetInstance<IWorkEnvironment>().GetWorkContextScope())
-                {
-                    var userRepository = ServiceLocator.Current.GetInstance<IRepository<User>>();
-                    User savedUser = userRepository.Get(u => u.Id == user.Id);
-                    savedUser.IsActive = true;
-                }
+                var userRepository = ServiceLocator.Current.GetInstance<IRepository<User>>();
+                User savedUser = userRepository.Get(u => u.Id == user.Id);
+                savedUser.IsActive = true;
             }
             else
             {
