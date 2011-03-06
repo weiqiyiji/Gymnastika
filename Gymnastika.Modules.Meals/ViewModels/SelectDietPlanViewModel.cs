@@ -11,12 +11,14 @@ using Gymnastika.Modules.Meals.Services;
 using Microsoft.Practices.ServiceLocation;
 using System.Collections.ObjectModel;
 using Gymnastika.Services.Session;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class SelectDietPlanViewModel : NotificationObject, ISelectDietPlanViewModel
     {
         private readonly IFoodService _foodService;
+        private readonly IWorkEnvironment _workEnvironment;
         private readonly ISessionManager _sessionManager;
         private int _currentPage;
         private int _pageCount;
@@ -28,9 +30,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public SelectDietPlanViewModel(
             ISelectDietPlanView view, 
             IFoodService foodService,
+            IWorkEnvironment workEnvironment,
             ISessionManager sessionManager)
         {
             _foodService = foodService;
+            _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
             View = view;
             View.Context = this;
@@ -133,10 +137,16 @@ namespace Gymnastika.Modules.Meals.ViewModels
             {
                 case PlanType.CreatedDietPlan:
                     int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
-                    InMemoryDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId).ToList();
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        InMemoryDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId).ToList();
+                    }
                     break;
                 case PlanType.RecommendedDietPlan:
-                    InMemoryDietPlans = _foodService.DietPlanProvider.GetRecommendedDietPlans().ToList();
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        InMemoryDietPlans = _foodService.DietPlanProvider.GetRecommendedDietPlans().ToList();
+                    }
                     break;
                 default:
                     break;

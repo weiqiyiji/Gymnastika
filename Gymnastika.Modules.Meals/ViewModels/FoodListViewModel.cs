@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Windows.Data;
 using Gymnastika.Modules.Meals.Services;
 using System.Windows.Controls;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -19,6 +20,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
     {
         private const int PageSize = 10;
         private readonly IFoodService _foodService;
+        private readonly IWorkEnvironment _workEnvironment;
         private int _currentPage;
         private int _pageCount;
         private IEnumerable<Category> _category;
@@ -27,9 +29,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _showPreviousPageCommand;
         private ICommand _showNextPageCommand;
 
-        public FoodListViewModel(IFoodListView view, IFoodService foodService)
+        public FoodListViewModel(IFoodListView view,
+            IFoodService foodService,
+            IWorkEnvironment workEnvironment)
         {
             _foodService = foodService;
+            _workEnvironment = workEnvironment;
             _category = _foodService.CategoryProvider.GetAll();
             Category = CollectionViewSource.GetDefaultView(_category);
             MyFavoriteFoodList = new List<FoodItemViewModel>();

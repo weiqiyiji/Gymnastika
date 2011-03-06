@@ -81,7 +81,7 @@
     <Compile Include="Migrations\Migration_FavoriteFood_Food_Relations_20110304113806.cs" />
     <Compile Include="Migrations\Migration_Foods_20110219142007.cs" />
     <Compile Include="Migrations\Migration_Introductions_20110223125751.cs" />
-    <Compile Include="Migrations\Migration_NutritiveElements_20110221121551.cs" />
+    <Compile Include="Migrations\Migration_NutritionalElements_20110221121551.cs" />
     <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
     <Compile Include="Migrations\Migration_SubDietPlans_20110219142008.cs" />
     <Compile Include="Migrations\Migration_SubCategories_20110217121513.cs" />
@@ -142,6 +142,9 @@
     <Compile Include="ViewModels\ISelectDietPlanViewModel.cs" />
     <Compile Include="ViewModels\MealsManagementViewModel.cs" />
     <Compile Include="ViewModels\SelectDietPlanViewModel.cs" />
+    <Compile Include="Views\BMIIntroductionView.xaml.cs">
+      <DependentUpon>BMIIntroductionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateDietPlanView.xaml.cs">
       <DependentUpon>CreateDietPlanView.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,7 @@
     <Compile Include="Views\FoodListView.xaml.cs">
       <DependentUpon>FoodListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\IBMIIntroductionView.cs" />
     <Compile Include="Views\ICreateDietPlanView.cs" />
     <Compile Include="Views\IDietPlanListView.cs" />
     <Compile Include="Views\IDietPlanSubListView.cs" />
@@ -211,6 +215,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BMIIntroductionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateDietPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

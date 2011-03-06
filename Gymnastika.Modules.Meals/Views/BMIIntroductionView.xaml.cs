@@ -11,33 +11,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Gymnastika.Modules.Meals.ViewModels;
 
 namespace Gymnastika.Modules.Meals.Views
 {
     /// <summary>
-    /// Interaction logic for SelectDietPlanView.xaml
+    /// Interaction logic for BMIIntroductionView.xaml
     /// </summary>
-    public partial class SelectDietPlanView : ISelectDietPlanView
+    public partial class BMIIntroductionView : IBMIIntroductionView
     {
-        public SelectDietPlanView()
+        public BMIIntroductionView()
         {
             InitializeComponent();
         }
 
-        #region ISelectDietPlanView Members
-
-        public ISelectDietPlanViewModel Context
-        {
-            get
-            {
-                return this.DataContext as ISelectDietPlanViewModel;
-            }
-            set
-            {
-                this.DataContext = value;
-            }
-        }
+        #region IBMIIntroductionView Members
 
         public void ShowView()
         {

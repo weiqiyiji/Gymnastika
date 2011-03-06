@@ -12,6 +12,7 @@ using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Modules.Meals.Services.Providers;
 using Gymnastika.Widgets;
 using Gymnastika.Modules.Meals.Widgets;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -69,7 +70,8 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IFoodDetailView, FoodDetailView>()
                 .RegisterType<IMealsManagementView, MealsManagementView>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanView, CreateDietPlanView>()
-                .RegisterType<ISelectDietPlanView, SelectDietPlanView>();
+                .RegisterType<ISelectDietPlanView, SelectDietPlanView>()
+                .RegisterType<IBMIIntroductionView, BMIIntroductionView>();
         }
 
         private void RegisterViewModels()
@@ -85,17 +87,19 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterViewWithRegion()
         {
-            IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
+            //IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
 
-            IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
-            displayRegion.Add(mealsManagementViewModel.View);
-            displayRegion.Activate(mealsManagementViewModel.View);
+            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            //displayRegion.Add(mealsManagementViewModel.View);
+            //displayRegion.Activate(mealsManagementViewModel.View);
         }
 
         private void StoreDataToDatabase()
         {
-            XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>());
-            dataSource.BeginStore();
+            XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
+            
+            if (!dataSource.IsStored)
+                dataSource.Store();
         }
     }
 }

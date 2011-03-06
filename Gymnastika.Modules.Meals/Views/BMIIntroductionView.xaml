@@ -1,0 +1,65 @@
+﻿<Window x:Class="Gymnastika.Modules.Meals.Views.BMIIntroductionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="BMI指数" HorizontalAlignment="Center" />
+                    <TextBlock Text="对应标准" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="1">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="&lt;18.5" HorizontalAlignment="Center" />
+                    <TextBlock Text="体重过轻" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="2">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="18.5~24" HorizontalAlignment="Center" />
+                    <TextBlock Text="健康体重" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="3">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text="24~28" HorizontalAlignment="Center" />
+                    <TextBlock Text="超重" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Column="4">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock Text=">28" HorizontalAlignment="Center" />
+                    <TextBlock Text="肥胖" HorizontalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </Grid>
+        <TextBlock Grid.Row="1" Text="公式：体重指数（BMI）＝体重（kg）/【身高（m）】平方" />
+        <TextBlock Grid.Row="2" Text="什么是BMI?" HorizontalAlignment="Center" />
+        <StackPanel Grid.Row="3">
+            <TextBlock Text="BMI（Body Mass Index）即身体质量指数，是与体内脂肪总量密切相关的指标，主要反映全身性超重和肥胖。由于BMI计算的是身体脂肪的比例，所以在测量身体因超重而面 临心脏病、高血压等风险上，比单纯的以体重来认定，更具准确性。特别要强调的是，不是每个人都适用BMI 的，如果你属于有以下的情况，那么BMI的指数对你不适用。" TextWrapping="Wrap" />
+            <TextBlock Text="1. 未满18岁。" />
+            <TextBlock Text="2. 是运动员。" />
+            <TextBlock Text="3. 正在做重量训练。" />
+            <TextBlock Text="4. 怀孕或哺乳中。" />
+            <TextBlock Text="5. 身体虚弱或久坐不动的老人。" />
+        </StackPanel>
+    </Grid>
+</Window>

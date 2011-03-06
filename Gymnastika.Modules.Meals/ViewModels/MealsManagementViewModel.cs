@@ -14,12 +14,14 @@ using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Services.Session;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class MealsManagementViewModel : NotificationObject, IMealsManagementViewModel
     {
         private readonly IFoodService _foodService;
+        private readonly IWorkEnvironment _workEnvironment;
         private readonly ISessionManager _sessionManager;
         private string _searchString;
         private ICommand _searchCommand;
@@ -33,13 +35,18 @@ namespace Gymnastika.Modules.Meals.ViewModels
             ISelectDietPlanViewModel recommendedDietPlanViewModel,
             ISelectDietPlanViewModel savedDietPlanViewModel,
             IFoodService foodService,
+            IWorkEnvironment workEnvironment,
             ISessionManager sessionManager)
         {
             FoodListViewModel = foodListViewModel;
             CreateDietPlanViewModel = createDietPlanViewModel;
             _foodService = foodService;
+            _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
-            InMemoryFoods = _foodService.FoodProvider.GetAll();
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                InMemoryFoods = _foodService.FoodProvider.GetAll();
+            }
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
@@ -116,7 +123,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
 
-            IEnumerable<DietPlan> savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
+            IEnumerable<DietPlan> savedDietPlans;
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
+            }
 
             if (savedDietPlans.Count() != 0) return true;
 
@@ -150,6 +161,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
                 }
             }
+
+            SavedDietPlanViewModel.View.CloseView();
         }
 
         private void ApplyRecommendedDietPlan(object sender, EventArgs e)
@@ -163,6 +176,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
                 }
             }
+
+            RecommendedDietPlanViewModel.View.CloseView();
         }
 
         private void SearchKeyDown(object sender, KeyEventArgs e)
