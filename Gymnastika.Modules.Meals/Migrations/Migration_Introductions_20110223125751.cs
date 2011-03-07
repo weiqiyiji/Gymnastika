@@ -29,7 +29,7 @@ namespace Gymnastika.Migrations
                 TableName,
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                     .Column<string>("Name")
-                    .Column<string>("Content", c => c.WithLength(10000))
+                    .Column<string>("Content", c => c.WithLength(1000))
                     .Column<int>("FoodId"));
 
             SchemaBuilder.CreateForeignKey(

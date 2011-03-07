@@ -52,9 +52,9 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
         public void Store()
         {
             Initialize();
-            //StoreCategories();
-            //StoreFoods();
-            //StoreDietPlans();
+            StoreCategories();
+            StoreFoods();
+            StoreDietPlans();
         }
 
         private void Initialize()
@@ -103,6 +103,8 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
             //{
                 foreach (var xFood in _xFoodData.Foods)
                 {
+                    if (_foodService.FoodProvider.Get(xFood.Name) != null) continue;
+
                     using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
                     {
                         //Category category = Categories.FirstOrDefault(c => c.Name == xFood.Categories[0].Value);

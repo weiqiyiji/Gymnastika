@@ -98,8 +98,8 @@ namespace Gymnastika.Modules.Meals
         {
             XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
 
-            //if (!dataSource.IsStored) return;
-                //dataSource.Store();
+            if (!dataSource.IsStored)
+                dataSource.Store();
         }
     }
 }
