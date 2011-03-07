@@ -34,30 +34,7 @@ namespace Gymnastika.Modules.Sports
         public void Initialize()
         {
             RegisterDependencies();
-            //ImportData();
-            //RegisterRegions();
         }
-
-        private void ImportData()
-        {
-            IDataImporter<SportsCategory> importer = _container.Resolve<IDataImporter<SportsCategory>>();
-            
-            if (importer.NeedImport())
-            {
-                XmlCatagoryProvider provider = new XmlCatagoryProvider();
-                importer.ImportData(provider.Fetch(t=>true));
-            }
-        }
-
-
-        //private void RegisterRegions()
-        //{
-        //    _regionManager
-        //        .RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(Shell))
-        //        .RegisterViewWithRegion(SportRegionNames.SportRegion, typeof(ISportsPanelView))
-        //        .RegisterViewWithRegion(SportRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
-        //        .RegisterViewWithRegion(SportRegionNames.SportPlan,typeof(ISportsPlanView));
-        //}
 
         #endregion
 
@@ -66,20 +43,12 @@ namespace Gymnastika.Modules.Sports
 
         private void RegisterDependencies()
         {
-            //Mock
-            _container
-             //Services
-                .RegisterType<ICategoriesProvider, XmlCatagoryProvider>(new ContainerControlledLifetimeManager())
-             
-             //Shell
-             .RegisterInstance(new Shell());
-
 
             //Dependency
             _container
 
                 //Services
-                .RegisterType<IDataImporter<SportsCategory>,CategoryDataImporter>(new ContainerControlledLifetimeManager())
+                //.RegisterType<IDataImporter<SportsCategory>,CategoryDataImporter>(new ContainerControlledLifetimeManager())
                 //.RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
 
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
