@@ -25,7 +25,6 @@ namespace Gymnastika.Modules.Meals.Widgets
     public partial class BMIWidget : IWidget
     {
         private readonly ISessionManager _sessionManager;
-        private readonly IBMIIntroductionView _BMIIntroductionView;
         private readonly User _user;
         private readonly int _height;
         private readonly int _weight;
@@ -34,13 +33,12 @@ namespace Gymnastika.Modules.Meals.Widgets
         private readonly Microsoft.Practices.Prism.Regions.IRegionManager _regionManager;
         private readonly Microsoft.Practices.Unity.IUnityContainer _container;
 
-        public BMIWidget(IBMIIntroductionView BMIIntroductionView, ISessionManager sessionManager,
+        public BMIWidget(ISessionManager sessionManager,
             Microsoft.Practices.Prism.Regions.IRegionManager regionManager,
             Microsoft.Practices.Unity.IUnityContainer container)
         {
             InitializeComponent();
 
-            _BMIIntroductionView = BMIIntroductionView;
             _sessionManager = sessionManager;
             _regionManager = regionManager;
             _container = container;
@@ -102,14 +100,15 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeNormalMetabolism()
         {
-            int NormalMetabolism = Int32.Parse(((_weight * 0.062 + 2.036) * 240).ToString());
+            double NormalMetabolism = (_weight * 0.062 + 2.036) * 240;
 
             NormalMetabolismLabel.Text = NormalMetabolism.ToString();
         }
 
         private void BMIIntroduction_Click(object sender, RoutedEventArgs e)
         {
-            _BMIIntroductionView.ShowView();
+            IBMIIntroductionView BMIIntroductionView = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<Gymnastika.Modules.Meals.Views.IBMIIntroductionView>();
+            BMIIntroductionView.ShowView();
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)

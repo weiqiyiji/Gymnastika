@@ -260,7 +260,7 @@
     <Resource Include="Images\search.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\BMI.jpg" />
+    <Resource Include="Images\BMI.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

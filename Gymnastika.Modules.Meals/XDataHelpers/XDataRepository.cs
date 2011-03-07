@@ -52,9 +52,9 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
         public void Store()
         {
             Initialize();
-            StoreCategories();
-            StoreFoods();
-            StoreDietPlans();
+            //StoreCategories();
+            //StoreFoods();
+            //StoreDietPlans();
         }
 
         private void Initialize()

@@ -97,9 +97,9 @@ namespace Gymnastika.Modules.Meals
         private void StoreDataToDatabase()
         {
             XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
-            
-            if (!dataSource.IsStored)
-                dataSource.Store();
+
+            //if (!dataSource.IsStored) return;
+                //dataSource.Store();
         }
     }
 }
