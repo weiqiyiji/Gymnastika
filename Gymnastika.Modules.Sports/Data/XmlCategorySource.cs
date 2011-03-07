@@ -9,12 +9,6 @@ using System.IO;
 
 namespace Gymnastika.Modules.Sports.Data
 {
-    public interface IDataSource<T>
-    {
-        bool CanGetData();
-        IEnumerable<T> GetData();
-    }
-
     public class XmlCategorySource : IDataSource<SportsCategory>
     {
         readonly string _xmlFilePath;

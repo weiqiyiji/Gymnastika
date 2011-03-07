@@ -10,6 +10,8 @@ using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Modules.Sports.Extensions;
 using GongSolutions.Wpf.DragDrop;
 using Gymnastika.Modules.Sports.Services;
+using System.Windows.Data;
+using System.ComponentModel;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -23,6 +25,45 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _aggregator = aggregator;
             _factory = factory;
             _aggregator.GetEvent<CategoryChangedEvent>().Subscribe(CategoryChanged);
+        
+
+        }
+
+        public ICollectionView View
+        {
+            get { return CollectionViewSource.GetDefaultView(ViewModels); }
+        }
+
+        Predicate<ISportCardViewModel> _filter;
+        Predicate<ISportCardViewModel> Filter
+        {
+            get { return _filter; }
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
+                    RaisePropertyChanged(() => Filter);
+                    View.Filter = (Predicate<object>)_filter;
+                    View.Refresh();
+                }
+            }
+        }
+
+
+        string _searchName;
+        public string SearchName
+        {
+            get { return _searchName; }
+            set
+            {
+                if (value != _searchName)
+                {
+                    _searchName = value;
+                    RaisePropertyChanged(() => SearchName);
+                    Filter = (s) => s.Name.Contains(_searchName);
+                }
+            }
         }
 
         public void CategoryChanged(SportsCategory category)

@@ -34,9 +34,46 @@ namespace Gymnastika.Modules.Sports
         public void Initialize()
         {
             RegisterDependencies();
+            ConfigImporters();
+            ImportData();
+            RegisterWidgets();
+            RegisterViews();
+        }
+
+        private void RegisterViews()
+        {
+            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
+
+            _regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
+                          .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
+                          .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
         }
 
         #endregion
+
+
+        private void RegisterWidgets()
+        {
+
+        }
+
+        private void ImportData()
+        {
+            var manager = _container.Resolve<IDataImportManager>();
+            manager.ImportData();
+        }
+
+        private void ConfigImporters()
+        {
+            IImporterCollection collection = _container.Resolve<IImporterCollection>();
+            collection.Add(
+                new CategoryImporter 
+                    (new XmlCategorySource(@"data/sports/SportData.xml"),
+                    _container.Resolve<IRepository<SportsCategory>>(),
+                    _container.Resolve<IRepository<Sport>>(),
+                    _container.Resolve<IWorkEnvironment>()));
+        }
+
 
 
         #region RegisterDependencies
@@ -46,10 +83,12 @@ namespace Gymnastika.Modules.Sports
 
             //Dependency
             _container
+                //Data
+                .RegisterType<IDataImportManager,DataImportManager>(new ContainerControlledLifetimeManager())
+                .RegisterInstance<IImporterCollection>(new ImporterCollection())
 
                 //Services
-                //.RegisterType<IDataImporter<SportsCategory>,CategoryDataImporter>(new ContainerControlledLifetimeManager())
-                //.RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
 
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())

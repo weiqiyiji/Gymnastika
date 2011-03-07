@@ -7,6 +7,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 {
     public interface ISportCardViewModel
     {
-
+        String Name { get; }
+        double Calories { get; }
+        int Minutes { get; }
     }
 }
