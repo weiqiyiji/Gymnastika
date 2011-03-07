@@ -1,6 +1,7 @@
-﻿<Window x:Class="Gymnastika.Views.Shell"
+﻿<s:SurfaceWindow x:Class="Gymnastika.Views.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:s="http://schemas.microsoft.com/surface/2008"
         xmlns:core="clr-namespace:Gymnastika.Common;assembly=Gymnastika.Common"
         xmlns:res="clr-namespace:Gymnastika.ProjectResources.Properties;assembly=Gymnastika.Resources"
         xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
@@ -12,4 +13,4 @@
         <ContentControl Background="Black" prism:RegionManager.RegionName="{x:Static core:RegionNames.DisplayRegion}" 
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
     </Grid>
-</Window>
+</s:SurfaceWindow>

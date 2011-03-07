@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Gymnastika.Widgets.Behaviors;
 using Gymnastika.Widgets.Views;
 using Microsoft.Practices.Unity;
+using Microsoft.Surface.Presentation.Controls;
 
 namespace Gymnastika.Widgets
 {
@@ -34,7 +35,8 @@ namespace Gymnastika.Widgets
                 .RegisterType<IWidgetHost, WidgetHost>()
                 .RegisterType<IWidgetContainerAccessor, WidgetContainerAccessor>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetHostFactory, DefaultWidgetHostFactory>(new ContainerControlledLifetimeManager())
-                .RegisterType<IWidgetContainerAdapter, CanvasWidgetContainerAdapter>(new ContainerControlledLifetimeManager())
+                .RegisterType<IWidgetContainerAdapter, CanvasWidgetContainerAdapter>("Canvas", new ContainerControlledLifetimeManager())
+                .RegisterType<IWidgetContainerAdapter, ScatterViewWidgetContainerAdapter>("ScatterView", new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetContainerInitializer, WidgetContainerInitializer>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetContainerBehaviorFactory, WidgetContainerBehaviorFactory>(new ContainerControlledLifetimeManager());
         }
@@ -42,7 +44,8 @@ namespace Gymnastika.Widgets
         private void ConfigureContainerAdapterMappings()
         {
             ContainerAdapterMappings adapterMappings = _container.Resolve<ContainerAdapterMappings>();
-            adapterMappings.RegisterMapping(typeof(Canvas), _container.Resolve<IWidgetContainerAdapter>());
+            adapterMappings.RegisterMapping(typeof(Canvas), _container.Resolve<IWidgetContainerAdapter>("Canvas"));
+            adapterMappings.RegisterMapping(typeof(ScatterView), _container.Resolve<IWidgetContainerAdapter>("ScatterView"));
         }
         
         private void ConfigureBehaviorMappings()

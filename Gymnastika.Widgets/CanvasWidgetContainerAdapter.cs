@@ -41,7 +41,8 @@ namespace Gymnastika.Widgets
                      Arrange(widgetHost);
                 }
             }
-            else if(e.Action == NotifyCollectionChangedAction.Remove)
+            
+            if(e.Action == NotifyCollectionChangedAction.Remove)
             {
                 foreach (IWidgetHost widgetHost in e.OldItems)
                 {

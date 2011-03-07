@@ -13,13 +13,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.ViewModels;
 using Microsoft.Practices.Unity;
+using Microsoft.Surface.Presentation.Controls;
 
 namespace Gymnastika.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class Shell : Window
+    public partial class Shell : SurfaceWindow
     {
         public Shell()
         {
