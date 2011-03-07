@@ -255,6 +255,10 @@
       <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
       <Name>Gymnastika.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
+      <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
+      <Name>Gymnastika.Widgets</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\" />
@@ -269,176 +273,24 @@
     <Resource Include="DesignData\Images\3.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Introductions\45分钟动感单车.rtf" />
-    <None Include="Data\Introductions\Bikram热瑜伽.rtf" />
-    <None Include="Data\Introductions\仰卧起坐.rtf" />
-    <None Include="Data\Introductions\体能训练.rtf" />
-    <None Include="Data\Introductions\做饭.rtf" />
-    <None Include="Data\Introductions\健身减肥操.rtf" />
-    <None Include="Data\Introductions\办公室坐着工作.rtf" />
-    <None Include="Data\Introductions\午睡.rtf" />
-    <None Include="Data\Introductions\单车%28一小时16公里%29.rtf" />
-    <None Include="Data\Introductions\单车%28一小时21公里%29.rtf" />
-    <None Include="Data\Introductions\单车%28一小时9公里%29.rtf" />
-    <None Include="Data\Introductions\原地跑步.rtf" />
-    <None Include="Data\Introductions\吸尘器.rtf" />
-    <None Include="Data\Introductions\坐车%28坐着%29.rtf" />
-    <None Include="Data\Introductions\坐车%28站着%29.rtf" />
-    <None Include="Data\Introductions\壁球一小时大约.rtf" />
-    <None Include="Data\Introductions\学习.rtf" />
-    <None Include="Data\Introductions\学习，看书，写字（坐）.rtf" />
-    <None Include="Data\Introductions\工作.rtf" />
-    <None Include="Data\Introductions\开车.rtf" />
-    <None Include="Data\Introductions\快走.rtf" />
-    <None Include="Data\Introductions\快走（一小时5公里）.rtf" />
-    <None Include="Data\Introductions\快走（一小时8公里）.rtf" />
-    <None Include="Data\Introductions\快跑%28一小时12公里%29.rtf" />
-    <None Include="Data\Introductions\快跑.rtf" />
-    <None Include="Data\Introductions\快跑新添加.rtf" />
-    <None Include="Data\Introductions\快速走路 size=.rtf" />
-    <None Include="Data\Introductions\慢走%28一小时4公里%29.rtf" />
-    <None Include="Data\Introductions\慢走.rtf" />
-    <None Include="Data\Introductions\慢跑%28一小时9公里%29.rtf" />
-    <None Include="Data\Introductions\慢跑.rtf" />
-    <None Include="Data\Introductions\慢速跳绢 size=.rtf" />
-    <None Include="Data\Introductions\手洗衣服.rtf" />
-    <None Include="Data\Introductions\打乒乓.rtf" />
-    <None Include="Data\Introductions\打拳.rtf" />
-    <None Include="Data\Introductions\打桌球.rtf" />
-    <None Include="Data\Introductions\打篮球.rtf" />
-    <None Include="Data\Introductions\打网球.rtf" />
-    <None Include="Data\Introductions\打高尔夫球.rtf" />
-    <None Include="Data\Introductions\扫地.rtf" />
-    <None Include="Data\Introductions\抱小孩.rtf" />
-    <None Include="Data\Introductions\拖地板.rtf" />
-    <None Include="Data\Introductions\插花.rtf" />
-    <None Include="Data\Introductions\搏击擢 size=.rtf" />
-    <None Include="Data\Introductions\散步.rtf" />
-    <None Include="Data\Introductions\普拉提.rtf" />
-    <None Include="Data\Introductions\泡澡.rtf" />
-    <None Include="Data\Introductions\洗澡.rtf" />
-    <None Include="Data\Introductions\洗碗.rtf" />
-    <None Include="Data\Introductions\洗衣服.rtf" />
-    <None Include="Data\Introductions\游泳.rtf" />
-    <None Include="Data\Introductions\游泳放松.rtf" />
-    <None Include="Data\Introductions\滑雪.rtf" />
-    <None Include="Data\Introductions\烫衣服.rtf" />
-    <None Include="Data\Introductions\爬山.rtf" />
-    <None Include="Data\Introductions\爬楼梯.rtf" />
-    <None Include="Data\Introductions\瑜伽_瑜珈%28一般性舒展运动%29.rtf" />
-    <None Include="Data\Introductions\瑜伽_瑜珈（高强度）.rtf" />
-    <None Include="Data\Introductions\看电影.rtf" />
-    <None Include="Data\Introductions\看电视.rtf" />
-    <None Include="Data\Introductions\睡觉.rtf" />
-    <None Include="Data\Introductions\空中蹬自行车.rtf" />
-    <None Include="Data\Introductions\站着洗衣服.rtf" />
-    <None Include="Data\Introductions\练武术.rtf" />
-    <None Include="Data\Introductions\网球（单打）一小时大约.rtf" />
-    <None Include="Data\Introductions\网球（双打）大约.rtf" />
-    <None Include="Data\Introductions\羽毛球.rtf" />
-    <None Include="Data\Introductions\自行车.rtf" />
-    <None Include="Data\Introductions\蛙泳.rtf" />
-    <None Include="Data\Introductions\购物.rtf" />
-    <None Include="Data\Introductions\走路上班或上孢 size=.rtf" />
-    <None Include="Data\Introductions\跳有氧运动.rtf" />
-    <None Include="Data\Introductions\跳绳.rtf" />
-    <None Include="Data\Introductions\跳舞（舞蹈）.rtf" />
-    <None Include="Data\Introductions\踏步机.rtf" />
-    <None Include="Data\Introductions\转呼啦圈.rtf" />
-    <None Include="Data\Introductions\逛街.rtf" />
-    <None Include="Data\Introductions\遛狗.rtf" />
-    <None Include="Data\Introductions\郊游.rtf" />
-    <None Include="Data\Introductions\骑车（户外）.rtf" />
-    <None Include="Data\Introductions\骑马.rtf" />
+    <Content Include="XmlData\Images\慢走%28一小时4公里%29.jpg" />
+    <Content Include="XmlData\Images\慢跑%28一小时9公里%29.jpg" />
+    <Content Include="XmlData\Images\散步.jpg" />
+    <Content Include="XmlData\Images\瑜伽_瑜珈%28一般性舒展运动%29.jpg" />
+    <Content Include="XmlData\Images\看电视.jpg" />
+    <Content Include="XmlData\SportData.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\Images\45分钟动感单车.jpg" />
-    <Content Include="Data\Images\Bikram热瑜伽.jpg" />
-    <Content Include="Data\Images\仰卧起坐.jpg" />
-    <Content Include="Data\Images\体能训练.jpg" />
-    <Content Include="Data\Images\做饭.jpg" />
-    <Content Include="Data\Images\健身减肥操.jpg" />
-    <Content Include="Data\Images\办公室坐着工作.jpg" />
-    <Content Include="Data\Images\午睡.jpg" />
-    <Content Include="Data\Images\单车%28一小时16公里%29.jpg" />
-    <Content Include="Data\Images\单车%28一小时21公里%29.jpg" />
-    <Content Include="Data\Images\单车%28一小时9公里%29.jpg" />
-    <Content Include="Data\Images\原地跑步.jpg" />
-    <Content Include="Data\Images\吸尘器.jpg" />
-    <Content Include="Data\Images\坐车%28坐着%29.jpg" />
-    <Content Include="Data\Images\坐车%28站着%29.jpg" />
-    <Content Include="Data\Images\壁球一小时大约.jpg" />
-    <Content Include="Data\Images\学习.jpg" />
-    <Content Include="Data\Images\学习，看书，写字（坐）.jpg" />
-    <Content Include="Data\Images\工作.jpg" />
-    <Content Include="Data\Images\开车.jpg" />
-    <Content Include="Data\Images\快走.jpg" />
-    <Content Include="Data\Images\快走（一小时5公里）.jpg" />
-    <Content Include="Data\Images\快走（一小时8公里）.jpg" />
-    <Content Include="Data\Images\快跑%28一小时12公里%29.jpg" />
-    <Content Include="Data\Images\快跑.jpg" />
-    <Content Include="Data\Images\快跑新添加.jpg" />
-    <Content Include="Data\Images\快速走路 size=.jpg" />
-    <Content Include="Data\Images\慢走%28一小时4公里%29.jpg" />
-    <Content Include="Data\Images\慢走.jpg" />
-    <Content Include="Data\Images\慢跑%28一小时9公里%29.jpg" />
-    <Content Include="Data\Images\慢跑.jpg" />
-    <Content Include="Data\Images\慢速跳绢 size=.jpg" />
-    <Content Include="Data\Images\手洗衣服.jpg" />
-    <Content Include="Data\Images\打乒乓.jpg" />
-    <Content Include="Data\Images\打拳.jpg" />
-    <Content Include="Data\Images\打桌球.jpg" />
-    <Content Include="Data\Images\打篮球.jpg" />
-    <Content Include="Data\Images\打网球.jpg" />
-    <Content Include="Data\Images\打高尔夫球.jpg" />
-    <Content Include="Data\Images\扫地.jpg" />
-    <Content Include="Data\Images\抱小孩.jpg" />
-    <Content Include="Data\Images\拖地板.jpg" />
-    <Content Include="Data\Images\插花.jpg" />
-    <Content Include="Data\Images\搏击擢 size=.jpg" />
-    <Content Include="Data\Images\散步.jpg" />
-    <Content Include="Data\Images\普拉提.jpg" />
-    <Content Include="Data\Images\泡澡.jpg" />
-    <Content Include="Data\Images\洗澡.jpg" />
-    <Content Include="Data\Images\洗碗.jpg" />
-    <Content Include="Data\Images\洗衣服.jpg" />
-    <Content Include="Data\Images\游泳.jpg" />
-    <Content Include="Data\Images\游泳放松.jpg" />
-    <Content Include="Data\Images\滑雪.jpg" />
-    <Content Include="Data\Images\烫衣服.jpg" />
-    <Content Include="Data\Images\爬山.jpg" />
-    <Content Include="Data\Images\爬楼梯.jpg" />
-    <Content Include="Data\Images\瑜伽_瑜珈%28一般性舒展运动%29.jpg" />
-    <Content Include="Data\Images\瑜伽_瑜珈（高强度）.jpg" />
-    <Content Include="Data\Images\看电影.jpg" />
-    <Content Include="Data\Images\看电视.jpg" />
-    <Content Include="Data\Images\睡觉.jpg" />
-    <Content Include="Data\Images\空中蹬自行车.jpg" />
-    <Content Include="Data\Images\站着洗衣服.jpg" />
-    <Content Include="Data\Images\练武术.jpg" />
-    <Content Include="Data\Images\网球（单打）一小时大约.jpg" />
-    <Content Include="Data\Images\网球（双打）大约.jpg" />
-    <Content Include="Data\Images\羽毛球.jpg" />
-    <Content Include="Data\Images\自行车.jpg" />
-    <Content Include="Data\Images\蛙泳.jpg" />
-    <Content Include="Data\Images\购物.jpg" />
-    <Content Include="Data\Images\走路上班或上孢 size=.jpg" />
-    <Content Include="Data\Images\跳有氧运动.jpg" />
-    <Content Include="Data\Images\跳绳.jpg" />
-    <Content Include="Data\Images\跳舞（舞蹈）.jpg" />
-    <Content Include="Data\Images\踏步机.jpg" />
-    <Content Include="Data\Images\转呼啦圈.jpg" />
-    <Content Include="Data\Images\逛街.jpg" />
-    <Content Include="Data\Images\遛狗.jpg" />
-    <Content Include="Data\Images\郊游.jpg" />
-    <Content Include="Data\Images\骑车（户外）.jpg" />
-    <Content Include="Data\Images\骑马.jpg" />
-    <Content Include="Data\SportData.xml" />
+    <None Include="XmlData\Introductions\慢走%28一小时4公里%29.rtf" />
+    <None Include="XmlData\Introductions\慢跑%28一小时9公里%29.rtf" />
+    <None Include="XmlData\Introductions\散步.rtf" />
+    <None Include="XmlData\Introductions\瑜伽_瑜珈%28一般性舒展运动%29.rtf" />
+    <None Include="XmlData\Introductions\看电视.rtf" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>md $(SolutionDir)Gymnastika\$(OutDir)\Data\Sports
+xcopy $(ProjectDir)XmlData $(SolutionDir)Gymnastika\$(OutDir)\Data\Sports /s/h</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

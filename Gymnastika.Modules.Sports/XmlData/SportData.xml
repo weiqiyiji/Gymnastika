@@ -1,0 +1,46 @@
+﻿<Data>
+ <SportDataGrabber.Sport>
+  <ImageUri Type="String">shou/attachment/25574.jpg</ImageUri> 
+  <ImageSavePath Type="String">Images/慢走(一小时4公里).jpg</ImageSavePath> 
+  <Name Type="String">慢走(一小时4公里)</Name> 
+  <Calorie Type="Int32">360</Calorie> 
+  <Minutes Type="Int32">360</Minutes> 
+  <IntroductionSavePath Type="String">Introductions/慢走(一小时4公里).rtf</IntroductionSavePath> 
+ </SportDataGrabber.Sport>
+
+ <SportDataGrabber.Sport>
+  <ImageUri Type="String">shou/attachment/25776.jpg</ImageUri> 
+  <ImageSavePath Type="String">Images/瑜伽_瑜珈(一般性舒展运动).jpg</ImageSavePath> 
+  <Name Type="String">瑜伽/瑜珈(一般性舒展运动)</Name> 
+  <Calorie Type="Int32">102</Calorie> 
+  <Minutes Type="Int32">60</Minutes> 
+  <IntroductionSavePath Type="String">Introductions/瑜伽_瑜珈(一般性舒展运动).rtf</IntroductionSavePath> 
+ </SportDataGrabber.Sport>
+
+ <SportDataGrabber.Sport>
+  <ImageUri Type="String">shou/attachment/25575.jpg</ImageUri> 
+  <ImageSavePath Type="String">Images/慢跑(一小时9公里).jpg</ImageSavePath> 
+  <Name Type="String">慢跑(一小时9公里)</Name> 
+  <Calorie Type="Int32">655</Calorie> 
+  <Minutes Type="Int32">60</Minutes> 
+  <IntroductionSavePath Type="String">Introductions/慢跑(一小时9公里).rtf</IntroductionSavePath> 
+ </SportDataGrabber.Sport>
+
+ <SportDataGrabber.Sport>
+  <ImageUri Type="String">shou/attachment/26424.jpg</ImageUri> 
+  <ImageSavePath Type="String">Images/散步.jpg</ImageSavePath> 
+  <Name Type="String">散步</Name> 
+  <Calorie Type="Int32">132</Calorie> 
+  <Minutes Type="Int32">60</Minutes> 
+  <IntroductionSavePath Type="String">Introductions/散步.rtf</IntroductionSavePath> 
+ </SportDataGrabber.Sport>
+
+ <SportDataGrabber.Sport>
+  <ImageUri Type="String">shou/attachment/3366.jpg</ImageUri> 
+  <ImageSavePath Type="String">Images/看电视.jpg</ImageSavePath> 
+  <Name Type="String">看电视</Name> 
+  <Calorie Type="Int32">72</Calorie> 
+  <Minutes Type="Int32">60</Minutes> 
+  <IntroductionSavePath Type="String">Introductions/看电视.rtf</IntroductionSavePath> 
+ </SportDataGrabber.Sport>
+</Data>

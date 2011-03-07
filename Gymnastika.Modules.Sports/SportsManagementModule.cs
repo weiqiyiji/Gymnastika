@@ -13,6 +13,7 @@ using Gymnastika.Common;
 using Gymnastika.Modules.Sports.Models;
 using Gymnastika.Data;
 using Gymnastika.Modules.Sports.Data;
+using Gymnastika.Widgets;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -20,11 +21,12 @@ namespace Gymnastika.Modules.Sports
     {
         readonly private IRegionManager _regionManager;
         readonly private IUnityContainer _container;
-
-        public SportsManagementModule(IUnityContainer container, IRegionManager regionManager)
+        readonly private IWidgetManager _widgetManager;
+        public SportsManagementModule(IUnityContainer container, IRegionManager regionManager,IWidgetManager widgetManager)
         {
             _regionManager = regionManager;
             _container = container;
+            _widgetManager = widgetManager;
         }
 
         #region IModule Members
@@ -33,7 +35,7 @@ namespace Gymnastika.Modules.Sports
         {
             RegisterDependencies();
             //ImportData();
-            RegisterRegions();
+            //RegisterRegions();
         }
 
         private void ImportData()
@@ -48,14 +50,14 @@ namespace Gymnastika.Modules.Sports
         }
 
 
-        private void RegisterRegions()
-        {
-            _regionManager
-                .RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(Shell))
-                .RegisterViewWithRegion(SportRegionNames.SportRegion, typeof(ISportsPanelView))
-                .RegisterViewWithRegion(SportRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
-                .RegisterViewWithRegion(SportRegionNames.SportPlan,typeof(ISportsPlanView));
-        }
+        //private void RegisterRegions()
+        //{
+        //    _regionManager
+        //        .RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(Shell))
+        //        .RegisterViewWithRegion(SportRegionNames.SportRegion, typeof(ISportsPanelView))
+        //        .RegisterViewWithRegion(SportRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
+        //        .RegisterViewWithRegion(SportRegionNames.SportPlan,typeof(ISportsPlanView));
+        //}
 
         #endregion
 
