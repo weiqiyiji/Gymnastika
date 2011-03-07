@@ -13,6 +13,6 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual string ImageUri { get; set; }
 
-        public virtual IList<SubCategory> SubCategory { get; set; }
+        public virtual IList<SubCategory> SubCategories { get; set; }
     }
 }

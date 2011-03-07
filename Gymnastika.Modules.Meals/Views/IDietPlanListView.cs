@@ -10,5 +10,6 @@ namespace Gymnastika.Modules.Meals.Views
     {
         IDietPlanListViewModel Context { get; set; }
         void ExpandAll();
+        void CollapseAll();
     }
 }

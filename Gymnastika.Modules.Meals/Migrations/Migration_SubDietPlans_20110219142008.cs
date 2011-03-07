@@ -34,9 +34,9 @@ namespace Gymnastika.Migrations
             SchemaBuilder.CreateForeignKey(
                 ForeignKeyName,
                 TableName,
-                new string[1] { "DietPlanId" },
+                new string[] { "DietPlanId" },
                 "DietPlans",
-                new string[1] { "Id" });
+                new string[] { "Id" });
         }
             
         public void Down()

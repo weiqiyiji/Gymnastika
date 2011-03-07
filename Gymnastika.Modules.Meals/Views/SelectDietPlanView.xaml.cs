@@ -44,6 +44,11 @@ namespace Gymnastika.Modules.Meals.Views
             this.Show();
         }
 
+        public void CloseView()
+        {
+            this.Close();
+        }
+
         #endregion
     }
 }

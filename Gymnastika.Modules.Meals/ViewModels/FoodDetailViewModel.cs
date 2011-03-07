@@ -12,11 +12,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class FoodDetailViewModel : IFoodDetailViewModel
     {
-        private readonly IFoodService _foodService;
-
-        public FoodDetailViewModel(IFoodDetailView view, IFoodService foodService)
+        public FoodDetailViewModel(IFoodDetailView view)
         {
-            _foodService = foodService;
             View = view;
             View.Context = this;
         }
@@ -44,37 +41,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public string CategoryName
         {
-            get { return _foodService.GetCategory(Food.Id).Name; }
+            get { return Food.SubCategory.Name; }
         }
 
         public string SubCategoryName
         {
-            get { return _foodService.GetSubCategory(Food.Id).Name; }
+            get { return Food.SubCategory.Category.Name; }
         }
 
-        public IEnumerable<NutritiveElement> NutritionalContent
+        public IEnumerable<NutritionalElement> NutritionalElements
         {
-            get { return Food.NutritionalContent; }
+            get { return Food.NutritionalElements; }
         }
 
-        public string Introduction
+        public IEnumerable<Introduction> Introductions
         {
-            get { return Food.Introduction; }
-        }
-
-        public string NutritionalValue
-        {
-            get { return Food.NutritionalValue; }
-        }
-
-        public string Function
-        {
-            get { return Food.Function; }
-        }
-
-        public string SuitableCrowd
-        {
-            get { return Food.SuitableCrowd; }
+            get { return Food.Introductions; }
         }
 
         #endregion

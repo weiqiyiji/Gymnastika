@@ -13,11 +13,11 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         
-        <layoutToolkit:Accordion x:Name="DietPlanList" ItemsSource="{Binding DietPlanList}">
+        <layoutToolkit:Accordion x:Name="DietPlanList" ItemsSource="{Binding DietPlanList}" HorizontalAlignment="Center">
             <layoutToolkit:Accordion.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -32,14 +32,8 @@
             </layoutToolkit:Accordion.ItemTemplate>
             
             <layoutToolkit:Accordion.ContentTemplate>
-                <DataTemplate>
-                    <ItemsControl ItemsSource="{Binding DietPlanSubList}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="{x:Type viewModel:DietPlanSubListViewModel}">
-                                <view:DietPlanSubListView />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                <DataTemplate DataType="{x:Type viewModel:DietPlanSubListViewModel}">
+                    <view:DietPlanSubListView />
                 </DataTemplate>
             </layoutToolkit:Accordion.ContentTemplate>
         </layoutToolkit:Accordion>

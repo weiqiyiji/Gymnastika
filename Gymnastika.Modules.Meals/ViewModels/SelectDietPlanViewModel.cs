@@ -8,57 +8,59 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.Prism.Commands;
 using Gymnastika.Modules.Meals.Services;
+using Microsoft.Practices.ServiceLocation;
+using System.Collections.ObjectModel;
 using Gymnastika.Services.Session;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class SelectDietPlanViewModel : NotificationObject, ISelectDietPlanViewModel
     {
         private readonly IFoodService _foodService;
+        private readonly IWorkEnvironment _workEnvironment;
         private readonly ISessionManager _sessionManager;
         private int _currentPage;
         private int _pageCount;
         private ICommand _showPreviousPageCommand;
         private ICommand _showNextPageCommand;
         private ICommand _applyCommand;
+        private IDietPlanListViewModel _dietPlanLlistViewModel;
 
         public SelectDietPlanViewModel(
             ISelectDietPlanView view, 
-            IDietPlanListViewModel dietPlanListViewModel,
             IFoodService foodService,
+            IWorkEnvironment workEnvironment,
             ISessionManager sessionManager)
         {
-            DietPlanListViewModel = dietPlanListViewModel;
             _foodService = foodService;
+            _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
             View = view;
             View.Context = this;
-            Initialize();
         }
 
         #region IRecommendDietPlanViewModel Members
 
         public ISelectDietPlanView View { get; set; }
 
-        public IDietPlanListViewModel DietPlanListViewModel { get; set; }
-
-        public IList<DietPlan> InMemoryDietPlans { get; set; }
-
-        public IList<DietPlanSubListViewModel> CurrentPageDietPlanList
+        public IDietPlanListViewModel DietPlanListViewModel
         {
             get
             {
-                return DietPlanListViewModel.DietPlanList;
+                return _dietPlanLlistViewModel;
             }
             set
             {
-                DietPlanListViewModel.DietPlanList = value;
+                if (_dietPlanLlistViewModel != value)
+                {
+                    _dietPlanLlistViewModel = value;
+                    RaisePropertyChanged("DietPlanListViewModel");
+                }
             }
         }
 
-        public IList<DietPlanSubListViewModel> PreviousPageDietPlanList { get; set; }
-
-        public IList<DietPlanSubListViewModel> NextPageDietPlanList { get; set; }
+        public IList<DietPlan> InMemoryDietPlans { get; set; }
 
         public PlanType PlanType { get; set; }
 
@@ -134,31 +136,38 @@ namespace Gymnastika.Modules.Meals.ViewModels
             switch (PlanType)
             {
                 case PlanType.CreatedDietPlan:
-                    InMemoryDietPlans = _foodService.GetAllRecommendedDietPlans().ToList();
+                    int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        InMemoryDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId).ToList();
+                    }
                     break;
                 case PlanType.RecommendedDietPlan:
-                    InMemoryDietPlans = _foodService.GetAllSavedDietPlansOfUser(_sessionManager.GetCurrentSession().AssociatedUser.Id).ToList();
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        InMemoryDietPlans = _foodService.DietPlanProvider.GetRecommendedDietPlans().ToList();
+                    }
                     break;
                 default:
                     break;
             }
-            
+
             CurrentPage = 1;
             PageCount = InMemoryDietPlans.Count;
-            CurrentPageDietPlanList = GetDietPlanList(CurrentPage);
-            NextPageDietPlanList = GetDietPlanList(CurrentPage + 1);
+
+            InitializeDietPlanList();
         }
 
         #endregion
 
+        
         private void ShowPreviousPage()
         {
             if (CurrentPage == 1) return;
 
             CurrentPage--;
-            NextPageDietPlanList = CurrentPageDietPlanList;
-            CurrentPageDietPlanList = PreviousPageDietPlanList;
-            PreviousPageDietPlanList = GetDietPlanList(CurrentPage - 1);
+
+            InitializeDietPlanList();
         }
 
         private void ShowNextPage()
@@ -166,9 +175,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             if (CurrentPage == PageCount) return;
 
             CurrentPage++;
-            PreviousPageDietPlanList = CurrentPageDietPlanList;
-            CurrentPageDietPlanList = NextPageDietPlanList;
-            NextPageDietPlanList = GetDietPlanList(CurrentPage + 1);
+
+            InitializeDietPlanList();
         }
 
         private void OnApply()
@@ -177,19 +185,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 Apply(this, new EventArgs());
         }
 
-        private IList<DietPlanSubListViewModel> GetDietPlanList(int index)
+        private void InitializeDietPlanList()
         {
-            IList<DietPlanSubListViewModel> dietPlanList = new List<DietPlanSubListViewModel>();
+            DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
 
             for (int i = 0; i < 6; i++)
             {
-                foreach (var food in InMemoryDietPlans[index].SubDietPlans[i].Foods)
+                foreach (var dietPlanItem in InMemoryDietPlans[CurrentPage - 1].SubDietPlans[i].DietPlanItems)
                 {
-                    dietPlanList[i].AddFoodItem(new FoodItemViewModel(food));
+                    DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(new FoodItemViewModel(dietPlanItem.Food)
+                    {
+                        Amount = dietPlanItem.Amount
+                    });
                 }
             }
-
-            return dietPlanList;
         }
     }
 }

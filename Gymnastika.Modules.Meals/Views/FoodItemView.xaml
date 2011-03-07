@@ -2,59 +2,59 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
                     mc:Ignorable="d">
+    <converter:TextConverter x:Key="TextConverter" />
+    
     <DataTemplate x:Key="DietPlanSubListItem">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Border BorderThickness="1" Width="42" Height="42" CornerRadius="4" Margin="2">
-                <Image Width="40" Height="40" Source="{Binding Path=SmallImageUri}">
-                    <Image.Clip>
-                        <RectangleGeometry Rect="0, 0, 40, 40" RadiusX="4" RadiusY="4" />
-                    </Image.Clip>
+            <Border BorderThickness="1" Width="45" Height="45" CornerRadius="4" Margin="2">
+                <Image Width="43" Height="43" Source="{Binding SmallImageUri}">
                 </Image>
             </Border>
-            <TextBlock Grid.Column="1" Text="{Binding Name}" />
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBox Text="{Binding Amount}" />
-                <TextBlock Text="克" />
+            <TextBlock Grid.Column="1" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" />
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" >
+                <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Width="50" />
+                <TextBlock Text="克" VerticalAlignment="Center" />
             </StackPanel>
-            <TextBlock Grid.Column="3">
+            <TextBlock Grid.Column="3" VerticalAlignment="Center">
                 <TextBlock Text="{Binding Calories}" />
                 <Run Text="大卡" />
             </TextBlock>
-            <Button Grid.Column="4" Content="X" Command="{Binding DeleteFoodFromPlanCommand}" />
+            <Button Grid.Column="4" Content="X" Command="{Binding DeleteFoodFromPlanCommand}" VerticalAlignment="Center" />
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="FoodListItem">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border BorderThickness="1" Width="42" Height="42" CornerRadius="4" Margin="2" BorderBrush="{StaticResource WindowBorder}">
-                <Image Width="40" Height="40" Source="{Binding Path=LargeImageUri}">
-                    <Image.Clip>
-                        <RectangleGeometry Rect="0, 0, 40, 40" RadiusX="4" RadiusY="4" />
-                    </Image.Clip>
+            <Border BorderThickness="1" Width="152" Height="152" CornerRadius="4" Margin="2">
+                <Image Width="150" Height="150" Source="{Binding MiddleImageUri}">
+                    <!--<Image.Clip>
+                        <RectangleGeometry Rect="0, 0, 150, 150" RadiusX="4" RadiusY="4" />
+                    </Image.Clip>-->
                 </Image>
             </Border>
-            <TextBlock Grid.Row="1" Text="{Binding Name}" />
-            <TextBlock Grid.Row="2">
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center"  Text="{Binding Name}" />
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center">
                 <TextBlock Text="{Binding Calorie}" />
                 <Run Text="大卡（每100克）" />
             </TextBlock>
-            <Button Grid.Row="3" Content="添加到我的食物库" Command="{Binding AddFoodToMyFavoriteCommand}" />
-            <Button Grid.Row="4" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" />
+            <Button Grid.Row="3" Content="添加到我的食物库" Command="{Binding AddFoodToMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Row="4" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

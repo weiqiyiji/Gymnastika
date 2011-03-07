@@ -7,29 +7,28 @@ using Gymnastika.Modules.Meals.Models;
 using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using Microsoft.Practices.Prism.ViewModel;
+using Gymnastika.Modules.Meals.Views;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class DietPlanSubListViewModel : NotificationObject, IDropTarget
+    public class DietPlanSubListViewModel : NotificationObject, IDropTarget, IDietPlanSubListViewModel
     {
-        private readonly string _mealName;
-        private int _subTotalCalories;
+        private decimal _subTotalCalories;
 
-        public DietPlanSubListViewModel(string mealName)
+        public DietPlanSubListViewModel(IDietPlanSubListView view)
         {
-            _mealName = mealName;
             _subTotalCalories = 0;
             DietPlanSubList = new ObservableCollection<FoodItemViewModel>();
+            View = view;
         }
+
+        public IDietPlanSubListView View { get; set; }
 
         public ObservableCollection<FoodItemViewModel> DietPlanSubList { get; set; }
 
-        public string MealName
-        {
-            get { return _mealName; }
-        }
+        public string MealName { get; set; }
 
-        public int SubTotalCalories
+        public decimal SubTotalCalories
         {
             get
             {
@@ -46,7 +45,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public void AddFoodItem(FoodItemViewModel foodItem)
+        public void AddFoodToPlan(FoodItemViewModel foodItem)
         {
             Refresh(foodItem);
 
@@ -61,7 +60,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         void IDropTarget.DragOver(DropInfo dropInfo)
         {
-            if ((dropInfo.Data is FoodItemViewModel || dropInfo.Data is IEnumerable<FoodItemViewModel>) && dropInfo.TargetItem is FoodItemViewModel)
+            if (dropInfo.Data is FoodItemViewModel || dropInfo.Data is IEnumerable<FoodItemViewModel>)
             {
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
                 dropInfo.Effects = DragDropEffects.Move;
@@ -70,14 +69,21 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         void IDropTarget.Drop(DropInfo dropInfo)
         {
-            FoodItemViewModel foodItem = (FoodItemViewModel)dropInfo.Data;
-
-            Refresh(foodItem);
+            FoodItemViewModel foodItem = new FoodItemViewModel(((FoodItemViewModel)dropInfo.Data).Food); ;
 
             ObservableCollection<FoodItemViewModel> targetDietPlanSubList = (ObservableCollection<FoodItemViewModel>)dropInfo.TargetCollection;
-            targetDietPlanSubList.Add(foodItem);
-
-            SubTotalCalories += foodItem.Calories;
+            
+            FoodItemViewModel targetFoodItem = targetDietPlanSubList.FirstOrDefault(f => f.Name == foodItem.Name);
+            if (targetFoodItem == null)
+            {
+                targetDietPlanSubList.Add(foodItem);
+                Refresh(foodItem);
+                SubTotalCalories += foodItem.Calories;
+            }
+            else
+            {
+                targetFoodItem.Amount += 100;
+            }
         }
 
         #endregion
@@ -85,6 +91,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private void DeleteFoodFromPlan(object sender, EventArgs e)
         {
             FoodItemViewModel foodItem = sender as FoodItemViewModel;
+
+            DeleteFoodFromPlan(foodItem);
+        }
+
+        private void DeleteFoodFromPlan(FoodItemViewModel foodItem)
+        {
             foodItem.DeleteFoodFromPlan -= DeleteFoodFromPlan;
             foodItem.DietPlanSubListPropertyChanged -= DietPlanSubListPropertyChanged;
 
@@ -101,7 +113,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void DietPlanSubListPropertyChanged(object sender, EventArgs e)
         {
-            int subTotalCalories = 0;
+            decimal subTotalCalories = 0;
 
             foreach (var foodItem in DietPlanSubList)
             {

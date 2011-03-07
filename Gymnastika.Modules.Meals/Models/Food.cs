@@ -13,22 +13,25 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual string SmallImageUri { get; set; }
 
+        public virtual string MiddleImageUri { get; set; }
+
         public virtual string LargeImageUri { get; set; }
 
-        public virtual int Calorie { get; set; }
+        public virtual decimal Calorie { get; set; }
 
-        public virtual IList<NutritiveElement> NutritionalContent { get; set; }
+        public virtual IList<NutritionalElement> NutritionalElements { get; set; }
 
-        public virtual string Introduction { get; set; }
-
-        public virtual string NutritionalValue { get; set; }
-
-        public virtual string Function { get; set; }
-
-        public virtual string SuitableCrowd { get; set; }
+        public virtual IList<Introduction> Introductions { get; set; }
 
         public virtual SubCategory SubCategory { get; set; }
 
-        public virtual IList<SubDietPlan> SubDietPlans { get; set; }
+        //public virtual IList<DietPlanItem> DietPlanItems { get; set; }
+
+        //public virtual IList<FavoriteFood> FavoriteFoods { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

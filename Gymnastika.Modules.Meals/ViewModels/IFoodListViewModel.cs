@@ -14,8 +14,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
     {
         IFoodListView View { get; set; }
         ICollectionView Category { get; }
-        ICollectionView SubCategory { get; }
-        IEnumerable<Food> InMemoryFoods { get; set; }
+        IEnumerable<Food> CurrentFoods { get; set; }
         ObservableCollection<FoodItemViewModel> PreviousPageFoodList { get; set; }
         ObservableCollection<FoodItemViewModel> NextPageFoodList { get; set; }
         ObservableCollection<FoodItemViewModel> CurrentPageFoodList { get; set; }

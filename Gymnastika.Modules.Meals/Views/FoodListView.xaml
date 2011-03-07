@@ -17,26 +17,45 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <TextBlock Text="食物分类" HorizontalAlignment="Center"></TextBlock>
-            <ListBox ItemsSource="{Binding Category}" IsSynchronizedWithCurrentItem="True" />
+            <ListBox ItemsSource="{Binding Category}" IsSynchronizedWithCurrentItem="True">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="20" Height="20" Source="{Binding ImageUri}">
+                                <Image.Clip>
+                                    <RectangleGeometry Rect="0, 0, 20, 20" RadiusX="2" RadiusY="2" />
+                                </Image.Clip>
+                            </Image>
+                            <TextBlock Text="{Binding Name}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-        <StackPanel Grid.Column="1">
-            <ListBox ItemsSource="{Binding SubCategory}" IsSynchronizedWithCurrentItem="True" >
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListBox x:Name="SubCateogyrListBox" SelectionChanged="SubCateogyrListBox_SelectionChanged" ItemsSource="{Binding Category.CurrentItem.SubCategories}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" >
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
             </ListBox>
-            <Button Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" />
-            <ItemsControl ItemsSource="{Binding CurrentPageFoodList}" ItemTemplate="{StaticResource FoodListItem}" dd:DragDrop.IsDragSource="True" />
-            <Grid HorizontalAlignment="Center">
+            <Button Grid.Row="1" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ListBox Grid.Row="3" ItemsSource="{Binding CurrentPageFoodList}" ItemTemplate="{StaticResource FoodListItem}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" />
+            <Grid Grid.Row="2" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="White">
+                <TextBlock Grid.Column="1" VerticalAlignment="Center">
                     <Run Text="第" />
                     <TextBlock Text="{Binding CurrentPage}" />
                     <Run Text="/" />
@@ -45,6 +64,6 @@
                 </TextBlock>
                 <Button Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
             </Grid>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

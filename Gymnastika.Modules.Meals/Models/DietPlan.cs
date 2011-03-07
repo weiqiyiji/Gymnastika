@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Meals.Models
 {
@@ -16,6 +17,8 @@ namespace Gymnastika.Modules.Meals.Models
         public virtual PlanType PlanType { get; set; }
 
         public virtual IList<SubDietPlan> SubDietPlans { get; set; }
+
+        public virtual User User { get; set; }
     }
 
     public enum PlanType

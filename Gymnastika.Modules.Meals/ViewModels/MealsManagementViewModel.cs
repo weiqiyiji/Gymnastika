@@ -12,16 +12,21 @@ using Gymnastika.Modules.Meals.Models;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Services.Session;
+using System.Collections.ObjectModel;
+using System.Globalization;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class MealsManagementViewModel : NotificationObject, IMealsManagementViewModel
     {
         private readonly IFoodService _foodService;
+        private readonly IWorkEnvironment _workEnvironment;
+        private readonly ISessionManager _sessionManager;
         private string _searchString;
         private ICommand _searchCommand;
         private ICommand _showSavedDietPlanCommand;
-        private ICommand _showRecommendDietPlanCommand;
+        private ICommand _showRecommendedDietPlanCommand;
 
         public MealsManagementViewModel(
             IMealsManagementView view,
@@ -29,13 +34,19 @@ namespace Gymnastika.Modules.Meals.ViewModels
             ICreateDietPlanViewModel createDietPlanViewModel,
             ISelectDietPlanViewModel recommendedDietPlanViewModel,
             ISelectDietPlanViewModel savedDietPlanViewModel,
-            IFoodService foodService)
+            IFoodService foodService,
+            IWorkEnvironment workEnvironment,
+            ISessionManager sessionManager)
         {
             FoodListViewModel = foodListViewModel;
             CreateDietPlanViewModel = createDietPlanViewModel;
-            InitializeSelectDietPlanViewModel(SavedDietPlanViewModel, savedDietPlanViewModel, PlanType.CreatedDietPlan, ApplySavedDietPlan);
-            InitializeSelectDietPlanViewModel(RecommendedDietPlanViewModel, recommendedDietPlanViewModel, PlanType.RecommendedDietPlan, ApplyRecommendedDietPlan);
             _foodService = foodService;
+            _workEnvironment = workEnvironment;
+            _sessionManager = sessionManager;
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                InMemoryFoods = _foodService.FoodProvider.GetAll();
+            }
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
@@ -77,7 +88,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get
             {
                 if (_showSavedDietPlanCommand == null)
-                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan);
+                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan, ValidateExistSavedDietPlans);
 
                 return _showSavedDietPlanCommand;
             }
@@ -87,14 +98,16 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get
             {
-                if (_showRecommendDietPlanCommand == null)
-                    _showRecommendDietPlanCommand = new DelegateCommand(ShowRecommendedDietPlan);
+                if (_showRecommendedDietPlanCommand == null)
+                    _showRecommendedDietPlanCommand = new DelegateCommand(ShowRecommendedDietPlan);
 
-                return _showRecommendDietPlanCommand;
+                return _showRecommendedDietPlanCommand;
             }
         }
 
-        public IEnumerable<Food> SearchResults { get; set; }
+        public IEnumerable<Food> InMemoryFoods { get; set; }
+
+        public ICollection<Food> SearchResults { get; set; }
 
         public IFoodListViewModel FoodListViewModel { get; set; }
 
@@ -106,26 +119,65 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        private void InitializeSelectDietPlanViewModel(
-            ISelectDietPlanViewModel destViewModel,
-            ISelectDietPlanViewModel srcViewModel,
-            PlanType planType,
-            EventHandler target)
+        private bool ValidateExistSavedDietPlans()
         {
-            destViewModel = srcViewModel;
-            destViewModel.PlanType = planType;
-            destViewModel.Apply += target;
-            destViewModel.Initialize();
+            int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+
+            IEnumerable<DietPlan> savedDietPlans;
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
+            }
+
+            if (savedDietPlans.Count() != 0) return true;
+
+            return false;
+        }
+
+        private void InitializeSavedDietPlanViewModel()
+        {
+            SavedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
+            SavedDietPlanViewModel.PlanType = PlanType.CreatedDietPlan;
+            SavedDietPlanViewModel.Apply += new EventHandler(ApplySavedDietPlan);
+            SavedDietPlanViewModel.Initialize();
+        }
+
+        private void InitializeRecommendedDietPlanViewModel()
+        {
+            RecommendedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
+            RecommendedDietPlanViewModel.PlanType = PlanType.RecommendedDietPlan;
+            RecommendedDietPlanViewModel.Apply += new EventHandler(ApplyRecommendedDietPlan);
+            RecommendedDietPlanViewModel.Initialize();
         }
 
         private void ApplySavedDietPlan(object sender, EventArgs e)
         {
-            CreateDietPlanViewModel.DietPlanListViewModel = SavedDietPlanViewModel.DietPlanListViewModel;
+            CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                foreach (var foodItem in SavedDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
+                {
+                    CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
+                }
+            }
+
+            SavedDietPlanViewModel.View.CloseView();
         }
 
         private void ApplyRecommendedDietPlan(object sender, EventArgs e)
         {
-            CreateDietPlanViewModel.DietPlanListViewModel = RecommendedDietPlanViewModel.DietPlanListViewModel;
+            CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
+
+            for (int i = 0; i < 6; i++)
+            {
+                foreach (var foodItem in RecommendedDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
+                {
+                    CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
+                }
+            }
+
+            RecommendedDietPlanViewModel.View.CloseView();
         }
 
         private void SearchKeyDown(object sender, KeyEventArgs e)
@@ -139,18 +191,30 @@ namespace Gymnastika.Modules.Meals.ViewModels
             BindingExpression binding = View.GetBindingSearchString();
             binding.UpdateSource();
 
-            SearchResults = _foodService.GetFoodsByName(SearchString);
-            FoodListViewModel.InMemoryFoods = SearchResults;
+            SearchResults = new Collection<Food>();
+            foreach (var food in InMemoryFoods)
+            {
+                string filter = SearchString.ToUpper(CultureInfo.InvariantCulture);
+
+                if (food.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filter))
+                    SearchResults.Add(food);
+            }
+
+            FoodListViewModel.CurrentFoods = SearchResults;
             FoodListViewModel.Initialize();
         }
 
         private void ShowSavedDietPlan()
         {
+            InitializeSavedDietPlanViewModel();
+
             ShowSelectDietPlan(SavedDietPlanViewModel);
         }
 
         private void ShowRecommendedDietPlan()
         {
+            InitializeRecommendedDietPlanViewModel();
+
             ShowSelectDietPlan(RecommendedDietPlanViewModel);
         }
 

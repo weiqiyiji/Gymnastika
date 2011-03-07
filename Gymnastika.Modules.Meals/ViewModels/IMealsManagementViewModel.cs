@@ -5,6 +5,7 @@ using System.Text;
 using Gymnastika.Modules.Meals.Views;
 using System.Windows.Input;
 using Gymnastika.Modules.Meals.Models;
+using System.Collections.ObjectModel;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -15,7 +16,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
         ICommand SearchCommand { get; }
         ICommand ShowSavedDietPlanCommand { get; }
         ICommand ShowRecommendedDietPlanCommand { get; }
-        IEnumerable<Food> SearchResults { get; set; }
+        IEnumerable<Food> InMemoryFoods { get; set; }
+        ICollection<Food> SearchResults { get; set; }
         IFoodListViewModel FoodListViewModel { get; set; }
         ICreateDietPlanViewModel CreateDietPlanViewModel { get; set; }
         ISelectDietPlanViewModel SavedDietPlanViewModel { get; set; }

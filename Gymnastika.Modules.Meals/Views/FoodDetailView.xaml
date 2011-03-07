@@ -1,11 +1,10 @@
-﻿<extToolkit:ChildWindow x:Class="Gymnastika.Modules.Meals.Views.FoodDetailView"
+﻿<Window x:Class="Gymnastika.Modules.Meals.Views.FoodDetailView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:extToolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" IsModal="True">
+             d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -15,10 +14,16 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Image Source="{Binding ImageUri}" />
+        <Border BorderThickness="1" Width="202" Height="202" CornerRadius="4" Margin="2">
+            <Image Width="200" Height="200" Source="{Binding ImageUri}">
+                <!--<Image.Clip>
+                    <RectangleGeometry Rect="0, 0, 200, 200" RadiusX="4" RadiusY="4" />
+                </Image.Clip>-->
+            </Image>
+        </Border>
         <StackPanel Grid.Row="1">
             <TextBlock Text="营养含量（每100克）" />
-            <ItemsControl ItemsSource="{Binding NutritionalContent}">
+            <ItemsControl ItemsSource="{Binding NutritionalElements}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -26,13 +31,8 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBlock>
-                                <TextBlock Text="{Binding Name}" />
-                                <Run Text="（" />
-                                <TextBlock Text="{Binding Unit}" />
-                                <Run Text="）" />
-                            </TextBlock>
-                            <TextBlock Grid.Column="1" Text="{Binding Content}" />
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Value}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -53,30 +53,20 @@
             </TextBlock>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="介绍" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="营养价值" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="食用效果" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
-            <Border BorderThickness="1" CornerRadius="4">
-                <StackPanel>
-                    <TextBlock Text="适用人群" />
-                    <TextBlock Text="" />
-                </StackPanel>
-            </Border>
+            <ItemsControl ItemsSource="{Binding Introductions}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Grid.Row="1" Text="{Binding Content}" TextWrapping="Wrap" />
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </StackPanel>
     </Grid>
-</extToolkit:ChildWindow>
+</Window>

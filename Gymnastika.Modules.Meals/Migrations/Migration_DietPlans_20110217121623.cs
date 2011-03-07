@@ -8,8 +8,8 @@ namespace Gymnastika.Migrations
 {
     public class Migration_DietPlans_20110217121623 : IDataMigration
     {
-        private const string ForeignKeyName = "FK_UserDietPlanMappings_DietPlans";
-
+        //private const string ForeignKeyName = "FK_UserDietPlanMappings_DietPlans";
+        private const string ForeignKeyName = "FK_Users_DietPlans";
         public string TableName 
         { 
             get { return "DietPlans"; }
@@ -32,12 +32,19 @@ namespace Gymnastika.Migrations
                     .Column<bool>("PlanType")
                     .Column<int>("UserId"));
 
+            //SchemaBuilder.CreateForeignKey(
+            //    ForeignKeyName,
+            //    TableName,
+            //    new string[] { "UserId" },
+            //    "UserDietPlanMappings",
+            //    new string[] { "Id" });
+
             SchemaBuilder.CreateForeignKey(
                 ForeignKeyName,
                 TableName,
-                new string[1] { "UserId" },
-                "UserDietPlanMppings",
-                new string[1] { "UserId" });
+                new string[] { "UserId" },
+                "Users",
+                new string[] { "Id" });
         }
             
         public void Down()

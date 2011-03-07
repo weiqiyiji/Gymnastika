@@ -10,5 +10,6 @@ namespace Gymnastika.Modules.Meals.Views
     {
         ISelectDietPlanViewModel Context { get; set; }
         void ShowView();
+        void CloseView();
     }
 }

@@ -9,6 +9,10 @@ using Gymnastika.Modules.Meals.Views;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
 using Gymnastika.Modules.Meals.Services;
+using Gymnastika.Modules.Meals.Services.Providers;
+using Gymnastika.Widgets;
+using Gymnastika.Modules.Meals.Widgets;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -16,44 +20,65 @@ namespace Gymnastika.Modules.Meals
     {
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
+        private readonly IWidgetManager _widgetMananger;
 
-        public MealsManagementModule(IUnityContainer container, IRegionManager regionManager)
+        public MealsManagementModule(IUnityContainer container, IRegionManager regionManager, IWidgetManager widgetManager)
         {
             _container = container;
             _regionManager = regionManager;
+            _widgetMananger = widgetManager;
         }
 
         #region IModule Members
 
         public void Initialize()
         {
+            RegisterWidgets();
             RegisterServices();
             RegisterViews();
             RegisterViewModels();
             RegisterViewWithRegion();
+            StoreDataToDatabase();
         }
 
         #endregion
 
+        private void RegisterWidgets()
+        {
+            _widgetMananger.Add(typeof(BMIWidget));
+        }
+
         private void RegisterServices()
         {
-            _container.RegisterType<IFoodService, FoodService>();
+            _container.RegisterType<IFoodService, FoodService>()
+                .RegisterType<ICategoryProvider, CategoryProvider>()
+                .RegisterType<ISubCategoryProvider, SubCategoryProvider>()
+                .RegisterType<IFoodProvider, FoodProvider>()
+                .RegisterType<IIntroductionProvider, IntroductionProvider>()
+                .RegisterType<INutritionalElementProvider, NutritionalElementProvider>()
+                .RegisterType<IFavoriteFoodProvider, FavoriteFoodProvider>()
+                .RegisterType<IDietPlanProvider, DietPlanProvider>()
+                .RegisterType<ISubDietPlanProvider, SubDietPlanProvider>()
+                .RegisterType<IDietPlanItemProvider, DietPlanItemProvider>();
         }
 
         private void RegisterViews()
         {
             _container.RegisterType<IFoodListView, FoodListView>()
                 .RegisterType<IDietPlanListView, DietPlanListView>()
+                .RegisterType<IDietPlanSubListView, DietPlanSubListView>()
                 .RegisterType<IFoodDetailView, FoodDetailView>()
                 .RegisterType<IMealsManagementView, MealsManagementView>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanView, CreateDietPlanView>()
-                .RegisterType<ISelectDietPlanView, SelectDietPlanView>();
+                .RegisterType<ISelectDietPlanView, SelectDietPlanView>()
+                .RegisterType<IBMIIntroductionView, BMIIntroductionView>();
         }
 
         private void RegisterViewModels()
         {
             _container.RegisterType<IFoodListViewModel, FoodListViewModel>()
                 .RegisterType<IDietPlanListViewModel, DietPlanListViewModel>()
+                .RegisterType<IDietPlanSubListViewModel, DietPlanSubListViewModel>()
                 .RegisterType<IFoodDetailViewModel, FoodDetailViewModel>()
                 .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICreateDietPlanViewModel, CreateDietPlanViewModel>()
@@ -62,9 +87,19 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterViewWithRegion()
         {
-            IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            //IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
 
-            _regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
+            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            //displayRegion.Add(mealsManagementViewModel.View);
+            //displayRegion.Activate(mealsManagementViewModel.View);
+        }
+
+        private void StoreDataToDatabase()
+        {
+            XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
+
+            if (!dataSource.IsStored)
+                dataSource.Store();
         }
     }
 }

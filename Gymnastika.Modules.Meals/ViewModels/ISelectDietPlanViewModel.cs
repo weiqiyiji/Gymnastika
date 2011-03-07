@@ -13,9 +13,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         ISelectDietPlanView View { get; set; }
         IDietPlanListViewModel DietPlanListViewModel { get; set; }
         IList<DietPlan> InMemoryDietPlans { get; set; }
-        IList<DietPlanSubListViewModel> CurrentPageDietPlanList { get; set; }
-        IList<DietPlanSubListViewModel> PreviousPageDietPlanList { get; set; }
-        IList<DietPlanSubListViewModel> NextPageDietPlanList { get; set; }
         PlanType PlanType { get; set; }
         int CurrentPage { get; set; }
         int PageCount { get; set; }

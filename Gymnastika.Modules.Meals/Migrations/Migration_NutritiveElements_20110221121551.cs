@@ -28,16 +28,15 @@ namespace Gymnastika.Migrations
                 TableName,
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                     .Column<string>("Name")
-                    .Column<string>("Unit")
-                    .Column<int>("Content")
+                    .Column<int>("Value")
                     .Column<int>("FoodId"));
 
             SchemaBuilder.CreateForeignKey(
                 ForeignKeyName,
                 TableName,
-                new string[1] { "FoodId" },
+                new string[] { "FoodId" },
                 "Foods",
-                new string[1] { "Id" });
+                new string[] { "Id" });
         }
             
         public void Down()

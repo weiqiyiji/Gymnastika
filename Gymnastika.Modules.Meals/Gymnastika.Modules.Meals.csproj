@@ -71,30 +71,62 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\WPFToolkit.dll</HintPath>
     </Reference>
-    <Reference Include="WPFToolkit.Extended">
-      <HintPath>..\Libs\WPFToolkit.Extended.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="MealsManagementModule.cs" />
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
-    <Compile Include="Migrations\Migration_Foods_20110220121913.cs" />
-    <Compile Include="Migrations\Migration_Food_SubDietPlan_Relations_20110222133930.cs" />
-    <Compile Include="Migrations\Migration_NutritiveElements_20110221121551.cs" />
+    <Compile Include="Migrations\Migration_DietPlanItems_20110219142009.cs" />
+    <Compile Include="Migrations\Migration_FavoriteFoods_20110304111306.cs" />
+    <Compile Include="Migrations\Migration_FavoriteFood_Food_Relations_20110304113806.cs" />
+    <Compile Include="Migrations\Migration_Foods_20110219142007.cs" />
+    <Compile Include="Migrations\Migration_Introductions_20110223125751.cs" />
+    <Compile Include="Migrations\Migration_NutritionalElements_20110221121551.cs" />
     <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
     <Compile Include="Migrations\Migration_SubDietPlans_20110219142008.cs" />
     <Compile Include="Migrations\Migration_SubCategories_20110217121513.cs" />
-    <Compile Include="Migrations\Migration_UserDietPlanMappings_20110222135718.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DietPlan.cs" />
-    <Compile Include="Models\UserDietPlanMapping.cs" />
+    <Compile Include="Models\DietPlanItem.cs" />
+    <Compile Include="Models\FavoriteFood.cs" />
+    <Compile Include="Models\Introduction.cs" />
     <Compile Include="Models\Food.cs" />
-    <Compile Include="Models\NutritiveElement.cs" />
+    <Compile Include="Models\NutritionalElement.cs" />
     <Compile Include="Models\SubCategory.cs" />
     <Compile Include="Models\SubDietPlan.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\Providers\CategoryProvider.cs" />
     <Compile Include="Services\FoodService.cs" />
     <Compile Include="Services\IFoodService.cs" />
+    <Compile Include="Services\Providers\DietPlanItemProvider.cs" />
+    <Compile Include="Services\Providers\DietPlanProvider.cs" />
+    <Compile Include="Services\Providers\FavoriteFoodProvider.cs" />
+    <Compile Include="Services\Providers\FoodProvider.cs" />
+    <Compile Include="Services\Providers\ICategoryProvider.cs" />
+    <Compile Include="Services\Providers\IDietPlanItemProvider.cs" />
+    <Compile Include="Services\Providers\IDietPlanProvider.cs" />
+    <Compile Include="Services\Providers\IFavoriteFoodProvider.cs" />
+    <Compile Include="Services\Providers\IFoodProvider.cs" />
+    <Compile Include="Services\Providers\IIntroductionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\IntroductionProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\INutritionalElementProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\ISubCategoryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\ISubDietPlanProvider.cs" />
+    <Compile Include="Services\Providers\NutritionalElementProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\SubCategoryProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\Providers\SubDietPlanProvider.cs" />
     <Compile Include="ViewModels\CreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\DietPlanListViewModel.cs" />
     <Compile Include="ViewModels\DietPlanSubListViewModel.cs" />
@@ -103,12 +135,16 @@
     <Compile Include="ViewModels\FoodListViewModel.cs" />
     <Compile Include="ViewModels\ICreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\IDietPlanListViewModel.cs" />
+    <Compile Include="ViewModels\IDietPlanSubListViewModel.cs" />
     <Compile Include="ViewModels\IFoodDetailViewModel.cs" />
     <Compile Include="ViewModels\IFoodListViewModel.cs" />
     <Compile Include="ViewModels\IMealsManagementViewModel.cs" />
     <Compile Include="ViewModels\ISelectDietPlanViewModel.cs" />
     <Compile Include="ViewModels\MealsManagementViewModel.cs" />
     <Compile Include="ViewModels\SelectDietPlanViewModel.cs" />
+    <Compile Include="Views\BMIIntroductionView.xaml.cs">
+      <DependentUpon>BMIIntroductionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateDietPlanView.xaml.cs">
       <DependentUpon>CreateDietPlanView.xaml</DependentUpon>
     </Compile>
@@ -124,8 +160,10 @@
     <Compile Include="Views\FoodListView.xaml.cs">
       <DependentUpon>FoodListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\IBMIIntroductionView.cs" />
     <Compile Include="Views\ICreateDietPlanView.cs" />
     <Compile Include="Views\IDietPlanListView.cs" />
+    <Compile Include="Views\IDietPlanSubListView.cs" />
     <Compile Include="Views\IFoodDetailView.cs" />
     <Compile Include="Views\IFoodListView.cs" />
     <Compile Include="Views\IMealsManagementView.cs" />
@@ -136,6 +174,23 @@
     <Compile Include="Views\SelectDietPlanView.xaml.cs">
       <DependentUpon>SelectDietPlanView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\BMIWidget.xaml.cs">
+      <DependentUpon>BMIWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XDataHelpers\XDataFileManager.cs" />
+    <Compile Include="XDataHelpers\XDataRepository.cs" />
+    <Compile Include="XModels\XCategoryDataModels\XCategory.cs" />
+    <Compile Include="XModels\XCategoryDataModels\XCategoryData.cs" />
+    <Compile Include="XModels\XCategoryDataModels\XSubCategory.cs" />
+    <Compile Include="XModels\XDietPlanModels\XDietPlan.cs" />
+    <Compile Include="XModels\XDietPlanModels\XDietPlanData.cs" />
+    <Compile Include="XModels\XDietPlanModels\XDietPlanItem.cs" />
+    <Compile Include="XModels\XDietPlanModels\XSubDietPlan.cs" />
+    <Compile Include="XModels\XFoodDataModels\XCategory.cs" />
+    <Compile Include="XModels\XFoodDataModels\XFood.cs" />
+    <Compile Include="XModels\XFoodDataModels\XFoodData.cs" />
+    <Compile Include="XModels\XFoodDataModels\XIntroduction.cs" />
+    <Compile Include="XModels\XFoodDataModels\XNutritionalElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
@@ -154,8 +209,16 @@
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
+      <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
+      <Name>Gymnastika.Widgets</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\BMIIntroductionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateDietPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -188,11 +251,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\BMIWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\search.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\BMI.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

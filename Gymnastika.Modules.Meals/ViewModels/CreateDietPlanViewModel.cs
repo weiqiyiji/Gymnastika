@@ -8,22 +8,30 @@ using Microsoft.Practices.Prism.Commands;
 using Gymnastika.Modules.Meals.Models;
 using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Modules.Meals.Services;
+using Gymnastika.Data;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class CreateDietPlanViewModel : NotificationObject, ICreateDietPlanViewModel
     {
         private readonly IFoodService _foodService;
+        private readonly IWorkEnvironment _workEnvironment;
+        private readonly ISessionManager _sessinManager;
         private DateTime _createdDate;
         private ICommand _saveCommand;
 
         public CreateDietPlanViewModel(ICreateDietPlanView view, 
             IDietPlanListViewModel dietPlanListViewModel,
-            IFoodService foodService)
+            IFoodService foodService,
+            ISessionManager sessionManager,
+            IWorkEnvironment workEnvironment)
         {
-            DietPlanListViewModel = dietPlanListViewModel;
             _foodService = foodService;
+            _sessinManager = sessionManager;
+            _workEnvironment = workEnvironment;
             CreatedDate = DateTime.Now;
+            DietPlanListViewModel = dietPlanListViewModel;
             View = view;
             View.Context = this;
         }
@@ -32,7 +40,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICreateDietPlanView View { get; set; }
 
-        public IDietPlanListViewModel DietPlanListViewModel { get; set; }
+        private IDietPlanListViewModel _dietPlanListViewModel;
+        public IDietPlanListViewModel DietPlanListViewModel
+        {
+            get
+            {
+                return _dietPlanListViewModel;
+            }
+            set
+            {
+                if (_dietPlanListViewModel != value)
+                {
+                    _dietPlanListViewModel = value;
+                    RaisePropertyChanged("DietPlanListViewModel");
+                }
+            }
+        }
 
         public DietPlan DietPlan { get; set; }
 
@@ -67,21 +90,34 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void Save()
         {
-            IList<SubDietPlan> subDietPlans = new List<SubDietPlan>();
-
-            for (int i = 0; i < 6; i++)
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                foreach (var foodItem in DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
+                DietPlan = new DietPlan();
+                DietPlan.User = _sessinManager.GetCurrentSession().AssociatedUser;
+                DietPlan.PlanType = PlanType.CreatedDietPlan;
+                DietPlan.CreatedDate = CreatedDate;
+                DietPlan.SubDietPlans = new List<SubDietPlan>();
+                _foodService.DietPlanProvider.Create(DietPlan);
+                for (int i = 0; i < 6; i++)
                 {
-                    subDietPlans[i].Foods.Add(foodItem.Food);
+                    SubDietPlan subDietPlan = new SubDietPlan();
+                    subDietPlan.DietPlan = DietPlan;
+                    subDietPlan.DietPlanItems = new List<DietPlanItem>();
+                    _foodService.SubDietPlanProvider.Create(subDietPlan);
+                    foreach (var foodItem in DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
+                    {
+                        DietPlanItem dietPlanItem = new DietPlanItem();
+                        dietPlanItem.Food = foodItem.Food;
+                        dietPlanItem.Amount = foodItem.Amount;
+                        dietPlanItem.SubDietPlan = subDietPlan;
+                        _foodService.DietPlanItemProvider.Create(dietPlanItem);
+                        subDietPlan.DietPlanItems.Add(dietPlanItem);
+                        _foodService.DietPlanItemProvider.Update(dietPlanItem);
+                    }
+                    DietPlan.SubDietPlans.Add(subDietPlan);
+                    _foodService.SubDietPlanProvider.Update(subDietPlan);
                 }
             }
-
-            DietPlan.SubDietPlans = subDietPlans;
-            DietPlan.PlanType = PlanType.CreatedDietPlan;
-            DietPlan.CreatedDate = CreatedDate;
-
-            _foodService.CreateDietPlan(DietPlan);
         }
     }
 }
