@@ -264,14 +264,18 @@ namespace Gymnastika.ViewModels
 
         private void ProcessLogOn()
         {
+            User savedUser = null;
+
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
                 if (_userService.LogOn(UserName, Password))
                 {
                     GoBack();
-                    _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(_userService.GetUser(UserName));
+                    savedUser = _userService.GetUser(UserName);
                 }
             }
+
+            _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
         }
 
         private bool ValidateCreateUserForm()
@@ -282,6 +286,8 @@ namespace Gymnastika.ViewModels
 
         private void CreateNewUser()
         {
+            User savedUser = null;
+
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
                 IsRegisterFailed = false;
@@ -290,10 +296,9 @@ namespace Gymnastika.ViewModels
                 User registeredUser = _userService.GetUser(UserName);
                 if (registeredUser == null)
                 {
-                    User savedUser = _userService.Register(_user);
+                    savedUser = _userService.Register(_user);
                     _sessionManager.Add(savedUser);
                     GoBack();
-                    _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
                 }
                 else
                 {
@@ -301,6 +306,7 @@ namespace Gymnastika.ViewModels
                     ErrorMessage = _userService.ErrorString;
                 }
             }
+            _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
         }	
 		
 	    private void GoBack()
