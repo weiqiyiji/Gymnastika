@@ -17,50 +17,47 @@ namespace Gymnastika.Modules.Sports.Services
             _environment = environment;
         }
 
-        public IEnumerable<T> Fetch(Func<T, bool> predicate)
+        public virtual IEnumerable<T> Fetch(Func<T, bool> predicate)
         {
-            using (var scope = _environment.GetWorkContextScope())
-            {
-                return _repository.Fetch(t => predicate(t));
-            }
+            return _repository.Fetch(t => predicate(t));
         }
 
-        public IEnumerable<T> Fetch(int startIndex, int number)
+        public virtual IEnumerable<T> Fetch(int startIndex, int number)
         {
-            using (var scope = _environment.GetWorkContextScope())
-            {
-                return _repository.Fetch(t => true).Take(number).Skip(startIndex);
-            }
+            return _repository.Fetch(t => true).Take(number).Skip(startIndex);
         }
 
-        public void CreateOrUpdate(T entity)
+        public virtual void CreateOrUpdate(T entity)
         {
-            using (var scope = _environment.GetWorkContextScope())
-            {
-                _repository.CreateOrUpdate(entity);
-            }
+            _repository.CreateOrUpdate(entity);
         }
-        public void Create(T entity)
+        public virtual void Create(T entity)
         {
-            using (var scope = _environment.GetWorkContextScope())
-            {
-                _repository.Create(entity);
-            }
+            _repository.Create(entity);
         }
 
-        public void Update(T entity)
+        public virtual void Update(T entity)
         {
-            using (var scope = _environment.GetWorkContextScope())
-            {
-                _repository.Update(entity);
-            }
+            _repository.Update(entity);
         }
-        public void Delete(T entity)
+        public virtual void Delete(T entity)
         {
-            using (var scope = _environment.GetWorkContextScope())
-            {
-                _repository.Delete(entity);
-            }
+            _repository.Delete(entity);
         }
+
+        public virtual IEnumerable<T> All()
+        {
+            return Fetch((t) => true);
+        }
+
+        #region IProvider<T> Members
+
+
+        public IWorkContextScope GetContextScope()
+        {
+            return _environment.GetWorkContextScope();
+        }
+
+        #endregion
     }
 }

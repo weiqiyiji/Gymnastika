@@ -14,21 +14,16 @@
             <RowDefinition Height="328*" />
         </Grid.RowDefinitions>
         <ListBox x:Name="sportlist" d:DataContext="{d:DesignData Source=/DesignData/SportsPanelDesignData.xaml}" ItemsSource="{Binding ViewModels}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="1">
-                <!--<ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <controls:AnimatedListPanel Margin="10" ItemsDistance="20"/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>-->
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:SportCardView/>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        <my:AutoCompleteBox x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" HorizontalAlignment="Right" Margin="0,7,11,6" Width="233">
+        <my:AutoCompleteBox Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" HorizontalAlignment="Right" Margin="0,7,11,6" Width="233">
             <my:AutoCompleteBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                    <TextBlock Text="{Binding Path=Name}"/>
                 </DataTemplate>
             </my:AutoCompleteBox.ItemTemplate>
         </my:AutoCompleteBox>

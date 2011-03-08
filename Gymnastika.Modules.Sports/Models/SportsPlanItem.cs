@@ -8,6 +8,11 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class SportsPlanItem
     {
+        public SportsPlanItem()
+        {
+            Time = DateTime.Now;
+        }
+
         public virtual int Id { get; set; }
 
         public virtual DateTime Time { get; set; }
@@ -16,7 +21,7 @@ namespace Gymnastika.Modules.Sports.Models
         
         public virtual bool Completed { get; set; }
 
-        public virtual int SportId { get; set; }  
+        //public virtual int SportId { get; set; }  
 
         public virtual Sport Sport { get; set; }
 

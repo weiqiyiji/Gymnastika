@@ -34,7 +34,5 @@ namespace Gymnastika.Modules.Sports.Views
             set { DataContext = value; }
             get { return DataContext as ISportsPlanViewModel; }
         }
-
-
     }
 }
