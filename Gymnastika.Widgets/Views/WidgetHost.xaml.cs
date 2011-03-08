@@ -5,7 +5,7 @@ using System.Windows.Input;
 
 namespace Gymnastika.Widgets.Views
 {
-    public partial class WidgetHost : UserControl, IWidgetHost
+    public partial class WidgetHost : IWidgetHost
     {
         private WidgetDescriptor _descriptor;
         private IWidget _widget;

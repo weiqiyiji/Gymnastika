@@ -59,6 +59,10 @@
     <Reference Include="Microsoft.Practices.Unity.Configuration">
       <HintPath>..\Libs\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Surface.Presentation, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Surface.Presentation.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\Libs\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>

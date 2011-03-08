@@ -11,7 +11,7 @@ namespace Gymnastika.Views
     /// <summary>
     /// Interaction logic for DefaultWidgetPanel.xaml
     /// </summary>
-    public partial class DefaultWidgetPanel : UserControl
+    public partial class DefaultWidgetPanel
     {
         private const string WidgetBoxOpenAnimationKey = "OnWidgetBoxOpen";
         private const string WidgetBoxCloseAnimationKey = "OnWidgetBoxClose";

@@ -1,0 +1,239 @@
+﻿<Window
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Custom="http://schemas.microsoft.com/surface/2008" 
+    xmlns:local="clr-namespace:Gymnastika.Surface.Demo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+	x:Class="Gymnastika.Surface.Demo.DemoWindow"
+	x:Name="Window"
+	Title="DemoWindow"
+	Width="640" Height="480">
+	<Window.Resources>
+		<ControlTemplate x:Key="LibraryStackControlTemplate1" TargetType="{x:Type Custom:LibraryStack}">
+			<Grid x:Name="root">
+				<Border x:Name="PART_StackBackgroundBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding ActualHeight, ConverterParameter=0.5}"/>
+				<Grid>
+					<Grid x:Name="GlowGrid" IsHitTestVisible="False">
+						<Viewbox x:Name="stackGlowViewbox" Opacity="0" RenderTransformOrigin="0.5,0.5" Stretch="Fill">
+							<!--<Viewbox.Margin>
+								<MultiBinding UpdateSourceTrigger="Default">
+									<MultiBinding.ConverterParameter>
+										<Thickness>-0.056</Thickness>
+									</MultiBinding.ConverterParameter>
+									<Binding ElementName="root" Path="ActualWidth"/>
+									<Binding ElementName="root" Path="ActualHeight"/>
+								</MultiBinding>
+							</Viewbox.Margin>-->
+							<Viewbox.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform ScaleY="1" ScaleX="1"/>
+									<SkewTransform AngleY="0" AngleX="0"/>
+									<RotateTransform Angle="0"/>
+									<TranslateTransform X="0" Y="0"/>
+								</TransformGroup>
+							</Viewbox.RenderTransform>
+							<Canvas x:Name="stackGlowCanvas" Height="400" RenderTransformOrigin="0.5,0.5" Width="400">
+								<Canvas.OpacityMask>
+									<LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+										<GradientStop Color="#00000000" Offset="0.519"/>
+										<GradientStop Color="White" Offset="1"/>
+										<GradientStop Color="White" Offset="0"/>
+										<GradientStop Color="#00AFAFAF" Offset="0.317"/>
+										<GradientStop Color="#BFD5D5D5" Offset="0.101"/>
+										<GradientStop Color="#3FC3C3C3" Offset="0.183"/>
+										<GradientStop Color="#0CB7B7B7" Offset="0.269"/>
+										<GradientStop Color="#BFC3C3C3" Offset="0.904"/>
+										<GradientStop Color="#3F989898" Offset="0.822"/>
+										<GradientStop Color="#0C727272" Offset="0.75"/>
+										<GradientStop Color="#00515151" Offset="0.688"/>
+									</LinearGradientBrush>
+								</Canvas.OpacityMask>
+								<Canvas.RenderTransform>
+									<TransformGroup>
+										<ScaleTransform ScaleY="1" ScaleX="1"/>
+										<SkewTransform AngleY="0" AngleX="0"/>
+										<RotateTransform Angle="0"/>
+										<TranslateTransform X="0" Y="0"/>
+									</TransformGroup>
+								</Canvas.RenderTransform>
+								<Path x:Name="stackStroke" Data="F1M600.500488,315.499512C600.500488,472.900879 472.901855,600.499512 315.500488,600.499512 158.099121,600.499512 30.500488,472.900879 30.500488,315.499512 30.500488,158.098145 158.099121,30.499512 315.500488,30.499512 472.901855,30.499512 600.500488,158.098145 600.500488,315.499512z" HorizontalAlignment="Center" Margin="0,0,28.001,27.999" Stroke="#FFF0F0F0" StrokeThickness="2" StrokeMiterLimit="1" VerticalAlignment="Center">
+									<Path.LayoutTransform>
+										<ScaleTransform ScaleY="0.6344" ScaleX="0.6344"/>
+									</Path.LayoutTransform>
+								</Path>
+								<Path x:Name="stackGlow" Data="F1M495.812988,495.811035C447.651855,543.975098 383.614746,570.499512 315.500488,570.499512 247.38623,570.499512 183.350098,543.975098 135.187988,495.811035 87.024414,447.648926 60.5,383.612793 60.5,315.500488 60.5,247.38623 87.024414,183.349609 135.187988,135.187988 183.350098,87.023926 247.38623,60.5 315.500488,60.5 383.614746,60.5 447.651855,87.023926 495.812988,135.187988 543.977051,183.349609 570.501465,247.38623 570.501465,315.500488 570.501465,383.612793 543.977051,447.648926 495.812988,495.811035z M538.240723,92.760742C478.745605,33.265625 399.641113,0.5 315.500488,0.5 231.36084,0.5 152.255859,33.265625 92.76123,92.760742 33.266113,152.255859 0.5,231.360352 0.5,315.500488 0.5,399.641113 33.266113,478.742676 92.76123,538.237793 152.255859,597.73291 231.36084,630.498535 315.500488,630.498535 399.641113,630.498535 478.745605,597.73291 538.240723,538.237793 597.73584,478.742676 630.501465,399.641113 630.501465,315.500488 630.501465,231.360352 597.73584,152.255859 538.240723,92.760742z" Stroke="{x:Null}" StrokeThickness="1" StrokeMiterLimit="1">
+									<Path.Fill>
+										<RadialGradientBrush>
+											<GradientStop Color="#19FFFFFF" Offset="0.913"/>
+											<GradientStop Color="Transparent" Offset="0.99"/>
+											<GradientStop Color="Transparent" Offset="0.817"/>
+										</RadialGradientBrush>
+									</Path.Fill>
+									<Path.LayoutTransform>
+										<ScaleTransform ScaleY="0.6344" ScaleX="0.6344"/>
+									</Path.LayoutTransform>
+								</Path>
+							</Canvas>
+						</Viewbox>
+					</Grid>
+					<ItemsPresenter/>
+				</Grid>
+			</Grid>
+			<ControlTemplate.Triggers>
+				<Trigger Property="Tag" Value="IsTransitioning">
+					<Setter Property="Visibility" TargetName="GlowGrid" Value="Hidden"/>
+				</Trigger>
+				<Trigger Property="IsActive" Value="True">
+					<Trigger.EnterActions>
+						<RemoveStoryboard BeginStoryboardName="Claim"/>
+						<RemoveStoryboard BeginStoryboardName="ClaimRelease"/>
+						<RemoveStoryboard BeginStoryboardName="ClaimGlowOpacity0"/>
+						<RemoveStoryboard BeginStoryboardName="ClaimGlowOpacity100"/>
+						<RemoveStoryboard BeginStoryboardName="ClaimRotate"/>
+						<BeginStoryboard x:Name="TouchStoryboard">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="stackGlowCanvas">
+									<SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+									<SplineDoubleKeyFrame KeyTime="0:0:0.7" Value="45"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="stackStroke">
+									<SplineDoubleKeyFrame KeySpline="0.489,0.401,0.264,0.911" KeyTime="0:0:0.35" Value="8"/>
+									<SplineDoubleKeyFrame KeySpline="0,0,0,0.796" KeyTime="0:0:0.9" Value="2"/>
+								</DoubleAnimationUsingKeyFrames>
+								<ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="stackGlow">
+									<SplineColorKeyFrame KeySpline="0.489,0.401,0.264,0.911" KeyTime="0:0:0.35" Value="#4CFFFFFF"/>
+									<SplineColorKeyFrame KeySpline="0,0,0,0.796" KeyTime="0:0:0.8" Value="#19FFFFFF"/>
+								</ColorAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(0)" Storyboard.TargetName="PART_StackShadow">
+									<SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.1" Value="3"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StackActiveShadow">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.104" Value="1"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StackInActiveShadow">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.104" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+						<BeginStoryboard x:Name="TouchGlowOpacity100">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackGlowViewbox">
+									<SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.5" Value="1"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+					</Trigger.EnterActions>
+					<Trigger.ExitActions>
+						<BeginStoryboard x:Name="TouchGlowOpacity0">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackGlowViewbox">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+						<BeginStoryboard x:Name="ReleaseStoryboard">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="stackGlowViewbox">
+									<SplineDoubleKeyFrame KeySpline="0.494,0.089,1,1" KeyTime="0:0:0.9" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="stackStroke">
+									<SplineDoubleKeyFrame KeySpline="1,0.204,0.511,0.599" KeyTime="0:0:0.9" Value="2"/>
+								</DoubleAnimationUsingKeyFrames>
+								<ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="stackGlow">
+									<SplineColorKeyFrame KeySpline="1,0.204,0.511,0.599" KeyTime="0:0:0.9" Value="#19FFFFFF"/>
+								</ColorAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(0)" Storyboard.TargetName="PART_StackShadow">
+									<SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StackInActiveShadow">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.45" Value="1"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StackActiveShadow">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.45" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+					</Trigger.ExitActions>
+				</Trigger>
+				<Trigger Property="Custom:SurfaceDragDrop.IsAnyCursorTargeted" Value="True">
+					<Trigger.EnterActions>
+						<RemoveStoryboard BeginStoryboardName="TouchGlowOpacity0"/>
+						<RemoveStoryboard BeginStoryboardName="ReleaseStoryboard"/>
+						<RemoveStoryboard BeginStoryboardName="TouchGlowOpacity100"/>
+						<RemoveStoryboard BeginStoryboardName="TouchStoryboard"/>
+						<BeginStoryboard x:Name="Claim">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="stackStroke">
+									<SplineDoubleKeyFrame KeySpline="0.498,0.101,0.506,0.911" KeyTime="0:0:0.8" Value="5"/>
+									<SplineDoubleKeyFrame KeySpline="0.498,0.116,0.498,0.901" KeyTime="0:0:1.7" Value="3.5"/>
+								</DoubleAnimationUsingKeyFrames>
+								<ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="stackGlow">
+									<SplineColorKeyFrame KeySpline="0.498,0.101,0.506,0.911" KeyTime="0:0:0.8" Value="#3FFFFFFF"/>
+									<SplineColorKeyFrame KeySpline="0.498,0.116,0.498,0.901" KeyTime="0:0:1.7" Value="#26FFFFFF"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+						<BeginStoryboard x:Name="ClaimGlowOpacity100">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackGlowViewbox">
+									<SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.5" Value="1"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+						<BeginStoryboard x:Name="ClaimRotate">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="stackGlowCanvas">
+									<SplineDoubleKeyFrame KeyTime="0" Value="0"/>
+									<SplineDoubleKeyFrame KeyTime="0:0:0.6" Value="135"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+					</Trigger.EnterActions>
+					<Trigger.ExitActions>
+						<BeginStoryboard x:Name="ClaimGlowOpacity0">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackGlowViewbox">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+						<BeginStoryboard x:Name="ClaimRelease">
+							<Storyboard>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[2].(RotateTransform.Angle)" Storyboard.TargetName="stackGlowViewbox">
+									<SplineDoubleKeyFrame KeySpline="0.494,0.089,1,1" KeyTime="0:0:0.9" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.StrokeThickness)" Storyboard.TargetName="stackStroke">
+									<SplineDoubleKeyFrame KeySpline="1,0.204,0.511,0.599" KeyTime="0:0:0.9" Value="2"/>
+								</DoubleAnimationUsingKeyFrames>
+								<ColorAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(Shape.Fill).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="stackGlow">
+									<SplineColorKeyFrame KeySpline="1,0.204,0.511,0.599" KeyTime="0:0:0.9" Value="#19FFFFFF"/>
+								</ColorAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(0)" Storyboard.TargetName="PART_StackShadow">
+									<SplineDoubleKeyFrame KeySpline="0,1,1,1" KeyTime="0:0:0.45" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StackInActiveShadow">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.45" Value="1"/>
+								</DoubleAnimationUsingKeyFrames>
+								<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="StackActiveShadow">
+									<SplineDoubleKeyFrame KeyTime="0:0:0.45" Value="0"/>
+								</DoubleAnimationUsingKeyFrames>
+							</Storyboard>
+						</BeginStoryboard>
+					</Trigger.ExitActions>
+				</Trigger>
+			</ControlTemplate.Triggers>
+		</ControlTemplate>
+        <local:TestDataCollection x:Key="secondContainerData">
+            <BitmapImage UriSource="/Gymnastika.Surface.Demo;component/Images/Thumbnail-5.png"/>
+            <BitmapImage UriSource="/Gymnastika.Surface.Demo;component/Images/Thumbnail-6.png"/>
+            <BitmapImage UriSource="/Gymnastika.Surface.Demo;component/Images/Thumbnail-7.png"/>
+            <BitmapImage UriSource="/Gymnastika.Surface.Demo;component/Images/Thumbnail-8.png"/>
+        </local:TestDataCollection>
+    </Window.Resources>
+
+	<Grid x:Name="LayoutRoot">
+        <Custom:LibraryStack ItemsSource="{StaticResource secondContainerData}" Margin="290,132,0,0" d:LayoutOverrides="Width, Height" Template="{DynamicResource LibraryStackControlTemplate1}">
+			<Button></Button>
+		</Custom:LibraryStack>
+	</Grid>
+</Window>

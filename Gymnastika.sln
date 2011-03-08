@@ -47,6 +47,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Widgets.Demo", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Widgets.Tests", "Gymnastika.Widgets.Tests\Gymnastika.Widgets.Tests.csproj", "{46389FE2-D1B4-4E30-BC24-5A3495A37517}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Surface.Demo", "Gymnastika.Surface.Demo\Gymnastika.Surface.Demo.csproj", "{CA945B83-58C0-4417-9AA4-1CD64EF94E86}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gymnastika.vsmdi
@@ -267,6 +269,16 @@ Global
 		{46389FE2-D1B4-4E30-BC24-5A3495A37517}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{46389FE2-D1B4-4E30-BC24-5A3495A37517}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{46389FE2-D1B4-4E30-BC24-5A3495A37517}.Release|x86.ActiveCfg = Release|Any CPU
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Debug|x86.ActiveCfg = Debug|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Debug|x86.Build.0 = Debug|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Release|Any CPU.ActiveCfg = Release|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Release|Mixed Platforms.Build.0 = Release|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Release|x86.ActiveCfg = Release|x86
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -274,6 +286,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{348143C8-994B-4CAF-B05D-8FC243C1E891} = {204B1096-6AB8-4B0D-A89E-C2DAB12318C2}
 		{1164C3B1-AE98-4F5C-98E0-AC982CB97F88} = {204B1096-6AB8-4B0D-A89E-C2DAB12318C2}
+		{CA945B83-58C0-4417-9AA4-1CD64EF94E86} = {204B1096-6AB8-4B0D-A89E-C2DAB12318C2}
 		{E697A4E3-B016-4716-BB3D-E774F7BD3B29} = {59D175BE-4CFC-47CF-A20F-A6B120FA93B7}
 		{595AB87C-2639-4577-88BB-6C5073AF2CBC} = {59D175BE-4CFC-47CF-A20F-A6B120FA93B7}
 		{40426CD2-BF24-4938-9415-38D4AF4D199C} = {CA821CDF-AA0B-4069-A55C-C5BF19D764FD}

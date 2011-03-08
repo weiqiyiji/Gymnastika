@@ -8,7 +8,6 @@
             <Button Content="InstantSearchBox" Click="Button_Click" HorizontalAlignment="Stretch" />
             <Button Content="SlidePanel" Click="Button_Click" HorizontalAlignment="Stretch" />
             <Button Content="CheckButtonGroup" Click="Button_Click" HorizontalAlignment="Stretch" />
-            <Button Content="SlideCanvas" Click="Button_Click" HorizontalAlignment="Stretch" />
         </StackPanel>
     </Grid>
 </Window>
