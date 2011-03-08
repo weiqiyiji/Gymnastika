@@ -32,8 +32,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
             IMealsManagementView view,
             IFoodListViewModel foodListViewModel,
             ICreateDietPlanViewModel createDietPlanViewModel,
-            ISelectDietPlanViewModel recommendedDietPlanViewModel,
-            ISelectDietPlanViewModel savedDietPlanViewModel,
             IFoodService foodService,
             IWorkEnvironment workEnvironment,
             ISessionManager sessionManager)
@@ -43,10 +41,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _foodService = foodService;
             _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
-            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            {
-                InMemoryFoods = _foodService.FoodProvider.GetAll();
-            }
+            //using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            //{
+            //    InMemoryFoods = _foodService.FoodProvider.GetAll();
+            //}
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);

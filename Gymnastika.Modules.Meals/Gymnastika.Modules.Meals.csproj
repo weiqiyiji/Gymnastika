@@ -71,8 +71,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\WPFToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\Libs\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ILoadDataController.cs" />
+    <Compile Include="Controllers\LoadDataController.cs" />
     <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="MealsManagementModule.cs" />
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
@@ -168,6 +173,9 @@
     <Compile Include="Views\IFoodListView.cs" />
     <Compile Include="Views\IMealsManagementView.cs" />
     <Compile Include="Views\ISelectDietPlanView.cs" />
+    <Compile Include="Views\LoadDataView.xaml.cs">
+      <DependentUpon>LoadDataView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MealsManagementView.xaml.cs">
       <DependentUpon>MealsManagementView.xaml</DependentUpon>
     </Compile>
@@ -242,6 +250,10 @@
     <Page Include="Views\FoodListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\LoadDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MealsManagementView.xaml">
       <SubType>Designer</SubType>

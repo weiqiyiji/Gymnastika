@@ -35,7 +35,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             _foodService = foodService;
             _workEnvironment = workEnvironment;
-            _category = _foodService.CategoryProvider.GetAll();
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                _category = _foodService.CategoryProvider.GetAll();
+                foreach (var category in _category)
+                {
+                    category.SubCategories = _foodService.SubCategoryProvider.GetSubCategories(category).ToList();
+                }
+                IEnumerable<SubCategory> subCategories = _foodService.SubCategoryProvider.GetAll();
+            }
             Category = CollectionViewSource.GetDefaultView(_category);
             MyFavoriteFoodList = new List<FoodItemViewModel>();
             View = view;
@@ -162,7 +170,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void SubCategorySelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            CurrentFoods = ((SubCategory)e.AddedItems[0]).Foods;
+            SubCategory subCategory = (SubCategory)e.AddedItems[0];
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                CurrentFoods = _foodService.FoodProvider.GetFoods(subCategory);
+            }
 
             Initialize();
         }

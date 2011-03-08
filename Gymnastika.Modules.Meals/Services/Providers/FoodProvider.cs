@@ -43,6 +43,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Get(f => f.Name == name);
         }
 
+        public IEnumerable<Food> GetFoods(SubCategory subCategory)
+        {
+            return _repository.Fetch(f => f.SubCategory == subCategory);
+        }
+
         #endregion
     }
 }
