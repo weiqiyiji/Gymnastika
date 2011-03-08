@@ -118,7 +118,6 @@
     </Compile>
     <Compile Include="Services\IProvider.cs" />
     <Compile Include="Services\SportCardViewModelFactory.cs" />
-    <Compile Include="ViewModels\ICreateNewPlanItemViewModel.cs" />
     <Compile Include="ViewModels\ISportCardViewModel.cs" />
     <Compile Include="Services\ISportCardViewModelFactory.cs" />
     <Compile Include="Services\ISportsPlanItemViewModelFactory.cs" />

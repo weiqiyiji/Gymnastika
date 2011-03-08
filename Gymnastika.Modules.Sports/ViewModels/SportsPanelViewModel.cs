@@ -25,8 +25,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _aggregator = aggregator;
             _factory = factory;
             _aggregator.GetEvent<CategoryChangedEvent>().Subscribe(CategoryChanged);
-        
-
         }
 
         public ICollectionView View
@@ -35,7 +33,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         Predicate<ISportCardViewModel> _filter;
-        Predicate<ISportCardViewModel> Filter
+        public Predicate<ISportCardViewModel> Filter
         {
             get { return _filter; }
             set
@@ -44,12 +42,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     _filter = value;
                     RaisePropertyChanged(() => Filter);
-                    View.Filter = (Predicate<object>)_filter;
-                    View.Refresh();
+                    View.Filter = (s) => _filter(s as ISportCardViewModel);
                 }
             }
         }
-
 
         string _searchName;
         public string SearchName
@@ -62,11 +58,12 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _searchName = value;
                     RaisePropertyChanged(() => SearchName);
                     Filter = (s) => s.Name.Contains(_searchName);
+                    View.Refresh();
                 }
             }
         }
 
-        public void CategoryChanged(SportsCategory category)
+        void CategoryChanged(SportsCategory category)
         {
             Category = category;
         }
@@ -83,17 +80,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (_category != null && _category != value)
                 {
                     _category = value;
-                    Sports = _category.Sports;
                     RaisePropertyChanged(() => Category);
+                    Sports = _category.Sports;
                 }
             }
         }
 
-        private IList<Sport> _sports;
-
+        IList<Sport> _sports;
         public IList<Sport> Sports
         {
-            get { return _sports; }
+            get { return Category.Sports; }
             set
             {
                 if (_sports != value)

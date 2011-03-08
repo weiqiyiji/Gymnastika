@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Sports.Services
 {
@@ -19,5 +20,8 @@ namespace Gymnastika.Modules.Sports.Services
 
         void Delete(T entity);
 
+        IEnumerable<T> All();
+
+        IWorkContextScope GetContextScope();
     }
 }

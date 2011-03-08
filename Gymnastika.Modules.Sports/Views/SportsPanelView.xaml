@@ -23,7 +23,7 @@
         <my:AutoCompleteBox Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" HorizontalAlignment="Right" Margin="0,7,11,6" Width="233">
             <my:AutoCompleteBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
+                    <TextBlock Text="{Binding Path=Name}"/>
                 </DataTemplate>
             </my:AutoCompleteBox.ItemTemplate>
         </my:AutoCompleteBox>

@@ -10,9 +10,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
     public interface ISportsPanelViewModel
     {
     
-        void CategoryChanged(SportsCategory category);
-        
-        IList<Sport> Sports { get; set; }
-    
+        IList<Sport> Sports { get; }
+
+        Predicate<ISportCardViewModel> Filter { get; set; }
+
+        SportsCategory Category { get; set; }
     }
 }

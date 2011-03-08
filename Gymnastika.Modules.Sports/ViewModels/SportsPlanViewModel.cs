@@ -24,30 +24,28 @@ namespace Gymnastika.Modules.Sports.ViewModels
     {
         IEventAggregator _aggregator;
         ISportsPlanItemViewModelFactory _factory;
+        ISportsPlanProvider _provider;
 
-
-
-        public SportsPlanViewModel(IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory,SportsPlan plan)
+        public SportsPlanViewModel(ISportsPlanProvider provider, IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory)
+            
         {
+            _provider = provider;
+
             _factory = factory;
-            
+
             _aggregator = aggregator;
-            
+
             aggregator.GetEvent<SportsPlanChangedEvent>().Subscribe(SportsPlanChanged);
-            
+
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
-            
-            SportsPlan = plan ?? new SportsPlan();
 
-            SportsPlan.SportsPlanItems = SportsPlan.SportsPlanItems ?? new List<SportsPlanItem>();
+            SportsPlan =  new SportsPlan() { Time = DateTime.Now };
 
+            SportsPlan.SportsPlanItems = new List<SportsPlanItem>();
+
+            _saveCommand = new DelegateCommand(Save, CanSave);
         }
 
-        public SportsPlanViewModel(IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory)
-        :this(aggregator, factory, new SportsPlan(){ SportsPlanItems = new List<SportsPlanItem>() })
-        {
-
-        }
 
         double? _totalCalories = 0;
         public double? TotalCalories
@@ -82,6 +80,12 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        int ToRange(int min, int max, int value)
+        {
+            return Math.Min(Math.Max(value, min), max);
+        }
+
+        
 
         public void SportsPlanChanged(SportsPlan plan)
         {
@@ -221,5 +225,31 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        SportsPlan CreateNewPlan()
+        {
+            SportsPlan plan = new SportsPlan();
+            using (_provider.GetContextScope())
+            {
+                _provider.Create(plan);
+            }
+            return plan;
+        }
+
+        void Save()
+        {
+
+        }
+
+        ICommand _saveCommand;
+        public ICommand SaveCommand
+        {
+            get { return _saveCommand; }
+        }
+
+
+        bool CanSave()
+        {
+            return SportsPlan.Time.Year > 2000;
+        }
     }
 }

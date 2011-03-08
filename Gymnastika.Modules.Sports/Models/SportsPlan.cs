@@ -10,6 +10,12 @@ namespace Gymnastika.Modules.Sports.Models
 {
     public class SportsPlan
     {
+        public SportsPlan()
+        {
+            Time = DateTime.Now;
+            SportsPlanItems = new List<SportsPlanItem>();
+        }
+
         public virtual int Id { set; get; }
 
         public virtual DateTime Time { get; set; }

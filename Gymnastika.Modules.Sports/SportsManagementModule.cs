@@ -43,7 +43,6 @@ namespace Gymnastika.Modules.Sports
         private void RegisterViews()
         {
             _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
-
             _regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
                           .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
                           .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
@@ -89,7 +88,7 @@ namespace Gymnastika.Modules.Sports
 
                 //Services
                 .RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
-
+                .RegisterType<ISportsPlanProvider,SportsPlanProvider>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
                 
