@@ -12,8 +12,12 @@ using Gymnastika.Modules.Sports.Views;
 using Gymnastika.Common;
 using Gymnastika.Modules.Sports.Models;
 using Gymnastika.Data;
-using Gymnastika.Modules.Sports.Data;
 using Gymnastika.Widgets;
+using Gymnastika.Modules.Sports.Services.Providers;
+using Gymnastika.Modules.Sports.Services.Factories;
+using Gymnastika.Modules.Sports.DataImport.Importers;
+using Gymnastika.Modules.Sports.DataImport.Sources;
+using Gymnastika.Modules.Sports.DataImport;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -40,6 +44,8 @@ namespace Gymnastika.Modules.Sports
             RegisterViews();
         }
 
+        #endregion
+
         private void RegisterViews()
         {
             _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
@@ -48,7 +54,6 @@ namespace Gymnastika.Modules.Sports
                           .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
         }
 
-        #endregion
 
 
         private void RegisterWidgets()
@@ -87,8 +92,10 @@ namespace Gymnastika.Modules.Sports
                 .RegisterInstance<IImporterCollection>(new ImporterCollection())
 
                 //Services
+                .RegisterType(typeof(IProvider<>),typeof(DbProviderBase<>))
                 .RegisterType<ICategoriesProvider, CategoriesProvider>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISportsPlanProvider,SportsPlanProvider>(new ContainerControlledLifetimeManager())
+                .RegisterType<IPlanItemProvider,PlanItemProvider>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
                 

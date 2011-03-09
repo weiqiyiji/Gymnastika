@@ -32,4 +32,9 @@ namespace Gymnastika.Modules.Sports.Views
             set { DataContext = value; }
         }
     }
+
+    public interface ISportsPlanItemView
+    {
+        ISportsPlanItemViewModel ViewModel { get; set; }
+    }
 }

@@ -6,57 +6,86 @@ using Gymnastika.Modules.Sports.Models;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using System.ComponentModel;
+using Gymnastika.Modules.Sports.Services.Providers;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+    public interface ISportsPlanItemViewModel : INotifyPropertyChanged
+    {
+        event EventHandler CancleRequest;
+
+        event EventHandler SubmitRequest;
+
+        ICommand SubmitCommand { get; }
+
+        ICommand CancleCommand { get; }
+
+        SportsPlanItem Item { get; }
+
+        string ImageUri { get; }
+
+        String SportName { get; }
+
+        DateTime Time { get; }
+
+        bool Completed { get; }
+
+        int Duration { get; }
+    }
+
     public class SportsPlanItemViewModel : NotificationObject, ISportsPlanItemViewModel
     {
-
         public SportsPlanItemViewModel(SportsPlanItem item)
         {
             Item = item;
-            CloseCommand = new DelegateCommand(Close, CanClose);
+            CancleCommand = new DelegateCommand(Cancle, CanCancle);
+            SubmitCommand = new DelegateCommand(Submit, CanSubmit);
         }
 
-        public SportsPlanItemViewModel()
-        {
-            Item = new SportsPlanItem();
-        }
+        public event EventHandler SubmitRequest = delegate { };
 
-        public event EventHandler CloseViewRequest =  delegate { };
+        public event EventHandler CancleRequest =  delegate { };
 
-        ICommand _closeCommand;
-        public ICommand CloseCommand
+
+        private ICommand _submitCommand;
+        public ICommand SubmitCommand
         {
-            get
-            {
-                return _closeCommand;
-            }
+            get { return _submitCommand; }
             set
             {
-                if (_closeCommand != value)
+                if (value != _submitCommand)
                 {
-                    _closeCommand = value;
-                    RaisePropertyChanged(() => CloseCommand);
+                    _submitCommand = value;
+                    RaisePropertyChanged(() => SubmitCommand);
+                }
+            }
+        }
+        
+
+        ICommand _cancleCommand;
+        public ICommand CancleCommand
+        {
+            get { return _cancleCommand; }
+            set
+            {
+                if (value != _cancleCommand)
+                {
+                    _cancleCommand = value;
+                    RaisePropertyChanged(() => CancleCommand);
                 }
             }
         }
 
         public string ImageUri
         {
-            get
-            {
-                return Sport.ImageUri;
-            }
+            get { return Sport.ImageUri; }
         }
 
         SportsPlanItem _item;
         public SportsPlanItem Item
         {
-            get
-            {
-                return _item;
-            }
+            get { return _item; }
             set
             {
                 if (value != null && _item != value)
@@ -69,18 +98,12 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public String SportName
         {
-            get
-            {
-                return Sport.Name;
-            }
+            get { return Sport.Name; }
         }
 
         public Sport Sport
         {
-            get
-            {
-                return Item.Sport;
-            }
+            get { return Item.Sport; }
             set
             {
                 if (Item.Sport != value)
@@ -94,10 +117,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public DateTime Time
         {
-            get
-            {
-                return Item.Time;
-            }
+            get { return Item.Time; }
             set
             {
                 if (value != Item.Time)
@@ -110,10 +130,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public bool Completed
         {
-            get
-            {
-                return Item.Completed;
-            }
+            get { return Item.Completed; }
             set
             {
                 if (Item.Completed != value)
@@ -127,10 +144,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public int Duration
         {
-            get
-            {
-                return Item.Duration;
-            }
+            get { return Item.Duration; }
             set
             {
                 if (value != Item.Duration)
@@ -141,14 +155,26 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        private void Close()
+        private void Cancle()
         {
-            CloseViewRequest(this, EventArgs.Empty);
+            CancleRequest(this, EventArgs.Empty);
         }
 
-        public bool CanClose() 
+        public bool CanCancle() 
         {
-            return true;
+            return CancleRequest != null;
         }
+
+        void Submit()
+        {
+            SubmitRequest(this, EventArgs.Empty);
+        }
+
+        bool CanSubmit()
+        {
+            return SubmitRequest != null;
+        }
+
+
     }
 }

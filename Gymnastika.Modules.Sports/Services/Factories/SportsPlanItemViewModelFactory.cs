@@ -5,8 +5,13 @@ using System.Text;
 using Gymnastika.Modules.Sports.ViewModels;
 using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.Services
+namespace Gymnastika.Modules.Sports.Services.Factories
 {
+    public interface ISportsPlanItemViewModelFactory
+    {
+        ISportsPlanItemViewModel Create(SportsPlanItem item);
+    }
+
     public class SportsPlanItemViewModelFactory : ISportsPlanItemViewModelFactory
     {
         #region ISportsPlanItemViewModelFactory Members

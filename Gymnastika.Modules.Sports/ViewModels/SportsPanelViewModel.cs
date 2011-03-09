@@ -12,9 +12,20 @@ using GongSolutions.Wpf.DragDrop;
 using Gymnastika.Modules.Sports.Services;
 using System.Windows.Data;
 using System.ComponentModel;
+using Gymnastika.Modules.Sports.Services.Factories;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+    public interface ISportsPanelViewModel
+    {
+
+        IList<Sport> Sports { get; }
+
+        Predicate<ISportCardViewModel> Filter { get; set; }
+
+        SportsCategory Category { get; set; }
+    }
+
     public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel
     {
         IEventAggregator _aggregator;

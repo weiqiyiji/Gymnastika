@@ -7,7 +7,7 @@ using Gymnastika.Modules.Sports.Models;
 using System.Xml;
 using System.IO;
 
-namespace Gymnastika.Modules.Sports.Data
+namespace Gymnastika.Modules.Sports.DataImport.Sources
 {
     public class XmlCategorySource : IDataSource<SportsCategory>
     {
