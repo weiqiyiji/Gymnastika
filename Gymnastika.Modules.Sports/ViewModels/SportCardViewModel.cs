@@ -13,6 +13,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
 {
     public class SportCardViewModel : NotificationObject, ISportCardViewModel, IDragSource
     {
+        public override string ToString()
+        {
+            return Name;
+        }
 
         public SportCardViewModel(Models.Sport sport)
         {

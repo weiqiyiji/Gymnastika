@@ -24,11 +24,8 @@ namespace Gymnastika.Modules.Sports.Views
         public SportsPanelView()
         {
             InitializeComponent();
-            //SearchBox.ItemFilter = (searchWord, item) => 
-            //{
-                
-            //    ((string)t).Contains("");
-            //};
+            //Binding bd = new Binding("Filter");
+            //BindingOperations.SetBinding(sportlist.view
         }
 
         [Dependency]

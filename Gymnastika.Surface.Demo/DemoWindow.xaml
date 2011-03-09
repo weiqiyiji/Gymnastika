@@ -232,8 +232,6 @@
     </Window.Resources>
 
 	<Grid x:Name="LayoutRoot">
-        <Custom:LibraryStack ItemsSource="{StaticResource secondContainerData}" Margin="290,132,0,0" d:LayoutOverrides="Width, Height" Template="{DynamicResource LibraryStackControlTemplate1}">
-			<Button></Button>
-		</Custom:LibraryStack>
+        <Custom:LibraryStack  ItemsSource="{StaticResource secondContainerData}" Margin="153,46,137,86" d:LayoutOverrides="Width, Height" Template="{DynamicResource LibraryStackControlTemplate1}"/>
 	</Grid>
 </Window>

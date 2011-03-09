@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.ModuleShell"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="258" d:DesignWidth="422"
+             xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+             xmlns:module="clr-namespace:Gymnastika.Modules.Sports">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="34*" />
+            <RowDefinition Height="224*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130*" />
+            <ColumnDefinition Width="292*" />
+        </Grid.ColumnDefinitions>
+        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.SportRegion}" Grid.Column="1" Grid.Row="1" />
+        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.PlanRegion}" Grid.RowSpan="2" />
+        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.CategoryRegion}" Grid.Column="1" />
+    </Grid>
+</UserControl>

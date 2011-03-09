@@ -8,6 +8,6 @@ namespace Gymnastika.Modules.Sports.Services
 {
     public interface ICategoriesProvider : IProvider<SportsCategory>
     {
-        IEnumerable<SportsCategory> Fetch(Func<SportsCategory,bool> predicate);
+        //IEnumerable<SportsCategory> Fetch(Func<SportsCategory,bool> predicate);
     }
 }

@@ -22,7 +22,11 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             _provider = provider;
             _aggregator = aggregator;
-            _categories = _provider.Fetch(t => true).ToObservableCollection();
+            using (_provider.GetContextScope())
+            {
+                _categories = _provider.All().ToObservableCollection();
+            }
+
             CurrentSelectedItem = _categories.FirstOrDefault();
         }
 
@@ -54,5 +58,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 }
             }
         }
+
     }
 }
