@@ -30,6 +30,6 @@
                 <Binding Path="TotalCalories"/>
             </ProgressBar.Value>
         </ProgressBar>
-        <Button Content="保存" Grid.Column="1" Command="{Binding SaveCommand}" Margin="0,0,12,6" Name="button1" Grid.Row="1" HorizontalAlignment="Right" Width="75" />
+        <Button Content="保存" Grid.Column="1" Command="{Binding SaveCommand}" Margin="0,1,6,5" Name="button1" Grid.Row="1" HorizontalAlignment="Right" Width="75" />
     </Grid>
 </UserControl>

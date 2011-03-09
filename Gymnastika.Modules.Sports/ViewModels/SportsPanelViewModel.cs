@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 using Microsoft.Practices.Prism.Events;
-using Gymnastika.Modules.Sports.Events;
 using System.Collections.ObjectModel;
 using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Modules.Sports.Extensions;
@@ -13,29 +12,118 @@ using Gymnastika.Modules.Sports.Services;
 using System.Windows.Data;
 using System.ComponentModel;
 using Gymnastika.Modules.Sports.Services.Factories;
+using Gymnastika.Modules.Sports.Services.Providers;
+using Microsoft.Practices.Unity;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
     public interface ISportsPanelViewModel
     {
+        ObservableCollection<Sport> CurrentSports { get; }
 
-        IList<Sport> Sports { get; }
-
-        Predicate<ISportCardViewModel> Filter { get; set; }
+        Func<Sport,bool> Filter { get; set; }
 
         SportsCategory Category { get; set; }
+
+        int CurrentPage { get; }
     }
 
     public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel
     {
-        IEventAggregator _aggregator;
+        const int MaxItemsPerPage = 10;
+
         ISportCardViewModelFactory _factory;
-        
-        public SportsPanelViewModel(IEventAggregator aggregator,ISportCardViewModelFactory factory)
+        ISportProvider _sportProvider;
+
+        public SportsPanelViewModel(ISportProvider sportprovider,ISportCardViewModelFactory factory)
         {
-            _aggregator = aggregator;
+            _sportProvider = sportprovider;
             _factory = factory;
-            _aggregator.GetEvent<CategoryChangedEvent>().Subscribe(CategoryChanged);
+        }
+
+        #region properties
+
+        int _currentPage = 1;
+        public int CurrentPage
+        {
+            get { return _currentPage; }
+            set
+            {
+                if (_currentPage != value && GoToPage(value))
+                {
+                    RaisePropertyChanged(() => CurrentPage);
+                }
+            }
+        }
+
+        public int MaxPage
+        {
+            get
+            {
+                return Count / MaxItemsPerPage + 1;
+            }
+        }
+
+        int _count;
+        public int Count
+        {
+            get { return _count; }
+            set
+            {
+                if (_count != value)
+                {
+                    _count = value;
+                    RaisePropertyChanged(() => Count);
+                    RaisePropertyChanged(() => MaxPage);
+                }
+            }
+        }
+
+
+
+        #endregion
+
+        void UpdateCount()
+        {
+            Count = GetCount(Filter);
+        }
+
+        int GetCount(Func<Sport, bool> predicate)
+        {
+            if (Category != null)
+            {
+                using (_sportProvider.GetContextScope())
+                {
+                    return _sportProvider.Fetch(Category, Filter).Count();
+                }
+            }
+            else
+                return 1;
+        }
+
+
+
+        int GetStartIndex(int page)
+        {
+            page = page - 1;
+            return (page < 0 ? 0 : page) * MaxItemsPerPage;
+        }
+
+        private bool GoToPage(int page)
+        {
+            if (page >= 1 && page != CurrentPage && page <= MaxPage)
+            {
+                using(_sportProvider.GetContextScope())
+                {
+                    CurrentSports = _sportProvider.Fetch
+                        (Category, GetStartIndex(page), MaxItemsPerPage, Filter)
+                        .ToObservableCollection();
+                }
+                CurrentPage = page;
+                return true;
+            }
+            return false;
         }
 
         public ICollectionView View
@@ -43,8 +131,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get { return CollectionViewSource.GetDefaultView(ViewModels); }
         }
 
-        Predicate<ISportCardViewModel> _filter;
-        public Predicate<ISportCardViewModel> Filter
+        Func<Sport,bool> _filter;
+        public Func<Sport, bool> Filter
         {
             get { return _filter; }
             set
@@ -53,7 +141,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     _filter = value;
                     RaisePropertyChanged(() => Filter);
-                    View.Filter = (s) => _filter(s as ISportCardViewModel);
+                    View.Filter = s => _filter((s as ISportCardViewModel).Sport);
                 }
             }
         }
@@ -69,14 +157,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _searchName = value;
                     RaisePropertyChanged(() => SearchName);
                     Filter = (s) => s.Name.Contains(_searchName);
+                    GoToPage(1);
                     View.Refresh();
                 }
             }
-        }
-
-        void CategoryChanged(SportsCategory category)
-        {
-            Category = category;
         }
 
         SportsCategory _category = new SportsCategory() { Sports = new List<Sport>() };
@@ -91,23 +175,35 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (_category != null && _category != value)
                 {
                     _category = value;
+                    UpdateState();
                     RaisePropertyChanged(() => Category);
-                    Sports = _category.Sports;
+
                 }
             }
         }
 
-        IList<Sport> _sports;
-        public IList<Sport> Sports
+
+        void ResetFilter() { Filter = (s) => true; }
+
+        private void UpdateState()
         {
-            get { return Category.Sports; }
+            ResetFilter();
+            UpdateCount();
+            GoToPage(1);
+        }
+
+        ObservableCollection<Sport> _currentSports;
+        public ObservableCollection<Sport> CurrentSports
+        {
+            get { return _currentSports; }
             set
             {
-                if (_sports != value)
+                if (_currentSports != value)
                 {
-                    _sports = value;
-                    ViewModels = GetViewModels(_sports);
-                    RaisePropertyChanged(() => Sports);
+                    
+                    _currentSports = value;
+                    ViewModels = GetViewModels(_currentSports);
+                    RaisePropertyChanged(() => CurrentSports);
                 }
             }
         }
@@ -117,12 +213,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
             ObservableCollection<ISportCardViewModel> viewModels = new ObservableCollection<ISportCardViewModel>();
             foreach (Sport sport in sports)
             {
-                ISportCardViewModel viewmodel = _factory.Create(sport);
+                ISportCardViewModel viewmodel = CreateViewModel(sport);
                 viewModels.Add(viewmodel);
             }
             return viewModels;
         }
-        
+
+        ISportCardViewModel CreateViewModel(Sport sport)
+        {
+            return _factory.Create(sport);
+        }
 
         ObservableCollection<ISportCardViewModel> _viewModels = new ObservableCollection<ISportCardViewModel>();
         public ObservableCollection<ISportCardViewModel> ViewModels
@@ -132,11 +232,26 @@ namespace Gymnastika.Modules.Sports.ViewModels
             {
                 if (value != null && value != _viewModels)
                 {
+                    ReleaseViewModels(_viewModels);
                     _viewModels = value;
                     RaisePropertyChanged(() => ViewModels);
                 }
             }
         }
 
+        void ReleaseViewModels(IEnumerable<ISportCardViewModel> models)
+        {
+            if (models == null)
+                return;
+            foreach (ISportCardViewModel model in models)
+            {
+                ReleaseViewModel(model);
+            }
+        }
+
+        void ReleaseViewModel(ISportCardViewModel model)
+        {
+            //Remove Handlers
+        }
     }
 }

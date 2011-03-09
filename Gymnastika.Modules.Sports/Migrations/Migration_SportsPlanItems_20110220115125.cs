@@ -40,6 +40,9 @@ namespace Gymnastika.Migrations
         public void Down()
         {
             SchemaBuilder.DropTable(TableName);
+
+            SchemaBuilder.DropForeignKey(TableName,Sports_FK);
+            SchemaBuilder.DropForeignKey(TableName, Plans_FK);
         }
     }
 }

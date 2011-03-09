@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Collections.ObjectModel;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Sports.Models
 {
@@ -23,5 +24,7 @@ namespace Gymnastika.Modules.Sports.Models
         public virtual int Score { get; set; }
 
         public virtual IList<SportsPlanItem> SportsPlanItems { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

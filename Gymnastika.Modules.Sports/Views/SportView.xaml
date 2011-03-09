@@ -38,6 +38,7 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
+            <Button Content="X" Command="{Binding CloseCommand}" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,6,0" Name="button1" VerticalAlignment="Top" Width="23" />
         </Grid>
         <FlowDocumentReader Document="{Binding IntroductionUri,Converter={StaticResource ResourceKey=RtfConverter}}" Grid.Row="1"/>
     </Grid>

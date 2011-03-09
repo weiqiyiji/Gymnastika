@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Models;
-using Gymnastika.Modules.Sports.Events;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Extensions;
@@ -19,6 +18,7 @@ using Gymnastika.Modules.Sports.Services;
 using System.Collections.Specialized;
 using Gymnastika.Modules.Sports.Services.Providers;
 using Gymnastika.Modules.Sports.Services.Factories;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -31,21 +31,20 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
-        IEventAggregator _aggregator;
+        //IEventAggregator _aggregator;
         ISportsPlanItemViewModelFactory _factory;
         ISportsPlanProvider _planProvider;
         IPlanItemProvider _itemProvider;
+        ISessionManager _sessionManager;
 
-        public SportsPlanViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory)
+        public SportsPlanViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISessionManager sessionManager,ISportsPlanItemViewModelFactory factory)
         {
             _planProvider = planProvider;
             _itemProvider = itemProvider;
 
             _factory = factory;
 
-            _aggregator = aggregator;
-
-            aggregator.GetEvent<SportsPlanChangedEvent>().Subscribe(SportsPlanChanged);
+            _sessionManager = sessionManager;
 
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
 
@@ -276,6 +275,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         SportsPlan CreateNewPlan()
         {
             SportsPlan plan = new SportsPlan();
+
+            plan.User = _sessionManager.GetCurrentSession().AssociatedUser;
+            
             using (_planProvider.GetContextScope())
             {
                 _planProvider.Create(plan);

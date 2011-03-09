@@ -85,16 +85,16 @@
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
-    <Compile Include="DesignData\CategoriesDesign.cs">
+    <Compile Include="Temporary\DesignData\CategoriesDesign.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DesignData\PlansDesign.cs">
+    <Compile Include="Temporary\DesignData\PlansDesign.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DesignData\SportsPanelDesign.cs">
+    <Compile Include="Temporary\DesignData\SportsPanelDesign.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DesignData\SportsPlanDesign.cs">
+    <Compile Include="Temporary\DesignData\SportsPlanDesign.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\DataImport\Importers\CategoryImporter.cs" />
@@ -103,10 +103,6 @@
     <Compile Include="Services\DataImport\Sources\IDataSource.cs" />
     <Compile Include="Services\DataImport\Importers\ImporterCollection.cs" />
     <Compile Include="Services\DataImport\Sources\XmlCategorySource.cs" />
-    <Compile Include="Events\CategoryChangedEvent.cs" />
-    <Compile Include="Events\ShowSportsDetailEvent.cs" />
-    <Compile Include="Events\SportChangedEvent.cs" />
-    <Compile Include="Events\SportsPlanChangedEvent.cs" />
     <Compile Include="Extensions\ListExtension.cs" />
     <Compile Include="Migrations\Migration_SportsCategories_20110216223043.cs" />
     <Compile Include="Migrations\Migration_SportsPlanItems_20110220115125.cs" />
@@ -123,14 +119,18 @@
     <Compile Include="Services\Factories\SportCardViewModelFactory.cs" />
     <Compile Include="Services\Providers\PlanItemProvider.cs" />
     <Compile Include="Services\Factories\SportsPlanItemViewModelFactory.cs" />
-    <Compile Include="Services\Providers\CategoriesProvider.cs" />
+    <Compile Include="Services\Providers\CategoryProvider.cs" />
     <Compile Include="Migrations\Migration_Sports_20110217165552.cs" />
-    <Compile Include="Services\Providers\DbProviderBase.cs" />
+    <Compile Include="Services\Providers\ProviderBase.cs" />
     <Compile Include="Services\Providers\SportProvider.cs" />
     <Compile Include="Services\Providers\SportsPlanProvider.cs" />
     <Compile Include="SportsManagementModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Temporary\Widget\Widget.xaml.cs">
+      <DependentUpon>Widget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CategoriesPanelViewModel.cs" />
+    <Compile Include="ViewModels\PlanListViewModel.cs" />
     <Compile Include="ViewModels\SportCardViewModel.cs" />
     <Compile Include="ViewModels\SportsPlanItemViewModel.cs" />
     <Compile Include="ViewModels\SportsPlanViewModel.cs" />
@@ -138,6 +138,9 @@
     <Compile Include="ViewModels\SportViewModel.cs" />
     <Compile Include="Views\PlanItemDetailView.xaml.cs">
       <DependentUpon>PlanItemDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PlanListView.xaml.cs">
+      <DependentUpon>PlanListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SportCardView.xaml.cs">
       <DependentUpon>SportCardView.xaml</DependentUpon>
@@ -162,35 +165,39 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="DesignData\CategoriesDesign.xaml">
+    <Page Include="Temporary\DesignData\CategoriesDesign.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\CategoryData.xaml">
+    <Page Include="Temporary\DesignData\CategoryData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\PlansDesignData.xaml">
+    <Page Include="Temporary\DesignData\PlansDesignData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\SportData.xaml">
+    <Page Include="Temporary\DesignData\SportData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\SportsPanelDesignData.xaml">
+    <Page Include="Temporary\DesignData\SportsPanelDesignData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\SportsPlanDesignData.xaml">
+    <Page Include="Temporary\DesignData\SportsPlanDesignData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DesignData\SportsPlanItemDesignData.xaml">
+    <Page Include="Temporary\DesignData\SportsPlanItemDesignData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ModuleShell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Temporary\Widget\Widget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,6 +206,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlanItemDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PlanListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,17 +259,21 @@
       <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
       <Name>Gymnastika.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
       <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
       <Name>Gymnastika.Widgets</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="DesignData\Images\2.jpg" />
+    <CodeAnalysisDictionary Include="Temporary\DesignData\Images\2.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="DesignData\Images\1.jpg" />
-    <Resource Include="DesignData\Images\3.jpg" />
+    <Resource Include="Temporary\DesignData\Images\1.jpg" />
+    <Resource Include="Temporary\DesignData\Images\3.jpg" />
     <Resource Include="Resources\Images\Sport.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
