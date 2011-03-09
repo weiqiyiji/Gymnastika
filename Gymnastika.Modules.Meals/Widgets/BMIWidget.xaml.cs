@@ -36,7 +36,7 @@ namespace Gymnastika.Modules.Meals.Widgets
         private decimal BMI;
 
         private readonly IRegionManager _regionManager;
-        private readonly ILoadDataController _loadDataController;
+        //private readonly ILoadDataController _loadDataController;
 
         public BMIWidget(ISessionManager sessionManager,
             IRegionManager regionManager
@@ -127,52 +127,52 @@ namespace Gymnastika.Modules.Meals.Widgets
             displayRegion.Activate(mealsManagementViewModel.View);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadCategoryData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadCategoryData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadSubCategoryData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadSubCategoryData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadFoodData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_2(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadFoodData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadNutritionalElementData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_3(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadNutritionalElementData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_4(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadIntroductionData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_4(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadIntroductionData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_5(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadDietPlanData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_5(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadDietPlanData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadSubDietPlanData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_6(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadSubDietPlanData();
+        //    MessageBox.Show("已保存");
+        //}
 
-        private void Button_Click_7(object sender, RoutedEventArgs e)
-        {
-            _loadDataController.LoadDietPlanItemData();
-            MessageBox.Show("已保存");
-        }
+        //private void Button_Click_7(object sender, RoutedEventArgs e)
+        //{
+        //    _loadDataController.LoadDietPlanItemData();
+        //    MessageBox.Show("已保存");
+        //}
     }
 }

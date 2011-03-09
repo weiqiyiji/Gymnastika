@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
+             xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Window.Resources>
@@ -27,7 +28,7 @@
         </Border>
         <StackPanel Grid.Row="1">
             <TextBlock Text="营养含量（每100克）" />
-            <ItemsControl ItemsSource="{Binding NutritionalElements}">
+            <!--<ItemsControl ItemsSource="{Binding NutritionalElements}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid>
@@ -40,7 +41,12 @@
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            </ItemsControl>-->
+            <chartingToolkit:Chart Title="Typical Use">
+                <chartingToolkit:Chart.Series>
+                    <chartingToolkit:BarSeries Title="Population" ItemsSource="{Binding NutritionalElements}"  IndependentValueBinding="{Binding Name}" DependentValueBinding="{Binding Value}"></chartingToolkit:BarSeries>
+                </chartingToolkit:Chart.Series>
+            </chartingToolkit:Chart>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock Text="{Binding Name}" />
