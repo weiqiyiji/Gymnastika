@@ -53,7 +53,7 @@
                 <TextBlock Text="{Binding Calorie}" />
                 <Run Text="大卡（每100克）" />
             </TextBlock>
-            <Button Grid.Row="3" Content="添加到我的食物库" Command="{Binding AddFoodToMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Row="3" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <Button Grid.Row="4" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
     </DataTemplate>

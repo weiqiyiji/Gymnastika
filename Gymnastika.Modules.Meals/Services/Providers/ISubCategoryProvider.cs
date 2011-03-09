@@ -12,5 +12,6 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         void Update(SubCategory subCategory);
         IEnumerable<SubCategory> GetSubCategories(Category category);
         IEnumerable<SubCategory> GetAll();
+        SubCategory Get(Food food);
     }
 }

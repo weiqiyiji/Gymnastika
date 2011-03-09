@@ -23,6 +23,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private readonly IFoodService _foodService;
         private readonly IWorkEnvironment _workEnvironment;
         private readonly ISessionManager _sessionManager;
+        private readonly IUnityContainer _container;
         private string _searchString;
         private ICommand _searchCommand;
         private ICommand _showSavedDietPlanCommand;
@@ -34,17 +35,19 @@ namespace Gymnastika.Modules.Meals.ViewModels
             ICreateDietPlanViewModel createDietPlanViewModel,
             IFoodService foodService,
             IWorkEnvironment workEnvironment,
-            ISessionManager sessionManager)
+            ISessionManager sessionManager,
+            IUnityContainer container)
         {
             FoodListViewModel = foodListViewModel;
             CreateDietPlanViewModel = createDietPlanViewModel;
             _foodService = foodService;
             _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
-            //using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            //{
-            //    InMemoryFoods = _foodService.FoodProvider.GetAll();
-            //}
+            _container = container;
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                InMemoryFoods = _foodService.FoodProvider.GetAll();
+            }
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
@@ -86,7 +89,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get
             {
                 if (_showSavedDietPlanCommand == null)
-                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan, ValidateExistSavedDietPlans);
+                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan);
 
                 return _showSavedDietPlanCommand;
             }
@@ -134,7 +137,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void InitializeSavedDietPlanViewModel()
         {
-            SavedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
+            SavedDietPlanViewModel = _container.Resolve<ISelectDietPlanViewModel>();
             SavedDietPlanViewModel.PlanType = PlanType.CreatedDietPlan;
             SavedDietPlanViewModel.Apply += new EventHandler(ApplySavedDietPlan);
             SavedDietPlanViewModel.Initialize();
@@ -142,7 +145,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void InitializeRecommendedDietPlanViewModel()
         {
-            RecommendedDietPlanViewModel = ServiceLocator.Current.GetInstance<ISelectDietPlanViewModel>();
+            RecommendedDietPlanViewModel = _container.Resolve<ISelectDietPlanViewModel>();
             RecommendedDietPlanViewModel.PlanType = PlanType.RecommendedDietPlan;
             RecommendedDietPlanViewModel.Apply += new EventHandler(ApplyRecommendedDietPlan);
             RecommendedDietPlanViewModel.Initialize();
@@ -150,7 +153,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void ApplySavedDietPlan(object sender, EventArgs e)
         {
-            CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
+            CreateDietPlanViewModel.DietPlanListViewModel = _container.Resolve<IDietPlanListViewModel>();
 
             for (int i = 0; i < 6; i++)
             {
@@ -165,7 +168,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void ApplyRecommendedDietPlan(object sender, EventArgs e)
         {
-            CreateDietPlanViewModel.DietPlanListViewModel = ServiceLocator.Current.GetInstance<IDietPlanListViewModel>();
+            CreateDietPlanViewModel.DietPlanListViewModel = _container.Resolve<IDietPlanListViewModel>();
 
             for (int i = 0; i < 6; i++)
             {
@@ -199,7 +202,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
 
             FoodListViewModel.CurrentFoods = SearchResults;
-            FoodListViewModel.Initialize();
+            FoodListViewModel.ShowSearchResult();
         }
 
         private void ShowSavedDietPlan()

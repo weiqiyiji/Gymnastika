@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Data;
 using Gymnastika.Modules.Meals.Models;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Meals.Services.Providers
 {
@@ -36,6 +37,26 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         public IEnumerable<DietPlan> GetRecommendedDietPlans()
         {
             return _repository.Fetch(dp => dp.PlanType == PlanType.RecommendedDietPlan);
+        }
+
+        public DietPlan Get(User user, int skip)
+        {
+            return _repository.Fetch(dp => dp.User == user, odp => odp.Desc(d => d.Id), skip, 1).ToList()[0];
+        }
+
+        public DietPlan Get(PlanType planType, int skip)
+        {
+            return _repository.Fetch(dp => dp.PlanType == planType, odp => odp.Asc(d => d.Id), skip, 1).ToList()[0];
+        }
+
+        public int count(User user)
+        {
+            return _repository.Count(dp => dp.User == user);
+        }
+
+        public int count(PlanType planType)
+        {
+            return _repository.Count(dp => dp.PlanType == planType);
         }
 
         #endregion

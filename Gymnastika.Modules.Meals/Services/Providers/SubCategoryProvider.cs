@@ -38,6 +38,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Fetch(sc => true);
         }
 
+        public SubCategory Get(Food food)
+        {
+            return _repository.Get(sc => sc.Foods.Contains(food));
+        }
+
         #endregion
     }
 }

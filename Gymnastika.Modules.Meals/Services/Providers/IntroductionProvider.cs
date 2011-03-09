@@ -28,6 +28,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             _repository.Update(introduction);
         }
 
+        public IEnumerable<Introduction> GetIntroductions(Food food)
+        {
+            return _repository.Fetch(i => i.Food == food);
+        }
+
         #endregion
     }
 }

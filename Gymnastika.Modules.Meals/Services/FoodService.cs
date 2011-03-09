@@ -49,7 +49,8 @@ namespace Gymnastika.Modules.Meals.Services
             INutritionalElementProvider nutritionalElementProvider,
             IDietPlanProvider dietPlanProvider,
             ISubDietPlanProvider subDietPlanProvider,
-            IDietPlanItemProvider dietPlanItemProvider)
+            IDietPlanItemProvider dietPlanItemProvider,
+            IFavoriteFoodProvider favoriteFoodProvider)
         {
             CategoryProvider = categoryProvider;
             SubCategoryProvider = subCategoryProvider;
@@ -59,6 +60,7 @@ namespace Gymnastika.Modules.Meals.Services
             DietPlanProvider = dietPlanProvider;
             SubDietPlanProvider = subDietPlanProvider;
             DietPlanItemProvider = dietPlanItemProvider;
+            FavoriteFoodProvider = favoriteFoodProvider;
         }
 
         #region IFoodService Members
@@ -78,6 +80,8 @@ namespace Gymnastika.Modules.Meals.Services
         public ISubDietPlanProvider SubDietPlanProvider { get; set; }
 
         public IDietPlanItemProvider DietPlanItemProvider { get; set; }
+
+        public IFavoriteFoodProvider FavoriteFoodProvider { get; set; }
 
         #endregion
     }

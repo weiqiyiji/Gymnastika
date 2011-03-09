@@ -15,6 +15,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         IFoodListView View { get; set; }
         ICollectionView Category { get; }
         IEnumerable<Food> CurrentFoods { get; set; }
+        SubCategory CurrentSubCategory { get; set; }
         ObservableCollection<FoodItemViewModel> PreviousPageFoodList { get; set; }
         ObservableCollection<FoodItemViewModel> NextPageFoodList { get; set; }
         ObservableCollection<FoodItemViewModel> CurrentPageFoodList { get; set; }
@@ -24,6 +25,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         ICommand ShowPreviousPageCommand { get; }
         ICommand ShowNextPageCommand { get; }
         ICommand ShowMyFavoriteCommand { get; }
-        void Initialize();
+        void ShowSearchResult();
     }
 }

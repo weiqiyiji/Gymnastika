@@ -14,14 +14,16 @@ namespace Gymnastika.Modules.Meals.ViewModels
     {
         private decimal _amount;
         private decimal _calories;
+        private string _changeMyFavoriteButtonContent;
         private ICommand _deleteFoodFromPlanCommand;
-        private ICommand _addFoodToMyFavoriteCommand;
+        private ICommand _changeMyFavoriteCommand;
         private ICommand _showFoodDetailCommand;
 
         public FoodItemViewModel(Food food)
         {
             Food = food;
             Amount = 100;
+            ChangeMyFavoriteButtonContent = "添加到我的食物库";
         }
 
         public Food Food { get; set; }
@@ -43,14 +45,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public decimal Calorie
         {
-            get { return Food.Calorie; }
+            get { return Decimal.Round(Food.Calorie); }
         }
 
         public decimal Amount
         {
             get 
-            { 
-                return _amount; 
+            {
+                return Decimal.Round(_amount); 
             }
             set
             {
@@ -80,6 +82,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
+        public string ChangeMyFavoriteButtonContent
+        {
+            get
+            {
+                return _changeMyFavoriteButtonContent;
+            }
+            set
+            {
+                if (_changeMyFavoriteButtonContent != value)
+                {
+                    _changeMyFavoriteButtonContent = value;
+                    RaisePropertyChanged("ChangeMyFavoriteButtonContent");
+                }
+            }
+        }
+
         public ICommand DeleteFoodFromPlanCommand
         {
             get
@@ -91,14 +109,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public ICommand AddFoodToMyFavoriteCommand
+        public ICommand ChangeMyFavoriteCommand
         {
             get
             {
-                if (_addFoodToMyFavoriteCommand == null)
-                    _addFoodToMyFavoriteCommand = new DelegateCommand(OnAddFoodToMyFavorite);
+                if (_changeMyFavoriteCommand == null)
+                    _changeMyFavoriteCommand = new DelegateCommand(OnChangeMyFavorite);
 
-                return _addFoodToMyFavoriteCommand;
+                return _changeMyFavoriteCommand;
             }
         }
 
@@ -115,7 +133,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public event EventHandler DeleteFoodFromPlan;
 
-        public event EventHandler AddFoodToMyFavorite;
+        public event EventHandler ChangeMyFavorite;
 
         public event EventHandler DietPlanSubListPropertyChanged;
 
@@ -125,10 +143,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 DeleteFoodFromPlan(this, new EventArgs());
         }
 
-        private void OnAddFoodToMyFavorite()
+        private void OnChangeMyFavorite()
         {
-            if (AddFoodToMyFavorite != null)
-                AddFoodToMyFavorite(this, new EventArgs());
+            if (ChangeMyFavorite != null)
+                ChangeMyFavorite(this, new EventArgs());
         }
 
         private void OnDietPlanSubListPropertyChanged()
@@ -141,6 +159,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             IFoodDetailViewModel foodDetailViewModel = ServiceLocator.Current.GetInstance<IFoodDetailViewModel>();
             foodDetailViewModel.Food = Food;
+            foodDetailViewModel.Initialize();
             foodDetailViewModel.View.ShowView();
         }
     }

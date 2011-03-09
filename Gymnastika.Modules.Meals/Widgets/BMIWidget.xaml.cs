@@ -36,21 +36,19 @@ namespace Gymnastika.Modules.Meals.Widgets
         private decimal BMI;
 
         private readonly IRegionManager _regionManager;
-        private readonly IUnityContainer _container;
         private readonly ILoadDataController _loadDataController;
 
         public BMIWidget(ISessionManager sessionManager,
-            Microsoft.Practices.Prism.Regions.IRegionManager regionManager,
-            Microsoft.Practices.Unity.IUnityContainer container,
-            ILoadDataController loadDataController)
+            IRegionManager regionManager
+            //,ILoadDataController loadDataController
+            )
         {
             InitializeComponent();
 
-            _loadDataController = loadDataController;
+            //_loadDataController = loadDataController;
 
             _sessionManager = sessionManager;
             _regionManager = regionManager;
-            _container = container;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _height = _user.Height;
             _weight = _user.Weight;

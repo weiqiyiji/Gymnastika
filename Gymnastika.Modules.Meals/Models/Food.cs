@@ -25,9 +25,9 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual SubCategory SubCategory { get; set; }
 
-        //public virtual IList<DietPlanItem> DietPlanItems { get; set; }
+        public virtual IList<DietPlanItem> DietPlanItems { get; set; }
 
-        //public virtual IList<FavoriteFood> FavoriteFoods { get; set; }
+        public virtual IList<FavoriteFood> FavoriteFoods { get; set; }
 
         public override string ToString()
         {

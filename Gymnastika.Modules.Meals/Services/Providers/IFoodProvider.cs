@@ -14,5 +14,9 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         IEnumerable<Food> GetAll();
         Food Get(string name);
         IEnumerable<Food> GetFoods(SubCategory subCategory);
+        IEnumerable<Food> GetFoods(FavoriteFood favoriteFood);
+        Food Get(DietPlanItem dietPlanItem);
+        IEnumerable<Food> GetFoods(SubCategory subCategory, int skip, int count);
+        int Count(SubCategory subCategory);
     }
 }

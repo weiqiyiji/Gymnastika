@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ILoadDataController.cs" />
     <Compile Include="Controllers\LoadDataController.cs" />
+    <Compile Include="Converters\DecimalConverter.cs" />
     <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="MealsManagementModule.cs" />
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />

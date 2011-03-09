@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Meals.Models;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Meals.Services.Providers
 {
@@ -12,5 +13,9 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         void Update(DietPlan dietPlan);
         IEnumerable<DietPlan> GetDietPlans(int userId);
         IEnumerable<DietPlan> GetRecommendedDietPlans();
+        DietPlan Get(User user, int skip);
+        DietPlan Get(PlanType planType, int skip);
+        int count(User user);
+        int count(PlanType planType);
     }
 }
