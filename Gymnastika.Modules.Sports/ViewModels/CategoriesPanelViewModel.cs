@@ -10,9 +10,17 @@ using System.Collections.ObjectModel;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Extensions;
 using Gymnastika.Modules.Sports.Events;
+using Gymnastika.Modules.Sports.Services.Providers;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+    public interface ICategoriesPanelViewModel
+    {
+        ObservableCollection<SportsCategory> Categories { get; set; }
+
+        SportsCategory CurrentSelectedItem { get; set; }
+    }
+
     public class CategoriesPanelViewModel : NotificationObject, ICategoriesPanelViewModel
     {
         ICategoriesProvider _provider;

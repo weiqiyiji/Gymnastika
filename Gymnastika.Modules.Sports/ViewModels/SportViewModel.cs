@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 using Microsoft.Practices.Prism.ViewModel;
+using System.ComponentModel;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+    public interface ISportViewModel : INotifyPropertyChanged
+    {
+    }
+
     public class SportViewModel : NotificationObject , ISportViewModel
     {
         public SportViewModel()

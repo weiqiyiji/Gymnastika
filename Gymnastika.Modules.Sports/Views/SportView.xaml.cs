@@ -33,4 +33,8 @@ namespace Gymnastika.Modules.Sports.Views
             set { DataContext = value; }
         }
     }
+
+    public interface ISportView
+    {
+    }
 }

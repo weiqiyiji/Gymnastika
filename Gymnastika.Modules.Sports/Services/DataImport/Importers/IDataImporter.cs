@@ -5,7 +5,7 @@ using System.Text;
 using Gymnastika.Data;
 using Gymnastika.Modules.Sports.Models;
 
-namespace Gymnastika.Modules.Sports.Data
+namespace Gymnastika.Modules.Sports.DataImport.Importers
 {
     public interface IDataImporter
     {

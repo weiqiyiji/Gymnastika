@@ -2,9 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Gymnastika.Modules.Sports.DataImport.Importers;
 
-namespace Gymnastika.Modules.Sports.Data
+namespace Gymnastika.Modules.Sports.DataImport
 {
+    public interface IDataImportManager
+    {
+        void ImportData();
+    }
+
     public class DataImportManager : IDataImportManager
     {
         IImporterCollection _collection;

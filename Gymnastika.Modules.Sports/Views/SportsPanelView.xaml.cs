@@ -35,4 +35,8 @@ namespace Gymnastika.Modules.Sports.Views
             get { return this.DataContext as ISportsPanelViewModel; }
         }
     }
+
+    public interface ISportsPanelView
+    {
+    }
 }

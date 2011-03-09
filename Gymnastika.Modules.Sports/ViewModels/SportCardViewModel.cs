@@ -11,6 +11,13 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+    public interface ISportCardViewModel
+    {
+        String Name { get; }
+        double Calories { get; }
+        int Minutes { get; }
+    }
+
     public class SportCardViewModel : NotificationObject, ISportCardViewModel, IDragSource
     {
         public override string ToString()
@@ -18,7 +25,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             return Name;
         }
 
-        public SportCardViewModel(Models.Sport sport)
+        public SportCardViewModel(Sport sport)
         {
             Sport = sport;
             _showDetailCommand = new DelegateCommand(ShowDetail);

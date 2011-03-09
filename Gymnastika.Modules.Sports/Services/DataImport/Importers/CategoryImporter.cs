@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Sports.Models;
 using Gymnastika.Data;
+using Gymnastika.Modules.Sports.DataImport.Sources;
 
-namespace Gymnastika.Modules.Sports.Data
+namespace Gymnastika.Modules.Sports.DataImport.Importers
 {
     public class CategoryImporter : IDataImporter
     {
