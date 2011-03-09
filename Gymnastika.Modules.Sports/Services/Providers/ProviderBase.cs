@@ -13,6 +13,8 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         IEnumerable<T> Fetch(int startIndex, int number);
 
+        IEnumerable<T> Fetch(int startIndex, int number, Func<T, bool> predicate);
+        
         void CreateOrUpdate(T entity);
 
         void Create(T entity);
@@ -26,60 +28,65 @@ namespace Gymnastika.Modules.Sports.Services.Providers
         IWorkContextScope GetContextScope();
     }
 
-    public class DbProviderBase<T> : IProvider<T>
+    public class ProviderBase<T> : IProvider<T>
     {
-        [Dependency]
-        public IRepository<T> Repository { get; set; }
+        IRepository<T> _repository { get; set; }
         
-        [Dependency]
-        public IWorkEnvironment Environment { get; set; }
+        IWorkEnvironment _environment { get; set; }
         
-        public DbProviderBase()
+        public ProviderBase(IRepository<T> repository,IWorkEnvironment environment)
         {
-
+            _repository = repository;
+            _environment = environment;
         }
 
         public virtual IEnumerable<T> Fetch(Func<T, bool> predicate)
         {
-            return Repository.Fetch(t => predicate(t));
+            if (predicate == null)
+                return _repository.Fetch(t => true);
+            else
+                return _repository.Fetch(t => predicate(t));
         }
 
         public virtual IEnumerable<T> Fetch(int startIndex, int number)
         {
-            return Repository.Fetch(t => true).Take(number).Skip(startIndex);
+            return Fetch(startIndex, number, t => true);
+        }
+
+        public virtual IEnumerable<T> Fetch(int startIndex, int number,Func<T,bool> predicate)
+        {
+            return Fetch(predicate).Take(number).Skip(startIndex);
         }
 
         public virtual void CreateOrUpdate(T entity)
         {
-            Repository.CreateOrUpdate(entity);
+            _repository.CreateOrUpdate(entity);
         }
+
         public virtual void Create(T entity)
         {
-            Repository.Create(entity);
+            _repository.Create(entity);
         }
 
         public virtual void Update(T entity)
         {
-            Repository.Update(entity);
+            _repository.Update(entity);
         }
+
         public virtual void Delete(T entity)
         {
-            Repository.Delete(entity);
+            _repository.Delete(entity);
         }
 
         public virtual IEnumerable<T> All()
         {
-            return Fetch((t) => true);
+            return Fetch(null);
         }
-
-        #region IProvider<T> Members
-
 
         public IWorkContextScope GetContextScope()
         {
-            return Environment.GetWorkContextScope();
+            return _environment.GetWorkContextScope();
         }
 
-        #endregion
     }
 }
