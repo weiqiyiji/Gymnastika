@@ -10,5 +10,6 @@ namespace Gymnastika.Modules.Meals.Services.Providers
     {
         void Create(DietPlanItem dietPlanItem);
         void Update(DietPlanItem dietPlanItem);
+        IEnumerable<DietPlanItem> GetDietPlanItems(SubDietPlan subDietPlan);
     }
 }

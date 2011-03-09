@@ -10,6 +10,7 @@ namespace Gymnastika.Modules.Meals.Services.Providers
     {
         void Create(FavoriteFood favoriteFood);
         void Update(FavoriteFood favoriteFood);
-        void Get(int userId);
+        FavoriteFood Get(int userId);
+        void CreateOrUpdate(FavoriteFood favoriteFood);
     }
 }

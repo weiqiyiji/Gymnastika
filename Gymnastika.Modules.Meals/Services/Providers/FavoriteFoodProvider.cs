@@ -28,9 +28,14 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             _repository.Update(favoriteFood);
         }
 
-        public void Get(int userId)
+        public FavoriteFood Get(int userId)
         {
-            _repository.Get(f => f.User.Id == userId);
+            return _repository.Get(f => f.User.Id == userId);
+        }
+
+        public void CreateOrUpdate(FavoriteFood favoriteFood)
+        {
+            _repository.CreateOrUpdate(favoriteFood);
         }
 
         #endregion

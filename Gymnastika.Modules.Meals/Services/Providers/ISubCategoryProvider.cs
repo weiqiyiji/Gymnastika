@@ -10,5 +10,8 @@ namespace Gymnastika.Modules.Meals.Services.Providers
     {
         void Create(SubCategory subCategory);
         void Update(SubCategory subCategory);
+        IEnumerable<SubCategory> GetSubCategories(Category category);
+        IEnumerable<SubCategory> GetAll();
+        SubCategory Get(Food food);
     }
 }

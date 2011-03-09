@@ -13,6 +13,7 @@ using Gymnastika.Modules.Meals.Services.Providers;
 using Gymnastika.Widgets;
 using Gymnastika.Modules.Meals.Widgets;
 using Gymnastika.Data;
+using Gymnastika.Modules.Meals.Controllers;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -87,6 +88,8 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterViewWithRegion()
         {
+            _container.RegisterType<ILoadDataController, LoadDataController>()
+                .RegisterType(typeof(LoadDataView));
             //IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
 
             //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
@@ -94,12 +97,19 @@ namespace Gymnastika.Modules.Meals
             //displayRegion.Activate(mealsManagementViewModel.View);
         }
 
+        private delegate void ThreadDelegate();
         private void StoreDataToDatabase()
         {
-            XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
+            //XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
+            //ThreadDelegate backGroundLoader = new ThreadDelegate(dataSource.Store);
+            //backGroundLoader.BeginInvoke(null, null);
+            //System.Threading.Thread.Sleep(1 * 60 * 10000);
+            //if (!dataSource.IsStored)
+                //dataSource.Store();
 
-            if (!dataSource.IsStored)
-                dataSource.Store();
+            //ILoadDataController loadDataController = _container.Resolve<ILoadDataController>();
+            //if (!loadDataController.IsLoaded)
+            //    loadDataController.Load();
         }
     }
 }

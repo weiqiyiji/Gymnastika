@@ -28,6 +28,21 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             _repository.Update(subCategory);
         }
 
+        public IEnumerable<SubCategory> GetSubCategories(Category category)
+        {
+            return _repository.Fetch(sc => sc.Category == category);
+        }
+
+        public IEnumerable<SubCategory> GetAll()
+        {
+            return _repository.Fetch(sc => true);
+        }
+
+        public SubCategory Get(Food food)
+        {
+            return _repository.Get(sc => sc.Foods.Contains(food));
+        }
+
         #endregion
     }
 }
