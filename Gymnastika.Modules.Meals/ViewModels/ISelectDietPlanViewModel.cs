@@ -5,6 +5,7 @@ using System.Text;
 using Gymnastika.Modules.Meals.Views;
 using System.Windows.Input;
 using Gymnastika.Modules.Meals.Models;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -12,7 +13,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
     {
         ISelectDietPlanView View { get; set; }
         IDietPlanListViewModel DietPlanListViewModel { get; set; }
+        DietPlan CurrentDietPlan { get; set; }
         IList<DietPlan> InMemoryDietPlans { get; set; }
+        User CurrentUser { get; set; }
         PlanType PlanType { get; set; }
         int CurrentPage { get; set; }
         int PageCount { get; set; }

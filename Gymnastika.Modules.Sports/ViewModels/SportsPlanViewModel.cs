@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Models;
-using Gymnastika.Modules.Sports.Events;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Collections.ObjectModel;
 using Gymnastika.Modules.Sports.Extensions;
@@ -17,31 +16,41 @@ using GongSolutions.Wpf.DragDrop;
 using System.Windows;
 using Gymnastika.Modules.Sports.Services;
 using System.Collections.Specialized;
+using Gymnastika.Modules.Sports.Services.Providers;
+using Gymnastika.Modules.Sports.Services.Factories;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+
+    public interface ISportsPlanViewModel
+    {
+        void SportsPlanChanged(SportsPlan plan);
+        SportsPlan SportsPlan { get; set; }
+    }
+
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
-        IEventAggregator _aggregator;
+        //IEventAggregator _aggregator;
         ISportsPlanItemViewModelFactory _factory;
-        ISportsPlanProvider _provider;
+        ISportsPlanProvider _planProvider;
+        IPlanItemProvider _itemProvider;
+        ISessionManager _sessionManager;
 
-        public SportsPlanViewModel(ISportsPlanProvider provider, IEventAggregator aggregator, ISportsPlanItemViewModelFactory factory)
-            
+        public SportsPlanViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISessionManager sessionManager,ISportsPlanItemViewModelFactory factory)
         {
-            _provider = provider;
+            _planProvider = planProvider;
+            _itemProvider = itemProvider;
 
             _factory = factory;
 
-            _aggregator = aggregator;
-
-            aggregator.GetEvent<SportsPlanChangedEvent>().Subscribe(SportsPlanChanged);
+            _sessionManager = sessionManager;
 
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
 
-            SportsPlan =  new SportsPlan() { Time = DateTime.Now };
+            SportsPlan = CreateNewPlan();
 
-            SportsPlan.SportsPlanItems = new List<SportsPlanItem>();
+            CanSave = Validate;
 
             _saveCommand = new DelegateCommand(Save, CanSave);
         }
@@ -130,20 +139,48 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        void OnCloseRequest(object sender, EventArgs args)
+        void OnItemCancleRequest(object sender, EventArgs args)
         {
             ISportsPlanItemViewModel viewmodel = sender as ISportsPlanItemViewModel;
             if (viewmodel != null)
             {
-                ReleaseItem(viewmodel);
+                ReleaseViewmodel(viewmodel);
             }
         }
 
-        private void ReleaseItem(ISportsPlanItemViewModel viewmodel)
+        void OnItemSubmitRequest(object sender, EventArgs args)
         {
-            viewmodel.CloseViewRequest -= OnCloseRequest;
+            ISportsPlanItemViewModel viewmodel = sender as ISportsPlanItemViewModel;
+            var item = viewmodel.Item;
+            using (_itemProvider.GetContextScope())
+            {
+                item.SportsPlanId = SportsPlan.Id;
+                _itemProvider.CreateOrUpdate(item);
+            }
+        }
+
+        private void ReleaseViewmodel(ISportsPlanItemViewModel viewmodel)
+        {
+            viewmodel.CancleRequest -= OnItemCancleRequest;
             viewmodel.PropertyChanged -= ItemPropertyChanged;
+            viewmodel.SubmitRequest -= OnItemSubmitRequest;
             SportsPlanItemViewModels.Remove(viewmodel);
+            var item = viewmodel.Item;
+            if (item.Id != 0)
+            {
+                _itemProvider.Delete(item);
+                item.Id = 0;
+            }
+        }
+
+        private ISportsPlanItemViewModel CreateViewmodel(SportsPlanItem item)
+        {
+            var viewmodel = _factory.Create(item);
+            viewmodel.Item.Duration = 30;
+            viewmodel.CancleRequest += OnItemCancleRequest;
+            viewmodel.PropertyChanged += ItemPropertyChanged;
+            viewmodel.SubmitRequest += OnItemSubmitRequest;
+            return viewmodel;
         }
 
         void UpdateCalories()
@@ -168,7 +205,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             Sport sourceItem = dropInfo.Data as Sport;
             object target = dropInfo.TargetItem;
             SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
-            ISportsPlanItemViewModel viewmodel = CreateItem(item);
+            ISportsPlanItemViewModel viewmodel = CreateViewmodel(item);
             if (target == null)
             {
                 SportsPlanItemViewModels.Add(viewmodel);
@@ -180,14 +217,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         }
 
-        private ISportsPlanItemViewModel CreateItem(SportsPlanItem item)
-        {
-            var viewmodel = _factory.Create(item);
-            viewmodel.Item.Duration = 30;
-            viewmodel.CloseViewRequest += OnCloseRequest;
-            viewmodel.PropertyChanged += ItemPropertyChanged;
-            return viewmodel;
-        }
+
 
         #endregion
 
@@ -196,10 +226,27 @@ namespace Gymnastika.Modules.Sports.ViewModels
             ISportsPlanItemViewModel viewmodel = sender as ISportsPlanItemViewModel;
             if (viewmodel != null)
             {
-                UpdateCalories();
+                UpdateState();
             }
         }
 
+        void UpdateState()
+        {
+            //Notify the energe bar
+            UpdateCalories();
+            //Notify the Save Button
+            RaisePropertyChanged(() => CanSave);
+        }
+
+        void AddItem(SportsPlanItem item)
+        {
+            SportsPlan.SportsPlanItems.Add(item);
+        }
+
+        void DeleteItem(SportsPlanItem item)
+        {
+            SportsPlan.SportsPlanItems.Remove(item);
+        }
 
         public void ItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -211,13 +258,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 case NotifyCollectionChangedAction.Add:
                     foreach (ISportsPlanItemViewModel plan in newPlans)
                     {
-                        SportsPlan.SportsPlanItems.Add(plan.Item);
+                        AddItem(plan.Item);
                     }
                     break;
                 case NotifyCollectionChangedAction.Remove:
                     foreach (ISportsPlanItemViewModel plan in oldPlans)
                     {
-                        SportsPlan.SportsPlanItems.Remove(plan.Item);
+                        DeleteItem(plan.Item);
                     }
                     break;
                 default:
@@ -228,16 +275,34 @@ namespace Gymnastika.Modules.Sports.ViewModels
         SportsPlan CreateNewPlan()
         {
             SportsPlan plan = new SportsPlan();
-            using (_provider.GetContextScope())
+
+            plan.User = _sessionManager.GetCurrentSession().AssociatedUser;
+            
+            using (_planProvider.GetContextScope())
             {
-                _provider.Create(plan);
+                _planProvider.Create(plan);
             }
             return plan;
         }
 
         void Save()
         {
-
+            foreach (var model in SportsPlanItemViewModels)
+            {
+                if (model.SubmitCommand.CanExecute(null))
+                {
+                    model.SubmitCommand.Execute(null);
+                }
+                else
+                {
+                    MessageBox.Show("{0}信息错误", model.SportName);
+                    return;
+                }
+            }
+            using (_planProvider.GetContextScope())
+            {
+                _planProvider.CreateOrUpdate(SportsPlan);
+            }
         }
 
         ICommand _saveCommand;
@@ -247,9 +312,31 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
 
-        bool CanSave()
+        bool Validate()
         {
-            return SportsPlan.Time.Year > 2000;
+            foreach (var model in SportsPlanItemViewModels)
+            {
+                if (!model.SubmitCommand.CanExecute(null))
+                    return false;
+            }
+            //这里是关于Plan的验证
+            //
+            return true;
+        }
+
+        Func<bool> _canSave;
+        public Func<bool> CanSave 
+        {
+            get { return _canSave; }
+            set
+            {
+                if (value != _canSave)
+                {
+                    _canSave = value;
+                    RaisePropertyChanged(() => CanSave);
+                }
+
+            }
         }
     }
 }

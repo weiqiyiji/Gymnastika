@@ -43,6 +43,31 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Get(f => f.Name == name);
         }
 
+        public IEnumerable<Food> GetFoods(SubCategory subCategory)
+        {
+            return _repository.Fetch(f => f.SubCategory == subCategory);
+        }
+
+        public IEnumerable<Food> GetFoods(FavoriteFood favoriteFood)
+        {
+            return _repository.Fetch(f => f.FavoriteFoods.Contains(favoriteFood));
+        }
+
+        public Food Get(DietPlanItem dietPlanItem)
+        {
+            return _repository.Get(f => f.DietPlanItems.Contains(dietPlanItem));
+        }
+
+        public IEnumerable<Food> GetFoods(SubCategory subCategory, int skip, int count)
+        {
+            return _repository.Fetch(f => f.SubCategory == subCategory, of => of.Asc(f => f.Id), skip, count);
+        }
+
+        public int Count(SubCategory subCategory)
+        {
+            return _repository.Count(f => f.SubCategory == subCategory);
+        }
+
         #endregion
     }
 }

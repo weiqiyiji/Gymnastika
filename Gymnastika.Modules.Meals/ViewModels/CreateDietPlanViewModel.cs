@@ -111,13 +111,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
                         dietPlanItem.Amount = foodItem.Amount;
                         dietPlanItem.SubDietPlan = subDietPlan;
                         _foodService.DietPlanItemProvider.Create(dietPlanItem);
-                        subDietPlan.DietPlanItems.Add(dietPlanItem);
-                        _foodService.DietPlanItemProvider.Update(dietPlanItem);
+                        //subDietPlan.DietPlanItems.Add(dietPlanItem);
+                        //_foodService.DietPlanItemProvider.Update(dietPlanItem);
                     }
-                    DietPlan.SubDietPlans.Add(subDietPlan);
-                    _foodService.SubDietPlanProvider.Update(subDietPlan);
+                    //DietPlan.SubDietPlans.Add(subDietPlan);
+                    //_foodService.SubDietPlanProvider.Update(subDietPlan);
                 }
             }
+            System.Windows.MessageBox.Show("已保存");
         }
     }
 }

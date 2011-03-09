@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Common.Extensions;
 
-namespace Gymnastika.Modules.Sports.Data
+namespace Gymnastika.Modules.Sports.DataImport.Importers
 {
     public interface IImporterCollection
     {

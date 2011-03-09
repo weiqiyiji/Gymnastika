@@ -12,6 +12,7 @@ using Microsoft.Practices.ServiceLocation;
 using System.Collections.ObjectModel;
 using Gymnastika.Services.Session;
 using Gymnastika.Data;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -60,7 +61,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
+        public DietPlan CurrentDietPlan { get; set; }
+
         public IList<DietPlan> InMemoryDietPlans { get; set; }
+
+        public User CurrentUser { get; set; }
 
         public PlanType PlanType { get; set; }
 
@@ -133,56 +138,68 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public void Initialize()
         {
+            CurrentPage = 1;
+
             switch (PlanType)
             {
                 case PlanType.CreatedDietPlan:
-                    int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+                    CurrentUser = _sessionManager.GetCurrentSession().AssociatedUser;
                     using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
                     {
-                        InMemoryDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId).ToList();
+                        //InMemoryDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId).ToList();
+                        //LoadDietPlans();
+                        PageCount = _foodService.DietPlanProvider.count(CurrentUser);
+                        CurrentDietPlan = _foodService.DietPlanProvider.Get(CurrentUser, CurrentPage - 1);
+                        LoadDietPlan();
                     }
                     break;
                 case PlanType.RecommendedDietPlan:
                     using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
                     {
-                        InMemoryDietPlans = _foodService.DietPlanProvider.GetRecommendedDietPlans().ToList();
+                        //InMemoryDietPlans = _foodService.DietPlanProvider.GetRecommendedDietPlans().ToList();
+                        PageCount = _foodService.DietPlanProvider.count(PlanType);
+                        CurrentDietPlan = _foodService.DietPlanProvider.Get(PlanType, CurrentPage - 1);
+                        LoadDietPlan();
                     }
                     break;
                 default:
                     break;
             }
 
-            CurrentPage = 1;
-            PageCount = InMemoryDietPlans.Count;
+            //PageCount = InMemoryDietPlans.Count;
 
             InitializeDietPlanList();
         }
 
         #endregion
 
-        
-        private void ShowPreviousPage()
+        private void LoadDietPlan()
         {
-            if (CurrentPage == 1) return;
+            //foreach (var CurrentDietPlan in InMemoryDietPlans)
+            //{
+            //    CurrentDietPlan.SubDietPlans = _foodService.SubDietPlanProvider.GetSubDietPlans(CurrentDietPlan).ToList();
 
-            CurrentPage--;
+            //    foreach (var subDietPlan in CurrentDietPlan.SubDietPlans)
+            //    {
+            //        subDietPlan.DietPlanItems = _foodService.DietPlanItemProvider.GetDietPlanItems(subDietPlan).ToList();
 
-            InitializeDietPlanList();
-        }
+            //        foreach (var CurrentDietPlanItem in subDietPlan.DietPlanItems)
+            //        {
+            //            CurrentDietPlanItem.Food = _foodService.FoodProvider.Get(CurrentDietPlanItem);
+            //        }
+            //    }
+            //}
+            CurrentDietPlan.SubDietPlans = _foodService.SubDietPlanProvider.GetSubDietPlans(CurrentDietPlan).ToList();
 
-        private void ShowNextPage()
-        {
-            if (CurrentPage == PageCount) return;
+            foreach (var subDietPlan in CurrentDietPlan.SubDietPlans)
+            {
+                subDietPlan.DietPlanItems = _foodService.DietPlanItemProvider.GetDietPlanItems(subDietPlan).ToList();
 
-            CurrentPage++;
-
-            InitializeDietPlanList();
-        }
-
-        private void OnApply()
-        {
-            if (Apply != null)
-                Apply(this, new EventArgs());
+                foreach (var CurrentDietPlanItem in subDietPlan.DietPlanItems)
+                {
+                    CurrentDietPlanItem.Food = _foodService.FoodProvider.Get(CurrentDietPlanItem);
+                }
+            }
         }
 
         private void InitializeDietPlanList()
@@ -191,7 +208,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             for (int i = 0; i < 6; i++)
             {
-                foreach (var dietPlanItem in InMemoryDietPlans[CurrentPage - 1].SubDietPlans[i].DietPlanItems)
+                //foreach (var dietPlanItem in InMemoryDietPlans[CurrentPage - 1].SubDietPlans[i].DietPlanItems)
+                //{
+                //    DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(new FoodItemViewModel(dietPlanItem.Food)
+                //    {
+                //        Amount = dietPlanItem.Amount
+                //    });
+                //}
+                foreach (var dietPlanItem in CurrentDietPlan.SubDietPlans[i].DietPlanItems)
                 {
                     DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(new FoodItemViewModel(dietPlanItem.Food)
                     {
@@ -199,6 +223,57 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     });
                 }
             }
+        }
+
+        private void SwitchPlanType()
+        {
+            switch (PlanType)
+            {
+                case PlanType.CreatedDietPlan:
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        CurrentDietPlan = _foodService.DietPlanProvider.Get(CurrentUser, CurrentPage - 1);
+                        LoadDietPlan();
+                    }
+                    break;
+                case PlanType.RecommendedDietPlan:
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        CurrentDietPlan = _foodService.DietPlanProvider.Get(PlanType, CurrentPage - 1);
+                        LoadDietPlan();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        
+        private void ShowPreviousPage()
+        {
+            if (CurrentPage <= 1) return;
+
+            CurrentPage--;
+
+            SwitchPlanType();
+
+            InitializeDietPlanList();
+        }
+
+        private void ShowNextPage()
+        {
+            if (CurrentPage >= PageCount) return;
+
+            CurrentPage++;
+
+            SwitchPlanType();
+
+            InitializeDietPlanList();
+        }
+
+        private void OnApply()
+        {
+            if (Apply != null)
+                Apply(this, new EventArgs());
         }
     }
 }

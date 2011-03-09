@@ -10,5 +10,6 @@ namespace Gymnastika.Modules.Meals.Services.Providers
     {
         void Create(Introduction introduction);
         void Update(Introduction introduction);
+        IEnumerable<Introduction> GetIntroductions(Food food);
     }
 }

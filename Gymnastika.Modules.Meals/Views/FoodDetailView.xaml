@@ -3,8 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <Window.Resources>
+        <converter:DecimalConverter x:Key="DecimalConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,7 +36,7 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
                             <TextBlock Text="{Binding Name}" />
-                            <TextBlock Grid.Column="1" Text="{Binding Value}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Value, Converter={StaticResource DecimalConverter}}" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

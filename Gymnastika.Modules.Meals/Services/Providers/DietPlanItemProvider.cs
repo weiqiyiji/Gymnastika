@@ -28,6 +28,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             _repository.Update(dietPlanItem);
         }
 
+        public IEnumerable<DietPlanItem> GetDietPlanItems(SubDietPlan subDietPlan)
+        {
+            return _repository.Fetch(dpi => dpi.SubDietPlan == subDietPlan);
+        }
+
         #endregion
     }
 }

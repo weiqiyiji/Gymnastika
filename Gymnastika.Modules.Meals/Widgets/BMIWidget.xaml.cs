@@ -15,6 +15,11 @@ using Gymnastika.Widgets;
 using Gymnastika.Services.Session;
 using Gymnastika.Services.Models;
 using Gymnastika.Modules.Meals.Views;
+using Microsoft.Practices.Prism.Regions;
+using Gymnastika.Modules.Meals.ViewModels;
+using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Modules.Meals.Controllers;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Modules.Meals.Widgets
 {
@@ -30,18 +35,20 @@ namespace Gymnastika.Modules.Meals.Widgets
         private readonly int _weight;
         private decimal BMI;
 
-        private readonly Microsoft.Practices.Prism.Regions.IRegionManager _regionManager;
-        private readonly Microsoft.Practices.Unity.IUnityContainer _container;
+        private readonly IRegionManager _regionManager;
+        private readonly ILoadDataController _loadDataController;
 
         public BMIWidget(ISessionManager sessionManager,
-            Microsoft.Practices.Prism.Regions.IRegionManager regionManager,
-            Microsoft.Practices.Unity.IUnityContainer container)
+            IRegionManager regionManager
+            //,ILoadDataController loadDataController
+            )
         {
             InitializeComponent();
 
+            //_loadDataController = loadDataController;
+
             _sessionManager = sessionManager;
             _regionManager = regionManager;
-            _container = container;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _height = _user.Height;
             _weight = _user.Weight;
@@ -107,17 +114,65 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void BMIIntroduction_Click(object sender, RoutedEventArgs e)
         {
-            IBMIIntroductionView BMIIntroductionView = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<Gymnastika.Modules.Meals.Views.IBMIIntroductionView>();
+            IBMIIntroductionView BMIIntroductionView = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IBMIIntroductionView>();
             BMIIntroductionView.ShowView();
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            Microsoft.Practices.Prism.Regions.IRegion displayRegion = _regionManager.Regions[Gymnastika.Common.RegionNames.DisplayRegion];
+            IRegion displayRegion = _regionManager.Regions[Gymnastika.Common.RegionNames.DisplayRegion];
 
-            Gymnastika.Modules.Meals.ViewModels.IMealsManagementViewModel mealsManagementViewModel = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<Gymnastika.Modules.Meals.ViewModels.IMealsManagementViewModel>();
+            IMealsManagementViewModel mealsManagementViewModel = ServiceLocator.Current.GetInstance<IMealsManagementViewModel>();
             displayRegion.Add(mealsManagementViewModel.View);
             displayRegion.Activate(mealsManagementViewModel.View);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadCategoryData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadSubCategoryData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadFoodData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadNutritionalElementData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_4(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadIntroductionData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadDietPlanData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_6(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadSubDietPlanData();
+            MessageBox.Show("已保存");
+        }
+
+        private void Button_Click_7(object sender, RoutedEventArgs e)
+        {
+            _loadDataController.LoadDietPlanItemData();
+            MessageBox.Show("已保存");
         }
     }
 }
