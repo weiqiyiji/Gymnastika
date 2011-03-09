@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using Gymnastika.Common;
 using Gymnastika.Controllers;
 using Gymnastika.Widgets;
 using Gymnastika.Widgets.Views;
+using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
@@ -20,15 +22,18 @@ namespace Gymnastika.ViewModels
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
         private readonly IWidgetManager _widgetManager;
+        private readonly INavigationManager _navigationManager;
 
         public MainViewModel(
             IUnityContainer container,
             IRegionManager regionManager,
-            IWidgetManager widgetManager)
+            IWidgetManager widgetManager,
+            INavigationManager navigationManager)
         {
             _container = container;
             _regionManager = regionManager;
             _widgetManager = widgetManager;
+            _navigationManager = navigationManager;
         }
 
         public ObservableCollection<WidgetDescriptor> Widgets
@@ -45,13 +50,34 @@ namespace Gymnastika.ViewModels
         private void Initialize()
         {
             ConfigureMainView();
-        }
 
+            _navigationManager.AddIfMissing(
+                new NavigationDescriptor()
+                    {
+                        ViewType = typeof(DefaultWidgetPanel),
+                        ViewName = "WidgetView",
+                        Label = "主 页",
+                        RegionName = RegionNames.MainRegion
+                    }, true);
+
+            _navigationManager.AddIfMissing(
+                 new NavigationDescriptor()
+                 {
+                     ViewType = typeof(NotificationView),
+                     ViewName = "WidgetView",
+                     Label = "通 知",
+                     RegionName = RegionNames.MainRegion
+                 });
+        }
+				
         private void ConfigureMainView()
         {
             _container
-                .RegisterType(typeof (WidgetPanelViewModel));
-            _regionManager.RegisterViewWithRegion(RegionNames.MainRegion, typeof(DefaultWidgetPanel));
+                .RegisterType<DefaultWidgetPanel>("WidgetView")
+                .RegisterType<WidgetPanelViewModel>()
+                .RegisterType<NavigationView>();
+
+            _regionManager.RegisterViewWithRegion(RegionNames.NavigationRegion, typeof (NavigationView));
         }
 
         public bool IsNavigationTarget(NavigationContext navigationContext)

@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GongSolutions.Wpf.DragDrop">
+      <HintPath>..\Libs\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
@@ -73,6 +76,7 @@
     <Compile Include="DesignData\StartupViewModel_Design.cs" />
     <Compile Include="DesignData\UserCollection.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
+    <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="Controllers\IStartupController.cs" />
     <Compile Include="Controllers\StartupController.cs" />
@@ -89,6 +93,9 @@
     <Compile Include="Views\IUserProfileView.cs" />
     <Compile Include="Views\LogOnView.xaml.cs">
       <DependentUpon>LogOnView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NavigationView.xaml.cs">
+      <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NotificationView.xaml.cs">
       <DependentUpon>NotificationView.xaml</DependentUpon>
@@ -129,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LogOnView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NavigationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -219,6 +230,7 @@
   <ItemGroup>
     <Resource Include="Images\datewidget_icon.png" />
     <Resource Include="Images\defaultavatar.png" />
+    <Resource Include="Images\start_bg.jpg" />
     <Content Include="Images\hover_widgetboxbtn.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />

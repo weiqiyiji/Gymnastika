@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Gymnastika.Data;
 using Gymnastika.Services;
@@ -33,19 +34,6 @@ namespace Gymnastika.ViewModels
             {
                 RegisteredUsers = new ObservableCollection<User>(_userService.GetAllUsers());
             }
-
-            this.PropertyChanged += StartupViewModel_PropertyChanged;
-        }
-
-        private void StartupViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if(e.PropertyName == "SelectedUser")
-            {
-                if(SelectedUser != null)
-                {
-                    _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
-                }
-            }
         }
 
         private ObservableCollection<User> _registeredUsers;
@@ -67,7 +55,15 @@ namespace Gymnastika.ViewModels
 
         public User SelectedUser
         {
-            get { return _selectedUser; }
+            get
+            {
+                if(_selectedUser == null)
+                {
+                    if (_registeredUsers != null && _registeredUsers.Count > 0)
+                        return _registeredUsers[0];
+                }
+                return _selectedUser;
+            }
             set
             {
                 if (_selectedUser != value)
@@ -75,6 +71,13 @@ namespace Gymnastika.ViewModels
                     _selectedUser = value;
                     RaisePropertyChanged("SelectedUser");
                     (LogOnCommand as DelegateCommand).RaiseCanExecuteChanged();
+                }
+                else
+                {
+                    if (_selectedUser != null)
+                    {
+                        _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
+                    }
                 }
             }
         }
@@ -87,7 +90,7 @@ namespace Gymnastika.ViewModels
             {
                 if (_logOnCommand == null)
                 {
-                    _logOnCommand = new DelegateCommand(LogOn, LogOnCommandCanExecutePredicate);
+                    _logOnCommand = new DelegateCommand(LogOn, CommandCanExecutePredicate);
                 }
 
                 return _logOnCommand;
@@ -106,13 +109,61 @@ namespace Gymnastika.ViewModels
                 return _createNewUserCommand;
             }
         }
+        
+        private ICommand _goToPreviousCommand;
+
+        public ICommand GoToPreviousCommand
+        {
+            get
+            {
+                if (_goToPreviousCommand == null)
+                    _goToPreviousCommand = new DelegateCommand(GoToPrevious, CommandCanExecutePredicate);
+
+                return _goToPreviousCommand;
+            }
+        }
+        
+        private ICommand _goToNextCommand;
+
+        public ICommand GoToNextCommand
+        {
+            get
+            {
+                if (_goToNextCommand == null)
+                    _goToNextCommand = new DelegateCommand(GoToNext, CommandCanExecutePredicate);
+
+                return _goToNextCommand;
+            }
+        }
+					
+        private void GoToPrevious()
+        {
+            int index = RegisteredUsers.IndexOf(SelectedUser);
+            if (index == 0)
+                index = RegisteredUsers.Count - 1;
+            else
+                index--;
+
+            SelectedUser = RegisteredUsers[index];
+        }
+
+        private void GoToNext()
+        {
+            int index = RegisteredUsers.IndexOf(SelectedUser);
+            if (index == (RegisteredUsers.Count - 1))
+                index = 0;
+            else
+                index++;
+
+            SelectedUser = RegisteredUsers[index];
+        }
 
         private void LogOn()
         {
             _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
         }
 
-        private bool LogOnCommandCanExecutePredicate()
+        private bool CommandCanExecutePredicate()
         {
             return RegisteredUsers.Count > 0 && SelectedUser != null;
         }
