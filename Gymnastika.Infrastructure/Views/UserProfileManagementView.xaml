@@ -1,0 +1,150 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Custom="http://schemas.microsoft.com/surface/2008" 
+			 xmlns:cov="clr-namespace:Gymnastika.Controls.Converters;assembly=Gymnastika.Controls"
+			 xmlns:localCov="clr-namespace:Gymnastika.Converters"
+			 x:Class="Gymnastika.Views.UserProfileManagementView" 
+             mc:Ignorable="d" d:DataContext="{d:DesignData Source=/DesignData/UserProfile.xaml}"
+             d:DesignHeight="800" d:DesignWidth="800" FontSize="14" FontFamily="Microsoft YaHei">
+    <UserControl.Resources>
+    	<cov:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
+		<localCov:GenderToBoolConverter x:Key="genderToBoolConverter" />
+        <Style x:Key="RowSettingStyle" TargetType="{x:Type Grid}">
+            <Setter Property="Margin" Value="0,10" />
+        </Style>
+		<Style x:Key="RowSeperatorStyle" TargetType="{x:Type Border}">
+			<Setter Property="BorderBrush" Value="#FFEEEEEE" />
+			<Setter Property="BorderThickness" Value="0,1,0,0" />
+		</Style>
+		<Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="Margin" Value="0,5"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="Width" Value="300"/>
+		</Style>
+		<Style x:Key="TextLabelStyle" TargetType="{x:Type TextBlock}">
+			<Setter Property="FontWeight" Value="Bold"/>
+			<Setter Property="FontSize" Value="15" />
+			<Setter Property="HorizontalAlignment" Value="Left" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+			<Setter Property="Margin" Value="0,0,70,0"/>
+		</Style>
+		<Style x:Key="SubRowTextLabelStyle" TargetType="{x:Type TextBlock}">
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Left"/>
+			<Setter Property="Margin" Value="0,5"/>
+			<Setter Property="FontSize" Value="12"/>
+		</Style>
+    </UserControl.Resources>
+    <Border Padding="10" Background="White" CornerRadius="6">
+        <Grid Grid.IsSharedSizeScope="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="个人资料" VerticalAlignment="Center" Foreground="#FF53637D" FontWeight="Bold" FontSize="18" Margin="0,10"/>
+            <Border Grid.Row="1" Style="{StaticResource RowSeperatorStyle}">
+            	<Grid Style="{StaticResource RowSettingStyle}">
+            		<Grid.ColumnDefinitions>
+            			<ColumnDefinition SharedSizeGroup="TextLabel"/>
+            			<ColumnDefinition />
+            		</Grid.ColumnDefinitions>
+            		<TextBlock TextWrapping="Wrap" Text="头像：" Style="{StaticResource TextLabelStyle}"/>
+            		<StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal">
+            			<Image Source="{Binding AvatarPath}" Width="120" Height="120"/>
+            			<Custom:SurfaceButton Content="选择头像" VerticalAlignment="Center" FontFamily="Microsoft YaHei" FontSize="13.333" Margin="10,0,0,0"/>
+            		</StackPanel>
+            	</Grid>
+            </Border>
+			<Border Grid.Row="2" Style="{StaticResource RowSeperatorStyle}">
+            	<Grid Style="{StaticResource RowSettingStyle}">
+            		<Grid.ColumnDefinitions>
+            			<ColumnDefinition SharedSizeGroup="TextLabel" />
+            			<ColumnDefinition />
+            		</Grid.ColumnDefinitions>
+            		<TextBlock TextWrapping="Wrap" Text="用户名：" Style="{StaticResource TextLabelStyle}" Margin="0"/>
+            		<TextBox TextWrapping="Wrap" Text="{Binding UserName}" Style="{DynamicResource TextBoxStyle}" Grid.Column="1" Margin="0,5"/>
+            	</Grid>
+            </Border>
+			<Border Grid.Row="3" Style="{StaticResource RowSeperatorStyle}">
+	            <Grid Style="{StaticResource RowSettingStyle}">
+	            	<Grid.RowDefinitions>
+	            		<RowDefinition Height="0.324*"/>
+	            		<RowDefinition Height="0.676*"/>
+	            	</Grid.RowDefinitions>
+	            	<Grid.ColumnDefinitions>
+	            		<ColumnDefinition Width="Auto" SharedSizeGroup="TextLabel"/>
+	            		<ColumnDefinition />
+	            	</Grid.ColumnDefinitions>
+	            	<TextBlock TextWrapping="Wrap" Text="密码：" Style="{StaticResource TextLabelStyle}"/>
+	            	<Custom:SurfaceCheckBox Content="启用密码" Grid.ColumnSpan="2" Margin="0,0,60,0" d:LayoutOverrides="Height" Grid.Column="1" IsChecked="{Binding HasPassword}" FontSize="13.333" FontFamily="Microsoft YaHei"/>
+	            	<Grid d:LayoutOverrides="Height" Visibility="{Binding HasPassword, Converter={StaticResource boolToVisibilityConverter}}" Grid.Row="1" Grid.Column="1">
+	            		<Grid.ColumnDefinitions>
+	            			<ColumnDefinition Width="Auto"/>
+	            			<ColumnDefinition />
+	            		</Grid.ColumnDefinitions>
+	            		<Grid.RowDefinitions>
+	            			<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+	            		</Grid.RowDefinitions>
+	            		<TextBlock TextWrapping="Wrap" Text="旧密码：" Style="{DynamicResource SubRowTextLabelStyle}"/>
+	            		<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding OldPassword}" Style="{DynamicResource TextBoxStyle}" />
+	            		<TextBlock TextWrapping="Wrap" Text="新密码：" Style="{DynamicResource SubRowTextLabelStyle}" Grid.Row="1"/>
+	            		<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding NewPassword}" Style="{DynamicResource TextBoxStyle}" Grid.Row="1"/>
+	            		<TextBlock TextWrapping="Wrap" Text="再次输入新密码：" Style="{DynamicResource SubRowTextLabelStyle}" Grid.Row="2"/>
+	            		<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding RetypedNewPassword}" Style="{DynamicResource TextBoxStyle}" Grid.Row="2"/>
+	            	</Grid>
+	            </Grid>
+			</Border>
+			<Border Grid.Row="4" Style="{StaticResource RowSeperatorStyle}">
+	            <Grid Style="{StaticResource RowSettingStyle}">
+	            	<Grid.RowDefinitions>
+	            		<RowDefinition Height="*"/>
+	            		<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+						<RowDefinition Height="*"/>
+	            	</Grid.RowDefinitions>
+	            	<Grid.ColumnDefinitions>
+	            		<ColumnDefinition SharedSizeGroup="TextLabel" />
+	            		<ColumnDefinition />
+	            	</Grid.ColumnDefinitions>
+	            	<TextBlock TextWrapping="Wrap" Text="年龄：" Style="{StaticResource TextLabelStyle}"/>
+	            	<TextBox Grid.Column="1" TextWrapping="Wrap" Style="{DynamicResource TextBoxStyle}" Text="{Binding Age}" Width="50"/>
+	            	<TextBlock TextWrapping="Wrap" Text="身高：" Style="{StaticResource TextLabelStyle}" Grid.Row="1"/>
+	            	<StackPanel Grid.Column="1" HorizontalAlignment="Left" Orientation="Horizontal" Grid.Row="1" d:LayoutOverrides="Height">
+	            		<TextBox TextWrapping="Wrap" Text="{Binding Height}" Style="{DynamicResource TextBoxStyle}" Width="50"/>
+	            		<TextBlock TextWrapping="Wrap" Text="(cm)" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="13.333"/>
+	            	</StackPanel>
+	            	<TextBlock TextWrapping="Wrap" Text="体重：" Style="{StaticResource TextLabelStyle}" Grid.Row="2"/>
+	            	<StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="2" d:LayoutOverrides="Height" HorizontalAlignment="Left">
+	            		<TextBox TextWrapping="Wrap" Text="{Binding Weight}" Style="{DynamicResource TextBoxStyle}" Width="50"/>
+	            		<TextBlock TextWrapping="Wrap" Text="(kg)" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="13.333"/>
+					</StackPanel>
+					<TextBlock TextWrapping="Wrap" Text="性别：" Style="{StaticResource TextLabelStyle}" Grid.Row="3"/>
+	            	<StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="3" d:LayoutOverrides="Height" HorizontalAlignment="Left">
+	            		<Custom:SurfaceRadioButton Content="男" Margin="0,0,30,0" FontFamily="Microsoft YaHei"
+						 						   FontSize="12" GroupName="Gender" 
+												   IsChecked="{Binding Gender, Converter={StaticResource genderToBoolConverter}, ConverterParameter=Male}" />
+	            		<Custom:SurfaceRadioButton Content="女" FontFamily="Microsoft YaHei" FontSize="12" GroupName="Gender"
+											       IsChecked="{Binding Gender, Converter={StaticResource genderToBoolConverter}, ConverterParameter=Female}" />          		
+					</StackPanel>
+	            </Grid>
+			</Border>
+			<Border Grid.Row="5" Style="{StaticResource RowSeperatorStyle}">
+				<Grid Style="{StaticResource RowSettingStyle}">
+					<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+						<Custom:SurfaceButton Content="保存设置" FontFamily="Microsoft YaHei" FontSize="16"/>
+					</StackPanel>
+				</Grid>
+			</Border>
+        </Grid>
+    </Border>
+</UserControl>
