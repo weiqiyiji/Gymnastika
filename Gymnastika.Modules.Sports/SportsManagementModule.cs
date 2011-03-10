@@ -38,11 +38,14 @@ namespace Gymnastika.Modules.Sports
 
         public void Initialize()
         {
+            //return;
             RegisterDependencies();
             ConfigImporters();
             ImportData();
+            
             RegisterWidgets();
-            RegisterViews();
+            
+            //RegisterViews();
         }
 
         #endregion
@@ -60,8 +63,7 @@ namespace Gymnastika.Modules.Sports
         private void RegisterWidgets()
         {
             
-            //IWidgetManager manager = _container.Resolve<IWidgetManager>();
-            //manager.Add(typeof(Widget));
+            IWidgetManager manager = _container.Resolve<IWidgetManager>();
         }
 
         private void ImportData()
@@ -75,7 +77,7 @@ namespace Gymnastika.Modules.Sports
             IImporterCollection collection = _container.Resolve<IImporterCollection>();
             collection.Add(
                 new CategoryImporter 
-                    (new XmlCategorySource(@"data/sports/SportData.xml"),
+                    (new XmlCategorySource(@"data/sport/SportData.xml"),
                     _container.Resolve<IRepository<SportsCategory>>(),
                     _container.Resolve<IRepository<Sport>>(),
                     _container.Resolve<IWorkEnvironment>()));
