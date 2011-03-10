@@ -42,5 +42,6 @@ namespace Gymnastika.Modules.Sports.Views
 
     public interface ICategoriesPanelView
     {
+
     }
 }

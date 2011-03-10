@@ -20,6 +20,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
         double Calories { get; }
 
         int Minutes { get; }
+
+        ICommand ShowDetailCommand { get; }
+        ICommand AddToFavouriteCommand { get; }
+        ICommand AddToPlanCommand { get; }
+        
+        event EventHandler ShowDetailEvent;
+        event EventHandler AddToFavouriteEvent;
+        event EventHandler AddToPlanEvent;
+
+
     }
 
     public class SportCardViewModel : NotificationObject, ISportCardViewModel, IDragSource
@@ -32,25 +42,44 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public SportCardViewModel(Sport sport)
         {
             Sport = sport;
-            _showDetailCommand = new DelegateCommand(ShowDetail);
         }
 
-        public event EventHandler RequestShowDetail = delegate { };
-
-        void ShowDetail()
-        {
-            RequestShowDetail(this, EventArgs.Empty);
-        }
+        public event EventHandler ShowDetailEvent = delegate { };
+        public event EventHandler AddToFavouriteEvent = delegate { };
+        public event EventHandler AddToPlanEvent = delegate { };
 
 
         #region Command
-
         ICommand _showDetailCommand;
-        public ICommand ShowDetailCommand
+        public ICommand ShowDetailCommand 
         {
             get
             {
+                if (_showDetailCommand == null)
+                    _showDetailCommand = new DelegateCommand(ShowDetail);
                 return _showDetailCommand;
+            }
+        }
+
+        ICommand _addToFavouriteCommand;
+        public ICommand AddToFavouriteCommand 
+        {
+            get
+            {
+                if (_addToFavouriteCommand == null)
+                    _addToFavouriteCommand = new DelegateCommand(AddToFavourite);
+                return _addToFavouriteCommand;
+            }
+        }
+
+        ICommand _addToPlanCommand;
+        public ICommand AddToPlanCommand
+        {
+            get
+            {
+                if (_addToPlanCommand==null)
+                    _addToPlanCommand = new DelegateCommand(AddToPlan);
+                return _addToPlanCommand;
             }
         }
 
@@ -178,5 +207,27 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         #endregion
 
+
+        #region Function
+
+        void ShowDetail()
+        {
+            if (ShowDetailEvent != null)
+                ShowDetailEvent(this, EventArgs.Empty);
+        }
+
+        void AddToFavourite()
+        {
+            if (AddToFavouriteEvent != null)
+                AddToFavouriteEvent(this, EventArgs.Empty);
+        }
+
+        void AddToPlan()
+        {
+            if (AddToPlanEvent != null)
+                AddToPlanEvent(this, EventArgs.Empty);
+        }
+
+        #endregion
     }
 }
