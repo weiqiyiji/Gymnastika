@@ -14,7 +14,6 @@ namespace Gymnastika.Modules.Meals.Controllers
 {
     public class LoadDataController : ILoadDataController
     {
-        private readonly IRegionManager _regionManager;
         private readonly IFoodService _foodService;
         private readonly IWorkEnvironment _workEnviroment;
         private readonly LoadDataView _loadDataView;

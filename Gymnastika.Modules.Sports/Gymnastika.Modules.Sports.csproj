@@ -278,8 +278,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>md $(SolutionDir)Gymnastika\$(OutDir)Data\Sport
+xcopy $(ProjectDir)XmlData $(SolutionDir)Gymnastika\$(OutDir)Data\Sport /s /h /d /y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

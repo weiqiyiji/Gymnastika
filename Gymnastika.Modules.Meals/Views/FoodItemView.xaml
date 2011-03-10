@@ -37,10 +37,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
             <Border BorderThickness="1" Width="152" Height="152" CornerRadius="4" Margin="2">
                 <Image Width="150" Height="150" Source="{Binding MiddleImageUri}">
                     <!--<Image.Clip>
@@ -48,13 +50,13 @@
                     </Image.Clip>-->
                 </Image>
             </Border>
-            <TextBlock Grid.Row="1" HorizontalAlignment="Center"  Text="{Binding Name}" />
-            <TextBlock Grid.Row="2" HorizontalAlignment="Center">
+            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="{Binding Name}" />
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="{Binding Calorie}" />
                 <Run Text="大卡（每100克）" />
             </TextBlock>
-            <Button Grid.Row="3" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Grid.Row="4" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Column="2" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Row="1" Grid.Column="2" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
         </Grid>
     </DataTemplate>
 </ResourceDictionary>
