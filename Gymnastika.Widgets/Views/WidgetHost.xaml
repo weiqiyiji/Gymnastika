@@ -27,44 +27,35 @@
             <BeginStoryboard Storyboard="{StaticResource OnMouseLeave}"/>
         </EventTrigger>
     </s:ScatterViewItem.Triggers>
-        <Grid Margin="30, 0, 30, 30">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <StackPanel Visibility="Hidden" x:Name="stackPanel" 
+    <Grid Margin="5, 0, 5, 5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Visibility="Hidden" x:Name="stackPanel" 
                     VerticalAlignment="Center" HorizontalAlignment="Right" 
                     Orientation="Horizontal">
-                <controls:ImageButton 
+            <controls:ImageButton 
                 Content="ImageButton" Width="21" Height="21" Margin="3" Padding="0" 
                 HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
                 ImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" 
                 MouseOverImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" 
                 MousePressedImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" Stretch="Uniform"/>
-                <controls:ImageButton 
+            <controls:ImageButton 
                 Content="ImageButton" Width="21" Height="21" Margin="3" 
                 ImageSource="/Gymnastika.Widgets;component/Images/close.png" 
                 MouseOverImageSource="/Gymnastika.Widgets;component/Images/close.png"
                 MousePressedImageSource="/Gymnastika.Widgets;component/Images/close.png" 
                 Stretch="Uniform" Padding="0" Click="OnCloseButtonClick"/>
-            </StackPanel>
-            <Border Grid.Row="1" CornerRadius="8" Padding="8" Background="#4C1B1B1B" BorderThickness="0.8">
-                <Border.BorderBrush>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FFB4B4B4" Offset="0.009"/>
-                        <GradientStop Color="#FF7C7C7C" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.BorderBrush>
-                <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Widgets:IWidgetHost}}}"  />
-            </Border>
-            <Border BorderThickness="0.5" Grid.Row="1" Height="50" VerticalAlignment="Top" Margin="1,1,1,0" CornerRadius="8">
-                <Border.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#19FFFFFF" Offset="0"/>
-                        <GradientStop Color="#19FFFFFF" Offset="1"/>
-                        <GradientStop Color="#26FFFFFF" Offset="0.483"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-            </Border>
-        </Grid>
+        </StackPanel>
+        <Border Grid.Row="1" Padding="8" >
+            <Border.BorderBrush>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFB4B4B4" Offset="0.009"/>
+                    <GradientStop Color="#FF7C7C7C" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Widgets:IWidgetHost}}}"  />
+        </Border>
+    </Grid>
 </s:ScatterViewItem>

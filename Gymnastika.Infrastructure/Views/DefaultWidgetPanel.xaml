@@ -130,7 +130,7 @@
     </UserControl.Resources>
     <Grid Background="{x:Null}">
     	<Grid.RowDefinitions>
-    		<RowDefinition Height="Auto" MaxHeight="66" />
+    		<RowDefinition Height="Auto" />
     		<RowDefinition />
     	</Grid.RowDefinitions>
         <Ellipse Height="94" Width="157" HorizontalAlignment="Right" Margin="0,-47,-79,0" VerticalAlignment="Top">
@@ -141,7 +141,7 @@
         		</RadialGradientBrush>
         	</Ellipse.Fill>
         </Ellipse>
-        <ListBox x:Name="widgetBox" Visibility="Collapsed"
+        <ListBox x:Name="widgetBox" Visibility="Collapsed" Padding="15, 10"
 			RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding Widgets}"
 			Style="{DynamicResource WidgetPanelStyle}" BorderBrush="#CC828790" 
             ItemContainerStyle="{DynamicResource WidgetContainerStyle}" 

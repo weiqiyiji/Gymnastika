@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
              xmlns:cov="clr-namespace:Gymnastika.Controls.Converters;assembly=Gymnastika.Controls" 
              xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" 
-             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.App"
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.App"
              >
     <Application.Resources>
         <ResourceDictionary>
@@ -52,7 +52,6 @@
                 <Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
                 <Setter Property="Height" Value="24"/>
             </Style>
-            
 
             <Style x:Key="WatermarkPasswordBoxStyle" TargetType="{x:Type PasswordBox}">
                 <Setter Property="Cursor" Value="Arrow" />
@@ -87,7 +86,7 @@
                                     <TextBlock x:Name="watermarkBlock"
                                                Foreground="Silver" Margin="{TemplateBinding Padding}"  
                                                Background="Transparent" 
-                                               Text="{Binding Path=(behaviors:WatermarkBehavior.Watermark), Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type PasswordBox}}}"
+                                               Text="{Binding (behaviors:WatermarkBehavior.Watermark), Mode=TwoWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type PasswordBox}}}"
                                                HorizontalAlignment="Stretch" VerticalAlignment="Center" 
                                                FontFamily="微软雅黑" FontStyle="Italic" Visibility="Collapsed"/>
                                 </Grid>
@@ -102,6 +101,144 @@
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
+        			</Setter.Value>
+        		</Setter>
+        	</Style>
+        	<Style x:Key="NavigationButtonStyle" TargetType="{x:Type Custom:SurfaceButton}">
+        		<Setter Property="SnapsToDevicePixels" Value="True"/>
+        		<Setter Property="FocusVisualStyle">
+        			<Setter.Value>
+        				<Style>
+        					<Setter Property="Control.Template">
+        						<Setter.Value>
+        							<ControlTemplate/>
+        						</Setter.Value>
+        					</Setter>
+        				</Style>
+        			</Setter.Value>
+        		</Setter>
+        		<Setter Property="FontFamily" Value="Segoe UI"/>
+        		<Setter Property="FontSize" Value="10"/>
+        		<Setter Property="Foreground" Value="Black"/>
+        		<Setter Property="Background" Value="#33A4B4BD"/>
+        		<Setter Property="BorderBrush">
+        			<Setter.Value>
+        				<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+        					<GradientStop Color="#7FFFFFFF" Offset="0"/>
+        					<GradientStop Color="#0CFFFFFF" Offset="1"/>
+        				</LinearGradientBrush>
+        			</Setter.Value>
+        		</Setter>
+        		<Setter Property="BorderThickness" Value="1"/>
+        		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        		<Setter Property="VerticalContentAlignment" Value="Center"/>
+        		<Setter Property="Padding" Value="15,6"/>
+        		<Setter Property="IsTabStop" Value="False"/>
+        		<Setter Property="Focusable" Value="False"/>
+        		<Setter Property="MinWidth" Value="30"/>
+        		<Setter Property="MinHeight" Value="30"/>
+        		<Setter Property="Template">
+        			<Setter.Value>
+        				<ControlTemplate TargetType="{x:Type Custom:SurfaceButton}">
+        					<ControlTemplate.Resources>
+        						<Storyboard x:Key="Press">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="NormalOverlay">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                    <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
+        								<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        							</DoubleAnimationUsingKeyFrames>
+        							<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Glow">
+        								<SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="0"/>
+        							</ThicknessAnimationUsingKeyFrames>
+        						</Storyboard>
+        						<Storyboard x:Key="Release">
+                                    <DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="NormalOverlay">
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0.0" Value="0"/>
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0.05" Value="0"/>
+                                        <SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+        							<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
+        								<SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+        								<SplineDoubleKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.5" Value="0"/>
+        							</DoubleAnimationUsingKeyFrames>
+        							<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Glow">
+        								<SplineThicknessKeyFrame KeyTime="0" Value="0"/>
+        								<SplineThicknessKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.5" Value="1"/>
+        							</ThicknessAnimationUsingKeyFrames>
+        						</Storyboard>
+        					</ControlTemplate.Resources>
+        					<Grid x:Name="Grid" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                <Grid x:Name="NormalOverlay">
+        						<Ellipse x:Name="Shadow" Stretch="Fill" Stroke="#33000000" StrokeThickness="0,0,0,1" Margin="1,1,1,0" />
+        						
+        						<Ellipse x:Name="Base" Stretch="Fill" Fill="{TemplateBinding Background}" Margin="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" StrokeThickness="1">
+        							<Ellipse.Stroke>
+        								<LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+        									<GradientStop Color="#66000000" Offset="0"/>
+        									<GradientStop Color="#33000000" Offset="1"/>
+        								</LinearGradientBrush>
+        							</Ellipse.Stroke>
+        						</Ellipse>
+								<Ellipse x:Name="RenderOverlay" Stretch="Fill" Margin="2" Opacity="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1">
+        							<Ellipse.Fill>
+        								<LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+        									<GradientStop Color="#26000000" Offset="0"/>
+        									<GradientStop Color="#4CFFFFFF" Offset="1"/>
+        								</LinearGradientBrush>
+        							</Ellipse.Fill>
+        						</Ellipse>
+                                </Grid>
+                                <Ellipse x:Name="Glow" Fill="White" Stretch="Fill" Margin="1" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1">
+                                </Ellipse>
+        						<ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RenderTransformOrigin="0.5,0.5" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+        							<ContentPresenter.RenderTransform>
+        								<TranslateTransform X="0" Y="-1"/>
+        							</ContentPresenter.RenderTransform>
+        						</ContentPresenter>
+                            </Grid>
+        					<ControlTemplate.Triggers>
+        						<Trigger Property="IsPressed" Value="True">
+        							<Trigger.EnterActions>
+                                        <BeginStoryboard Storyboard="{StaticResource Press}" />
+        								<!--<BeginStoryboard>
+        									<Storyboard>
+        										<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
+        											<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        										</DoubleAnimationUsingKeyFrames>
+        										<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Glow">
+        											<SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="-1"/>
+        										</ThicknessAnimationUsingKeyFrames>
+        									</Storyboard>
+        								</BeginStoryboard>-->
+        							</Trigger.EnterActions>
+        							<Trigger.ExitActions>
+                                        <BeginStoryboard Storyboard="{StaticResource Release}" />
+        								<!--<BeginStoryboard>
+        									<Storyboard>
+        										<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
+        											<SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+        											<SplineDoubleKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.5" Value="0"/>
+        										</DoubleAnimationUsingKeyFrames>
+        										<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Glow">
+        											<SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
+        											<SplineThicknessKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.5" Value="1"/>
+        										</ThicknessAnimationUsingKeyFrames>
+        									</Storyboard>
+        								</BeginStoryboard>-->
+        							</Trigger.ExitActions>
+        						</Trigger>
+        						<Trigger Property="IsEnabled" Value="True"/>
+        						<Trigger Property="IsEnabled" Value="False">
+        							<Setter Property="Fill" TargetName="RenderOverlay" Value="#0CFFFFFF"/>
+        							<Setter Property="Stroke" TargetName="RenderOverlay" Value="#33FFFFFF"/>
+        							<Setter Property="Stroke" TargetName="Base" Value="#33000000"/>
+                                    <Setter Property="Stroke" TargetName="Shadow" Value="#00000000"/>
+        							<Setter Property="Foreground" Value="#A5333333"/>
+        							<Setter Property="Background" Value="Transparent"/>
+        						</Trigger>
+        					</ControlTemplate.Triggers>
+        				</ControlTemplate>
         			</Setter.Value>
         		</Setter>
         	</Style>

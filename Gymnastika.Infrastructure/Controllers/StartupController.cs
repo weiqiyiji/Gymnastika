@@ -37,9 +37,10 @@ namespace Gymnastika.Controllers
         protected void RegisterDependencies()
         {
             _container
+                .RegisterType<INavigationManager, NavigationManager>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
-                .RegisterType<IStartupView, StartupView>(new ContainerControlledLifetimeManager())
+                .RegisterType<IStartupView, StartupView>("StartupView", new ContainerControlledLifetimeManager())
                 .RegisterType<IMainView, MainView>("MainView", new ContainerControlledLifetimeManager())
                 .RegisterType<IUserProfileView, UserProfileView>()
                 .RegisterType<StartupViewModel>()
@@ -49,7 +50,7 @@ namespace Gymnastika.Controllers
 
         protected void RegisterStartupViewWithRegion()
         {
-            _startupView = _container.Resolve<IStartupView>();
+            _startupView = _container.Resolve<IStartupView>("StartupView");
 
             _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _startupView);
             _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, () => _container.Resolve<IMainView>("MainView"));

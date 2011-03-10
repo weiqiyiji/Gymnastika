@@ -18,16 +18,16 @@
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ItemsControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}">
-            <ItemsControl.RenderTransform>
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}">
+            <ContentControl.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
                     <ScaleTransform />
                     <RotateTransform />
                     <SkewTransform />
                 </TransformGroup>
-            </ItemsControl.RenderTransform>
-        </ItemsControl>
+            </ContentControl.RenderTransform>
+        </ContentControl>
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}" Grid.Column="1">
             <ContentControl.RenderTransform>
                 <TransformGroup>

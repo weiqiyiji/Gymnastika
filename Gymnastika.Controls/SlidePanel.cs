@@ -164,6 +164,7 @@ namespace Gymnastika.Controls
                 if (_previousSelectedIndex != InitializeIndex)
                 {
                     double startX = x - childWidth * indexSpan;
+
                     TranslateTo(child, startX, y, x, y, Duration);
                 }
                 else
