@@ -21,7 +21,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        <my:AutoCompleteBox Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" HorizontalAlignment="Right" Margin="0,7,11,6" Width="233">
+        <my:AutoCompleteBox Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" Margin="12,9,0,4" HorizontalAlignment="Left" Width="233">
             <my:AutoCompleteBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
@@ -32,5 +32,6 @@
         <TextBlock Height="23" HorizontalAlignment="Right" Margin="0,5,0,0" Name="textBlock2" Text="{Binding CurrentPage}" VerticalAlignment="Top" Grid.Row="2" Width="28" />
         <Button Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="67,0,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
         <Button Command="{Binding NextPageCommand}" Content="下一页" Margin="0,0,85,5" Name="button2" Grid.Row="2" HorizontalAlignment="Right" Width="75" />
+        <Button Command="{Binding SearchCommand}" Content="Search" Height="23" Margin="0,9,12,0" Name="button3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" />
     </Grid>
 </UserControl>

@@ -57,7 +57,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         public virtual IEnumerable<T> Fetch(int startIndex, int number,Func<T,bool> predicate)
         {
-            return Fetch(predicate).Take(number + number).Skip(startIndex);
+            return Fetch(predicate).Skip(startIndex).Take(number);
         }
 
         public virtual void CreateOrUpdate(T entity)
