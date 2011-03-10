@@ -34,7 +34,7 @@ namespace Gymnastika
             widgetBootstrapper.Run();
 
             IStartupController controller = Container.Resolve<IStartupController>();
-            //controller.Run();
+            controller.Run();
 
             Application.Current.MainWindow = this.Shell as Shell;
             Application.Current.MainWindow.Show();
