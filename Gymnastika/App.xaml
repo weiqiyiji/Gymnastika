@@ -106,18 +106,9 @@
         	</Style>
         	<Style x:Key="NavigationButtonStyle" TargetType="{x:Type Custom:SurfaceButton}">
         		<Setter Property="SnapsToDevicePixels" Value="True"/>
-        		<Setter Property="FocusVisualStyle">
-        			<Setter.Value>
-        				<Style>
-        					<Setter Property="Control.Template">
-        						<Setter.Value>
-        							<ControlTemplate/>
-        						</Setter.Value>
-        					</Setter>
-        				</Style>
-        			</Setter.Value>
-        		</Setter>
-        		<Setter Property="FontFamily" Value="Segoe UI"/>
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="FontFamily" Value="Segoe UI"/>
         		<Setter Property="FontSize" Value="10"/>
         		<Setter Property="Foreground" Value="Black"/>
         		<Setter Property="Background" Value="#33A4B4BD"/>
@@ -132,7 +123,6 @@
         		<Setter Property="BorderThickness" Value="1"/>
         		<Setter Property="HorizontalContentAlignment" Value="Center"/>
         		<Setter Property="VerticalContentAlignment" Value="Center"/>
-        		<Setter Property="Padding" Value="15,6"/>
         		<Setter Property="IsTabStop" Value="False"/>
         		<Setter Property="Focusable" Value="False"/>
         		<Setter Property="MinWidth" Value="30"/>
@@ -170,28 +160,36 @@
         					</ControlTemplate.Resources>
         					<Grid x:Name="Grid" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
                                 <Grid x:Name="NormalOverlay">
-        						<Ellipse x:Name="Shadow" Stretch="Fill" Stroke="#33000000" StrokeThickness="0,0,0,1" Margin="1,1,1,0" />
+        						    <Ellipse x:Name="Shadow" Stretch="Fill" Stroke="#33000000" StrokeThickness="0,0,0,1" Margin="1,1,1,0" />
         						
-        						<Ellipse x:Name="Base" Stretch="Fill" Fill="{TemplateBinding Background}" Margin="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" StrokeThickness="1">
-        							<Ellipse.Stroke>
-        								<LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-        									<GradientStop Color="#66000000" Offset="0"/>
-        									<GradientStop Color="#33000000" Offset="1"/>
-        								</LinearGradientBrush>
-        							</Ellipse.Stroke>
-        						</Ellipse>
-								<Ellipse x:Name="RenderOverlay" Stretch="Fill" Margin="2" Opacity="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1">
-        							<Ellipse.Fill>
-        								<LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
-        									<GradientStop Color="#26000000" Offset="0"/>
-        									<GradientStop Color="#4CFFFFFF" Offset="1"/>
-        								</LinearGradientBrush>
-        							</Ellipse.Fill>
-        						</Ellipse>
+        						    <Ellipse x:Name="Base" Stretch="Fill" Fill="{TemplateBinding Background}" Margin="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" StrokeThickness="1">
+        							    <Ellipse.Stroke>
+        								    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+        									    <GradientStop Color="#66000000" Offset="0"/>
+        									    <GradientStop Color="#33000000" Offset="1"/>
+        								    </LinearGradientBrush>
+        							    </Ellipse.Stroke>
+        						    </Ellipse>
+								    <Ellipse x:Name="RenderOverlay" Stretch="Fill" Margin="2" Opacity="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1">
+        							    <Ellipse.Fill>
+        								    <LinearGradientBrush EndPoint="0,0" StartPoint="0,1">
+        									    <GradientStop Color="#26000000" Offset="0"/>
+        									    <GradientStop Color="#4CFFFFFF" Offset="1"/>
+        								    </LinearGradientBrush>
+        							    </Ellipse.Fill>
+        						    </Ellipse>
                                 </Grid>
                                 <Ellipse x:Name="Glow" Fill="White" Stretch="Fill" Margin="1" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1">
                                 </Ellipse>
-        						<ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RenderTransformOrigin="0.5,0.5" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+        						<ContentPresenter x:Name="Content" 
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                                  Content="{TemplateBinding Content}" 
+                                                  ContentStringFormat="{TemplateBinding ContentStringFormat}" 
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  Margin="{TemplateBinding Padding}" 
+                                                  RenderTransformOrigin="0.5,0.5" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
         							<ContentPresenter.RenderTransform>
         								<TranslateTransform X="0" Y="-1"/>
         							</ContentPresenter.RenderTransform>

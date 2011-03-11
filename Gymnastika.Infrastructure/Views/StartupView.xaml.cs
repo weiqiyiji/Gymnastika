@@ -13,7 +13,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.ViewModels;
 using Gymnastika.Views;
-using GongSolutions.Wpf.DragDrop.Utilities;
+using System.Windows.Controls.Primitives;
 
 namespace Gymnastika.Views
 {
@@ -22,8 +22,6 @@ namespace Gymnastika.Views
     /// </summary>
     public partial class StartupView : UserControl, IStartupView
     {
-
-
         public static bool GetIsFocused(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsFocusedProperty);
@@ -38,8 +36,6 @@ namespace Gymnastika.Views
         public static readonly DependencyProperty IsFocusedProperty =
             DependencyProperty.RegisterAttached("IsFocused", typeof(bool), typeof(StartupView), new UIPropertyMetadata(false));
 
-        
-
         public StartupView(StartupViewModel model)
         {
             InitializeComponent();
@@ -52,14 +48,13 @@ namespace Gymnastika.Views
             set { DataContext = value; }
         }
 
-        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBox list = (ListBox) sender;
+            Selector selector = (Selector)sender;
 
             if (e.AddedItems.Count == 1)
             {
-                UIElement container = (UIElement) list.ItemContainerGenerator.ContainerFromItem(e.AddedItems[0]);
-                container.MouseLeftButtonUp += container_MouseLeftButtonUp;
+                UIElement container = (UIElement)selector.ItemContainerGenerator.ContainerFromItem(e.AddedItems[0]);
 
                 if(e.RemovedItems.Count == 0)
                     SetIsFocused(container, true);
@@ -67,10 +62,25 @@ namespace Gymnastika.Views
 
             if (e.RemovedItems.Count == 1)
             {
-                UIElement oldContainer = (UIElement) list.ItemContainerGenerator.ContainerFromItem(e.RemovedItems[0]);
+                UIElement oldContainer = (UIElement)selector.ItemContainerGenerator.ContainerFromItem(e.RemovedItems[0]);
                 SetIsFocused(oldContainer, false);
+            }
+        }
 
-                oldContainer.MouseLeftButtonUp -= container_MouseLeftButtonUp;
+        private void OnSelectorClick(object sender, RoutedEventArgs e)
+        {
+            Selector selector = (Selector)sender;
+            DependencyObject container = selector.ItemContainerGenerator.ContainerFromIndex(selector.SelectedIndex);
+            bool isFocused = GetIsFocused(container);
+
+            if (isFocused)
+            {
+                if (Model.LogOnCommand.CanExecute(null))
+                    Model.LogOnCommand.Execute(null);
+            }
+            else
+            {
+                SetIsFocused(container, true);
             }
         }
 
