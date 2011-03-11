@@ -6,18 +6,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="258" d:DesignWidth="422"
              xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-             xmlns:module="clr-namespace:Gymnastika.Modules.Sports">
+             xmlns:module="clr-namespace:Gymnastika.Modules.Sports" BorderBrush="Black" BorderThickness="1" xmlns:my="clr-namespace:Gymnastika.Modules.Meals.Views;assembly=Gymnastika.Modules.Meals" xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="34*" />
-            <RowDefinition Height="224*" />
+            <RowDefinition Height="38*" />
+            <RowDefinition Height="218*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130*" />
-            <ColumnDefinition Width="292*" />
-        </Grid.ColumnDefinitions>
-        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.SportRegion}" Grid.Column="1" Grid.Row="1" />
-        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.PlanRegion}" Grid.RowSpan="2" />
-        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.CategoryRegion}" Grid.Column="1" />
+        <my1:CategoriesPanelView x:Name="categoriesPanelView" />
+        <my1:SportsPanelView Grid.Row="1" x:Name="sportsPanelView" />
     </Grid>
 </UserControl>

@@ -23,6 +23,8 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         void Delete(T entity);
 
+        int Count(Func<T, bool> predicate);
+
         IEnumerable<T> All();
 
         IWorkContextScope GetContextScope();
@@ -55,7 +57,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         public virtual IEnumerable<T> Fetch(int startIndex, int number,Func<T,bool> predicate)
         {
-            return Fetch(predicate).Take(number).Skip(startIndex);
+            return Fetch(predicate).Take(number + number).Skip(startIndex);
         }
 
         public virtual void CreateOrUpdate(T entity)
@@ -88,5 +90,10 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return _environment.GetWorkContextScope();
         }
 
+
+        public int Count(Func<T, bool> predicate)
+        {
+            return _repository.Count((t) => predicate(t));
+        }
     }
 }

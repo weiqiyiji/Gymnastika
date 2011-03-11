@@ -11,9 +11,10 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="39*" />
-            <RowDefinition Height="328*" />
+            <RowDefinition Height="300*" />
+            <RowDefinition Height="28*" />
         </Grid.RowDefinitions>
-        <ListBox x:Name="sportlist" d:DataContext="{d:DesignData Source=/DesignData/SportsPanelDesignData.xaml}" ItemsSource="{Binding ViewModels}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="1">
+        <ListBox x:Name="sportlist" ItemsSource="{Binding ViewModels}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="1">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:SportCardView/>
@@ -27,5 +28,9 @@
                 </DataTemplate>
             </my:AutoCompleteBox.ItemTemplate>
         </my:AutoCompleteBox>
+        <TextBlock Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="12,5,0,0" Name="textBlock1" Text="{Binding MaxPage}" VerticalAlignment="Top" Width="35" />
+        <TextBlock Height="23" HorizontalAlignment="Right" Margin="0,5,0,0" Name="textBlock2" Text="{Binding CurrentPage}" VerticalAlignment="Top" Grid.Row="2" Width="28" />
+        <Button Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="2" Height="23" HorizontalAlignment="Left" Margin="67,0,0,0" Name="button1" VerticalAlignment="Top" Width="75" />
+        <Button Command="{Binding NextPageCommand}" Content="下一页" Margin="0,0,85,5" Name="button2" Grid.Row="2" HorizontalAlignment="Right" Width="75" />
     </Grid>
 </UserControl>
