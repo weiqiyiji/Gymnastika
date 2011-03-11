@@ -3,14 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="463"
+             mc:Ignorable="d" d:DesignWidth="483"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-             d:DataContext="{d:DesignData Source=/DesignData/SportData.xaml}"
-             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" d:DesignHeight="136">
-    
-    
-    <Grid dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True" Height="129">
-        <Grid>
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" d:DesignHeight="132"
+             Background="#EEEEEE"
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
+             >
+
+
+    <Grid  Height="129">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="112*" />
+            <RowDefinition Height="17*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="99" />
                 <ColumnDefinition Width="364*" />
@@ -20,7 +26,7 @@
                 <RowDefinition Height="15*" />
                 <RowDefinition Height="41*" />
             </Grid.RowDefinitions>
-			<TextBlock Text="{Binding Name}" FontSize="26.667" HorizontalAlignment="Stretch" Padding="15,10" Grid.Column="1" Margin="0,0,60,0" />
+			<TextBlock Foreground="Black" Text="{Binding Name}" FontSize="26.667" HorizontalAlignment="Stretch" Padding="15,10" Grid.Column="1" Margin="0,0,100,0" />
             <Image Margin="4,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="95" Grid.RowSpan="3" >
                 <Image.Source>
                     <Binding Path="ImageUri">
@@ -35,14 +41,14 @@
                 <ProgressBar.Value>
                     <MultiBinding>
                         <MultiBinding.Converter>
-                            <converter:DoubleIntDivideConverter/>
+                            <converter:DivideConverter/>
                         </MultiBinding.Converter>
                         <Binding Path="Calories"/>
                         <Binding Path="Minutes"/>
                     </MultiBinding>
                 </ProgressBar.Value>
             </ProgressBar>
-            <TextBlock Grid.Row="2" Name="textBlock1" Grid.Column="1">
+            <TextBlock Foreground="Black" Grid.Row="2" Name="textBlock1" Grid.Column="1">
                 <TextBlock.Text>
                     <MultiBinding>
                         <MultiBinding.Converter>
@@ -53,7 +59,9 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <Button Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="26" HorizontalAlignment="Right" Margin="0,6,6,0" Name="button1" VerticalAlignment="Top" Width="40"/>
+            <Button Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,3,8,0" Name="button1" VerticalAlignment="Top" Width="40"/>
+            <Button Command="{Binding AddToPlanCommand}" Content="计划" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,35,6,0" Name="button2" VerticalAlignment="Top" Width="42" />
+            <Button Command="{Binding AddToFavouriteCommand}" Content="喜爱" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,3,54,0" Name="button3" VerticalAlignment="Top" Width="48" />
         </Grid>
     </Grid>
 </UserControl>

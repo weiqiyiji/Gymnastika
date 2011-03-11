@@ -32,7 +32,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     }
 
-    public class SportCardViewModel : NotificationObject, ISportCardViewModel, IDragSource
+    public class SportCardViewModel : NotificationObject, ISportCardViewModel
     {
         public override string ToString()
         {
@@ -84,7 +84,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         #endregion
-
 
 
         #region Property
@@ -192,17 +191,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     RaisePropertyChanged(() => Brief);
                 }
             }
-        }
-
-        #endregion
-
-
-        #region IDragSource Members
-
-        public void StartDrag(DragInfo dragInfo)
-        {
-            dragInfo.Data = Sport;
-            dragInfo.Effects = DragDropEffects.All;
         }
 
         #endregion

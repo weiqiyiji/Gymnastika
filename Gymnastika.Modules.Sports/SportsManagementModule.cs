@@ -56,7 +56,7 @@ namespace Gymnastika.Modules.Sports
                 Label = "运动",
                 RegionName = RegionNames.MainRegion,
                 ViewName = "",
-                ViewType = typeof(ModuleShell)
+                ViewType = typeof(CompositePanel)
             });
         }
 
@@ -65,9 +65,9 @@ namespace Gymnastika.Modules.Sports
         private void RegisterViews()
         {
             _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
-            _regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
-                          .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
-                          .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
+            //_regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
+            //              .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
+            //              .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
         }
 
 

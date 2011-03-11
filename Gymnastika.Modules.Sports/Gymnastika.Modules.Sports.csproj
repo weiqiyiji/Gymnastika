@@ -39,6 +39,9 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluidKit">
+      <HintPath>..\Libs\FluidKit.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop">
       <HintPath>..\Libs\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
@@ -86,7 +89,7 @@
     <Compile Include="Converters\CalorieDecriptionConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeConverter.cs" />
-    <Compile Include="Converters\DoubleIntDivideConverter.cs" />
+    <Compile Include="Converters\DivideConverter.cs" />
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
@@ -118,8 +121,8 @@
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
     <Compile Include="ModuleRegionNames.cs" />
-    <Compile Include="ModuleShell.xaml.cs">
-      <DependentUpon>ModuleShell.xaml</DependentUpon>
+    <Compile Include="Views\CompositePanel.xaml.cs">
+      <DependentUpon>CompositePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Factories\SportCardViewModelFactory.cs" />
     <Compile Include="Services\Providers\PlanItemProvider.cs" />
@@ -141,6 +144,12 @@
     <Compile Include="ViewModels\SportsPlanViewModel.cs" />
     <Compile Include="ViewModels\SportsPanelViewModel.cs" />
     <Compile Include="ViewModels\SportViewModel.cs" />
+    <Compile Include="Views\DetailView.xaml.cs">
+      <DependentUpon>DetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ModuleShell.xaml.cs">
+      <DependentUpon>ModuleShell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlanItemDetailView.xaml.cs">
       <DependentUpon>PlanItemDetailView.xaml</DependentUpon>
     </Compile>
@@ -198,7 +207,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ModuleShell.xaml">
+    <Page Include="Views\CompositePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,6 +216,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModuleShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

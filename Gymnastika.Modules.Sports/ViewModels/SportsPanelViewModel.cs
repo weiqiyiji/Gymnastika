@@ -17,16 +17,19 @@ using Microsoft.Practices.Unity;
 using Gymnastika.Data;
 using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
+using System.Windows;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
     public interface ISportsPanelViewModel
     {
-        ICommand NextPageCommand { get; }
+        DelegateCommand NextPageCommand { get; }
 
-        ICommand PreviousPageCommand { get; }
+        DelegateCommand PreviousPageCommand { get; }
 
-        ICommand SearchCommand { get; }
+        DelegateCommand SearchCommand { get; }
+
+        ISportCardViewModel SelectedSport { get; set; }
 
         ObservableCollection<Sport> CurrentSports { get; }
 
@@ -41,9 +44,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         int MaxPage { get; }
     }
 
-    public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel
+    public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel ,IDragSource
     {
-        const int MaxItemsPerPage = 4;
+        const int MaxItemsPerPage = 20;
 
         ISportCardViewModelFactory _factory;
         ISportProvider _sportProvider;
@@ -53,9 +56,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _sportProvider = sportprovider;
             _factory = factory;
         }
-
         DelegateCommand _nextPageCommand;
-        public ICommand NextPageCommand
+        public DelegateCommand NextPageCommand
         {
             get 
             {
@@ -65,7 +67,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
         DelegateCommand _previousPageCommand;
-        public ICommand PreviousPageCommand
+        public DelegateCommand PreviousPageCommand
         {
             get 
             {
@@ -75,8 +77,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-        ICommand _searchCommand;
-        public ICommand SearchCommand
+        DelegateCommand _searchCommand;
+        public DelegateCommand SearchCommand
         {
             get
             {
@@ -95,14 +97,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void UpdateCommandState()
         {
-            _nextPageCommand.RaiseCanExecuteChanged();
-            _previousPageCommand.RaiseCanExecuteChanged();
+            NextPageCommand.RaiseCanExecuteChanged();
+            PreviousPageCommand.RaiseCanExecuteChanged();
         }
 
         void GotoNextPage()
         {
             GotoPage(CurrentPage + 1);
-            UpdateCommandState();
         }
         bool CanGotoNextPage()
         {
@@ -111,12 +112,12 @@ namespace Gymnastika.Modules.Sports.ViewModels
         void GotoPreviousPage()
         {
             GotoPage(CurrentPage - 1);
-            UpdateCommandState();
         }
         bool CanGotoPreviousPage()
         {
             return CanGotoPage(CurrentPage - 1);
         }
+
         ObservableCollection<Sport> _currentSports;
         public ObservableCollection<Sport> CurrentSports
         {
@@ -213,6 +214,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     CurrentSports = Fetch(GetIndexByPage(page), MaxItemsPerPage, Filter);
                 }
                 CurrentPage = page;
+                UpdateCommandState();
                 return true;
             }
             else
@@ -277,7 +279,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (value != null && value != _viewModels)
                 {
                     ReleaseViewModels(_viewModels);
-                    _viewModels = value;
+                    _viewModels.ReplaceBy(value);
+                    //_viewModels = value;
                     RaisePropertyChanged(() => ViewModels);
                 }
             }
@@ -343,6 +346,31 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     _searchName = value;
                     RaisePropertyChanged(() => SearchName);
+                }
+            }
+        }
+
+
+        #region IDragSource Members
+
+        public void StartDrag(DragInfo dragInfo)
+        {
+            dragInfo.Data = ViewModels[0];//SelectedSport;
+            dragInfo.Effects = DragDropEffects.All;
+        }
+        
+        #endregion
+
+        ISportCardViewModel _selectedSport;
+        public ISportCardViewModel SelectedSport
+        {
+            get { return _selectedSport; }
+            set
+            {
+                if (_selectedSport != value)
+                {
+                    _selectedSport = value;
+                    RaisePropertyChanged(() => SelectedSport);
                 }
             }
         }
