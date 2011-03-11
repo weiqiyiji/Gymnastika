@@ -61,6 +61,7 @@
     <Compile Include="CheckButtonGroupItem.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
+    <Compile Include="Converters\UnlockedImageConverter.cs" />
     <Compile Include="SlidePanel.cs" />
     <Compile Include="SpreadTabPanel.cs" />
     <Compile Include="TimePicker.cs" />

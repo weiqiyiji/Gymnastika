@@ -1,5 +1,0 @@
-﻿<models:UserProfileManagementViewModel
-    xmlns:models="clr-namespace:Gymnastika.ViewModels"
-    xmlns:d="clr-namespace:Gymnastika.DesignData"
-    AvatarPath="/Gymnastika.Infrastructure;component/Images/defaultavatar.png">
-</models:UserProfileManagementViewModel>

@@ -58,10 +58,13 @@ namespace Gymnastika.Common
 
                 if(_currentPage != value)
                 {
+                    PreviousPage = _currentPage;
                     _currentPage = value;
                     OnCurrentPageChanged();
                 }
             }
         }
+
+        public NavigationDescriptor PreviousPage { get; private set; }
     }
 }

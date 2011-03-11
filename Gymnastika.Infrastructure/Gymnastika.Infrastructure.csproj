@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GongSolutions.Wpf.DragDrop">
-      <HintPath>..\Libs\GongSolutions.Wpf.DragDrop.dll</HintPath>
+    <Reference Include="FluidKit">
+      <HintPath>..\Libs\FluidKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,9 +61,8 @@
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -116,9 +115,6 @@
     <Compile Include="Views\StartupView.xaml.cs">
       <DependentUpon>StartupView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WidgetView.xaml.cs">
-      <DependentUpon>WidgetView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Widgets\DateWidget.xaml.cs">
       <DependentUpon>DateWidget.xaml</DependentUpon>
     </Compile>
@@ -131,10 +127,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>
-    <Page Include="DesignData\UserProfile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Styles\ActionButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,10 +166,6 @@
     <Page Include="Views\StartupView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WidgetView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widgets\DateWidget.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -240,9 +228,10 @@
     <Resource Include="Images\widget_mouseover.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\left_arrow.png" />
     <Resource Include="Images\datewidget_icon.png" />
-    <Resource Include="Images\defaultavatar.png" />
     <Resource Include="Images\start_bg.jpg" />
+    <Resource Include="Images\right_arrow.png" />
     <Content Include="Images\hover_widgetboxbtn.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />

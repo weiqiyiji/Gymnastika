@@ -13,6 +13,11 @@ using Gymnastika.Services.Contracts;
 using Microsoft.Win32;
 using System.Windows;
 using System.IO;
+using Gymnastika.Common;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using Gymnastika.Common.Utils;
 
 namespace Gymnastika.ViewModels
 {
@@ -20,23 +25,32 @@ namespace Gymnastika.ViewModels
     {
         private readonly ISessionManager _sessionManager;
         private readonly IServiceLocator _serviceLocator;
+        private readonly INavigationManager _navigationManager;
+        private const int AvatarWidth = 120;
+        private const int AvatarHeight = 120;
         private User _user;
+        private string _avatarPath;
+        private bool _hasPassword;
 
-        public UserProfileManagementViewModel(ISessionManager sessionManager, IServiceLocator serviceLocator)
+        public UserProfileManagementViewModel(
+            ISessionManager sessionManager, IServiceLocator serviceLocator, INavigationManager navigationManager)
         {
             _sessionManager = sessionManager;
             _serviceLocator = serviceLocator;
+            _navigationManager = navigationManager;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
+            AvatarPath = _user.AvatarPath;
+            _hasPassword = !string.IsNullOrEmpty(_user.Password);
         }
 
         public string AvatarPath
         {
-            get { return _user.AvatarPath; }
+            get { return _avatarPath; }
             set
             {
-                if (_user.AvatarPath != value)
+                if (_avatarPath != value)
                 {
-                    _user.AvatarPath = value;
+                    _avatarPath = value;
                     RaisePropertyChanged("AvatarPath");
                 }
             }
@@ -124,8 +138,6 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-
-        private bool _hasPassword = !string.IsNullOrEmpty(_user.Password);
         
         public bool HasPassword
         {
@@ -187,7 +199,7 @@ namespace Gymnastika.ViewModels
         
         private ICommand _selectAvatarCommand;
 
-        public ICommand SelectedAvatarCommand
+        public ICommand SelectAvatarCommand
         {
             get
             {
@@ -211,18 +223,16 @@ namespace Gymnastika.ViewModels
             }
         }
 
-        private string _selectedAvatarPath;
-
         private void SelectAvatar()
         {
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "图像文件(*.bmp;*.jpg;*.jpeg;*.png)|(*.bmp;*.jpg;*.jpeg;*.png)";
-            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.CommonPictures);
+            dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             dialog.Multiselect = false;
 
             if (dialog.ShowDialog(Application.Current.MainWindow) == true)
             {
-                _selectedAvatarPath = dialog.FileName;
+                AvatarPath = dialog.FileName;
             }
         }
 
@@ -230,6 +240,8 @@ namespace Gymnastika.ViewModels
 
         private void SaveAvatar()
         {
+            if (_user.AvatarPath == AvatarPath) return;
+
             string dir = Directory.GetCurrentDirectory();
             string avatarFolderPath = Path.Combine(dir, AvatarFolder);
 
@@ -238,22 +250,26 @@ namespace Gymnastika.ViewModels
                 Directory.CreateDirectory(avatarFolderPath);
             }
 
-            string avatarExtension = Path.GetExtension(_selectedAvatarPath);
-            string saveTargetPath = Path.Combine(avatarFolderPath, _user.UserName, avatarExtension);
+            string avatarExtension = Path.GetExtension(AvatarPath).ToLower();
+            string saveTargetPath = Path.Combine(avatarFolderPath, _user.UserName + avatarExtension);
 
-            File.WriteAllBytes(saveTargetPath, File.ReadAllBytes(_selectedAvatarPath));
-            AvatarPath = saveTargetPath;
+            ImageHelper.SaveBitmap(AvatarPath, saveTargetPath, AvatarWidth, AvatarHeight);
+
+            _user.AvatarPath = saveTargetPath;
         }
 
         private void SaveProfile()
         {
             if (HasPassword)
             {
-                if (NewPassword == RetypedNewPassword)
+                if (!string.IsNullOrEmpty(NewPassword))
                 {
-                    if (_user.Password == OldPassword)
+                    if (NewPassword == RetypedNewPassword)
                     {
-                        _user.Password = NewPassword;
+                        if (_user.Password == OldPassword)
+                        {
+                            _user.Password = NewPassword;
+                        }
                     }
                 }
             }
@@ -265,6 +281,9 @@ namespace Gymnastika.ViewModels
                 IUserService userService = _serviceLocator.GetInstance<IUserService>();
                 userService.Update(_user);
             }
+
+            MessageBox.Show("保存成功");
+            _navigationManager.CurrentPage = _navigationManager.PreviousPage;
         }
     }
 }
