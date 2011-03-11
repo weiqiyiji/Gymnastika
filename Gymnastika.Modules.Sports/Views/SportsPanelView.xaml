@@ -9,17 +9,6 @@
              d:DesignHeight="502" d:DesignWidth="569" 
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit" xmlns:my1="http://schemas.microsoft.com/surface/2008">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <DataTemplate x:Key="SportCardTemplate">
-                        <local:SportCardView/>
-                    </DataTemplate>
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="167*" />
@@ -40,17 +29,20 @@
                 </DataTemplate>
             </my:AutoCompleteBox.ItemTemplate>
         </my:AutoCompleteBox>
-        <TextBlock Height="23" HorizontalAlignment="Left" Margin="12,8,0,0" Name="textBlock1" Text="{Binding MaxPage}" VerticalAlignment="Top" Width="35" />
-        <TextBlock Height="23" HorizontalAlignment="Right" Name="textBlock2" Text="{Binding CurrentPage}" VerticalAlignment="Top" Width="28" Margin="0,8,37,0" />
+        <TextBlock Foreground="Black" FontSize="11" Height="41" HorizontalAlignment="Left" Name="textBlock1" Text="{Binding MaxPage}" VerticalAlignment="Top" Width="67" Grid.Row="3" />
+        <TextBlock Foreground="Black" FontSize="11" Height="41" HorizontalAlignment="Right" Name="textBlock2" Text="{Binding CurrentPage}" VerticalAlignment="Top" Width="57" Margin="0,0,1,0" Grid.Row="3" Grid.Column="2" />
         <my1:SurfaceButton Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="1" Grid.Column="3" />
         <my1:SurfaceButton Command="{Binding NextPageCommand}" Content="下一页" Grid.Row="3" Grid.Column="3" />
         <my1:SurfaceButton Command="{Binding SearchCommand}" Content="Search" Margin="6,5,2,7" Grid.Column="1" />
-        <my1:SurfaceListBox SelectedItem="{Binding SelectedSport, Mode=TwoWay}" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragAdornerTemplate="{StaticResource ResourceKey=SportCardTemplate}" x:Name="sportlist" HorizontalContentAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding ViewModels}" Grid.ColumnSpan="3" Grid.RowSpan="3">
-            <my1:SurfaceListBox.ItemTemplate>
+        <ListBox  x:Name="sportlist" HorizontalContentAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding ViewModels}" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <!--<my1:SurfaceListBox.ItemTemplate>-->
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:SportCardView/>
                 </DataTemplate>
-            </my1:SurfaceListBox.ItemTemplate>
-        </my1:SurfaceListBox>
+            </ListBox.ItemTemplate>
+            <!--</my1:SurfaceListBox.ItemTemplate>-->
+        </ListBox>
+        <!--</my1:SurfaceListBox>-->
     </Grid>
 </UserControl>

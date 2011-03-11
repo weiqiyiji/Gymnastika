@@ -42,14 +42,6 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             _environment = environment;
         }
 
-        public virtual IEnumerable<T> Fetch(Func<T, bool> predicate)
-        {
-            if (predicate == null)
-                return _repository.Fetch(t => true);
-            else
-                return _repository.Fetch(t => predicate(t));
-        }
-
         public virtual IEnumerable<T> Fetch(int startIndex, int number)
         {
             return Fetch(startIndex, number, t => true);
@@ -90,10 +82,25 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return _environment.GetWorkContextScope();
         }
 
-
+        //Modify!!
         public int Count(Func<T, bool> predicate)
         {
-            return _repository.Count((t) => predicate(t));
+            if (predicate == null)
+                predicate = t => true;
+            return Fetch(t => true).Where(predicate).Count();   //Temporary
+            //return _repository.Count((t) => predicate(t));
+        }
+
+        //Modify!!
+        public virtual IEnumerable<T> Fetch(Func<T, bool> predicate)
+        {
+
+
+            if (predicate == null)
+                return _repository.Fetch(t => true);
+            else
+                return _repository.Fetch(t => true).Where(predicate);   //Temporary
+            //return _repository.Fetch(t => predicate(t));
         }
     }
 }

@@ -44,9 +44,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         int MaxPage { get; }
     }
 
-    public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel ,IDragSource
+    public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel 
     {
-        const int MaxItemsPerPage = 20;
+        const int MaxItemsPerPage = 5;
 
         ISportCardViewModelFactory _factory;
         ISportProvider _sportProvider;
@@ -336,7 +336,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         }
 
-        string _searchName;
+        string _searchName = "";
         public string SearchName
         {
             get { return _searchName; }
@@ -350,16 +350,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
-
-        #region IDragSource Members
-
-        public void StartDrag(DragInfo dragInfo)
-        {
-            dragInfo.Data = ViewModels[0];//SelectedSport;
-            dragInfo.Effects = DragDropEffects.All;
-        }
-        
-        #endregion
 
         ISportCardViewModel _selectedSport;
         public ISportCardViewModel SelectedSport

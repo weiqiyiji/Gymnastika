@@ -5,31 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="355" d:DesignWidth="241"
+             d:DesignHeight="359" d:DesignWidth="244"
              d:DataContext="{d:DesignData Source=/DesignData/SportsPlanDesignData.xaml}"
-             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop">
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" xmlns:my="http://schemas.microsoft.com/surface/2008" Height="361" Width="290">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="326*" />
-            <RowDefinition Height="29*" />
+            <RowDefinition Height="30*" />
+            <RowDefinition Height="292*" />
+            <RowDefinition Height="38*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="15*" />
             <ColumnDefinition Width="226*" />
         </Grid.ColumnDefinitions>
         <ListBox Name="planListBox" HorizontalContentAlignment="Stretch"  
-                dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1">
+                dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Grid.Row="1">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <local:SportsPlanItemView/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" Name="progressBar1" Maximum="2000">
+        <ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" Name="progressBar1" Maximum="2000" Margin="0,0,0,1" Grid.RowSpan="2">
             <ProgressBar.Value>
                 <Binding Path="TotalCalories"/>
             </ProgressBar.Value>
         </ProgressBar>
-        <Button Content="保存" Grid.Column="1" Command="{Binding SaveCommand}" Margin="0,1,6,5" Name="button1" Grid.Row="1" HorizontalAlignment="Right" Width="75" />
+        <my:SurfaceButton Content="保存" Grid.Column="1" Command="{Binding SaveCommand}" Margin="0,4,0,2" Name="button1" Grid.Row="2" HorizontalAlignment="Right" Width="75" />
+        <my:SurfaceButton Content="取消" Command="{Binding CancelCommand}" Height="30" HorizontalAlignment="Left" Margin="0,5,0,0" Name="surfaceButton1" VerticalAlignment="Top" Width="75" Grid.Row="2" Grid.Column="1" />
+        <TextBlock  Grid.Column="1" Name="textBlock1" Text="{Binding Date}" HorizontalAlignment="Right" Width="132" Height="30" VerticalAlignment="Top" />
     </Grid>
 </UserControl>

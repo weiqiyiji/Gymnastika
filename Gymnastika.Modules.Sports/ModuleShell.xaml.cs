@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Practices.Unity;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -19,9 +21,19 @@ namespace Gymnastika.Modules.Sports
     /// </summary>
     public partial class ModuleShell : UserControl
     {
-        public ModuleShell()
+        readonly IUnityContainer _container;
+        public ModuleShell(IUnityContainer container)
         {
             InitializeComponent();
+            _container = container;
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            compositePanel.SetModel(_container.Resolve<ICategoriesPanelViewModel>()
+                , _container.Resolve<ISportsPanelViewModel>());
+            sportsPlanView.ViewModel = _container.Resolve<ISportsPlanViewModel>();
         }
     }
 }

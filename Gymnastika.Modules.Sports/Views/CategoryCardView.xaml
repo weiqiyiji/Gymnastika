@@ -20,7 +20,7 @@
                 <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBlock" To="0" Duration="0:0:0.5"/>
             </Storyboard>
         </UserControl.Resources>
-    <my:SurfaceButton x:Name="grid" d:DesignWidth="344" d:DesignHeight="110" d:DataContext="{d:DesignData Source=/DesignData/CategoryData.xaml}" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
+    <my:SurfaceButton IsHitTestVisible="False" x:Name="grid" d:DesignWidth="344" d:DesignHeight="110" d:DataContext="{d:DesignData Source=/DesignData/CategoryData.xaml}" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Padding="5" Text="{Binding Name}" FontSize="26.667" RenderTransformOrigin="0.5,0.5">
         				<TextBlock.RenderTransform>
         					<TransformGroup>

@@ -21,16 +21,21 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class CompositePanel : UserControl
     {
-        readonly ICategoriesPanelViewModel _categoryPanelModel;
-        readonly ISportsPanelViewModel _sportsPanelModel;
-        public CompositePanel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel)
+        ICategoriesPanelViewModel _categoryPanelModel;
+        ISportsPanelViewModel _sportsPanelModel;
+
+        public CompositePanel()
+        {
+
+            InitializeComponent();
+
+        }
+        public void SetModel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel)
         {
             _categoryPanelModel = viewmodel;
             _sportsPanelModel = sportsPanelModel;
-            InitializeComponent();
             Initialize();
         }
-
         private void Initialize()
         {
             BindingViewModels();
@@ -51,7 +56,7 @@ namespace Gymnastika.Modules.Sports.Views
 
         void CategorySelectedChanged(object sender, EventArgs args)
         {
-
+            _sportsPanelModel.Category = _categoryPanelModel.CurrentSelectedItem;
         }
     }
 }
