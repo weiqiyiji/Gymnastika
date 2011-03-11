@@ -28,7 +28,7 @@ namespace Gymnastika.Common.Utils
                 scaleFactor = (double)originHeight / height;
             }
 
-            return new Tuple<int, int>((int)(width * scaleFactor), (int)(height * scaleFactor));
+            return new Tuple<int, int>((int)(originWidth / scaleFactor), (int)(originHeight / scaleFactor));
         }
 
         public static void SaveBitmap(string originPath, string targetPath, int width, int height)

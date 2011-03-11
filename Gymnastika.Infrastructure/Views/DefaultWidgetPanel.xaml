@@ -133,14 +133,14 @@
     		<RowDefinition Height="Auto" />
     		<RowDefinition />
     	</Grid.RowDefinitions>
-        <Ellipse Height="94" Width="157" HorizontalAlignment="Right" Margin="0,-47,-79,0" VerticalAlignment="Top">
+        <!--<Ellipse Height="94" Width="157" HorizontalAlignment="Right" VerticalAlignment="Top">
         	<Ellipse.Fill>
         		<RadialGradientBrush GradientOrigin="0.142,0.879" RadiusX="0.723">
         			<GradientStop Color="#99E4E4E4" Offset="0"/>
         			<GradientStop Color="#FFB4C2C0" Offset="1"/>
         		</RadialGradientBrush>
         	</Ellipse.Fill>
-        </Ellipse>
+        </Ellipse>-->
         <ListBox x:Name="widgetBox" Visibility="Collapsed" Padding="15, 10"
 			RenderTransformOrigin="0.5,0.5" ItemsSource="{Binding Widgets}"
 			Style="{DynamicResource WidgetPanelStyle}" BorderBrush="#CC828790" 

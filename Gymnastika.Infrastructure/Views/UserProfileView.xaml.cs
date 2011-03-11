@@ -81,6 +81,15 @@ namespace Gymnastika.Views
             _iAmReallyWantToClose = true;
             this.Close();
         }
-					
+
+
+        #region IUserProfileView Members
+
+        void IUserProfileView.Show()
+        {
+            this.ShowDialog();
+        }
+
+        #endregion
     }
 }
