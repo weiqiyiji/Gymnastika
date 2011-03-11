@@ -12,7 +12,7 @@ namespace Gymnastika.Modules.Sports.DataImport.Sources
     public class XmlCategorySource : IDataSource<SportsCategory>
     {
         readonly string _xmlFilePath;
-        const string SaveDir = "/Data/Sports/";
+        const string SaveDir = "/Data/Sport/";
 
         public XmlCategorySource(string xmlFilePath)
         {
