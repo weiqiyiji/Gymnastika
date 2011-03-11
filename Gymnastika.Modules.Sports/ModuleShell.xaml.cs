@@ -21,37 +21,19 @@ namespace Gymnastika.Modules.Sports
     /// </summary>
     public partial class ModuleShell : UserControl
     {
-        readonly ICategoriesPanelViewModel _categoryPanelModel;
-        readonly ISportsPanelViewModel _sportsPanelModel;
-        public ModuleShell(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel)
+        readonly IUnityContainer _container;
+        public ModuleShell(IUnityContainer container)
         {
-            _categoryPanelModel = viewmodel;
-            _sportsPanelModel = sportsPanelModel;
             InitializeComponent();
+            _container = container;
             Initialize();
         }
 
         private void Initialize()
         {
-            BindingViewModels();
-            LinkEvents();
-            _sportsPanelModel.Category = _categoryPanelModel.CurrentSelectedItem;
-        }
-
-        private void BindingViewModels()
-        {
-            categoriesPanelView.DataContext = _categoryPanelModel;
-            sportsPanelView.DataContext = _sportsPanelModel;
-        }
-
-        private void LinkEvents()
-        {
-           _categoryPanelModel.CategorySelectedEvent += CategorySelectedChanged;
-        }
-
-        void CategorySelectedChanged(object sender, EventArgs args)
-        {
-
+            compositePanel.SetModel(_container.Resolve<ICategoriesPanelViewModel>()
+                , _container.Resolve<ISportsPanelViewModel>());
+            sportsPlanView.ViewModel = _container.Resolve<ISportsPlanViewModel>();
         }
     }
 }

@@ -64,10 +64,10 @@ namespace Gymnastika.Modules.Sports
 
         private void RegisterViews()
         {
-            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
-            _regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
-                          .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
-                          .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
+            //_regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
+            //_regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
+            //              .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
+            //              .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
         }
 
 

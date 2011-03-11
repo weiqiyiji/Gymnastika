@@ -26,6 +26,11 @@ namespace Gymnastika.Modules.Sports.ViewModels
     public interface ISportsPlanViewModel
     {
         void SportsPlanChanged(SportsPlan plan);
+
+        DateTime Time { get; }
+
+        string Date { get; }
+
         SportsPlan SportsPlan { get; set; }
     }
 
@@ -55,6 +60,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _saveCommand = new DelegateCommand(Save, CanSave);
         }
 
+        public string Date
+        {
+            get
+            {
+                return Time.ToString("yyyy/MM/dd");
+            }
+        }
+
+        public DateTime Time
+        {
+            get { return SportsPlan.Time; }
+        }
 
         double? _totalCalories = 0;
         public double? TotalCalories
@@ -131,10 +148,21 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public void DragOver(DropInfo dropInfo)
         {
+            Sport sport = null;
+
+            if (dropInfo.Data is ISportCardViewModel)
+            {
+                sport = (dropInfo.Data as ISportCardViewModel).Sport;
+            }
+
             if (dropInfo.Data is Sport)
             {
-                dropInfo.Effects = DragDropEffects.Copy;
+                sport = dropInfo.Data as Sport;
+            }
 
+            if (sport != null)
+            {
+                dropInfo.Effects = DragDropEffects.Copy;
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             }
         }

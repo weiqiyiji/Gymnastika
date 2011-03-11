@@ -4,15 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="258" d:DesignWidth="422"
-             xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-             xmlns:module="clr-namespace:Gymnastika.Modules.Sports" BorderBrush="Black" BorderThickness="1" xmlns:my="clr-namespace:Gymnastika.Modules.Meals.Views;assembly=Gymnastika.Modules.Meals" xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views">
+             d:DesignHeight="381" d:DesignWidth="603" xmlns:my="clr-namespace:Gymnastika.Modules.Sports.Views">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="38*" />
-            <RowDefinition Height="218*" />
-        </Grid.RowDefinitions>
-        <my1:CategoriesPanelView x:Name="categoriesPanelView" />
-        <my1:SportsPanelView Grid.Row="1" x:Name="sportsPanelView" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="182*" />
+            <ColumnDefinition Width="421*" />
+        </Grid.ColumnDefinitions>
+        <my:CompositePanel x:Name="compositePanel" Grid.Column="1" />
+        <my:SportsPlanView x:Name="sportsPlanView" />
     </Grid>
 </UserControl>

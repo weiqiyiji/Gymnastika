@@ -12,7 +12,7 @@ namespace Gymnastika.Modules.Sports.DataImport.Sources
     public class XmlCategorySource : IDataSource<SportsCategory>
     {
         readonly string _xmlFilePath;
-        const string SaveDir = "/Data/Sports/";
+        const string SaveDir = "/Data/Sport/";
 
         public XmlCategorySource(string xmlFilePath)
         {
@@ -63,16 +63,22 @@ namespace Gymnastika.Modules.Sports.DataImport.Sources
                 sport.IntroductionUri = nodes.Item(5).InnerText;
                 sports.Add(sport);
             }
-
             return new List<SportsCategory>()
                 {
                     new SportsCategory()
                     {
-                        Name = "默认分类",
+                        Name = "跑步",
                         Note = "来自Yaotiao",
                         Sports = sports,
                         ImageUri = SaveDir + "Category.jpg"
-                    }
+                    },
+                    new SportsCategory()
+                    {
+                        Name = "运动",
+                        Note = "来自Yaotiao",
+                        Sports = sports,
+                        ImageUri = SaveDir + "Category.jpg"
+                    },
                 };
         }
 
