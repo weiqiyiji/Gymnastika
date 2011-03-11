@@ -112,23 +112,24 @@ namespace Gymnastika.Modules.Sports
 
                 //Services
                 .RegisterType(typeof(IProvider<>), typeof(ProviderBase<>))
-                .RegisterType<ICategoryProvider, CategoryProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportProvider,SportProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanProvider, SportsPlanProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<IPlanItemProvider, PlanItemProvider>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICategoryProvider, CategoryProvider>()
+                .RegisterType<ISportProvider, SportProvider>()
+                .RegisterType<ISportsPlanProvider, SportsPlanProvider>()
+                .RegisterType<IPlanItemProvider, PlanItemProvider>()
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
-
+                .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
                 //ViewModels
-                .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>()
+                .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()
+                .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>()
+                .RegisterType<IPlanListViewModel, PlanListViewModel>()
 
                 //Views
-                .RegisterType<ISportsPanelView, SportsPanelView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ICategoriesPanelView, CategoriesPanelView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanView, SportsPlanView>(new ContainerControlledLifetimeManager());
-                
+                .RegisterType<ISportsPanelView, SportsPanelView>()
+                .RegisterType<ICategoriesPanelView, CategoriesPanelView>()
+                .RegisterType<ISportsPlanView, SportsPlanView>()
+                .RegisterType<IPlanListView, PlanListView>();
         }
 
         #endregion

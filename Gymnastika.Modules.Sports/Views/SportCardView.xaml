@@ -11,7 +11,7 @@
              >
 
 
-    <Grid  Height="129" Width="393" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True">
+    <Grid  Height="129" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="112*" />
             <RowDefinition Height="17*" />

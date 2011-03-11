@@ -3,24 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Views="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
              d:DesignHeight="83" d:DesignWidth="122" xmlns:my="http://schemas.microsoft.com/surface/2008">
-
-        <UserControl.Resources>
-            <Storyboard x:Key="OnLoaded">
-                <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
-                    <EasingColorKeyFrame KeyTime="0" Value="#00000000"/>
-                    <EasingColorKeyFrame KeyTime="0:0:0.8" Value="Black"/>
-                </ColorAnimationUsingKeyFrames>
-            </Storyboard>
-            <Storyboard x:Key="OnMouseEnter">
-                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBlock" To="20" Duration="0:0:0.5"/>
-            </Storyboard>
-            <Storyboard x:Key="OnMouseLeave">
-                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="textBlock" To="0" Duration="0:0:0.5"/>
-            </Storyboard>
-        </UserControl.Resources>
-    <my:SurfaceButton IsHitTestVisible="False" x:Name="grid" d:DesignWidth="344" d:DesignHeight="110" d:DataContext="{d:DesignData Source=/DesignData/CategoryData.xaml}" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
+    <my:SurfaceButton Command="{Binding DataContext.SelectCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Views:CategoriesPanelView}}}" CommandParameter="{Binding}" d:DesignWidth="344" d:DesignHeight="110" OpacityMask="Black" Cursor="Hand" Background="{x:Null}">
             <TextBlock x:Name="textBlock" TextWrapping="Wrap" Padding="5" Text="{Binding Name}" FontSize="26.667" RenderTransformOrigin="0.5,0.5">
         				<TextBlock.RenderTransform>
         					<TransformGroup>
@@ -31,16 +17,5 @@
         					</TransformGroup>
         				</TextBlock.RenderTransform>
             </TextBlock>
-        <my:SurfaceButton.Triggers>
-            <EventTrigger RoutedEvent="Mouse.MouseLeave">
-                <BeginStoryboard x:Name="OnMouseLeave_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave}"/>
-            </EventTrigger>
-            <EventTrigger RoutedEvent="Mouse.MouseEnter">
-                <BeginStoryboard x:Name="OnMouseEnter_BeginStoryboard" Storyboard="{StaticResource OnMouseEnter}"/>
-            </EventTrigger>
-            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                <BeginStoryboard Storyboard="{StaticResource OnLoaded}"/>
-            </EventTrigger>
-        </my:SurfaceButton.Triggers>
     </my:SurfaceButton>
 </UserControl>

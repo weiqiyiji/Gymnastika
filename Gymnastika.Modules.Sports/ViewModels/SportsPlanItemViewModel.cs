@@ -13,13 +13,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 {
     public interface ISportsPlanItemViewModel : INotifyPropertyChanged
     {
-        event EventHandler CancleRequest;
+        event EventHandler RequestCancleEvent;
 
-        event EventHandler SubmitRequest;
-
-        ICommand SubmitCommand { get; }
-
-        ICommand CancleCommand { get; }
+        DelegateCommand CancelCommand { get; }
 
         SportsPlanItem Item { get; }
 
@@ -39,41 +35,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public SportsPlanItemViewModel(SportsPlanItem item)
         {
             Item = item;
-            CancleCommand = new DelegateCommand(Cancle, CanCancle);
-            SubmitCommand = new DelegateCommand(Submit, CanSubmit);
         }
 
-        public event EventHandler SubmitRequest = delegate { };
+        public event EventHandler RequestCancleEvent =  delegate { };
 
-        public event EventHandler CancleRequest =  delegate { };
-
-
-        private ICommand _submitCommand;
-        public ICommand SubmitCommand
+        DelegateCommand _cancelCommand;
+        public DelegateCommand CancelCommand
         {
-            get { return _submitCommand; }
-            set
+            get
             {
-                if (value != _submitCommand)
-                {
-                    _submitCommand = value;
-                    RaisePropertyChanged(() => SubmitCommand);
-                }
-            }
-        }
-        
-
-        ICommand _cancleCommand;
-        public ICommand CancleCommand
-        {
-            get { return _cancleCommand; }
-            set
-            {
-                if (value != _cancleCommand)
-                {
-                    _cancleCommand = value;
-                    RaisePropertyChanged(() => CancleCommand);
-                }
+                if (_cancelCommand == null)
+                    _cancelCommand = new DelegateCommand(Cancle);
+                return _cancelCommand;
             }
         }
 
@@ -82,18 +55,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get { return Sport.ImageUri; }
         }
 
-        SportsPlanItem _item;
         public SportsPlanItem Item
         {
-            get { return _item; }
-            set
-            {
-                if (value != null && _item != value)
-                {
-                    _item = value;
-                    RaisePropertyChanged(() => Item);
-                }
-            }
+            get;
+            private set;
         }
 
         public String SportName
@@ -104,15 +69,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public Sport Sport
         {
             get { return Item.Sport; }
-            set
-            {
-                if (Item.Sport != value)
-                {
-                    Item.Sport = value;
-                    RaisePropertyChanged(() => Sport);
-                    RaisePropertyChanged(() => SportName);
-                }
-            }
         }
 
         public DateTime Time
@@ -138,7 +94,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     Item.Completed = value;
                     RaisePropertyChanged(() => Completed);
                 }
-
             }
         }
 
@@ -157,22 +112,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         private void Cancle()
         {
-            CancleRequest(this, EventArgs.Empty);
-        }
-
-        public bool CanCancle() 
-        {
-            return CancleRequest != null;
-        }
-
-        void Submit()
-        {
-            SubmitRequest(this, EventArgs.Empty);
-        }
-
-        bool CanSubmit()
-        {
-            return SubmitRequest != null;
+            if(RequestCancleEvent!=null)
+                RequestCancleEvent(this, EventArgs.Empty);
         }
 
 
