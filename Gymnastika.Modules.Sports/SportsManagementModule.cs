@@ -19,6 +19,7 @@ using Gymnastika.Modules.Sports.DataImport.Importers;
 using Gymnastika.Modules.Sports.DataImport.Sources;
 using Gymnastika.Modules.Sports.DataImport;
 using Gymnastika.Modules.Sports.Temporary.Widget;
+using Gymnastika.Modules.Sports.Widget;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -49,6 +50,8 @@ namespace Gymnastika.Modules.Sports
             RegisterNavigations();
         }
 
+        #endregion
+
         private void RegisterNavigations()
         {
             _navigationManager.AddIfMissing(new NavigationDescriptor()
@@ -60,7 +63,6 @@ namespace Gymnastika.Modules.Sports
             });
         }
 
-        #endregion
 
         private void RegisterViews()
         {
@@ -76,6 +78,7 @@ namespace Gymnastika.Modules.Sports
         {
             
             IWidgetManager manager = _container.Resolve<IWidgetManager>();
+            manager.Add(typeof(DailySportWidget));
         }
 
         private void ImportData()

@@ -6,7 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="388" d:DesignWidth="209"
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16">
-    <StackPanel> 
+    <StackPanel Width="208">
         <StackPanel Orientation="Horizontal">
             <Label Content="{Binding User.UserName}"/>
             <Label Content="的运动计划"/>

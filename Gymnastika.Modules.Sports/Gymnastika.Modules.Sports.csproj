@@ -177,6 +177,10 @@
     <Compile Include="Views\SportView.xaml.cs">
       <DependentUpon>SportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widget\DailySportWidget.xaml.cs">
+      <DependentUpon>DailySportWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widget\DailySportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Temporary\DesignData\CategoriesDesign.xaml">
@@ -256,6 +260,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SportView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widget\DailySportWidget.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
