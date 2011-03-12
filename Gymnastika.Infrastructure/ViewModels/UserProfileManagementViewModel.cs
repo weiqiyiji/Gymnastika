@@ -273,6 +273,8 @@ namespace Gymnastika.ViewModels
                     }
                 }
             }
+            else
+                _user.Password = string.Empty;
 
             SaveAvatar();
 

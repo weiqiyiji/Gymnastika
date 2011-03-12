@@ -199,31 +199,9 @@
         						<Trigger Property="IsPressed" Value="True">
         							<Trigger.EnterActions>
                                         <BeginStoryboard Storyboard="{StaticResource Press}" />
-        								<!--<BeginStoryboard>
-        									<Storyboard>
-        										<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
-        											<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
-        										</DoubleAnimationUsingKeyFrames>
-        										<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Glow">
-        											<SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="-1"/>
-        										</ThicknessAnimationUsingKeyFrames>
-        									</Storyboard>
-        								</BeginStoryboard>-->
         							</Trigger.EnterActions>
         							<Trigger.ExitActions>
                                         <BeginStoryboard Storyboard="{StaticResource Release}" />
-        								<!--<BeginStoryboard>
-        									<Storyboard>
-        										<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Glow">
-        											<SplineDoubleKeyFrame KeyTime="0" Value="1"/>
-        											<SplineDoubleKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.5" Value="0"/>
-        										</DoubleAnimationUsingKeyFrames>
-        										<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="Glow">
-        											<SplineThicknessKeyFrame KeyTime="0" Value="-3"/>
-        											<SplineThicknessKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.5" Value="1"/>
-        										</ThicknessAnimationUsingKeyFrames>
-        									</Storyboard>
-        								</BeginStoryboard>-->
         							</Trigger.ExitActions>
         						</Trigger>
         						<Trigger Property="IsEnabled" Value="True"/>

@@ -60,31 +60,36 @@ namespace Gymnastika.Controllers
         {
             _container
                 .Resolve<IEventAggregator>()
-                .GetEvent<LogOnSuccessEvent>()
-                .Subscribe(OnUserLogOnSuccess);
+                .GetEvent<LogOnCompleteEvent>()
+                .Subscribe(OnUserLogOnComplete);
         }
 
-        private void OnUserLogOnSuccess(User user)
+        private void OnUserLogOnComplete(User user)
         {
-            _container.Resolve<ISessionManager>().Add(user);
-            IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
-            displayRegion.RequestNavigate(new Uri("MainView", UriKind.Relative)); 
+            if (user != null)
+            {
+                _container.Resolve<ISessionManager>().Add(user);
+                IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
+                displayRegion.RequestNavigate(new Uri("MainView", UriKind.Relative));
+            }
         }
 
         public void RequestLogOn(string userName)
         {
-            IUserProfileView view = _container.Resolve<IUserProfileView>();
-            UserProfileViewModel vm = view.Model;
-            vm.InitialTabIndex = UserProfileViewModel.LogOnTabIndex;
-            vm.UserName = userName;
-            view.Show();
+            OpenProfileWindow(userName, UserProfileViewModel.LogOnTabIndex);
         }
 
         public void RequestCreateNewUser()
         {
+            OpenProfileWindow(string.Empty, UserProfileViewModel.CreateNewUserTabIndex);
+        }
+
+        private void OpenProfileWindow(string userName, int initTabIndex)
+        {
             IUserProfileView view = _container.Resolve<IUserProfileView>();
             UserProfileViewModel vm = view.Model;
-            vm.InitialTabIndex = UserProfileViewModel.CreateNewUserTabIndex;
+            vm.UserName = userName;
+            vm.InitialTabIndex = initTabIndex;
             view.Show();
         }
     }

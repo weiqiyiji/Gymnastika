@@ -66,7 +66,7 @@ namespace Gymnastika
             Container
                 .RegisterType<Shell>()
                 .RegisterType<ILogger, ConsoleLogger>()
-                .RegisterType<IStartupController, StartupController>()
+                .RegisterType<IStartupController, StartupController>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMainController, MainController>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()

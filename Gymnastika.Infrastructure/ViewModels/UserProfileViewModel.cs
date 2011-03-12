@@ -230,7 +230,7 @@ namespace Gymnastika.ViewModels
             get
             {
                 if (_backCommand == null)
-                    _backCommand = new DelegateCommand(GoBack);
+                    _backCommand = new DelegateCommand(() => GoBack(null));
 
                 return _backCommand;
             }
@@ -265,17 +265,20 @@ namespace Gymnastika.ViewModels
         private void ProcessLogOn()
         {
             User savedUser = null;
+            bool isLogOnOk = false;
 
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                if (_userService.LogOn(UserName, Password))
+                if ((isLogOnOk = _userService.LogOn(UserName, Password)))
                 {
-                    GoBack();
                     savedUser = _userService.GetUser(UserName);
                 }
             }
 
-            _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
+            if (isLogOnOk)
+            {
+                GoBack(savedUser);
+            }
         }
 
         private bool ValidateCreateUserForm()
@@ -298,7 +301,6 @@ namespace Gymnastika.ViewModels
                 {
                     savedUser = _userService.Register(_user);
                     _sessionManager.Add(savedUser);
-                    GoBack();
                 }
                 else
                 {
@@ -306,12 +308,17 @@ namespace Gymnastika.ViewModels
                     ErrorMessage = _userService.ErrorString;
                 }
             }
-            _eventAggregator.GetEvent<LogOnSuccessEvent>().Publish(savedUser);
+
+            if (!IsRegisterFailed)
+            {
+                GoBack(savedUser);
+            }
         }	
 		
-	    private void GoBack()
-	    {
-	        NotifyClose = true;
+	    private void GoBack(User user)
+        {
+            NotifyClose = true;
+            _eventAggregator.GetEvent<LogOnCompleteEvent>().Publish(user);
 	    }
     }
 }

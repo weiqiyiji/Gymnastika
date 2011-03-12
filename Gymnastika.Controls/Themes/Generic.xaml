@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;Component/Themes/InstantSearchBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/WatermarkTextBox.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/CheckButtonGroup.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Gymnastika.Controls;component/Themes/AnimatedTabControl.xaml"/>
 	</ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>
