@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Widget.DailySportWidget"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="318" d:DesignWidth="160"
+             xmlns:widget="clr-namespace:Gymnastika.Modules.Sports.Widget">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="PlanItemTemplate">
+                <Border Height="46">
+                    <Grid>
+                    	<Grid.RowDefinitions>
+                    		<RowDefinition Height="0.522*"/>
+                    		<RowDefinition Height="0.478*"/>
+                    	</Grid.RowDefinitions>
+                    	<Grid.ColumnDefinitions>
+                    		<ColumnDefinition Width="*"/>
+                    	</Grid.ColumnDefinitions>
+                        <TextBlock x:Name="Name" Text="{Binding Sport.Name}" Grid.ColumnSpan="1" HorizontalAlignment="Right"  Grid.Column="0" Margin="0" Grid.RowSpan="1" Grid.Row="1"/>
+                    	<TextBlock x:Name="Time" Text="{Binding Time}" Grid.ColumnSpan="1" Height="Auto" Margin="0" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="Auto"/>
+                    </Grid>
+                </Border>
+            </DataTemplate>
+            <DataTemplate x:Key="NoPlanTemplate">
+                <Button>添加计划</Button>
+            </DataTemplate>
+            <DataTemplate x:Key="WithPlanTemplate">
+                <ItemsControl ItemsSource="{Binding Plan.SportsPlanItems}" ItemTemplate="{StaticResource ResourceKey=PlanItemTemplate}" />
+            </DataTemplate>
+            <widget:WidgetSelecter x:Key="WidgetSelecter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <StackPanel  Orientation="Horizontal" >
+        	<TextBlock Text="今日计划" FontSize="15" HorizontalAlignment="Right" />
+        	<TextBlock Text="{Binding Time}" x:Name="Time" VerticalAlignment="Button" />
+    	</StackPanel>
+        <UserControl Content="{Binding}" ContentTemplateSelector="{StaticResource ResourceKey=WidgetSelecter}"/>
+    </StackPanel>
+</UserControl>

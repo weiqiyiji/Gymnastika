@@ -27,7 +27,7 @@
         </Grid.ColumnDefinitions>
         <Label Content="分钟" x:Name="运动" RenderTransformOrigin="0.5,0.5" Grid.Row="1" Grid.Column="1" />
         <TextBox Name="textBox1" Text="{Binding Duration, UpdateSourceTrigger=PropertyChanged}" Background="{x:Null}" Grid.Row="1" />
-        <my1:TimePicker HorizontalContentAlignment="Left" Name="timePicker1">
+        <my1:TimePicker HorizontalContentAlignment="Left" Name="timePicker1" Margin="-4,8,4,-8">
             <my1:TimePicker.SelectedTime>
                 <Binding Mode="TwoWay" Path="Time" UpdateSourceTrigger="PropertyChanged">
                     <Binding.Converter>

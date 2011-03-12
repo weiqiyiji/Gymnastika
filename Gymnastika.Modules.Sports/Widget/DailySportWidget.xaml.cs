@@ -1,0 +1,53 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Gymnastika.Widgets;
+
+namespace Gymnastika.Modules.Sports.Widget
+{
+    /// <summary>
+    /// Interaction logic for DailySportWidget.xaml
+    /// </summary>
+    [WidgetMetadata("每日运动计划", "/Gymnastika.Modules.Sports;component/Resources/Images/Sport.jpg")]
+    public partial class DailySportWidget : UserControl , IWidget
+    {
+        DailySportViewModel _model;
+        public DailySportWidget(DailySportViewModel viewmodel)
+        {
+            InitializeComponent();
+            _model = viewmodel;
+        }
+
+        #region IWidget Members
+
+        public void Initialize()
+        {
+            DataContext = _model;
+            _model.Run();
+        }
+
+        #endregion
+    }
+
+    public class WidgetSelecter : DataTemplateSelector
+    {
+        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        {
+            FrameworkElement element = container as FrameworkElement;
+            if (item == null)
+                return element.FindResource("NoPlanTemplate") as DataTemplate;
+            else
+                return element.FindResource("WithPlanTemplate") as DataTemplate;
+        }
+    }
+}
