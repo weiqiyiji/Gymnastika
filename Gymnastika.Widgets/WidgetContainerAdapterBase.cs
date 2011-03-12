@@ -42,10 +42,10 @@ namespace Gymnastika.Widgets
 
             IWidgetContainer container = CreateContainer();
             container.Target = target;
+            ContainerAccessor.Container = container;
             InnerAdapt(container);
             AttachBehaviors(container);
             AttachDefaultBehaviors(container);
-            ContainerAccessor.Container = container;
         }
 
         protected void AttachDefaultBehaviors(IWidgetContainer container)

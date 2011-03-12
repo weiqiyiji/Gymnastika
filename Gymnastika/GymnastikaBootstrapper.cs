@@ -17,6 +17,7 @@ using Gymnastika.Widgets.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika
 {
@@ -80,12 +81,14 @@ namespace Gymnastika
                 .RegisterType(typeof (IRepository<>), typeof (Repository<>))
                 .RegisterType<IWidgetBootstrapper, WidgetBootstrapper>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(Container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
                         .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Modules."))
                         .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Services"))
                         .AddFromAssemblyOf<SchemaBuilder>()
+                        .AddFromAssemblyOf<IWidgetBootstrapper>()
                 );
 
             var shellSettings = new ShellSettings

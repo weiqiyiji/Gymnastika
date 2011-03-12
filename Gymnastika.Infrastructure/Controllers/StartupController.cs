@@ -39,7 +39,6 @@ namespace Gymnastika.Controllers
             _container
                 .RegisterType<INavigationManager, NavigationManager>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUserService, UserService>()
-                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterType<IStartupView, StartupView>("StartupView", new ContainerControlledLifetimeManager())
                 .RegisterType<IMainView, MainView>("MainView", new ContainerControlledLifetimeManager())
                 .RegisterType<IUserProfileView, UserProfileView>()

@@ -97,9 +97,6 @@
     <Compile Include="Views\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\NotificationView.xaml.cs">
-      <DependentUpon>NotificationView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\UserProfileManagementView.xaml.cs">
       <DependentUpon>UserProfileManagementView.xaml</DependentUpon>
     </Compile>
@@ -140,10 +137,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NavigationView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\NotificationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -230,8 +223,8 @@
   <ItemGroup>
     <Resource Include="Images\left_arrow.png" />
     <Resource Include="Images\datewidget_icon.png" />
-    <Resource Include="Images\start_bg.jpg" />
     <Resource Include="Images\right_arrow.png" />
+    <Resource Include="Images\start_bg.jpg" />
     <Content Include="Images\hover_widgetboxbtn.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />

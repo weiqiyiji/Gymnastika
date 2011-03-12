@@ -53,7 +53,9 @@ namespace Gymnastika.Widgets
             IWidgetContainerBehaviorFactory factory = _container.Resolve<IWidgetContainerBehaviorFactory>();
             factory
                 .Register(CreateWidgetHostBehavior.BehaviorKey, typeof (CreateWidgetHostBehavior))
-                .Register(DragWidgetBehavior.BehaviorKey, typeof(DragWidgetBehavior));
+                .Register(DragWidgetBehavior.BehaviorKey, typeof(DragWidgetBehavior))
+                .Register(DelayCreateWidgetBehavior.BehaviorKey, typeof(DelayCreateWidgetBehavior))
+                .Register(SaveWidgetStateBehavior.BehaviorKey, typeof(SaveWidgetStateBehavior));
         }
     }
 }

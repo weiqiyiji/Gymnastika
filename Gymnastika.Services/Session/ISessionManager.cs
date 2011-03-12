@@ -9,6 +9,7 @@ namespace Gymnastika.Services.Session
     public interface ISessionManager
     {
         SessionContext GetCurrentSession();
+        event EventHandler SessionChanged;
         void Add(User user);
         void Remove(User user);
         IEnumerable<SessionContext> GetAllActiveSessions();
