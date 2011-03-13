@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.NutritionChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="clr-namespace:Gymnastika.Modules.Meals.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+    <ResourceDictionary>
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="NutritionChartItemView.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+        
+    </ResourceDictionary>
+    </UserControl.Resources>
+
+    <ItemsControl ItemsSource="{Binding NutritionChartItems}">
+        <ItemsControl.ItemContainerStyle>
+            <Style TargetType="FrameworkElement">
+                <Setter Property="Margin" Value="2" />
+            </Style>
+        </ItemsControl.ItemContainerStyle>
+        <ItemsControl.ItemTemplateSelector>
+            <controls:ChartRowTemplateSelector FirstRowTemplate="{StaticResource FirstRowTemplate}"
+                                                           SecondRowTemplate="{StaticResource SecondRowTemplate}"
+                                                           ThirdRowTemplate="{StaticResource ThirdRowTemplate}"
+                                                           FourthRowTemplate="{StaticResource FourthRowTemplate}" 
+                                                           PropertyToEvaluate="NutritionName"/>
+        </ItemsControl.ItemTemplateSelector>
+    </ItemsControl>
+</UserControl>

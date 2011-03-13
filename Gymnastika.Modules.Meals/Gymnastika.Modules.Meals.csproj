@@ -12,6 +12,8 @@
     <AssemblyName>Gymnastika.Modules.Meals</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Utf8Output>true</Utf8Output>
+    <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,14 +50,14 @@
     <Reference Include="Microsoft.Practices.Unity">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Surface.Presentation, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Surface.Presentation.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Windows.Controls.Input.Toolkit.dll</HintPath>
@@ -79,8 +81,17 @@
   <ItemGroup>
     <Compile Include="Controllers\ILoadDataController.cs" />
     <Compile Include="Controllers\LoadDataController.cs" />
+    <Compile Include="Controls\ChartRowTemplateSelector.cs" />
+    <Compile Include="Controls\FoodListItemStyleSelector.cs" />
+    <Compile Include="Converters\CalorieToWidthConverter.cs" />
+    <Compile Include="Converters\CarbohydrateToWidthConverter.cs" />
     <Compile Include="Converters\DecimalConverter.cs" />
+    <Compile Include="Converters\FatToWidthConverter.cs" />
     <Compile Include="Converters\TextConverter.cs" />
+    <Compile Include="Converters\ProteinToWidthConverter.cs" />
+    <Compile Include="Events\FoodItemNutritionChangeEvent.cs" />
+    <Compile Include="Events\SelectCategoryEvent.cs" />
+    <Compile Include="Events\DietPlanNutritionChangeEvent.cs" />
     <Compile Include="MealsManagementModule.cs" />
     <Compile Include="Migrations\Migration_Categories_20110217121420.cs" />
     <Compile Include="Migrations\Migration_DietPlanItems_20110219142009.cs" />
@@ -134,23 +145,36 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Providers\SubDietPlanProvider.cs" />
+    <Compile Include="ViewModels\CategoryItemViewModel.cs" />
+    <Compile Include="ViewModels\CategoryListViewModel.cs" />
     <Compile Include="ViewModels\CreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\DietPlanListViewModel.cs" />
     <Compile Include="ViewModels\DietPlanSubListViewModel.cs" />
     <Compile Include="ViewModels\FoodDetailViewModel.cs" />
     <Compile Include="ViewModels\FoodItemViewModel.cs" />
     <Compile Include="ViewModels\FoodListViewModel.cs" />
+    <Compile Include="ViewModels\ICategoryItemViewModel.cs" />
+    <Compile Include="ViewModels\ICategoryListViewModel.cs" />
     <Compile Include="ViewModels\ICreateDietPlanViewModel.cs" />
     <Compile Include="ViewModels\IDietPlanListViewModel.cs" />
     <Compile Include="ViewModels\IDietPlanSubListViewModel.cs" />
     <Compile Include="ViewModels\IFoodDetailViewModel.cs" />
     <Compile Include="ViewModels\IFoodListViewModel.cs" />
     <Compile Include="ViewModels\IMealsManagementViewModel.cs" />
+    <Compile Include="ViewModels\INutritionChartViewModel.cs" />
     <Compile Include="ViewModels\ISelectDietPlanViewModel.cs" />
     <Compile Include="ViewModels\MealsManagementViewModel.cs" />
+    <Compile Include="ViewModels\NutritionChartItemViewModel.cs" />
+    <Compile Include="ViewModels\NutritionChartViewModel.cs" />
     <Compile Include="ViewModels\SelectDietPlanViewModel.cs" />
     <Compile Include="Views\BMIIntroductionView.xaml.cs">
       <DependentUpon>BMIIntroductionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryItemView.xaml.cs">
+      <DependentUpon>CategoryItemView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CategoryListView.xaml.cs">
+      <DependentUpon>CategoryListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateDietPlanView.xaml.cs">
       <DependentUpon>CreateDietPlanView.xaml</DependentUpon>
@@ -168,18 +192,24 @@
       <DependentUpon>FoodListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IBMIIntroductionView.cs" />
+    <Compile Include="Views\ICategoryItemView.cs" />
+    <Compile Include="Views\ICategoryListView.cs" />
     <Compile Include="Views\ICreateDietPlanView.cs" />
     <Compile Include="Views\IDietPlanListView.cs" />
     <Compile Include="Views\IDietPlanSubListView.cs" />
     <Compile Include="Views\IFoodDetailView.cs" />
     <Compile Include="Views\IFoodListView.cs" />
     <Compile Include="Views\IMealsManagementView.cs" />
+    <Compile Include="Views\INutritionChartView.cs" />
     <Compile Include="Views\ISelectDietPlanView.cs" />
     <Compile Include="Views\LoadDataView.xaml.cs">
       <DependentUpon>LoadDataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MealsManagementView.xaml.cs">
       <DependentUpon>MealsManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NutritionChartView.xaml.cs">
+      <DependentUpon>NutritionChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SelectDietPlanView.xaml.cs">
       <DependentUpon>SelectDietPlanView.xaml</DependentUpon>
@@ -229,6 +259,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CategoryItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CategoryListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CreateDietPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -261,6 +299,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\NutritionChartItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NutritionChartView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SelectDietPlanView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -271,11 +317,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\mainview_bg.jpg" />
     <Resource Include="Images\search.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\BMI.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

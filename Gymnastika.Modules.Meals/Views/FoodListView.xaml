@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -12,8 +13,23 @@
                 <ResourceDictionary Source="FoodItemView.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <LinearGradientBrush x:Key="ItemBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD9D6CF" Offset="0"/>
+                <GradientStop Color="#FF3F4136" Offset="1"/>
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="TopFoggy" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFD9D6CF" Offset="0"/>
+                <GradientStop Color="#00F8F9F1" Offset="1"/>
+            </LinearGradientBrush>
+
+            <LinearGradientBrush x:Key="BottomFoggy" EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#00F8F9F1" Offset="0"/>
+                <GradientStop Color="#FFD9D6CF" Offset="1"/>
+            </LinearGradientBrush>
+
             <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
-            <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Style x:Key="FoodListBoxStyle" TargetType="{x:Type ListBox}">
                 <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
                 <Setter Property="BorderThickness" Value="1"/>
@@ -240,7 +256,7 @@
                                         </VisualStateGroup.Transitions>
                                         <VisualState x:Name="Unselected"/>
                                         <VisualState x:Name="Selected">
-                                            <Storyboard>
+                                            <!--<Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="Bd">
                                                     <EasingDoubleKeyFrame KeyTime="0" Value="89"/>
                                                 </DoubleAnimationUsingKeyFrames>
@@ -253,12 +269,12 @@
                                                 <DoubleAnimationUsingKeyFrames Duration="0:0:0.01" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="SelectedStrip">
                                                     <EasingDoubleKeyFrame KeyTime="0" Value="15"/>
                                                 </DoubleAnimationUsingKeyFrames>
-                                            </Storyboard>
+                                            </Storyboard>-->
                                         </VisualState>
                                         <VisualState x:Name="SelectedUnfocused"/>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" HorizontalAlignment="Left" CornerRadius="16" Margin="5" Background="White" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="Height">
+                                <Border x:Name="Bd" Height="150" Width="400" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" HorizontalAlignment="Left" CornerRadius="16" Margin="5" Background="{StaticResource ItemBackground}" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="Height">
                                     <Border.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -278,20 +294,17 @@
                                                 </TransformGroup>
                                             </Border.RenderTransform>
                                             <Grid>
-                                                <Border x:Name="MouseOverStrip" Width="0" VerticalAlignment="Stretch" Background="White" HorizontalAlignment="Left" Margin="-15,0,0,0"/>
-                                                <TextBlock x:Name="textBlock" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Price, StringFormat={}{0:C}}"  VerticalAlignment="Center" Height="45" FontSize="32" Width="215" TextAlignment="Center">
-    										<TextBlock.LayoutTransform>
-    											<TransformGroup>
-    												<ScaleTransform/>
-    												<SkewTransform/>
-    												<RotateTransform Angle="90"/>
-    												<TranslateTransform/>
-    											</TransformGroup>
-    										</TextBlock.LayoutTransform>
-                                                </TextBlock>
+                                                <Border x:Name="MouseOverStrip" Width="0" VerticalAlignment="Stretch" Background="{StaticResource ItemBackground}" HorizontalAlignment="Left" Margin="-15,0,0,0"/>
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*" />
+                                                        <RowDefinition Height="*" />
+                                                    </Grid.RowDefinitions>
+                                                </Grid>
+                                                <surface:SurfaceButton Grid.Row="1" Content="{Binding ChangeMyFavoriteButtonContent}" FontSize="10" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                             </Grid>
                                         </Border>
-                                        <Border x:Name="SelectedBorder" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Stretch" CornerRadius="0,16,16,0" Background="#9bb70d" Width="0">
+                                        <!--<Border x:Name="SelectedBorder" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Stretch" CornerRadius="0,16,16,0" Background="#9bb70d" Width="0">
                                             <Border.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform/>
@@ -313,7 +326,7 @@
     										</TextBlock.LayoutTransform>
                                                 </TextBlock>
                                             </Grid>
-                                        </Border>
+                                        </Border>-->
                                         <Border HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="10" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" >
                                             <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Width="500"/>
                                         </Border>
@@ -329,49 +342,83 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="FirstItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#d9d6cf" />
+            </Style>
+            <Style x:Key="SecondItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#bdb755" />
+            </Style>
+            <Style x:Key="ThirdItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#9f71a2" />
+            </Style>
+            <Style x:Key="FourthItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#bc3053" />
+            </Style>
+            <Style x:Key="FifthItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#cbbf8f" />
+            </Style>
+            <Style x:Key="SixthItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#e4b891" />
+            </Style>
+            <Style x:Key="SeventhItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#f1df3f" />
+            </Style>
+            <Style x:Key="EighthItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#d3e194" />
+            </Style>
+            <Style x:Key="NinthItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#e2c1d6" />
+            </Style>
+            <Style x:Key="TenthItemStyle">
+                <Setter Property="ListBoxItem.Background" Value="#4a6aa3" />
+            </Style>
+
+
+            
+
         </ResourceDictionary>
     </UserControl.Resources>
     
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel>
-            <TextBlock Text="食物分类" HorizontalAlignment="Center"></TextBlock>
-            <ListBox ItemsSource="{Binding Category}" IsSynchronizedWithCurrentItem="True">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="38" Height="38" Source="{Binding ImageUri}">
-                                <Image.Clip>
-                                    <RectangleGeometry Rect="0, 0, 38, 38" RadiusX="4" RadiusY="4" />
-                                </Image.Clip>
-                            </Image>
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </StackPanel>
-        <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ListBox x:Name="SubCateogyrListBox" SelectionChanged="SubCateogyrListBox_SelectionChanged" ItemsSource="{Binding Category.CurrentItem.SubCategories}" DisplayMemberPath="Name" IsSynchronizedWithCurrentItem="True" >
-                <ListBox.ItemsPanel>
+            <surface:SurfaceButton Grid.Row="0" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ListBox Grid.Row="2" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="100,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}"
+                     ScrollViewer.CanContentScroll="False" ItemTemplate="{StaticResource FoodListItem}" Style="{StaticResource FoodListBoxStyle}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
+                     SelectionChanged="FoodList_SelectionChanged">
+                <!--<ListBox.ItemContainerStyleSelector>
+                    <controls:FoodListItemStyleSelector FirstItemStyle="{StaticResource FirstItemStyle}"
+                                                        SecondItemStyle="{StaticResource SecondItemStyle}"
+                                                        ThirdItemStyle="{StaticResource ThirdItemStyle}"
+                                                        FourthItemStyle="{StaticResource FourthItemStyle}"
+                                                        FifthItemStyle="{StaticResource FifthItemStyle}"
+                                                        SixthItemStyle="{StaticResource SixthItemStyle}"
+                                                        SeventhItemStyle="{StaticResource SeventhItemStyle}"
+                                                        EighthItemStyle="{StaticResource EighthItemStyle}"
+                                                        NinthItemStyle="{StaticResource NinthItemStyle}"
+                                                        TenthItemStyle="{StaticResource TenthItemStyle}" />
+                </ListBox.ItemContainerStyleSelector>-->
+                <!--<ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                        </Grid>
                     </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>
-            <Button Grid.Row="1" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <ListBox Grid.Row="3" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList}" ItemTemplate="{StaticResource FoodListItem}"
-                     dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"
-                     ScrollViewer.CanContentScroll="False" Style="{DynamicResource ListBoxStyle}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" Margin="40,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
+                </ListBox.ItemsPanel>-->
                 <dd:DragDrop.DragAdornerTemplate>
                     <DataTemplate>
                         <StackPanel>
@@ -381,13 +428,13 @@
                     </DataTemplate>
                 </dd:DragDrop.DragAdornerTemplate>
             </ListBox>
-            <Grid Grid.Row="2" HorizontalAlignment="Center">
+            <Grid Grid.Row="1" HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Button x:Name="PreviousPageButtion" Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
+                <surface:SurfaceButton x:Name="PreviousPageButtion" Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="Black">
                     <Run Text="第" />
                     <TextBlock Text="{Binding CurrentPage}" />
@@ -395,8 +442,7 @@
                     <TextBlock Text="{Binding PageCount}" />
                     <Run Text="页" />
                 </TextBlock>
-                <Button x:Name="NextPageButton" Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
+                <surface:SurfaceButton x:Name="NextPageButton" Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
             </Grid>
-        </Grid>
     </Grid>
 </UserControl>

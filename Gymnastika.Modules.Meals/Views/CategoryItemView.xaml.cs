@@ -16,22 +16,22 @@ using Gymnastika.Modules.Meals.ViewModels;
 namespace Gymnastika.Modules.Meals.Views
 {
     /// <summary>
-    /// Interaction logic for FoodListView.xaml
+    /// Interaction logic for CategoryItemView.xaml
     /// </summary>
-    public partial class FoodListView : IFoodListView
+    public partial class CategoryItemView : ICategoryItemView
     {
-        public FoodListView()
+        public CategoryItemView()
         {
             InitializeComponent();
         }
 
-        #region IFoodListView Members
+        #region ICategoryItemView Members
 
-        public IFoodListViewModel Context
+        public ICategoryItemViewModel Context
         {
             get
             {
-                return this.DataContext as IFoodListViewModel;
+                return this.DataContext as ICategoryItemViewModel;
             }
             set
             {
@@ -39,14 +39,14 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
-        public event SelectionChangedEventHandler FoodItemSelectionChanged;
+        public event SelectionChangedEventHandler SubCategoryItemSelectionChanged;
 
         #endregion
 
-        private void FoodList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SubCateogyrListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (FoodItemSelectionChanged != null)
-                FoodItemSelectionChanged(sender, e);
+            if (SubCategoryItemSelectionChanged != null)
+                SubCategoryItemSelectionChanged(sender, e);
         }
     }
 }

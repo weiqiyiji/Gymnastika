@@ -40,7 +40,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     _subTotalCalories = value;
                     RaisePropertyChanged("SubTotalCalories");
-                    OnDietPlanListPropertyChanged();
+                    //OnDietPlanListPropertyChanged();
                 }
             }
         }
@@ -55,6 +55,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
         }
 
         public event EventHandler DietPlanListPropertyChanged;
+
+        public IList<NutritionalElement> Nutritions { get; set; }
 
         #region IDropTarget Members
 
@@ -79,6 +81,33 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 targetDietPlanSubList.Add(foodItem);
                 Refresh(foodItem);
                 SubTotalCalories += foodItem.Calories;
+
+                Nutritions = new List<NutritionalElement>();
+
+                for (int i = 0; i < DietPlanSubList.Count; i++)
+                {
+                    if (i == 0)
+                    {
+                        for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                        {
+                            Nutritions.Add(new NutritionalElement
+                            {
+                                Name = DietPlanSubList[i].Nutritions[j].Name,
+                                Value = DietPlanSubList[i].Nutritions[j].Value
+                            });
+                        }
+                    }
+                    else
+                    {
+                        if (DietPlanSubList[i].Nutritions == null) continue;
+                        for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                        {
+                            Nutritions[j].Value += DietPlanSubList[i].Nutritions[j].Value;
+                        }
+                    }
+                }
+
+                OnDietPlanListPropertyChanged();
             }
             else
             {
@@ -103,6 +132,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
             DietPlanSubList.Remove(foodItem);
 
             SubTotalCalories -= foodItem.Calories;
+
+            for (int i = 0; i < foodItem.Nutritions.Count; i++)
+            {
+                Nutritions[i].Value -= foodItem.Nutritions[i].Value;
+            }
         }
 
         private void OnDietPlanListPropertyChanged()
@@ -121,6 +155,32 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
 
             SubTotalCalories = subTotalCalories;
+
+            Nutritions = new List<NutritionalElement>();
+
+            for (int i = 0; i < DietPlanSubList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                    {
+                        Nutritions.Add(new NutritionalElement
+                        {
+                            Name = DietPlanSubList[i].Nutritions[j].Name,
+                            Value = DietPlanSubList[i].Nutritions[j].Value
+                        });
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                    {
+                        Nutritions[j].Value += DietPlanSubList[i].Nutritions[j].Value;
+                    }
+                }
+            }
+
+            OnDietPlanListPropertyChanged();
         }
 
         private void Refresh(FoodItemViewModel foodItem)

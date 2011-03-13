@@ -11,5 +11,6 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         void Create(NutritionalElement nutritionalElement);
         void Update(NutritionalElement nutritionalElement);
         IEnumerable<NutritionalElement> GetNutritionalElements(Food food);
+        IEnumerable<NutritionalElement> GetNutritionalElements(Food food, int skip, int count);
     }
 }

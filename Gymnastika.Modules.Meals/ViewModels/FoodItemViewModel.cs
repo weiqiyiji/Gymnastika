@@ -7,6 +7,8 @@ using Gymnastika.Modules.Meals.Models;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Data;
+using Gymnastika.Modules.Meals.Services;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -23,7 +25,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             Food = food;
             Amount = 100;
-            ChangeMyFavoriteButtonContent = "添加到我的食物库";
+            ChangeMyFavoriteButtonContent = "+ 收藏";
         }
 
         public Food Food { get; set; }
@@ -43,10 +45,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get { return Food.MiddleImageUri; }
         }
 
+        public IEnumerable<NutritionalElement> NutritionalElements { get; set; }
+
         public decimal Calorie
         {
             get { return Decimal.Round(Food.Calorie); }
         }
+
+        public IList<NutritionalElement> Nutritions { get; set; }
 
         public decimal Amount
         {
@@ -61,6 +67,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     _amount = value;
                     RaisePropertyChanged("Amount");
                     Calories = Calorie * Amount / 100;
+                    Nutritions = new List<NutritionalElement>();
+                    var workEnvironment = ServiceLocator.Current.GetInstance<IWorkEnvironment>();
+                    var foodService = ServiceLocator.Current.GetInstance<IFoodService>();
+                    using (var scope = workEnvironment.GetWorkContextScope())
+                    {
+                        NutritionalElements = foodService.NutritionalElementProvider.GetNutritionalElements(Food);
+                        for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+                        {
+                            Nutritions.Add(new NutritionalElement
+                            {
+                                Name = NutritionalElements.ToList()[i].Name,
+                                Value = NutritionalElements.ToList()[i].Value * Amount / 100
+                            });
+                        }
+                    }
+                    OnDietPlanSubListPropertyChanged();
                 }
             }
         }
@@ -77,7 +99,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     _calories = value;
                     RaisePropertyChanged("Calories");
-                    OnDietPlanSubListPropertyChanged();
+                    //OnDietPlanSubListPropertyChanged();
                 }
             }
         }

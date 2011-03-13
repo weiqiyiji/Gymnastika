@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              xmlns:controls="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
@@ -16,6 +17,6 @@
         </Grid.RowDefinitions>
         <ContentControl Content="{Binding DietPlanListViewModel.View}" HorizontalAlignment="Center" />
         <controls:DatePicker SelectedDate="{Binding CreatedDate}" Grid.Row="1" HorizontalAlignment="Center" />
-        <Button Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" HorizontalAlignment="Center" />
+        <surface:SurfaceButton Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" HorizontalAlignment="Center" />
     </Grid>
 </UserControl>

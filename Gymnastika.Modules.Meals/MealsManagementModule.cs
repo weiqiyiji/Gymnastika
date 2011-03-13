@@ -22,12 +22,17 @@ namespace Gymnastika.Modules.Meals
         private readonly IUnityContainer _container;
         private readonly IRegionManager _regionManager;
         private readonly IWidgetManager _widgetMananger;
+        private readonly INavigationManager _navigationManager;
 
-        public MealsManagementModule(IUnityContainer container, IRegionManager regionManager, IWidgetManager widgetManager)
+        public MealsManagementModule(IUnityContainer container,
+            IRegionManager regionManager, 
+            IWidgetManager widgetManager,
+            INavigationManager navigationManager)
         {
             _container = container;
             _regionManager = regionManager;
             _widgetMananger = widgetManager;
+            _navigationManager = navigationManager;
         }
 
         #region IModule Members
@@ -69,10 +74,13 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IDietPlanListView, DietPlanListView>()
                 .RegisterType<IDietPlanSubListView, DietPlanSubListView>()
                 .RegisterType<IFoodDetailView, FoodDetailView>()
-                .RegisterType<IMealsManagementView, MealsManagementView>(new ContainerControlledLifetimeManager())
+                .RegisterType<IMealsManagementView, MealsManagementView>()
                 .RegisterType<ICreateDietPlanView, CreateDietPlanView>()
                 .RegisterType<ISelectDietPlanView, SelectDietPlanView>()
-                .RegisterType<IBMIIntroductionView, BMIIntroductionView>();
+                .RegisterType<IBMIIntroductionView, BMIIntroductionView>()
+                .RegisterType<ICategoryListView, CategoryListView>()
+                .RegisterType<ICategoryItemView, CategoryItemView>()
+                .RegisterType<INutritionChartView, NutritionChartView>();
         }
 
         private void RegisterViewModels()
@@ -81,9 +89,12 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IDietPlanListViewModel, DietPlanListViewModel>()
                 .RegisterType<IDietPlanSubListViewModel, DietPlanSubListViewModel>()
                 .RegisterType<IFoodDetailViewModel, FoodDetailViewModel>()
-                .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>()
                 .RegisterType<ICreateDietPlanViewModel, CreateDietPlanViewModel>()
-                .RegisterType<ISelectDietPlanViewModel, SelectDietPlanViewModel>();
+                .RegisterType<ISelectDietPlanViewModel, SelectDietPlanViewModel>()
+                .RegisterType<ICategoryListViewModel, CategoryListViewModel>()
+                .RegisterType<ICategoryItemViewModel, CategoryItemViewModel>()
+                .RegisterType<INutritionChartViewModel, NutritionChartViewModel>();
         }
 
         private void RegisterViewWithRegion()
@@ -95,6 +106,19 @@ namespace Gymnastika.Modules.Meals
             //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
             //displayRegion.Add(mealsManagementViewModel.View);
             //displayRegion.Activate(mealsManagementViewModel.View);
+
+            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
+
+            //_navigationManager.AddIfMissing(
+            //    new NavigationDescriptor()
+            //    {
+            //        ViewType = typeof(MealsManagementView),
+            //        ViewName = "MealsManagementView",
+            //        Label = "饮 食",
+            //        RegionName = RegionNames.MainRegion
+            //    }, true);
+
         }
 
         private delegate void ThreadDelegate();

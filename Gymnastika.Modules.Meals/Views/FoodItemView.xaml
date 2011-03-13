@@ -3,16 +3,78 @@
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                     xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
+                    xmlns:controls="clr-namespace:Gymnastika.Modules.Meals.Controls"
+                    xmlns:surface="http://schemas.microsoft.com/surface/2008"
                     mc:Ignorable="d">
     <converter:TextConverter x:Key="TextConverter" />
-    
+    <converter:CalorieToWidthConverter x:Key="CalorieToWidthConverter" />
+    <converter:CarbohydrateToWidthConverter x:Key="CarbohydrateToWidthConverter" />
+    <converter:FatToWidthConverter x:Key="FatToWidthConverter" />
+    <converter:ProteinToWidthConverter x:Key="ProteinToWidthConverter" />
+
+    <DataTemplate x:Key="FirstRowTemplate">
+        <Grid Height="38" Margin="2">
+            <Border HorizontalAlignment="Left" Background="Red" MaxWidth="150" Opacity="0.3" Width="{Binding Value, Converter={StaticResource CalorieToWidthConverter}}">
+                </Border>
+            <TextBlock Margin="2,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text="克（每100克）" />
+                                </TextBlock>
+                <TextBlock Foreground="Black" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding Name}"
+                                       Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SecondRowTemplate">
+        <Grid Height="38" Margin="2">
+            <Border HorizontalAlignment="Left" Background="Blue" MaxWidth="150" Opacity="0.3" Width="{Binding Value, Converter={StaticResource CarbohydrateToWidthConverter}}">
+                </Border>
+            <TextBlock Margin="2,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text="克（每100克）" />
+                                </TextBlock>
+                <TextBlock Foreground="Black" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding Name}"
+                                       Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ThirdRowTemplate">
+        <Grid Height="38" Margin="2">
+            <Border HorizontalAlignment="Left" Background="Black" MaxWidth="150" Opacity="0.3" Width="{Binding Value, Converter={StaticResource FatToWidthConverter}}">
+                </Border>
+            <TextBlock Margin="2,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text="克（每100克）" />
+                                </TextBlock>
+                <TextBlock Foreground="Black" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding Name}"
+                                       Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FourthRowTemplate">
+        <Grid Height="38" Margin="2">
+            <Border HorizontalAlignment="Left" Background="Green" MaxWidth="150" Opacity="0.3" Width="{Binding Value, Converter={StaticResource ProteinToWidthConverter}}">
+                </Border>
+            <TextBlock Margin="2,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Value}" />
+                                    <TextBlock Text="克（每100克）" />
+                                </TextBlock>
+                <TextBlock Foreground="Black" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding Name}"
+                                       Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+                </TextBlock>
+        </Grid>
+    </DataTemplate>
+
     <DataTemplate x:Key="DietPlanSubListItem">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="110" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border BorderThickness="1" Width="45" Height="45" CornerRadius="4" Margin="2">
@@ -24,39 +86,74 @@
                 <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Width="50" />
                 <TextBlock Text="克" VerticalAlignment="Center" />
             </StackPanel>
-            <TextBlock Grid.Column="3" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" Grid.Column="3" VerticalAlignment="Center">
                 <TextBlock Text="{Binding Calories}" />
-                <Run Text="大卡" />
+                <TextBlock Text="大卡" />
             </TextBlock>
-            <Button Grid.Column="4" Content="X" Command="{Binding DeleteFoodFromPlanCommand}" VerticalAlignment="Center" />
+            <surface:SurfaceButton Grid.Column="4" Content="X" Command="{Binding DeleteFoodFromPlanCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="FoodListItem">
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="0.4*" />
+                <ColumnDefinition Width="0.6*" />
             </Grid.ColumnDefinitions>
-            <Border BorderThickness="1" Width="152" Height="152" CornerRadius="4" Margin="2">
-                <Image Width="150" Height="150" Source="{Binding MiddleImageUri}">
+            <Border BorderThickness="1" Width="132" Height="132" CornerRadius="4" Margin="2">
+                <Image Width="130" Height="130" Source="{Binding MiddleImageUri}">
                     <!--<Image.Clip>
                         <RectangleGeometry Rect="0, 0, 150, 150" RadiusX="4" RadiusY="4" />
                     </Image.Clip>-->
                 </Image>
             </Border>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="{Binding Name}" />
-            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="{Binding Calorie}" />
-                <Run Text="大卡（每100克）" />
-            </TextBlock>
-            <Button Grid.Column="2" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Grid.Row="1" Grid.Column="2" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Border Grid.Column="1" BorderThickness="1" CornerRadius="4" Margin="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="{Binding Name, Converter={StaticResource TextConverter}}" />
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Calorie}" />
+                        <TextBlock Text="大卡（每100克）" />
+                    </TextBlock>
+                    <!--<surface:SurfaceButton Grid.Row="2" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                </Grid>
+            </Border>
+            <!--<StackPanel Grid.Column="2">
+                <ItemsControl ItemsSource="{Binding NutritionalElements}">
+                    <ItemsControl.ItemTemplateSelector>
+                        <controls:ChartRowTemplateSelector FirstRowTemplate="{StaticResource FirstRowTemplate}"
+                                                           SecondRowTemplate="{StaticResource SecondRowTemplate}"
+                                                           ThirdRowTemplate="{StaticResource ThirdRowTemplate}"
+                                                           FourthRowTemplate="{StaticResource FourthRowTemplate}" 
+                                                           PropertyToEvaluate="Name"/>
+                    </ItemsControl.ItemTemplateSelector>-->
+                    <!--<ItemsControl.ItemContainerStyleSelector>
+                        <controls:FoodListItemStyleSelector FirstItemStyle="{StaticResource FirstItemStyle}"
+                                                            SecondItemStyle="{StaticResource SecondItemStyle}"
+                                                            ThirdItemStyle="{StaticResource ThirdItemStyle}"
+                                                            FourthItemStyle="{StaticResource FourthItemStyle}" />
+                    </ItemsControl.ItemContainerStyleSelector>-->
+                <!--<ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ContentPresenter">
+                        <Setter Property="Canvas.Left" Value="{Binding Value}" />
+                        <Setter Property="Canvas.Top" Value="{Binding Value}" />
+                        <Setter Property="Width" Value="{Binding Value}" />
+                        <Setter Property="Height" Value="{Binding Value}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>-->
+            <!--</ItemsControl>
+            </StackPanel>-->
+            <!--<surface:SurfaceButton Grid.Row="1" Grid.Column="2" Content="显示食物详情" Command="{Binding ShowFoodDetailCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

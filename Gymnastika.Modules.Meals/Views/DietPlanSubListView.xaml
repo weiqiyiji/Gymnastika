@@ -7,9 +7,47 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <ResourceDictionary Source="FoodItemView.xaml" />
+    	<ResourceDictionary>
+    		<ResourceDictionary.MergedDictionaries>
+        		<ResourceDictionary Source="FoodItemView.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+			
+        	<SolidColorBrush x:Key="ListBorder" Color="#828790"/>
+			
+			<Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
+                            <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            </ScrollViewer>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+		</ResourceDictionary>
     </UserControl.Resources>
-    <ListBox x:Name="SubDietPlanList" Height="200" Width="300" Background="White" ItemsSource="{Binding DietPlanSubList}" ItemTemplate="{StaticResource DietPlanSubListItem}" 
+    <ListBox x:Name="SubDietPlanList" Height="200" Width="300" Background="White" Style="{StaticResource ListBoxStyle}"  ItemsSource="{Binding DietPlanSubList}" ItemTemplate="{StaticResource DietPlanSubListItem}" 
              dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}">
     </ListBox>
 </UserControl>

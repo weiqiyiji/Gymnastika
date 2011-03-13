@@ -22,5 +22,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         ICreateDietPlanViewModel CreateDietPlanViewModel { get; set; }
         ISelectDietPlanViewModel SavedDietPlanViewModel { get; set; }
         ISelectDietPlanViewModel RecommendedDietPlanViewModel { get; set; }
+        INutritionChartViewModel NutritionChartViewModel { get; set; }
     }
 }
