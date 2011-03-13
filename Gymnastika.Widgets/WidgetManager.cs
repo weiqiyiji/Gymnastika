@@ -8,6 +8,9 @@ using System.Windows;
 using Gymnastika.Common.Extensions;
 using Gymnastika.Widgets;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Widgets.Models;
+using Gymnastika.Data;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika.Widgets
 {
@@ -15,12 +18,19 @@ namespace Gymnastika.Widgets
     {
         private readonly IWidgetContainerAccessor _containerAccessor;
         private readonly IServiceLocator _serviceLocator;
+        private readonly IRepository<WidgetInstance> _repository;
+        private readonly ISessionManager _sessionManager;
           
-        public WidgetManager(IWidgetContainerAccessor containerAccessor, IServiceLocator serviceLocator)
+        public WidgetManager(
+            IWidgetContainerAccessor containerAccessor, 
+            IServiceLocator serviceLocator, 
+            IRepository<WidgetInstance> repository,
+            ISessionManager sessionManager)
         {
             _containerAccessor = containerAccessor;
-            _containerAccessor.ContainerReady += MonitoringWidgets;
             _serviceLocator = serviceLocator;
+            _repository = repository;
+            _sessionManager = sessionManager;
             Descriptors = new ObservableCollection<WidgetDescriptor>();
         }
         
@@ -33,46 +43,46 @@ namespace Gymnastika.Widgets
                 throw new ArgumentNullException("widgetType");
             }
 
-            var descriptor = new WidgetDescriptor(widgetType);
+            //if(_containerAccessor.Container != null)
+            //{
+            //    descriptor.IsActiveChanged += OnWidgetIsActiveChanged;
+            //}
 
-            if(_containerAccessor.Container != null)
-            {
-                descriptor.IsActiveChanged += OnWidgetIsActiveChanged;
-            }
-            
+            WidgetDescriptor descriptor = new WidgetDescriptor(widgetType);
+
             Descriptors.Add(descriptor);
         }
 
-        private void MonitoringWidgets(object sender, EventArgs e)
-        {
-            foreach (var widgetDescriptor in Descriptors)
-            {
-                widgetDescriptor.IsActiveChanged += OnWidgetIsActiveChanged;
-            }
-        }
+        //private void MonitoringWidgets(object sender, EventArgs e)
+        //{
+        //    foreach (var widgetDescriptor in Descriptors)
+        //    {
+        //        widgetDescriptor.IsActiveChanged += OnWidgetIsActiveChanged;
+        //    }
+        //}
 
-        private void OnWidgetIsActiveChanged(object sender, EventArgs e)
-        {
-            WidgetDescriptor descriptor = (WidgetDescriptor)sender;
-            var widgets = _containerAccessor.Container.Widgets;
-            if (descriptor.IsActive)
-            {
-                IWidget widget = (IWidget)_serviceLocator.GetInstance(descriptor.WidgetType);
-                widgets.Add(widget);
-            }
-            else
-            {
-                IWidget widget = widgets.SingleOrDefault(x => x.GetType() == descriptor.WidgetType);
+        //private void OnWidgetIsActiveChanged(object sender, EventArgs e)
+        //{
+        //    WidgetDescriptor descriptor = (WidgetDescriptor)sender;
+        //    var widgets = _containerAccessor.Container.Widgets;
+        //    if (descriptor.IsActive)
+        //    {
+        //        IWidget widget = (IWidget)_serviceLocator.GetInstance(descriptor.WidgetType);
+        //        widgets.Add(widget);
+        //    }
+        //    else
+        //    {
+        //        IWidget widget = widgets.SingleOrDefault(x => x.GetType() == descriptor.WidgetType);
 
-                if(widget == null)
-                {
-                    throw new InvalidOperationException(
-                        string.Format("{0} doesn't exit", descriptor.WidgetType.FullName));
-                }
+        //        if(widget == null)
+        //        {
+        //            throw new InvalidOperationException(
+        //                string.Format("{0} doesn't exit", descriptor.WidgetType.FullName));
+        //        }
 
-                widgets.Remove(widget);
-            }
-        }
+        //        widgets.Remove(widget);
+        //    }
+        //}
 
         public void Remove(Type widgetType)
         {
@@ -89,8 +99,6 @@ namespace Gymnastika.Widgets
             }
 
             Descriptors.Remove(descriptor);
-            descriptor.IsActive = false;
-            descriptor.IsActiveChanged -= OnWidgetIsActiveChanged;
         }
     }
 }

@@ -22,10 +22,10 @@
                         <ControlTemplate.Resources>
                             <Storyboard x:Key="Selected">
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="labelContent">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.6"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1.6"/>
                                 </DoubleAnimationUsingKeyFrames>
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="labelContent">
-                                    <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.6"/>
+                                    <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1.6"/>
                                 </DoubleAnimationUsingKeyFrames>
                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Outer">
                                     <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
@@ -60,7 +60,7 @@
                                 </DoubleAnimationUsingKeyFrames>
                             </Storyboard>
                         </ControlTemplate.Resources>
-                        <Grid Margin="20, 0" x:Name="grid">
+                        <Grid x:Name="grid" Margin="20,0,0,0">
                             <Grid.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>
@@ -136,13 +136,13 @@
         </Style>
     </UserControl.Resources>
     <Grid Background="Transparent">
-        <ListBox Background="Transparent" ItemsSource="{Binding Targets}" Margin="0,0,0,100" Padding="0"
+        <ListBox Background="Transparent" ItemsSource="{Binding Targets}" Margin="0,0,0,100" Padding="0,0,0,0"
                  SelectedItem="{Binding CurrentPage}" BorderThickness="0" 
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Disabled"
                  HorizontalContentAlignment="Center"
                  VerticalContentAlignment="Center"
                  VerticalAlignment="Bottom"
-                 ItemContainerStyle="{DynamicResource NavigationItemContainerStyle}" />
+                 ItemContainerStyle="{StaticResource NavigationItemContainerStyle}" />
     </Grid>
 </UserControl>
