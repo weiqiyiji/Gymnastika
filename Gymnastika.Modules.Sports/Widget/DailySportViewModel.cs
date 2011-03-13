@@ -94,10 +94,12 @@ namespace Gymnastika.Modules.Sports.Widget
                 var plans = _sportsPlanProvider.Fetch((t) => t.User.Id == user.Id);
                 plan = plans.FirstOrDefault((t) => SameDay(time, t.Time));
                 if (plan != null)
+                {
                     plan.SportsPlanItems = plan.SportsPlanItems.ToList();
 
-                foreach (var item in plan.SportsPlanItems)
-                    item.Sport = _sportProvider.Fetch(t => (t.Id == item.Sport.Id)).FirstOrDefault();
+                    foreach (var item in plan.SportsPlanItems)
+                        item.Sport = _sportProvider.Fetch(t => (t.Id == item.Sport.Id)).FirstOrDefault();
+                }
             }
             //plan.User = User;
             return plan;

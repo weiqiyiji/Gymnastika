@@ -11,6 +11,6 @@
             <ColumnDefinition Width="565*" />
         </Grid.ColumnDefinitions>
         <my:CompositePanel x:Name="compositePanel" Grid.Column="1" />
-        <my:PlanListView x:Name="planListView1" Margin="12,0,6,12" />
+        <my:PlanListView x:Name="planListView1" />
     </Grid>
 </UserControl>
