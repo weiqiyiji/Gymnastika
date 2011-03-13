@@ -16,6 +16,13 @@ namespace Gymnastika.ViewModels
         public NavigationViewModel(INavigationManager navigationManager)
         {
             Targets = navigationManager;
+            CurrentPage = Targets.CurrentPage;
+            Targets.CurrentPageChanged += new EventHandler(Targets_CurrentPageChanged);
+        }
+
+        private void Targets_CurrentPageChanged(object sender, EventArgs e)
+        {
+            CurrentPage = Targets.CurrentPage;
         }
 
         public INavigationManager Targets
@@ -31,14 +38,17 @@ namespace Gymnastika.ViewModels
             }
         }
 
+        private NavigationDescriptor _currentPage;
+
         public NavigationDescriptor CurrentPage
         {
-            get { return Targets.CurrentPage; }
+            get { return _currentPage; }
             set
             {
-                if (Targets.CurrentPage != value)
+                if (_currentPage != value)
                 {
-                    Targets.CurrentPage = value;
+                    _currentPage = value;
+                    Targets.CurrentPage = _currentPage;
                     RaisePropertyChanged("CurrentPage");
                 }
             }

@@ -69,10 +69,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviors\CreateWidgetHostBehavior.cs" />
+    <Compile Include="Behaviors\DelayCreateWidgetBehavior.cs" />
     <Compile Include="Behaviors\DragWidgetBehavior.cs" />
+    <Compile Include="Behaviors\SaveWidgetStateBehavior.cs" />
     <Compile Include="CanvasWidgetContainerAdapter.cs" />
     <Compile Include="DefaultWidgetHostFactory.cs" />
     <Compile Include="IWidgetBootstrapper.cs" />
+    <Compile Include="Migration\Migration_WidgetInstances_20110312155044.cs" />
+    <Compile Include="Models\WidgetInstance.cs" />
     <Compile Include="ScatterViewWidgetContainerAdapter.cs" />
     <Compile Include="WidgetBootstrapper.cs" />
     <Compile Include="WidgetMetadataAttribute.cs" />
@@ -132,6 +136,14 @@
     <ProjectReference Include="..\Gymnastika.Controls\Gymnastika.Controls.csproj">
       <Project>{491D4668-34B5-446C-82C5-2805A24B0A35}</Project>
       <Name>Gymnastika.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Data\Gymnastika.Data.csproj">
+      <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
+      <Name>Gymnastika.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
+      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
+      <Name>Gymnastika.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

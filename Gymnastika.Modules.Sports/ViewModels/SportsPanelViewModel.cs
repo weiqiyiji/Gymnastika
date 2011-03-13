@@ -15,53 +15,225 @@ using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Modules.Sports.Services.Providers;
 using Microsoft.Practices.Unity;
 using Gymnastika.Data;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
+using System.Windows;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
     public interface ISportsPanelViewModel
     {
+        DelegateCommand NextPageCommand { get; }
+
+        DelegateCommand PreviousPageCommand { get; }
+
+        DelegateCommand SearchCommand { get; }
+
+        ISportCardViewModel SelectedSport { get; set; }
+
         ObservableCollection<Sport> CurrentSports { get; }
 
-        Func<Sport,bool> Filter { get; set; }
+        Func<Sport, bool> Filter { get; set; }
 
         SportsCategory Category { get; set; }
 
         int CurrentPage { get; }
+
+        int Count { get; }
+
+        int MaxPage { get; }
     }
 
-    public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel
+    public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel 
     {
-        const int MaxItemsPerPage = 10;
+        const int MaxItemsPerPage = 5;
 
         ISportCardViewModelFactory _factory;
         ISportProvider _sportProvider;
 
-        public SportsPanelViewModel(ISportProvider sportprovider,ISportCardViewModelFactory factory)
+        public SportsPanelViewModel(ISportProvider sportprovider, ISportCardViewModelFactory factory)
         {
             _sportProvider = sportprovider;
             _factory = factory;
         }
+        DelegateCommand _nextPageCommand;
+        public DelegateCommand NextPageCommand
+        {
+            get 
+            {
+                if (_nextPageCommand == null)
+                    _nextPageCommand = new DelegateCommand(GotoNextPage, CanGotoNextPage);
+                return _nextPageCommand;
+            }
+        }
+        DelegateCommand _previousPageCommand;
+        public DelegateCommand PreviousPageCommand
+        {
+            get 
+            {
+                if (_previousPageCommand == null)
+                    _previousPageCommand = new DelegateCommand(GotoPreviousPage, CanGotoPreviousPage);
+                return _previousPageCommand;
+            }
+        }
 
-        #region properties
+        DelegateCommand _searchCommand;
+        public DelegateCommand SearchCommand
+        {
+            get
+            {
+                if (_searchCommand == null)
+                    _searchCommand = new DelegateCommand(DoSearch);
+                return _searchCommand;
+            }
+        }
+
+        void DoSearch()
+        {
+            
+            Filter = (s) => s.Name.Contains(SearchName);
+            Refresh();
+        }
+
+        void UpdateCommandState()
+        {
+            NextPageCommand.RaiseCanExecuteChanged();
+            PreviousPageCommand.RaiseCanExecuteChanged();
+        }
+
+        void GotoNextPage()
+        {
+            GotoPage(CurrentPage + 1);
+        }
+        bool CanGotoNextPage()
+        {
+            return CanGotoPage(CurrentPage +1);
+        }
+        void GotoPreviousPage()
+        {
+            GotoPage(CurrentPage - 1);
+        }
+        bool CanGotoPreviousPage()
+        {
+            return CanGotoPage(CurrentPage - 1);
+        }
+
+        ObservableCollection<Sport> _currentSports;
+        public ObservableCollection<Sport> CurrentSports
+        {
+            get { return _currentSports; }
+            set
+            {
+                if (_currentSports != value)
+                {
+                    _currentSports = value;
+                    ViewModels = GetViewModels(_currentSports);
+                    RaisePropertyChanged(() => CurrentSports);
+                }
+            }
+        }
+
+        Func<Sport, bool> _filter;
+        public Func<Sport, bool> Filter
+        {
+            get { return _filter; }
+            set
+            {
+                if (_filter != value)
+                {
+                    _filter = value;
+                    RaisePropertyChanged(() => Filter);
+                    
+                }
+            }
+        }
+        SportsCategory category;
+        public SportsCategory Category
+        {
+            get { return category; }
+            set
+            {
+                if (value != null && category != value)
+                {
+                    category = value;
+                    InitStates();
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private void Refresh()
+        {
+            Count = GetCount(Filter);
+            MaxPage = GetPageNumber(Count);
+            GotoPage(1);
+        }
+
+        private void InitStates()
+        {
+            Filter = null;
+            Refresh();
+        }
+
+        private int GetPageNumber(int Count)
+        {
+            return Count / MaxItemsPerPage + ((Count != 0 && Count % MaxItemsPerPage != 0) ? 1 : 0);
+        }
+
+        
+
+        int GetCount(Func<Sport,bool> predicate)
+        {
+            using (_sportProvider.GetContextScope())
+            {
+                return _sportProvider.Count(predicate);
+            }
+        }
+
+        bool CanGotoPage(int page)
+        {
+            return page <= MaxPage && page >= 1;
+        }
+
+        int GetIndexByPage(int page)
+        {
+            return (page - 1) * MaxItemsPerPage;
+        }
+
+        ObservableCollection<Sport> Fetch(int start, int number, Func<Sport,bool> predicate)
+        {
+            return _sportProvider.Fetch(start, number, predicate).ToObservableCollection();
+        }
+
+        private bool GotoPage(int page)
+        {
+            if (CanGotoPage(page))
+            {
+                using(_sportProvider.GetContextScope())
+                {
+                    CurrentSports = Fetch(GetIndexByPage(page), MaxItemsPerPage, Filter);
+                }
+                CurrentPage = page;
+                UpdateCommandState();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         int _currentPage = 1;
         public int CurrentPage
         {
             get { return _currentPage; }
-            set
+            private set
             {
-                if (_currentPage != value && GoToPage(value))
+                if (value != _currentPage)
                 {
+                    _currentPage = value;
                     RaisePropertyChanged(() => CurrentPage);
                 }
-            }
-        }
-
-        public int MaxPage
-        {
-            get
-            {
-                return Count / MaxItemsPerPage + 1;
             }
         }
 
@@ -75,55 +247,22 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     _count = value;
                     RaisePropertyChanged(() => Count);
+                }
+            }
+        }
+
+        public int _maxPage;
+        public int MaxPage
+        {
+            get { return _maxPage; }
+            set
+            {
+                if (_maxPage != value)
+                {
+                    _maxPage = value;
                     RaisePropertyChanged(() => MaxPage);
                 }
             }
-        }
-
-
-
-        #endregion
-
-        void UpdateCount()
-        {
-            Count = GetCount(Filter);
-        }
-
-        int GetCount(Func<Sport, bool> predicate)
-        {
-            if (Category != null)
-            {
-                using (_sportProvider.GetContextScope())
-                {
-                    return _sportProvider.Fetch(Category, Filter).Count();
-                }
-            }
-            else
-                return 1;
-        }
-
-
-
-        int GetStartIndex(int page)
-        {
-            page = page - 1;
-            return (page < 0 ? 0 : page) * MaxItemsPerPage;
-        }
-
-        private bool GoToPage(int page)
-        {
-            if (page >= 1 && page != CurrentPage && page <= MaxPage)
-            {
-                using(_sportProvider.GetContextScope())
-                {
-                    CurrentSports = _sportProvider.Fetch
-                        (Category, GetStartIndex(page), MaxItemsPerPage, Filter)
-                        .ToObservableCollection();
-                }
-                CurrentPage = page;
-                return true;
-            }
-            return false;
         }
 
         public ICollectionView View
@@ -131,81 +270,37 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get { return CollectionViewSource.GetDefaultView(ViewModels); }
         }
 
-        Func<Sport,bool> _filter;
-        public Func<Sport, bool> Filter
+        ObservableCollection<ISportCardViewModel> _viewModels = new ObservableCollection<ISportCardViewModel>();
+        public ObservableCollection<ISportCardViewModel> ViewModels
         {
-            get { return _filter; }
+            get { return _viewModels; }
             set
             {
-                if (_filter != value)
+                if (value != null && value != _viewModels)
                 {
-                    _filter = value;
-                    RaisePropertyChanged(() => Filter);
-                    View.Filter = s => _filter((s as ISportCardViewModel).Sport);
+                    ReleaseViewModels(_viewModels);
+                    _viewModels.ReplaceBy(value);
+                    //_viewModels = value;
+                    RaisePropertyChanged(() => ViewModels);
                 }
             }
         }
-
-        string _searchName;
-        public string SearchName
+       
+        void ReleaseViewModels(IEnumerable<ISportCardViewModel> models)
         {
-            get { return _searchName; }
-            set
+            if (models == null)
+                return;
+            foreach (ISportCardViewModel model in models)
             {
-                if (value != _searchName)
-                {
-                    _searchName = value;
-                    RaisePropertyChanged(() => SearchName);
-                    Filter = (s) => s.Name.Contains(_searchName);
-                    GoToPage(1);
-                    View.Refresh();
-                }
+                ReleaseViewModel(model);
             }
         }
 
-        SportsCategory _category = new SportsCategory() { Sports = new List<Sport>() };
-        public SportsCategory Category
+        void ReleaseViewModel(ISportCardViewModel model)
         {
-            get
-            {
-                return _category;
-            }
-            set
-            {
-                if (_category != null && _category != value)
-                {
-                    _category = value;
-                    UpdateState();
-                    RaisePropertyChanged(() => Category);
-
-                }
-            }
-        }
-
-
-        void ResetFilter() { Filter = (s) => true; }
-
-        private void UpdateState()
-        {
-            ResetFilter();
-            UpdateCount();
-            GoToPage(1);
-        }
-
-        ObservableCollection<Sport> _currentSports;
-        public ObservableCollection<Sport> CurrentSports
-        {
-            get { return _currentSports; }
-            set
-            {
-                if (_currentSports != value)
-                {
-                    
-                    _currentSports = value;
-                    ViewModels = GetViewModels(_currentSports);
-                    RaisePropertyChanged(() => CurrentSports);
-                }
-            }
+            model.AddToFavouriteEvent -= OnAddToFavourate;
+            model.AddToPlanEvent -= OnAddToPlan;
+            model.ShowDetailEvent -= OnShowDetail;
         }
 
         private ObservableCollection<ISportCardViewModel> GetViewModels(IList<Sport> sports)
@@ -221,37 +316,54 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         ISportCardViewModel CreateViewModel(Sport sport)
         {
-            return _factory.Create(sport);
+            ISportCardViewModel model = _factory.Create(sport);
+            model.AddToFavouriteEvent += OnAddToFavourate;
+            model.AddToPlanEvent += OnAddToPlan;
+            model.ShowDetailEvent += OnShowDetail;
+            return model;
         }
 
-        ObservableCollection<ISportCardViewModel> _viewModels = new ObservableCollection<ISportCardViewModel>();
-        public ObservableCollection<ISportCardViewModel> ViewModels
+        void OnAddToFavourate(object sender, EventArgs args)
         {
-            get { return _viewModels; }
+
+        }
+        void OnAddToPlan(object sender, EventArgs args)
+        {
+
+        }
+        void OnShowDetail(object sender, EventArgs args)
+        {
+
+        }
+
+        string _searchName = "";
+        public string SearchName
+        {
+            get { return _searchName; }
             set
             {
-                if (value != null && value != _viewModels)
+                if (value != _searchName)
                 {
-                    ReleaseViewModels(_viewModels);
-                    _viewModels = value;
-                    RaisePropertyChanged(() => ViewModels);
+                    _searchName = value;
+                    RaisePropertyChanged(() => SearchName);
                 }
             }
         }
 
-        void ReleaseViewModels(IEnumerable<ISportCardViewModel> models)
+
+        ISportCardViewModel _selectedSport;
+        public ISportCardViewModel SelectedSport
         {
-            if (models == null)
-                return;
-            foreach (ISportCardViewModel model in models)
+            get { return _selectedSport; }
+            set
             {
-                ReleaseViewModel(model);
+                if (_selectedSport != value)
+                {
+                    _selectedSport = value;
+                    RaisePropertyChanged(() => SelectedSport);
+                }
             }
         }
 
-        void ReleaseViewModel(ISportCardViewModel model)
-        {
-            //Remove Handlers
-        }
     }
 }

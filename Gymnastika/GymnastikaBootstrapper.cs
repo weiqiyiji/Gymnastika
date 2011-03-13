@@ -17,6 +17,7 @@ using Gymnastika.Widgets.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
+using Gymnastika.Services.Session;
 
 namespace Gymnastika
 {
@@ -66,28 +67,28 @@ namespace Gymnastika
             Container
                 .RegisterType<Shell>()
                 .RegisterType<ILogger, ConsoleLogger>()
-                .RegisterType<IStartupController, StartupController>()
+                .RegisterType<IStartupController, StartupController>(new ContainerControlledLifetimeManager())
                 .RegisterType<IMainController, MainController>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()
                 .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>()
                 .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
                 .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>()
-                .RegisterType<ISessionLocator, SessionLocator>()
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>()
                 .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof (IRepository<>), typeof (Repository<>))
-                .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IWidgetBootstrapper, WidgetBootstrapper>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(Container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
                         .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Modules."))
                         .AddFromDirectory(currentDirectory, x => x.Contains("Gymnastika.Services"))
                         .AddFromAssemblyOf<SchemaBuilder>()
+                        .AddFromAssemblyOf<IWidgetBootstrapper>()
                 );
 
             var shellSettings = new ShellSettings

@@ -113,10 +113,6 @@
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
       <Name>Gymnastika.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Modules.Sports\Gymnastika.Modules.Sports.csproj">
-      <Project>{595AB87C-2639-4577-88BB-6C5073AF2CBC}</Project>
-      <Name>Gymnastika.Modules.Sports</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Tests.Support\Gymnastika.Tests.Support.csproj">
       <Project>{40426CD2-BF24-4938-9415-38D4AF4D199C}</Project>
       <Name>Gymnastika.Tests.Support</Name>

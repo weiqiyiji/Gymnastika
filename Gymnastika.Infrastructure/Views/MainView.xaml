@@ -3,9 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:f="clr-namespace:FluidKit.Controls;assembly=FluidKit"
+        xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
         xmlns:core="clr-namespace:Gymnastika.Common;assembly=Gymnastika.Common"
         xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
         mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300">
+    <UserControl.Resources>
+        <f:SlideTransition x:Key="SlideTransition" />
+    </UserControl.Resources>
     <UserControl.Background>
         <ImageBrush ImageSource="/Images/mainview_bg.jpg" />
     </UserControl.Background>
@@ -28,7 +33,7 @@
                 </TransformGroup>
             </ContentControl.RenderTransform>
         </ContentControl>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}" Grid.Column="1">
+        <!--<ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}" Grid.Column="1">
             <ContentControl.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
@@ -37,7 +42,9 @@
                     <SkewTransform />
                 </TransformGroup>
             </ContentControl.RenderTransform>
-        </ContentControl>
+        </ContentControl>-->
+        <controls:AnimatedTabControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}" Grid.Column="1" />
+        
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NotificationRegion}" Grid.Row="1" Grid.ColumnSpan="2">
             <ContentControl.RenderTransform>
                 <TransformGroup>
@@ -50,4 +57,3 @@
         </ContentControl>
     </Grid>
 </UserControl>
-

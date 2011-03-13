@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.CompositePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="490" d:DesignWidth="763"
+             xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
+             xmlns:module="clr-namespace:Gymnastika.Modules.Sports" BorderBrush="Transparent" BorderThickness="1" xmlns:my="clr-namespace:Gymnastika.Modules.Meals.Views;assembly=Gymnastika.Modules.Meals" xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views" xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit" xmlns:my3="http://schemas.microsoft.com/surface/2008" Background="#EEEEEE"
+             >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27*" />
+            <RowDefinition Height="461*" />
+        </Grid.RowDefinitions>
+        <my1:CategoriesPanelView x:Name="categoriesPanelView" />
+        <my1:SportsPanelView Grid.Row="1" x:Name="sportsPanelView" />        
+    </Grid>
+</UserControl>

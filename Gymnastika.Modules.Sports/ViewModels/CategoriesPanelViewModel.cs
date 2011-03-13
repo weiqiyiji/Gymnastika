@@ -10,6 +10,8 @@ using System.Collections.ObjectModel;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Extensions;
 using Gymnastika.Modules.Sports.Services.Providers;
+using System.Windows.Input;
+using Microsoft.Practices.Prism.Commands;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -18,7 +20,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         ObservableCollection<SportsCategory> Categories { get; set; }
 
         event EventHandler CategorySelectedEvent;
-        
+
+        ICommand SelectCommand { get; }
+
         SportsCategory CurrentSelectedItem { get; set; }
     }
 
@@ -76,6 +80,26 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         public event EventHandler CategorySelectedEvent;
-    
+
+
+        #region ICategoriesPanelViewModel Members
+
+        DelegateCommand<SportsCategory> _selectCommand;
+        public ICommand SelectCommand
+        {
+            get
+            {
+                if (_selectCommand == null)
+                    _selectCommand = new DelegateCommand<SportsCategory>(SelectCategory);
+                return _selectCommand;
+            }
+        }
+
+        #endregion
+
+        void SelectCategory(SportsCategory category)
+        {
+            CurrentSelectedItem = category;
+        }
     }
 }

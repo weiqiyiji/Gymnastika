@@ -6,16 +6,22 @@ using System.Windows.Data;
 
 namespace Gymnastika.Modules.Sports.Converters
 {
-    public class DoubleIntDivideConverter : IMultiValueConverter
+    public class DivideConverter : IMultiValueConverter
     {
         #region IMultiValueConverter Members
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            double a = (double)values[0];
-            int b = (int)(values[1]);
-
-            return b != 0 ? a / b : 0;
+            try
+            {
+                double a = double.Parse(values[0].ToString());
+                double b = double.Parse(values[1].ToString());
+                return a / b;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

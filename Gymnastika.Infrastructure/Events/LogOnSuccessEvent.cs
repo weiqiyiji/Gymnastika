@@ -7,7 +7,7 @@ using Gymnastika.Services.Models;
 
 namespace Gymnastika.Events
 {
-    public class LogOnSuccessEvent : CompositePresentationEvent<User>
+    public class LogOnCompleteEvent : CompositePresentationEvent<User>
     {
     }
 }

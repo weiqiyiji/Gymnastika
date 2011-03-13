@@ -4,20 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="258" d:DesignWidth="422"
-             xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-             xmlns:module="clr-namespace:Gymnastika.Modules.Sports">
+             d:DesignHeight="540" d:DesignWidth="858" xmlns:my="clr-namespace:Gymnastika.Modules.Sports.Views">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="34*" />
-            <RowDefinition Height="224*" />
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="130*" />
-            <ColumnDefinition Width="292*" />
+            <ColumnDefinition Width="293*" />
+            <ColumnDefinition Width="565*" />
         </Grid.ColumnDefinitions>
-        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.SportRegion}" Grid.Column="1" Grid.Row="1" />
-        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.PlanRegion}" Grid.RowSpan="2" />
-        <UserControl  prism:RegionManager.RegionName="{x:Static module:ModuleRegionNames.CategoryRegion}" Grid.Column="1" />
+        <my:CompositePanel x:Name="compositePanel" Grid.Column="1" />
+        <my:PlanListView x:Name="planListView1" Margin="12,0,6,12" />
     </Grid>
 </UserControl>

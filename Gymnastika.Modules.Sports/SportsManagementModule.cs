@@ -19,6 +19,7 @@ using Gymnastika.Modules.Sports.DataImport.Importers;
 using Gymnastika.Modules.Sports.DataImport.Sources;
 using Gymnastika.Modules.Sports.DataImport;
 using Gymnastika.Modules.Sports.Temporary.Widget;
+using Gymnastika.Modules.Sports.Widget;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -27,11 +28,13 @@ namespace Gymnastika.Modules.Sports
         readonly private IRegionManager _regionManager;
         readonly private IUnityContainer _container;
         readonly private IWidgetManager _widgetManager;
-        public SportsManagementModule(IUnityContainer container, IRegionManager regionManager,IWidgetManager widgetManager)
+        readonly private INavigationManager _navigationManager;
+        public SportsManagementModule(IUnityContainer container, IRegionManager regionManager,IWidgetManager widgetManager,INavigationManager navigationManager)
         {
             _regionManager = regionManager;
             _container = container;
             _widgetManager = widgetManager;
+            _navigationManager = navigationManager;
         }
 
         #region IModule Members
@@ -39,20 +42,34 @@ namespace Gymnastika.Modules.Sports
         public void Initialize()
         {
             RegisterDependencies();
-            ConfigImporters();
+
             ImportData();
+            
             RegisterWidgets();
-            RegisterViews();
+
+            RegisterNavigations();
         }
 
         #endregion
 
+        private void RegisterNavigations()
+        {
+            _navigationManager.AddIfMissing(new NavigationDescriptor()
+            {
+                Label = "运动",
+                RegionName = RegionNames.MainRegion,
+                ViewName = "",
+                ViewType = typeof(ModuleShell)
+            });
+        }
+
+
         private void RegisterViews()
         {
-            _regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
-            _regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
-                          .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
-                          .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
+            //_regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
+            //_regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
+            //              .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
+            //              .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
         }
 
 
@@ -60,12 +77,14 @@ namespace Gymnastika.Modules.Sports
         private void RegisterWidgets()
         {
             
-            //IWidgetManager manager = _container.Resolve<IWidgetManager>();
-            //manager.Add(typeof(Widget));
+            IWidgetManager manager = _container.Resolve<IWidgetManager>();
+            manager.Add(typeof(DailySportWidget));
         }
 
         private void ImportData()
         {
+            ConfigImporters();
+
             var manager = _container.Resolve<IDataImportManager>();
             manager.ImportData();
         }
@@ -75,7 +94,7 @@ namespace Gymnastika.Modules.Sports
             IImporterCollection collection = _container.Resolve<IImporterCollection>();
             collection.Add(
                 new CategoryImporter 
-                    (new XmlCategorySource(@"data/sports/SportData.xml"),
+                    (new XmlCategorySource(@"data/sport/SportData.xml"),
                     _container.Resolve<IRepository<SportsCategory>>(),
                     _container.Resolve<IRepository<Sport>>(),
                     _container.Resolve<IWorkEnvironment>()));
@@ -96,25 +115,24 @@ namespace Gymnastika.Modules.Sports
 
                 //Services
                 .RegisterType(typeof(IProvider<>), typeof(ProviderBase<>))
-                .RegisterType<ICategoryProvider, CategoryProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportProvider,SportProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanProvider, SportsPlanProvider>(new ContainerControlledLifetimeManager())
-                .RegisterType<IPlanItemProvider, PlanItemProvider>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICategoryProvider, CategoryProvider>()
+                .RegisterType<ISportProvider, SportProvider>()
+                .RegisterType<ISportsPlanProvider, SportsPlanProvider>()
+                .RegisterType<IPlanItemProvider, PlanItemProvider>()
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
-
+                .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
                 //ViewModels
-                .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>(new ContainerControlledLifetimeManager())
-                //.RegisterType<IPlanListViewModel,PlanListViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>()
+                .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()
+                .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>()
+                .RegisterType<IPlanListViewModel, PlanListViewModel>()
 
                 //Views
-                .RegisterType<ISportsPanelView, SportsPanelView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ICategoriesPanelView, CategoriesPanelView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportsPlanView, SportsPlanView>(new ContainerControlledLifetimeManager());
-                //.RegisterType<IPlanListView, PlanListView>(new ContainerControlledLifetimeManager());
-                
+                .RegisterType<ISportsPanelView, SportsPanelView>()
+                .RegisterType<ICategoriesPanelView, CategoriesPanelView>()
+                .RegisterType<ISportsPlanView, SportsPlanView>()
+                .RegisterType<IPlanListView, PlanListView>();
         }
 
         #endregion

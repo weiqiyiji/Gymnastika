@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedListPanel.cs" />
+    <Compile Include="AnimatedTabControl.cs" />
     <Compile Include="Behaviors\CloseWindowBehavior.cs" />
     <Compile Include="Behaviors\PasswordBindingBehavior.cs" />
     <Compile Include="Behaviors\WatermarkBehavior.cs" />
@@ -61,8 +62,13 @@
     <Compile Include="CheckButtonGroupItem.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\IntegerToBoolConverter.cs" />
+    <Compile Include="Converters\UnlockedImageConverter.cs" />
     <Compile Include="SlidePanel.cs" />
     <Compile Include="SpreadTabPanel.cs" />
+    <Page Include="Themes\AnimatedTabControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Compile Include="TimePicker.cs" />
     <Compile Include="WatermarkTextBox.cs" />
     <Page Include="Themes\ButtonChrome.xaml">

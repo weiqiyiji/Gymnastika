@@ -6,19 +6,26 @@
              mc:Ignorable="d" 
              d:DesignHeight="63" d:DesignWidth="555"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
-             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls">
-    <!--<StackPanel Orientation="Horizontal">-->
-        <ListBox HorizontalAlignment="Stretch"  SelectedItem="{Binding CurrentSelectedItem, Mode=TwoWay}" HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}">
-            <ListBox.ItemTemplate>
+             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:my="http://schemas.microsoft.com/surface/2008">
+       
+    <ItemsControl  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}">
+        <ItemsControl.ItemTemplate>
 				<DataTemplate>
 					<local:CategoryCardView/>
 				</DataTemplate>
-			</ListBox.ItemTemplate>
-			<ListBox.ItemsPanel>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
 				<ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
 				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-		</ListBox>
-	<!--</StackPanel>-->
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>
+    <!--<my:LibraryStack Name="libraryStack1"  FlowDirection="LeftToRight" >
+        <my:LibraryStackItem  Height="50" Width="50">
+            <Button Height="26" Width="20" />
+        </my:LibraryStackItem>
+        <my:LibraryStackItem Height="50" Width="50">
+            <Button/>
+        </my:LibraryStackItem>
+    </my:LibraryStack>-->
 </UserControl>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Gymnastika.Services.Models
 {
@@ -25,13 +26,15 @@ namespace Gymnastika.Services.Models
 
         private string _avatarPath;
 
-        private const string DefaultAvatarPath = "/Gymnastika.Infrastructure;component/Images/defaultavatar.png";
+        private const string DefaultAvatarPath = "Images/defaultavatar.png";
 
         public virtual string AvatarPath
         {
             get
             {
-                return string.IsNullOrEmpty(_avatarPath) ? DefaultAvatarPath : _avatarPath;
+                bool isAvatarExists = !string.IsNullOrEmpty(_avatarPath) && File.Exists(_avatarPath);
+
+                return !isAvatarExists ? DefaultAvatarPath : _avatarPath;
             }
             set
             {

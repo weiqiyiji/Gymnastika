@@ -11,6 +11,7 @@ namespace Gymnastika.Common
     {
         event EventHandler CurrentPageChanged;
         NavigationDescriptor CurrentPage { get; set; }
+        NavigationDescriptor PreviousPage { get; }
         void AddIfMissing(NavigationDescriptor descriptor, bool isCurrentPage = false);
         void Remove(NavigationDescriptor descriptor);
     }

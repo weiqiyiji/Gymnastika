@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using Gymnastika.Widgets.Models;
 
 namespace Gymnastika.Widgets
 {
@@ -11,10 +12,18 @@ namespace Gymnastika.Widgets
         public WidgetDescriptor(Type widgetType)
         {
             WidgetType = widgetType;
-            Initialize();
         }
 
-        private void Initialize()
+        public void Initialize(WidgetInstance instance)
+        {
+            DisplayName = instance.DisplayName;
+            Icon = instance.Icon;
+            Position = new Point(instance.X, instance.Y);
+            ZIndex = 998;
+            IsActive = true;
+        }
+
+        public void Initialize()
         {
             WidgetMetadataAttribute widgetMetadata =
                 (WidgetMetadataAttribute)WidgetType.GetCustomAttributes(typeof(WidgetMetadataAttribute), true).SingleOrDefault();

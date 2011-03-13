@@ -5,13 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:s="http://schemas.microsoft.com/surface/2008"
+             xmlns:f="clr-namespace:FluidKit.Controls;assembly=FluidKit"
+             xmlns:cov="clr-namespace:Gymnastika.Controls.Converters;assembly=Gymnastika.Controls"
              xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Views.StartupView"
              mc:Ignorable="d" 
              d:DesignHeight="400" d:DesignWidth="500">
     <UserControl.Background>
         <ImageBrush ImageSource="/Gymnastika.Infrastructure;component/Images/start_bg.jpg" />
     </UserControl.Background>
-	<UserControl.Resources>
+    <UserControl.Resources>
+        <cov:UnlockedImageConverter x:Key="unlockedImageConverter" />
         <DataTemplate x:Key="AvailableUserTemplate">
             <Grid>
                 <Grid.RowDefinitions>
@@ -34,9 +37,9 @@
                     </Border.BorderBrush>
                     <Border x:Name="InnerBorder" BorderThickness="1" HorizontalAlignment="Center" Width="Auto" CornerRadius="3" UseLayoutRounding="False" VerticalAlignment="Center" Margin="3" BorderBrush="#00000000">
                         <Border.Background>
-                            <ImageBrush ImageSource="{Binding AvatarPath}"/>
+                            <ImageBrush ImageSource="{Binding AvatarPath, Converter={StaticResource unlockedImageConverter}}"/>
                         </Border.Background>
-                        <Image x:Name="Avatar" Opacity="0" Source="{Binding AvatarPath}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" UseLayoutRounding="False" ClipToBounds="False" />
+                        <Image x:Name="Avatar" Opacity="0" Source="{Binding AvatarPath, Converter={StaticResource unlockedImageConverter}}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" UseLayoutRounding="False" ClipToBounds="False" />
                     </Border>
                 </Border>
                 <Rectangle HorizontalAlignment="Stretch" Grid.Row="1" Stroke="{x:Null}" RenderTransformOrigin="1,0.5" StrokeThickness="0">
@@ -60,117 +63,33 @@
                 </Rectangle>
             </Grid>
         </DataTemplate>
-        <Style x:Key="UserSelectionListStyle" TargetType="{x:Type ListBox}">
-			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
-			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
-			<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
-			<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
-			<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-			<Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-			<Setter Property="ItemsPanel">
-				<Setter.Value>
-					<ItemsPanelTemplate>
-                        <controls:SlidePanel VisibleItemsCount="3" Duration="800"
-                                             SelectedIndex="{Binding SelectedIndex, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}}"/>
-					</ItemsPanelTemplate>
-				</Setter.Value>
-			</Setter>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type ListBox}">
-						<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
-							<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
-								<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-							</ScrollViewer>
-						</Border>
-						<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-							</Trigger>
-							<Trigger Property="IsGrouping" Value="true">
-								<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
-							</Trigger>
-						</ControlTemplate.Triggers>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-			<Setter Property="BorderBrush" Value="{x:Null}"/>
-			<Setter Property="BorderThickness" Value="0"/>
-			<Setter Property="ItemTemplate" Value="{StaticResource AvailableUserTemplate}"/>
-		</Style>
-        <Style x:Key="UserContainerStyle" TargetType="{x:Type ListBoxItem}">
-            <Setter Property="Cursor" Value="Hand" />
-        	<Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        	<Setter Property="Background" Value="Transparent"/>
-        	<Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        	<Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        	<Setter Property="Padding" Value="2,0,0,0"/>
-        	<Setter Property="Template">
-        		<Setter.Value>
-        			<ControlTemplate TargetType="{x:Type ListBoxItem}">
-        				<ControlTemplate.Resources>
-        					<Storyboard x:Key="Selected">
-        						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Bd">
-        							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.1"/>
-        						</DoubleAnimationUsingKeyFrames>
-        						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Bd">
-        							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1.1"/>
-        						</DoubleAnimationUsingKeyFrames>
-        					</Storyboard>
-        					<Storyboard x:Key="Unselected">
-        						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="Bd">
-        							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
-        						</DoubleAnimationUsingKeyFrames>
-        						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="Bd">
-        							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="1"/>
-        						</DoubleAnimationUsingKeyFrames>
-        					</Storyboard>
-        				</ControlTemplate.Resources>
-        				<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" RenderTransformOrigin="0.5,0.5">
-        					<Border.RenderTransform>
-        						<TransformGroup>
-        							<ScaleTransform/>
-        							<SkewTransform/>
-        							<RotateTransform/>
-        							<TranslateTransform/>
-        						</TransformGroup>
-        					</Border.RenderTransform>
-        					<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-        				</Border>
-        				<ControlTemplate.Triggers>
-        					<Trigger Property="Selector.IsSelected" Value="True">
-        						<Trigger.ExitActions>
-        							<BeginStoryboard x:Name="Unselected_BeginStoryboard" Storyboard="{StaticResource Unselected}"/>
-        						</Trigger.ExitActions>
-        						<Trigger.EnterActions>
-        							<BeginStoryboard Storyboard="{StaticResource Selected}"/>
-        						</Trigger.EnterActions>
-        					</Trigger>
-        					<Trigger Property="IsEnabled" Value="false">
-        						<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-        					</Trigger>
-        				</ControlTemplate.Triggers>
-        			</ControlTemplate>
-        		</Setter.Value>
-        	</Setter>
-        </Style>
-	</UserControl.Resources>
+    </UserControl.Resources>
     <Grid>
-    	<Grid.RowDefinitions>
-    		<RowDefinition Height="6.5*"/>
-    		<RowDefinition Height="2*"/>
-    		<RowDefinition Height="1.5*"/>
-    	</Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="6.5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
 
-        <ListBox VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                 Height="150" Width="600" SelectionChanged="ListBox_SelectionChanged"
-                 d:DataContext="{d:DesignData Source=/DesignData/Users.xaml}" 
-                 ItemsSource="{Binding RegisteredUsers}" SelectedItem="{Binding SelectedUser}"
-                 Margin="20, 20" Style="{DynamicResource UserSelectionListStyle}" 
-                 Background="Transparent" ItemContainerStyle="{DynamicResource UserContainerStyle}" />
+        <f:ElementFlow VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="OnSelectorClick"
+                       Height="300" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" SelectionChanged="OnSelectionChanged"
+                       d:DataContext="{d:DesignData Source=/DesignData/Users.xaml}" 
+                       ItemsSource="{Binding RegisteredUsers}" SelectedItem="{Binding SelectedUser}"
+                       ItemTemplate="{StaticResource AvailableUserTemplate}" Background="Transparent"
+                       TiltAngle="45"
+                       ItemGap="0.65"
+                       FrontItemGap="0.65"
+                       PopoutDistance="0.5"
+                       ElementWidth="160" ElementHeight="160">
+            <f:ElementFlow.Layout>
+                <f:CoverFlow />
+            </f:ElementFlow.Layout>
+            <f:ElementFlow.Camera>
+                <PerspectiveCamera FieldOfView="60"
+                                   Position="0,0,6"
+                                   LookDirection="0,0,-6" />
+            </f:ElementFlow.Camera>
+        </f:ElementFlow>
         <Grid Width="300" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -178,10 +97,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <s:SurfaceButton Grid.Column="0" Command="{Binding GoToPreviousCommand}" HorizontalAlignment="Left" Style="{DynamicResource NavigationButtonStyle}" Width="30" Height="30">
-                <Path Data="" />
+                <TextBlock Text="L" Foreground="White" />
             </s:SurfaceButton>
             <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding SelectedUser.UserName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="微软雅黑" FontSize="18.667" Foreground="White" FontWeight="Bold" Margin="30,0"/>
-            <s:SurfaceButton Grid.Column="2" Command="{Binding GoToNextCommand}" Content="SurfaceButton" HorizontalAlignment="Left" Width="30" Height="30" Style="{DynamicResource NavigationButtonStyle}"/>
+            <s:SurfaceButton Grid.Column="2" Command="{Binding GoToNextCommand}" HorizontalAlignment="Left" Width="30" Height="30" Style="{DynamicResource NavigationButtonStyle}">
+                <TextBlock Text="R" Foreground="White" />
+            </s:SurfaceButton>
         </Grid>
         <s:SurfaceButton FontSize="14" Height="50" Width="260" Cursor="Hand" Content="新用户" Command="{Binding CreateNewUserCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" />
     </Grid>

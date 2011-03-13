@@ -6,7 +6,7 @@
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
              xmlns:Gymnastika_Controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" x:Class="Gymnastika.Modules.Sports.Views.SportView" 
              mc:Ignorable="d" 
-             d:DesignHeight="410" d:DesignWidth="414" d:DataContext="{d:DesignData Source=/DesignData/SportData.xaml}">
+             d:DesignHeight="410" d:DesignWidth="414" xmlns:my="http://schemas.microsoft.com/surface/2008">
     <UserControl.Resources>
         <ResourceDictionary>
             <converter:RtfUriToDocumentConverter x:Key="RtfConverter"/>

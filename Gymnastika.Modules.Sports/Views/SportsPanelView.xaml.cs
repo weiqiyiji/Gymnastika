@@ -24,8 +24,6 @@ namespace Gymnastika.Modules.Sports.Views
         public SportsPanelView()
         {
             InitializeComponent();
-            //Binding bd = new Binding("Filter");
-            //BindingOperations.SetBinding(sportlist.view
         }
 
         [Dependency]

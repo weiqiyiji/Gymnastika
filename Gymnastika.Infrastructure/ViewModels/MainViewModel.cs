@@ -63,9 +63,9 @@ namespace Gymnastika.ViewModels
             _navigationManager.AddIfMissing(
                  new NavigationDescriptor()
                  {
-                     ViewType = typeof(NotificationView),
-                     ViewName = "WidgetView",
-                     Label = "通 知",
+                     ViewType = typeof(UserProfileManagementView),
+                     ViewName = "UserProfileManagementView",
+                     Label = "账户管理",
                      RegionName = RegionNames.MainRegion
                  });
         }

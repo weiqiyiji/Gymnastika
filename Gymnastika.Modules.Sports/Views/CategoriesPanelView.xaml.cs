@@ -26,7 +26,6 @@ namespace Gymnastika.Modules.Sports.Views
             InitializeComponent();
         }
 
-        [Dependency]
         public ICategoriesPanelViewModel ViewModel
         {
             set
@@ -42,5 +41,6 @@ namespace Gymnastika.Modules.Sports.Views
 
     public interface ICategoriesPanelView
     {
+
     }
 }

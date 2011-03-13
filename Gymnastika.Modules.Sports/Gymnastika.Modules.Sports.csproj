@@ -39,9 +39,14 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FluidKit">
+      <HintPath>..\Libs\FluidKit.dll</HintPath>
+    </Reference>
     <Reference Include="GongSolutions.Wpf.DragDrop">
       <HintPath>..\Libs\GongSolutions.Wpf.DragDrop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Expression.Controls" />
+    <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
@@ -50,8 +55,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="Microsoft.Practices.Unity, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Surface.Presentation, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Surface.Presentation.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -81,10 +91,11 @@
     <Compile Include="Converters\CalorieDecriptionConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeConverter.cs" />
-    <Compile Include="Converters\DoubleIntDivideConverter.cs" />
+    <Compile Include="Converters\DivideConverter.cs" />
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
+    <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Temporary\DesignData\CategoriesDesign.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -113,8 +124,8 @@
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
     <Compile Include="ModuleRegionNames.cs" />
-    <Compile Include="ModuleShell.xaml.cs">
-      <DependentUpon>ModuleShell.xaml</DependentUpon>
+    <Compile Include="Views\CompositePanel.xaml.cs">
+      <DependentUpon>CompositePanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\Factories\SportCardViewModelFactory.cs" />
     <Compile Include="Services\Providers\PlanItemProvider.cs" />
@@ -136,6 +147,9 @@
     <Compile Include="ViewModels\SportsPlanViewModel.cs" />
     <Compile Include="ViewModels\SportsPanelViewModel.cs" />
     <Compile Include="ViewModels\SportViewModel.cs" />
+    <Compile Include="ModuleShell.xaml.cs">
+      <DependentUpon>ModuleShell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlanItemDetailView.xaml.cs">
       <DependentUpon>PlanItemDetailView.xaml</DependentUpon>
     </Compile>
@@ -163,6 +177,10 @@
     <Compile Include="Views\SportView.xaml.cs">
       <DependentUpon>SportView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widget\DailySportWidget.xaml.cs">
+      <DependentUpon>DailySportWidget.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widget\DailySportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Temporary\DesignData\CategoriesDesign.xaml">
@@ -193,7 +211,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ModuleShell.xaml">
+    <Page Include="Views\CompositePanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -202,6 +220,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ModuleShell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -241,6 +263,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widget\DailySportWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
@@ -258,6 +284,10 @@
     <ProjectReference Include="..\Gymnastika.Infrastructure\Gymnastika.Infrastructure.csproj">
       <Project>{83E5BDA1-F117-45E6-ACD5-EFEC5A00CBC9}</Project>
       <Name>Gymnastika.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Modules.Meals\Gymnastika.Modules.Meals.csproj">
+      <Project>{E697A4E3-B016-4716-BB3D-E774F7BD3B29}</Project>
+      <Name>Gymnastika.Modules.Meals</Name>
     </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>

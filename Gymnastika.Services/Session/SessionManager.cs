@@ -33,13 +33,19 @@ namespace Gymnastika.Services.Session
                 var userRepository = ServiceLocator.Current.GetInstance<IRepository<User>>();
                 User savedUser = userRepository.Get(u => u.Id == user.Id);
                 savedUser.IsActive = true;
+
+                OnSessionChanged();
             }
             else
             {
                 SessionContext context = _sessions[user.Id];
                 context.Timestamp = DateTime.Now;
 
-                _currentSession = context;
+                if (_currentSession != context)
+                {
+                    _currentSession = context;
+                    OnSessionChanged();
+                }
             }
         }
 
@@ -67,6 +73,14 @@ namespace Gymnastika.Services.Session
             return _sessions.Values;
         }
 
+        public event EventHandler SessionChanged;
+
         #endregion
+
+        private void OnSessionChanged()
+        {
+            if (SessionChanged != null)
+                SessionChanged(this, EventArgs.Empty);
+        }
     }
 }

@@ -6,26 +6,43 @@
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="367" d:DesignWidth="409" 
-             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit">
+             d:DesignHeight="502" d:DesignWidth="569" 
+             xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+             xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit" xmlns:my1="http://schemas.microsoft.com/surface/2008">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="167*" />
+            <ColumnDefinition Width="70*" />
+            <ColumnDefinition Width="110*" />
+            <ColumnDefinition Width="62*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="39*" />
-            <RowDefinition Height="328*" />
+            <RowDefinition Height="31*" />
+            <RowDefinition Height="33*" />
+            <RowDefinition Height="273*" />
+            <RowDefinition Height="30*" />
         </Grid.RowDefinitions>
-        <ListBox x:Name="sportlist" d:DataContext="{d:DesignData Source=/DesignData/SportsPanelDesignData.xaml}" ItemsSource="{Binding ViewModels}" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Center" Grid.Row="1">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <local:SportCardView/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        <my:AutoCompleteBox Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" HorizontalAlignment="Right" Margin="0,7,11,6" Width="233">
+        <my:AutoCompleteBox Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" Margin="10,5,12,8" Grid.Column="2" Grid.ColumnSpan="2">
             <my:AutoCompleteBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
                 </DataTemplate>
             </my:AutoCompleteBox.ItemTemplate>
         </my:AutoCompleteBox>
+        <TextBlock Foreground="Black" FontSize="11" Height="41" HorizontalAlignment="Left" Name="textBlock1" Text="{Binding MaxPage}" VerticalAlignment="Top" Width="67" Grid.Row="3" />
+        <TextBlock Foreground="Black" FontSize="11" Height="41" HorizontalAlignment="Right" Name="textBlock2" Text="{Binding CurrentPage}" VerticalAlignment="Top" Width="57" Margin="0,0,1,0" Grid.Row="3" Grid.Column="2" />
+        <my1:SurfaceButton Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="1" Grid.Column="3" />
+        <my1:SurfaceButton Command="{Binding NextPageCommand}" Content="下一页" Grid.Row="3" Grid.Column="3" />
+        <my1:SurfaceButton Command="{Binding SearchCommand}" Content="Search" Margin="6,5,2,7" Grid.Column="1" />
+        <ListBox  x:Name="sportlist" HorizontalContentAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding ViewModels}" Grid.ColumnSpan="3" Grid.RowSpan="2">
+            <!--<my1:SurfaceListBox.ItemTemplate>-->
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:SportCardView/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <!--</my1:SurfaceListBox.ItemTemplate>-->
+        </ListBox>
+        <!--</my1:SurfaceListBox>-->
     </Grid>
 </UserControl>
