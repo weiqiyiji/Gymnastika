@@ -48,9 +48,12 @@ namespace Gymnastika.Widgets
             //    descriptor.IsActiveChanged += OnWidgetIsActiveChanged;
             //}
 
-            WidgetDescriptor descriptor = new WidgetDescriptor(widgetType);
+            if (Descriptors.SingleOrDefault(x => x.WidgetType == widgetType) == null)
+            {
+                WidgetDescriptor descriptor = new WidgetDescriptor(widgetType);
 
-            Descriptors.Add(descriptor);
+                Descriptors.Add(descriptor);
+            }
         }
 
         //private void MonitoringWidgets(object sender, EventArgs e)

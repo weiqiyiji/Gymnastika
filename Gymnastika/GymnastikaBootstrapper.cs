@@ -18,6 +18,7 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Gymnastika.Services.Session;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika
 {

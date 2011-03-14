@@ -11,6 +11,7 @@ using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Controllers
 {
@@ -38,6 +39,9 @@ namespace Gymnastika.Controllers
         {
             _container
                 .RegisterType<INavigationManager, NavigationManager>(new ContainerControlledLifetimeManager())
+                .RegisterType<INavigationService, NavigationService>(new ContainerControlledLifetimeManager())
+                .RegisterType<INavigationRegion, NavigationRegion>()
+                .RegisterType<INavigationContainerAccessor, NavigationContainerAccessor>(new ContainerControlledLifetimeManager())
                 .RegisterType<IUserService, UserService>()
                 .RegisterType<IStartupView, StartupView>("StartupView", new ContainerControlledLifetimeManager())
                 .RegisterType<IMainView, MainView>("MainView", new ContainerControlledLifetimeManager())
