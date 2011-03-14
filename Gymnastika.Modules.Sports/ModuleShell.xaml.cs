@@ -33,7 +33,6 @@ namespace Gymnastika.Modules.Sports
         {
             compositePanel.SetModel(_container.Resolve<ICategoriesPanelViewModel>()
                 , _container.Resolve<ISportsPanelViewModel>());
-            //sportsPlanView.ViewModel = _container.Resolve<ISportsPlanViewModel>();
             planListView1.ViewModel = _container.Resolve<IPlanListViewModel>();
         }
     }

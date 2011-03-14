@@ -12,6 +12,7 @@ namespace Gymnastika.Modules.Sports.Services.Factories
     {
         ISportsPlanViewModel Create(SportsPlan plan);
     }
+
     public class SportsPlanViewModelFactory : ISportsPlanViewModelFactory
     {
         readonly ISportsPlanProvider _planProvider;

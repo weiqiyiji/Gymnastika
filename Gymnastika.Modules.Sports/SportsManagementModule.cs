@@ -122,6 +122,8 @@ namespace Gymnastika.Modules.Sports
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
                 .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
+                .RegisterType<ISportsPlanViewModelFactory,SportsPlanViewModelFactory>()
+
                 //ViewModels
                 .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>()
                 .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()

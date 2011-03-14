@@ -47,7 +47,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
-        //IEventAggregator _aggregator;
         ISportsPlanItemViewModelFactory _factory;
         ISportsPlanProvider _planProvider;
         IPlanItemProvider _itemProvider;

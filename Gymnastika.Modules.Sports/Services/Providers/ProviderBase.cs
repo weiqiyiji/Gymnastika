@@ -14,7 +14,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
         IEnumerable<T> Fetch(int startIndex, int number);
 
         IEnumerable<T> Fetch(int startIndex, int number, Func<T, bool> predicate);
-        
+
         void CreateOrUpdate(T entity);
 
         void Create(T entity);
@@ -33,10 +33,10 @@ namespace Gymnastika.Modules.Sports.Services.Providers
     public class ProviderBase<T> : IProvider<T>
     {
         IRepository<T> _repository { get; set; }
-        
+
         IWorkEnvironment _environment { get; set; }
-        
-        public ProviderBase(IRepository<T> repository,IWorkEnvironment environment)
+
+        public ProviderBase(IRepository<T> repository, IWorkEnvironment environment)
         {
             _repository = repository;
             _environment = environment;
@@ -47,7 +47,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return Fetch(startIndex, number, t => true);
         }
 
-        public virtual IEnumerable<T> Fetch(int startIndex, int number,Func<T,bool> predicate)
+        public virtual IEnumerable<T> Fetch(int startIndex, int number, Func<T, bool> predicate)
         {
             return Fetch(predicate).Skip(startIndex).Take(number);
         }
@@ -82,25 +82,20 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return _environment.GetWorkContextScope();
         }
 
-        //Modify!!
         public int Count(Func<T, bool> predicate)
         {
             if (predicate == null)
                 predicate = t => true;
-            return Fetch(t => true).Where(predicate).Count();   //Temporary
-            //return _repository.Count((t) => predicate(t));
+            return Fetch(t => predicate(t)).Count();
         }
 
-        //Modify!!
         public virtual IEnumerable<T> Fetch(Func<T, bool> predicate)
         {
-
 
             if (predicate == null)
                 return _repository.Fetch(t => true);
             else
-                return _repository.Fetch(t => true).Where(predicate);   //Temporary
-            //return _repository.Fetch(t => predicate(t));
+                return _repository.Fetch(t => predicate(t));
         }
     }
 }
