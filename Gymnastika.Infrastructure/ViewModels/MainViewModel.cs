@@ -14,6 +14,7 @@ using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Views;
 using Microsoft.Practices.Unity;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.ViewModels
 {
@@ -23,17 +24,20 @@ namespace Gymnastika.ViewModels
         private readonly IRegionManager _regionManager;
         private readonly IWidgetManager _widgetManager;
         private readonly INavigationManager _navigationManager;
+        private readonly INavigationService _navigationService;
 
         public MainViewModel(
             IUnityContainer container,
             IRegionManager regionManager,
             IWidgetManager widgetManager,
-            INavigationManager navigationManager)
+            INavigationManager navigationManager,
+            INavigationService navigationService)
         {
             _container = container;
             _regionManager = regionManager;
             _widgetManager = widgetManager;
             _navigationManager = navigationManager;
+            _navigationService = navigationService;
         }
 
         public ObservableCollection<WidgetDescriptor> Widgets
@@ -47,35 +51,43 @@ namespace Gymnastika.ViewModels
             Initialize();
         }
 
+        private const string NormalRegion = "NormalRegion";
+        private const string RegionHeader = "常规";
+
         private void Initialize()
         {
             ConfigureMainView();
 
-            _navigationManager.AddIfMissing(
+            _navigationManager.AddRegionIfMissing(NormalRegion, RegionHeader);
+
+            INavigationRegion normalRegion = _navigationManager.Regions[NormalRegion];
+
+            normalRegion.Add(
                 new NavigationDescriptor()
                     {
-                        ViewType = typeof(DefaultWidgetPanel),
                         ViewName = "WidgetView",
-                        Label = "主 页",
-                        RegionName = RegionNames.MainRegion
-                    }, true);
+                        Header = "主 页",
+                        ViewResolver = () => _container.Resolve<DefaultWidgetPanel>()
+                    });
 
-            _navigationManager.AddIfMissing(
+            normalRegion.Add(
                  new NavigationDescriptor()
                  {
-                     ViewType = typeof(UserProfileManagementView),
                      ViewName = "UserProfileManagementView",
-                     Label = "账户管理",
-                     RegionName = RegionNames.MainRegion
+                     Header = "账户管理",
+                     ViewResolver = () => _container.Resolve<UserProfileManagementView>()
                  });
+
+            _navigationService.RequestNavigate(NormalRegion, "WidgetView");
         }
 				
         private void ConfigureMainView()
         {
             _container
-                .RegisterType<DefaultWidgetPanel>("WidgetView")
-                .RegisterType<WidgetPanelViewModel>()
-                .RegisterType<NavigationView>();
+                .RegisterType<UserProfileManagementView>(new ContainerControlledLifetimeManager())
+                .RegisterType<DefaultWidgetPanel>(new ContainerControlledLifetimeManager())
+                .RegisterType<WidgetPanelViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<NavigationView>(new ContainerControlledLifetimeManager());
 
             _regionManager.RegisterViewWithRegion(RegionNames.NavigationRegion, typeof (NavigationView));
         }
@@ -94,11 +106,10 @@ namespace Gymnastika.ViewModels
             IModuleCatalog moduleCatelog = _container.Resolve<IModuleCatalog>();
             IModuleManager moduleManager = _container.Resolve<IModuleManager>();
 
-            foreach (var moduleInfo in moduleCatelog.Modules)
+            foreach (var moduleInfo in moduleCatelog.Modules.Where(m => m.InitializationMode == InitializationMode.OnDemand))
             {
                 moduleManager.LoadModule(moduleInfo.ModuleName);
             }
         }
-
     }
 }

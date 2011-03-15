@@ -18,6 +18,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using Gymnastika.Common.Utils;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.ViewModels
 {
@@ -285,7 +286,6 @@ namespace Gymnastika.ViewModels
             }
 
             MessageBox.Show("保存成功");
-            _navigationManager.CurrentPage = _navigationManager.PreviousPage;
         }
     }
 }

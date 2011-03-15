@@ -6,52 +6,39 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Common;
 using Microsoft.Practices.Prism.ViewModel;
+using Gymnastika.Common.Navigation;
+using System.Collections.ObjectModel;
 
 namespace Gymnastika.ViewModels
 {
     public class NavigationViewModel : NotificationObject
     {
         private INavigationManager _navigationManager;
+        private ObservableCollection<NavigationRegionViewModel> _regions;
 
         public NavigationViewModel(INavigationManager navigationManager)
         {
-            Targets = navigationManager;
-            CurrentPage = Targets.CurrentPage;
-            Targets.CurrentPageChanged += new EventHandler(Targets_CurrentPageChanged);
+            _navigationManager = navigationManager;
+            _regions = new ObservableCollection<NavigationRegionViewModel>(
+                _navigationManager.Regions.Select(r => new NavigationRegionViewModel(r)));
+
+            _navigationManager.Regions.CollectionChanged += OnRegionsChanged;
         }
 
-        private void Targets_CurrentPageChanged(object sender, EventArgs e)
+        private void OnRegionsChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            CurrentPage = Targets.CurrentPage;
-        }
-
-        public INavigationManager Targets
-        {
-            get { return _navigationManager; }
-            set
+            if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                if (_navigationManager != value)
+                foreach (INavigationRegion region in e.NewItems)
                 {
-                    _navigationManager = value;
-                    RaisePropertyChanged("Targets");
+                    _regions.Add(new NavigationRegionViewModel(region));
                 }
             }
         }
 
-        private NavigationDescriptor _currentPage;
-
-        public NavigationDescriptor CurrentPage
+        public ObservableCollection<NavigationRegionViewModel> Regions 
         {
-            get { return _currentPage; }
-            set
-            {
-                if (_currentPage != value)
-                {
-                    _currentPage = value;
-                    Targets.CurrentPage = _currentPage;
-                    RaisePropertyChanged("CurrentPage");
-                }
-            }
-        }	
+            get { return _regions; }
+        }
     }
 }
