@@ -67,10 +67,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Windows.Controls.Input.Toolkit.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Windows.Controls.Input.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System.Windows.Controls.Layout.Toolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Windows.Controls.Layout.Toolkit.dll</HintPath>
@@ -81,11 +78,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
-    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\WPFToolkit.dll</HintPath>
-    </Reference>
+    <Reference Include="WPFToolkit, Version=3.5.40128.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\CalorieDecriptionConverter.cs" />
@@ -95,6 +91,7 @@
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
+    <Compile Include="AnimatedPanel.cs" />
     <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Temporary\DesignData\CategoriesDesign.cs">
       <SubType>Code</SubType>
@@ -124,6 +121,10 @@
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
     <Compile Include="ModuleRegionNames.cs" />
+    <Compile Include="ViewModels\CalendarViewModel.cs" />
+    <Compile Include="Views\CalendarView.xaml.cs">
+      <DependentUpon>CalendarView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CompositePanel.xaml.cs">
       <DependentUpon>CompositePanel.xaml</DependentUpon>
     </Compile>
@@ -208,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Temporary\DesignData\SportsPlanItemDesignData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CalendarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

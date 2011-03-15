@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="388" d:DesignWidth="209"
-             xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" xmlns:my="http://schemas.microsoft.com/surface/2008">
-    <StackPanel>
+             xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" 
+             xmlns:my="http://schemas.microsoft.com/surface/2008"
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports">
+    <StackPanel Height="391" Width="511">
         <Grid>
             <StackPanel Orientation="Horizontal">
                 <Label Content="{Binding User.UserName}"/>
@@ -14,12 +16,17 @@
             </StackPanel>
             <my:SurfaceButton HorizontalAlignment="Right" Command="{Binding CreatePlanCommand}"  Content="创建计划" Height="23" Name="surfaceButton1" />
         </Grid>
-        <ListBox ItemsSource="{Binding ViewModels}" Grid.Row="1" HorizontalAlignment="Stretch">
+        <ListBox ItemsSource="{Binding ViewModels}" Grid.Row="1" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <view:SportsPlanView/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <local:AnimatedPanel ItemSize="200"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
         </ListBox>
     </StackPanel>
 </UserControl>

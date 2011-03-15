@@ -153,6 +153,10 @@
       <Project>{E697A4E3-B016-4716-BB3D-E774F7BD3B29}</Project>
       <Name>Gymnastika.Modules.Meals</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Modules.Sports\Gymnastika.Modules.Sports.csproj">
+      <Project>{595AB87C-2639-4577-88BB-6C5073AF2CBC}</Project>
+      <Name>Gymnastika.Modules.Sports</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
       <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
       <Name>Gymnastika.Resources</Name>

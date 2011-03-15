@@ -8,30 +8,36 @@
              d:DesignHeight="566" d:DesignWidth="401"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" 
              xmlns:my="http://schemas.microsoft.com/surface/2008">
+	<UserControl.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
+	</UserControl.Triggers>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="47*" />
-            <RowDefinition Height="519*" />
+        	<RowDefinition Height="47*" />
+        	<RowDefinition Height="519*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="15*" />
-            <ColumnDefinition Width="226*" />
+        	<ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <ListBox BorderBrush="Transparent" ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Stretch" Name="planListBox"  Background="Transparent"
-                dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Grid.Row="1">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:SportsPlanItemView/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" Name="progressBar1" Maximum="2000" Grid.Row="1">
-            <ProgressBar.Value>
-                <Binding Path="TotalCalories"/>
-            </ProgressBar.Value>
-        </ProgressBar>
-        <my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,1,12,5" Name="button1" Grid.Column="1" HorizontalAlignment="Right"  />
-        <my:SurfaceButton Content="取消" Command="{Binding CancelCommand}" Name="surfaceButton1" Grid.Column="1" Margin="0,1,77,4" HorizontalAlignment="Right"  />
-        <TextBlock Text="{Binding Date}" HorizontalAlignment="Left"  />
+        <StackPanel Orientation="Horizontal" Grid.Row="1" d:LayoutOverrides="Width">
+    		<ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" x:Name="Calorie" Maximum="2000" Width="18.847" Value="{Binding TotalCalories}"/>
+    		<ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items"  Background="Transparent"
+    			dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Width="382.153">
+    			<ListBox.ItemTemplate>
+    				<DataTemplate>
+    					<local:SportsPlanItemView/>
+    				</DataTemplate>
+    			</ListBox.ItemTemplate>
+    		</ListBox>
+    	</StackPanel>
+        <StackPanel Margin="0,0,12,0" Orientation="Vertical" d:LayoutOverrides="Width">
+        	<TextBlock x:Name="Date" Text="{Binding Date}" HorizontalAlignment="Left" />
+        	<Border Margin="0,1,0,4" Width="115" HorizontalAlignment="Right">
+        		<Grid>
+        			<my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,0,0,1" x:Name="Save" HorizontalAlignment="Right"  />
+        			<my:SurfaceButton Content="取消" Command="{Binding CancelCommand}" x:Name="Cancel" HorizontalAlignment="Left"  />
+        		</Grid>
+        	</Border>
+        </StackPanel>
     </Grid>
 </UserControl>

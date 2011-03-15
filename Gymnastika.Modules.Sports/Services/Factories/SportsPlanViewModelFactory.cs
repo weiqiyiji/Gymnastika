@@ -18,17 +18,19 @@ namespace Gymnastika.Modules.Sports.Services.Factories
         readonly ISportsPlanProvider _planProvider;
         readonly IPlanItemProvider _itemProvider;
         readonly ISportsPlanItemViewModelFactory _itemFactory;
+        readonly ISportProvider _sportProvider;
 
-        public SportsPlanViewModelFactory(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportsPlanItemViewModelFactory itemFactory)
+        public SportsPlanViewModelFactory(ISportsPlanProvider planProvider,ISportProvider sportProvider,IPlanItemProvider itemProvider,ISportsPlanItemViewModelFactory itemFactory)
         {
             _planProvider = planProvider;
             _itemProvider = itemProvider;
             _itemFactory = itemFactory;
+            _sportProvider = sportProvider;
         }
         
         public ISportsPlanViewModel Create(SportsPlan plan)
         {
-            return new SportsPlanViewModel(plan, _planProvider, _itemProvider, _itemFactory);
+            return new SportsPlanViewModel(plan,_sportProvider ,_planProvider, _itemProvider, _itemFactory);
         }
     }
 }
