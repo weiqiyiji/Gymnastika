@@ -6,24 +6,23 @@
         xmlns:f="clr-namespace:FluidKit.Controls;assembly=FluidKit"
         xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
         xmlns:core="clr-namespace:Gymnastika.Common;assembly=Gymnastika.Common"
+        xmlns:nav="clr-namespace:Gymnastika.Common.Navigation;assembly=Gymnastika.Common"
         xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300">
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300" Background="#D2D6CB">
     <UserControl.Resources>
         <f:SlideTransition x:Key="SlideTransition" />
+        <f:CubeTransition x:Key="CubeTransition" />
     </UserControl.Resources>
-    <UserControl.Background>
-        <ImageBrush ImageSource="/Images/mainview_bg.jpg" />
-    </UserControl.Background>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}">
+        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}" Grid.Column="1">
             <ContentControl.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
@@ -33,18 +32,16 @@
                 </TransformGroup>
             </ContentControl.RenderTransform>
         </ContentControl>
-        <!--<ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}" Grid.Column="1">
-            <ContentControl.RenderTransform>
+        <f:TransitionPresenter nav:NavigationContainer.IsContainer="True" Transition="{StaticResource SlideTransition}">
+            <f:TransitionPresenter.RenderTransform>
                 <TransformGroup>
                     <TranslateTransform />
                     <ScaleTransform />
                     <RotateTransform />
                     <SkewTransform />
                 </TransformGroup>
-            </ContentControl.RenderTransform>
-        </ContentControl>-->
-        <controls:AnimatedTabControl prism:RegionManager.RegionName="{x:Static core:RegionNames.MainRegion}" Grid.Column="1" />
-        
+            </f:TransitionPresenter.RenderTransform>
+        </f:TransitionPresenter>
         <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.NotificationRegion}" Grid.Row="1" Grid.ColumnSpan="2">
             <ContentControl.RenderTransform>
                 <TransformGroup>

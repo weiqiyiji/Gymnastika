@@ -4,6 +4,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using Microsoft.Surface.Presentation.Controls;
+using System.Windows.Data;
+using System.Windows;
 
 namespace Gymnastika.Widgets
 {
@@ -26,6 +28,22 @@ namespace Gymnastika.Widgets
             container.WidgetHosts.CollectionChanged += WidgetHosts_CollectionChanged;
         }
 
+
+
+        public static WidgetDescriptor GetDescriptor(DependencyObject obj)
+        {
+            return (WidgetDescriptor)obj.GetValue(DescriptorProperty);
+        }
+
+        public static void SetDescriptor(DependencyObject obj, WidgetDescriptor value)
+        {
+            obj.SetValue(DescriptorProperty, value);
+        }
+
+        // Using a DependencyProperty as the backing store for Descriptor.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DescriptorProperty =
+            DependencyProperty.RegisterAttached("Descriptor", typeof(WidgetDescriptor), typeof(ScatterViewWidgetContainerAdapter), null);    
+
         private void WidgetHosts_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if(e.Action == NotifyCollectionChangedAction.Add)
@@ -34,8 +52,15 @@ namespace Gymnastika.Widgets
                 {
                     WidgetDescriptor descriptor = GetDescriptor(host.Widget);
                     ScatterViewItem viewItem = (ScatterViewItem) host;
-                    viewItem.Center = descriptor.Position;
+                    Point position = descriptor.Position;
+
+                    Binding binding = new Binding("Position");
+                    binding.Source = descriptor;
+                    binding.Mode = BindingMode.OneWayToSource;
+                    viewItem.SetBinding(ScatterViewItem.CenterProperty, binding);
                     _scatterView.Items.Add(host);
+
+                    viewItem.Center = position;
                 }
             }
 

@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using Gymnastika.Data;
 using Microsoft.Practices.Unity;
+using System.Linq.Expressions;
 
 namespace Gymnastika.Modules.Sports.Services.Providers
 {
     public interface IProvider<T>
     {
-        IEnumerable<T> Fetch(Func<T, bool> predicate);
+        IEnumerable<T> Fetch(Expression<Func<T, bool>> predicate);
 
         IEnumerable<T> Fetch(int startIndex, int number);
 
-        IEnumerable<T> Fetch(int startIndex, int number, Func<T, bool> predicate);
-        
+        IEnumerable<T> Fetch(int startIndex, int number, Expression<Func<T, bool>> predicate);
+
         void CreateOrUpdate(T entity);
 
         void Create(T entity);
@@ -23,7 +24,11 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         void Delete(T entity);
 
-        int Count(Func<T, bool> predicate);
+        T Get(int Id);
+
+        IQueryable<T> Table { get; }
+
+        int Count(Expression<Func<T, bool>> predicate);
 
         IEnumerable<T> All();
 
@@ -33,10 +38,10 @@ namespace Gymnastika.Modules.Sports.Services.Providers
     public class ProviderBase<T> : IProvider<T>
     {
         IRepository<T> _repository { get; set; }
-        
+
         IWorkEnvironment _environment { get; set; }
-        
-        public ProviderBase(IRepository<T> repository,IWorkEnvironment environment)
+
+        public ProviderBase(IRepository<T> repository, IWorkEnvironment environment)
         {
             _repository = repository;
             _environment = environment;
@@ -47,7 +52,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return Fetch(startIndex, number, t => true);
         }
 
-        public virtual IEnumerable<T> Fetch(int startIndex, int number,Func<T,bool> predicate)
+        public virtual IEnumerable<T> Fetch(int startIndex, int number, Expression<Func<T, bool>> predicate)
         {
             return Fetch(predicate).Skip(startIndex).Take(number);
         }
@@ -74,7 +79,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         public virtual IEnumerable<T> All()
         {
-            return Fetch(null);
+            return Table.ToList();
         }
 
         public IWorkContextScope GetContextScope()
@@ -82,25 +87,37 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return _environment.GetWorkContextScope();
         }
 
-        //Modify!!
-        public int Count(Func<T, bool> predicate)
+        public int Count(Expression<Func<T, bool>> predicate)
         {
             if (predicate == null)
                 predicate = t => true;
-            return Fetch(t => true).Where(predicate).Count();   //Temporary
-            //return _repository.Count((t) => predicate(t));
+            return Fetch(predicate).Count();
         }
 
-        //Modify!!
-        public virtual IEnumerable<T> Fetch(Func<T, bool> predicate)
+        public virtual IEnumerable<T> Fetch(Expression<Func<T, bool>> predicate)
         {
-
 
             if (predicate == null)
                 return _repository.Fetch(t => true);
             else
-                return _repository.Fetch(t => true).Where(predicate);   //Temporary
-            //return _repository.Fetch(t => predicate(t));
+                return _repository.Fetch(predicate);
         }
+
+        #region IProvider<T> Members
+
+
+        public T Get(int Id)
+        {
+            return _repository.Get(Id);
+        }
+
+        public IQueryable<T> Table
+        {
+            get
+            {
+                return _repository.Table;
+            }
+        }
+        #endregion
     }
 }

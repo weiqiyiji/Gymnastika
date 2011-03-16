@@ -80,24 +80,21 @@ namespace Gymnastika.Modules.Sports.Widget
             
         }
 
-        bool SameDay(DateTime time1, DateTime time2)
-        {
-            return time1.Year == time2.Year && time1.Month == time2.Month && time1.Day == time2.Day;
-        }
-
         SportsPlan LoadPlan(User user,DateTime time)
         {
             SportsPlan plan = null;
-            DateTime now = Time;
+            //DateTime now = Time;
             using (_sportsPlanProvider.GetContextScope())
             {
-                var plans = _sportsPlanProvider.Fetch((t) => t.User.Id == user.Id);
-                plan = plans.FirstOrDefault((t) => SameDay(time, t.Time));
+                plan = _sportsPlanProvider.Fetch((t) => t.User.Id == user.Id && t.Month == time.Month && t.Year == time.Year && time.Day == t.Day).FirstOrDefault();
+                //plan = plans.FirstOrDefault((t) => SameDay(time, t.Time));
                 if (plan != null)
+                {
                     plan.SportsPlanItems = plan.SportsPlanItems.ToList();
 
-                foreach (var item in plan.SportsPlanItems)
-                    item.Sport = _sportProvider.Fetch(t => (t.Id == item.Sport.Id)).FirstOrDefault();
+                    foreach (var item in plan.SportsPlanItems)
+                        item.Sport = _sportProvider.Fetch(t => (t.Id == item.Sport.Id)).FirstOrDefault();
+                }
             }
             //plan.User = User;
             return plan;

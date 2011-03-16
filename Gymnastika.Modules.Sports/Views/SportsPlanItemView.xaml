@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" 
     xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
-    xmlns:System_Windows_Controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit" 
     xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
              mc:Ignorable="d" Height="116" x:Name="Root">
-	<UserControl.Resources>
+    <UserControl.Resources>
         <Storyboard x:Key="OnMouseEnter">
             <DoubleAnimation BeginTime="0:0:0.2" To="240" Duration="0:0:0.15" Storyboard.TargetProperty="Width" Storyboard.TargetName="planItemDetailView"/>
         </Storyboard>
@@ -19,10 +18,10 @@
     </UserControl.Resources>
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Mouse.MouseLeave">
-        	<BeginStoryboard x:Name="OnMouseLeave_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave}"/>
+            <BeginStoryboard x:Name="OnMouseLeave_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave}"/>
         </EventTrigger>
         <EventTrigger RoutedEvent="Mouse.MouseEnter">
-        	<BeginStoryboard Storyboard="{StaticResource OnMouseEnter}"/>
+            <BeginStoryboard Storyboard="{StaticResource OnMouseEnter}"/>
         </EventTrigger>
     </UserControl.Triggers>
     <StackPanel Orientation="Horizontal" Width="468.088">
@@ -65,14 +64,14 @@
             </Grid>
         </Border>
         <local:PlanItemDetailView x:Name="planItemDetailView" Height="{Binding Height}" HorizontalAlignment="Right" Width="0">
-        	<local:PlanItemDetailView.RenderTransform>
-        		<TransformGroup>
-        			<ScaleTransform/>
-        			<SkewTransform/>
-        			<RotateTransform/>
-        			<TranslateTransform/>
-        		</TransformGroup>
-        	</local:PlanItemDetailView.RenderTransform>
+            <local:PlanItemDetailView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </local:PlanItemDetailView.RenderTransform>
         </local:PlanItemDetailView>
     </StackPanel>
 </UserControl>

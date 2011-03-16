@@ -27,16 +27,49 @@ namespace Gymnastika.Modules.Sports.Views
             InitializeComponent();
 
         }
+
+
+
+        public bool Expanded
+        {
+            get { return (bool)GetValue(ExpandedProperty); }
+            set { SetValue(ExpandedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for Expanded.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ExpandedProperty =
+            DependencyProperty.Register("Expanded", typeof(bool), typeof(SportsPlanView), new UIPropertyMetadata(false));
+
         
+
         [Dependency]
         public ISportsPlanViewModel ViewModel
         {
             set { DataContext = value; }
             get { return DataContext as ISportsPlanViewModel; }
         }
+
+
+
+        #region ISportsPlanView Members
+
+        public void Expand()
+        {
+            this.Expanded = true;
+        }
+
+        public void Minimize()
+        {
+            this.Expanded = false;
+        }
+
+        #endregion
     }
     public interface ISportsPlanView
     {
-
+        void Expand();
+        void Minimize();
     }
+
+    
 }

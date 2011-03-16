@@ -34,8 +34,8 @@
     </UserControl.Resources>
     <StackPanel>
         <StackPanel  Orientation="Horizontal" >
-        	<TextBlock Text="今日计划" FontSize="15" HorizontalAlignment="Right" />
-        	<TextBlock Text="{Binding Time}" x:Name="Time" VerticalAlignment="Button" />
+        	<TextBlock x:Name="Title" Text="今日计划" FontSize="15" HorizontalAlignment="Right" />
+        	<TextBlock Text="{Binding Time}" x:Name="Time" VerticalAlignment="Bottom"/>
     	</StackPanel>
         <UserControl Content="{Binding}" ContentTemplateSelector="{StaticResource ResourceKey=WidgetSelecter}"/>
     </StackPanel>

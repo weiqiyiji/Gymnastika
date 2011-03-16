@@ -1,0 +1,23 @@
+﻿<d:NavigationViewModel xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:d="clr-namespace:Gymnastika.DesignData">
+    <d:NavigationViewModel.Regions>
+        <d:RegionCollection>
+            <d:NavigationRegion Header="常规">
+                <d:NavigationRegion.ViewItems>
+                    <d:RegionItemCollection>
+                        <d:RegionItem Header="运动" />
+                        <d:RegionItem Header="饮食" />
+                    </d:RegionItemCollection>
+                </d:NavigationRegion.ViewItems>
+            </d:NavigationRegion>
+            <d:NavigationRegion Header="用户">
+                <d:NavigationRegion.ViewItems>
+                    <d:RegionItemCollection>
+                        <d:RegionItem Header="添加" />
+                        <d:RegionItem Header="删除" />
+                    </d:RegionItemCollection>
+                </d:NavigationRegion.ViewItems>
+            </d:NavigationRegion>
+        </d:RegionCollection>
+    </d:NavigationViewModel.Regions>
+</d:NavigationViewModel>

@@ -3,15 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="394"
+             mc:Ignorable="d" d:DesignWidth="460"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" d:DesignHeight="132"
-             Background="#EEEEEE"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" d:DesignHeight="190"
+             Background="Transparent"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
+             xmlns:surface="http://schemas.microsoft.com/surface/2008"
              >
 
 
-    <Grid  Height="129" dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True">
+    <Grid dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="112*" />
             <RowDefinition Height="17*" />
@@ -26,7 +27,7 @@
                 <RowDefinition Height="15*" />
                 <RowDefinition Height="41*" />
             </Grid.RowDefinitions>
-			<TextBlock Foreground="Black" Text="{Binding Name}" FontSize="20" HorizontalAlignment="Stretch" Padding="15,10" Grid.Column="1" Margin="0,0,111,0" />
+			<TextBlock Foreground="Black" Text="{Binding Name}" FontSize="20" Padding="15,10" Grid.Column="1" />
             <Image Margin="4,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="95" Grid.RowSpan="3" >
                 <Image.Source>
                     <Binding Path="ImageUri">
@@ -59,9 +60,9 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <Button Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,0,0" Name="button1" VerticalAlignment="Top" Width="40"/>
-            <Button Command="{Binding AddToPlanCommand}" Content="计划" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,35,52,0" Name="button2" VerticalAlignment="Top" Width="42" />
-            <Button Command="{Binding AddToFavouriteCommand}" Content="喜爱" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,4,46,0" Name="button3" VerticalAlignment="Top" Width="48" />
+            <surface:SurfaceButton Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,0,0" Name="button1" VerticalAlignment="Top" Width="58"/>
+            <surface:SurfaceButton Command="{Binding AddToPlanCommand}" Content="计划" Grid.Column="1" Height="30" HorizontalAlignment="Right" Margin="0,48,68,0" Name="button2" VerticalAlignment="Top" Width="59" />
+            <surface:SurfaceButton Command="{Binding AddToFavouriteCommand}" Content="喜爱" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,68,0" Name="button3" VerticalAlignment="Top" Width="59" />
         </Grid>
     </Grid>
 </UserControl>

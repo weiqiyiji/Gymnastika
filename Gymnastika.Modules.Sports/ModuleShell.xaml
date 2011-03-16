@@ -6,11 +6,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="540" d:DesignWidth="858" xmlns:my="clr-namespace:Gymnastika.Modules.Sports.Views">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="293*" />
-            <ColumnDefinition Width="565*" />
-        </Grid.ColumnDefinitions>
-        <my:CompositePanel x:Name="compositePanel" Grid.Column="1" />
-        <my:PlanListView x:Name="planListView1" Margin="12,0,6,12" />
+        <my:CompositePanel x:Name="compositePanel" />
+        <!--<my:PlanListView x:Name="planListView1" Grid.Column="1" />-->
     </Grid>
 </UserControl>
