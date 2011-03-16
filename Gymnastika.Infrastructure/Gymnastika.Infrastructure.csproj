@@ -87,8 +87,6 @@
     <Compile Include="DesignData\RegionItemCollection.cs" />
     <Compile Include="DesignData\StartupViewModel_Design.cs" />
     <Compile Include="DesignData\UserCollection.cs" />
-    <Compile Include="Events\DesignData\StartupViewModel_Design.cs" />
-    <Compile Include="Events\DesignData\UserCollection.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
     <Compile Include="ViewModels\NavigationItemViewModel.cs" />
     <Compile Include="ViewModels\NavigationRegionViewModel.cs" />
@@ -137,10 +135,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <DesignData Include="Events\DesignData\Users.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </DesignData>
     <DesignData Include="DesignData\NavigationRegions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -215,13 +209,6 @@
       <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
       <Name>Gymnastika.Widgets</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Events\DesignData\Images\user1.jpg" />
-    <Resource Include="Events\DesignData\Images\user2.png" />
-    <Resource Include="Events\DesignData\Images\user3.jpg" />
-    <Resource Include="Events\DesignData\Images\user4.jpg" />
-    <Resource Include="Events\DesignData\Images\user5.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\back.png" />
