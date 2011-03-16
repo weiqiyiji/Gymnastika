@@ -10,7 +10,8 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
     public interface ISportsPlanProvider : IProvider<SportsPlan>
     {
-
+        IEnumerable<SportsPlan> Fetch(DateTime date);
+        SportsPlan FetchFirstOrDefault(DateTime date);
     }
 
     public class SportsPlanProvider : ProviderBase<SportsPlan>, ISportsPlanProvider
@@ -19,5 +20,20 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             : base(repository, environment)
         {
         }
+
+
+        #region ISportsPlanProvider Members
+
+        public IEnumerable<SportsPlan> Fetch(DateTime date)
+        {
+            return Fetch(t => t.Year == date.Year && t.Month == date.Month && t.Day == date.Day);
+        }
+
+        public SportsPlan FetchFirstOrDefault(DateTime date)
+        {
+            return Fetch(date).FirstOrDefault();
+        }
+
+        #endregion
     }
 }

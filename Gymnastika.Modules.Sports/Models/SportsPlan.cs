@@ -13,13 +13,20 @@ namespace Gymnastika.Modules.Sports.Models
     {
         public SportsPlan()
         {
-            Time = DateTime.Now;
+            DateTime now = DateTime.Now;
+            Year = now.Year;
+            Month = now.Month;
+            Day = now.Day;
             SportsPlanItems = new List<SportsPlanItem>();
         }
 
         public virtual int Id { set; get; }
 
-        public virtual DateTime Time { get; set; }
+        public virtual int Year{ get; set; }
+
+        public virtual int Month { get; set; }
+
+        public virtual int Day { get; set; }
 
         public virtual int Score { get; set; }
 

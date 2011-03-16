@@ -8,14 +8,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="502" d:DesignWidth="569" 
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-             xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-             xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit" xmlns:my1="http://schemas.microsoft.com/surface/2008">
+             xmlns:my1="http://schemas.microsoft.com/surface/2008" xmlns:my2="clr-namespace:FluidKit.Experimental;assembly=FluidKit">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="104*" />
             <ColumnDefinition Width="128*" />
-            <ColumnDefinition Width="97*" />
-            <ColumnDefinition Width="153*" />
+            <ColumnDefinition Width="165*" />
+            <ColumnDefinition Width="86*" />
             <ColumnDefinition Width="86*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -23,27 +22,28 @@
             <RowDefinition Height="419*" />
             <RowDefinition Height="41*" />
         </Grid.RowDefinitions>
-        <my:AutoCompleteBox BorderBrush="Transparent" Background="Transparent" Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" Grid.ColumnSpan="2" Grid.Column="1">
+        <my2:AutoCompleteBox Background="Transparent" BorderBrush="Transparent" Grid.Column="2" ItemsSource="{Binding SportsInMemory}"  Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+            
+        </my2:AutoCompleteBox>
+
+        <!--<my:AutoCompleteBox BorderBrush="Transparent" Background="Transparent" Text="{Binding SearchName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Name="SearchBox" FilterMode="Contains" ItemsSource="{Binding Items, ElementName=sportlist}" Grid.ColumnSpan="2" Grid.Column="1">
             <my:AutoCompleteBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=Name}"/>
                 </DataTemplate>
             </my:AutoCompleteBox.ItemTemplate>
-        </my:AutoCompleteBox>
+        </my:AutoCompleteBox>-->
         <TextBlock Foreground="Black" FontSize="11" Height="41" HorizontalAlignment="Left" Name="textBlock1" Text="{Binding MaxPage}" VerticalAlignment="Top" Width="67" Grid.Row="2" />
         <TextBlock Foreground="Black" FontSize="11" Height="41" HorizontalAlignment="Right" Name="textBlock2" Text="{Binding CurrentPage}" VerticalAlignment="Top" Width="57" Margin="0,0,1,0" Grid.Row="2" Grid.Column="3" />
         <my1:SurfaceButton Background="Transparent" Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Column="3" HorizontalAlignment="Right" Width="86" />
         <my1:SurfaceButton Background="Transparent" Command="{Binding NextPageCommand}" Content="下一页" Grid.Column="4" />
         <my1:SurfaceButton Background="Transparent" Command="{Binding SearchCommand}" Content="Search" />
         <ItemsControl BorderBrush="Transparent" Background="Transparent" x:Name="sportlist" HorizontalContentAlignment="Stretch" Grid.Row="1" ItemsSource="{Binding ViewModels}" Grid.ColumnSpan="5">
-            <!--<my1:SurfaceListBox.ItemTemplate>-->
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <local:SportCardView/>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-            <!--</my1:SurfaceListBox.ItemTemplate>-->
         </ItemsControl>
-        <!--</my1:SurfaceListBox>-->
     </Grid>
 </UserControl>

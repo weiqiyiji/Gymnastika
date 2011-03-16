@@ -26,7 +26,9 @@ namespace Gymnastika.Migrations
         public void Up()
         {
             SchemaBuilder.CreateTable(TableName, t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
-                                                       .Column<DateTime>("Time")
+                                                       .Column<int>("Year")
+                                                       .Column<int>("Month")
+                                                       .Column<int>("Day")
                                                        .Column<int>("Score")
                                                        .Column<int>("UserId"));
 

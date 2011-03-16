@@ -30,5 +30,10 @@ namespace Gymnastika.Modules.Sports.Models
         public virtual int Minutes { get; set; }
 
         public virtual IList<SportsCategory> SportsCategories { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

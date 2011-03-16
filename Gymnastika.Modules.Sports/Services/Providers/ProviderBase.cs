@@ -26,6 +26,8 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         T Get(int Id);
 
+        IQueryable<T> Table { get; }
+
         int Count(Expression<Func<T, bool>> predicate);
 
         IEnumerable<T> All();
@@ -77,7 +79,7 @@ namespace Gymnastika.Modules.Sports.Services.Providers
 
         public virtual IEnumerable<T> All()
         {
-            return Fetch(null);
+            return Table.ToList();
         }
 
         public IWorkContextScope GetContextScope()
@@ -109,6 +111,13 @@ namespace Gymnastika.Modules.Sports.Services.Providers
             return _repository.Get(Id);
         }
 
+        public IQueryable<T> Table
+        {
+            get
+            {
+                return _repository.Table;
+            }
+        }
         #endregion
     }
 }

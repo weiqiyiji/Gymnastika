@@ -18,7 +18,6 @@ using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Modules.Sports.DataImport.Importers;
 using Gymnastika.Modules.Sports.DataImport.Sources;
 using Gymnastika.Modules.Sports.DataImport;
-using Gymnastika.Modules.Sports.Temporary.Widget;
 using Gymnastika.Modules.Sports.Widget;
 using Gymnastika.Common.Navigation;
 
@@ -67,6 +66,13 @@ namespace Gymnastika.Modules.Sports
                     Header = "运动计划",
                     ViewName = "SportsPlan",
                     ViewResolver = () => _container.Resolve<CalendarView>()
+                });
+            _navigationManager.Regions[ModuleRegionNames.SportManagementRegion].Add(
+                new NavigationDescriptor()
+                {
+                    Header = "运动面板",
+                    ViewName = "SportsPanel",
+                    ViewResolver = () => _container.Resolve<ModuleShell>()
                 });
         }
 
@@ -128,6 +134,7 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()
                 .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>()
                 .RegisterType<IPlanListViewModel, PlanListViewModel>()
+                .RegisterType<ICalendarViewModel,CalendarViewModel>()
 
                 //Views
                 .RegisterType<ISportsPanelView, SportsPanelView>()
@@ -135,7 +142,7 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportsPlanView, SportsPlanView>()
                 .RegisterType<IPlanListView, PlanListView>()
 
-                .RegisterType < CalendarView>(new ContainerControlledLifetimeManager())
+                .RegisterType<CalendarView>(new ContainerControlledLifetimeManager())
 
                 .RegisterType<ModuleShell>(new ContainerControlledLifetimeManager());
         }

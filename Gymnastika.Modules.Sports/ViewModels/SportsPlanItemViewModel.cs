@@ -23,7 +23,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         String SportName { get; }
 
-        DateTime Time { get; }
+        int Hour { get; set; }
+
+        int Minute { get; set; }
 
         bool Completed { get; }
 
@@ -71,15 +73,30 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get { return Item.Sport; }
         }
 
-        public DateTime Time
-        {
-            get { return Item.Time; }
+        public int Hour 
+        { 
+            get{return Item.Hour;}
             set
             {
-                if (value != Item.Time)
+                if (value != Item.Hour)
                 {
-                    Item.Time = value;
-                    RaisePropertyChanged(() => Time);
+                    Item.Hour = value;
+                    RaisePropertyChanged(() => Hour);
+                }
+            }
+        }
+
+
+
+        public int Minute
+        {
+            get { return Item.Minute; }
+            set
+            {
+                if (value != Item.Minute)
+                {
+                    Item.Minute = value;
+                    RaisePropertyChanged(() => Minute);
                 }
             }
         }

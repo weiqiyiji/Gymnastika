@@ -1,5 +1,0 @@
-﻿<SportsPlanItem xmlns="clr-namespace:Gymnastika.Modules.Sports.Models" Time="9:30" Completed="False" Duration="30" >
-            <SportsPlanItem.Sport>
-                <Sport Calories="200" Minutes="10" Brief="神马" ImageUri="/Gymnastika.Modules.Sports;component/DesignData/Images/1.jpg" Name="浮云"/>
-            </SportsPlanItem.Sport>
-</SportsPlanItem>

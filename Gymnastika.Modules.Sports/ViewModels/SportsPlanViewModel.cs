@@ -38,8 +38,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         DelegateCommand CancelCommand { get; }
 
-        DateTime Time { get; }
-
         string Date { get; }
 
         SportsPlan SportsPlan { get; }
@@ -66,13 +64,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public string Date
         {
-            get { return Time.ToString("yyyy年MM月dd日"); }
+            get { return String.Format("{0}年{1}月{2}日", SportsPlan.Year, SportsPlan.Month, SportsPlan.Day); }// Time.ToString("yyyy年MM月dd日"); }
         }
 
-        public DateTime Time
-        {
-            get { return SportsPlan.Time; }
-        }
 
         double? _totalCalories = 0;
         public double? TotalCalories
