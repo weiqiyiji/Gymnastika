@@ -6,7 +6,14 @@
              mc:Ignorable="d" 
              d:DesignHeight="490" d:DesignWidth="763"
              xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-             xmlns:module="clr-namespace:Gymnastika.Modules.Sports" BorderBrush="Transparent" BorderThickness="1" xmlns:my="clr-namespace:Gymnastika.Modules.Meals.Views;assembly=Gymnastika.Modules.Meals" xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views" xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit" xmlns:my3="http://schemas.microsoft.com/surface/2008" Background="#EEEEEE"
+             xmlns:module="clr-namespace:Gymnastika.Modules.Sports" 
+             BorderBrush="Transparent" 
+             BorderThickness="1" 
+             xmlns:my="clr-namespace:Gymnastika.Modules.Meals.Views;assembly=Gymnastika.Modules.Meals" 
+             xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views" 
+             xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit"
+             xmlns:my3="http://schemas.microsoft.com/surface/2008"
+             Background="Transparent"
              >
     <Grid>
         <Grid.RowDefinitions>

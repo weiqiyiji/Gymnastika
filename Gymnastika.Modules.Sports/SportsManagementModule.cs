@@ -20,6 +20,7 @@ using Gymnastika.Modules.Sports.DataImport.Sources;
 using Gymnastika.Modules.Sports.DataImport;
 using Gymnastika.Modules.Sports.Temporary.Widget;
 using Gymnastika.Modules.Sports.Widget;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -29,12 +30,17 @@ namespace Gymnastika.Modules.Sports
         readonly private IUnityContainer _container;
         readonly private IWidgetManager _widgetManager;
         readonly private INavigationManager _navigationManager;
-        public SportsManagementModule(IUnityContainer container, IRegionManager regionManager,IWidgetManager widgetManager,INavigationManager navigationManager)
+        readonly private INavigationService _navigationService;
+        public SportsManagementModule
+            (IUnityContainer container, IRegionManager regionManager,
+            IWidgetManager widgetManager,INavigationManager navigationManager,
+            INavigationService navigationService)
         {
             _regionManager = regionManager;
             _container = container;
             _widgetManager = widgetManager;
             _navigationManager = navigationManager;
+            _navigationService = navigationService;
         }
 
         #region IModule Members
@@ -54,23 +60,16 @@ namespace Gymnastika.Modules.Sports
 
         private void RegisterNavigations()
         {
-            _navigationManager.AddIfMissing(new NavigationDescriptor()
-            {
-                Label = "运动",
-                RegionName = RegionNames.MainRegion,
-                ViewName = "",
-                ViewType = typeof(ModuleShell)
-            });
+            _navigationManager.AddRegionIfMissing(ModuleRegionNames.SportManagementRegion, "运动");
+            _navigationManager.Regions[ModuleRegionNames.SportManagementRegion].Add(
+                new NavigationDescriptor()
+                {
+                    Header = "运动计划",
+                    ViewName = "SportsPlan",
+                    ViewResolver = () => _container.Resolve<CalendarView>()
+                });
         }
 
-
-        private void RegisterViews()
-        {
-            //_regionManager.RegisterViewWithRegion(RegionNames.DisplayRegion, typeof(ModuleShell));
-            //_regionManager.RegisterViewWithRegion(ModuleRegionNames.CategoryRegion, typeof(ICategoriesPanelView))
-            //              .RegisterViewWithRegion(ModuleRegionNames.PlanRegion, typeof(ISportsPlanView))
-            //              .RegisterViewWithRegion(ModuleRegionNames.SportRegion, typeof(ISportsPanelView));
-        }
 
 
 
@@ -122,6 +121,8 @@ namespace Gymnastika.Modules.Sports
                 .RegisterInstance<ISportsPlanItemViewModelFactory>(new SportsPlanItemViewModelFactory())
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
                 .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
+                .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
+
                 //ViewModels
                 .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>()
                 .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()
@@ -132,7 +133,11 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportsPanelView, SportsPanelView>()
                 .RegisterType<ICategoriesPanelView, CategoriesPanelView>()
                 .RegisterType<ISportsPlanView, SportsPlanView>()
-                .RegisterType<IPlanListView, PlanListView>();
+                .RegisterType<IPlanListView, PlanListView>()
+
+                .RegisterType < CalendarView>(new ContainerControlledLifetimeManager())
+
+                .RegisterType<ModuleShell>(new ContainerControlledLifetimeManager());
         }
 
         #endregion

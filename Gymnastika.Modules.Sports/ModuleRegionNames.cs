@@ -7,6 +7,8 @@ namespace Gymnastika.Modules.Sports
 {
     public static class ModuleRegionNames
     {
+        public const string SportManagementRegion = "SportManagementRegion";
+
         public const string SportRegion = "SportRegion";
         public const string PlanRegion = "PlanRegion";
         public const string CategoryRegion = "CategoryRegion";

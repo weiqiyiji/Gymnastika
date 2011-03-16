@@ -47,13 +47,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
-        //IEventAggregator _aggregator;
         ISportsPlanItemViewModelFactory _factory;
         ISportsPlanProvider _planProvider;
         IPlanItemProvider _itemProvider;
-
-        public SportsPlanViewModel(SportsPlan plan,ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory)
+        ISportProvider _sportProvider;
+        public SportsPlanViewModel(SportsPlan plan,ISportProvider sportProvider,ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory)
         {
+            _sportProvider = sportProvider;
             _planProvider = planProvider;
             _itemProvider = itemProvider;
             _factory = factory;
@@ -122,7 +122,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (value != null && value != _sportsPlan)
                 {
                     _sportsPlan = value;
-                    SportsPlanItemViewModels.ReplaceBy(CreateViewmodels(_sportsPlan.SportsPlanItems));
+                    SportsPlanItemViewModels.ReplaceBy(InitViewModels(_sportsPlan));
                     RaisePropertyChanged(() => SportsPlan);
                 }
             }
@@ -134,9 +134,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
            using (_itemProvider.GetContextScope())
            {
                items = _itemProvider.Fetch((t) => t.SportsPlan.Id == plan.Id).ToList();
+               foreach (var item in items)
+                   item.Sport = _sportProvider.Get(item.Sport.Id);
            }
-
-           ItemsBuffer = items;
            return CreateViewmodels(items);
        }
 
@@ -226,10 +226,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             object target = dropInfo.TargetItem;
             SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
             ISportsPlanItemViewModel viewmodel = CreateViewmodel(item);
-            if (target == null)
-                SportsPlanItemViewModels.Add(viewmodel);
-            else
-                SportsPlanItemViewModels.Insert(dropInfo.InsertIndex, viewmodel);
+            SportsPlanItemViewModels.Add(viewmodel);
         }
 
 

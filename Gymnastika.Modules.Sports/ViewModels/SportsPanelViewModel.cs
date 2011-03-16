@@ -162,8 +162,20 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        IList<Sport> LoadSportsFromRepository(SportsCategory category)
+        {
+            if (category == null)
+                return new List<Sport>();
+            using (_sportProvider.GetContextScope())
+            {
+                var list = _sportProvider.Fetch(t => t.SportsCategories.Contains(category)).ToList();
+                return list.ToList();
+            }
+        }
+
         private void Refresh()
         {
+            SportsInMemory = LoadSportsFromRepository(Category);
             Count = GetCount(Filter);
             MaxPage = GetPageNumber(Count);
             GotoPage(1);
@@ -180,16 +192,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
             return Count / MaxItemsPerPage + ((Count != 0 && Count % MaxItemsPerPage != 0) ? 1 : 0);
         }
 
-        
-
-        int GetCount(Func<Sport,bool> predicate)
-        {
-            using (_sportProvider.GetContextScope())
-            {
-                return _sportProvider.Count(predicate);
-            }
-        }
-
         bool CanGotoPage(int page)
         {
             return page <= MaxPage && page >= 1;
@@ -200,19 +202,34 @@ namespace Gymnastika.Modules.Sports.ViewModels
             return (page - 1) * MaxItemsPerPage;
         }
 
+        IList<Sport> _sportsInMemory;
+        IList<Sport> SportsInMemory 
+        {
+            get { return _sportsInMemory; }
+            set { _sportsInMemory = value; }
+        }
+
+        Func<Sport,bool> InvalidatePredicate(Func<Sport,bool> predicate)
+        {
+            if (predicate == null)
+                predicate = t => true;
+            return predicate;
+        }
+        int GetCount(Func<Sport, bool> predicate)
+        {
+            return SportsInMemory.Count(InvalidatePredicate(predicate));
+        }
+
         ObservableCollection<Sport> Fetch(int start, int number, Func<Sport,bool> predicate)
         {
-            return _sportProvider.Fetch(start, number, predicate).ToObservableCollection();
+            return SportsInMemory.Where(InvalidatePredicate(predicate)).Skip(start).Take(number).ToObservableCollection();
         }
 
         private bool GotoPage(int page)
         {
             if (CanGotoPage(page))
             {
-                using(_sportProvider.GetContextScope())
-                {
-                    CurrentSports = Fetch(GetIndexByPage(page), MaxItemsPerPage, Filter);
-                }
+                CurrentSports = Fetch(GetIndexByPage(page), MaxItemsPerPage, Filter);
                 CurrentPage = page;
                 UpdateCommandState();
                 return true;
