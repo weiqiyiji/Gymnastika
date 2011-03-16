@@ -52,6 +52,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
             DietPlanSubList.Add(foodItem);
 
             SubTotalCalories += foodItem.Calories;
+
+            //LoadNutritionData();
+
+            //OnDietPlanListPropertyChanged();
         }
 
         public event EventHandler DietPlanListPropertyChanged;
@@ -82,30 +86,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 Refresh(foodItem);
                 SubTotalCalories += foodItem.Calories;
 
-                Nutritions = new List<NutritionalElement>();
-
-                for (int i = 0; i < DietPlanSubList.Count; i++)
-                {
-                    if (i == 0)
-                    {
-                        for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
-                        {
-                            Nutritions.Add(new NutritionalElement
-                            {
-                                Name = DietPlanSubList[i].Nutritions[j].Name,
-                                Value = DietPlanSubList[i].Nutritions[j].Value
-                            });
-                        }
-                    }
-                    else
-                    {
-                        if (DietPlanSubList[i].Nutritions == null) continue;
-                        for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
-                        {
-                            Nutritions[j].Value += DietPlanSubList[i].Nutritions[j].Value;
-                        }
-                    }
-                }
+                LoadNutritionData();
 
                 OnDietPlanListPropertyChanged();
             }
@@ -116,6 +97,34 @@ namespace Gymnastika.Modules.Meals.ViewModels
         }
 
         #endregion
+
+        private void LoadNutritionData()
+        {
+            Nutritions = new List<NutritionalElement>();
+
+            for (int i = 0; i < DietPlanSubList.Count; i++)
+            {
+                if (i == 0)
+                {
+                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                    {
+                        Nutritions.Add(new NutritionalElement
+                        {
+                            Name = DietPlanSubList[i].Nutritions[j].Name,
+                            Value = DietPlanSubList[i].Nutritions[j].Value
+                        });
+                    }
+                }
+                else
+                {
+                    if (DietPlanSubList[i].Nutritions == null) continue;
+                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                    {
+                        Nutritions[j].Value += DietPlanSubList[i].Nutritions[j].Value;
+                    }
+                }
+            }
+        }
 
         private void DeleteFoodFromPlan(object sender, EventArgs e)
         {
@@ -137,6 +146,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             {
                 Nutritions[i].Value -= foodItem.Nutritions[i].Value;
             }
+
+            OnDietPlanListPropertyChanged();
         }
 
         private void OnDietPlanListPropertyChanged()
@@ -156,29 +167,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             SubTotalCalories = subTotalCalories;
 
-            Nutritions = new List<NutritionalElement>();
-
-            for (int i = 0; i < DietPlanSubList.Count; i++)
-            {
-                if (i == 0)
-                {
-                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
-                    {
-                        Nutritions.Add(new NutritionalElement
-                        {
-                            Name = DietPlanSubList[i].Nutritions[j].Name,
-                            Value = DietPlanSubList[i].Nutritions[j].Value
-                        });
-                    }
-                }
-                else
-                {
-                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
-                    {
-                        Nutritions[j].Value += DietPlanSubList[i].Nutritions[j].Value;
-                    }
-                }
-            }
+            LoadNutritionData();
 
             OnDietPlanListPropertyChanged();
         }

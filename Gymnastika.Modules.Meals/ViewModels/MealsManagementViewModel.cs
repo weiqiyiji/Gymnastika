@@ -130,20 +130,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        private bool ValidateExistSavedDietPlans()
-        {
-            int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+        //private bool ValidateExistSavedDietPlans()
+        //{
+        //    int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
 
-            IEnumerable<DietPlan> savedDietPlans;
-            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            {
-                savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
-            }
+        //    IEnumerable<DietPlan> savedDietPlans;
+        //    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+        //    {
+        //        savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
+        //    }
 
-            if (savedDietPlans.Count() != 0) return true;
+        //    if (savedDietPlans.Count() != 0) return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
         private void InitializeSavedDietPlanViewModel()
         {
@@ -234,23 +234,5 @@ namespace Gymnastika.Modules.Meals.ViewModels
             selectDietPlanViewModel.View.ShowView();
             selectDietPlanViewModel.DietPlanListViewModel.View.ExpandAll();
         }
-
-        #region INavigationAware Members
-
-        public bool IsNavigationTarget(NavigationContext navigationContext)
-        {
-            return true;
-        }
-
-        public void OnNavigatedFrom(NavigationContext navigationContext)
-        {
-        }
-
-        public void OnNavigatedTo(NavigationContext navigationContext)
-        {
-            
-        }
-
-        #endregion
     }
 }

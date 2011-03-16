@@ -13,10 +13,11 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ContentControl Content="{Binding DietPlanListViewModel.View}" HorizontalAlignment="Center" />
-        <controls:DatePicker SelectedDate="{Binding CreatedDate}" Grid.Row="1" HorizontalAlignment="Center" />
-        <surface:SurfaceButton Content="保存" Command="{Binding SaveCommand}" Grid.Row="2" HorizontalAlignment="Center" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <controls:DatePicker SelectedDate="{Binding CreatedDate}" HorizontalAlignment="Center" />
+            <surface:SurfaceButton Content="保存" Command="{Binding SaveCommand}" HorizontalAlignment="Center" />
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -83,12 +83,9 @@
     <Compile Include="Controllers\LoadDataController.cs" />
     <Compile Include="Controls\ChartRowTemplateSelector.cs" />
     <Compile Include="Controls\FoodListItemStyleSelector.cs" />
-    <Compile Include="Converters\CalorieToWidthConverter.cs" />
-    <Compile Include="Converters\CarbohydrateToWidthConverter.cs" />
     <Compile Include="Converters\DecimalConverter.cs" />
-    <Compile Include="Converters\FatToWidthConverter.cs" />
     <Compile Include="Converters\TextConverter.cs" />
-    <Compile Include="Converters\ProteinToWidthConverter.cs" />
+    <Compile Include="Converters\WidthToBackgroundConverter.cs" />
     <Compile Include="Events\FoodItemNutritionChangeEvent.cs" />
     <Compile Include="Events\SelectCategoryEvent.cs" />
     <Compile Include="Events\DietPlanNutritionChangeEvent.cs" />
@@ -161,6 +158,7 @@
     <Compile Include="ViewModels\IFoodDetailViewModel.cs" />
     <Compile Include="ViewModels\IFoodListViewModel.cs" />
     <Compile Include="ViewModels\IMealsManagementViewModel.cs" />
+    <Compile Include="ViewModels\INutritionChartItemViewModel.cs" />
     <Compile Include="ViewModels\INutritionChartViewModel.cs" />
     <Compile Include="ViewModels\ISelectDietPlanViewModel.cs" />
     <Compile Include="ViewModels\MealsManagementViewModel.cs" />
@@ -200,6 +198,7 @@
     <Compile Include="Views\IFoodDetailView.cs" />
     <Compile Include="Views\IFoodListView.cs" />
     <Compile Include="Views\IMealsManagementView.cs" />
+    <Compile Include="Views\INutritionChartItemView.cs" />
     <Compile Include="Views\INutritionChartView.cs" />
     <Compile Include="Views\ISelectDietPlanView.cs" />
     <Compile Include="Views\LoadDataView.xaml.cs">
@@ -207,6 +206,9 @@
     </Compile>
     <Compile Include="Views\MealsManagementView.xaml.cs">
       <DependentUpon>MealsManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NutritionChartItemView.xaml.cs">
+      <DependentUpon>NutritionChartItemView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NutritionChartView.xaml.cs">
       <DependentUpon>NutritionChartView.xaml</DependentUpon>

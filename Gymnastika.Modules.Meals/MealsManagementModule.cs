@@ -80,7 +80,8 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IBMIIntroductionView, BMIIntroductionView>()
                 .RegisterType<ICategoryListView, CategoryListView>()
                 .RegisterType<ICategoryItemView, CategoryItemView>()
-                .RegisterType<INutritionChartView, NutritionChartView>();
+                .RegisterType<INutritionChartView, NutritionChartView>()
+                .RegisterType<INutritionChartItemView, NutritionChartItemView>();
         }
 
         private void RegisterViewModels()
@@ -94,7 +95,8 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<ISelectDietPlanViewModel, SelectDietPlanViewModel>()
                 .RegisterType<ICategoryListViewModel, CategoryListViewModel>()
                 .RegisterType<ICategoryItemViewModel, CategoryItemViewModel>()
-                .RegisterType<INutritionChartViewModel, NutritionChartViewModel>();
+                .RegisterType<INutritionChartViewModel, NutritionChartViewModel>()
+                .RegisterType<INutritionChartItemViewModel, NutritionChartItemViewModel>();
         }
 
         private void RegisterViewWithRegion()

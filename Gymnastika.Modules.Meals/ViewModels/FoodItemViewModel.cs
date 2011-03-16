@@ -24,6 +24,21 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public FoodItemViewModel(Food food)
         {
             Food = food;
+            Nutritions = new List<NutritionalElement>();
+            var workEnvironment = ServiceLocator.Current.GetInstance<IWorkEnvironment>();
+            var foodService = ServiceLocator.Current.GetInstance<IFoodService>();
+            using (var scope = workEnvironment.GetWorkContextScope())
+            {
+                NutritionalElements = foodService.NutritionalElementProvider.GetNutritionalElements(Food, 0, 4);
+                for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+                {
+                    Nutritions.Add(new NutritionalElement
+                    {
+                        Name = NutritionalElements.ToList()[i].Name,
+                        Value = NutritionalElements.ToList()[i].Value
+                    });
+                }
+            }
             Amount = 100;
             ChangeMyFavoriteButtonContent = "+ 收藏";
         }
@@ -67,20 +82,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     _amount = value;
                     RaisePropertyChanged("Amount");
                     Calories = Calorie * Amount / 100;
-                    Nutritions = new List<NutritionalElement>();
-                    var workEnvironment = ServiceLocator.Current.GetInstance<IWorkEnvironment>();
-                    var foodService = ServiceLocator.Current.GetInstance<IFoodService>();
-                    using (var scope = workEnvironment.GetWorkContextScope())
+                    for (int i = 0; i < NutritionalElements.ToList().Count; i++)
                     {
-                        NutritionalElements = foodService.NutritionalElementProvider.GetNutritionalElements(Food);
-                        for (int i = 0; i < NutritionalElements.ToList().Count; i++)
-                        {
-                            Nutritions.Add(new NutritionalElement
-                            {
-                                Name = NutritionalElements.ToList()[i].Name,
-                                Value = NutritionalElements.ToList()[i].Value * Amount / 100
-                            });
-                        }
+                        Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
+                        Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
                     }
                     OnDietPlanSubListPropertyChanged();
                 }

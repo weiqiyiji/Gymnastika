@@ -436,11 +436,11 @@
                 </Grid.ColumnDefinitions>
                 <surface:SurfaceButton x:Name="PreviousPageButtion" Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="Black">
-                    <Run Text="第" />
+                    <TextBlock Text="第" />
                     <TextBlock Text="{Binding CurrentPage}" />
-                    <Run Text="/" />
+                    <TextBlock Text="/" />
                     <TextBlock Text="{Binding PageCount}" />
-                    <Run Text="页" />
+                    <TextBlock Text="页" />
                 </TextBlock>
                 <surface:SurfaceButton x:Name="NextPageButton" Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
             </Grid>
