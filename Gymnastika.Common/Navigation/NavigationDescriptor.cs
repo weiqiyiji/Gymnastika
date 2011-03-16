@@ -18,5 +18,7 @@ namespace Gymnastika.Common.Navigation
         public string Header { get; set; }
         public string ViewName { get; set; }
         public Func<FrameworkElement> ViewResolver { get; set; }
+        public IList<ViewState> States { get; set; }
+        public StateChangingHandler StateChanging { get; set; }
     }
 }

@@ -91,6 +91,7 @@
     <Compile Include="ViewModels\NavigationItemViewModel.cs" />
     <Compile Include="ViewModels\NavigationRegionViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
+    <Compile Include="ViewModels\StateNavigationViewModel.cs" />
     <Compile Include="ViewModels\UserProfileManagementViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="Controllers\IStartupController.cs" />

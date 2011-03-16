@@ -67,7 +67,8 @@ namespace Gymnastika.ViewModels
                     {
                         ViewName = "WidgetView",
                         Header = "主 页",
-                        ViewResolver = () => _container.Resolve<DefaultWidgetPanel>()
+                        ViewResolver = () => _container.Resolve<DefaultWidgetPanel>(),
+                        States = new List<ViewState>() { new ViewState() { Header = "haha", Name = "Test" } }
                     });
 
             normalRegion.Add(
