@@ -80,6 +80,11 @@
     <Compile Include="Controllers\IMainController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Converters\GenderToBoolConverter.cs" />
+    <Compile Include="DesignData\NavigationRegion.cs" />
+    <Compile Include="DesignData\NavigationViewModel.cs" />
+    <Compile Include="DesignData\RegionCollection.cs" />
+    <Compile Include="DesignData\RegionItem.cs" />
+    <Compile Include="DesignData\RegionItemCollection.cs" />
     <Compile Include="DesignData\StartupViewModel_Design.cs" />
     <Compile Include="DesignData\UserCollection.cs" />
     <Compile Include="Events\LogOnSuccessEvent.cs" />
@@ -131,6 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <DesignData Include="DesignData\Users.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </DesignData>
+    <DesignData Include="DesignData\NavigationRegions.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </DesignData>

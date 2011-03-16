@@ -48,12 +48,32 @@ namespace Gymnastika.Common.Navigation
                 descriptor = region.Activate(viewName);
             }
 
+            OnNavigationStart(_previousDescriptor, descriptor);
+
             if (_previousDescriptor != null && _previousDescriptor.ViewName != descriptor.ViewName)
             {
                 Presenter.ApplyTransition(_previousDescriptor.ViewResolver(), descriptor.ViewResolver());
             }
-            
+
+            OnNavigationCompleted(_previousDescriptor, descriptor);
+
             _previousDescriptor = descriptor;
+        }
+
+        public event NavigationHandler NavigationStart;
+
+        public event NavigationHandler NavigationCompleted;
+
+        private void OnNavigationStart(NavigationDescriptor sourceDescriptor, NavigationDescriptor targetDescriptor)
+        {
+            if (NavigationStart != null)
+                NavigationStart(this, new NavigationEventArgs(sourceDescriptor, targetDescriptor));
+        }
+
+        private void OnNavigationCompleted(NavigationDescriptor sourceDescriptor, NavigationDescriptor targetDescriptor)
+        {
+            if (NavigationCompleted != null)
+                NavigationCompleted(this, new NavigationEventArgs(sourceDescriptor, targetDescriptor));
         }
 
         #endregion
