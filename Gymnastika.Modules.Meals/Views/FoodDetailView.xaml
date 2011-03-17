@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
-             xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Window.Resources>
@@ -13,11 +12,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Border BorderThickness="1" Width="202" Height="202" CornerRadius="4" Margin="2">
             <Image Width="200" Height="200" Source="{Binding ImageUri}">
@@ -42,23 +41,18 @@
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>-->
-            <chartingToolkit:Chart Title="Typical Use">
-                <chartingToolkit:Chart.Series>
-                    <chartingToolkit:BarSeries Title="Population" ItemsSource="{Binding NutritionalElements}"  IndependentValueBinding="{Binding Name}" DependentValueBinding="{Binding Value}"></chartingToolkit:BarSeries>
-                </chartingToolkit:Chart.Series>
-            </chartingToolkit:Chart>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock Text="{Binding Name}" />
             <TextBlock>
-                <Run Text="热量：" />
+                <TextBlock Text="热量：" />
                 <TextBlock Text="{Binding Calorie}" />
-                <Run Text="大卡" />
+                <TextBlock Text="大卡" />
             </TextBlock>
             <TextBlock>
-                <Run Text="分类：" />
+                <TextBlock Text="分类：" />
                 <TextBlock Text="{Binding CategoryName}" />
-                <Run Text="， " />
+                <TextBlock Text="， " />
                 <TextBlock Text="{Binding SubCategoryName}" />
             </TextBlock>
         </StackPanel>

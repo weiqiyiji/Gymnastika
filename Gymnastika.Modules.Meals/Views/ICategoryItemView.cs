@@ -7,9 +7,9 @@ using System.Windows.Controls;
 
 namespace Gymnastika.Modules.Meals.Views
 {
-    public interface IFoodListView
+    public interface ICategoryItemView
     {
-        IFoodListViewModel Context { get; set; }
-        event SelectionChangedEventHandler FoodItemSelectionChanged;
+        ICategoryItemViewModel Context { get; set; }
+        event SelectionChangedEventHandler SubCategoryItemSelectionChanged;
     }
 }

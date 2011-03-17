@@ -12,26 +12,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Meals.ViewModels;
+using System.Windows.Media.Animation;
 
 namespace Gymnastika.Modules.Meals.Views
 {
     /// <summary>
-    /// Interaction logic for FoodListView.xaml
+    /// Interaction logic for NutritionChartItemView.xaml
     /// </summary>
-    public partial class FoodListView : IFoodListView
+    public partial class NutritionChartItemView : INutritionChartItemView
     {
-        public FoodListView()
+        public NutritionChartItemView()
         {
             InitializeComponent();
         }
 
-        #region IFoodListView Members
+        #region INutritionChartItemView Members
 
-        public IFoodListViewModel Context
+        public INutritionChartItemViewModel Context
         {
             get
             {
-                return this.DataContext as IFoodListViewModel;
+                return this.DataContext as INutritionChartItemViewModel;  
             }
             set
             {
@@ -39,14 +40,6 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
-        public event SelectionChangedEventHandler FoodItemSelectionChanged;
-
         #endregion
-
-        private void FoodList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (FoodItemSelectionChanged != null)
-                FoodItemSelectionChanged(sender, e);
-        }
     }
 }

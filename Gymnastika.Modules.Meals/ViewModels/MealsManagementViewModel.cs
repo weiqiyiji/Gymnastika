@@ -15,6 +15,8 @@ using Gymnastika.Services.Session;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using Gymnastika.Data;
+using Microsoft.Practices.Prism.Regions;
+using Gymnastika.Common;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -31,15 +33,19 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public MealsManagementViewModel(
             IMealsManagementView view,
+            ICategoryListViewModel categoryListViewModel,
             IFoodListViewModel foodListViewModel,
             ICreateDietPlanViewModel createDietPlanViewModel,
+            INutritionChartViewModel nutritionChartViewModel,
             IFoodService foodService,
             IWorkEnvironment workEnvironment,
             ISessionManager sessionManager,
             IUnityContainer container)
         {
+            CategoryListViewModel = categoryListViewModel;
             FoodListViewModel = foodListViewModel;
             CreateDietPlanViewModel = createDietPlanViewModel;
+            NutritionChartViewModel = nutritionChartViewModel;
             _foodService = foodService;
             _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
@@ -110,6 +116,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICollection<Food> SearchResults { get; set; }
 
+        public ICategoryListViewModel CategoryListViewModel { get; set; }
+
         public IFoodListViewModel FoodListViewModel { get; set; }
 
         public ICreateDietPlanViewModel CreateDietPlanViewModel { get; set; }
@@ -118,22 +126,24 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ISelectDietPlanViewModel RecommendedDietPlanViewModel { get; set; }
 
+        public INutritionChartViewModel NutritionChartViewModel { get; set; }
+
         #endregion
 
-        private bool ValidateExistSavedDietPlans()
-        {
-            int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
+        //private bool ValidateExistSavedDietPlans()
+        //{
+        //    int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
 
-            IEnumerable<DietPlan> savedDietPlans;
-            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            {
-                savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
-            }
+        //    IEnumerable<DietPlan> savedDietPlans;
+        //    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+        //    {
+        //        savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
+        //    }
 
-            if (savedDietPlans.Count() != 0) return true;
+        //    if (savedDietPlans.Count() != 0) return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
         private void InitializeSavedDietPlanViewModel()
         {

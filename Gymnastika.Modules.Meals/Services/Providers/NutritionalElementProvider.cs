@@ -33,6 +33,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Fetch(ne => ne.Food == food);
         }
 
+        public IEnumerable<NutritionalElement> GetNutritionalElements(Food food, int skip, int count)
+        {
+            return _repository.Fetch(ne => ne.Food == food, one => one.Asc(ne => ne.Id), skip, count);
+        }
+
         #endregion
     }
 }

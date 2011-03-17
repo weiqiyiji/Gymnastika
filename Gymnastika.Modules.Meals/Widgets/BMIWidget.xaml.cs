@@ -20,6 +20,7 @@ using Gymnastika.Modules.Meals.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Modules.Meals.Controllers;
 using Microsoft.Practices.Unity;
+using Gymnastika.Common;
 
 namespace Gymnastika.Modules.Meals.Widgets
 {
@@ -30,6 +31,7 @@ namespace Gymnastika.Modules.Meals.Widgets
     public partial class BMIWidget : IWidget
     {
         private readonly ISessionManager _sessionManager;
+        private readonly IUnityContainer _container;
         private readonly User _user;
         private readonly int _height;
         private readonly int _weight;
@@ -39,7 +41,8 @@ namespace Gymnastika.Modules.Meals.Widgets
         //private readonly ILoadDataController _loadDataController;
 
         public BMIWidget(ISessionManager sessionManager,
-            IRegionManager regionManager
+            IRegionManager regionManager,
+            IUnityContainer container
             //,ILoadDataController loadDataController
             )
         {
@@ -47,11 +50,15 @@ namespace Gymnastika.Modules.Meals.Widgets
 
             //_loadDataController = loadDataController;
 
+            _container = container;
             _sessionManager = sessionManager;
             _regionManager = regionManager;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _height = _user.Height;
             _weight = _user.Weight;
+
+            IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            _regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
         }
 
         #region IWidget Members
@@ -114,17 +121,14 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void BMIIntroduction_Click(object sender, RoutedEventArgs e)
         {
-            IBMIIntroductionView BMIIntroductionView = Microsoft.Practices.ServiceLocation.ServiceLocator.Current.GetInstance<IBMIIntroductionView>();
+            IBMIIntroductionView BMIIntroductionView = _container.Resolve<IBMIIntroductionView>();
             BMIIntroductionView.ShowView();
         }
 
         private void TestButton_Click(object sender, RoutedEventArgs e)
         {
-            IRegion displayRegion = _regionManager.Regions[Gymnastika.Common.RegionNames.DisplayRegion];
-
-            IMealsManagementViewModel mealsManagementViewModel = ServiceLocator.Current.GetInstance<IMealsManagementViewModel>();
-            displayRegion.Add(mealsManagementViewModel.View);
-            displayRegion.Activate(mealsManagementViewModel.View);
+            IRegion mainRegion = _regionManager.Regions[RegionNames.MainRegion];
+            mainRegion.RequestNavigate(new Uri("MealsManagementView", UriKind.Relative)); 
         }
 
         //private void Button_Click(object sender, RoutedEventArgs e)

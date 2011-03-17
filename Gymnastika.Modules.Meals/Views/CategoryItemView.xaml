@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.CategoryItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" Background="Red"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        
+        <LinearGradientBrush x:Key="ItemBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+            <GradientStop Color="#E5F4F9F9" Offset="0.5"/>
+            <GradientStop Color="#E5E2F2F7" Offset="1"/>
+        </LinearGradientBrush>
+
+        <LinearGradientBrush x:Key="SelectedItemBackground" EndPoint="0.5,1" StartPoint="0.5,0">
+            <GradientStop Color="#FFFFFF" Offset="0"/>
+            <GradientStop Color="#E5F4F9F9" Offset="0.5"/>
+            <GradientStop Color="#DE9ABAD4" Offset="1"/>
+        </LinearGradientBrush>
+        
+        <ControlTemplate x:Key="ItemContainerTemplate" TargetType="{x:Type ListBoxItem}">
+            <Border CornerRadius="4" BorderThickness="1" Height="20" Width="80">
+                <ContentPresenter />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Black" />
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="false">
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style x:Key="ItemContainerStyle" TargetType="{x:Type ListBoxItem}">
+            <Setter Property="Template" Value="{StaticResource ItemContainerTemplate}" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="{StaticResource ItemBackground}" />
+            <Style.Triggers>
+                <Trigger Property="ListBoxItem.IsSelected" Value="True">
+                    <Setter Property="ListBoxItem.Background" Value="{StaticResource SelectedItemBackground}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ItemContainerStyle" Value="{StaticResource ItemContainerStyle}" />
+        </Style>
+        
+    </UserControl.Resources>
+
+    <ListBox x:Name="SubCateogyrListBox" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding SubCategoryItems}"
+             DisplayMemberPath="Name" SelectionChanged="SubCateogyrListBox_SelectionChanged" />
+</UserControl>

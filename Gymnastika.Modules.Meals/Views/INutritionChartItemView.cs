@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Gymnastika.Modules.Meals.ViewModels;
-using System.Windows.Controls;
+using System.Windows.Media.Animation;
 
 namespace Gymnastika.Modules.Meals.Views
 {
-    public interface IFoodListView
+    public interface INutritionChartItemView
     {
-        IFoodListViewModel Context { get; set; }
-        event SelectionChangedEventHandler FoodItemSelectionChanged;
+        INutritionChartItemViewModel Context { get; set; }
     }
 }
