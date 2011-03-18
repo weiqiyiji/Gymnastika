@@ -99,7 +99,7 @@ namespace Gymnastika.Modules.Sports.Views
 
         public CompositePanel()
         {
-            IsExpanded = false;
+            IsExpanded = true;
             InitializeComponent();
             Run();
         }
