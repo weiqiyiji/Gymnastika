@@ -29,11 +29,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         bool Completed { get; }
 
+        string Time { get; }
+
         int Duration { get; }
     }
 
     public class SportsPlanItemViewModel : NotificationObject, ISportsPlanItemViewModel
     {
+        public string Time
+        {
+            get { return String.Format("{0}:{1}", Hour, Minute); }
+        }
+
         public SportsPlanItemViewModel(SportsPlanItem item)
         {
             Item = item;

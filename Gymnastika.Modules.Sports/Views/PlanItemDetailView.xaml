@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" xmlns:my="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Layout.Toolkit" xmlns:my1="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:my2="clr-namespace:Gymnastika.Modules.Sports.Converters" Height="84.667" Width="229.333">
+             xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" xmlns:my1="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:my2="clr-namespace:Gymnastika.Modules.Sports.Converters" Height="84.667" Width="229.333">
     <UserControl.Resources>
         <ResourceDictionary>
             <converters:FullPathConverter x:Key="FullPathConverter"/>

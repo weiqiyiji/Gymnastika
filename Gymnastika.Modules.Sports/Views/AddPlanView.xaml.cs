@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for CalendarButtonView.xaml
+    /// Interaction logic for AddPlan.xaml
     /// </summary>
-    public partial class CalendarButtonView : UserControl
+    public partial class AddPlanView : UserControl
     {
-        public CalendarButtonView()
+        public AddPlanView()
         {
             InitializeComponent();
         }

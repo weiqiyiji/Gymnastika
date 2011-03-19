@@ -13,6 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Modules.Sports.ViewModels;
 using Microsoft.Practices.Unity;
+using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Common.Navigation;
+using System.Windows.Media.Animation;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -21,17 +24,63 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class PlanListView : UserControl, IPlanListView
     {
+
         public PlanListView()
         {
             InitializeComponent();
+            SetViewModel();
         }
 
-        [Dependency]
+        private void SetViewModel()
+        {
+            try
+            {
+                IServiceLocator servicelocator = ServiceLocator.Current;
+                if (servicelocator != null)
+                    ViewModel = servicelocator.GetInstance<IPlanListViewModel>();
+            }catch(Exception)
+            {
+
+            }
+        }
+
         public IPlanListViewModel ViewModel
         {
             get { return DataContext as IPlanListViewModel; }
             set { DataContext = value; }
         }
+
+
+
+        public bool IsExpanded
+        {
+            get { return (bool)GetValue(IsExpandedProperty); }
+            private set { SetValue(IsExpandedProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsExpanded.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsExpandedProperty =
+            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(PlanListView), new PropertyMetadata(false));
+        
+        public void Expand()
+        {
+            if (IsExpanded == false)
+            {
+                IsExpanded = true;
+                (FindResource("FlyOutStoryboard") as Storyboard).Begin();
+                //LastWeek.BeginAnimation(LastWeek.RenderTransform
+            }
+        }
+
+        public void Minimize()
+        {
+            if (IsExpanded == true)
+            {
+                IsExpanded = false;
+                (FindResource("FlyInStoryboard") as Storyboard).Begin();
+            }
+        }
+
     }
 
     public interface IPlanListView

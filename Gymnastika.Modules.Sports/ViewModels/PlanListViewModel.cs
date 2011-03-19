@@ -13,6 +13,7 @@ using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Services.Models;
 using System.Collections.Specialized;
 using Gymnastika.Common.Extensions;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -23,6 +24,24 @@ namespace Gymnastika.Modules.Sports.ViewModels
         User User { get; }
 
         ObservableCollection<ISportsPlanViewModel> ViewModels { get; }
+
+        DelegateCommand LastWeekCommand { get; }
+
+        DelegateCommand NextWeekCommand { get; }
+
+        string DayRange { get; }
+
+        DateTime Now { get; }
+
+        bool GotoDayOfWeek(int dayOfWeek);
+
+        bool HasPlan(int dayOfWeek);
+
+        ISportsPlanViewModel SelectedItem { get; set; }
+
+        event EventHandler SelectedItemChangedEvent;
+
+        DateTime CurrentWeek { get; }
     }
 
     public class PlanListViewModel : NotificationObject, IPlanListViewModel
@@ -31,36 +50,134 @@ namespace Gymnastika.Modules.Sports.ViewModels
         readonly IPlanItemProvider _itemProvider;
         readonly ISessionManager _sessionManager;
         readonly ISportsPlanViewModelFactory _planFactory;
-
-        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory)
+        readonly ISportProvider _sportProvider;
+        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory)
         {
             _planProvider = planProvider;
             _itemProvider = itemProvider;
             _sessionManager = sessionManager;
             _planFactory = planFactory;
+            _sportProvider = sportProvider;
             ViewModels.CollectionChanged += OnPlansChanged;
-            ViewModels.AddRange(CreateViewModels(Plans));
+            CurrentWeek = DateTime.Now;
+            GotoWeek(CurrentWeek);
+        }
+
+        bool DayOfWeekIsInRange(int dayOfWeek)
+        {
+            return (dayOfWeek >= 0 && dayOfWeek <= 6);
+        }
+
+        public bool GotoDayOfWeek(int dayOfWeek)
+        {
+            if (!DayOfWeekIsInRange(dayOfWeek)) return false;
+            var viewmodel = ViewModels.Where(t => t.DayOfWeek == dayOfWeek).FirstOrDefault();
+            if (viewmodel == null)
+                return false;
+            else
+            {
+                SelectedItem = viewmodel;
+                return true;
+            }
+        }
+
+        public bool HasPlan(int dayOfWeek)
+        {
+            if (!DayOfWeekIsInRange(dayOfWeek)) return false;
+            return ViewModels.Where(t => t.DayOfWeek == dayOfWeek).FirstOrDefault() != null;
+        }
+
+        string _dayRange;
+        public string DayRange
+        {
+            get { return _dayRange; }
+            set
+            {
+                if (_dayRange != value)
+                {
+                    _dayRange = value;
+                    RaisePropertyChanged(() => DayRange);
+                }
+            }
+        }
+
+       DateTime _currentWeek;
+       public DateTime CurrentWeek
+        {
+            get { return _currentWeek; }
+            private set
+            {
+                if (_currentWeek != value)
+                {
+                    _currentWeek = value;
+                    DateTime sunday = Facilities.MathFacility.Sunday(value);
+                    DateTime sat = sunday.AddDays(6);
+                    DayRange = String.Format("{0}年 {1}月{2}日-{3}月{4}日",sunday.Year,sunday.Month, sunday.Day, sat.Month, sat.Day);
+                    RaisePropertyChanged(() => CurrentWeek);
+                }
+            }
+        }
+
+      public  event EventHandler SelectedItemChangedEvent = delegate { };
+
+       ISportsPlanViewModel _selectedItem;
+      public ISportsPlanViewModel SelectedItem
+       {
+           get
+           {
+               return _selectedItem;
+           }
+           set
+           {
+               if (_selectedItem != value)
+               {
+                   _selectedItem = value;
+                   RaisePropertyChanged(() => SelectedItem);
+                   SelectedItemChangedEvent(this, EventArgs.Empty);
+               }
+           }
+       }
+
+        IList<SportsPlan> GetWeekPlans(DateTime timeInThisWeek)
+        {
+            int dayOfWeek = (int)timeInThisWeek.DayOfWeek;
+            DateTime Sunday = timeInThisWeek.AddDays(-dayOfWeek);
+            IList<SportsPlan> plansInThisWeek = PlansInMemory
+                .Where(t=>Facilities.MathFacility.TheSameWeek(timeInThisWeek,t))
+                .OrderBy(t=>t.Year)
+                .OrderBy(t=>t.Month)
+                .OrderBy(t=>t.Day)
+                .ToList();
+
+            return plansInThisWeek;
+        }
+
+        void GotoWeek(DateTime timeInThisWeek)
+        {
+            ViewModels.ReplaceBy(CreateViewModels(GetWeekPlans(timeInThisWeek)));
+            CurrentWeek = timeInThisWeek;
+        }
+
+
+        public DateTime Now
+        {
+            get { return DateTime.Now; }
         }
 
         ObservableCollection<ISportsPlanViewModel> _viewModels = new ObservableCollection<ISportsPlanViewModel>();
         public ObservableCollection<ISportsPlanViewModel> ViewModels
         {
-            get 
-            {
-                return _viewModels; 
-            }
+            get { return _viewModels; }
         }
 
-        ObservableCollection<SportsPlan> _plans;
-        public ObservableCollection<SportsPlan> Plans
+        ObservableCollection<SportsPlan> _plansInMemory;
+        public ObservableCollection<SportsPlan> PlansInMemory
         {
             get
             {
-                if (_plans == null)
-                {
-                    _plans = LoadPlans().ToObservableCollection();
-                }
-                return _plans;
+                if (_plansInMemory == null)
+                    _plansInMemory = LoadPlans().ToObservableCollection();
+                return _plansInMemory;
             }
         }
 
@@ -73,6 +190,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 foreach (SportsPlan plan in plans)
                 {
                     plan.SportsPlanItems = plan.SportsPlanItems.ToList();
+                    foreach(var item in plan.SportsPlanItems)
+                        item.Sport = _sportProvider.Get(item.Sport.Id);
                     plan.User = User;
                 }
                 return plans;
@@ -98,7 +217,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         ISportsPlanViewModel CreateViewModel(SportsPlan plan)
         {
-            return _planFactory.Create(plan);
+            ISportsPlanViewModel viewmodel = _planFactory.Create(plan);
+            
+            return viewmodel;
         }
 
         void OnPlansChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -132,8 +253,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void OnReleasePlan(ISportsPlanViewModel viewmodel)
         {
-            Plans.Remove(viewmodel.SportsPlan);
-            
+            PlansInMemory.Remove(viewmodel.SportsPlan);
         }
 
         void DeletePlanFromRepository(SportsPlan plan)
@@ -177,8 +297,42 @@ namespace Gymnastika.Modules.Sports.ViewModels
        {
            SportsPlan newPlan = new SportsPlan() { User = this.User };
            CreateOrUpdatePlanToRepository(newPlan);
-
            ViewModels.Add(CreateViewModel(newPlan));
        }
+
+
+       DelegateCommand _lastWeekCommnad;
+       public DelegateCommand LastWeekCommand 
+       {
+           get
+           {
+               if(_lastWeekCommnad == null)
+                   _lastWeekCommnad = new DelegateCommand(GotoLastWeek);
+               return _lastWeekCommnad;
+           } 
+       }
+
+       DelegateCommand _nextWeekCommand;
+       public DelegateCommand NextWeekCommand 
+       {
+           get
+           {
+               if (_nextWeekCommand == null)
+                   _nextWeekCommand = new DelegateCommand(GotoNextWeek);
+               return _nextWeekCommand;
+           }
+       }
+        
+        
+
+        void GotoLastWeek()
+        {
+            GotoWeek(CurrentWeek.AddDays(-7));
+        }
+
+        void GotoNextWeek()
+        {
+            GotoWeek(CurrentWeek.AddDays(7));
+        }
     }
 }
