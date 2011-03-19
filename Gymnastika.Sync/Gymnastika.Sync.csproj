@@ -106,7 +106,6 @@
     </Compile>
     <Compile Include="Models\DesktopClient.cs" />
     <Compile Include="Models\NetworkAdapter.cs" />
-    <Compile Include="Schedule\RemindBehavior.cs" />
     <Compile Include="Common\Constants.cs" />
     <Compile Include="Common\NotificationSenderUtility.cs" />
     <Compile Include="Infrastructure\ConnectionAutoMappingOverride.cs" />

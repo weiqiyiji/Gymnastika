@@ -90,13 +90,6 @@ namespace Gymnastika.Sync
         [WebGet(UriTemplate = "connect?src_id={srcId}&desc_id={descId}")]
         public string Connect(int srcId, int descId)
         {
-            if (srcId == descId)
-            {
-                throw new WebFaultException<string>(
-                    string.Format("You can't establish connection from one endpoint to itself"),
-                    HttpStatusCode.BadRequest);
-            }
-
             DesktopClient src = _desktopClientRepository.Get(x => x.Id == srcId);
             PhoneClient desc = _phoneClientRepository.Get(x => x.Id == descId);
 
@@ -105,6 +98,13 @@ namespace Gymnastika.Sync
                 throw new WebFaultException<string>(
                     string.Format("Can't establish connection between '{0}' and '{1}'", srcId, descId),
                     HttpStatusCode.BadRequest);
+            }
+
+            IEnumerable<Connection> previousConnections = _connectionRepository.Fetch(x => x.Target.Id == descId && x.Source.Id != srcId);
+
+            foreach (var conn in previousConnections)
+            {
+                _connectionRepository.Delete(conn);
             }
 
             Connection connection = _connectionRepository.Get(x => x.Source.Id == srcId && x.Target.Id == descId);
@@ -122,6 +122,31 @@ namespace Gymnastika.Sync
 
             SetStatusCode(HttpStatusCode.Created);
             return connection.Id.ToString();
+        }
+
+        [WebGet(UriTemplate = "adapters?id={id}")]
+        public NetworkAdapterCollection GetDesktopAddresses(int id)
+        {
+            Connection connection = _connectionRepository.Get(x => x.Target.Id == id);
+
+            if(connection == null)
+            {
+                throw new WebFaultException<string>(
+                    string.Format("Invalid id '{0}'", id),
+                    HttpStatusCode.BadRequest);
+            }
+
+            DesktopClient desktopClient = connection.Source;
+            desktopClient.NetworkAdapters.Count();
+
+            return new NetworkAdapterCollection(
+                desktopClient.NetworkAdapters.Select(
+                    adapter => new Gymnastika.Sync.Communication.NetworkAdapter()
+                    {
+                        IpAddress = adapter.IpAddress,
+                        SubnetMask = adapter.SubnetMask,
+                        DefaultGateway = adapter.DefaultGateway,
+                    }));
         }
 
         private void SetStatusCode(HttpStatusCode statusCode)
