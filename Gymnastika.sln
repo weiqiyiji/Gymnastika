@@ -51,6 +51,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Surface.Demo", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Sync", "Gymnastika.Sync\Gymnastika.Sync.csproj", "{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Sync.Communication", "Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj", "{B7CA2F0B-DCAC-409D-A2B3-78974C063569}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Sync.Console", "Gymnastika.Sync.Console\Gymnastika.Sync.Console.csproj", "{8F0862A4-21DB-41AB-AA72-7B54DC189307}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gymnastika.vsmdi
@@ -290,6 +294,26 @@ Global
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Release|x86.ActiveCfg = Release|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B7CA2F0B-DCAC-409D-A2B3-78974C063569}.Release|x86.ActiveCfg = Release|Any CPU
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Debug|x86.ActiveCfg = Debug|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Debug|x86.Build.0 = Debug|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|Any CPU.ActiveCfg = Release|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|Mixed Platforms.Build.0 = Release|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|x86.ActiveCfg = Release|x86
+		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

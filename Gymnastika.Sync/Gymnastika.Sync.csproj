@@ -13,6 +13,7 @@
     <RootNamespace>Gymnastika.Sync</RootNamespace>
     <AssemblyName>Gymnastika.Sync</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -91,6 +92,23 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migration\Migration_Connections_20110318215110.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_DesktopClients_20110318214633.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_NetworkAdapters_20110318214711.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_PhoneClients_20110318214639.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Models\DesktopClient.cs" />
+    <Compile Include="Models\NetworkAdapter.cs" />
+    <Compile Include="Schedule\RemindBehavior.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\NotificationSenderUtility.cs" />
     <Compile Include="Infrastructure\ConnectionAutoMappingOverride.cs" />
     <Compile Include="Infrastructure\CustomSqlCeDataServicesProvider.cs" />
     <Compile Include="Infrastructure\CustomSqlCeDataServicesProviderFactory.cs" />
@@ -101,19 +119,18 @@
     <Compile Include="Infrastructure\UnityWebServiceHost.cs" />
     <Compile Include="Infrastructure\UnityWebServiceHostFactory.cs" />
     <Compile Include="Infrastructure\WcfAutomappingConfigurer.cs" />
-    <Compile Include="Infrastructure\WcfSessionLocator.cs" />
     <Compile Include="Infrastructure\WebContextScope.cs" />
     <Compile Include="Infrastructure\WebEnvironment.cs" />
-    <Compile Include="Migration\Migration_Connections_20110317222106.cs" />
-    <Compile Include="Migration\Migration_Endpoints_20110316220240.cs" />
-    <Compile Include="Migration\Migration_Endpoints_20110317234721.cs" />
     <Compile Include="Models\Connection.cs" />
-    <Compile Include="Models\Endpoint.cs" />
-    <Compile Include="SyncService.cs" />
+    <Compile Include="Models\PhoneClient.cs" />
+    <Compile Include="RegistrationService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule\RemindManager.cs" />
+    <Compile Include="ScheduleService.cs" />
+    <Compile Include="Schedule\TimerMetadata.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -130,6 +147,10 @@
     <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj">
+      <Project>{B7CA2F0B-DCAC-409D-A2B3-78974C063569}</Project>
+      <Name>Gymnastika.Sync.Communication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

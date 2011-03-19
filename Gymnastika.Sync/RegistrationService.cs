@@ -9,6 +9,8 @@ using Gymnastika.Data;
 using Gymnastika.Sync.Models;
 using System.Web;
 using System.Net;
+using Gymnastika.Sync.Common;
+using Gymnastika.Sync.Communication;
 
 namespace Gymnastika.Sync
 {
@@ -17,48 +19,61 @@ namespace Gymnastika.Sync
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class RegistrationService
     {
-        private IRepository<Endpoint> _endpointRepository;
+        private IRepository<PhoneClient> _phoneClientRepository;
+        private IRepository<DesktopClient> _desktopClientRepository;
         private IRepository<Connection> _connectionRepository;
+        private IRepository<Gymnastika.Sync.Models.NetworkAdapter> _networkAdapter;
 
         public RegistrationService(
-            IRepository<Endpoint> endpointRepository,
-            IRepository<Connection> connectionRepository)
+            IRepository<PhoneClient> phoneClientRepository,
+            IRepository<DesktopClient> desktopClientRepository,
+            IRepository<Connection> connectionRepository,
+            IRepository<Gymnastika.Sync.Models.NetworkAdapter> networkAdapter)
         {
-            _endpointRepository = endpointRepository;
+            _phoneClientRepository = phoneClientRepository;
+            _desktopClientRepository = desktopClientRepository;
             _connectionRepository = connectionRepository;
+            _networkAdapter = networkAdapter;
         }
 
-        private const string MobileType = "mobile";
-        private const string DesktopType = "desktop";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="uri"></param>
-        /// <param name="type">Can be "mobile" for Windows Phone 7 or "desktop" for Windows</param>
-        /// <returns></returns>
-        [WebGet(UriTemplate = "reg?uri={uri}&type={type}")]
-        public string Register(string uri, string type)
+        [WebInvoke(UriTemplate = "reg_desktop", Method = "POST")]
+        public string RegisterForDesktop(NetworkAdapterCollection networkAdapters)
         {
-            type = type.ToLower();
+            DesktopClient endpoint = new DesktopClient();
+            _desktopClientRepository.Create(endpoint);
 
-            if (type != MobileType && type != DesktopType)
-            {
-                SetStatusCode(HttpStatusCode.BadRequest);
-                return string.Format("Invalid endpoint type '{0}'", type);
-            }
+            endpoint.NetworkAdapters = networkAdapters.Select(
+                adapter => 
+                {
+                    var persistAdapter = new Gymnastika.Sync.Models.NetworkAdapter()
+                    {
+                        IpAddress = adapter.IpAddress,
+                        SubnetMask = adapter.SubnetMask,
+                        DefaultGateway = adapter.DefaultGateway,
+                        Client = endpoint
+                    };
 
-            Endpoint endpoint = _endpointRepository.Get(x => x.Uri == uri);
+                    _networkAdapter.Create(persistAdapter);
+                    return persistAdapter;
+                }).ToList();
+
+            _desktopClientRepository.Update(endpoint);
+            return endpoint.Id.ToString();
+        }
+
+        [WebGet(UriTemplate = "reg_phone?uri={uri}")]
+        public string RegisterForPhone(string uri)
+        {
+            PhoneClient endpoint = _phoneClientRepository.Get(x => x.Uri == uri);
 
             if (endpoint == null)
             {
-                endpoint = new Endpoint
+                endpoint = new PhoneClient
                 {
-                    Uri = uri,
-                    Type = type
+                    Uri = uri
                 };
 
-                _endpointRepository.Create(endpoint);
+                _phoneClientRepository.Create(endpoint);
 
                 SetStatusCode(HttpStatusCode.Created);
 
@@ -66,36 +81,9 @@ namespace Gymnastika.Sync
             }
             else
             {
-                SetStatusCode(HttpStatusCode.BadRequest);
-
-                return string.Format("{0} already registered", uri);
-            }
-        }
-
-        [WebGet(UriTemplate = "unreg?id={id}")]
-        public string Unregister(string id)
-        {
-            int endpointId;
-
-            if(!int.TryParse(id, out endpointId))
-            {
-                SetStatusCode(HttpStatusCode.BadRequest);
-                return string.Format("'{0}' is an invalid id", id);
-            }
-
-            Endpoint endpoint = _endpointRepository.Get(x => x.Id == endpointId);
-
-            if (endpoint == null)
-            {
-                SetStatusCode(HttpStatusCode.BadRequest);
-                return string.Format("{0} does not exist", id);
-            }
-            else
-            {
-                _endpointRepository.Delete(endpoint);
-
-                SetStatusCode(HttpStatusCode.OK);
-                return null;
+                throw new WebFaultException<string>(
+                    string.Format("{0} already registered", uri),
+                    HttpStatusCode.BadRequest);
             }
         }
 
@@ -104,22 +92,22 @@ namespace Gymnastika.Sync
         {
             if (srcId == descId)
             {
-                SetStatusCode(HttpStatusCode.BadRequest);
-                return string.Format("You can't establish connection from one endpoint to itself");
+                throw new WebFaultException<string>(
+                    string.Format("You can't establish connection from one endpoint to itself"),
+                    HttpStatusCode.BadRequest);
             }
 
-            Endpoint src = _endpointRepository.Get(x => x.Id == srcId);
-            Endpoint desc = _endpointRepository.Get(x => x.Id == descId);
+            DesktopClient src = _desktopClientRepository.Get(x => x.Id == srcId);
+            PhoneClient desc = _phoneClientRepository.Get(x => x.Id == descId);
 
             if (src == null || desc == null)
             {
-                SetStatusCode(HttpStatusCode.BadRequest);
-                return string.Format(
-                    "Can't establish connection between '{0}' and '{1}'", srcId, descId);
+                throw new WebFaultException<string>(
+                    string.Format("Can't establish connection between '{0}' and '{1}'", srcId, descId),
+                    HttpStatusCode.BadRequest);
             }
 
-            Connection connection = _connectionRepository.Get(x =>
-                (x.Source.Id == srcId && x.Target.Id == descId) || (x.Target.Id == srcId && x.Source.Id == descId));
+            Connection connection = _connectionRepository.Get(x => x.Source.Id == srcId && x.Target.Id == descId);
 
             if (connection == null)
             {

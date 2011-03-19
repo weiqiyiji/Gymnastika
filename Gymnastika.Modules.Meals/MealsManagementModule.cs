@@ -14,6 +14,7 @@ using Gymnastika.Widgets;
 using Gymnastika.Modules.Meals.Widgets;
 using Gymnastika.Data;
 using Gymnastika.Modules.Meals.Controllers;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Modules.Meals
 {
