@@ -5,27 +5,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" 
-    xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
-    xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
-             mc:Ignorable="d"  x:Name="Root" Width="270">
+    		xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
+    		xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
+             mc:Ignorable="d"  x:Name="Root" Height="48" Foreground="#FF9DA290" 
+			 
+			 >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:TimeToDoubleConverter x:Key="TimeToDoubleConverter"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0.276*"/>
-    		<ColumnDefinition Width="0.724*"/>
+    		<ColumnDefinition Width="0.806*"/>
+    		<ColumnDefinition Width="0.194*"/>
     	</Grid.ColumnDefinitions>
-    	<TextBlock x:Name="Time" Text="{Binding Time}"/>
-		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Grid.Column="1" />
-		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="37.21" Background="{x:Null}"/>
-        <!--<local:PlanItemDetailView x:Name="planItemDetailView" Height="{Binding Height}" HorizontalAlignment="Right" Width="0">
-            <local:PlanItemDetailView.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </local:PlanItemDetailView.RenderTransform>
-        </local:PlanItemDetailView>
-    	<Custom:SurfaceButton x:Name="Close" Command="{Binding CancelCommand}" Content="X" Margin="0,1,0,0" Width="18.877" RenderTransformOrigin="0.355,0.317" d:LayoutOverrides="VerticalAlignment" Height="20.761" VerticalAlignment="Top"/>-->
+		<StackPanel Margin="4,10,0,10" Orientation="Horizontal">
+    		<Border BorderThickness="0.5" BorderBrush="#FF7C836B" Width="40" HorizontalAlignment="Left" Height="28">
+    			<TextBlock FontSize="12" x:Name="Time" Text="9:30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    			 		
+    			<!--</TextBlock>Text="{Binding Time}" />-->
+    		</Border>
+    		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Margin="25,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+    	</StackPanel>
+		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF286226" Style="{DynamicResource NavigationButtonStyle}" Grid.Column="1" Margin="-0.002,10,0,8" HorizontalAlignment="Right" Width="11.5" VerticalAlignment="Center" />
 	</Grid>
 </UserControl>

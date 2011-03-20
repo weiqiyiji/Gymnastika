@@ -273,6 +273,7 @@ namespace Gymnastika.Modules.Sports.Views
         }
         void BeginMinimizeAnimation(bool animated = true)
         {
+            return;
             GotoRect(sportsPlanView, new Rect(0, 0, 0, ActualHeight),animated);
             GotoRect(sportsPanelView, new Rect(0, Top1, Width1, Height2), animated);
             GotoRect(categoriesPanelView, new Rect(0, 0, Width1, Height1), animated);
@@ -281,6 +282,7 @@ namespace Gymnastika.Modules.Sports.Views
         }
         void BeginExpandAnimation(bool animated = true)
         {
+            return;
             GotoRect(sportsPlanView, new Rect(0, 0, Left1, ActualHeight), animated);
             GotoRect(sportsPanelView, new Rect(Left1, Top1, Width2, Height2), animated);
             GotoRect(categoriesPanelView, new Rect(Left1, 0, Width2, Height1), animated);

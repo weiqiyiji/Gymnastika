@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace Gymnastika.Modules.Sports.Views
 {
     /// <summary>
-    /// Interaction logic for PlanItemDetailView.xaml
+    /// Interaction logic for SportCalorieChartView.xaml
     /// </summary>
-    public partial class PlanItemDetailView : UserControl
+    public partial class SportCalorieChartView : UserControl
     {
-        public PlanItemDetailView()
+        public SportCalorieChartView()
         {
             InitializeComponent();
         }
