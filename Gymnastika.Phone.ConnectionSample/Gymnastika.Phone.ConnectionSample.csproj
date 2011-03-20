@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}</ProjectGuid>
+    <ProjectGuid>{F2887C61-8ABF-4425-9CBE-B6D5501BF1C7}</ProjectGuid>
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Gymnastika.Phone</RootNamespace>
-    <AssemblyName>Gymnastika.Phone</AssemblyName>
+    <RootNamespace>Gymnastika.Phone.ConnectionSample</RootNamespace>
+    <AssemblyName>Gymnastika.Phone.ConnectionSample</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone</TargetFrameworkProfile>
@@ -20,13 +20,11 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>Gymnastika.Phone.xap</XapFilename>
+    <XapFilename>Gymnastika.Phone.ConnectionSample.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
-    <SilverlightAppEntry>Gymnastika.Phone.App</SilverlightAppEntry>
+    <SilverlightAppEntry>Gymnastika.Phone.ConnectionSample.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
-    <Utf8Output>true</Utf8Output>
-    <ExpressionBlendVersion>4.0.20901.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,13 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Phone" />
-    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
-    <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
     <Reference Include="Microsoft.Phone.Interop" />
-    <Reference Include="Microsoft.Xna.Framework" />
-    <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
-    <Reference Include="System.Device" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -66,81 +58,20 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animations\ThicknessAnimation.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\Grade.cs" />
-    <Compile Include="Common\MicroBlog.cs" />
-    <Compile Include="Common\Schedule.cs" />
-    <Compile Include="Common\User.cs" />
-    <Compile Include="Controls\DietItem.xaml.cs">
-      <DependentUpon>DietItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DietManager.xaml.cs">
-      <DependentUpon>DietManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\MicroBlog.xaml.cs">
-      <DependentUpon>MicroBlog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\MicroBlogItem.xaml.cs">
-      <DependentUpon>MicroBlogItem.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\SportsManager.xaml.cs">
-      <DependentUpon>SportsManager.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="PushNotification\PushNotificationService.cs" />
-    <Compile Include="PushNotification\TileNotification.cs" />
-    <Compile Include="Views\LoginProgressPage.xaml.cs">
-      <DependentUpon>LoginProgressPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="NavigationParameterStack.cs" />
-    <Compile Include="Config.cs" />
-    <Compile Include="Views\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserProfile\Gender.cs" />
-    <Compile Include="UserProfile\Profile.cs" />
-    <Compile Include="UserProfile\UserProfileManager.cs" />
+    <Compile Include="PushNotification\PushNotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="Controls\DietItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\DietManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\MicroBlog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\MicroBlogItem.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\SportsManager.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LoginProgressPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -154,14 +85,11 @@
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Avatar3.jpg" />
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Images\wave.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

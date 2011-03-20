@@ -6,6 +6,7 @@ using System.Management;
 using System.Xml.Serialization;
 using System.IO;
 using Microsoft.Http;
+using System.Net;
 
 namespace Gymnastika.Sync.Communication.Client
 {
@@ -16,13 +17,15 @@ namespace Gymnastika.Sync.Communication.Client
 
         public RegistrationService()
         {
-            _baseAddress = Configuration.GetConfiguration("SyncServiceBaseUri");
+            _baseAddress = Configuration.GetConfiguration("RegistrationServiceBaseUri");
         }
 
-        public int Register()
+        public const int ResponseError = -1;
+
+        public ResponseMessage Register()
         {
             NetworkAdapterCollection networkAdapters = NetworkAdapterHelper.GetAdapters();
-            int assigndId;
+            ResponseMessage message = new ResponseMessage();
 
             using (HttpClient client = new HttpClient())
             {
@@ -30,11 +33,19 @@ namespace Gymnastika.Sync.Communication.Client
                     new Uri(new Uri(_baseAddress), RegisterUri),
                     HttpContentExtensions.CreateDataContract<NetworkAdapterCollection>(networkAdapters));
 
+                message.StatusCode = response.StatusCode;
+
+                if (response.StatusCode != HttpStatusCode.Created)
+                {
+                    message.HasError = true;
+                    return message;
+                }
+
                 string id = response.Content.ReadAsString();
-                assigndId = int.Parse(id);
+                message.Result = id;
             }
 
-            return assigndId;
+            return message;
         }
     }
 }

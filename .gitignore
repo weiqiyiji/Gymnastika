@@ -16,3 +16,4 @@ VisualState.xml
 *.user
 *.hbm.xml
 *.vs10x
+log.txt*

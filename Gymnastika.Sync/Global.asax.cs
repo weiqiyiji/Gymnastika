@@ -44,8 +44,9 @@ namespace Gymnastika.Sync
 
         private void RegisterRoutes()
         {
-            RouteTable.Routes.Add(new ServiceRoute("", new UnityWebServiceHostFactory(), typeof(RegistrationService)));
-            RouteTable.Routes.Add(new ServiceRoute("schedule", new UnityWebServiceHostFactory(), typeof(ScheduleService)));
+            UnityWebServiceHostFactory hostFactory = new UnityWebServiceHostFactory();
+            RouteTable.Routes.Add(new ServiceRoute("reg", hostFactory, typeof(RegistrationService)));
+            RouteTable.Routes.Add(new ServiceRoute("schedule", hostFactory, typeof(ScheduleService)));
         }
 
         private void InitializeDataService()

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Timers;
 using Gymnastika.Sync.Communication;
+using Gymnastika.Sync.Models;
 
 namespace Gymnastika.Sync.Schedule
 {
@@ -17,5 +18,6 @@ namespace Gymnastika.Sync.Schedule
 
         public Timer Timer { get; set; }
         public ScheduleItem ScheduleItem { get; set; }
+        public Connection Connection { get; set; }
     }
 }

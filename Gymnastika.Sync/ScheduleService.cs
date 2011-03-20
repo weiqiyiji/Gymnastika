@@ -24,7 +24,7 @@ namespace Gymnastika.Sync
             _remindManager = remindManager;
         }
 
-        [WebInvoke(UriTemplate = "", Method = "POST")]
+        [WebInvoke(UriTemplate = "add", Method = "POST")]
         public void Schedule(Plan plan)
         {
             DateTime now = DateTime.Now;
@@ -36,7 +36,7 @@ namespace Gymnastika.Sync
                         string.Format("Schedule has wrong time range: startTime={0}, endTime={1}", scheduleItem.StartTime, scheduleItem.EndTime),
                         HttpStatusCode.BadRequest);
 
-                if (scheduleItem.EndTime < now)
+                if (scheduleItem.EndTime > now)
                 {
                     _remindManager.Add(scheduleItem);
                 }

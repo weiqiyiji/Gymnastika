@@ -80,26 +80,6 @@ namespace Gymnastika.ViewModels
 
         private void ConnectToPhone()
         {
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
-            worker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
-
-            Status = "连接中...";
-            IsConnecting = true;
-            worker.RunWorkerAsync();
-        }
-
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            int id = int.Parse(e.Result.ToString());
-            Status = "连接成功";
-            IsConnecting = false;
-        }
-
-        private void worker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            int assignedId = _registrationService.Register();
-            e.Result = assignedId;
         }
     }
 }
