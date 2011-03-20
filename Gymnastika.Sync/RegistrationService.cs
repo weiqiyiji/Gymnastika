@@ -58,6 +58,7 @@ namespace Gymnastika.Sync
                 }).ToList();
 
             _desktopClientRepository.Update(endpoint);
+            SetStatusCode(HttpStatusCode.Created);
             return endpoint.Id.ToString();
         }
 

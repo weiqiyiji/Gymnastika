@@ -11,7 +11,7 @@
         <cov:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
-        <s:SurfaceButton Command="{Binding ConnectToPhoneCommand}" />
+        <s:SurfaceButton Command="{Binding ConnectToPhoneCommand}" Content="Connect" Width="60" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <Border Visibility="{Binding IsConnecting, Converter={StaticResource boolToVisibilityConverter}}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             
         </Border>

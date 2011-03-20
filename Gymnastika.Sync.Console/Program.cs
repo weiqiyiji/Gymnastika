@@ -17,12 +17,17 @@ namespace Gymnastika.Sync.Console
 
         static void Main(string[] args)
         {
-            //NetworkAdapterCollection networkAdapters = NetworkAdapterHelper.GetAdapters();
+            NetworkAdapterCollection networkAdapters = NetworkAdapterHelper.GetAdapters();
 
-            //HttpClient client = new HttpClient(_baseAddress);
-            //HttpResponseMessage response = client.Post(
-            //    _baseAddress + "/" + RegisterUri,
-            //    HttpContentExtensions.CreateDataContract<NetworkAdapterCollection>(networkAdapters));
+            HttpClient client = new HttpClient(_baseAddress);
+            HttpResponseMessage response = client.Post(
+                _baseAddress + "/" + RegisterUri,
+                HttpContentExtensions.CreateDataContract<NetworkAdapterCollection>(networkAdapters));
+
+            string id = response.Content.ReadAsString();
+
+            client = new HttpClient();
+
         }
     }
 }
