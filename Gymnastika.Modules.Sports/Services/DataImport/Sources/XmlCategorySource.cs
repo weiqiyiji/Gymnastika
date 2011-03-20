@@ -30,8 +30,16 @@ namespace Gymnastika.Modules.Sports.DataImport.Sources
 
         XmlDocument LoadXmlFile()
         {
+
             XmlDocument doc = new XmlDocument();
-            doc.Load(_xmlFilePath);
+            try
+            {
+                doc.Load(_xmlFilePath);
+            }
+            catch (Exception)
+            {
+                
+            }
             return doc;
         }
 

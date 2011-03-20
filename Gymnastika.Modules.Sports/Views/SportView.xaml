@@ -38,8 +38,10 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <Button Content="X" Command="{Binding CloseCommand}" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,6,0" Name="button1" VerticalAlignment="Top" Width="23" />
+            <my:SurfaceButton Command="{Binding CloseCommand}" Content="关闭" Grid.Column="1" Height="23" Margin="0,7,13,0" Name="surfaceButton1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" />
+            <my:SurfaceButton Command="{Binding ExpandCommand}" Content="展开" Height="23" HorizontalAlignment="Right" Margin="0,7,74,0" Name="surfaceButton2" VerticalAlignment="Top" Width="55" Grid.Column="1" />
+            <my:SurfaceButton Command="{Binding MinimizeCommand}" Content="缩小" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,135,0" Name="surfaceButton3" VerticalAlignment="Top" Width="49" />
         </Grid>
-        <FlowDocumentReader Document="{Binding IntroductionUri,Converter={StaticResource ResourceKey=RtfConverter}}" Grid.Row="1"/>
+        <FlowDocumentReader Document="{Binding IntroductionUri,Converter={StaticResource ResourceKey=RtfConverter}, IsAsync=True}" Grid.Row="1"/>
     </Grid>
 </UserControl>

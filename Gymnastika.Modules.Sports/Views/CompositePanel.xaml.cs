@@ -16,6 +16,7 @@ using Gymnastika.Modules.Sports.ViewModels;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Common.Navigation;
 using System.Windows.Media.Animation;
+using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -27,7 +28,7 @@ namespace Gymnastika.Modules.Sports.Views
         ICategoriesPanelViewModel _categoryPanelModel;
         ISportsPanelViewModel _sportsPanelModel;
         ISportViewModel _sportViewModel;
-
+        ISportsPlanViewModel _planViewModel;
 
         Duration duration
         {
@@ -92,6 +93,8 @@ namespace Gymnastika.Modules.Sports.Views
             return trans;
         }
 
+        
+
         double Width2
         {
             get { return ActualWidth - Left1; }
@@ -109,25 +112,25 @@ namespace Gymnastika.Modules.Sports.Views
             try
             {
                 IServiceLocator locator = ServiceLocator.Current;
-                SetModel(locator.GetInstance<ICategoriesPanelViewModel>(), locator.GetInstance<ISportsPanelViewModel>(), locator.GetInstance<ISportViewModel>());
+                SetModel(locator.GetInstance<ICategoriesPanelViewModel>(), locator.GetInstance<ISportsPanelViewModel>(), locator.GetInstance<ISportViewModel>(),locator.GetInstance<ISportsPlanViewModel>());
             }
             catch (Exception)
             {
             }
         }
 
-        void SetModel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel,ISportViewModel sportViewModel)
+        void SetModel(ICategoriesPanelViewModel viewmodel,ISportsPanelViewModel sportsPanelModel,ISportViewModel sportViewModel,ISportsPlanViewModel planViewmodel)
         {
             _categoryPanelModel = viewmodel;
             _sportViewModel = sportViewModel;
             _sportsPanelModel = sportsPanelModel;
+            _planViewModel = planViewmodel;
             Initialize();
         }
         void Initialize()
         {
             BindingViewModels();
             LinkEvents();
-
             _sportsPanelModel.Category = _categoryPanelModel.CurrentSelectedItem;
         }
 
@@ -136,13 +139,14 @@ namespace Gymnastika.Modules.Sports.Views
             categoriesPanelView.DataContext = _categoryPanelModel;
             sportsPanelView.DataContext = _sportsPanelModel;
             sportView.DataContext = _sportViewModel;
+            sportsPlanView.ViewModel = _planViewModel;
         }
 
         void LinkEvents()
         {
            _categoryPanelModel.CategorySelectedEvent += CategorySelectedChanged;
            _sportsPanelModel.RequestShowDetailEvent += OnRequestShowDetail;
-           _sportViewModel.CloseRequest += OnCloseRequest;
+           _sportViewModel.RequestCloseEvent += OnCloseRequest;
         }
 
         void CategorySelectedChanged(object sender, EventArgs args)
@@ -205,18 +209,59 @@ namespace Gymnastika.Modules.Sports.Views
                 return new DoubleAnimation() { Duration = duration };
         }
 
-        void GotoRect(ContentControl element, Rect rect)
+        void GotoRect(ContentControl element, Rect rect,bool animated = true)
         {
             TranslateTransform trans = GetTranslateTransform(element);
-            var aniLeft = GetAnimation(rect.Left);
-            var aniTop = GetAnimation(rect.Top);
-            var aniWidth = GetAnimation(rect.Width);
-            var aniHeight = GetAnimation(rect.Height);
-            trans.BeginAnimation(TranslateTransform.XProperty, aniLeft);
-            trans.BeginAnimation(TranslateTransform.YProperty, aniTop);
-            element.BeginAnimation(UserControl.WidthProperty, aniWidth);
-            element.BeginAnimation(UserControl.HeightProperty, aniHeight);
+
+                var dur = animated ? null : new Double?(0d);
+                var aniLeft = GetAnimation(rect.Left, dur);
+                var aniTop = GetAnimation(rect.Top, dur);
+                var aniWidth = GetAnimation(rect.Width, dur);
+                var aniHeight = GetAnimation(rect.Height, dur);
+                trans.BeginAnimation(TranslateTransform.XProperty, aniLeft);
+                trans.BeginAnimation(TranslateTransform.YProperty, aniTop);
+                element.BeginAnimation(UserControl.WidthProperty, aniWidth);
+                element.BeginAnimation(UserControl.HeightProperty, aniHeight);
+            
         }
+
+        void GotoCollapse(ContentControl element,double? dur=null)
+        {
+            
+            //element.Visibility = Visibility.Collapsed;
+            
+            //DoubleAnimation ani = new DoubleAnimation(0d, TimeSpan.FromSeconds(dur != null ? dur.Value : 0.2d));
+            //Brush brush = GetMask(element);
+            //brush.BeginAnimation(Brush.OpacityProperty, ani);
+
+            ObjectAnimationUsingKeyFrames keyAni = new ObjectAnimationUsingKeyFrames();
+            DiscreteObjectKeyFrame key = new DiscreteObjectKeyFrame(Visibility.Collapsed, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0)));
+            keyAni.KeyFrames.Add(key);
+            element.BeginAnimation(ContentControl.VisibilityProperty, keyAni);
+            
+        }
+
+        Brush GetMask(ContentControl element)
+        {
+            if (element.OpacityMask == null)
+            {
+                element.OpacityMask = new SolidColorBrush(new Color() { R = 225, G = 255, B = 255, A = 255 });
+            }
+            return element.OpacityMask;
+        }
+
+        void GotoVisible(ContentControl element, double? dur = null)
+        {
+            //DoubleAnimation ani = new DoubleAnimation(100d, TimeSpan.FromSeconds(dur != null ? dur.Value : 0.2d));
+            //Brush brush = GetMask(element);
+            //brush.BeginAnimation(Brush.OpacityProperty, ani);
+
+            ObjectAnimationUsingKeyFrames keyAni = new ObjectAnimationUsingKeyFrames();
+            DiscreteObjectKeyFrame key = new DiscreteObjectKeyFrame(Visibility.Visible, KeyTime.FromTimeSpan(TimeSpan.FromSeconds(0.2)));
+            keyAni.KeyFrames.Add(key);
+            element.BeginAnimation(ContentControl.VisibilityProperty, keyAni);
+        }
+
 
         void LoadedAnimation()
         {
@@ -226,20 +271,23 @@ namespace Gymnastika.Modules.Sports.Views
             BeginExpandAnimation();
 
         }
-        void BeginMinimizeAnimation()
+        void BeginMinimizeAnimation(bool animated = true)
         {
-            GotoRect(sportsPlanView, new Rect(0, 0, 0, ActualHeight));
-            GotoRect(sportsPanelView, new Rect(0, Top1, Width1, Height2));
-            GotoRect(categoriesPanelView, new Rect(0, 0, Width1, Height1));
-            GotoRect(sportView, new Rect(Left1, Top1, Width2, Height2));
+            return;
+            GotoRect(sportsPlanView, new Rect(0, 0, 0, ActualHeight),animated);
+            GotoRect(sportsPanelView, new Rect(0, Top1, Width1, Height2), animated);
+            GotoRect(categoriesPanelView, new Rect(0, 0, Width1, Height1), animated);
+            GotoRect(sportView, new Rect(Left1, Top1, Width2, Height2), animated);
+            GotoVisible(sportView);
         }
-        void BeginExpandAnimation()
+        void BeginExpandAnimation(bool animated = true)
         {
-            GotoRect(sportsPlanView, new Rect(0, 0, Left1, ActualHeight));
-            GotoRect(sportsPanelView, new Rect(Left1, Top1, Width2, Height2));
-            GotoRect(categoriesPanelView, new Rect(Left1, 0, Width2, Height1));
-            GotoRect(sportView, new Rect(ActualWidth, Top1, 0, Height2));
-            
+            return;
+            GotoRect(sportsPlanView, new Rect(0, 0, Left1, ActualHeight), animated);
+            GotoRect(sportsPanelView, new Rect(Left1, Top1, Width2, Height2), animated);
+            GotoRect(categoriesPanelView, new Rect(Left1, 0, Width2, Height1), animated);
+            GotoRect(sportView, new Rect(ActualWidth, Top1, Width2, Height2), animated);
+            GotoCollapse(sportView);
         }
 
 
@@ -264,15 +312,17 @@ namespace Gymnastika.Modules.Sports.Views
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LoadedAnimation();
+            GotoRect(sportView, new Rect(Left1, Top1, Width2, Height2));
+            _sportViewModel.Sport = _sportsPanelModel.CurrentSports.FirstOrDefault() ?? new Sport();
+
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (IsExpanded)
-                BeginExpandAnimation();
+                BeginExpandAnimation(false);
             else
-                BeginMinimizeAnimation();
+                BeginMinimizeAnimation(false);
         }
     }
-
 }

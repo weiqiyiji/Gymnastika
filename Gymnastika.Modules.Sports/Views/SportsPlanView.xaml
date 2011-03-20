@@ -4,36 +4,72 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="596"
+             mc:Ignorable="d"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" 
-             xmlns:my="http://schemas.microsoft.com/surface/2008">
-    <Grid>
-        <Grid.RowDefinitions>
-        	<RowDefinition Height="47*" />
-        	<RowDefinition Height="519*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-        	<ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" d:LayoutOverrides="Width">
-    		<ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" x:Name="Calorie" Maximum="2000" Width="18.847" Value="{Binding TotalCalories}"/>
-    		<ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items"  Background="Transparent"
-    			dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Width="382.153">
-    			<ListBox.ItemTemplate>
-    				<DataTemplate>
-    					<local:SportsPlanItemView/>
-    				</DataTemplate>
-    			</ListBox.ItemTemplate>
-    		</ListBox>
-    	</StackPanel>
-        <StackPanel Orientation="Vertical" d:LayoutOverrides="Width">
-            <TextBlock x:Name="Date" Text="{Binding Date}" HorizontalAlignment="Left" />
-        	<Border Margin="0,1,0,4" Width="115" HorizontalAlignment="Right"></Border>
-        </StackPanel>
-        <Grid Width="113" HorizontalAlignment="Right">
-            <my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,0,0,1" x:Name="Save" HorizontalAlignment="Right" />
-            <my:SurfaceButton Content="取消" Command="{Binding CancelCommand}" x:Name="Cancel" HorizontalAlignment="Left" />
-        </Grid>
-    </Grid>
+             xmlns:my="http://schemas.microsoft.com/surface/2008"
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             Foreground="#FFADB2A3" Background="#FFD4DEC1"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters">
+    <UserControl.Resources>
+        <converter:FullPathConverter x:Key="FullPathConverter"/>
+    </UserControl.Resources>
+    <Border>
+		<Grid Margin="20">
+    		<Border x:Name="border" Background="White" CornerRadius="60">
+    			<Grid>
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="0.092*" />
+    					<RowDefinition Height="0.188*"/>
+    					<RowDefinition Height="0.616*"/>
+    					<RowDefinition Height="0.104*"/>
+    					<RowDefinition Height="0*"/>
+    				</Grid.RowDefinitions>
+    				<Grid.ColumnDefinitions>
+    					<ColumnDefinition Width="0.067*" />
+    					<ColumnDefinition Width="0.869*"/>
+    					<ColumnDefinition Width="0.064*"/>
+    				</Grid.ColumnDefinitions>
+                    <ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Grid.Row="1" Margin="0" Grid.RowSpan="2">
+    					<dd:DragDrop.DragAdornerTemplate>
+    						<DataTemplate>
+    							<Image Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}"/>
+    						</DataTemplate>
+    					</dd:DragDrop.DragAdornerTemplate>
+    					<ListBox.ItemTemplate>
+    						<DataTemplate>
+    							<local:SportsPlanItemView/>
+    						</DataTemplate>
+    					</ListBox.ItemTemplate>
+    					<ListBox.ItemsPanel>
+    						<ItemsPanelTemplate>
+    							<control:AnimatedListPanel/>
+    						</ItemsPanelTemplate>
+    					</ListBox.ItemsPanel>
+    				</ListBox>
+    				<my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,8.305,0,8" x:Name="Save" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" />
+    				<my:SurfaceButton Content="还原" Command="{Binding CancelCommand}" x:Name="Cancel" Margin="0,8,79,8.305" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" />
+    				<control:AnimatedProgressBar Orientation="Vertical" Value="0" Maximum="2000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="3"  >
+    					<control:AnimatedProgressBar.RenderTransform>
+    						<TransformGroup>
+    							<ScaleTransform/>
+    							<SkewTransform/>
+    							<RotateTransform Angle="180"/>
+    							<TranslateTransform/>
+    						</TransformGroup>
+    					</control:AnimatedProgressBar.RenderTransform>
+    					<control:AnimatedProgressBar.Foreground>
+    						<LinearGradientBrush EndPoint="0.757,-0.007" StartPoint="0.497,0.973">
+    							<GradientStop Color="#FFE9AE8B" Offset="0"/>
+    							<GradientStop Color="#FFEF8686" Offset="1"/>
+    							<GradientStop Color="#FFEC9A88" Offset="0.132"/>
+    							<GradientStop Color="#FFEF8686" Offset="0.617"/>
+    						</LinearGradientBrush>
+    					</control:AnimatedProgressBar.Foreground>
+    				</control:AnimatedProgressBar>
+    			</Grid>
+    		</Border>
+    		<Border BorderThickness="0" HorizontalAlignment="Left" Width="100" Background="{Binding Background, ElementName=border}" Panel.ZIndex="-1" Height="74.124" VerticalAlignment="Top"/>
+    		<Border BorderThickness="0" HorizontalAlignment="Right" Width="100" Background="{Binding Background, ElementName=border}" Panel.ZIndex="-1" Height="95.456" VerticalAlignment="Bottom" d:LayoutOverrides="HorizontalAlignment"/>
+    	</Grid>
+	</Border>
 </UserControl>

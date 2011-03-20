@@ -8,7 +8,7 @@ namespace Gymnastika.Sync.Models
     public class Connection
     {
         public virtual int Id { get; set; }
-        public virtual Endpoint Source { get; set; }
-        public virtual Endpoint Target { get; set; }
+        public virtual DesktopClient Source { get; set; }
+        public virtual PhoneClient Target { get; set; }
     }
 }

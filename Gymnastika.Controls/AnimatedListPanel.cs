@@ -136,7 +136,7 @@ namespace Gymnastika.Controls
                 
                 //Begin Y Animation
                 var animationY = new DoubleAnimation(currentTop, TimeSpan.FromSeconds(YDuration));
-                animationY.EasingFunction = new ElasticEase() { EasingMode = EasingMode.EaseOut, Oscillations = 1, Springiness = 1 };
+                animationY.EasingFunction = new ElasticEase() { EasingMode = EasingMode.EaseOut, Oscillations = 1, Springiness = 8 };
                 trans.BeginAnimation(TranslateTransform.YProperty,
                                             animationY,
                                             HandoffBehavior.SnapshotAndReplace);

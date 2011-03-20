@@ -75,6 +75,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\WPFToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\Libs\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\IMainController.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="ViewModels\NavigationRegionViewModel.cs" />
     <Compile Include="ViewModels\NavigationViewModel.cs" />
     <Compile Include="ViewModels\StateNavigationViewModel.cs" />
+    <Compile Include="ViewModels\SyncViewModel.cs" />
     <Compile Include="ViewModels\UserProfileManagementViewModel.cs" />
     <Compile Include="ViewModels\UserProfileViewModel.cs" />
     <Compile Include="Controllers\IStartupController.cs" />
@@ -112,6 +116,9 @@
     </Compile>
     <Compile Include="Views\NavigationView.xaml.cs">
       <DependentUpon>NavigationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SyncView.xaml.cs">
+      <DependentUpon>SyncView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserProfileManagementView.xaml.cs">
       <DependentUpon>UserProfileManagementView.xaml</DependentUpon>
@@ -153,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NavigationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SyncView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +217,10 @@
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj">
+      <Project>{B7CA2F0B-DCAC-409D-A2B3-78974C063569}</Project>
+      <Name>Gymnastika.Sync.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
       <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
       <Name>Gymnastika.Widgets</Name>
@@ -238,6 +253,7 @@
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

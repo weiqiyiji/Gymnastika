@@ -161,6 +161,10 @@
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj">
+      <Project>{B7CA2F0B-DCAC-409D-A2B3-78974C063569}</Project>
+      <Name>Gymnastika.Sync.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
       <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
       <Name>Gymnastika.Widgets</Name>

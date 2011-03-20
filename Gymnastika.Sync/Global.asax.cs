@@ -1,22 +1,22 @@
 ﻿using System;
+using System.Configuration;
 using System.ServiceModel.Activation;
 using System.Web;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
-using Gymnastika.Data.Migration;
-using Gymnastika.Data.Configuration;
-using Gymnastika.Data.SessionManagement;
+using Gymnastika.Common.Configuration;
+using Gymnastika.Common.Logging;
 using Gymnastika.Data;
+using Gymnastika.Data.Configuration;
+using Gymnastika.Data.Migration;
 using Gymnastika.Data.Migration.Generator;
 using Gymnastika.Data.Migration.Interpreters;
 using Gymnastika.Data.Providers;
+using Gymnastika.Data.SessionManagement;
 using Gymnastika.Services.Session;
-using Gymnastika.Common.Configuration;
-using Gymnastika.Common.Logging;
-using System.Configuration;
-using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Sync.Infrastructure;
-using System.IO;
+using Gymnastika.Sync.Schedule;
+using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Sync
 {
@@ -27,6 +27,7 @@ namespace Gymnastika.Sync
         void Application_Start(object sender, EventArgs e)
         {
             AppDomain.CurrentDomain.SetData("SQLServerCompactEditionUnderWebHosting", true);
+            log4net.Config.XmlConfigurator.Configure();
             RegisterRoutes();
             InitializeDataService();
             MigrateData();
@@ -43,8 +44,9 @@ namespace Gymnastika.Sync
 
         private void RegisterRoutes()
         {
-            RouteTable.Routes.Add(
-                new ServiceRoute("", new UnityWebServiceHostFactory(), typeof(RegistrationService)));
+            UnityWebServiceHostFactory hostFactory = new UnityWebServiceHostFactory();
+            RouteTable.Routes.Add(new ServiceRoute("reg", hostFactory, typeof(RegistrationService)));
+            RouteTable.Routes.Add(new ServiceRoute("schedule", hostFactory, typeof(ScheduleService)));
         }
 
         private void InitializeDataService()
@@ -65,6 +67,7 @@ namespace Gymnastika.Sync
                 .RegisterType(typeof(IRepository<>), typeof(Repository<>))
                 .RegisterType<IWorkEnvironment, WebEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
+                .RegisterType<RemindManager>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(_container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()

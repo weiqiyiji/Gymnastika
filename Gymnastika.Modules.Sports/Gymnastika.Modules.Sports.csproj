@@ -65,6 +65,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml" />
@@ -83,9 +84,12 @@
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeConverter.cs" />
     <Compile Include="Converters\DivideConverter.cs" />
+    <Compile Include="Converters\DoubleTimeToString.cs" />
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
+    <Compile Include="Converters\TimeToDoubleConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
+    <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
     <Compile Include="NavigationNames.cs" />
@@ -105,9 +109,6 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
-    <Compile Include="Views\AddPlanView.xaml.cs">
-      <DependentUpon>AddPlanView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>
@@ -134,14 +135,14 @@
     <Compile Include="Views\PlanDetailView.xaml.cs">
       <DependentUpon>PlanDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlanItemDetailView.xaml.cs">
-      <DependentUpon>PlanItemDetailView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlanListPanel.xaml.cs">
       <DependentUpon>PlanListPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlanListView.xaml.cs">
       <DependentUpon>PlanListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SportCalorieChartView.xaml.cs">
+      <DependentUpon>SportCalorieChartView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SportCardView.xaml.cs">
       <DependentUpon>SportCardView.xaml</DependentUpon>
@@ -170,10 +171,6 @@
     <Compile Include="Widget\DailySportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\AddPlanView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -190,15 +187,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\PlanItemDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\PlanListPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlanListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SportCalorieChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

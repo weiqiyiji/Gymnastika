@@ -30,7 +30,7 @@
 			<TextBlock Foreground="Black" Text="{Binding Name}" FontSize="20" Padding="15,10" Grid.Column="1" />
             <Image Margin="4,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="95" Grid.RowSpan="3" >
                 <Image.Source>
-                    <Binding Path="ImageUri">
+                    <Binding Path="ImageUri" IsAsync="True">
                         <Binding.Converter>
                             <converter:FullPathConverter/>
                         </Binding.Converter>

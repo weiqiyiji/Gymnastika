@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="519" d:DesignWidth="780"
+             d:DesignHeight="772" d:DesignWidth="1125"
              xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
              xmlns:module="clr-namespace:Gymnastika.Modules.Sports" 
              BorderBrush="Transparent" 
@@ -13,12 +13,23 @@
              xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views" 
              xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit"
              xmlns:my3="http://schemas.microsoft.com/surface/2008"
-             Background="Transparent"
+             Background="#FFD4DEC1"
              Loaded="UserControl_Loaded">
-    <Canvas>
-		<my1:SportsPlanView x:Name="sportsPlanView" Height="517" Width="0" />
-		<my1:CategoriesPanelView x:Name="categoriesPanelView" Height="46" VerticalAlignment="Top" Canvas.Left="-0.5" Width="0.5" />
-		<my1:SportsPanelView  x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Width="0" Height="509">
+    <Grid Margin="0,0,27,28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.101*" />
+            <RowDefinition Height="0.073*"/>
+            <RowDefinition Height="0.458*" />
+            <RowDefinition Height="0.368*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.056*" />
+            <ColumnDefinition Width="0.269*" />
+            <ColumnDefinition Width="0.675*" />
+        </Grid.ColumnDefinitions>
+        <my1:SportsPlanView x:Name="sportsPlanView"  Grid.RowSpan="3" Grid.ColumnSpan="2" />
+		<my1:CategoriesPanelView x:Name="categoriesPanelView" Grid.Column="2" Grid.Row="1" Margin="38,0,42,0" />
+		<my1:SportsPanelView  x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Grid.Column="2" Grid.RowSpan="2" Grid.Row="2">
 			<my1:SportsPanelView.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>
@@ -28,7 +39,7 @@
 				</TransformGroup>
 			</my1:SportsPanelView.RenderTransform>
 		</my1:SportsPanelView>
-		<my1:SportView x:Name="sportView" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="2" Height="517" Canvas.Left="-0.5" Canvas.Top="1.5">
+		<my1:SportView x:Name="sportView" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" Width="345" Height="517" Margin="0,-47,-370,-1.056" Grid.Column="2" Grid.RowSpan="3">
 			<my1:SportView.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>
@@ -38,5 +49,6 @@
 				</TransformGroup>
 			</my1:SportView.RenderTransform>
 		</my1:SportView>
-	</Canvas>
+        <my1:SportCalorieChartView Grid.Row="3" x:Name="sportCalorieChartView1" Grid.Column="1" Margin="0,0,22,0" />
+    </Grid>
 </UserControl>
