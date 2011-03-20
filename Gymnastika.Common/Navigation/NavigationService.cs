@@ -32,11 +32,13 @@ namespace Gymnastika.Common.Navigation
 
         private bool _isInTransition;
         private NavigationDescriptor _targetDescriptor;
+        private NavigationDescriptor _sourceDescriptor;
         private ViewState _targetState;
 
         public void RequestNavigate(string regionName, string viewName, string stateName)
         {
             if (_isInTransition) return;
+            _isInTransition = true;
 
             if (string.IsNullOrEmpty(regionName))
                 throw new ArgumentNullException("regionName");
@@ -55,22 +57,29 @@ namespace Gymnastika.Common.Navigation
             if (_previousDescriptor != null && _previousDescriptor.ViewName != descriptor.ViewName)
             {
                 _targetDescriptor = descriptor;
+                _sourceDescriptor = _previousDescriptor;
                 _targetState = viewState;
                 Presenter.TransitionCompleted += OnTransitionCompleted;
                 Presenter.ApplyTransition(_previousDescriptor.ViewResolver(), descriptor.ViewResolver());
             }
+            else
+            {
+                _isInTransition = false;
+            }
+
+            _previousDescriptor = descriptor;
         }
 
         private void OnTransitionCompleted(object sender, EventArgs e)
         {
-            OnNavigationCompleted(_previousDescriptor, _targetDescriptor, _targetState);
+            OnNavigationCompleted(_sourceDescriptor, _targetDescriptor, _targetState);
 
             if (_targetState != null)
             {
                 NotifyStateChanging(_targetDescriptor, _targetState);
             }
 
-            _previousDescriptor = _targetDescriptor;
+            _isInTransition = false;
         }
 
         private NavigationDescriptor ActivateView(string viewName, INavigationRegion region)
