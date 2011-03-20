@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="309" d:DesignWidth="530">
+             d:DesignHeight="309" d:DesignWidth="530" >
 	<UserControl.Resources>
 		<DataTemplate x:Key="PlanItemTemplate">
 			<Grid Height="112" Width="224">
@@ -34,7 +34,6 @@
     		<ColumnDefinition Width="0.319*"/>
     		<ColumnDefinition Width="0.681*"/>
     	</Grid.ColumnDefinitions>
-    	<ListBox x:Name="Plan" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Style="{DynamicResource SimpleListBox}" Background="{x:Null}" Grid.RowSpan="2" ItemTemplate="{DynamicResource PlanItemTemplate}"/>
-            
+    	<ListBox x:Name="Plan" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Background="{x:Null}" Grid.RowSpan="2" ItemTemplate="{DynamicResource PlanItemTemplate}"/>
     </Grid>
 </UserControl>

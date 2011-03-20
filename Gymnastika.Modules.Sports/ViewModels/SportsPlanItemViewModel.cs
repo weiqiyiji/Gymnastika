@@ -38,7 +38,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
     {
         public string Time
         {
-            get { return String.Format("{0}:{1}", Hour, Minute); }
+            get 
+            {
+                return (new DateTime(1,1,1,Hour,Minute,0)).ToString("HH:mm"); 
+            }
         }
 
         public SportsPlanItemViewModel(SportsPlanItem item)
@@ -89,6 +92,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     Item.Hour = value;
                     RaisePropertyChanged(() => Hour);
+                    RaisePropertyChanged(() => Time);
                 }
             }
         }
@@ -104,6 +108,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     Item.Minute = value;
                     RaisePropertyChanged(() => Minute);
+                    RaisePropertyChanged(() => Time);
                 }
             }
         }

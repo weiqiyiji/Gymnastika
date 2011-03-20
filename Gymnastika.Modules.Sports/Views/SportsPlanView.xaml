@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="596"
+             d:DesignHeight="430" d:DesignWidth="233"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop" 
-             xmlns:my="http://schemas.microsoft.com/surface/2008">
+             xmlns:my="http://schemas.microsoft.com/surface/2008"
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls">
     <Grid>
         <Grid.RowDefinitions>
         	<RowDefinition Height="47*" />
@@ -16,17 +17,30 @@
         <Grid.ColumnDefinitions>
         	<ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="1" d:LayoutOverrides="Width">
-    		<ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" x:Name="Calorie" Maximum="2000" Width="18.847" Value="{Binding TotalCalories}"/>
-    		<ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items"  Background="Transparent"
-    			dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Width="382.153">
-    			<ListBox.ItemTemplate>
-    				<DataTemplate>
-    					<local:SportsPlanItemView/>
-    				</DataTemplate>
-    			</ListBox.ItemTemplate>
-    		</ListBox>
-    	</StackPanel>
+        <Grid  Grid.Row="1" d:LayoutOverrides="Width">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*" />
+                <ColumnDefinition Width="208*" />
+            </Grid.ColumnDefinitions>
+            <ProgressBar Orientation="Vertical" HorizontalContentAlignment="Stretch"  Background="Transparent" x:Name="Calorie" Maximum="2000" Value="{Binding TotalCalories}" />
+            <ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1">
+                <dd:DragDrop.DragAdornerTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding ImageUri}"/>
+                    </DataTemplate>
+                </dd:DragDrop.DragAdornerTemplate>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:SportsPlanItemView/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <control:AnimatedListPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
         <StackPanel Orientation="Vertical" d:LayoutOverrides="Width">
             <TextBlock x:Name="Date" Text="{Binding Date}" HorizontalAlignment="Left" />
         	<Border Margin="0,1,0,4" Width="115" HorizontalAlignment="Right"></Border>

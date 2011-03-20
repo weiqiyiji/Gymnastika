@@ -7,63 +7,16 @@
              xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" 
     xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
     xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
-             mc:Ignorable="d" Height="116" x:Name="Root">
-    <UserControl.Resources>
-        <Storyboard x:Key="OnMouseEnter">
-            <DoubleAnimation BeginTime="0:0:0.2" To="240" Duration="0:0:0.15" Storyboard.TargetProperty="Width" Storyboard.TargetName="planItemDetailView"/>
-        </Storyboard>
-        <Storyboard x:Key="OnMouseLeave">
-            <DoubleAnimation BeginTime="0:0:0.2" To="0" Duration="0:0:0.15" Storyboard.TargetProperty="Width" Storyboard.TargetName="planItemDetailView"/>
-        </Storyboard>
-    </UserControl.Resources>
-    <UserControl.Triggers>
-        <EventTrigger RoutedEvent="Mouse.MouseLeave">
-            <BeginStoryboard x:Name="OnMouseLeave_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave}"/>
-        </EventTrigger>
-        <EventTrigger RoutedEvent="Mouse.MouseEnter">
-            <BeginStoryboard Storyboard="{StaticResource OnMouseEnter}"/>
-        </EventTrigger>
-    </UserControl.Triggers>
-    <StackPanel Orientation="Horizontal" Width="468.088">
-        <Border x:Name="Border" CornerRadius="25" Width="195" Margin="0,1,0,0">
-            <Border.Background>
-                <LinearGradientBrush EndPoint="0.575,1.097" StartPoint="0.333,-0.089">
-                    <GradientStop Color="#FFC5791F" Offset="0"/>
-                    <GradientStop Color="#FFB57F29" Offset="1"/>
-                    <GradientStop Color="#FFC6791D" Offset="0.438"/>
-                </LinearGradientBrush>
-            </Border.Background>
-
-            <Grid Background="#33519FD0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="0.263*" />
-                    <RowDefinition Height="0.369*"/>
-                    <RowDefinition Height="0.368*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.076*" />
-                    <ColumnDefinition Width="0.834*"/>
-                    <ColumnDefinition Width="0.09*"/>
-                </Grid.ColumnDefinitions>
-                <Border x:Name="Title" Grid.ColumnSpan="3">
-                    <Grid RenderTransformOrigin="0.5,0.5">
-                        <Custom:SurfaceButton x:Name="Close" Command="{Binding CancelCommand}" Content="X" HorizontalAlignment="Right" Margin="0,0,21.481,0" Width="44.21" Height="12.667" RenderTransformOrigin="0.355,0.317"/>
-                        <TextBlock x:Name="Time" Margin="0,0,118,-2" HorizontalAlignment="Right" Height="30" VerticalAlignment="Bottom" Width="99">
-                	<TextBlock.Text>
-                		<Binding Path="Time">
-                			<Binding.Converter>
-                				<converters:DateTimeToTimeConverter />
-                			</Binding.Converter>
-                		</Binding>
-                	</TextBlock.Text></TextBlock>
-                    </Grid>
-                </Border>
-                <TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Grid.Column="1"  Grid.Row="1" />
-                <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="3.666,4,0,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Duration}" VerticalAlignment="Top"/>
-                <TextBlock Grid.Column="1" Margin="69,4,0,0" Grid.Row="2" TextWrapping="Wrap" d:LayoutOverrides="Width, Height" Text="分钟" HorizontalAlignment="Left" Width="54" Height="15" VerticalAlignment="Top" />
-            </Grid>
-        </Border>
-        <local:PlanItemDetailView x:Name="planItemDetailView" Height="{Binding Height}" HorizontalAlignment="Right" Width="0">
+             mc:Ignorable="d"  x:Name="Root" Width="270">
+    <Grid>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="0.276*"/>
+    		<ColumnDefinition Width="0.724*"/>
+    	</Grid.ColumnDefinitions>
+    	<TextBlock x:Name="Time" Text="{Binding Time}"/>
+		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Grid.Column="1" />
+		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Height="26" Width="37.21" Background="{x:Null}"/>
+        <!--<local:PlanItemDetailView x:Name="planItemDetailView" Height="{Binding Height}" HorizontalAlignment="Right" Width="0">
             <local:PlanItemDetailView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -73,5 +26,6 @@
                 </TransformGroup>
             </local:PlanItemDetailView.RenderTransform>
         </local:PlanItemDetailView>
-    </StackPanel>
+    	<Custom:SurfaceButton x:Name="Close" Command="{Binding CancelCommand}" Content="X" Margin="0,1,0,0" Width="18.877" RenderTransformOrigin="0.355,0.317" d:LayoutOverrides="VerticalAlignment" Height="20.761" VerticalAlignment="Top"/>-->
+	</Grid>
 </UserControl>
