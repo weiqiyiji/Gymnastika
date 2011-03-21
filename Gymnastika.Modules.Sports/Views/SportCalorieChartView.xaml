@@ -35,18 +35,14 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
-						<Microsoft_Windows_Themes:ButtonChrome x:Name="Chrome" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderDefaulted="{TemplateBinding IsDefaulted}" SnapsToDevicePixels="true">
-							<Border HorizontalAlignment="Stretch" Margin="-2" VerticalAlignment="Stretch" CornerRadius="60" Background="#FF94E0B1">
-								<ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-							</Border>
-						</Microsoft_Windows_Themes:ButtonChrome>
+						<Grid Background="{x:Null}" HorizontalAlignment="Stretch" Margin="-2,-2,2,2" VerticalAlignment="Stretch" >
+							<Ellipse Fill="#FF94E0B1" ></Ellipse>
+							<ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						
+						</Grid>
 						<ControlTemplate.Triggers>
-							<Trigger Property="IsKeyboardFocused" Value="true">
-								<Setter Property="RenderDefaulted" TargetName="Chrome" Value="true"/>
-							</Trigger>
-							<Trigger Property="ToggleButton.IsChecked" Value="true">
-								<Setter Property="RenderPressed" TargetName="Chrome" Value="true"/>
-							</Trigger>
+							<Trigger Property="IsKeyboardFocused" Value="true"/>
+							<Trigger Property="ToggleButton.IsChecked" Value="true"/>
 							<Trigger Property="IsEnabled" Value="false">
 								<Setter Property="Foreground" Value="#ADADAD"/>
 							</Trigger>
@@ -59,8 +55,8 @@
     <Grid>
     	<Grid.ColumnDefinitions>
     		<ColumnDefinition Width="0.18*"/>
-    		<ColumnDefinition Width="0.3*"/>
-    		<ColumnDefinition Width="0.09*"/>
+    		<ColumnDefinition Width="0.247*"/>
+    		<ColumnDefinition Width="0.143*"/>
     		<ColumnDefinition Width="0.167*"/>
     		<ColumnDefinition Width="0.263*"/>
     	</Grid.ColumnDefinitions>
@@ -73,7 +69,7 @@
     		<RowDefinition Height="0.163*"/>
     		<RowDefinition Height="0.167*"/>
     	</Grid.RowDefinitions>
-		<Border Background="White" CornerRadius="200" Grid.RowSpan="7" Grid.ColumnSpan="5"/>
+		<Ellipse Fill="White"  Grid.RowSpan="7" Grid.ColumnSpan="5"/>
 		<Border BorderThickness="0,1" Background="White" Grid.Column="2" Panel.ZIndex="-1" Grid.ColumnSpan="3" Grid.RowSpan="4"/>
     	<Gymnastika_Controls:AnimatedProgressBar x:Name="animatedProgressBar" Maximum="100" TargetValue="70" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="5" Grid.Row="1" Background="{x:Null}" Margin="0,5,0,0">
     		<Gymnastika_Controls:AnimatedProgressBar.Foreground>
@@ -93,7 +89,7 @@
     			</TransformGroup>
     		</Gymnastika_Controls:AnimatedProgressBar.RenderTransform>
     	</Gymnastika_Controls:AnimatedProgressBar>
-		<TextBlock TextWrapping="Wrap" Text="每分钟消耗" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+		<TextBlock TextWrapping="Wrap" Text="每分钟消耗" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="16" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="128.1"/>
 		<TextBlock TextWrapping="Wrap" Text="665" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="32" Grid.Column="2" FontWeight="Bold" Grid.ColumnSpan="2" HorizontalAlignment="Center"/>
 		<TextBlock TextWrapping="Wrap" Text="大卡" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="18.667" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
 		<Button Content="添加" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFEEFAF3" FontSize="24"/>

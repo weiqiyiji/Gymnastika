@@ -72,50 +72,50 @@ namespace Gymnastika.Modules.Sports
                     Header = "本周计划",
                     ViewName = NavigationNames.PlanPanel,
                     ViewResolver = ()=>_container.Resolve<PlanListPanel>(),
-                    States = new List<ViewState>()
-                    {
-                        new ViewState()
-                        {
-                            Header = "总览",
-                            Name = "Total"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期日",
-                            Name = "Sunday"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期一",
-                            Name = "Monday"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期二",
-                            Name = "Tuesday"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期三",
-                            Name = "Wednesday"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期四",
-                            Name = "Thursday"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期五",
-                            Name = "Friday"
-                        },
-                        new ViewState()
-                        {
-                            Header = "星期六",
-                            Name = "Saturday"
-                        }
-                    },
-                    StateChanging = _container.Resolve<PlanListPanel>().StateChanging
+                    //States = new List<ViewState>()
+                    //{
+                    //    new ViewState()
+                    //    {
+                    //        Header = "总览",
+                    //        Name = "Total"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期日",
+                    //        Name = "Sunday"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期一",
+                    //        Name = "Monday"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期二",
+                    //        Name = "Tuesday"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期三",
+                    //        Name = "Wednesday"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期四",
+                    //        Name = "Thursday"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期五",
+                    //        Name = "Friday"
+                    //    },
+                    //    new ViewState()
+                    //    {
+                    //        Header = "星期六",
+                    //        Name = "Saturday"
+                    //    }
+                    //},
+                    //StateChanging = _container.Resolve<PlanListPanel>().StateChanging
                 });
 
             //创建计划

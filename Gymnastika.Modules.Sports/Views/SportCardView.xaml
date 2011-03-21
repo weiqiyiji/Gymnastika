@@ -3,66 +3,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" d:DesignWidth="460"
+             mc:Ignorable="d"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
-             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" d:DesignHeight="190"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
              Background="Transparent"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
-             xmlns:surface="http://schemas.microsoft.com/surface/2008"
-             >
-
-
-    <Grid dd:DragDrop.DragHandler="{Binding}" dd:DragDrop.IsDragSource="True">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="112*" />
-            <RowDefinition Height="17*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.RowSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="99" />
-                <ColumnDefinition Width="364*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-				<RowDefinition Height="46*" />
-                <RowDefinition Height="15*" />
-                <RowDefinition Height="41*" />
-            </Grid.RowDefinitions>
-			<TextBlock Foreground="Black" Text="{Binding Name}" FontSize="20" Padding="15,10" Grid.Column="1" />
-            <Image Margin="4,3,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Height="75" Width="95" Grid.RowSpan="3" >
-                <Image.Source>
-                    <Binding Path="ImageUri" IsAsync="True">
-                        <Binding.Converter>
-                            <converter:FullPathConverter/>
-                        </Binding.Converter>
-                    </Binding>
-                </Image.Source>
-            </Image>
-            <ProgressBar Background="Transparent" Orientation="Horizontal" Maximum="50" Name="progressBar1" Grid.Row="1" Grid.Column="1">
-                
-                <ProgressBar.Value>
-                    <MultiBinding>
-                        <MultiBinding.Converter>
-                            <converter:DivideConverter/>
-                        </MultiBinding.Converter>
-                        <Binding Path="Calories"/>
-                        <Binding Path="Minutes"/>
-                    </MultiBinding>
-                </ProgressBar.Value>
-            </ProgressBar>
-            <TextBlock Foreground="Black" Grid.Row="2" Name="textBlock1" Grid.Column="1">
-                <TextBlock.Text>
-                    <MultiBinding>
-                        <MultiBinding.Converter>
-                            <converter:CalorieDecriptionConverter/>
-                        </MultiBinding.Converter>
-                        <Binding Path="Minutes"/>
-                        <Binding Path="Calories"/>
-                    </MultiBinding>
-                </TextBlock.Text>
-            </TextBlock>
-            <surface:SurfaceButton Command="{Binding ShowDetailCommand}" Content="详细" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,0,0" Name="button1" VerticalAlignment="Top" Width="58"/>
-            <surface:SurfaceButton Command="{Binding AddToPlanCommand}" Content="计划" Grid.Column="1" Height="30" HorizontalAlignment="Right" Margin="0,48,68,0" Name="button2" VerticalAlignment="Top" Width="59" />
-            <surface:SurfaceButton Command="{Binding AddToFavouriteCommand}" Content="喜爱" Grid.Column="1" Height="23" HorizontalAlignment="Right" Margin="0,6,68,0" Name="button3" VerticalAlignment="Top" Width="59" />
-        </Grid>
-    </Grid>
+             xmlns:surface="http://schemas.microsoft.com/surface/2008" Width="200" Height="200"
+             x:Name="root">
+<UserControl.Resources>
+	<ResourceDictionary>
+		<converter:FullPathConverter x:Key="FullPathConverter"/>
+	</ResourceDictionary>
+</UserControl.Resources>
+    <Grid Cursor="Hand">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="150" />
+			<RowDefinition Height="50"/>
+		</Grid.RowDefinitions>
+		<TextBlock x:Name="Name" Foreground="Black" Text="{Binding SportName}" FontSize="20" Grid.Row="1"/>
+		<Image Stretch="Uniform" SnapsToDevicePixels="True" x:Name="Picture" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}">
+			<dd:DragDrop.DragAdornerTemplate>
+				<DataTemplate>
+                    <Image Stretch="Uniform" SnapsToDevicePixels="True" Width="200" Height="150">
+						<Image.Source>
+							<Binding Path="ImageUri" Converter="{StaticResource ResourceKey=FullPathConverter}"/>
+						</Image.Source>
+					</Image>
+				</DataTemplate>
+			</dd:DragDrop.DragAdornerTemplate>
+			<Image.Source>
+				<Binding Path="ImageUri" IsAsync="false" Converter="{StaticResource ResourceKey=FullPathConverter}"/>
+			</Image.Source>
+		</Image>
+	</Grid>
 </UserControl>
