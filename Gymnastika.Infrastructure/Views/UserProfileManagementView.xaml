@@ -148,7 +148,7 @@
             				<RowDefinition Height="0.75*"/>
             			</Grid.RowDefinitions>
             			<s:SurfaceCheckBox Content="启用密码" d:LayoutOverrides="Height, GridBox" IsChecked="{Binding HasPassword}" FontSize="16" FontFamily="Microsoft YaHei" Foreground="#FF787C6B"/>
-            			<Grid Visibility="{Binding HasPassword, Converter={StaticResource boolToVisibilityConverter}}" Grid.Row="1" Margin="0,0,28,31">
+            			<Grid Grid.Row="1" Margin="0,0,28,31">
             				<Grid.ColumnDefinitions>
             					<ColumnDefinition Width="Auto"/>
             					<ColumnDefinition />
@@ -159,11 +159,11 @@
             					<RowDefinition Height="*" />
             				</Grid.RowDefinitions>
             				<TextBlock TextWrapping="Wrap" Text="旧密码" Style="{DynamicResource SubRowTextLabelStyle}"/>
-            				<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding OldPassword}" Style="{DynamicResource PasswordTextBoxStyle}" />
+            				<TextBox Grid.Column="1" TextWrapping="Wrap" IsEnabled="{Binding HasPassword, Mode=OneWay}" Text="{Binding OldPassword}" Style="{DynamicResource PasswordTextBoxStyle}" />
             				<TextBlock TextWrapping="Wrap" Text="新密码" Style="{DynamicResource SubRowTextLabelStyle}" Grid.Row="1"/>
-            				<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding NewPassword}" Style="{DynamicResource PasswordTextBoxStyle}" Grid.Row="1" />
+            				<TextBox Grid.Column="1" TextWrapping="Wrap" IsEnabled="{Binding HasPassword, Mode=OneWay}" Text="{Binding NewPassword}" Style="{DynamicResource PasswordTextBoxStyle}" Grid.Row="1" />
             				<TextBlock TextWrapping="Wrap" Text="再次输入" Style="{DynamicResource SubRowTextLabelStyle}" Grid.Row="2" Margin="0,5,5,5"/>
-            				<TextBox Grid.Column="1" TextWrapping="Wrap" Text="{Binding RetypedNewPassword}" Style="{DynamicResource PasswordTextBoxStyle}" Grid.Row="2" />
+            				<TextBox Grid.Column="1" TextWrapping="Wrap" IsEnabled="{Binding HasPassword, Mode=OneWay}" Text="{Binding RetypedNewPassword}" Style="{DynamicResource PasswordTextBoxStyle}" Grid.Row="2" />
             			</Grid>
             		</Grid>
             	</Border>
