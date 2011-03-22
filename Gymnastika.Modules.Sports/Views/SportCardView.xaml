@@ -6,10 +6,9 @@
              mc:Ignorable="d"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
-             Background="Transparent"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              xmlns:surface="http://schemas.microsoft.com/surface/2008" Width="200" Height="200"
-             x:Name="root">
+             x:Name="root" Foreground="{x:Null}">
 <UserControl.Resources>
 	<ResourceDictionary>
 		<converter:FullPathConverter x:Key="FullPathConverter"/>
@@ -17,11 +16,11 @@
 </UserControl.Resources>
     <Grid Cursor="Hand">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="150" />
-			<RowDefinition Height="50"/>
+			<RowDefinition Height="148" />
+			<RowDefinition Height="52"/>
 		</Grid.RowDefinitions>
-		<TextBlock x:Name="Name" Foreground="Black" Text="{Binding SportName}" FontSize="20" Grid.Row="1"/>
-		<Image Stretch="Uniform" SnapsToDevicePixels="True" x:Name="Picture" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}">
+		<TextBlock x:Name="Name" Foreground="Black" Text="{Binding Name}" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold"/>
+		<Image Stretch="Uniform" SnapsToDevicePixels="True" x:Name="Picture" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" Height="148" VerticalAlignment="Bottom">
 			<dd:DragDrop.DragAdornerTemplate>
 				<DataTemplate>
                     <Image Stretch="Uniform" SnapsToDevicePixels="True" Width="200" Height="150">

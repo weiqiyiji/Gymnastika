@@ -6,26 +6,81 @@
              mc:Ignorable="d" 
              d:DesignHeight="63" d:DesignWidth="555"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
-             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:my="http://schemas.microsoft.com/surface/2008">
-       
-    <ItemsControl  HorizontalAlignment="Stretch"  HorizontalContentAlignment="Stretch" d:DataContext="{d:DesignData Source=/DesignData/CategoriesDesign.xaml}"  ItemsSource="{Binding Categories}" Background="{x:Null}">
-        <ItemsControl.ItemTemplate>
-				<DataTemplate>
-					<local:CategoryCardView/>
-				</DataTemplate>
-        </ItemsControl.ItemTemplate>
-        <ItemsControl.ItemsPanel>
+             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" xmlns:my="http://schemas.microsoft.com/surface/2008" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+	<UserControl.Resources>
+		<Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate  TargetType="{x:Type ListBoxItem}">
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="Storyboard1"/>
+							<Storyboard x:Key="Storyboard2">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+									<EasingColorKeyFrame KeyTime="0" Value="White"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
+                        <Grid Width="100" >
+                        	<Grid.RowDefinitions>
+                        		<RowDefinition Height="0.55*"/>
+                        		<RowDefinition Height="0.45*"/>
+                        	</Grid.RowDefinitions>
+							<Border x:Name="grid" Background="Black" Width="Auto" CornerRadius="8" Grid.RowSpan="2">
+								<TextBlock Text="{Binding Name}" Foreground="Black" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+							</Border>
+							<Rectangle Fill="{Binding Background, ElementName=grid}" Height="Auto" Margin="0,2.25,0,-2.25" Stroke="{x:Null}" VerticalAlignment="Stretch" Grid.Row="1" Panel.ZIndex="-1"/>
+						</Grid>
+                            <ControlTemplate.Triggers>
+							<Trigger Property="Selector.IsSelected" Value="False">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+								</Trigger.EnterActions>
+								<Setter Property="Background" TargetName="grid" Value="{x:Null}"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+						
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<SolidColorBrush x:Key="ListBorder" Color="#828790"/>
+		<Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+			<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+			<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+			<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+			<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+			<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ListBox}">
+						<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}" Background="{x:Null}">
+							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+						</ScrollViewer>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsEnabled" Value="false"/>
+							<Trigger Property="IsGrouping" Value="true">
+								<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+
+    <ListBox IsSynchronizedWithCurrentItem="True" x:Name="categorylist" HorizontalAlignment="Stretch" ItemsSource="{Binding Categories}"  HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}"  Background="Red" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalContentAlignment="Stretch" BorderThickness="0" Style="{DynamicResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged" >
+		<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
 				</ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-    </ItemsControl>
-    <!--<my:LibraryStack Name="libraryStack1"  FlowDirection="LeftToRight" >
-        <my:LibraryStackItem  Height="50" Width="50">
-            <Button Height="26" Width="20" />
-        </my:LibraryStackItem>
-        <my:LibraryStackItem Height="50" Width="50">
-            <Button/>
-        </my:LibraryStackItem>
-    </my:LibraryStack>-->
+        </ListBox.ItemsPanel>
+    </ListBox>
 </UserControl>

@@ -88,6 +88,7 @@
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
     <Compile Include="Converters\TimeToDoubleConverter.cs" />
+    <Compile Include="Converters\ToIntConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
     <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
@@ -109,6 +110,7 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
+    <Compile Include="ViewModels\CompositePanelViewModel.cs" />
     <Compile Include="Views\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>
@@ -158,9 +160,6 @@
     </Compile>
     <Compile Include="Views\CategoriesPanelView.xaml.cs">
       <DependentUpon>CategoriesPanelView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CategoryCardView.xaml.cs">
-      <DependentUpon>CategoryCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SportView.xaml.cs">
       <DependentUpon>SportView.xaml</DependentUpon>
@@ -216,10 +215,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CategoriesPanelView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CategoryCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
