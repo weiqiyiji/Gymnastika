@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Gymnastika.Phone.Controls.SchduleListItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="43" d:DesignWidth="439" BorderBrush="#FF070707" Loaded="UserControl_Loaded">
+    
+    <Grid x:Name="LayoutRoot" Background="{x:Null}">
+        <TextBlock Height="42" HorizontalAlignment="Left" Name="textBlock1" Text="0" VerticalAlignment="Top" Width="33" TextAlignment="Right" FontSize="26" Foreground="#FF7C7C7C" />
+        <TextBlock Height="43" Margin="39,0,131,0" Name="textBlock2" Text="TextBlock" VerticalAlignment="Top" FontSize="26" Foreground="#FF5C5C5C" />
+        <Button Height="52" Margin="0,-9,66,0" Name="button1" VerticalAlignment="Top" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="59">
+            <Button.Background>
+                <ImageBrush ImageSource="/Gymnastika.Phone;component/Images/appbar.check.rest2.png" Stretch="None" />
+            </Button.Background>
+        </Button>
+    </Grid>
+</UserControl>

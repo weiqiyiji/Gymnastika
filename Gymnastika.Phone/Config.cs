@@ -32,5 +32,7 @@ namespace Gymnastika.Phone
 
         public static string RegistrationServiceUri = "http://localhost/gym/reg_phone?uri={0}";
 
+        public static Uri ServerUri = new Uri("http://localhost");
+
     }
 }

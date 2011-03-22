@@ -28,6 +28,7 @@ namespace Gymnastika.Phone
         /// </summary>
         public App()
         {
+            
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
@@ -56,19 +57,26 @@ namespace Gymnastika.Phone
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+           
+        }
+
+        void LA_TickCountChanged(object sender, int TickCount)
+        {
+            
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            
+                
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
@@ -110,16 +118,36 @@ namespace Gymnastika.Phone
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
+            RootFrame = new TransitionFrame();//new PhoneApplicationFrame();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
-
+            RootFrame.Navigated += new NavigatedEventHandler(RootFrame_Navigated);
+            RootFrame.Navigating += new NavigatingCancelEventHandler(RootFrame_Navigating);
             // Handle navigation failures
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
-
+           
             // Ensure we don't initialize again
             phoneApplicationInitialized = true;
+           
         }
 
+        void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            
+        }
+
+        void RootFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            if (e.Content == null) return;
+            PhoneApplicationPage phoneApplicationPage = e.Content as PhoneApplicationPage;
+            phoneApplicationPage.Loaded += new RoutedEventHandler(phoneApplicationPage_Loaded);
+
+        }
+
+        void phoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
+        {
+
+
+        }
         // Do not add any additional code to this method
         private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
         {

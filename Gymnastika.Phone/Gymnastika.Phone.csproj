@@ -53,6 +53,9 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
     <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\Libs\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="Microsoft.Xna.Framework.Input.Touch" />
@@ -66,31 +69,89 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animations\GradientStopAnimation.cs" />
     <Compile Include="Animations\ThicknessAnimation.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\DefualtTransition.cs" />
     <Compile Include="Common\Grade.cs" />
     <Compile Include="Common\MicroBlog.cs" />
     <Compile Include="Common\Schedule.cs" />
     <Compile Include="Common\User.cs" />
+    <Compile Include="Common\Util.cs" />
+    <Compile Include="Controls\AllSchdule.xaml.cs">
+      <DependentUpon>AllSchdule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AniScrollViewer.cs" />
+    <Compile Include="Controls\ChildWindow.cs" />
+    <Compile Include="Controls\ChildWindowAutomationPeer.cs" />
     <Compile Include="Controls\DietItem.xaml.cs">
       <DependentUpon>DietItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\DietManager.xaml.cs">
       <DependentUpon>DietManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ImageButton.xaml.cs">
+      <DependentUpon>ImageButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MapView\MapContainer.xaml.cs">
+      <DependentUpon>MapContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MapView\MapItem.cs" />
     <Compile Include="Controls\MicroBlog.xaml.cs">
       <DependentUpon>MicroBlog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\MicroBlogItem.xaml.cs">
       <DependentUpon>MicroBlogItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MicroBlogPublishWindow.xaml.cs">
+      <DependentUpon>MicroBlogPublishWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MyButton.xaml.cs">
+      <DependentUpon>MyButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScheduleListItem.xaml.cs">
+      <DependentUpon>ScheduleListItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScoreViewer.xaml.cs">
+      <DependentUpon>ScoreViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ScoreViewerListItem.xaml.cs">
+      <DependentUpon>ScoreViewerListItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SportsManager.xaml.cs">
       <DependentUpon>SportsManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\UserCenter.xaml.cs">
+      <DependentUpon>UserCenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserSelectorItem.xaml.cs">
+      <DependentUpon>UserSelectorItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Network\HttpTunnel.cs" />
+    <Compile Include="Network\LongAlive.cs" />
+    <Compile Include="PopupMenu\MenuItem.cs" />
+    <Compile Include="PopupMenu\PopupMenu.cs" />
+    <Compile Include="PopupMenu\PopupMenuItem.xaml.cs">
+      <DependentUpon>PopupMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupMenu\PopupMenuLayer.xaml.cs">
+      <DependentUpon>PopupMenuLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PushNotification\PushNotification.cs" />
     <Compile Include="PushNotification\PushNotificationService.cs" />
     <Compile Include="PushNotification\TileNotification.cs" />
+    <Compile Include="Transitions\FadeRollIn.cs" />
+    <Compile Include="Transitions\FadeRollMode.cs" />
+    <Compile Include="Transitions\FadeRollOut.cs" />
+    <Compile Include="Transitions\FadeRollTransition.cs" />
+    <Compile Include="Views\AddAccountPage.xaml.cs">
+      <DependentUpon>AddAccountPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginProgressPage.xaml.cs">
       <DependentUpon>LoginProgressPage.xaml</DependentUpon>
     </Compile>
@@ -99,20 +160,24 @@
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserProfile\Gender.cs" />
     <Compile Include="UserProfile\Profile.cs" />
     <Compile Include="UserProfile\UserProfileManager.cs" />
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="Controls\AllSchdule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\DietItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -120,6 +185,14 @@
     <Page Include="Controls\DietManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ImageButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MapView\MapContainer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\MicroBlog.xaml">
       <SubType>Designer</SubType>
@@ -129,9 +202,53 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\MicroBlogPublishWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MyButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Overview.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScheduleListItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScoreViewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\ScoreViewerListItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\SportsManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserCenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\UserSelectorItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupMenu\PopupMenuItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PopupMenu\PopupMenuLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddAccountPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\LoginPage.xaml">
       <SubType>Designer</SubType>
@@ -141,12 +258,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Fonts\xiyuan.ttf" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
@@ -159,9 +277,32 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\wave.jpg" />
+    <Resource Include="Images\200852993034844_2.jpg" />
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\appbar.check.rest.png" />
+    <Resource Include="Images\appbar.check.rest1.png" />
+    <Resource Include="Images\appbar.check.rest2.png" />
+    <Resource Include="Images\appbar.close.rest.png" />
+    <Resource Include="Images\appbar.delete.rest.png" />
+    <Resource Include="Images\appbar.delete.rest1.png" />
+    <Resource Include="Images\appbar.transport.pause.rest.png" />
+    <Resource Include="Images\B2.jpg" />
+    <Resource Include="Images\background.png" />
+    <Resource Include="Images\background2.png" />
+    <Resource Include="Images\blades.jpg" />
+    <Resource Include="Images\button-back-hover.png" />
+    <Resource Include="Images\button-back-selected.png" />
+    <Resource Include="Images\button-back.png" />
+    <Resource Include="Images\combobutton-left-hover.png" />
+    <Resource Include="Images\combobutton-left-selected.png" />
+    <Resource Include="Images\combobutton-left.png" />
+    <Resource Include="Images\combobutton-right-hover.png" />
+    <Resource Include="Images\combobutton-right-selected.png" />
+    <Resource Include="Images\combobutton-right.png" />
+    <Resource Include="Images\infobar.png" />
+    <Resource Include="Images\VGA-Wallpaper026.jpg" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

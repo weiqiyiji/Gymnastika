@@ -1,0 +1,49 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="Gymnastika.Phone.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="800"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False" xmlns:my="clr-namespace:Gymnastika.Phone.Controls">
+
+    <!--LayoutRoot contains the root grid where all other page content is placed-->
+    <Grid x:Name="LayoutRoot">
+        <controls:Panorama Title="健康平台" FontStretch="Normal" FontFamily="Segoe WP" Margin="0">
+            <controls:Panorama.Background>
+                <ImageBrush ImageSource="/Gymnastika.Phone;component/Images/background2.png" Stretch="Fill" />
+            </controls:Panorama.Background>
+            <!--Panorama item one-->
+            <controls:PanoramaItem Header="正在进行">
+                <Grid>
+                    <my:Overview Margin="0,0,0,16" x:Name="overview1" Height="482" />
+                </Grid>
+            </controls:PanoramaItem>
+
+            <!--Panorama item two-->
+            <controls:PanoramaItem Header="任务列表">
+                <Grid>
+                    <my:AllSchdule></my:AllSchdule>
+                </Grid>
+            </controls:PanoramaItem>
+            <controls:PanoramaItem Header="健康评分">
+                <Grid>
+                    <my:ScoreViewer Margin="1,0" x:Name="scoreViewer1" Width="418" Height="498" />
+                </Grid>
+            </controls:PanoramaItem>
+            <controls:PanoramaItem Header="微博">
+                <Grid />
+            </controls:PanoramaItem>
+        </controls:Panorama>
+    </Grid>
+
+    <!--Panorama-based applications should not show an ApplicationBar-->
+
+</phone:PhoneApplicationPage>

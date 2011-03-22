@@ -13,7 +13,7 @@ namespace Gymnastika.Phone.Common
 {
     public static class MicroBlog
     {
-        public delegate void OnPublishCompeletedHandler(Guid guid, bool Seccessful);
+        public delegate void OnPublishCompeletedHandler(object sender,Guid guid, bool Seccessful);
         public static event OnPublishCompeletedHandler OnPublishCompeleted;
         public class MicroBlogReply
         {
