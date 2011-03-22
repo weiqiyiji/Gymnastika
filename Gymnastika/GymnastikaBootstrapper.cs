@@ -60,7 +60,8 @@ namespace Gymnastika
             if (!response.HasError)
             {
                 ConnectionStore store = Container.Resolve<ConnectionStore>();
-                store.SaveAssignedInfo(int.Parse(response.Result.ToString()));
+                store.SaveAssignedInfo(
+                    int.Parse(StringHelper.GetPureString(response.Response.Content.ReadAsString())));
             }
         }
 

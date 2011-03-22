@@ -29,10 +29,6 @@ namespace Gymnastika.Services.Session
                 _currentSession = new SessionContext(user);
                 _sessions.Add(user.Id, _currentSession);
                 _currentSession.Timestamp = DateTime.Now;
-                
-                var userRepository = ServiceLocator.Current.GetInstance<IRepository<User>>();
-                User savedUser = userRepository.Get(u => u.Id == user.Id);
-                savedUser.IsActive = true;
 
                 OnSessionChanged();
             }

@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Runtime.Serialization;
-using Gymnastika.Data.Conventions;
 
-namespace Gymnastika.Services.Models
+namespace Gymnastika.Sync.Models
 {
     [DataContract(Namespace = "http://tinyurl/Users")]
-    [GeneratedByAssigned]
     public class User
     {
         [DataMember]
@@ -36,24 +34,8 @@ namespace Gymnastika.Services.Models
         [DataMember]
         public virtual bool IsActive { get; set; }
 
-        private string _avatarPath;
-
-        private const string DefaultAvatarPath = "Images/defaultavatar.png";
-
         [DataMember]
-        public virtual string AvatarPath
-        {
-            get
-            {
-                bool isAvatarExists = !string.IsNullOrEmpty(_avatarPath) && File.Exists(_avatarPath);
-
-                return !isAvatarExists ? DefaultAvatarPath : _avatarPath;
-            }
-            set
-            {
-                _avatarPath = value;
-            }
-        }
+        public virtual string AvatarPath { get; set; }
     }
 
     public enum Gender

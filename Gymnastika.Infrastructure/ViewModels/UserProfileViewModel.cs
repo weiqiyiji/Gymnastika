@@ -299,13 +299,13 @@ namespace Gymnastika.ViewModels
         {
             User savedUser = null;
 
+            IsRegisterFailed = false;
+            ErrorMessage = string.Empty;
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                IsRegisterFailed = false;
-                ErrorMessage = string.Empty;
+                savedUser = _userService.GetUser(UserName);
 
-                User registeredUser = _userService.GetUser(UserName);
-                if (registeredUser == null)
+                if (savedUser == null)
                 {
                     savedUser = _userService.Register(_user);
                     _sessionManager.Add(savedUser);
@@ -316,7 +316,6 @@ namespace Gymnastika.ViewModels
                     ErrorMessage = _userService.ErrorString;
                 }
             }
-
             if (!IsRegisterFailed)
             {
                 GoBack(savedUser);
