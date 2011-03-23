@@ -49,8 +49,6 @@ namespace Gymnastika.Controls
         public static readonly DependencyProperty CornerRadiusProperty =
             DependencyProperty.Register("CornerRadius", typeof(CornerRadius), typeof(ImageButton), new UIPropertyMetadata(new CornerRadius(0)));
 
-        
-
         public Stretch Stretch
         {
             get { return (Stretch)GetValue(StretchProperty); }
