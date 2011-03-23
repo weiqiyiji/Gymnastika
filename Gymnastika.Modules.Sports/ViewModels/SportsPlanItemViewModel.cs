@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Microsoft.Practices.Prism.Commands;
 using System.ComponentModel;
 using Gymnastika.Modules.Sports.Services.Providers;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -29,11 +30,21 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         bool Completed { get; }
 
+        string Time { get; }
+
         int Duration { get; }
     }
 
     public class SportsPlanItemViewModel : NotificationObject, ISportsPlanItemViewModel
     {
+        public string Time
+        {
+            get 
+            {
+                return DateFacility.GetShortTime(Hour, Minute);
+            }
+        }
+
         public SportsPlanItemViewModel(SportsPlanItem item)
         {
             Item = item;
@@ -82,6 +93,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     Item.Hour = value;
                     RaisePropertyChanged(() => Hour);
+                    RaisePropertyChanged(() => Time);
                 }
             }
         }
@@ -97,6 +109,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     Item.Minute = value;
                     RaisePropertyChanged(() => Minute);
+                    RaisePropertyChanged(() => Time);
                 }
             }
         }

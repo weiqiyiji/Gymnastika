@@ -13,6 +13,7 @@
     <RootNamespace>Gymnastika.Sync</RootNamespace>
     <AssemblyName>Gymnastika.Sync</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,8 +59,7 @@
       <HintPath>..\Libs\NHibernate.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.SqlServerCe, Version=3.5.1.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Data.SqlServerCe.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -92,14 +92,47 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migration\Migration_Connections_20110318215110.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_DesktopClients_20110318214633.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_NetworkAdapters_20110318214711.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_PhoneClients_20110318214639.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Migration\Migration_Users_20110322155719.cs" />
+    <Compile Include="Models\DesktopClient.cs" />
+    <Compile Include="Models\NetworkAdapter.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="Common\NotificationSenderUtility.cs" />
+    <Compile Include="Infrastructure\ConnectionAutoMappingOverride.cs" />
+    <Compile Include="Infrastructure\CustomSqlCeDataServicesProvider.cs" />
+    <Compile Include="Infrastructure\CustomSqlCeDataServicesProviderFactory.cs" />
+    <Compile Include="Infrastructure\SessionPerRequestBehavior.cs" />
+    <Compile Include="Infrastructure\SessionPerRequestCallContextInitializer.cs" />
     <Compile Include="Infrastructure\UnityInstanceProvider.cs" />
     <Compile Include="Infrastructure\UnityServiceBehavior.cs" />
+    <Compile Include="Infrastructure\UnityWebServiceHost.cs" />
+    <Compile Include="Infrastructure\UnityWebServiceHostFactory.cs" />
+    <Compile Include="Infrastructure\WcfAutomappingConfigurer.cs" />
+    <Compile Include="Infrastructure\WebContextScope.cs" />
+    <Compile Include="Infrastructure\WebEnvironment.cs" />
+    <Compile Include="Models\Connection.cs" />
+    <Compile Include="Models\PhoneClient.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="RegistrationService.cs" />
-    <Compile Include="SampleItem.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Schedule\RemindManager.cs" />
+    <Compile Include="ScheduleService.cs" />
+    <Compile Include="Schedule\TimerMetadata.cs" />
+    <Compile Include="UserProfileService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -113,9 +146,13 @@
       <Project>{5599B439-EA67-4E8A-AE08-AB4FABF074C2}</Project>
       <Name>Gymnastika.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Gymnastika.Services\Gymnastika.Services.csproj">
-      <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
-      <Name>Gymnastika.Services</Name>
+    <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">
+      <Project>{2C065DC9-2E13-4DCD-A08A-EAA87C3CAABF}</Project>
+      <Name>Gymnastika.Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj">
+      <Project>{B7CA2F0B-DCAC-409D-A2B3-78974C063569}</Project>
+      <Name>Gymnastika.Sync.Communication</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -124,16 +161,14 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>1962</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost/gym</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://localhost:8090</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

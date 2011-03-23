@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="Gymnastika.Phone.Controls.Overview"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}" d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot" Background="#28FFFFFF">
+        <Grid Background="Transparent" Margin="0,0,0,0" Name="grid1">
+            <StackPanel Margin="12,17,0,751" Name="TitlePanel" />
+            <TextBlock FontSize="64" Height="104" Margin="0,6,10,0" Name="txtDayOfWeek" Text="星期一" VerticalAlignment="Top" Foreground="#C58A00FF" HorizontalAlignment="Right" Width="239" DataContext="{Binding}" FontFamily="Microsoft YaHei" />
+            <Grid Margin="8,114,10,12" Name="grid2" Background="#0FFFFFFF">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="184*" />
+                    <RowDefinition Height="190*" />
+                </Grid.RowDefinitions>
+                <TextBlock FontFamily="Segoe WP Light" FontSize="40" Height="54" Name="txtSchduleTitle" Text="计划" VerticalAlignment="Top" Margin="18,0,10,0" />
+                <TextBlock FontFamily="Segoe WP Light" FontSize="40" Grid.Row="1" Height="56" Name="txtMicroBlogTitle" Text=" " VerticalAlignment="Top" Margin="18,0,10,0" />
+                <TextBlock Margin="12,54,10,6" Name="txtSchdule" Text="" FontFamily="Comic Sans MS" FontSize="18" />
+                <TextBlock Grid.Row="1" Margin="12,56,10,15" Name="txtMicroBlog" Text="" FontFamily="Comic Sans MS" FontSize="18" />
+                <TextBlock Height="37" HorizontalAlignment="Left" Margin="18,60,0,0" Name="textBlock1" Text="下个计划：" VerticalAlignment="Top" Width="101" />
+                <TextBlock Height="37" HorizontalAlignment="Left" Margin="115,60,0,0" Name="textBlock2" Text="计划名称" VerticalAlignment="Top" Width="325" />
+                <TextBlock Height="27" HorizontalAlignment="Left" Margin="58,103,0,0" Name="textBlock3" Text="时间：" VerticalAlignment="Top" Width="61" Foreground="#FF4B4B4B" />
+                <TextBlock Height="27" HorizontalAlignment="Left" Margin="115,103,0,0" Name="textBlock4" Text="XX:XX , XX小时XX分以后" VerticalAlignment="Top" Width="325" Foreground="#FF4B4B4B" />
+                <TextBlock Grid.Row="1" HorizontalAlignment="Left" Margin="28,68,0,23" Name="textBlock5" Text="Current" Width="264" FontFamily="Segoe WP Light" />
+                <Button Content="发布" Height="72" HorizontalAlignment="Right" Margin="0,77,12,0" Name="button1" VerticalAlignment="Top" Width="160" Grid.Row="1" Click="button1_Click" />
+            </Grid>
+            <Image Height="104" HorizontalAlignment="Left" Margin="6,6,0,0" Name="Avatar" Stretch="Uniform" VerticalAlignment="Top" Width="121" Source="/Gymnastika.Phone;component/Avatar3.jpg" />
+        </Grid>
+    </Grid>
+</UserControl>

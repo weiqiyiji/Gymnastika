@@ -1,20 +1,21 @@
 ﻿using System;
+using System.Configuration;
 using System.ServiceModel.Activation;
 using System.Web;
 using System.Web.Routing;
-using Microsoft.Practices.Unity;
-using Gymnastika.Data.Migration;
-using Gymnastika.Data.Configuration;
-using Gymnastika.Data.SessionManagement;
+using Gymnastika.Common.Configuration;
+using Gymnastika.Common.Logging;
 using Gymnastika.Data;
+using Gymnastika.Data.Configuration;
+using Gymnastika.Data.Migration;
 using Gymnastika.Data.Migration.Generator;
 using Gymnastika.Data.Migration.Interpreters;
 using Gymnastika.Data.Providers;
-using Gymnastika.Services.Session;
-using Gymnastika.Common.Configuration;
-using Gymnastika.Common.Logging;
-using System.Configuration;
+using Gymnastika.Data.SessionManagement;
+using Gymnastika.Sync.Infrastructure;
+using Gymnastika.Sync.Schedule;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.Sync
 {
@@ -24,14 +25,28 @@ namespace Gymnastika.Sync
 
         void Application_Start(object sender, EventArgs e)
         {
+            AppDomain.CurrentDomain.SetData("SQLServerCompactEditionUnderWebHosting", true);
+            log4net.Config.XmlConfigurator.Configure();
             RegisterRoutes();
             InitializeDataService();
+            MigrateData();
+        }
+
+        private void MigrateData()
+        {
+            using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
+            {
+                IDataMigrationManager manager = _container.Resolve<IDataMigrationManager>();
+                manager.Migrate();
+            }
         }
 
         private void RegisterRoutes()
         {
-            RouteTable.Routes.Add(
-                new ServiceRoute("registration", new WebServiceHostFactory(), typeof(RegistrationService)));
+            UnityWebServiceHostFactory hostFactory = new UnityWebServiceHostFactory();
+            RouteTable.Routes.Add(new ServiceRoute("reg", hostFactory, typeof(RegistrationService)));
+            RouteTable.Routes.Add(new ServiceRoute("schedule", hostFactory, typeof(ScheduleService)));
+            RouteTable.Routes.Add(new ServiceRoute("profile", hostFactory, typeof(UserProfileService)));
         }
 
         private void InitializeDataService()
@@ -42,27 +57,27 @@ namespace Gymnastika.Sync
                 .RegisterType<ILogger, ConsoleLogger>()
                 .RegisterType<IDataMigrationManager, DataMigrationManager>()
                 .RegisterType<SchemaBuilder>()
-                .RegisterType<IAutomappingConfigurer, FileAutomappingConfigurer>()
+                .RegisterType<IAutomappingConfigurer, WcfAutomappingConfigurer>()
                 .RegisterType<ISessionFactoryHolder, SessionFactoryHolder>(new ContainerControlledLifetimeManager())
-                .RegisterType<IDataServicesProviderFactory, SqlCeDataServicesProviderFactory>()
+                .RegisterType<IDataServicesProviderFactory, CustomSqlCeDataServicesProviderFactory>()
                 .RegisterType<IDataMigrationInterpreter, DefaultDataMigrationInterpreter>()
                 .RegisterType<ISchemaCommandGenerator, SchemaCommandGenerator>()
                 .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof(IRepository<>), typeof(Repository<>))
-                .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
+                .RegisterType<IWorkEnvironment, WebEnvironment>(new ContainerControlledLifetimeManager())
+                .RegisterType<RemindManager>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(_container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()
-                        .AddFromAssemblyOf(this.GetType())
+                        .AddFromAssemblyOf<RegistrationService>()
                         .AddFromAssemblyOf<SchemaBuilder>())
                 .RegisterInstance(
                     new ShellSettings
                     {
                         DataProvider = ConfigurationManager.AppSettings["DataProvider"],
                         DatabaseName = ConfigurationManager.AppSettings["DatabaseName"],
-                        DataFolder = ConfigurationManager.AppSettings["DataFolder"]
+                        DataFolder = Server.MapPath("~/" + ConfigurationManager.AppSettings["DataFolder"])
                     });
 
             IServiceLocator serviceLocator = new UnityServiceLocator(_container);

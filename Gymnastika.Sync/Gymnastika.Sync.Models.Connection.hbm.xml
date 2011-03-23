@@ -1,0 +1,14 @@
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" default-access="property" auto-import="true" default-cascade="none" default-lazy="true">
+  <class xmlns="urn:nhibernate-mapping-2.2" mutable="true" name="Gymnastika.Sync.Models.Connection, Gymnastika.Sync, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" table="Connections">
+    <id name="Id" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <column name="Id" />
+      <generator class="identity" />
+    </id>
+    <many-to-one class="Gymnastika.Sync.Models.DesktopClient, Gymnastika.Sync, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Source">
+      <column name="DesktopClientId" />
+    </many-to-one>
+    <many-to-one class="Gymnastika.Sync.Models.PhoneClient, Gymnastika.Sync, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="Target">
+      <column name="PhoneClientId" />
+    </many-to-one>
+  </class>
+</hibernate-mapping>

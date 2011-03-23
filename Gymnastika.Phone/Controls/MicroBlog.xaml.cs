@@ -35,9 +35,7 @@ namespace Gymnastika.Phone.Controls
         Storyboard StoryBoardOpenAndClose = new Storyboard();
         public void Open(bool NoDelay)
         {
-            if (NoDelay)
-                ;
-            else
+            if (!NoDelay)
                 Open();
         }
         public void Open()
@@ -51,9 +49,7 @@ namespace Gymnastika.Phone.Controls
         }
         public void Close(bool NoDelay)
         {
-            if (NoDelay)
-                ;
-            else
+            if (!NoDelay)
                 Close();
         }
         public void Close()

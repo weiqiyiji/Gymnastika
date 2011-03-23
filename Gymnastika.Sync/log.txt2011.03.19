@@ -1,0 +1,1525 @@
+2011-03-19 00:32:40,898 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:32:41,109 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:32:59,030 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:32:59,163 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:33:27,704 DEBUG 
+    INSERT 
+    INTO
+        DesktopClients
+        
+    values
+        ( )
+2011-03-19 00:33:27,794 ERROR Could not execute command: INSERT INTO DesktopClients values ( )
+There was an error parsing the query. [ Token line number = 1,Token line offset = 37,Token in error = ) ]
+2011-03-19 00:34:00,672 ERROR An AssertionFailure occurred - this may indicate a bug in NHibernate or in your custom types.
+NHibernate.AssertionFailure: null id in Gymnastika.Sync.Models.DesktopClient entry (don't flush the Session after an exception occurs)
+2011-03-19 00:34:00,681 ERROR DTC transaction prepre phase failed
+NHibernate.AssertionFailure: null id in Gymnastika.Sync.Models.DesktopClient entry (don't flush the Session after an exception occurs)
+   at NHibernate.Event.Default.DefaultFlushEntityEventListener.CheckId(Object obj, IEntityPersister persister, Object id, EntityMode entityMode)
+   at NHibernate.Event.Default.DefaultFlushEntityEventListener.GetValues(Object entity, EntityEntry entry, EntityMode entityMode, Boolean mightBeDirty, ISessionImplementor session)
+   at NHibernate.Event.Default.DefaultFlushEntityEventListener.OnFlushEntity(FlushEntityEvent event)
+   at NHibernate.Event.Default.AbstractFlushingEventListener.FlushEntities(FlushEvent event)
+   at NHibernate.Event.Default.AbstractFlushingEventListener.FlushEverythingToExecutions(FlushEvent event)
+   at NHibernate.Event.Default.DefaultFlushEventListener.OnFlush(FlushEvent event)
+   at NHibernate.Impl.SessionImpl.Flush()
+   at NHibernate.Transaction.AdoNetWithDistrubtedTransactionFactory.DistributedTransactionContext.System.Transactions.IEnlistmentNotification.Prepare(PreparingEnlistment preparingEnlistment)
+2011-03-19 00:36:00,313 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:36:00,397 ERROR Could not execute query: SELECT this_.Id as Id0_0_, this_.Version as Version0_0_, this_.TableName as TableName0_0_ FROM MigrationRecords this_ WHERE 1=1
+The specified table does not exist. [ MigrationRecords ]
+2011-03-19 00:36:00,406 WARN The specified table does not exist. [ MigrationRecords ]
+2011-03-19 00:36:00,407 ERROR The specified table does not exist. [ MigrationRecords ]
+2011-03-19 00:36:00,421 WARN The specified table does not exist. [ MigrationRecords ]
+2011-03-19 00:36:00,421 ERROR The specified table does not exist. [ MigrationRecords ]
+2011-03-19 00:36:00,459 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:36:00,603 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        this_.TableName = @p0;
+    @p0 = 'DesktopClients'
+2011-03-19 00:36:00,704 DEBUG 
+    INSERT 
+    INTO
+        MigrationRecords
+        (Version, TableName) 
+    VALUES
+        (@p0, @p1);
+    @p0 = '20110318214633', @p1 = 'DesktopClients'
+2011-03-19 00:36:00,706 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:36:00,740 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        this_.TableName = @p0;
+    @p0 = 'PhoneClients'
+2011-03-19 00:36:00,742 DEBUG 
+    INSERT 
+    INTO
+        MigrationRecords
+        (Version, TableName) 
+    VALUES
+        (@p0, @p1);
+    @p0 = '20110318214639', @p1 = 'PhoneClients'
+2011-03-19 00:36:00,742 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:36:00,751 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        this_.TableName = @p0;
+    @p0 = 'NetworkAdapters'
+2011-03-19 00:36:00,752 DEBUG 
+    INSERT 
+    INTO
+        MigrationRecords
+        (Version, TableName) 
+    VALUES
+        (@p0, @p1);
+    @p0 = '20110318214711', @p1 = 'NetworkAdapters'
+2011-03-19 00:36:00,752 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:36:00,757 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        this_.TableName = @p0;
+    @p0 = 'Connections'
+2011-03-19 00:36:00,758 DEBUG 
+    INSERT 
+    INTO
+        MigrationRecords
+        (Version, TableName) 
+    VALUES
+        (@p0, @p1);
+    @p0 = '20110318215110', @p1 = 'Connections'
+2011-03-19 00:36:00,758 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:36:20,908 DEBUG 
+    INSERT 
+    INTO
+        DesktopClients
+        (Placeholder) 
+    VALUES
+        (@p0);
+    @p0 = NULL
+2011-03-19 00:36:20,931 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:36:24,709 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id3_0_,
+        desktopcli0_.Placeholder as Placehol2_3_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 00:36:24,821 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id4_0_,
+        networkada0_.IpAddress as IpAddress4_0_,
+        networkada0_.SubnetMask as SubnetMask4_0_,
+        networkada0_.DefaultGateway as DefaultG4_4_0_,
+        networkada0_.DesktopClientId as DesktopC5_4_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 00:38:46,776 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:38:46,908 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 00:38:56,578 DEBUG 
+    INSERT 
+    INTO
+        DesktopClients
+        (Placeholder) 
+    VALUES
+        (@p0);
+    @p0 = NULL
+2011-03-19 00:38:56,601 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:38:58,407 DEBUG 
+    INSERT 
+    INTO
+        NetworkAdapters
+        (IpAddress, SubnetMask, DefaultGateway, DesktopClientId) 
+    VALUES
+        (@p0, @p1, @p2, @p3);
+    @p0 = '192.168.11.4', @p1 = '255.255.255.0', @p2 = '192.168.11.1', @p3 = 2
+2011-03-19 00:38:58,408 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:38:58,419 DEBUG 
+    INSERT 
+    INTO
+        NetworkAdapters
+        (IpAddress, SubnetMask, DefaultGateway, DesktopClientId) 
+    VALUES
+        (@p0, @p1, @p2, @p3);
+    @p0 = '192.168.56.1', @p1 = '255.255.255.0', @p2 = NULL, @p3 = 2
+2011-03-19 00:38:58,420 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 00:38:59,813 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id3_0_,
+        desktopcli0_.Placeholder as Placehol2_3_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 2
+2011-03-19 00:38:59,858 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id4_0_,
+        networkada0_.IpAddress as IpAddress4_0_,
+        networkada0_.SubnetMask as SubnetMask4_0_,
+        networkada0_.DefaultGateway as DefaultG4_4_0_,
+        networkada0_.DesktopClientId as DesktopC5_4_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 2
+2011-03-19 15:41:33,353 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 15:41:34,241 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 15:41:41,409 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Uri = @p0;
+    @p0 = 'http://baidu.com'
+2011-03-19 15:41:41,622 DEBUG 
+    INSERT 
+    INTO
+        PhoneClients
+        (Uri) 
+    VALUES
+        (@p0);
+    @p0 = 'http://baidu.com'
+2011-03-19 15:41:41,625 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 15:41:52,137 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Uri = @p0;
+    @p0 = 'http://baidu.com'
+2011-03-19 15:43:23,143 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 15:43:23,290 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 15:43:23,599 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 15:43:23,670 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 15:43:23,717 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 15:43:23,778 DEBUG 
+    INSERT 
+    INTO
+        Connections
+        (DesktopClientId, PhoneClientId) 
+    VALUES
+        (@p0, @p1);
+    @p0 = 1, @p1 = 1
+2011-03-19 15:43:23,780 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 15:43:29,379 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 15:43:29,423 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 15:43:29,428 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 15:43:32,137 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 15:43:32,180 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 15:43:32,183 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:31:23,432 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 16:31:23,650 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 16:31:26,277 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:31:27,427 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 16:31:27,462 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 16:31:31,179 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:31:31,221 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 16:31:31,222 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 16:31:32,451 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:31:32,486 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 16:31:32,487 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 16:31:33,707 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:31:33,748 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 16:31:33,749 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 16:31:34,799 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:31:34,835 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 16:31:34,836 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 16:32:09,310 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:32:09,343 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 1
+2011-03-19 16:32:09,345 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 1
+2011-03-19 16:33:36,822 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 2
+2011-03-19 16:33:36,856 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:33:36,869 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 2, @p1 = 1
+2011-03-19 16:33:36,929 DEBUG 
+    INSERT 
+    INTO
+        Connections
+        (DesktopClientId, PhoneClientId) 
+    VALUES
+        (@p0, @p1);
+    @p0 = 2, @p1 = 1
+2011-03-19 16:33:36,931 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 16:33:44,094 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 2
+2011-03-19 16:33:50,585 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:16,019 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 16:37:16,152 DEBUG 
+    SELECT
+        this_.Id as Id0_0_,
+        this_.Version as Version0_0_,
+        this_.TableName as TableName0_0_ 
+    FROM
+        MigrationRecords this_ 
+    WHERE
+        1=1
+2011-03-19 16:37:16,384 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 2
+2011-03-19 16:37:16,428 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:16,490 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 2
+2011-03-19 16:37:16,536 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 2, @p1 = 1
+2011-03-19 16:37:16,574 DEBUG 
+    DELETE 
+    FROM
+        Connections 
+    WHERE
+        Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:24,477 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:24,517 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:24,520 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:24,525 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:24,566 DEBUG 
+    INSERT 
+    INTO
+        Connections
+        (DesktopClientId, PhoneClientId) 
+    VALUES
+        (@p0, @p1);
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:24,569 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 16:37:24,578 DEBUG 
+    DELETE 
+    FROM
+        Connections 
+    WHERE
+        Id = @p0;
+    @p0 = 2
+2011-03-19 16:37:26,876 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:26,914 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:26,917 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:26,922 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:30,217 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:30,261 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:30,264 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:30,269 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:32,416 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:32,457 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:32,460 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:32,465 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:33,234 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:33,277 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:33,283 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:33,287 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 1, @p1 = 1
+2011-03-19 16:37:35,651 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 2
+2011-03-19 16:37:35,692 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:35,695 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 2
+2011-03-19 16:37:35,699 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 2, @p1 = 1
+2011-03-19 16:37:35,700 DEBUG 
+    INSERT 
+    INTO
+        Connections
+        (DesktopClientId, PhoneClientId) 
+    VALUES
+        (@p0, @p1);
+    @p0 = 2, @p1 = 1
+2011-03-19 16:37:35,701 DEBUG 
+    select
+        @@IDENTITY
+2011-03-19 16:37:35,701 DEBUG 
+    DELETE 
+    FROM
+        Connections 
+    WHERE
+        Id = @p0;
+    @p0 = 3
+2011-03-19 16:37:37,360 DEBUG 
+    SELECT
+        this_.Id as Id4_0_,
+        this_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 2
+2011-03-19 16:37:37,401 DEBUG 
+    SELECT
+        this_.Id as Id2_0_,
+        this_.Uri as Uri2_0_ 
+    FROM
+        PhoneClients this_ 
+    WHERE
+        this_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:37,404 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source2_.Id as Id4_0_,
+        source2_.Placeholder as Placehol2_4_0_,
+        target1_.Id as Id2_1_,
+        target1_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source2_ 
+            on this_.DesktopClientId=source2_.Id 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        (
+            target1_.Id = @p0 
+            and not (source2_.Id = @p1)
+        );
+    @p0 = 1, @p1 = 2
+2011-03-19 16:37:37,408 DEBUG 
+    SELECT
+        this_.Id as Id3_2_,
+        this_.DesktopClientId as DesktopC2_3_2_,
+        this_.PhoneClientId as PhoneCli3_3_2_,
+        source1_.Id as Id4_0_,
+        source1_.Placeholder as Placehol2_4_0_,
+        target2_.Id as Id2_1_,
+        target2_.Uri as Uri2_1_ 
+    FROM
+        Connections this_ 
+    left outer join
+        DesktopClients source1_ 
+            on this_.DesktopClientId=source1_.Id 
+    left outer join
+        PhoneClients target2_ 
+            on this_.PhoneClientId=target2_.Id 
+    WHERE
+        (
+            source1_.Id = @p0 
+            and target2_.Id = @p1
+        );
+    @p0 = 2, @p1 = 1
+2011-03-19 16:37:46,328 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:37:46,632 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 2
+2011-03-19 16:37:46,652 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 2
+2011-03-19 16:38:18,632 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:38:18,664 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 2
+2011-03-19 16:38:18,665 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 2
+2011-03-19 16:45:01,961 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:45:01,993 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 2
+2011-03-19 16:45:01,994 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 2
+2011-03-19 16:45:03,445 DEBUG 
+    SELECT
+        this_.Id as Id3_1_,
+        this_.DesktopClientId as DesktopC2_3_1_,
+        this_.PhoneClientId as PhoneCli3_3_1_,
+        target1_.Id as Id2_0_,
+        target1_.Uri as Uri2_0_ 
+    FROM
+        Connections this_ 
+    left outer join
+        PhoneClients target1_ 
+            on this_.PhoneClientId=target1_.Id 
+    WHERE
+        target1_.Id = @p0;
+    @p0 = 1
+2011-03-19 16:45:03,480 DEBUG 
+    SELECT
+        desktopcli0_.Id as Id4_0_,
+        desktopcli0_.Placeholder as Placehol2_4_0_ 
+    FROM
+        DesktopClients desktopcli0_ 
+    WHERE
+        desktopcli0_.Id=@p0;
+    @p0 = 2
+2011-03-19 16:45:03,481 DEBUG 
+    SELECT
+        networkada0_.DesktopClientId as DesktopC5_1_,
+        networkada0_.Id as Id1_,
+        networkada0_.Id as Id1_0_,
+        networkada0_.IpAddress as IpAddress1_0_,
+        networkada0_.SubnetMask as SubnetMask1_0_,
+        networkada0_.DefaultGateway as DefaultG4_1_0_,
+        networkada0_.DesktopClientId as DesktopC5_1_0_ 
+    FROM
+        NetworkAdapters networkada0_ 
+    WHERE
+        networkada0_.DesktopClientId=@p0;
+    @p0 = 2

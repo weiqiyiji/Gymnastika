@@ -7,6 +7,7 @@ using System.Windows.Documents;
 using System.Windows.Markup;
 using System.IO;
 using System.Windows;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Converters
 {
@@ -16,14 +17,20 @@ namespace Gymnastika.Modules.Sports.Converters
         public object Convert(object path, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             var doc = new FlowDocument();
-            string docPath = path as string;
+            string docPath = (path as string);
             if (!string.IsNullOrEmpty(docPath))
             {
-                using (Stream stream = File.Open(docPath, FileMode.Open))
+                docPath = PathFacility.GetDataAbsolutePath(docPath);
+                try
                 {
-                    TextRange range = new TextRange(doc.ContentStart, doc.ContentEnd);
-                    range.Load(stream, DataFormats.Rtf);
-                    //doc = XamlReader.Load(stream) as FlowDocument;
+                    using (Stream stream = File.Open(docPath, FileMode.Open))
+                    {
+                        TextRange range = new TextRange(doc.ContentStart, doc.ContentEnd);
+                        range.Load(stream, DataFormats.Rtf);
+                    }
+                }
+                catch (Exception)
+                {
                 }
             }
             return doc;

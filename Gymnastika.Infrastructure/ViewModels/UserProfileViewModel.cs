@@ -262,8 +262,14 @@ namespace Gymnastika.ViewModels
             }
         }
 
+        private bool _lockLogOn = false;
+
         private void ProcessLogOn()
         {
+            if (_lockLogOn) return;
+
+            _lockLogOn = true;
+
             User savedUser = null;
             bool isLogOnOk = false;
 
@@ -279,6 +285,8 @@ namespace Gymnastika.ViewModels
             {
                 GoBack(savedUser);
             }
+
+            _lockLogOn = false;
         }
 
         private bool ValidateCreateUserForm()
@@ -291,13 +299,13 @@ namespace Gymnastika.ViewModels
         {
             User savedUser = null;
 
+            IsRegisterFailed = false;
+            ErrorMessage = string.Empty;
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                IsRegisterFailed = false;
-                ErrorMessage = string.Empty;
+                savedUser = _userService.GetUser(UserName);
 
-                User registeredUser = _userService.GetUser(UserName);
-                if (registeredUser == null)
+                if (savedUser == null)
                 {
                     savedUser = _userService.Register(_user);
                     _sessionManager.Add(savedUser);
@@ -308,7 +316,6 @@ namespace Gymnastika.ViewModels
                     ErrorMessage = _userService.ErrorString;
                 }
             }
-
             if (!IsRegisterFailed)
             {
                 GoBack(savedUser);

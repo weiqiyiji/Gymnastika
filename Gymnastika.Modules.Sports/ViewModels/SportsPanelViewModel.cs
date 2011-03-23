@@ -21,6 +21,11 @@ using System.Windows;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
+    public class SportEventArgs : EventArgs
+    {
+        public Sport Sport{get;set;}
+    }
+
     public interface ISportsPanelViewModel
     {
         DelegateCommand NextPageCommand { get; }
@@ -44,11 +49,17 @@ namespace Gymnastika.Modules.Sports.ViewModels
         int Count { get; }
 
         int MaxPage { get; }
+
+        string SearchName { set; get; }
+
+        event EventHandler<SportEventArgs> RequestAddToFavorateEvent;
+        event EventHandler<SportEventArgs> RequestAddToPlanEvent;
+        event EventHandler<SportEventArgs> RequestShowDetailEvent;
     }
 
     public class SportsPanelViewModel : NotificationObject, ISportsPanelViewModel 
     {
-        const int MaxItemsPerPage = 5;
+        const int MaxItemsPerPage = 9;
 
         ISportCardViewModelFactory _factory;
         ISportProvider _sportProvider;
@@ -344,15 +355,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void OnAddToFavourate(object sender, EventArgs args)
         {
-
+            if (RequestAddToFavorateEvent != null)
+                RequestAddToFavorateEvent(this, new SportEventArgs() { Sport = (sender as ISportCardViewModel).Sport });
         }
         void OnAddToPlan(object sender, EventArgs args)
         {
-
+            if (RequestAddToPlanEvent != null)
+                RequestAddToPlanEvent(this, new SportEventArgs() { Sport = (sender as ISportCardViewModel).Sport });
         }
         void OnShowDetail(object sender, EventArgs args)
         {
-
+            if (RequestShowDetailEvent != null)
+                RequestShowDetailEvent(this, new SportEventArgs() { Sport = (sender as ISportCardViewModel).Sport });
         }
 
         string _searchName = "";
@@ -384,5 +398,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        public event EventHandler<SportEventArgs> RequestAddToFavorateEvent = delegate { };
+
+        public event EventHandler<SportEventArgs> RequestAddToPlanEvent = delegate { };
+
+        public event EventHandler<SportEventArgs> RequestShowDetailEvent = delegate { };
     }
 }

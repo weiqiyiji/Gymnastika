@@ -19,6 +19,8 @@ using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Gymnastika.Services.Session;
 using Gymnastika.Common.Navigation;
+using System.ComponentModel;
+using Gymnastika.Sync.Communication.Client;
 
 namespace Gymnastika
 {
@@ -40,6 +42,27 @@ namespace Gymnastika
 
             Application.Current.MainWindow = this.Shell as Shell;
             Application.Current.MainWindow.Show();
+
+            InitializeConnection();
+        }
+
+        private void InitializeConnection()
+        {
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.DoWork += new DoWorkEventHandler(worker_DoWork);
+            worker.RunWorkerAsync();
+        }
+
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            RegistrationService service = new RegistrationService();
+            ResponseMessage response = service.Register();
+            if (!response.HasError)
+            {
+                ConnectionStore store = Container.Resolve<ConnectionStore>();
+                store.SaveAssignedInfo(
+                    int.Parse(StringHelper.GetPureString(response.Response.Content.ReadAsString())));
+            }
         }
 
         private void MigrateData()
@@ -83,6 +106,7 @@ namespace Gymnastika
                 .RegisterType<IWidgetBootstrapper, WidgetBootstrapper>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
+                .RegisterType<ConnectionStore>(new ContainerControlledLifetimeManager())
                 .RegisterInstance<IUnityContainer>(Container)
                 .RegisterInstance<IDataMigrationDiscoverer>(
                     new DataMigrationDiscoverer()

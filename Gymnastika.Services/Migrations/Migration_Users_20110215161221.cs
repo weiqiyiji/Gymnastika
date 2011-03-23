@@ -27,7 +27,7 @@ namespace Gymnastika.Services.Migrations
         {
             SchemaBuilder.CreateTable(
                 TableName, 
-                t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
+                t => t.Column<int>("Id", c => c.PrimaryKey())
                       .Column<string>("UserName")
                       .Column<string>("Password")
                       .Column<int>("Gender")

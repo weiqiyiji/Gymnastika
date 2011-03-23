@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Gymnastika.Phone.Controls.UserSelectorItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="258" d:DesignWidth="371" BorderBrush="{x:Null}">
+    
+    <Border x:Name="LayoutRoot" BorderThickness="8" Margin="70,11,70,44" CornerRadius="30" Background="#A40E589D" HorizontalAlignment="Center">
+    	<Border.BorderBrush>
+    		<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    			<GradientStop Color="#3F9F9F9F" Offset="0"/>
+    			<GradientStop Color="#26FFFFFF" Offset="0.986"/>
+    		</LinearGradientBrush>
+    	</Border.BorderBrush>
+    
+		<Grid x:Name="LayoutRootGrid" Margin="-1">
+			<Image Height="128" Margin="23,9,22,0" x:Name="UserIconImage" Stretch="Uniform" VerticalAlignment="Top" Source="/Gymnastika.Phone;component/Avatar3.jpg" />
+			<TextBlock Height="32" Margin="42,136,35,0" x:Name="tbUsername" Text="TextBlock" VerticalAlignment="Top" TextAlignment="Center" />
+			<HyperlinkButton Content="登录" Height="38" Margin="21,161,0,0" x:Name="hlSignIn" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Left" Width="67" Click="hlSignIn_Click" BorderThickness="0" Background="{x:Null}" Foreground="White" />
+			<HyperlinkButton Content="删除" Height="43" Margin="0,161,18,0" x:Name="hlDelete" VerticalAlignment="Top" FontSize="20" HorizontalAlignment="Right" Width="72" Click="hlDelete_Click" BorderThickness="0" Background="{x:Null}" Foreground="White" />
+		</Grid>
+	</Border>
+</UserControl>

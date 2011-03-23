@@ -1,0 +1,99 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Gymnastika_Controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" x:Class="Gymnastika.Modules.Sports.Views.SportCalorieChartView" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Background="#FFD4DEC1">
+	<UserControl.Resources>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<Grid Background="{x:Null}" HorizontalAlignment="Stretch" Margin="-2,-2,2,2" VerticalAlignment="Stretch" >
+							<Ellipse Fill="#FF94E0B1" ></Ellipse>
+							<ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						
+						</Grid>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsKeyboardFocused" Value="true"/>
+							<Trigger Property="ToggleButton.IsChecked" Value="true"/>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="#ADADAD"/>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
+    <Grid>
+    	<Grid.ColumnDefinitions>
+    		<ColumnDefinition Width="0.18*"/>
+    		<ColumnDefinition Width="0.247*"/>
+    		<ColumnDefinition Width="0.143*"/>
+    		<ColumnDefinition Width="0.197*"/>
+    		<ColumnDefinition Width="0.076*"/>
+    		<ColumnDefinition Width="0.157*"/>
+    	</Grid.ColumnDefinitions>
+    	<Grid.RowDefinitions>
+    		<RowDefinition Height="0.125*"/>
+    		<RowDefinition Height="0.122*"/>
+    		<RowDefinition Height="0.043*"/>
+    		<RowDefinition Height="0.205*"/>
+    		<RowDefinition Height="0.175*"/>
+    		<RowDefinition Height="0.163*"/>
+    		<RowDefinition Height="0.167*"/>
+    	</Grid.RowDefinitions>
+		<Ellipse Fill="White"  Grid.RowSpan="7" Grid.ColumnSpan="6"/>
+		<Border BorderThickness="0,1" Background="White" Grid.Column="2" Panel.ZIndex="-1" Grid.ColumnSpan="4" Grid.RowSpan="4"/>
+    	<Gymnastika_Controls:AnimatedProgressBar x:Name="animatedProgressBar" Maximum="100" TargetValue="70" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="6" Grid.Row="1" Background="{x:Null}" Margin="0,5,0,0">
+    		<Gymnastika_Controls:AnimatedProgressBar.Foreground>
+    			<LinearGradientBrush EndPoint="1,0.432" StartPoint="-0.026,0.46">
+    				<GradientStop Color="#FFE9AE8B" Offset="0"/>
+    				<GradientStop Color="#FFEF8686" Offset="0.996"/>
+    				<GradientStop Color="#FFEF8686" Offset="0.614"/>
+    				<GradientStop Color="#FFEC9A88" Offset="0.259"/>
+    			</LinearGradientBrush>
+    		</Gymnastika_Controls:AnimatedProgressBar.Foreground>
+    		<Gymnastika_Controls:AnimatedProgressBar.RenderTransform>
+    			<TransformGroup>
+    				<ScaleTransform/>
+    				<SkewTransform/>
+    				<RotateTransform Angle="180"/>
+    				<TranslateTransform/>
+    			</TransformGroup>
+    		</Gymnastika_Controls:AnimatedProgressBar.RenderTransform>
+    	</Gymnastika_Controls:AnimatedProgressBar>
+		<TextBlock TextWrapping="Wrap" Text="665" Foreground="{Binding Foreground, ElementName=textBlock}" FontSize="32" Grid.Column="3" FontWeight="Bold" Margin="8,0" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+		<TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="大卡" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="18.667" Grid.Column="5" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+		<Button Content="添加" Style="{DynamicResource ButtonStyle}" Grid.Row="3" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="#FFEEFAF3" FontSize="24"/>
+		<Button Content="详细" Style="{DynamicResource ButtonStyle}" Grid.Row="5" Grid.Column="3" Foreground="#FFEEFAF3" FontSize="18.667"/>
+		<TextBlock TextWrapping="Wrap" Text="每分钟消耗" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="18.667" VerticalAlignment="Bottom" Margin="0,0,0,-1.247" HorizontalAlignment="Right" Grid.Column="1" Grid.ColumnSpan="2" Width="102.9"/>
+	</Grid>
+</UserControl>

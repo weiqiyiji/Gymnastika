@@ -16,21 +16,31 @@
 
     <UserControl.Resources>
         <cov:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        <SolidColorBrush x:Key="backgroundBrush" Color="#4B4D43" />
+        <SolidColorBrush x:Key="backgroundBrush" Color="#BBC7B2" />
         <ControlTemplate x:Key="commandButtonTemplate" TargetType="{x:Type Button}">
             <ContentPresenter />
         </ControlTemplate>
         <DataTemplate DataType="{x:Type vm:NavigationItemViewModel}">
-            <Border Margin="20,6,6,10">
-                <Button Content="{Binding Header}" FontSize="14" Foreground="White"
-                          Command="{Binding RequestNavigateCommand}" Template="{StaticResource commandButtonTemplate}" />
-            </Border>
+            <Grid x:Name="header" Background="#94E0B1">
+            	<TextBlock Foreground="White" Margin="20,6,0,6" Text="{Binding Header}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                <Button Command="{Binding RequestNavigateCommand}" Opacity="0" />
+            </Grid>
+			<DataTemplate.Triggers>
+				<DataTrigger Binding="{Binding IsSelected}" Value="True">
+					<Setter TargetName="header" Property="Background" Value="#C1E096" />
+				</DataTrigger>
+			</DataTemplate.Triggers>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:StateNavigationViewModel}">
-            <Border Margin="40,6,6,10">
-                <Button Content="{Binding Header}" FontSize="14" Foreground="White"
-                          Command="{Binding RequestNavigateCommand}" Template="{StaticResource commandButtonTemplate}" />
-            </Border>
+            <Grid x:Name="header" Margin="3,2,3,2" Background="#F5F7E9" Height="34">
+            	<TextBlock Text="{Binding Header}" FontSize="14" Margin="0,0,10,0" Foreground="#FFBFCEBB" VerticalAlignment="Center" HorizontalAlignment="Right" />
+				<Button Command="{Binding RequestNavigateCommand}" Opacity="0" Background="Transparent"/>
+            </Grid>
+        	<DataTemplate.Triggers>
+        		<DataTrigger Binding="{Binding IsSelected}" Value="True">
+        			<Setter TargetName="header" Property="Background" Value="White" />  		
+				</DataTrigger>
+        	</DataTemplate.Triggers>
         </DataTemplate>
         <Style x:Key="navigationRegionContentStyle" TargetType="{x:Type ListBoxItem}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
@@ -39,8 +49,8 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
                         <Grid>
-                            <Border BorderThickness="0" Background="#C1E096" Visibility="{Binding IsSelected, Converter={StaticResource boolToVisibilityConverter}}" />
-                            <ContentPresenter />
+                            <!--<Border BorderThickness="0" Background="#C1E096" Visibility="{Binding IsSelected, Converter={StaticResource boolToVisibilityConverter}}" />-->
+                            <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
@@ -51,9 +61,10 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:NavigationRegionViewModel}">
             <ListBox ItemsSource="{Binding ViewItems}" BorderThickness="0"
-                HorizontalAlignment="Stretch" Background="#8A7D6D"
+				Margin="0" Padding="0"
+                HorizontalAlignment="Stretch" Background="#BBC7B2"
         		ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-        		ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        		ScrollViewer.HorizontalScrollBarVisibility="Auto"
         		ItemContainerStyle="{StaticResource navigationRegionContentStyle}" />
         </DataTemplate>
 
@@ -64,6 +75,7 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="IsTabStop" Value="True" />
+			<Setter Property="Background" Value="#789174" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type layoutPrimitivesToolkit:AccordionButton}">
@@ -317,7 +329,7 @@
                                     </vsm:VisualStateGroup.Transitions>
                                     <vsm:VisualState x:Name="Normal" />
                                     <vsm:VisualState x:Name="MouseOver">
-                                        <Storyboard>
+                                        <!--<Storyboard>
                                             <ColorAnimation BeginTime="0" Storyboard.TargetName="arrow" Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" To="#222" />
                                             <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="MouseOverBackground" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
                                                 <SplineColorKeyFrame KeyTime="00:00:00" Value="White" />
@@ -325,15 +337,15 @@
                                             <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="MouseOverBackground" Storyboard.TargetProperty="(UIElement.Opacity)">
                                                 <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.3" />
                                             </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
+                                        </Storyboard>-->
                                     </vsm:VisualState>
                                     <vsm:VisualState x:Name="Pressed">
-                                        <Storyboard>
+                                        <!--<Storyboard>
                                             <ColorAnimation BeginTime="0" Storyboard.TargetName="arrow" Storyboard.TargetProperty="(Path.Stroke).(SolidColorBrush.Color)" To="#FF003366" />
                                             <ColorAnimationUsingKeyFrames BeginTime="00:00:00" Duration="00:00:00.0010000" Storyboard.TargetName="MouseOverBackground" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)">
                                                 <SplineColorKeyFrame KeyTime="00:00:00" Value="#ff737573" />
                                             </ColorAnimationUsingKeyFrames>
-                                        </Storyboard>
+                                        </Storyboard>-->
                                     </vsm:VisualState>
                                     <vsm:VisualState x:Name="Disabled">
                                         <Storyboard />
@@ -357,7 +369,7 @@
                                     <vsm:VisualState x:Name="Unfocused" />
                                 </vsm:VisualStateGroup>
                             </vsm:VisualStateManager.VisualStateGroups>
-                            <Border x:Name="background" Background="{TemplateBinding Background}" CornerRadius="0" BorderThickness="1">
+                            <Border x:Name="background" Background="{TemplateBinding Background}" CornerRadius="0">
                                 <Grid>
                                     <Border Height="Auto" Margin="0,0,0,0" x:Name="ExpandedBackground" VerticalAlignment="Stretch" Opacity="0" Background="#FFBADDE9" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1,1,1,1" />
                                     <Border Height="Auto" Margin="0,0,0,0" x:Name="MouseOverBackground" VerticalAlignment="Stretch" Opacity="0" Background="#00BDBDBD" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="1,1,1,1" />
@@ -725,12 +737,12 @@
                                             FontStretch="{TemplateBinding FontStretch}" 
                                             FontStyle="{TemplateBinding FontStyle}" 
                                             FontWeight="{TemplateBinding FontWeight}" 
-                                            Foreground="{TemplateBinding Foreground}" 
-                                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                            Foreground="#ADBFA9" 
+                                            HorizontalContentAlignment="Center" 
                                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" 
                                             HorizontalAlignment="{TemplateBinding HorizontalAlignment}" 
                                             VerticalAlignment="{TemplateBinding VerticalAlignment}" 
-                                            Background="{TemplateBinding Background}" />
+                                             />
                                     <layoutPrimitivesToolkit:ExpandableContentControl 
                                             x:Name="ExpandSite" 
                                             Grid.Row="1" IsTabStop="False" 
@@ -762,7 +774,7 @@
     <Grid Background="Transparent">
         <layoutToolkit:Accordion 
                 BorderThickness="0"
-                ItemsSource="{Binding Regions}" VerticalAlignment="Stretch" Width="300"
+                ItemsSource="{Binding Regions}" VerticalAlignment="Stretch" Width="230"
                 ItemTemplate="{StaticResource navigationRegionTemplate}" 
                 SelectionMode="ZeroOrMore" Style="{DynamicResource navigationBarStyle}"
                 ItemContainerStyle="{StaticResource navigationRegionStyle}" />

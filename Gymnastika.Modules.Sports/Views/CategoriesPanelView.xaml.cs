@@ -31,16 +31,28 @@ namespace Gymnastika.Modules.Sports.Views
             set
             {
                 DataContext = value;
+                var viewmodel = DataContext as ICategoriesPanelViewModel;
+                if (viewmodel != null && categorylist.Items.Count !=0)
+                    categorylist.SelectedIndex = 0;
             }
             get
             {
                 return DataContext as ICategoriesPanelViewModel;
             }
         }
+
+        private void ListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            ICategoriesPanelViewModel viewmodel = (DataContext as ICategoriesPanelViewModel);
+            if (viewmodel != null && viewmodel.SelectCommand.CanExecute(null))
+            {
+                viewmodel.SelectCommand.Execute(categorylist.SelectedItem);
+            }
+        }
     }
 
     public interface ICategoriesPanelView
     {
-
+        ICategoriesPanelViewModel ViewModel { get; set; }
     }
 }

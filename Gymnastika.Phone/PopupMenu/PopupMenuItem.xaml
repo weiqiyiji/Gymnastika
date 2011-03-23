@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Gymnastika.Phone.PopupMenu.PopupMenuItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="57" d:DesignWidth="332" Margin="0" Height="55" BorderThickness="0,1,0,0" BorderBrush="Black" IsHitTestVisible="True"
+            
+    >
+    
+    <Grid x:Name="LayoutRoot" Margin="0" IsHitTestVisible="True">
+
+        <Image Height="43" HorizontalAlignment="Left" x:Name="image1" Stretch="Fill" VerticalAlignment="Center" Width="43" Margin="5,1,0,1" IsHitTestVisible="False" />
+        <TextBlock Margin="54,3,0,4" x:Name="textBlock1" Text="TextBlock" Foreground="Black" VerticalAlignment="Center" Height="40" FontSize="28" Width="Auto" IsHitTestVisible="False">
+        	<TextBlock.Projection>
+        		<PlaneProjection RotationY="4"/>
+        	</TextBlock.Projection>
+        </TextBlock>
+        <Line Name="line1" Stroke="#FFAFDCFF" StrokeThickness="1" X2="200" />
+    </Grid>
+</UserControl>

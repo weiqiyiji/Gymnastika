@@ -27,42 +27,19 @@ namespace Gymnastika.Common.Navigation
 
         public void RequestNavigate(string regionName, string viewName)
         {
-            //if (string.IsNullOrEmpty(regionName))
-            //    throw new ArgumentNullException("regionName");
-
-            //if (string.IsNullOrEmpty(viewName))
-            //    throw new ArgumentNullException("viewName");
-
-            //INavigationRegion region = _navigationManager.Regions[regionName];
-
-            //if (region == null)
-            //{
-            //    throw new InvalidOperationException(
-            //        string.Format("Navigation Region [{0}] does not exist"));
-            //}
-
-            //NavigationDescriptor descriptor = region.ActiveNavigationViews[viewName];
-
-            //if (descriptor == null)
-            //{
-            //    descriptor = region.Activate(viewName);
-            //}
-
-            //OnNavigationStart(_previousDescriptor, descriptor, null);
-
-            //if (_previousDescriptor != null && _previousDescriptor.ViewName != descriptor.ViewName)
-            //{
-            //    Presenter.ApplyTransition(_previousDescriptor.ViewResolver(), descriptor.ViewResolver());
-            //}
-
-            //OnNavigationCompleted(_previousDescriptor, descriptor, null);
-
-            //_previousDescriptor = descriptor;
             RequestNavigate(regionName, viewName, null);
         }
 
+        private bool _isInTransition;
+        private NavigationDescriptor _targetDescriptor;
+        private NavigationDescriptor _sourceDescriptor;
+        private ViewState _targetState;
+
         public void RequestNavigate(string regionName, string viewName, string stateName)
         {
+            if (_isInTransition) return;
+            _isInTransition = true;
+
             if (string.IsNullOrEmpty(regionName))
                 throw new ArgumentNullException("regionName");
 
@@ -75,19 +52,39 @@ namespace Gymnastika.Common.Navigation
 
             OnNavigationStart(_previousDescriptor, descriptor, viewState);
 
+            Presenter.TransitionCompleted -= OnTransitionCompleted;
+
             if (_previousDescriptor != null && _previousDescriptor.ViewName != descriptor.ViewName)
             {
+                _targetDescriptor = descriptor;
+                _sourceDescriptor = _previousDescriptor;
+                _targetState = viewState;
+                Presenter.TransitionCompleted += OnTransitionCompleted;
                 Presenter.ApplyTransition(_previousDescriptor.ViewResolver(), descriptor.ViewResolver());
             }
-
-            OnNavigationCompleted(_previousDescriptor, descriptor, viewState);
-
-            if (viewState != null)
+            else
             {
-                NotifyStateChanging(descriptor, viewState);
+                PostTransition();
             }
 
             _previousDescriptor = descriptor;
+        }
+
+        private void PostTransition()
+        {
+            OnNavigationCompleted(_sourceDescriptor, _targetDescriptor, _targetState);
+
+            if (_targetState != null)
+            {
+                NotifyStateChanging(_targetDescriptor, _targetState);
+            }
+
+            _isInTransition = false;
+        }
+
+        private void OnTransitionCompleted(object sender, EventArgs e)
+        {
+            PostTransition();
         }
 
         private NavigationDescriptor ActivateView(string viewName, INavigationRegion region)

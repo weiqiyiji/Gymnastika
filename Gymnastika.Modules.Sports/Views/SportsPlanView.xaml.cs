@@ -28,8 +28,6 @@ namespace Gymnastika.Modules.Sports.Views
 
         }
 
-
-
         public bool Expanded
         {
             get { return (bool)GetValue(ExpandedProperty); }

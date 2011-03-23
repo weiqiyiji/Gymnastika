@@ -2,20 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 using Gymnastika.ProjectResources.Properties;
 using Gymnastika.Services.Models;
 using Gymnastika.Data;
 using Gymnastika.Services.Contracts;
+using Gymnastika.Sync.Communication.Client;
+using Microsoft.Http;
 
 namespace Gymnastika.Services.Impl
 {
     public class UserService : IUserService
     {
         private IRepository<User> _userRepository;
+        private UserProfileService _userProfileService;
 
         public UserService(IRepository<User> userRepository)
         {
             _userRepository = userRepository;
+            _userProfileService = new UserProfileService();
         }
 
         public string ErrorString { get; private set; }
@@ -29,8 +34,19 @@ namespace Gymnastika.Services.Impl
             if (savedUser == null)
             {
                 ErrorString = null;
-                _userRepository.Create(user);
-                return user;
+                ResponseMessage response = _userProfileService.Register(HttpContentExtensions.CreateDataContract<User>(user));
+
+                if (!response.HasError)
+                {
+                    user.Id = int.Parse(StringHelper.GetPureString(response.Response.Content.ReadAsString()));
+                    _userRepository.Create(user);
+                    return user;
+                }
+                else
+                {
+                    ErrorString = response.ErrorMessage;
+                    return null;
+                }
             }
 
             ErrorString = Resources.DuplicateUserName;
@@ -121,16 +137,30 @@ namespace Gymnastika.Services.Impl
 
         public User GetUser(string userName)
         {
-            return _userRepository.Get(u => u.UserName == userName);
+            ResponseMessage response = _userProfileService.GetUserByName(userName);
+
+            HttpContent content = response.Response.Content;
+            content.LoadIntoBuffer();
+            if (string.IsNullOrEmpty(content.ReadAsString())) return null;
+
+            return content.ReadAsDataContract<User>();
         }
 
         public User GetUser(int id)
         {
-            return _userRepository.Get(id);
+            ResponseMessage response = _userProfileService.GetUserById(id.ToString());
+
+            HttpContent content = response.Response.Content;
+            content.LoadIntoBuffer();
+
+            if (string.IsNullOrEmpty(content.ReadAsString())) return null;
+
+            return content.ReadAsDataContract<User>();
         }
 
         public void Update(User u)
         {
+            _userProfileService.Update(HttpContentExtensions.CreateDataContract<User>(u));
             _userRepository.Update(u);
         }
     }

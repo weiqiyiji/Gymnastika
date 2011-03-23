@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.PlanListPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="366" d:DesignWidth="732" 
+             xmlns:View="clr-namespace:Gymnastika.Modules.Sports.Views" 
+             xmlns:my="http://schemas.microsoft.com/surface/2008" 
+             Loaded="UserControl_Loaded">
+	<UserControl.Resources>
+		<Storyboard x:Key="ExpandStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="242.78"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.333"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="122"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="122.75"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0.996"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="-1.5"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Key="MinimizeStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-2"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="DetailView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="-1.5"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="1"/>
+			</DoubleAnimationUsingKeyFrames>
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="ListView">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="0"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+	</UserControl.Resources>
+    <Canvas x:Name="grid" SizeChanged="grid_SizeChanged">
+        <View:PlanDetailView x:Name="DetailView" Height="1" RenderTransformOrigin="0.5,0.5" Canvas.Top="0" Canvas.Left="0" Canvas.Right="0">
+        	<View:PlanDetailView.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</View:PlanDetailView.RenderTransform>
+        </View:PlanDetailView>
+        <View:PlanListView x:Name="ListView" Grid.RowSpan="3" RenderTransformOrigin="0.5,0.5" Canvas.Left="0" Canvas.Bottom="0"  Height="212" Canvas.Right="0">
+        	<View:PlanListView.RenderTransform>
+        		<TransformGroup>
+        			<ScaleTransform/>
+        			<SkewTransform/>
+        			<RotateTransform/>
+        			<TranslateTransform/>
+        		</TransformGroup>
+        	</View:PlanListView.RenderTransform>
+        </View:PlanListView>
+    </Canvas>
+</UserControl>

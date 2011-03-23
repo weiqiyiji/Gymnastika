@@ -67,8 +67,7 @@ namespace Gymnastika.ViewModels
                     {
                         ViewName = "WidgetView",
                         Header = "主 页",
-                        ViewResolver = () => _container.Resolve<DefaultWidgetPanel>(),
-                        States = new List<ViewState>() { new ViewState() { Header = "haha", Name = "Test" } }
+                        ViewResolver = () => _container.Resolve<DefaultWidgetPanel>()
                     });
 
             normalRegion.Add(
@@ -79,6 +78,14 @@ namespace Gymnastika.ViewModels
                      ViewResolver = () => _container.Resolve<UserProfileManagementView>()
                  });
 
+            normalRegion.Add(
+                new NavigationDescriptor() 
+                { 
+                    ViewName = "SyncView",
+                    Header = "连接手机",
+                    ViewResolver = () => _container.Resolve<SyncView>()
+                });
+
             _navigationService.RequestNavigate(NormalRegion, "WidgetView");
         }
 				
@@ -88,7 +95,8 @@ namespace Gymnastika.ViewModels
                 .RegisterType<UserProfileManagementView>(new ContainerControlledLifetimeManager())
                 .RegisterType<DefaultWidgetPanel>(new ContainerControlledLifetimeManager())
                 .RegisterType<WidgetPanelViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<NavigationView>(new ContainerControlledLifetimeManager());
+                .RegisterType<NavigationView>(new ContainerControlledLifetimeManager())
+                .RegisterType<SyncView>(new ContainerControlledLifetimeManager());
 
             _regionManager.RegisterViewWithRegion(RegionNames.NavigationRegion, typeof (NavigationView));
         }

@@ -19,6 +19,8 @@ using System.Collections.Specialized;
 using Gymnastika.Modules.Sports.Services.Providers;
 using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Services.Session;
+using Gymnastika.Modules.Sports.Facilities;
+using Gymnastika.Services.Models;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -38,33 +40,76 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         DelegateCommand CancelCommand { get; }
 
+        DateTime DateTime { get; }
+
         string Date { get; }
 
+        string DayOfWeekDes { get; }
+
+        int DayOfWeek { get; }
+
+        User User { get; }
+
         SportsPlan SportsPlan { get; }
+
+        IList<SportsPlanItem> ItemsBuffer { get; }
+
+        IList<SportsPlanItem> RemoveBuffer { get; }
     }
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
+
         ISportsPlanItemViewModelFactory _factory;
         ISportsPlanProvider _planProvider;
         IPlanItemProvider _itemProvider;
         ISportProvider _sportProvider;
-        public SportsPlanViewModel(SportsPlan plan,ISportProvider sportProvider,ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory)
+        ISessionManager _sessionManager;
+
+        public SportsPlanViewModel(SportsPlan plan,ISessionManager sessionManager,ISportProvider sportProvider,ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory)
         {
             _sportProvider = sportProvider;
             _planProvider = planProvider;
             _itemProvider = itemProvider;
             _factory = factory;
+            _sessionManager = sessionManager;
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
             SportsPlan = plan;
         }
 
-        private IList<SportsPlanItem> RemoveBuffer = new List<SportsPlanItem>();
-        private IList<SportsPlanItem> ItemsBuffer = new List<SportsPlanItem>();
+        public DateTime DateTime
+        {
+            get { return new DateTime(SportsPlan.Year, SportsPlan.Month, SportsPlan.Day); }
+        }
+
+        IList<SportsPlanItem> _removeBuffer = new List<SportsPlanItem>();
+        public IList<SportsPlanItem> RemoveBuffer
+        {
+            get { return _removeBuffer; }
+        }
+
+        IList<SportsPlanItem> _itemsBuffer = new List<SportsPlanItem>();
+        public IList<SportsPlanItem> ItemsBuffer 
+        {
+            get { return _itemsBuffer; }
+        }
+
+        public int DayOfWeek
+        {
+            get { return (int)DateTime.DayOfWeek; }
+        }
+
+        public string DayOfWeekDes
+        {
+            get
+            {
+               return DateFacility.GetDayName((DayOfWeek)DayOfWeek);
+            }
+        }
 
         public string Date
         {
-            get { return String.Format("{0}年{1}月{2}日", SportsPlan.Year, SportsPlan.Month, SportsPlan.Day); }// Time.ToString("yyyy年MM月dd日"); }
+            get { return DateFacility.GetShortDate(DateTime); }
         }
 
 
@@ -116,21 +161,22 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 if (value != null && value != _sportsPlan)
                 {
                     _sportsPlan = value;
-                    SportsPlanItemViewModels.ReplaceBy(InitViewModels(_sportsPlan));
+                    ResetPlan(_sportsPlan);
                     RaisePropertyChanged(() => SportsPlan);
                 }
             }
         }
 
+        void ResetPlan(SportsPlan plan)
+        {
+            ItemsBuffer.Clear();
+            SportsPlanItemViewModels.ReplaceBy(InitViewModels(_sportsPlan));
+            RemoveBuffer.Clear();
+        }
+
        IList<ISportsPlanItemViewModel>  InitViewModels(SportsPlan plan)
        {
-           IList<SportsPlanItem> items = null;
-           using (_itemProvider.GetContextScope())
-           {
-               items = _itemProvider.Fetch((t) => t.SportsPlan.Id == plan.Id).ToList();
-               foreach (var item in items)
-                   item.Sport = _sportProvider.Get(item.Sport.Id);
-           }
+           IList<SportsPlanItem> items = plan.SportsPlanItems;
            return CreateViewmodels(items);
        }
 
@@ -185,7 +231,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             viewmodel.RequestCancleEvent -= OnItemCancleRequest;
             viewmodel.PropertyChanged -= ItemPropertyChanged;
-            //SportsPlanItemViewModels.Remove(viewmodel);
         }
 
         private ISportsPlanItemViewModel CreateViewmodel(SportsPlanItem item)
@@ -296,32 +341,47 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             _itemProvider.CreateOrUpdate(item);
         }
-        void UpdatePlan()
-        {
-            SportsPlan.SportsPlanItems = ItemsBuffer;
 
-            using (_itemProvider.GetContextScope())
+        public User User
+        {
+            get { return _sessionManager.GetCurrentSession().AssociatedUser; }
+        }
+
+        void SavePlanToRepository()
+        {
+            using (_planProvider.GetContextScope())
             {
-                foreach (var item in RemoveBuffer)
+                foreach (SportsPlanItem item in SportsPlan.SportsPlanItems)
                 {
-                    DeleteItemFromRepository(item);
+                    if (item.Id != 0)
+                    {
+                        _itemProvider.Delete(item);
+                        item.Id = 0;
+                    }
                 }
-                foreach (var item in SportsPlan.SportsPlanItems)
+                if (SportsPlan.Id == 0)
                 {
-                    UpdateOrCreateItemToRepository(item);
+                    SportsPlan.SportsPlanItems = new List<SportsPlanItem>();
+                    SportsPlan.User = User;
+                    _planProvider.Create(SportsPlan);
                 }
+
+                foreach (var item in ItemsBuffer)
+                {
+                    item.SportsPlan = SportsPlan;
+                    _itemProvider.CreateOrUpdate(item);
+                }
+
+                SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
+                
+                _planProvider.CreateOrUpdate(SportsPlan);
             }
-            RemoveBuffer.Clear();
         }
 
         void Sumbmit()
         {
-            UpdatePlan();
-
-            using (_planProvider.GetContextScope())
-            {
-                _planProvider.CreateOrUpdate(SportsPlan);
-            }
+            SavePlanToRepository();
+            
 
             if (RequestSubmitEvent != null)
                 RequestSubmitEvent(this, EventArgs.Empty);
@@ -363,6 +423,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void Cancel()
         {
+            ResetPlan(SportsPlan);
+
             if (RequestCancelEvent == null)
                 RequestCancelEvent(this, EventArgs.Empty);
         }
@@ -387,22 +449,26 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             using (_itemProvider.GetContextScope())
             {
-                DeletePlan();
+                DeletePlanFromRepository();
             }
             if (RequestDeleteEvent != null)
                 RequestDeleteEvent(this, EventArgs.Empty);
         }
 
-        private void DeletePlan()
+        private void DeletePlanFromRepository()
         {
+            if (SportsPlan.Id == 0)
+                return;
             RemoveBuffer.Clear();
             ItemsBuffer.Clear();
             foreach (var item in SportsPlan.SportsPlanItems)
             {
                 _itemProvider.Delete(item);
                 SportsPlan.SportsPlanItems.Remove(item);
+                item.Id = 0;
             }
             _planProvider.Delete(SportsPlan);
+            SportsPlan.Id = 0;
         }
 
         

@@ -64,8 +64,11 @@ namespace Gymnastika.ViewModels
 
         private void RequestNavigate()
         {
-            INavigationService navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
-            navigationService.RequestNavigate(_regionName, _descriptor.ViewName, _viewState.Name);
+            if (!IsSelected)
+            {
+                INavigationService navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
+                navigationService.RequestNavigate(_regionName, _descriptor.ViewName, _viewState.Name);
+            }
         }
 
         private void OnNavigationStart(object sender, NavigationEventArgs e)
