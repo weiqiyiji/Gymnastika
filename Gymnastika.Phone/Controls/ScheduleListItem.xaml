@@ -6,16 +6,23 @@
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="43" d:DesignWidth="439" BorderBrush="#FF070707" Loaded="UserControl_Loaded">
-    
-    <Grid x:Name="LayoutRoot" Background="{x:Null}">
-        <TextBlock Height="42" HorizontalAlignment="Left" Name="textBlock1" Text="0" VerticalAlignment="Top" Width="33" TextAlignment="Right" FontSize="26" Foreground="#FF7C7C7C" />
-        <TextBlock Height="43" Margin="39,0,131,0" Name="textBlock2" Text="TextBlock" VerticalAlignment="Top" FontSize="26" Foreground="#FF5C5C5C" />
-        <Button Height="52" Margin="0,-9,66,0" Name="button1" VerticalAlignment="Top" BorderBrush="{x:Null}" HorizontalAlignment="Right" Width="59">
-            <Button.Background>
-                <ImageBrush ImageSource="/Gymnastika.Phone;component/Images/appbar.check.rest2.png" Stretch="None" />
-            </Button.Background>
-        </Button>
-    </Grid>
+    Foreground="{StaticResource PhoneForegroundBrush}" BorderBrush="#FF070707" Loaded="UserControl_Loaded" Height="259">
+    <UserControl.Resources>
+        <DataTemplate x:Key="SchduleDetailItem">
+            <Grid d:DesignWidth="173" d:DesignHeight="93"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Border x:Name="borderRoot" CornerRadius="8" BorderBrush="White" BorderThickness="2" Background="#19FFFFFF" Margin="0,0,0,4">
+        <Grid x:Name="LayoutRoot" Margin="0,0,0,-2" >
+            <TextBlock Margin="8,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Foreground="#FF625E5E" Name="txtTime"><Run Text="13:10 - 13:3"/><Run Text="0"/></TextBlock>
+            <TextBlock Margin="68,44,22,0" TextWrapping="Wrap" Text="TextBlockkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" VerticalAlignment="Top" Height="48" Foreground="#FFC1FF5A"/>
+            <TextBlock HorizontalAlignment="Right" Height="32" Margin="0,95,9,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="132" Foreground="#FF494341" Name="txtStatus" />
+            <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top"/>
+            <Border CornerRadius="5" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top" Margin="8,127,8,0" Height="117" Background="#3FFFFFFF" Name="borderDetails">
+                <ScrollViewer>
+				<StackPanel Height="113" Margin="0,0,7,0" Name="stackPanel1" VerticalAlignment="Top"  />
+            </ScrollViewer>
+			</Border>
+        </Grid>
+    </Border>
 </UserControl>

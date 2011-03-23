@@ -13,7 +13,7 @@
     	<TextBlock HorizontalAlignment="Left" Margin="8,54,0,0" TextWrapping="Wrap" Text="卡路里摄入量：" VerticalAlignment="Top" Width="175" FontSize="24"/>
     	<TextBlock HorizontalAlignment="Left" Margin="8,105,0,0" TextWrapping="Wrap" Text="卡路里消耗量：" VerticalAlignment="Top" Width="175" FontSize="24"/>
     	<TextBlock HorizontalAlignment="Left" Margin="31,156,0,0" TextWrapping="Wrap" Text="计划完成度：" Width="152" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" FontSize="24"/>
-    	<TextBlock HorizontalAlignment="Left" Margin="89,0,0,177" TextWrapping="Wrap" Text="分数：" Width="94" FontSize="29.333" Height="41" VerticalAlignment="Bottom"/>
+    	<TextBlock HorizontalAlignment="Left" Margin="81,0,0,186" TextWrapping="Wrap" Text="分数：" Width="94" FontSize="29.333" Height="41" VerticalAlignment="Bottom"/>
     	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,54,21,0" VerticalAlignment="Top" CornerRadius="8" Background="#96DCDCDC">
     		<Border BorderThickness="2" Margin="-2,-2,86,-2" CornerRadius="8" Background="#FF681818"/>
     	</Border>
@@ -25,7 +25,7 @@
     	</Border>
     	<TextBlock Margin="0,161,30,0" TextWrapping="Wrap" Text="0%" TextAlignment="Right" Foreground="#FF0E0552" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="113"/>
     	<TextBlock Margin="0,110,30,0" TextWrapping="Wrap" Text="0 大卡" TextAlignment="Right" Foreground="#FF003B03" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="113"/>
-    	<TextBlock Margin="167,0,97,164" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" FontSize="48" Foreground="#FF4E3FFF"/>
+    	<TextBlock Margin="166,0,98,174" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" FontSize="48" Foreground="#FF4E3FFF"/>
     	<TextBlock Margin="0,58,30,0" TextWrapping="Wrap" Text="0 大卡" TextAlignment="Right" Foreground="#FFB43F3F" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="111"/>
     </Grid>
 </UserControl>

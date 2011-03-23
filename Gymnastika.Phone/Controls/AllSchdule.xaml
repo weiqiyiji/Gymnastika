@@ -32,7 +32,7 @@
 				<ColumnDefinition Width="400" />
 				<ColumnDefinition Width="77*" />
 			</Grid.ColumnDefinitions>
-			<ListBox Margin="0,0,0,0" Name="AllSchduleList" >
+			<!--<ListBox Margin="0,0,0,0" Name="AllSchduleList" >
 				<ListBox.ItemContainerStyle>
 					<Style TargetType="ListBoxItem">
 						<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -51,7 +51,10 @@
 						</Border>
 					</DataTemplate>
 				</ListBox.ItemTemplate>
-			</ListBox>
+			</ListBox>-->
+			<ScrollViewer>
+				<StackPanel Name="AllSchdulePanel" Margin="0,0,9,0" />
+			</ScrollViewer>
 		</Grid>
 	</Grid>
 
