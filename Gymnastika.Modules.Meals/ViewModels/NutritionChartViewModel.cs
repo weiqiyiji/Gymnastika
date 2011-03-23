@@ -81,7 +81,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        private void FirstFoodNutritionChangedHandler(IList<NutritionalElement> nutritions)
+        private void FirstFoodNutritionChangedHandler(IList<NutritionElement> nutritions)
         {
             for (int i = 0; i < 4; i++)
             {
@@ -109,7 +109,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        private void SecondFoodNutritionChangedHandler(IList<NutritionalElement> nutritions)
+        private void SecondFoodNutritionChangedHandler(IList<NutritionElement> nutritions)
         {
             for (int i = 0; i < 4; i++)
             {

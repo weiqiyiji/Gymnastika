@@ -95,6 +95,7 @@
     <Compile Include="Events\ApplyRecommendedDietPlanEvent.cs" />
     <Compile Include="Events\DietPlanNutritionChangedEvent.cs" />
     <Compile Include="Events\NotifyHistoryDietPlanChangedEvent.cs" />
+    <Compile Include="Events\SelectDateEvent.cs" />
     <Compile Include="Events\SelectedFoodNutritionChangedEvent.cs" />
     <Compile Include="Events\SelectCategoryEvent.cs" />
     <Compile Include="Events\PositionedFoodNutritionChangedEvent.cs" />
@@ -104,19 +105,15 @@
     <Compile Include="Migrations\Migration_FavoriteFoods_20110304111306.cs" />
     <Compile Include="Migrations\Migration_FavoriteFood_Food_Relations_20110304113806.cs" />
     <Compile Include="Migrations\Migration_Foods_20110219142007.cs" />
-    <Compile Include="Migrations\Migration_Introductions_20110223125751.cs" />
-    <Compile Include="Migrations\Migration_NutritionalElements_20110221121551.cs" />
+    <Compile Include="Migrations\Migration_NutritionElements_20110221121551.cs" />
     <Compile Include="Migrations\Migration_DietPlans_20110217121623.cs" />
     <Compile Include="Migrations\Migration_SubDietPlans_20110219142008.cs" />
-    <Compile Include="Migrations\Migration_SubCategories_20110217121513.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\DietPlan.cs" />
     <Compile Include="Models\DietPlanItem.cs" />
     <Compile Include="Models\FavoriteFood.cs" />
-    <Compile Include="Models\Introduction.cs" />
     <Compile Include="Models\Food.cs" />
-    <Compile Include="Models\NutritionalElement.cs" />
-    <Compile Include="Models\SubCategory.cs" />
+    <Compile Include="Models\NutritionElement.cs" />
     <Compile Include="Models\SubDietPlan.cs" />
     <Compile Include="NavigationNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,23 +129,11 @@
     <Compile Include="Services\Providers\IDietPlanProvider.cs" />
     <Compile Include="Services\Providers\IFavoriteFoodProvider.cs" />
     <Compile Include="Services\Providers\IFoodProvider.cs" />
-    <Compile Include="Services\Providers\IIntroductionProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Providers\IntroductionProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Providers\INutritionalElementProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Providers\ISubCategoryProvider.cs">
+    <Compile Include="Services\Providers\INutritionElementProvider.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Providers\ISubDietPlanProvider.cs" />
-    <Compile Include="Services\Providers\NutritionalElementProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Providers\SubCategoryProvider.cs">
+    <Compile Include="Services\Providers\NutritionElementProvider.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Providers\SubDietPlanProvider.cs" />
@@ -253,6 +238,9 @@
     <Compile Include="Views\RecommendedDietPlanView.xaml.cs">
       <DependentUpon>RecommendedDietPlanView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SelectDateView.xaml.cs">
+      <DependentUpon>SelectDateView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelectDietPlanView.xaml.cs">
       <DependentUpon>SelectDietPlanView.xaml</DependentUpon>
     </Compile>
@@ -279,6 +267,10 @@
     <Compile Include="XModels\XFoodDataModels\XFoodData.cs" />
     <Compile Include="XModels\XFoodDataModels\XIntroduction.cs" />
     <Compile Include="XModels\XFoodDataModels\XNutritionalElement.cs" />
+    <Compile Include="XModels\XFoodLibraryModels\XClass.cs" />
+    <Compile Include="XModels\XFoodLibraryModels\XFood.cs" />
+    <Compile Include="XModels\XFoodLibraryModels\XFoodLibrary.cs" />
+    <Compile Include="XModels\XFoodLibraryModels\XNutritionElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Common\Gymnastika.Common.csproj">
@@ -376,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RecommendedDietPlanView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectDateView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

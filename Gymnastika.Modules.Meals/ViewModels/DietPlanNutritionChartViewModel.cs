@@ -76,7 +76,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public void DietPlanNutritionChangedHandler(IList<NutritionalElement> nutritions)
+        public void DietPlanNutritionChangedHandler(IList<NutritionElement> nutritions)
         {
             for (int i = 0; i < 4; i++)
             {

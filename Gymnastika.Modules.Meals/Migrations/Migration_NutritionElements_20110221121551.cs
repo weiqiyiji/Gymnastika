@@ -6,16 +6,18 @@ using Gymnastika.Data.Migration;
 
 namespace Gymnastika.Migrations
 {
-    public class Migration_Categories_20110217121420 : IDataMigration
+    public class Migration_NutritionElements_20110221121551 : IDataMigration
     {
+        private const string ForeignKeyName = "FK_Foods_NutritionElements";
+
         public string TableName 
         { 
-            get { return "Categories"; }
+            get { return "NutritionElements"; }
         }
             
         public string Version 
         { 
-            get { return "20110217121420"; }
+            get { return "20110221121551"; }
         }
             
         public SchemaBuilder SchemaBuilder { get; set; }
@@ -25,12 +27,23 @@ namespace Gymnastika.Migrations
             SchemaBuilder.CreateTable(
                 TableName,
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
-                    .Column<string>("Name"));
+                    .Column<string>("Name")
+                    .Column<int>("Value")
+                    .Column<int>("FoodId"));
+
+            SchemaBuilder.CreateForeignKey(
+                ForeignKeyName,
+                TableName,
+                new string[] { "FoodId" },
+                "Foods",
+                new string[] { "Id" });
         }
             
         public void Down()
         {
             SchemaBuilder.DropTable(TableName);
+
+            SchemaBuilder.DropForeignKey(TableName, ForeignKeyName);
         }
     }
 }

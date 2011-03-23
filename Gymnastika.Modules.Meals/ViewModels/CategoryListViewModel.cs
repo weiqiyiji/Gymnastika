@@ -37,19 +37,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
                 Categories = _foodService.CategoryProvider.GetAll();
-
-
-                foreach (var category in Categories)
-                {
-                    //CategoryItemViewModel categoryItem = new CategoryItemViewModel(category);
-                    //CategoryItems.Add(categoryItem);
-                    //var foodListViewModel = ServiceLocator.Current.GetInstance<IFoodListViewModel>();
-                    category.SubCategories = _foodService.SubCategoryProvider.GetSubCategories(category).ToList();
-                    //foodListViewModel.CurrentSubCategory = category.SubCategories[0];
-                    //foodListViewModel.CategoryName = category.Name;
-                    //foodListViewModel.SelectCategory(foodListViewModel.CurrentSubCategory);
-                    //FoodListViewModels.Add(foodListViewModel);
-                }
             }
             View = view;
             View.Context = this;
@@ -76,7 +63,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             SelectedCategoryItem = ((Category)e.AddedItems[0]);
 
-            _eventAggregator.GetEvent<SelectCategoryEvent>().Publish(SelectedCategoryItem.SubCategories[0]);
+            _eventAggregator.GetEvent<SelectCategoryEvent>().Publish(SelectedCategoryItem);
         }
     }
 }

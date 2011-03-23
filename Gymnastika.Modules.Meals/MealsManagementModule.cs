@@ -44,7 +44,7 @@ namespace Gymnastika.Modules.Meals
             RegisterServices();
             RegisterViews();
             RegisterViewModels();
-            RegisterViewWithRegion();
+            RegisterController();
             RegisterNavigation();
         }
 
@@ -59,10 +59,8 @@ namespace Gymnastika.Modules.Meals
         {
             _container.RegisterType<IFoodService, FoodService>()
                 .RegisterType<ICategoryProvider, CategoryProvider>()
-                .RegisterType<ISubCategoryProvider, SubCategoryProvider>()
                 .RegisterType<IFoodProvider, FoodProvider>()
-                .RegisterType<IIntroductionProvider, IntroductionProvider>()
-                .RegisterType<INutritionalElementProvider, NutritionalElementProvider>()
+                .RegisterType<INutritionElementProvider, NutritionElementProvider>()
                 .RegisterType<IFavoriteFoodProvider, FavoriteFoodProvider>()
                 .RegisterType<IDietPlanProvider, DietPlanProvider>()
                 .RegisterType<ISubDietPlanProvider, SubDietPlanProvider>()
@@ -132,11 +130,15 @@ namespace Gymnastika.Modules.Meals
                 });
         }
 
-        private void RegisterViewWithRegion()
+        private void RegisterController()
         {
-            _container.RegisterType<ILoadDataController, LoadDataController>()
-                .RegisterType(typeof(LoadDataView))
-                .RegisterType(typeof(Shell), new ContainerControlledLifetimeManager());
+            _container.RegisterType(typeof(SelectDateView));
+            _container.RegisterType<ILoadDataController, LoadDataController>();
+            var loadDataController = _container.Resolve<ILoadDataController>();
+            if (!loadDataController.IsLoaded)
+                _container.Resolve<ILoadDataController>().Load();
+                //.RegisterType(typeof(LoadDataView))
+                //.RegisterType(typeof(Shell), new ContainerControlledLifetimeManager()
         }
     }
 }

@@ -7,7 +7,7 @@ using Gymnastika.Modules.Meals.Models;
 
 namespace Gymnastika.Modules.Meals.Events
 {
-    public class SelectedFoodNutritionChangedEvent : CompositePresentationEvent<IList<NutritionalElement>>
+    public class SelectedFoodNutritionChangedEvent : CompositePresentationEvent<IList<NutritionElement>>
     {
     }
 }

@@ -43,20 +43,16 @@ namespace Gymnastika.Modules.Meals.Services
         //}
 
         public FoodService(ICategoryProvider categoryProvider,
-            ISubCategoryProvider subCategoryProvider,
             IFoodProvider foodProvider,
-            IIntroductionProvider introductionProvider,
-            INutritionalElementProvider nutritionalElementProvider,
+            INutritionElementProvider nutritionalElementProvider,
             IDietPlanProvider dietPlanProvider,
             ISubDietPlanProvider subDietPlanProvider,
             IDietPlanItemProvider dietPlanItemProvider,
             IFavoriteFoodProvider favoriteFoodProvider)
         {
             CategoryProvider = categoryProvider;
-            SubCategoryProvider = subCategoryProvider;
             FoodProvider = foodProvider;
-            IntroductionProvider = introductionProvider;
-            NutritionalElementProvider = nutritionalElementProvider;
+            NutritionElementProvider = nutritionalElementProvider;
             DietPlanProvider = dietPlanProvider;
             SubDietPlanProvider = subDietPlanProvider;
             DietPlanItemProvider = dietPlanItemProvider;
@@ -67,13 +63,9 @@ namespace Gymnastika.Modules.Meals.Services
 
         public ICategoryProvider CategoryProvider { get; set; }
 
-        public ISubCategoryProvider SubCategoryProvider { get; set; }
-
         public IFoodProvider FoodProvider { get; set; }
 
-        public IIntroductionProvider IntroductionProvider { get; set; }
-
-        public INutritionalElementProvider NutritionalElementProvider { get; set; }
+        public INutritionElementProvider NutritionElementProvider { get; set; }
 
         public IDietPlanProvider DietPlanProvider { get; set; }
 

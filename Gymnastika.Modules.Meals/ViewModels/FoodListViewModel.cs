@@ -57,7 +57,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICollectionView Category { get; set; }
 
-        public SubCategory CurrentSubCategory { get; set; }
+        public Category CurrentCategory { get; set; }
 
         public IEnumerable<Food> CurrentFoods { get; set; }
 
@@ -212,9 +212,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
             AttachRemoveFoodFromMyFavoriteEventHandler();
         }
 
-        public void SelectCategory(SubCategory subCategory)
+        public void SelectCategory(Category category)
         {
-            CurrentSubCategory = subCategory;
+            CurrentCategory = category;
 
             ListType = FoodListType.Category;
 
@@ -222,9 +222,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                int subTotalCount = _foodService.FoodProvider.Count(CurrentSubCategory);
+                int subTotalCount = _foodService.FoodProvider.Count(CurrentCategory);
                 PageCount = (subTotalCount % PageSize == 0) ? (subTotalCount / PageSize) : (subTotalCount / PageSize + 1);
-                CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentSubCategory, PageSize * (CurrentPage - 1), PageSize);
+                CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentCategory, PageSize * (CurrentPage - 1), PageSize);
             }
 
             CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
@@ -249,10 +249,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             if (e.AddedItems.Count == 0) return;
             FoodItemViewModel foodItem = (FoodItemViewModel)e.AddedItems[0];
-            IList<NutritionalElement> nutritions;
+            IList<NutritionElement> nutritions;
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                nutritions = _foodService.NutritionalElementProvider.GetNutritionalElements(foodItem.Food).ToList();
+                nutritions = _foodService.NutritionElementProvider.GetNutritionElements(foodItem.Food).ToList();
             }
             _eventAggregator.GetEvent<SelectedFoodNutritionChangedEvent>().Publish(nutritions);
         }
@@ -362,7 +362,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 case FoodListType.Category:
                     using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
                     {
-                        CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentSubCategory, PageSize * (CurrentPage - 1), PageSize);
+                        CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentCategory, PageSize * (CurrentPage - 1), PageSize);
                     }
                     CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
                     foreach (var food in CurrentFoods)

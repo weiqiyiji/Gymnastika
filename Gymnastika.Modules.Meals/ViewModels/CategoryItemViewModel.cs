@@ -17,8 +17,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             Category = category;
             FoodListViewModel = ServiceLocator.Current.GetInstance<IFoodListViewModel>();
-            FoodListViewModel.CurrentSubCategory = Category.SubCategories[0];
-            FoodListViewModel.SelectCategory(FoodListViewModel.CurrentSubCategory);
+            FoodListViewModel.CurrentCategory = Category;
+            FoodListViewModel.SelectCategory(FoodListViewModel.CurrentCategory);
         }
 
         public Category Category { get; set; }

@@ -28,7 +28,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Border Grid.Row="0" Grid.ColumnSpan="2" BorderThickness="1" Width="150" Height="150" CornerRadius="4" Margin="2">
-                <Image Width="150" Height="150" Source="{Binding SmallImageUri}">
+                <Image Width="150" Height="150" Source="{Binding LargeImageUri}">
                 </Image>
             </Border>
             <control:ImageButton Grid.Column="1" Command="{Binding DeleteFoodFromPlanCommand}" VerticalAlignment="Top" HorizontalAlignment="Right" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete.png" />

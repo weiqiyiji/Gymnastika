@@ -11,6 +11,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
     {
         IDietPlanNutritionChartView View { get; set; }
         IList<DietPlanNutritionChartItemViewModel> DietPlanNutritionChartItems { get; set; }
-        void DietPlanNutritionChangedHandler(IList<NutritionalElement> nutritions);
+        void DietPlanNutritionChangedHandler(IList<NutritionElement> nutritions);
     }
 }

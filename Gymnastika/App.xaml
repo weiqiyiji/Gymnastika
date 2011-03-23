@@ -4,7 +4,7 @@
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
              xmlns:cov="clr-namespace:Gymnastika.Controls.Converters;assembly=Gymnastika.Controls" 
              xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" 
-             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.App"
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Custom="http://schemas.microsoft.com/surface/2008" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="Gymnastika.App"
              >
     <Application.Resources>
         <ResourceDictionary>
@@ -179,8 +179,7 @@
         							    </Ellipse.Fill>
         						    </Ellipse>
                                 </Grid>
-                                <Ellipse x:Name="Glow" Fill="White" Stretch="Fill" Margin="1" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1">
-                                </Ellipse>
+                                <Ellipse x:Name="Glow" Fill="White" Stretch="Fill" Margin="1" Opacity="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1"/>
         						<ContentPresenter x:Name="Content" 
                                                   ContentTemplate="{TemplateBinding ContentTemplate}" 
                                                   Content="{TemplateBinding Content}" 

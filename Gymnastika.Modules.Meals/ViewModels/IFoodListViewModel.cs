@@ -15,7 +15,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         IFoodListView View { get; set; }
         ICollectionView Category { get; }
         IEnumerable<Food> CurrentFoods { get; set; }
-        SubCategory CurrentSubCategory { get; set; }
+        Category CurrentCategory { get; set; }
         FavoriteFood FavoriteFood { get; set; }
         string CategoryName { get; set; }
         ObservableCollection<FoodItemViewModel> CurrentPageFoodList { get; set; }
@@ -28,6 +28,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         ICommand ShowMyFavoriteCommand { get; }
         void ShowSearchResult();
         void ShowMyFavoriteResult();
-        void SelectCategory(SubCategory subCategory);
+        void SelectCategory(Category category);
     }
 }

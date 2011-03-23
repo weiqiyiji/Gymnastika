@@ -62,7 +62,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IList<IDietPlanSubListViewModel> DietPlanList { get; set; }
 
-        public IList<NutritionalElement> Nutritions { get; set; }
+        public IList<NutritionElement> Nutritions { get; set; }
 
         public DietPlan DietPlan { get; set; }
 
@@ -83,7 +83,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             TotalCalories = totalCalories;
 
-            Nutritions = new List<NutritionalElement>();
+            Nutritions = new List<NutritionElement>();
 
             bool canAdd = false;
             for (int i = 0; i < DietPlanList.Count; i++)
@@ -93,7 +93,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     if (DietPlanList[i].Nutritions == null) continue;
                     for (int j = 0; j < DietPlanList[i].Nutritions.Count; j++)
                     {
-                        Nutritions.Add(new NutritionalElement
+                        Nutritions.Add(new NutritionElement
                         {
                             Name = DietPlanList[i].Nutritions[j].Name,
                             Value = DietPlanList[i].Nutritions[j].Value

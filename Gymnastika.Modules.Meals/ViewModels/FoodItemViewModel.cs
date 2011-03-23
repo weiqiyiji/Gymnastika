@@ -29,15 +29,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public void LoadNutritionElementData()
         {
-            Nutritions = new List<NutritionalElement>();
+            Nutritions = new List<NutritionElement>();
             var workEnvironment = ServiceLocator.Current.GetInstance<IWorkEnvironment>();
             var foodService = ServiceLocator.Current.GetInstance<IFoodService>();
             using (var scope = workEnvironment.GetWorkContextScope())
             {
-                NutritionalElements = foodService.NutritionalElementProvider.GetNutritionalElements(Food, 0, 4);
+                NutritionalElements = foodService.NutritionElementProvider.GetNutritionElements(Food, 0, 4);
                 for (int i = 0; i < NutritionalElements.ToList().Count; i++)
                 {
-                    Nutritions.Add(new NutritionalElement
+                    Nutritions.Add(new NutritionElement
                     {
                         Name = NutritionalElements.ToList()[i].Name,
                         Value = NutritionalElements.ToList()[i].Value
@@ -58,19 +58,19 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get { return Food.SmallImageUri; }
         }
 
-        public string MiddleImageUri
+        public string LargeImageUri
         {
-            get { return Food.MiddleImageUri; }
+            get { return Food.LargeImageUri; }
         }
 
-        public IEnumerable<NutritionalElement> NutritionalElements { get; set; }
+        public IEnumerable<NutritionElement> NutritionalElements { get; set; }
 
         public decimal Calorie
         {
             get { return Decimal.Round(Food.Calorie); }
         }
 
-        public IList<NutritionalElement> Nutritions { get; set; }
+        public IList<NutritionElement> Nutritions { get; set; }
 
         private decimal _number;
         public decimal Number

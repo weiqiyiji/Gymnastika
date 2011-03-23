@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
         <converter:NutritionToForegroundConverter x:Key="NutritionToForegroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
-        <converter:NutritionToBackgroundConverter x:Key="NutritionToBackgroundConverter" CalorieBrush="#CF7474" CarbohydrateBrush="#BBB558" FatBrush="#72C25A" ProteinBrush="#68B99C" />
+        <converter:NutritionToBackgroundConverter x:Key="NutritionToBackgroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
     </UserControl.Resources>
             <Grid Margin="5">
             <Grid.ColumnDefinitions>

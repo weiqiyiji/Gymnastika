@@ -20,6 +20,7 @@ using Gymnastika.Common;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Meals.Events;
 using Gymnastika.Services.Models;
+using System.Windows;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -68,11 +69,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
+
+            _eventAggregator.GetEvent<SelectDateEvent>().Subscribe(SelectDateEventHandler);
+        }
+
+        private void SelectDateEventHandler(DateTime dateTime)
+        {
+            CreatedDate = dateTime;
         }
 
         #region IMealsManagementViewModel Members
 
         public IMealsManagementView View { get; set; }
+
+        public SelectDateView SelectDateView { get; set; }
 
         public string SearchString
         {
@@ -94,7 +104,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get
             {
-                return _createdDate;
+                return _createdDate.Date;
             }
             set
             {
@@ -157,6 +167,26 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
                 return _showMyFavoriteCommand;
             }
+        }
+
+        private ICommand _selectDateCommand;
+
+        public ICommand SelectDateCommand
+        {
+            get
+            {
+                if (_selectDateCommand == null)
+                    _selectDateCommand = new DelegateCommand(ShowSelectDateView);
+
+                return _selectDateCommand;
+            }
+        }
+
+        private void ShowSelectDateView()
+        {
+            SelectDateView = _container.Resolve<SelectDateView>();
+            SelectDateView.Owner = Application.Current.MainWindow;
+            SelectDateView.ShowDialog();
         }
 
         public IEnumerable<Food> InMemoryFoods { get; set; }

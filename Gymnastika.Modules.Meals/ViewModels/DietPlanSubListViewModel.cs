@@ -56,7 +56,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public event EventHandler DietPlanListPropertyChanged;
 
-        public IList<NutritionalElement> Nutritions { get; set; }
+        public IList<NutritionElement> Nutritions { get; set; }
 
         #region IDropTarget Members
 
@@ -92,7 +92,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void LoadNutritionData()
         {
-            Nutritions = new List<NutritionalElement>();
+            Nutritions = new List<NutritionElement>();
 
             for (int i = 0; i < FoodItems.Count; i++)
             {
@@ -100,7 +100,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     for (int j = 0; j < FoodItems[i].Nutritions.Count; j++)
                     {
-                        Nutritions.Add(new NutritionalElement
+                        Nutritions.Add(new NutritionElement
                         {
                             Name = FoodItems[i].Nutritions[j].Name,
                             Value = FoodItems[i].Nutritions[j].Value
