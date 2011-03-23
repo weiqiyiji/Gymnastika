@@ -66,7 +66,7 @@ namespace Gymnastika.Modules.Meals.Controllers
 
             //displayRegion.Add(_loadDataView);
             //displayRegion.Activate(_loadDataView);
-            _loadDataView.Show();
+            //_loadDataView.Show();
         }
 
         public void LoadCategoryData()

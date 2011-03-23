@@ -18,35 +18,11 @@ namespace Gymnastika.Modules.Meals.Views
     /// <summary>
     /// Interaction logic for CategoryItemView.xaml
     /// </summary>
-    public partial class CategoryItemView : ICategoryItemView
+    public partial class CategoryItemView : UserControl
     {
         public CategoryItemView()
         {
             InitializeComponent();
-        }
-
-        #region ICategoryItemView Members
-
-        public ICategoryItemViewModel Context
-        {
-            get
-            {
-                return this.DataContext as ICategoryItemViewModel;
-            }
-            set
-            {
-                this.DataContext = value;
-            }
-        }
-
-        public event SelectionChangedEventHandler SubCategoryItemSelectionChanged;
-
-        #endregion
-
-        private void SubCateogyrListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (SubCategoryItemSelectionChanged != null)
-                SubCategoryItemSelectionChanged(sender, e);
         }
     }
 }

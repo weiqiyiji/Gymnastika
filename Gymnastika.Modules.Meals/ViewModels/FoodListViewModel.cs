@@ -44,29 +44,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
             _eventAggregator = eventAggregator;
-            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            {
-                //_category = _foodService.CategoryProvider.GetAll();
-                //foreach (var category in _category)
-                //{
-                //    category.SubCategories = _foodService.SubCategoryProvider.GetSubCategories(category).ToList();
-                //}
-                FavoriteFood = _foodService.FavoriteFoodProvider.Get(_sessionManager.GetCurrentSession().AssociatedUser.Id);
-                if (FavoriteFood != null)
-                    FavoriteFood.Foods = _foodService.FoodProvider.GetFoods(FavoriteFood).ToList();
-            }
-            //Category = CollectionViewSource.GetDefaultView(_category);
-            MyFavoriteFoodList = new List<FoodItemViewModel>();
-            if (FavoriteFood != null)
-            {
-                foreach (var food in FavoriteFood.Foods)
-                {
-                    MyFavoriteFoodList.Add(new FoodItemViewModel(food)
-                        {
-                            ChangeMyFavoriteButtonContent = "- 删除"
-                        });
-                }
-            }
+            
             View = view;
             View.Context = this;
             View.FoodItemSelectionChanged += new SelectionChangedEventHandler(FoodItemSelectionChanged);
@@ -83,9 +61,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IEnumerable<Food> CurrentFoods { get; set; }
 
-        public ObservableCollection<FoodItemViewModel> PreviousPageFoodList { get; set; }
-
-        public ObservableCollection<FoodItemViewModel> NextPageFoodList { get; set; }
+        public string CategoryName { get; set; }
 
         public ObservableCollection<FoodItemViewModel> CurrentPageFoodList
         {
@@ -106,6 +82,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public FavoriteFood FavoriteFood { get; set; }
 
         public ICollection<FoodItemViewModel> MyFavoriteFoodList { get; set; }
+
+        public IEnumerable<Food> SearchFoods { get; set; }
 
         public int CurrentPage
         {
@@ -172,9 +150,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
+        public FoodListType ListType { get; set; }
+
         public void ShowSearchResult()
         {
-            if (CurrentFoods.Count() == 0)
+            if (SearchFoods.Count() == 0)
             {
                 CurrentPage = 0;
                 PageCount = 0;
@@ -182,29 +162,61 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 return;
             }
 
-            CurrentPage = 1;
-            PageCount = (CurrentFoods.Count() % PageSize == 0) ? (CurrentFoods.Count() / PageSize) : (CurrentFoods.Count() / PageSize + 1);
+            ListType = FoodListType.Searched;
 
+            CurrentPage = 1;
+            PageCount = (SearchFoods.Count() % PageSize == 0) ? (SearchFoods.Count() / PageSize) : (SearchFoods.Count() / PageSize + 1);
+            
+            CurrentFoods = SearchFoods.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1));
             CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
             foreach (var food in CurrentFoods)
             {
                 CurrentPageFoodList.Add(new FoodItemViewModel(food));
             }
 
-            //NextPageFoodList = new ObservableCollection<FoodItemViewModel>();
-            //foreach (var food in CurrentFoods.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage))
-            //{
-            //    NextPageFoodList.Add(new FoodItemViewModel(food));
-            //}
-
             AttachAddFoodToMyFavoriteEventHandler();
         }
 
-        #endregion
+        public void ShowMyFavoriteResult()
+        {
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                FavoriteFood = _foodService.FavoriteFoodProvider.Get(_sessionManager.GetCurrentSession().AssociatedUser.Id);
+                if (FavoriteFood != null)
+                    FavoriteFood.Foods = _foodService.FoodProvider.GetFoods(FavoriteFood).ToList();
+            }
 
-        private void SelectCategory(SubCategory subCategory)
+            MyFavoriteFoodList = new List<FoodItemViewModel>();
+            if (FavoriteFood != null)
+            {
+                foreach (var food in FavoriteFood.Foods)
+                {
+                    MyFavoriteFoodList.Add(new FoodItemViewModel(food)
+                    {
+                        ChangeMyFavoriteButtonContent = "- 删除"
+                    });
+                }
+            }
+            if (MyFavoriteFoodList.Count == 0)
+            {
+                System.Windows.MessageBox.Show("您还没有添加食物到自己的食物库");
+                return;
+            }
+
+            ListType = FoodListType.MyFavorite;
+
+            CurrentPage = 1;
+            PageCount = (MyFavoriteFoodList.Count % PageSize == 0) ? (MyFavoriteFoodList.Count / PageSize) : (MyFavoriteFoodList.Count / PageSize + 1);
+            CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>(MyFavoriteFoodList.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1)));
+
+            AttachRemoveFoodFromMyFavoriteEventHandler();
+        }
+
+        public void SelectCategory(SubCategory subCategory)
         {
             CurrentSubCategory = subCategory;
+
+            ListType = FoodListType.Category;
 
             CurrentPage = 1;
 
@@ -213,10 +225,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 int subTotalCount = _foodService.FoodProvider.Count(CurrentSubCategory);
                 PageCount = (subTotalCount % PageSize == 0) ? (subTotalCount / PageSize) : (subTotalCount / PageSize + 1);
                 CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentSubCategory, PageSize * (CurrentPage - 1), PageSize);
-                //foreach (var food in CurrentFoods)
-                //{
-                //    food.NutritionalElements = _foodService.NutritionalElementProvider.GetNutritionalElements(food, 0, 4).ToList();
-                //}
             }
 
             CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
@@ -226,6 +234,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
 
             AttachAddFoodToMyFavoriteEventHandler();
+        }
+
+        #endregion
+
+        public enum FoodListType
+        {
+            Category = 0,
+            MyFavorite = 1,
+            Searched = 2
         }
 
         private void FoodItemSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -237,15 +254,18 @@ namespace Gymnastika.Modules.Meals.ViewModels
             {
                 nutritions = _foodService.NutritionalElementProvider.GetNutritionalElements(foodItem.Food).ToList();
             }
-            _eventAggregator.GetEvent<FoodItemNutritionChangeEvent>().Publish(nutritions);
+            _eventAggregator.GetEvent<SelectedFoodNutritionChangedEvent>().Publish(nutritions);
         }
 
         private void AddFoodToMyFavorite(object sender, EventArgs e)
         {
+            //if (MyFavoriteFoodList == null)
+            //    MyFavoriteFoodList = new List<FoodItemViewModel>();
+
             FoodItemViewModel foodItem = sender as FoodItemViewModel;
             
-            if (MyFavoriteFoodList.FirstOrDefault(f => f.Name == foodItem.Name) == null)
-                MyFavoriteFoodList.Add(foodItem);
+            //if (MyFavoriteFoodList.FirstOrDefault(f => f.Name == foodItem.Name) == null)
+            //    MyFavoriteFoodList.Add(foodItem);
 
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
@@ -282,17 +302,38 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void ShowMyFavorite()
         {
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                FavoriteFood = _foodService.FavoriteFoodProvider.Get(_sessionManager.GetCurrentSession().AssociatedUser.Id);
+                if (FavoriteFood != null)
+                    FavoriteFood.Foods = _foodService.FoodProvider.GetFoods(FavoriteFood).ToList();
+            }
+
+            MyFavoriteFoodList = new List<FoodItemViewModel>();
+
+            if (FavoriteFood != null)
+            {
+                foreach (var food in FavoriteFood.Foods)
+                {
+                    MyFavoriteFoodList.Add(new FoodItemViewModel(food)
+                    {
+                        ChangeMyFavoriteButtonContent = "- 删除"
+                    });
+                }
+            }
+
             if (MyFavoriteFoodList.Count == 0)
             {
                 System.Windows.MessageBox.Show("您还没有添加食物到自己的食物库");
                 return;
             }
 
+            ListType = FoodListType.MyFavorite;
+
             CurrentPage = 1;
             PageCount = (MyFavoriteFoodList.Count % PageSize == 0) ? (MyFavoriteFoodList.Count / PageSize) : (MyFavoriteFoodList.Count / PageSize + 1);
             CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>(MyFavoriteFoodList.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1)));
-            NextPageFoodList = new ObservableCollection<FoodItemViewModel>(MyFavoriteFoodList.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage));
-            
+
             AttachRemoveFoodFromMyFavoriteEventHandler();
         }
 
@@ -301,31 +342,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             if (CurrentPage <= 1) return;
 
             CurrentPage--;
-            //NextPageFoodList = CurrentPageFoodList;
-            //CurrentPageFoodList = PreviousPageFoodList;
 
-            //PreviousPageFoodList = new ObservableCollection<FoodItemViewModel>();
-            //foreach (var food in CurrentFoods.Take(PageSize * (CurrentPage - 1)).Skip(PageSize * (CurrentPage - 2)))
-            //{
-            //    PreviousPageFoodList.Add(new FoodItemViewModel(food));
-            //}
-
-            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            {
-                CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentSubCategory, PageSize * (CurrentPage - 1), PageSize);
-                //foreach (var food in CurrentFoods)
-                //{
-                //    food.NutritionalElements = _foodService.NutritionalElementProvider.GetNutritionalElements(food, 0, 4).ToList();
-                //}
-            }
-
-            CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
-            foreach (var food in CurrentFoods)
-            {
-                CurrentPageFoodList.Add(new FoodItemViewModel(food));
-            }
-
-            AttachAddFoodToMyFavoriteEventHandler();
+            ChangePage();
         }
 
         private void ShowNextPage()
@@ -333,34 +351,38 @@ namespace Gymnastika.Modules.Meals.ViewModels
             if (CurrentPage >= PageCount) return;
 
             CurrentPage++;
-            //PreviousPageFoodList = CurrentPageFoodList;
-            //CurrentPageFoodList = NextPageFoodList;
 
-            //NextPageFoodList = new ObservableCollection<FoodItemViewModel>();
-            //foreach (var food in CurrentFoods.Take(PageSize * (CurrentPage + 1)).Skip(PageSize * CurrentPage))
-            //{
-            //    NextPageFoodList.Add(new FoodItemViewModel(food));
-            //}
+            ChangePage();
+        }
 
-            //CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
-            //foreach (var food in CurrentFoods.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1)))
-            //{
-            //    CurrentPageFoodList.Add(new FoodItemViewModel(food));
-            //}
-
-            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+        private void ChangePage()
+        {
+            switch (ListType)
             {
-                CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentSubCategory, PageSize * (CurrentPage - 1), PageSize);
-                //foreach (var food in CurrentFoods)
-                //{
-                //    food.NutritionalElements = _foodService.NutritionalElementProvider.GetNutritionalElements(food, 0, 4).ToList();
-                //}
-            }
-
-            CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
-            foreach (var food in CurrentFoods)
-            {
-                CurrentPageFoodList.Add(new FoodItemViewModel(food));
+                case FoodListType.Category:
+                    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+                    {
+                        CurrentFoods = _foodService.FoodProvider.GetFoods(CurrentSubCategory, PageSize * (CurrentPage - 1), PageSize);
+                    }
+                    CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
+                    foreach (var food in CurrentFoods)
+                    {
+                        CurrentPageFoodList.Add(new FoodItemViewModel(food));
+                    }
+                    break;
+                case FoodListType.MyFavorite:
+                    CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>(MyFavoriteFoodList.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1)));
+                    break;
+                case FoodListType.Searched:
+                    CurrentFoods = SearchFoods.Take(PageSize * CurrentPage).Skip(PageSize * (CurrentPage - 1));
+                    CurrentPageFoodList = new ObservableCollection<FoodItemViewModel>();
+                    foreach (var food in CurrentFoods)
+                    {
+                        CurrentPageFoodList.Add(new FoodItemViewModel(food));
+                    }
+                    break;
+                default:
+                    break;
             }
 
             AttachAddFoodToMyFavoriteEventHandler();

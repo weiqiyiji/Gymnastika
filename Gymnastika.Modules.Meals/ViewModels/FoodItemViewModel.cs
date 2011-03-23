@@ -24,6 +24,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public FoodItemViewModel(Food food)
         {
             Food = food;
+            ChangeMyFavoriteButtonContent = "+ 收藏";
+        }
+
+        public void LoadNutritionElementData()
+        {
             Nutritions = new List<NutritionalElement>();
             var workEnvironment = ServiceLocator.Current.GetInstance<IWorkEnvironment>();
             var foodService = ServiceLocator.Current.GetInstance<IFoodService>();
@@ -39,8 +44,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     });
                 }
             }
-            Amount = 100;
-            ChangeMyFavoriteButtonContent = "+ 收藏";
         }
 
         public Food Food { get; set; }
@@ -69,6 +72,17 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IList<NutritionalElement> Nutritions { get; set; }
 
+        private decimal _number;
+        public decimal Number
+        {
+            get { return Decimal.Round(_number); }
+            set
+            {
+                _number = value;
+                Calories = _number * Calorie / 100;
+            }
+        }
+
         public decimal Amount
         {
             get 
@@ -96,7 +110,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get
             {
-                return _calories;
+                return Decimal.Round(_calories);
             }
             set
             {

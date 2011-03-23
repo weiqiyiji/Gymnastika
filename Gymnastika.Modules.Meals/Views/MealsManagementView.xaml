@@ -5,44 +5,69 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:inputToolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
              mc:Ignorable="d" Background="Transparent"
              d:DesignHeight="300" d:DesignWidth="300">
-	<!--<UserControl.Background>
-        <ImageBrush ImageSource="/Gymnastika.Modules.Meals;component/Images/mainview_bg.jpg" />
-    </UserControl.Background>-->
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <controls:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Width="400" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Padding="15" Grid.Column="0" Content="{Binding CategoryListViewModel.View}" />
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+        <Grid Grid.Row="0" Margin="15,15,15,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+                <TextBlock Foreground="#7D846C" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding UserName}" />
+                <TextBlock Text="的饮食计划" />
+            </TextBlock>
+            <toolkit:DatePicker Grid.Column="1" Height="30" SelectedDate="{Binding CreatedDate}" HorizontalAlignment="Center" />
+            <StackPanel Grid.Column="2" HorizontalAlignment="Center" Orientation="Horizontal">
+                <control:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Height="20" Width="200" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
                                           FilterMode="Custom" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ItemsSource="{Binding InMemoryFoods}" PreviewKeyDown="SearchBox_KeyDown">
-                <inputToolkit:AutoCompleteBox.ItemTemplate>
-                    <DataTemplate>
+                    <inputToolkit:AutoCompleteBox.ItemTemplate>
+                        <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </inputToolkit:AutoCompleteBox.ItemTemplate>
-            </inputToolkit:AutoCompleteBox>
-        </StackPanel>
-        <Grid Grid.Row="1">
+                        </DataTemplate>
+                    </inputToolkit:AutoCompleteBox.ItemTemplate>
+                </inputToolkit:AutoCompleteBox>
+            </StackPanel>
+        </Grid>
+
+            <Border Grid.Row="1">
+        <ContentControl Content="{Binding DietPlanListViewModel.View}" />
+            </Border>
+
+            <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <ContentControl Content="{Binding CategoryListViewModel.View}" />
-            <ContentControl Grid.Column="1" Content="{Binding FoodListViewModel.View}" />
-            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                <ContentControl Content="{Binding CreateDietPlanViewModel.View}" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <surface:SurfaceButton Content="已存食谱" Command="{Binding ShowSavedDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <surface:SurfaceButton Content="推荐食谱" Command="{Binding ShowRecommendedDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </StackPanel>
-                <ContentControl Content="{Binding NutritionChartViewModel.View}" />
-            </StackPanel>
-		</Grid>
-	</Grid>
+                <Grid Height="200" Width="280" Margin="15,0,0,15">
+                    <ContentControl Canvas.ZIndex="0" Content="{Binding NutritionChartViewModel.View}" />
+                    <ContentControl Canvas.ZIndex="1" Content="{Binding PositionedFoodViewModel.View}" />
+                </Grid>
+                <ContentControl Grid.Column="1" Content="{Binding DietPlanNutritionChartViewModel.View}" />
+                <Grid Grid.Column="2" Margin="10,0,0,0">
+                    <surface:SurfaceButton Grid.Row="1" Content="保存" Command="{Binding SaveCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Grid>
 </UserControl>

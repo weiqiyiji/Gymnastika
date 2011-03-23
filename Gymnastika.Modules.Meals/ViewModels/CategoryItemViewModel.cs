@@ -7,42 +7,22 @@ using Gymnastika.Modules.Meals.Models;
 using System.Windows.Controls;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Meals.Events;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class CategoryItemViewModel : ICategoryItemViewModel
+    public class CategoryItemViewModel
     {
-        private readonly IEventAggregator _eventAggregator;
-
-        public CategoryItemViewModel(ICategoryItemView view, IEventAggregator eventAggregator)
+        public CategoryItemViewModel(Category category)
         {
-            _eventAggregator = eventAggregator;
-            View = view;
-            View.Context = this;
-            View.SubCategoryItemSelectionChanged += new SelectionChangedEventHandler(SubCategoryItemSelectionChanged);
+            Category = category;
+            FoodListViewModel = ServiceLocator.Current.GetInstance<IFoodListViewModel>();
+            FoodListViewModel.CurrentSubCategory = Category.SubCategories[0];
+            FoodListViewModel.SelectCategory(FoodListViewModel.CurrentSubCategory);
         }
-
-        #region ICategoryItemViewModel Members
-
-        public ICategoryItemView View { get; set; }
-
-        public IEnumerable<SubCategory> SubCategoryItems { get; set; }
-
-        public SubCategory SelectedSubCategoryItem { get; set; }
 
         public Category Category { get; set; }
 
-        public string ImageUri { get { return Category.ImageUri; } }
-
-        public string Name { get { return Category.Name; } }
-
-        #endregion
-
-        private void SubCategoryItemSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SelectedSubCategoryItem = (SubCategory)e.AddedItems[0];
-
-            _eventAggregator.GetEvent<SelectCategoryEvent>().Publish(SelectedSubCategoryItem);
-        }
+        public IFoodListViewModel FoodListViewModel { get; set; }
     }
 }

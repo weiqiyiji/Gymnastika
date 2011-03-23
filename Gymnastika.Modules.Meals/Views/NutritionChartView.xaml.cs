@@ -21,8 +21,6 @@ namespace Gymnastika.Modules.Meals.Views
     /// </summary>
     public partial class NutritionChartView : INutritionChartView
     {
-        private DoubleAnimation _widthAnimation;
-
         public NutritionChartView()
         {
             InitializeComponent();
@@ -42,32 +40,6 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
-        public void DietPlanCalorieValueChangeAnimation(double oldValue, double newValue)
-        {
-            NutritionValueChangeAnimation(oldValue, newValue);
-            //Storyboard.SetTargetName(_widthAnimation, "DietPlanCalorieValueBorder");
-            //Storyboard.SetTargetProperty(_widthAnimation, new PropertyPath(Border.WidthProperty));
-            //Storyboard storyboard = new Storyboard();
-            //storyboard.Children.Add(_widthAnimation);
-            //storyboard.Begin(DietPlanCalorieValueBorder);
-            //DietPlanCalorieValueBorder.BeginAnimation(WidthProperty, _widthAnimation);
-            DietPlanCalorieValueBorder.Width = 100;
-        }
-
-        public void DietPlanCalorieValueChangeAnimation(AnimationTimeline animation)
-        {
-            //DietPlanCalorieValueBorder.BeginAnimation(WidthProperty, animation);
-            //DietPlanCalorieValueBorder.Width = 100;
-        }
-
         #endregion
-
-        private void NutritionValueChangeAnimation(double oldValue, double newValue)
-        {
-            _widthAnimation = new DoubleAnimation();
-            _widthAnimation.From = oldValue;
-            _widthAnimation.To = newValue;
-            _widthAnimation.Duration = TimeSpan.FromSeconds(2);
-        }
     }
 }

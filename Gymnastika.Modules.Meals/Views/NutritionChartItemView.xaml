@@ -7,50 +7,81 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <converter:WidthToBackgroundConverter x:Key="WidthToBackgroundConverter"
-                                              CalorieLowLevelBrush="#FFFCC1C1" CalorieMediumLevelBrush="#FFFB6666" CalorieHighLevelBrush="#FFEB1D1D"
-                                              CarbohydrateLowLevelBrush="#FFCAF0F9" CarbohydrateMediumLevelBrush="#FF52C1E1" CarbohydrateHighLevelBrush="#FF0F8EB2"
-                                              FatLowLevelBrush="#FFFEFB8D" FatMediumLevelBrush="#FFFAF23E" FatHighLevelBrush="#FFF2F209"
-                                              ProteinLowLevelBrush="#FFEECF6D" ProteinMediumLevelBrush="#FFF3DC93" ProteinHighLevelBrush="#FFFDF3D5" />
+        <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+        <converter:NutritionToForegroundConverter x:Key="NutritionToForegroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
+        <converter:NutritionToBackgroundConverter x:Key="NutritionToBackgroundConverter" CalorieBrush="#CF7474" CarbohydrateBrush="#BBB558" FatBrush="#72C25A" ProteinBrush="#68B99C" />
     </UserControl.Resources>
-        <Grid Width="300">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid Height="25" Margin="2">
-            <Border x:Name="DietPlanNutritionValueBorder" Width="{Binding CurrentDietPlanNutritionWidth}" HorizontalAlignment="Left" MaxWidth="250" Opacity="0.7">
-                <Border.Background>
+            <Grid Margin="5">
+            <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="1" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}" VerticalAlignment="Bottom">
+                <TextBlock.LayoutTransform>
+    					<TransformGroup>
+    						<ScaleTransform/>
+    						<SkewTransform/>
+    						<RotateTransform Angle="90"/>
+    						<TranslateTransform/>
+    					</TransformGroup>
+                    </TextBlock.LayoutTransform>    
+            </TextBlock>
+        <Border Grid.Column="0" Height="{Binding CurrentFirstFoodNutritionWidth}" Background="{Binding NutritionName, Converter={StaticResource NutritionToBackgroundConverter}}" Width="15" VerticalAlignment="Bottom" MaxHeight="250">
+                <!--<Border.Background>
                     <MultiBinding Converter="{StaticResource WidthToBackgroundConverter}">
                         <Binding Path="NutritionName"></Binding>
-                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Width"></Binding>
+                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Height"></Binding>
                     </MultiBinding>
-                </Border.Background>
+                </Border.Background>-->
             </Border>
-                <TextBlock Margin="2,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding DietPlanNutritionValue}" />
-                                    <TextBlock Text="克（每100克）" />
-                                </TextBlock>
-                <TextBlock Foreground="Black" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}"
-                                       Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
-                </TextBlock>
-            </Grid>
-            <Grid Grid.Row="1" Height="25" Margin="2">
-            <Border x:Name="FoodItemNutritionValueBorder" Width="{Binding CurrentFoodItemNutritionWidth}" HorizontalAlignment="Left" MaxWidth="250" Opacity="0.7">
-                <Border.Background>
+        <Border Grid.Column="2" Height="{Binding CurrentSecondFoodNutritionWidth}" Background="{Binding NutritionName, Converter={StaticResource NutritionToBackgroundConverter}}" Width="15" VerticalAlignment="Bottom" MaxHeight="250">
+                <!--<Border.Background>
                     <MultiBinding Converter="{StaticResource WidthToBackgroundConverter}">
                         <Binding Path="NutritionName"></Binding>
-                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Width"></Binding>
+                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Height"></Binding>
                     </MultiBinding>
-                </Border.Background>
+                </Border.Background>-->
             </Border>
-                <TextBlock Margin="2,0,0,0" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                    <TextBlock Text="{Binding FoodItemNutritionValue}" />
-                                    <TextBlock Text="克（每100克）" />
-                                </TextBlock>
-                <TextBlock Foreground="Black" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}"
-                                       Margin="10,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Center">
+        <TextBlock Grid.Column="0" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding FirstFoodName}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock.LayoutTransform>
+    					<TransformGroup>
+    						<ScaleTransform/>
+    						<SkewTransform/>
+    						<RotateTransform Angle="90"/>
+    						<TranslateTransform/>
+    					</TransformGroup>
+                    </TextBlock.LayoutTransform>
                 </TextBlock>
-            </Grid>
-        </Grid>
+        <TextBlock Grid.Column="2" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding SecondFoodName}" HorizontalAlignment="Center" VerticalAlignment="Top">
+                    <TextBlock.LayoutTransform>
+    					<TransformGroup>
+    						<ScaleTransform/>
+    						<SkewTransform/>
+    						<RotateTransform Angle="90"/>
+    						<TranslateTransform/>
+    					</TransformGroup>
+                    </TextBlock.LayoutTransform>
+        </TextBlock>
+        <TextBlock Grid.Column="0" Foreground="White" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NewFirstFoodNutritionValue}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <TextBlock.LayoutTransform>
+    					<TransformGroup>
+    						<ScaleTransform/>
+    						<SkewTransform/>
+    						<RotateTransform Angle="90"/>
+    						<TranslateTransform/>
+    					</TransformGroup>
+                    </TextBlock.LayoutTransform>
+        </TextBlock>
+        <TextBlock Grid.Column="2" Foreground="White" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NewSecondFoodNutritionValue}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <TextBlock.LayoutTransform>
+    					<TransformGroup>
+    						<ScaleTransform/>
+    						<SkewTransform/>
+    						<RotateTransform Angle="90"/>
+    						<TranslateTransform/>
+    					</TransformGroup>
+                    </TextBlock.LayoutTransform>
+        </TextBlock>
+    </Grid>
 </UserControl>

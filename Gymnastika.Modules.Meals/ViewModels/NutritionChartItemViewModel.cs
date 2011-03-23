@@ -11,37 +11,65 @@ using System.Windows.Threading;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class NutritionChartItemViewModel : NotificationObject, INutritionChartItemViewModel
+    public class NutritionChartItemViewModel : NotificationObject
     {
-        private const int RefreshInterval = 1;
-        DispatcherTimer _dietPlanNutritionAnimationTimer;
-        DispatcherTimer _foodItemNutritionAnimationTimer;
-        private double _dietPlanNutritionValue;
-        private double _foodItemNutritionValue;
+        private const double RefreshInterval = 0.2;
+        private string _firstFoodName;
+        private string _secondFoodName;
+        DispatcherTimer _firstFoodNutritionAnimationTimer;
+        DispatcherTimer _secondFoodNutritionAnimationTimer;
+        private double _newFirstFoodNutritionValue;
+        private double _newSecondFoodNutritionValue;
         private double _minTotalNutritionValue;
         private double _maxTotalNutritionValue;
         private double _oldDietPlanNutritionValue;
-        private double _oldFoodItemNutritionValue;
-        private double _currentFoodItemNutritionWidth;
+        private double _oldSecondFoodNutritionValue;
+        private double _currentSecondFoodNutritionWidth;
         private double _currentDietPlanNutritionWidth;
 
-        public NutritionChartItemViewModel(INutritionChartItemView view)
+        public NutritionChartItemViewModel()
         {
-            DietPlanNutritionValue = 0.0;
+            NewFirstFoodNutritionValue = 0.0;
             OldDietPlanNutritionValue = 0.0;
-            FoodItemNutritionValue = 0.0;
-            OldFoodItemNutritionValue = 0.0;
-            CurrentDietPlanNutritionWidth = 0.0;
-            CurrentFoodItemNutritionWidth = 0.0;
-            View = view;
-            View.Context = this;
+            NewSecondFoodNutritionValue = 0.0;
+            OldSecondFoodNutritionValue = 0.0;
+            CurrentFirstFoodNutritionWidth = 0.0;
+            CurrentSecondFoodNutritionWidth = 0.0;
         }
 
-        #region INutritionChartItemViewModel Members
-
-        public INutritionChartItemView View { get; set; }
-
         public string NutritionName { get; set; }
+
+        public string FirstFoodName
+        {
+            get
+            {
+                return _firstFoodName;
+            }
+            set
+            {
+                if (_firstFoodName != value)
+                {
+                    _firstFoodName = value;
+                    RaisePropertyChanged("FirstFoodName");
+                }
+            }
+        }
+
+        public string SecondFoodName
+        {
+            get
+            {
+                return _secondFoodName;
+            }
+            set
+            {
+                if (_secondFoodName != value)
+                {
+                    _secondFoodName = value;
+                    RaisePropertyChanged("SecondFoodName");
+                }
+            }
+        }
 
         public double MinTotalNutritionValue
         {
@@ -75,18 +103,18 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public double DietPlanNutritionValue
+        public double NewFirstFoodNutritionValue
         {
             get
             {
-                return _dietPlanNutritionValue;
+                return _newFirstFoodNutritionValue;
             }
             set
             {
-                if (_dietPlanNutritionValue != value)
+                if (_newFirstFoodNutritionValue != value)
                 {
-                    _dietPlanNutritionValue = value;
-                    RaisePropertyChanged("DietPlanNutritionValue");
+                    _newFirstFoodNutritionValue = value;
+                    RaisePropertyChanged("NewFirstFoodNutritionValue");
                 }
             }
         }
@@ -107,55 +135,55 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public double FoodItemNutritionValue
+        public double NewSecondFoodNutritionValue
         {
             get
             {
-                return _foodItemNutritionValue;
+                return _newSecondFoodNutritionValue;
             }
             set
             {
-                if (_foodItemNutritionValue != value)
+                if (_newSecondFoodNutritionValue != value)
                 {
-                    _foodItemNutritionValue = value;
-                    RaisePropertyChanged("FoodItemNutritionValue");
+                    _newSecondFoodNutritionValue = value;
+                    RaisePropertyChanged("NewSecondFoodNutritionValue");
                 }
             }
         }
 
-        public double OldFoodItemNutritionValue
+        public double OldSecondFoodNutritionValue
         {
             get
             {
-                return _oldFoodItemNutritionValue;
+                return _oldSecondFoodNutritionValue;
             }
             set
             {
-                if (_oldFoodItemNutritionValue != value)
+                if (_oldSecondFoodNutritionValue != value)
                 {
-                    _oldFoodItemNutritionValue = value;
-                    RaisePropertyChanged("OldFoodItemNutritionValue");
+                    _oldSecondFoodNutritionValue = value;
+                    RaisePropertyChanged("OldSecondFoodNutritionValue");
                 }
             }
         }
 
-        public double OldDietPlanNutritionWidth
+        public double OldFirstFoodNutritionWidth
         {
             get
             {
-                return (150 / MinTotalNutritionValue * OldDietPlanNutritionValue);
+                return (500 / MinTotalNutritionValue * OldDietPlanNutritionValue);
             }
         }
 
-        public double NewDietPlanNutritionWidth
+        public double NewFirstFoodNutritionWidth
         {
             get
             {
-                return (150 / MinTotalNutritionValue * DietPlanNutritionValue);
+                return (500 / MinTotalNutritionValue * NewFirstFoodNutritionValue);
             }
         }
 
-        public double CurrentDietPlanNutritionWidth
+        public double CurrentFirstFoodNutritionWidth
         {
             get
             {
@@ -166,126 +194,124 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 if (_currentDietPlanNutritionWidth != value)
                 {
                     _currentDietPlanNutritionWidth = value;
-                    RaisePropertyChanged("CurrentDietPlanNutritionWidth");
+                    RaisePropertyChanged("CurrentFirstFoodNutritionWidth");
                 }
             }
         }
 
-        public double OldFoodItemNutritionWidth
+        public double OldSecondFoodNutritionWidth
         {
             get
             {
-                return (150 / MinTotalNutritionValue * OldFoodItemNutritionValue);
+                return (500 / MinTotalNutritionValue * OldSecondFoodNutritionValue);
             }
         }
 
-        public double NewFoodItemNutritionWidth
+        public double NewSecondFoodNutritionWidth
         {
             get
             {
-                return (150 / MinTotalNutritionValue * FoodItemNutritionValue);
+                return (500 / MinTotalNutritionValue * NewSecondFoodNutritionValue);
             }
         }
 
-        public double CurrentFoodItemNutritionWidth
+        public double CurrentSecondFoodNutritionWidth
         {
             get
             {
-                return _currentFoodItemNutritionWidth;
+                return _currentSecondFoodNutritionWidth;
             }
             set
             {
-                if (_currentFoodItemNutritionWidth != value)
+                if (_currentSecondFoodNutritionWidth != value)
                 {
-                    _currentFoodItemNutritionWidth = value;
-                    RaisePropertyChanged("CurrentFoodItemNutritionWidth");
+                    _currentSecondFoodNutritionWidth = value;
+                    RaisePropertyChanged("CurrentSecondFoodNutritionWidth");
                 }
             }
         }
 
-        public void BeginDietPlanAnimation()
+        public void BeginFirstFoodAnimation()
         {
-            _dietPlanNutritionAnimationTimer = new DispatcherTimer();
-            _dietPlanNutritionAnimationTimer.Interval = TimeSpan.FromMilliseconds(RefreshInterval);
-            _dietPlanNutritionAnimationTimer.Tick += DietPlanNutritionTimer_Tick;
-            _dietPlanNutritionAnimationTimer.Start();
+            _firstFoodNutritionAnimationTimer = new DispatcherTimer();
+            _firstFoodNutritionAnimationTimer.Interval = TimeSpan.FromMilliseconds(RefreshInterval);
+            _firstFoodNutritionAnimationTimer.Tick += FirstFoodNutritionTimer_Tick;
+            _firstFoodNutritionAnimationTimer.Start();
         }
 
-        public void BeginFoodItemAnimation()
+        public void BeginSecondFoodAnimation()
         {
-            _foodItemNutritionAnimationTimer = new DispatcherTimer();
-            _foodItemNutritionAnimationTimer.Interval = TimeSpan.FromMilliseconds(RefreshInterval);
-            _foodItemNutritionAnimationTimer.Tick += FoodItemNutritionTimer_Tick;
-            _foodItemNutritionAnimationTimer.Start();
+            _secondFoodNutritionAnimationTimer = new DispatcherTimer();
+            _secondFoodNutritionAnimationTimer.Interval = TimeSpan.FromMilliseconds(RefreshInterval);
+            _secondFoodNutritionAnimationTimer.Tick += SecondFoodNutritionTimer_Tick;
+            _secondFoodNutritionAnimationTimer.Start();
         }
 
-        #endregion
-
-        private void DietPlanNutritionTimer_Tick(object sender, EventArgs e)
+        private void FirstFoodNutritionTimer_Tick(object sender, EventArgs e)
         {
-            if (OldDietPlanNutritionWidth.CompareTo(NewDietPlanNutritionWidth) < 0)
+            if (OldFirstFoodNutritionWidth.CompareTo(NewFirstFoodNutritionWidth) < 0)
             {
-                double tempWidth = CurrentDietPlanNutritionWidth + 1.0;
+                double tempWidth = CurrentFirstFoodNutritionWidth + 1.0;
                 if (tempWidth > 250)
                 {
-                    CurrentDietPlanNutritionWidth = 250;
-                    _dietPlanNutritionAnimationTimer.Stop();
+                    CurrentFirstFoodNutritionWidth = 250;
+                    _firstFoodNutritionAnimationTimer.Stop();
                     return;
                 }
 
-                CurrentDietPlanNutritionWidth = tempWidth;
+                CurrentFirstFoodNutritionWidth = tempWidth;
 
-                if (CurrentDietPlanNutritionWidth >= NewDietPlanNutritionWidth)
-                    _dietPlanNutritionAnimationTimer.Stop();
+                if (CurrentFirstFoodNutritionWidth >= NewFirstFoodNutritionWidth)
+                    _firstFoodNutritionAnimationTimer.Stop();
             }
             else
             {
-                double tempWidth = CurrentDietPlanNutritionWidth - 1.0;
+                double tempWidth = CurrentFirstFoodNutritionWidth - 1.0;
                 if (tempWidth < 0)
                 {
-                    CurrentDietPlanNutritionWidth = 0;
-                    _dietPlanNutritionAnimationTimer.Stop();
+                    CurrentFirstFoodNutritionWidth = 0;
+                    _firstFoodNutritionAnimationTimer.Stop();
                     return;
                 }
 
-                CurrentDietPlanNutritionWidth = tempWidth;
+                CurrentFirstFoodNutritionWidth = tempWidth;
 
-                if (CurrentDietPlanNutritionWidth <= NewDietPlanNutritionWidth)
-                    _dietPlanNutritionAnimationTimer.Stop();
+                if (CurrentFirstFoodNutritionWidth <= NewFirstFoodNutritionWidth)
+                    _firstFoodNutritionAnimationTimer.Stop();
             }
         }
 
-        private void FoodItemNutritionTimer_Tick(object sender, EventArgs e)
+        private void SecondFoodNutritionTimer_Tick(object sender, EventArgs e)
         {
-            if (OldFoodItemNutritionWidth.CompareTo(NewFoodItemNutritionWidth) < 0)
+            if (OldSecondFoodNutritionWidth.CompareTo(NewSecondFoodNutritionWidth) < 0)
             {
-                double tempWidth = CurrentFoodItemNutritionWidth + 1.0;
+                double tempWidth = CurrentSecondFoodNutritionWidth + 1.0;
                 if (tempWidth > 250)
                 {
-                    CurrentFoodItemNutritionWidth = 250;
-                    _foodItemNutritionAnimationTimer.Stop();
+                    CurrentSecondFoodNutritionWidth = 250;
+                    _secondFoodNutritionAnimationTimer.Stop();
                     return;
                 }
 
-                CurrentFoodItemNutritionWidth = CurrentFoodItemNutritionWidth + 1.0;
+                CurrentSecondFoodNutritionWidth = CurrentSecondFoodNutritionWidth + 1.0;
 
-                if (CurrentFoodItemNutritionWidth >= NewFoodItemNutritionWidth)
-                    _foodItemNutritionAnimationTimer.Stop();
+                if (CurrentSecondFoodNutritionWidth >= NewSecondFoodNutritionWidth)
+                    _secondFoodNutritionAnimationTimer.Stop();
             }
             else
             {
-                double tempWidth = CurrentFoodItemNutritionWidth - 1.0;
+                double tempWidth = CurrentSecondFoodNutritionWidth - 1.0;
                 if (tempWidth < 0)
                 {
-                    CurrentFoodItemNutritionWidth = 0;
-                    _foodItemNutritionAnimationTimer.Stop();
+                    CurrentSecondFoodNutritionWidth = 0;
+                    _secondFoodNutritionAnimationTimer.Stop();
                     return;
                 }
 
-                CurrentFoodItemNutritionWidth = tempWidth;
+                CurrentSecondFoodNutritionWidth = tempWidth;
 
-                if (CurrentFoodItemNutritionWidth <= NewFoodItemNutritionWidth)
-                    _foodItemNutritionAnimationTimer.Stop();
+                if (CurrentSecondFoodNutritionWidth <= NewSecondFoodNutritionWidth)
+                    _secondFoodNutritionAnimationTimer.Stop();
             }
         }
     }

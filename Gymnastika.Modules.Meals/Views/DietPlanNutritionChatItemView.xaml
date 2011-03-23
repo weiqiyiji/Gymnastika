@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.DietPlanNutritionChatItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+        <converter:NutritionToForegroundConverter x:Key="NutritionToForegroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
+        <converter:WidthToBackgroundConverter x:Key="WidthToBackgroundConverter"
+                                              CalorieLowLevelBrush="#E9AE8B" CalorieMediumLevelBrush="#EC9A88" CalorieHighLevelBrush="#EF8686"
+                                              CarbohydrateLowLevelBrush="#E2F289" CarbohydrateMediumLevelBrush="#E5E97F" CarbohydrateHighLevelBrush="#E7E076"
+                                              FatLowLevelBrush="#ADEB9A" FatMediumLevelBrush="#A3EA8F" FatHighLevelBrush="#9AE985"
+                                              ProteinLowLevelBrush="#B0E2D0" ProteinMediumLevelBrush="#9FDCD3" ProteinHighLevelBrush="#8ED6D6" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" Height="20" x:Name="DietPlanNutritionValueBorder" Width="{Binding CurrentDietPlanNutritionWidth}" HorizontalAlignment="Left" MaxWidth="250">
+            <Border.Background>
+                <MultiBinding Converter="{StaticResource WidthToBackgroundConverter}">
+                    <Binding Path="NutritionName"></Binding>
+                    <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Width"></Binding>
+                </MultiBinding>
+            </Border.Background>
+        </Border>
+        <TextBlock Grid.Row="1" Margin="2,0,0,0" Foreground="White" Text="{Binding DietPlanNutritionValue}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+        <TextBlock Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}"
+                                       Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+        </TextBlock>
+    </Grid>
+</UserControl>

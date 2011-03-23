@@ -287,13 +287,8 @@
         </Style>
         
     </UserControl.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
 
-        <layoutToolkit:Accordion x:Name="DietPlanList" Background="White" ItemContainerStyle="{StaticResource AccordionItemStyle}"  ItemsSource="{Binding DietPlanList}">
+        <!--<layoutToolkit:Accordion x:Name="DietPlanList" Background="White" ItemContainerStyle="{StaticResource AccordionItemStyle}"  ItemsSource="{Binding DietPlanList, IsAsync=True}">
             <layoutToolkit:Accordion.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -312,14 +307,21 @@
                     <view:DietPlanSubListView />
                 </DataTemplate>
             </layoutToolkit:Accordion.ContentTemplate>
-        </layoutToolkit:Accordion>
-        
-        <Border Grid.Row="1">
-                <TextBlock HorizontalAlignment="Center">
-                    <Run Text="饮食摄入：" />
-                    <TextBlock Text="{Binding TotalCalories}" />
-                    <Run Text="大卡" />
-                </TextBlock>
+        </layoutToolkit:Accordion>-->
+
+        <Border Background="White" Padding="10" CornerRadius="10" Margin="15">
+        <ItemsControl x:Name="DietPlanList" ItemsSource="{Binding DietPlanList, IsAsync=True}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate DataType="{x:Type viewModel:DietPlanSubListViewModel}">
+                    <view:DietPlanSubListView />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
         </Border>
-    </Grid>
+
 </UserControl>

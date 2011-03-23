@@ -14,6 +14,7 @@ using Gymnastika.Widgets;
 using Gymnastika.Modules.Meals.Widgets;
 using Gymnastika.Data;
 using Gymnastika.Modules.Meals.Controllers;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -44,7 +45,7 @@ namespace Gymnastika.Modules.Meals
             RegisterViews();
             RegisterViewModels();
             RegisterViewWithRegion();
-            StoreDataToDatabase();
+            RegisterNavigation();
         }
 
         #endregion
@@ -74,14 +75,16 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IDietPlanListView, DietPlanListView>()
                 .RegisterType<IDietPlanSubListView, DietPlanSubListView>()
                 .RegisterType<IFoodDetailView, FoodDetailView>()
-                .RegisterType<IMealsManagementView, MealsManagementView>()
-                .RegisterType<ICreateDietPlanView, CreateDietPlanView>()
+                .RegisterType<IMealsManagementView, MealsManagementView>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISelectDietPlanView, SelectDietPlanView>()
                 .RegisterType<IBMIIntroductionView, BMIIntroductionView>()
                 .RegisterType<ICategoryListView, CategoryListView>()
-                .RegisterType<ICategoryItemView, CategoryItemView>()
                 .RegisterType<INutritionChartView, NutritionChartView>()
-                .RegisterType<INutritionChartItemView, NutritionChartItemView>();
+                .RegisterType<IDietPlanNutritionChartView, DietPlanNutritionChartView>()
+                .RegisterType<ISingleDietPlanView, SingleDietPlanView>()
+                .RegisterType<IPositionedFoodView, PositionedFoodView>()
+                .RegisterType<IRecommendedDietPlanView, RecommendedDietPlanView>(new ContainerControlledLifetimeManager())
+                .RegisterType<IHistoryDietPlanView, HistoryDietPlanView>(new ContainerControlledLifetimeManager());
         }
 
         private void RegisterViewModels()
@@ -90,52 +93,50 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IDietPlanListViewModel, DietPlanListViewModel>()
                 .RegisterType<IDietPlanSubListViewModel, DietPlanSubListViewModel>()
                 .RegisterType<IFoodDetailViewModel, FoodDetailViewModel>()
-                .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>()
-                .RegisterType<ICreateDietPlanViewModel, CreateDietPlanViewModel>()
+                .RegisterType<IMealsManagementViewModel, MealsManagementViewModel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISelectDietPlanViewModel, SelectDietPlanViewModel>()
                 .RegisterType<ICategoryListViewModel, CategoryListViewModel>()
-                .RegisterType<ICategoryItemViewModel, CategoryItemViewModel>()
                 .RegisterType<INutritionChartViewModel, NutritionChartViewModel>()
-                .RegisterType<INutritionChartItemViewModel, NutritionChartItemViewModel>();
+                .RegisterType<IDietPlanNutritionChartViewModel, DietPlanNutritionChartViewModel>()
+                .RegisterType<ISingleDietPlanViewModel, SingleDietPlanViewModel>()
+                .RegisterType<IPositionedFoodViewModel, PositionedFoodViewModel>()
+                .RegisterType<IRecommendedDietPlanViewModel, RecommendedDietPlanViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<IHistoryDietPlanViewModel, HistoryDietPlanViewModel>(new ContainerControlledLifetimeManager());
+        }
+
+        private void RegisterNavigation()
+        {
+            _navigationManager.AddRegionIfMissing(NavigationNames.ShellRegion, "健康饮食");
+            _navigationManager.Regions[NavigationNames.ShellRegion].Add(
+                new NavigationDescriptor()
+                {
+                    Header = "创建饮食计划",
+                    ViewName = NavigationNames.CreateDietPlanView,
+                    ViewResolver = () => (MealsManagementView)_container.Resolve<IMealsManagementViewModel>().View,
+                });
+
+            _navigationManager.Regions[NavigationNames.ShellRegion].Add(
+                new NavigationDescriptor()
+                {
+                    Header = "选择推荐计划",
+                    ViewName = NavigationNames.RecommendedDietPlanView,
+                    ViewResolver = () => (RecommendedDietPlanView)_container.Resolve<IRecommendedDietPlanViewModel>().View,
+                });
+
+            _navigationManager.Regions[NavigationNames.ShellRegion].Add(
+                new NavigationDescriptor()
+                {
+                    Header = "饮食计划查询",
+                    ViewName = NavigationNames.HistoryDietPlanView,
+                    ViewResolver = () => (HistoryDietPlanView)_container.Resolve<IHistoryDietPlanViewModel>().View,
+                });
         }
 
         private void RegisterViewWithRegion()
         {
             _container.RegisterType<ILoadDataController, LoadDataController>()
-                .RegisterType(typeof(LoadDataView));
-            //IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
-
-            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
-            //displayRegion.Add(mealsManagementViewModel.View);
-            //displayRegion.Activate(mealsManagementViewModel.View);
-
-            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
-            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
-
-            //_navigationManager.AddIfMissing(
-            //    new NavigationDescriptor()
-            //    {
-            //        ViewType = typeof(MealsManagementView),
-            //        ViewName = "MealsManagementView",
-            //        Label = "饮 食",
-            //        RegionName = RegionNames.MainRegion
-            //    }, true);
-
-        }
-
-        private delegate void ThreadDelegate();
-        private void StoreDataToDatabase()
-        {
-            //XDataHelpers.XDataRepository dataSource = new XDataHelpers.XDataRepository(_container.Resolve<IFoodService>(), _container.Resolve<IWorkEnvironment>());
-            //ThreadDelegate backGroundLoader = new ThreadDelegate(dataSource.Store);
-            //backGroundLoader.BeginInvoke(null, null);
-            //System.Threading.Thread.Sleep(1 * 60 * 10000);
-            //if (!dataSource.IsStored)
-                //dataSource.Store();
-
-            //ILoadDataController loadDataController = _container.Resolve<ILoadDataController>();
-            //if (!loadDataController.IsLoaded)
-            //    loadDataController.Load();
+                .RegisterType(typeof(LoadDataView))
+                .RegisterType(typeof(Shell), new ContainerControlledLifetimeManager());
         }
     }
 }

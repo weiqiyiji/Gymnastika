@@ -11,7 +11,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public interface IDietPlanSubListViewModel
     {
         IDietPlanSubListView View { get; set; }
-        ObservableCollection<FoodItemViewModel> DietPlanSubList { get; set; }
+        ObservableCollection<FoodItemViewModel> FoodItems { get; set; }
         string MealName { get; set; }
         decimal SubTotalCalories { get; set; }
         void AddFoodToPlan(FoodItemViewModel foodItem);
