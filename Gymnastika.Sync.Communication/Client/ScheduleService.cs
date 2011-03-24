@@ -13,12 +13,12 @@ namespace Gymnastika.Sync.Communication.Client
         private const string AddPlanUri = "/add";
         private readonly string _baseAddress;
 
-        public RegistrationService()
+        public ScheduleService()
         {
             _baseAddress = new Uri(new Uri(Configuration.GetConfiguration("ServiceBaseUri")), ScheduleBaseUri).AbsoluteUri;
         }
 
-        public void AddPlan(Plan plan)
+        public ResponseMessage AddPlan(Plan plan)
         {
             using(HttpClient client = new HttpClient())
             {

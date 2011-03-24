@@ -55,6 +55,7 @@
     <Compile Include="Client\NetworkAdapterHelper.cs" />
     <Compile Include="Client\ResponseMessage.cs" />
     <Compile Include="Client\RegistrationService.cs" />
+    <Compile Include="Client\ScheduleService.cs" />
     <Compile Include="Client\StringHelper.cs" />
     <Compile Include="Client\UserProfileService.cs" />
     <Compile Include="NetworkAdapter.cs" />
