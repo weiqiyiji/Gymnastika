@@ -22,19 +22,23 @@ namespace Gymnastika.Views
     /// </summary>
     public partial class StartupView : UserControl, IStartupView
     {
-        public static bool GetIsFocused(DependencyObject obj)
+
+
+        public static bool GetIsCenter(DependencyObject obj)
         {
-            return (bool)obj.GetValue(IsFocusedProperty);
+            return (bool)obj.GetValue(IsCenterProperty);
         }
 
-        public static void SetIsFocused(DependencyObject obj, bool value)
+        public static void SetIsCenter(DependencyObject obj, bool value)
         {
-            obj.SetValue(IsFocusedProperty, value);
+            obj.SetValue(IsCenterProperty, value);
         }
 
-        // Using a DependencyProperty as the backing store for IsFocused.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsFocusedProperty =
-            DependencyProperty.RegisterAttached("IsFocused", typeof(bool), typeof(StartupView), new UIPropertyMetadata(false));
+        // Using a DependencyProperty as the backing store for IsCenter.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsCenterProperty =
+            DependencyProperty.RegisterAttached("IsCenter", typeof(bool), typeof(StartupView), new UIPropertyMetadata(false));
+
+        
 
         public StartupView(StartupViewModel model)
         {
@@ -59,16 +63,14 @@ namespace Gymnastika.Views
 
             if (e.AddedItems.Count == 1)
             {
-                UIElement container = (UIElement)selector.ItemContainerGenerator.ContainerFromItem(e.AddedItems[0]);
-
-                if(e.RemovedItems.Count == 0)
-                    SetIsFocused(container, true);
+                var container = selector.ItemContainerGenerator.ContainerFromItem(e.AddedItems[0]);
+                SetIsCenter(container, true);
             }
 
             if (e.RemovedItems.Count == 1)
             {
-                UIElement oldContainer = (UIElement)selector.ItemContainerGenerator.ContainerFromItem(e.RemovedItems[0]);
-                SetIsFocused(oldContainer, false);
+                var oldContainer = selector.ItemContainerGenerator.ContainerFromItem(e.RemovedItems[0]);
+                SetIsCenter(oldContainer, false);
             }
         }
 
@@ -76,32 +78,16 @@ namespace Gymnastika.Views
         {
             Selector selector = (Selector)sender;
             DependencyObject container = selector.ItemContainerGenerator.ContainerFromIndex(selector.SelectedIndex);
-            bool isFocused = GetIsFocused(container);
+            bool isCenter = GetIsCenter(container);
 
-            if (isFocused)
+            if (isCenter)
             {
                 if (Model.LogOnCommand.CanExecute(null))
                     Model.LogOnCommand.Execute(null);
             }
             else
             {
-                SetIsFocused(container, true);
-            }
-        }
-
-        private void container_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            UIElement element = (UIElement) sender;
-            bool isFocused = GetIsFocused(element);
-
-            if (isFocused)
-            {
-                if (Model.LogOnCommand.CanExecute(null))
-                    Model.LogOnCommand.Execute(null);
-            }
-            else
-            {
-                SetIsFocused(element, true);
+                SetIsCenter(container, true);
             }
         }
     }

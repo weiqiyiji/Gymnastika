@@ -16,24 +16,24 @@
 
     <UserControl.Resources>
         <cov:BoolToVisibilityConverter x:Key="boolToVisibilityConverter" />
-        <SolidColorBrush x:Key="backgroundBrush" Color="#BBC7B2" />
+        <SolidColorBrush x:Key="backgroundBrush" Color="#ADBFA9" />
         <ControlTemplate x:Key="commandButtonTemplate" TargetType="{x:Type Button}">
             <ContentPresenter />
         </ControlTemplate>
         <DataTemplate DataType="{x:Type vm:NavigationItemViewModel}">
-            <Grid x:Name="header" Background="#ADD3BB">
+            <Grid x:Name="header" Background="#8CC9A4">
             	<TextBlock Foreground="White" Margin="20,6,0,6" Text="{Binding Header}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" />
                 <Button Command="{Binding RequestNavigateCommand}" Opacity="0" />
             </Grid>
 			<DataTemplate.Triggers>
 				<DataTrigger Binding="{Binding IsSelected}" Value="True">
-					<Setter TargetName="header" Property="Background" Value="#C1E096" />
+					<Setter TargetName="header" Property="Background" Value="#89D9A8" />
 				</DataTrigger>
 			</DataTemplate.Triggers>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:StateNavigationViewModel}">
             <Grid x:Name="header" Margin="3,2,3,2" Background="#EEF3DB" Height="34">
-            	<TextBlock Text="{Binding Header}" FontSize="14" Margin="0,0,10,0" Foreground="#FFBFCEBB" VerticalAlignment="Center" HorizontalAlignment="Right" />
+            	<TextBlock Text="{Binding Header}" FontSize="14" Margin="0,0,10,0" Foreground="#AFB8A5" VerticalAlignment="Center" HorizontalAlignment="Right" />
 				<Button Command="{Binding RequestNavigateCommand}" Opacity="0" Background="Transparent"/>
             </Grid>
         	<DataTemplate.Triggers>

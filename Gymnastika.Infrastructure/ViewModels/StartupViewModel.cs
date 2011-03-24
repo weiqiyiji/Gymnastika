@@ -1,22 +1,12 @@
 ﻿using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Windows.Controls;
 using System.Windows.Input;
-using Gymnastika.Data;
-using Gymnastika.Services;
-using Gymnastika.Views;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Events;
-using Microsoft.Practices.Prism.ViewModel;
-using Microsoft.Practices.ServiceLocation;
-using Microsoft.Practices.Unity;
-using Gymnastika.Services.Models;
-using Microsoft.Practices.Prism.Regions;
-using Gymnastika.Common;
-using System;
 using Gymnastika.Controllers;
+using Gymnastika.Data;
 using Gymnastika.Services.Contracts;
+using Gymnastika.Services.Models;
+using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.ViewModel;
+using Microsoft.Practices.Unity;
 
 namespace Gymnastika.ViewModels
 {
@@ -70,15 +60,15 @@ namespace Gymnastika.ViewModels
                 {
                     _selectedUser = value;
                     RaisePropertyChanged("SelectedUser");
-                    (LogOnCommand as DelegateCommand).RaiseCanExecuteChanged();
+                    //(LogOnCommand as DelegateCommand).RaiseCanExecuteChanged();
                 }
-                else
-                {
-                    if (_selectedUser != null)
-                    {
-                        _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
-                    }
-                }
+                //else
+                //{
+                //    if (_selectedUser != null)
+                //    {
+                //        _container.Resolve<IStartupController>().RequestLogOn(SelectedUser.UserName);
+                //    }
+                //}
             }
         }
 
