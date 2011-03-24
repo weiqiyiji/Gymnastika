@@ -34,7 +34,7 @@ namespace Gymnastika.Sync
 
         private void MigrateData()
         {
-            using (IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
+            using(IWorkContextScope scope = _container.Resolve<IWorkEnvironment>().GetWorkContextScope())
             {
                 IDataMigrationManager manager = _container.Resolve<IDataMigrationManager>();
                 manager.Migrate();

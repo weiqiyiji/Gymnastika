@@ -20,7 +20,7 @@ namespace Gymnastika.Modules.Sports.Converters
             {
                 values[1] = "";
             }
-            return String.Format("消耗热量: 每 {0} 分钟  消耗 {1} 大卡", values[0], values[1]);
+            return String.Format("每 {0} 分钟  消耗 {1} 大卡", values[0], values[1]);
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)

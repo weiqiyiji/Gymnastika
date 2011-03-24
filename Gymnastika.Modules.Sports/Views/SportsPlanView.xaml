@@ -16,75 +16,57 @@
         <converter:FullPathConverter x:Key="FullPathConverter"/>
         <converter:ToIntConverter x:Key="ToIntConverter"/>
     </UserControl.Resources>
-    <Grid>
-    	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0.5*"/>
-    		<ColumnDefinition Width="0.5*"/>
-    	</Grid.ColumnDefinitions>
-    	<Grid.RowDefinitions>
-    		<RowDefinition Height="0.5*"/>
-    		<RowDefinition Height="0.5*"/>
-    	</Grid.RowDefinitions>
-    	<Border x:Name="border" Background="White" CornerRadius="100" Grid.RowSpan="2" Grid.ColumnSpan="2">
-    		<Grid>
-    			<Grid.RowDefinitions>
-    				<RowDefinition Height="0.035*" />
-    				<RowDefinition Height="0.08*"/>
-    				<RowDefinition Height="0.166*"/>
-    				<RowDefinition Height="0.615*"/>
-    				<RowDefinition Height="0.104*"/>
-    				<RowDefinition Height="0*"/>
-    			</Grid.RowDefinitions>
-    			<Grid.ColumnDefinitions>
-    				<ColumnDefinition Width="0.067*" />
-    				<ColumnDefinition Width="0.869*"/>
-    				<ColumnDefinition Width="0.064*"/>
-    			</Grid.ColumnDefinitions>
-    			<ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Grid.Row="2" Margin="0" Grid.RowSpan="2">
-    				<dd:DragDrop.DragAdornerTemplate>
-    					<DataTemplate>
-    						<Image Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}"/>
-    					</DataTemplate>
-    				</dd:DragDrop.DragAdornerTemplate>
-    				<ListBox.ItemTemplate>
-    					<DataTemplate>
-    						<local:SportsPlanItemView/>
-    					</DataTemplate>
-    				</ListBox.ItemTemplate>
-    				<ListBox.ItemsPanel>
-    					<ItemsPanelTemplate>
-    						<control:AnimatedListPanel/>
-    					</ItemsPanelTemplate>
-    				</ListBox.ItemsPanel>
-    			</ListBox>
-    			<my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,8.305,0,8" x:Name="Save" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" />
-    			<my:SurfaceButton Content="还原" Command="{Binding CancelCommand}" x:Name="Cancel" Margin="0,8,79,8.305" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" />
-    			<control:AnimatedProgressBar x:Name="calorieBar" Orientation="Vertical" Value="0" Maximum="3000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4"  >
-    				<control:AnimatedProgressBar.RenderTransform>
-    					<TransformGroup>
-    						<ScaleTransform/>
-    						<SkewTransform/>
-    						<RotateTransform Angle="180"/>
-    						<TranslateTransform/>
-    					</TransformGroup>
-    				</control:AnimatedProgressBar.RenderTransform>
-    				<control:AnimatedProgressBar.Foreground>
-    					<LinearGradientBrush EndPoint="0.757,-0.007" StartPoint="0.497,0.973">
-    						<GradientStop Color="#FFE9AE8B" Offset="0"/>
-    						<GradientStop Color="#FFEF8686" Offset="1"/>
-    						<GradientStop Color="#FFEC9A88" Offset="0.132"/>
-    						<GradientStop Color="#FFEF8686" Offset="0.617"/>
-    					</LinearGradientBrush>
-    				</control:AnimatedProgressBar.Foreground>
-    			</control:AnimatedProgressBar>
-    			<TextBlock  TextWrapping="Wrap" Foreground="#FFEF8686" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0" Padding="0">
-    				<Run FontSize="14">总热量</Run>
-					<Run FontSize="28" Text="{Binding Value, ElementName=calorieBar, Converter={StaticResource ResourceKey=ToIntConverter}}"></Run>
-					<Run FontSize="14" >大卡</Run>			
-				</TextBlock>
-    		</Grid>
-    	</Border>
-    	<Border BorderThickness="0" Background="{Binding Background, ElementName=border}" Panel.ZIndex="-1"/>
-    	<Border BorderThickness="0" Background="{Binding Background, ElementName=border}" Panel.ZIndex="-1" Grid.Row="1" Grid.Column="1"/>
-    </Grid>
+    <Grid xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" behaviors:ClipBehavior.CornerRadius="40" Background="#FFFDFDFD">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.035*" />
+			<RowDefinition Height="0.08*"/>
+			<RowDefinition Height="0.166*"/>
+			<RowDefinition Height="0.615*"/>
+			<RowDefinition Height="0.104*"/>
+			<RowDefinition Height="0*"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="0.067*" />
+			<ColumnDefinition Width="0.869*"/>
+			<ColumnDefinition Width="0.064*"/>
+		</Grid.ColumnDefinitions>
+		<ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Grid.Row="2" Margin="0" Grid.RowSpan="2">
+			<dd:DragDrop.DragAdornerTemplate>
+				<DataTemplate>
+					<Image Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}"/>
+				</DataTemplate>
+			</dd:DragDrop.DragAdornerTemplate>
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<local:SportsPlanItemView/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<control:AnimatedListPanel/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
+		</ListBox>
+		<my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,8.305,0,8" x:Name="Save" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" />
+		<my:SurfaceButton Content="还原" Command="{Binding CancelCommand}" x:Name="Cancel" Margin="0,8,79,8.305" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" />
+		<control:AnimatedProgressBar x:Name="calorieBar" Orientation="Vertical" Value="0" Maximum="3000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4"  >
+			<control:AnimatedProgressBar.RenderTransform>
+				<TransformGroup>
+					<ScaleTransform/>
+					<SkewTransform/>
+					<RotateTransform Angle="180"/>
+					<TranslateTransform/>
+				</TransformGroup>
+			</control:AnimatedProgressBar.RenderTransform>
+			<control:AnimatedProgressBar.Foreground>
+				<LinearGradientBrush EndPoint="0.757,-0.007" StartPoint="0.497,0.973">
+					<GradientStop Color="#FFE9AE8B" Offset="0"/>
+					<GradientStop Color="#FFEF8686" Offset="1"/>
+					<GradientStop Color="#FFEC9A88" Offset="0.132"/>
+					<GradientStop Color="#FFEF8686" Offset="0.617"/>
+				</LinearGradientBrush>
+			</control:AnimatedProgressBar.Foreground>
+		</control:AnimatedProgressBar>
+		<TextBlock  TextWrapping="Wrap" Foreground="#FFEF8686" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0" Padding="0"><Run FontSize="14" Text="总热量"/><Run Text=" "/><Run FontSize="28" Text="{Binding Value, Converter={StaticResource ResourceKey=ToIntConverter}, ElementName=calorieBar}"/><Run Text=" "/><Run FontSize="14" Text="大卡" /></TextBlock>
+	</Grid>
 </UserControl>

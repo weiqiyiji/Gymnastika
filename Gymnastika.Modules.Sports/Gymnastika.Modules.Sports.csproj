@@ -121,6 +121,7 @@
     <Compile Include="Models\SportsPlanItem.cs" />
     <Compile Include="Validations\TimeExpressionValidation.cs" />
     <Compile Include="ViewModels\CompositePanelViewModel.cs" />
+    <Compile Include="ViewModels\PlanDetailViewModel.cs" />
     <Compile Include="ViewModels\SportCalorieChartViewModel.cs" />
     <Compile Include="Views\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
