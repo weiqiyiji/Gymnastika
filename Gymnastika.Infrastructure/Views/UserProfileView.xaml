@@ -7,16 +7,16 @@
         xmlns:v="clr-namespace:Gymnastika.Views"
         mc:Ignorable="d" x:Class="Gymnastika.Views.UserProfileView" x:Name="userProfileWindow" 
         behaviors:CloseWindowBehavior.CloseCondition="{Binding NotifyClose}" 
-        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Width="400"
+        ShowInTaskbar="False" WindowStartupLocation="CenterOwner" Width="500"
 		ScrollViewer.VerticalScrollBarVisibility="Disabled" 
         WindowStyle="None" AllowsTransparency="True" Background="Transparent">
 
     <Window.Resources>
         <SolidColorBrush x:Key="TabControlNormalBorderBrush" Color="#8C8E94"/>
         <LinearGradientBrush x:Key="WindowBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
-            <GradientStop Color="Black" Offset="0"/>
-            <GradientStop Color="White" Offset="0.759"/>
-            <GradientStop Color="#FFD0D0D0" Offset="0.728"/>
+            <GradientStop Color="#89D9A8" Offset="0"/>
+            <GradientStop Color="#89D9A8" Offset="0.5"/>
+            <GradientStop Color="White" Offset="0.51"/>
         </LinearGradientBrush>
         <Style x:Key="UserProfileTab" TargetType="{x:Type TabControl}">
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
@@ -57,25 +57,56 @@
         <Style x:Key="UserProfileTabItemStyle" TargetType="{x:Type TabItem}">
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Padding" Value="30,2"/>
+            <Setter Property="Padding" Value="35,8"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="VerticalContentAlignment" Value="Top"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TabItem}">
                         <Grid SnapsToDevicePixels="true">
-                            <Border x:Name="Bd" Background="White" CornerRadius="7,7,0,0" Opacity="0"
-								HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0"
-								SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                            <Border HorizontalAlignment="Stretch" Width="Auto" Padding="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Path x:Name="LeftRounder" Opacity="0" Fill="White" Width="10" Height="20"  VerticalAlignment="Bottom" >
+                                <Path.Data>
+                                    <CombinedGeometry GeometryCombineMode="Exclude">
+                                        <CombinedGeometry.Geometry1>
+                                            <RectangleGeometry Rect="0,10 10,10" />
+                                        </CombinedGeometry.Geometry1>
+                                        <CombinedGeometry.Geometry2>
+                                            <EllipseGeometry Center="0,10" RadiusX="10" RadiusY="10" />
+                                        </CombinedGeometry.Geometry2>
+                                    </CombinedGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Path x:Name="RightRounder" Opacity="0" Grid.Column="3"  Fill="White" Width="10" Height="20"  VerticalAlignment="Bottom" >
+                                <Path.Data>
+                                    <CombinedGeometry GeometryCombineMode="Exclude">
+                                        <CombinedGeometry.Geometry1>
+                                            <RectangleGeometry Rect="0,10 10,10" />
+                                        </CombinedGeometry.Geometry1>
+                                        <CombinedGeometry.Geometry2>
+                                            <EllipseGeometry Center="10,10" RadiusX="10" RadiusY="10" />
+                                        </CombinedGeometry.Geometry2>
+                                    </CombinedGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Border Grid.Column="1" x:Name="Bd" Background="White" CornerRadius="10,10,0,0" Opacity="0"
+								        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderThickness="0"
+								        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <Border Grid.Column="1" HorizontalAlignment="Stretch" Width="Auto" Padding="{TemplateBinding Padding}">
                                 <ContentPresenter x:Name="Content" ContentSource="Header" HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
                             </Border>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
                                 <Setter Property="Panel.ZIndex" Value="1"/>
-                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="Foreground" Value="#89D9A8" />
                                 <Setter Property="Opacity" TargetName="Bd" Value="1"/>
+                                <Setter Property="Opacity" TargetName="LeftRounder" Value="1"/>
+                                <Setter Property="Opacity" TargetName="RightRounder" Value="1"/>
                                 <Setter Property="Cursor" Value="Hand" />
                             </Trigger>
                             <MultiTrigger>
@@ -159,8 +190,8 @@
             <BeginStoryboard x:Name="OnWindowLoaded_BeginStoryboard" Storyboard="{StaticResource OnWindowLoaded}"/>
         </EventTrigger>
     </Window.Triggers>
-    <StackPanel HorizontalAlignment="Center" Width="320" VerticalAlignment="Center">
-        <Border x:Name="windowBorder" Background="{StaticResource WindowBackgroundBrush}" CornerRadius="20" RenderTransformOrigin="0.5,0.5">
+    <StackPanel HorizontalAlignment="Center" Width="360" VerticalAlignment="Center">
+        <Border x:Name="windowBorder" Background="{StaticResource WindowBackgroundBrush}" behaviors:ClipBehavior.CornerRadius="45,0,45,45" RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="0" ScaleY="0"/>
@@ -180,22 +211,14 @@
                     </TransformGroup>
                 </Grid.RenderTransform>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock TextWrapping="Wrap" Text="账户" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="微软雅黑">
-			        <TextBlock.Foreground>
-				        <LinearGradientBrush EndPoint="0.701,0.897" StartPoint="0.299,0.103">
-					        <GradientStop Color="#FF558540" Offset="0"/>
-					        <GradientStop Color="#FFCCC633" Offset="1"/>
-				        </LinearGradientBrush>
-			        </TextBlock.Foreground>
-                </TextBlock>
-                <Button Command="{Binding BackCommand}" Margin="8,8,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Template="{DynamicResource BackButtonTemplate}" RenderTransformOrigin="0.5,0.5" ToolTip="返回">
+                <Button Command="{Binding BackCommand}" Margin="0,8,8,0" VerticalAlignment="Top" HorizontalAlignment="Right" Template="{DynamicResource BackButtonTemplate}" RenderTransformOrigin="0.5,0.5" ToolTip="返回">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform/>
@@ -204,18 +227,19 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Button.RenderTransform>
-                    <Image Source="/Gymnastika.Infrastructure;component/Images/back.png" Height="24" d:LayoutOverrides="Height" Width="24"/>
+                    <Image Source="/Gymnastika.Infrastructure;component/Images/back.png" Height="28" d:LayoutOverrides="Height" Width="28"/>
                 </Button>
-                <TabControl SelectedIndex="{Binding InitialTabIndex}" Style="{DynamicResource UserProfileTab}" ItemContainerStyle="{DynamicResource UserProfileTabItemStyle}" Background="White" Grid.Row="1" Margin="0,0,0,20" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <TabControl SelectedIndex="{Binding InitialTabIndex}" Style="{DynamicResource UserProfileTab}" ItemContainerStyle="{DynamicResource UserProfileTabItemStyle}" Background="White" Grid.Row="1" 
+                              Margin="0,0,0,10" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <TabItem>
                         <TabItem.Header>
-                            <TextBlock Text="登录" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave" />
+                            <TextBlock Text="登录" FontSize="15" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave" />
                         </TabItem.Header>
                         <v:LogOnView DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type v:IUserProfileView}}}" />
                     </TabItem>
                     <TabItem>
                         <TabItem.Header>
-                            <TextBlock Text="创建新账户" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave"/>
+                            <TextBlock Text="创建新账户" FontSize="15" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave"/>
                         </TabItem.Header>
                         <v:CreateNewUserView DataContext="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type v:IUserProfileView}}}" />
                     </TabItem>

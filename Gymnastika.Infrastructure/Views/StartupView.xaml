@@ -85,9 +85,7 @@
                 <f:CoverFlow />
             </f:ElementFlow.Layout>
             <f:ElementFlow.Camera>
-                <PerspectiveCamera FieldOfView="60"
-                                   Position="0,0,6"
-                                   LookDirection="0,0,-6" />
+                <PerspectiveCamera FieldOfView="60" Position="0,0,6" LookDirection="0,0,-6" />
             </f:ElementFlow.Camera>
         </f:ElementFlow>
         <Grid Width="300" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -96,14 +94,35 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <s:SurfaceButton Grid.Column="0" Command="{Binding GoToPreviousCommand}" HorizontalAlignment="Left" Style="{DynamicResource NavigationButtonStyle}" Width="30" Height="30">
-                <TextBlock Text="L" Foreground="White" />
-            </s:SurfaceButton>
-            <TextBlock Grid.Column="1" TextWrapping="Wrap" Text="{Binding SelectedUser.UserName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="微软雅黑" FontSize="18.667" Foreground="White" FontWeight="Bold" Margin="30,0"/>
-            <s:SurfaceButton Grid.Column="2" Command="{Binding GoToNextCommand}" HorizontalAlignment="Left" Width="30" Height="30" Style="{DynamicResource NavigationButtonStyle}">
-                <TextBlock Text="R" Foreground="White" />
-            </s:SurfaceButton>
+            <controls:ImageButton 
+                    ImageMode="Switchover"  
+                    Grid.Column="0" Command="{Binding GoToPreviousCommand}" 
+                    HorizontalAlignment="Left" Width="30" Height="30"
+                    ImageSource="/Gymnastika.Infrastructure;component/Images/left_normal.png"
+                    MouseOverImageSource="/Gymnastika.Infrastructure;component/Images/left_normal.png"
+                    MousePressedImageSource="/Gymnastika.Infrastructure;component/Images/left_pressed.png">
+            </controls:ImageButton>
+            <TextBlock 
+                    Grid.Column="1" TextWrapping="Wrap" 
+                    Text="{Binding SelectedUser.UserName}" 
+                    HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    FontFamily="微软雅黑" FontSize="18.667" Foreground="White" 
+                    FontWeight="Bold" Margin="30,0"/>
+            <controls:ImageButton 
+                    ImageMode="Switchover"
+                    Grid.Column="2" Command="{Binding GoToNextCommand}" 
+                    HorizontalAlignment="Left" Width="30" Height="30" 
+                    ImageSource="/Gymnastika.Infrastructure;component/Images/right_normal.png"
+                    MouseOverImageSource="/Gymnastika.Infrastructure;component/Images/right_normal.png"
+                    MousePressedImageSource="/Gymnastika.Infrastructure;component/Images/right_pressed.png">
+            </controls:ImageButton>
         </Grid>
-        <s:SurfaceButton FontSize="14" Height="50" Width="260" Cursor="Hand" Content="新用户" Command="{Binding CreateNewUserCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" />
+        <controls:ImageButton 
+            FontSize="14" Height="50" Width="260" Cursor="Hand" 
+            Command="{Binding CreateNewUserCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+            Grid.Row="2" ImageMode="Switchover"
+            ImageSource="/Gymnastika.Infrastructure;component/Images/newuser_normal.png"
+            MouseOverImageSource="/Gymnastika.Infrastructure;component/Images/newuser_normal.png"
+            MousePressedImageSource="/Gymnastika.Infrastructure;component/Images/newuser_pressed.png"/>
     </Grid>
 </UserControl>

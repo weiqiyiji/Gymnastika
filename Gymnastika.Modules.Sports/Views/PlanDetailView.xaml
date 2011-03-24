@@ -3,25 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+			 xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
              d:DesignHeight="309" d:DesignWidth="530" >
 	<UserControl.Resources>
+        <converter:CalorieDecriptionConverter x:Key="CalorieDecriptionConverter"/>
+        <converter:FullPathConverter x:Key="FullPathConverter"/>
 		<DataTemplate x:Key="PlanItemTemplate">
-			<Grid Height="112" Width="224">
+			<Grid Height="81" Width="336">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="0.432*"/>
-					<RowDefinition Height="0.568*"/>
+					<RowDefinition Height="0.074*"/>
+					<RowDefinition Height="0.135*"/>
+					<RowDefinition Height="0.551*"/>
+					<RowDefinition Height="0.147*"/>
+					<RowDefinition Height="0.093*"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="0.125*"/>
-					<ColumnDefinition Width="0.089*"/>
-					<ColumnDefinition Width="0.125*"/>
-					<ColumnDefinition Width="0.661*"/>
+					<ColumnDefinition Width="Auto" MinWidth="56.672"/>
+					<ColumnDefinition Width="0.041*"/>
+					<ColumnDefinition Width="0.23*"/>
+					<ColumnDefinition Width="0.051*"/>
+					<ColumnDefinition Width="0.623*"/>
+					<ColumnDefinition Width="0.055*"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Hour}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Margin="0"/>
+                <TextBlock x:Name="Time" Margin="0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Center" Grid.Row="1" Foreground="White">
+                    <Run Text="{Binding Hour}"/>
+                    <Run Text=":"/>
+                    <Run Text="{Binding Minute}"/>
+                </TextBlock>
+                <Image x:Name="Image" Grid.ColumnSpan="3" Grid.Column="1" Margin="0" Source="{Binding Sport.ImageUri,Converter={StaticResource ResourceKey=FullPathConverter}}" Grid.RowSpan="4" Grid.Row="0"/>
+                <Grid Grid.Column="4" Margin="0" Grid.RowSpan="5">
+                	<Grid.RowDefinitions>
+                		<RowDefinition Height="0.483*"/>
+                		<RowDefinition Height="0.517*"/>
+                	</Grid.RowDefinitions>
+                    <TextBlock x:Name="SportName" Margin="0" TextWrapping="Wrap" Text="{Binding Sport.Name}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Foreground="#FF848B74" FontSize="12"/>
+                    <TextBlock x:Name="Calorie" Margin="0" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Foreground="#FF9DA290" FontSize="12">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource ResourceKey=CalorieDecriptionConverter}">
+                                <Binding Path="Sport.Calories"/>
+                                <Binding Path="Sport.Minutes"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+				<!--<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Hour}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Margin="0"/>
 				<TextBlock HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" Text="{Binding Sport.Name}" VerticalAlignment="Stretch" Grid.ColumnSpan="4" Grid.Row="1"/>
 				<TextBlock HorizontalAlignment="center" TextWrapping="Wrap" Text=":" VerticalAlignment="center" Height="Auto" Width="Auto" Margin="0" Grid.Column="1"/>
-				<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Minute}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Grid.Column="2"/>
+				<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Minute}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Grid.Column="2"/>-->
 			</Grid>
 		</DataTemplate>
 	</UserControl.Resources>
@@ -34,6 +63,6 @@
     		<ColumnDefinition Width="0.319*"/>
     		<ColumnDefinition Width="0.681*"/>
     	</Grid.ColumnDefinitions>
-    	<ListBox x:Name="Plan" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Background="{x:Null}" Grid.RowSpan="2" ItemTemplate="{DynamicResource PlanItemTemplate}"/>
+    	<ListBox x:Name="Plan" BorderThickness="0" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Background="#33055807" Grid.RowSpan="2" ItemTemplate="{DynamicResource PlanItemTemplate}"/>
     </Grid>
 </UserControl>

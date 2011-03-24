@@ -39,6 +39,9 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynamicDataDisplay">
+      <HintPath>..\Libs\DynamicDataDisplay.dll</HintPath>
+    </Reference>
     <Reference Include="FluidKit">
       <HintPath>..\Libs\FluidKit.dll</HintPath>
     </Reference>
@@ -77,6 +80,9 @@
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
+    <Reference Include="WPFVisifire.Charts">
+      <HintPath>..\Libs\WPFVisifire.Charts.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigFile.cs" />
@@ -87,9 +93,12 @@
     <Compile Include="Converters\DoubleTimeToString.cs" />
     <Compile Include="Converters\FullPathConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeSpanConverter.cs" />
+    <Compile Include="Converters\HourMinuteToStringConverter.cs" />
+    <Compile Include="Converters\NotNullConverter.cs" />
     <Compile Include="Converters\TimeToDoubleConverter.cs" />
     <Compile Include="Converters\ToIntConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
+    <Compile Include="Events\SportsPlanCreatedOrModifiedEvent.cs" />
     <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
@@ -110,7 +119,9 @@
     <Compile Include="Models\Sport.cs" />
     <Compile Include="Models\SportsPlan.cs" />
     <Compile Include="Models\SportsPlanItem.cs" />
+    <Compile Include="Validations\TimeExpressionValidation.cs" />
     <Compile Include="ViewModels\CompositePanelViewModel.cs" />
+    <Compile Include="ViewModels\SportCalorieChartViewModel.cs" />
     <Compile Include="Views\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
     </Compile>
@@ -136,9 +147,6 @@
     <Compile Include="ViewModels\SportViewModel.cs" />
     <Compile Include="Views\PlanDetailView.xaml.cs">
       <DependentUpon>PlanDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PlanListPanel.xaml.cs">
-      <DependentUpon>PlanListPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PlanListView.xaml.cs">
       <DependentUpon>PlanListView.xaml</DependentUpon>
@@ -183,10 +191,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PlanDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\PlanListPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

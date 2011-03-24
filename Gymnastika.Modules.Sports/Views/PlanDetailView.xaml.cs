@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Gymnastika.Modules.Sports.ViewModels;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -22,6 +23,12 @@ namespace Gymnastika.Modules.Sports.Views
         public PlanDetailView()
         {
             InitializeComponent();
+        }
+
+        public ISportsPlanViewModel ViewModel
+        {
+            set { this.DataContext = value; }
+            get { return DataContext as ISportsPlanViewModel; }
         }
     }
 }

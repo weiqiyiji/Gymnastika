@@ -47,10 +47,23 @@ namespace Gymnastika.Modules.Sports.Views
         public IPlanListViewModel ViewModel
         {
             get { return DataContext as IPlanListViewModel; }
-            set { DataContext = value; }
+            set 
+            {
+                DataContext = value;
+                value.SelectedItemChangedEvent += OnSelectedItemChange;
+            }
         }
 
+        void OnSelectedItemChange(object d, EventArgs args)
+        {
+            UpdateState();
+        }
 
+        void UpdateState()
+        {
+            if (planDetailView != null && ViewModel != null && planDetailView.ViewModel != ViewModel.SelectedItem)
+                planDetailView.ViewModel = ViewModel.SelectedItem;
+        }
 
         public bool IsExpanded
         {
@@ -58,7 +71,6 @@ namespace Gymnastika.Modules.Sports.Views
             private set { SetValue(IsExpandedProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsExpanded.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsExpandedProperty =
             DependencyProperty.Register("IsExpanded", typeof(bool), typeof(PlanListView), new PropertyMetadata(false));
         
@@ -68,7 +80,6 @@ namespace Gymnastika.Modules.Sports.Views
             {
                 IsExpanded = true;
                 (FindResource("FlyOutStoryboard") as Storyboard).Begin();
-                //LastWeek.BeginAnimation(LastWeek.RenderTransform
             }
         }
 
@@ -85,6 +96,7 @@ namespace Gymnastika.Modules.Sports.Views
 
     public interface IPlanListView
     {
-
+        void Expand();
+        void Minimize();
     }
 }

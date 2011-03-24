@@ -26,7 +26,7 @@
                         		<RowDefinition Height="0.45*"/>
                         	</Grid.RowDefinitions>
 							<Border x:Name="grid" Background="Black" Width="Auto" CornerRadius="8" Grid.RowSpan="2">
-								<TextBlock Text="{Binding Name}" Foreground="Black" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+								<TextBlock Text="{Binding Name}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
 							</Border>
 							<Rectangle Fill="{Binding Background, ElementName=grid}" Height="Auto" Margin="0,2.25,0,-2.25" Stroke="{x:Null}" VerticalAlignment="Stretch" Grid.Row="1" Panel.ZIndex="-1"/>
 						</Grid>
@@ -76,7 +76,7 @@
 		</Style>
 	</UserControl.Resources>
 
-    <ListBox IsSynchronizedWithCurrentItem="True" x:Name="categorylist" HorizontalAlignment="Stretch" ItemsSource="{Binding Categories}"  HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}"  Background="Red" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalContentAlignment="Stretch" BorderThickness="0" Style="{DynamicResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged" >
+    <ListBox IsSynchronizedWithCurrentItem="True" x:Name="categorylist" HorizontalAlignment="Stretch" ItemsSource="{Binding Categories}"  HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF888F76" VerticalContentAlignment="Stretch" BorderThickness="0" Style="{DynamicResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged" >
 		<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>

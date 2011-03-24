@@ -38,6 +38,14 @@
     <Reference Include="FluidKit">
       <HintPath>..\Libs\FluidKit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Http.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
@@ -227,9 +235,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\back.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\close.png" />
   </ItemGroup>
   <ItemGroup>
@@ -245,11 +250,16 @@
     <Resource Include="Images\widget_mouseover.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\left_arrow.png" />
-    <Resource Include="Images\datewidget_icon.png" />
-    <Resource Include="Images\right_arrow.png" />
+    <Resource Include="Images\right_normal.png" />
+    <Resource Include="Images\right_pressed.png" />
+    <Resource Include="Images\newuser_normal.png" />
+    <Resource Include="Images\newuser_pressed.png" />
     <Resource Include="Images\start_bg.jpg" />
+    <Resource Include="Images\back.png" />
+    <Resource Include="Images\datewidget_icon.png" />
     <Content Include="Images\hover_widgetboxbtn.png" />
+    <Resource Include="Images\left_normal.png" />
+    <Resource Include="Images\left_pressed.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />
   </ItemGroup>

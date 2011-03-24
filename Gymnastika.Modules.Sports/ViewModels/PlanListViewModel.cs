@@ -14,6 +14,8 @@ using Gymnastika.Services.Models;
 using System.Collections.Specialized;
 using Gymnastika.Common.Extensions;
 using Gymnastika.Modules.Sports.Facilities;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Sports.Events;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -42,6 +44,17 @@ namespace Gymnastika.Modules.Sports.ViewModels
         event EventHandler SelectedItemChangedEvent;
 
         DateTime CurrentWeek { get; }
+
+
+        double CalorieOfSunday { get; }
+        double CalorieOfMonday { get; }
+        double CalorieOfTuesday { get; }
+        double CalorieOfWednesday { get; }
+        double CalorieOfThursday { get; }
+        double CalorieOfFriday { get; }
+        double CalorieOfSaturday { get; }
+        
+    
     }
 
     public class PlanListViewModel : NotificationObject, IPlanListViewModel
@@ -51,7 +64,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         readonly ISessionManager _sessionManager;
         readonly ISportsPlanViewModelFactory _planFactory;
         readonly ISportProvider _sportProvider;
-        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory)
+        readonly IEventAggregator _aggregator;
+
+        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory,IEventAggregator eventAggregator)
         {
             _planProvider = planProvider;
             _itemProvider = itemProvider;
@@ -60,6 +75,19 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _sportProvider = sportProvider;
             ViewModels.CollectionChanged += OnPlansChanged;
             CurrentWeek = DateTime.Now;
+            _aggregator = eventAggregator;
+            _aggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Subscribe(OnSportsPlanModified);
+            GotoWeek(CurrentWeek);
+        }
+
+        void OnSportsPlanModified(SportsPlan plan)
+        {
+            SportsPlan planInMemory =  PlansInMemory.FirstOrDefault(t => t.Id == plan.Id);
+            if (planInMemory != null)
+            {
+                PlansInMemory.Remove(planInMemory);
+            }
+            PlansInMemory.Add(plan);
             GotoWeek(CurrentWeek);
         }
 
@@ -143,7 +171,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             int dayOfWeek = (int)timeInThisWeek.DayOfWeek;
             DateTime Sunday = timeInThisWeek.AddDays(-dayOfWeek);
             IList<SportsPlan> plansInThisWeek = PlansInMemory
-                .Where(t=>Facilities.MathFacility.TheSameWeek(timeInThisWeek,t))
+                .Where(t=>MathFacility.TheSameWeek(timeInThisWeek,t))
                 .OrderBy(t=>t.Year)
                 .OrderBy(t=>t.Month)
                 .OrderBy(t=>t.Day)
@@ -154,8 +182,30 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void GotoWeek(DateTime timeInThisWeek)
         {
-            ViewModels.ReplaceBy(CreateViewModels(GetWeekPlans(timeInThisWeek)));
+            var plans = GetWeekPlans(timeInThisWeek);
+            IList<ISportsPlanViewModel> viewmodels = new List<ISportsPlanViewModel>();
+            int dayOfWeek = (int)timeInThisWeek.DayOfWeek;
+            DateTime date = timeInThisWeek.AddDays(-dayOfWeek);
+            for (int i = 0; i < 7; ++i)
+            {
+                var plan = plans.FirstOrDefault(t => MathFacility.TheSameDay(date, t));
+                if (plan == null)
+                    plan = new SportsPlan() { Year = date.Year, Month = date.Month, Day = date.Day };
+                viewmodels.Add(CreateViewModel(plan));
+                date = date.AddDays(1);
+            }
+
+            ViewModels.ReplaceBy(viewmodels);
             CurrentWeek = timeInThisWeek;
+
+            CalorieOfSunday = viewmodels[0].TotalCalories.Value;
+            CalorieOfMonday = viewmodels[1].TotalCalories.Value;
+            CalorieOfTuesday = viewmodels[2].TotalCalories.Value;
+            CalorieOfWednesday = viewmodels[3].TotalCalories.Value;
+            CalorieOfThursday = viewmodels[4].TotalCalories.Value;
+            CalorieOfFriday = viewmodels[5].TotalCalories.Value;
+            CalorieOfSaturday = viewmodels[6].TotalCalories.Value;
+        
         }
 
 
@@ -179,13 +229,23 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _plansInMemory = LoadPlans().ToObservableCollection();
                 return _plansInMemory;
             }
+            set
+            {
+                if (_plansInMemory != value)
+                    _plansInMemory = value;
+            }
+        }
+
+        void RefreshPlansInMemory()
+        {
+            PlansInMemory = LoadPlans().ToObservableCollection();
         }
 
         IList<SportsPlan> LoadPlans()
         {
             using (_planProvider.GetContextScope())
             {
-                IList<SportsPlan> plans   =_planProvider.Fetch(t => (t.User == User)).ToList();
+                IList<SportsPlan> plans = _planProvider.Fetch(t => (t.User == User)).ToList();
                 //Avoid Lazy Loading
                 foreach (SportsPlan plan in plans)
                 {
@@ -333,6 +393,104 @@ namespace Gymnastika.Modules.Sports.ViewModels
         void GotoNextWeek()
         {
             GotoWeek(CurrentWeek.AddDays(7));
+        }
+
+
+       double _calorieOfSunday = 0;
+       public double CalorieOfSunday 
+       {
+           get { return _calorieOfSunday; }
+           private set
+           {
+               if (_calorieOfSunday != value)
+               {
+                   _calorieOfSunday = value;
+                   RaisePropertyChanged(() => CalorieOfSunday);
+               }
+           }
+       }
+        double _calorieOfMonday = 0;
+       public double CalorieOfMonday 
+        {
+            get { return _calorieOfMonday; }
+           private set
+           {
+               if (_calorieOfMonday != value)
+               {
+                   _calorieOfMonday = value;
+                   RaisePropertyChanged(() => CalorieOfMonday);
+               }
+           }
+        }
+
+        double _calorieOfTuesday = 0;
+       public double CalorieOfTuesday
+        {
+            get { return _calorieOfTuesday; }
+            private set
+            {
+                if (_calorieOfTuesday != value)
+                {
+                    _calorieOfTuesday = value;
+                    RaisePropertyChanged(() => CalorieOfTuesday);
+                }
+            }
+        }
+
+        double _calorieOfWednesday = 0;
+        public double CalorieOfWednesday
+        {
+            get { return _calorieOfWednesday; }
+            private set
+            {
+                if (_calorieOfWednesday != value)
+                {
+                    _calorieOfWednesday = value;
+                    RaisePropertyChanged(() => CalorieOfWednesday);
+                }
+            }
+        }
+
+        double _calorieOfThursday = 0;
+        public double CalorieOfThursday
+        {
+            get { return _calorieOfThursday; }
+            private set
+            {
+                if (_calorieOfThursday != value)
+                {
+                    _calorieOfThursday = value;
+                    RaisePropertyChanged(() => CalorieOfThursday);
+                }
+            }
+        }
+
+        double _calorieOfFriday = 0;
+        public double CalorieOfFriday
+        {
+            get { return _calorieOfFriday; }
+            private set
+            {
+                if (_calorieOfFriday != value)
+                {
+                    _calorieOfFriday = value;
+                    RaisePropertyChanged(() => CalorieOfFriday);
+                }
+            }
+        }
+
+        double _calorieOfSaturday = 0;
+        public double CalorieOfSaturday
+        {
+            get { return _calorieOfSaturday; }
+            private set
+            {
+                if (_calorieOfSaturday != value)
+                {
+                    _calorieOfSaturday = value;
+                    RaisePropertyChanged(() => CalorieOfSaturday);
+                }
+            }
         }
     }
 }
