@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterScreen"
-             d:DesignHeight="300" d:DesignWidth="300" Width="400" Height="300"
+             d:DesignHeight="300" d:DesignWidth="300" Width="500" Height="500"
              AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OnWindowLoaded">
@@ -236,7 +236,7 @@
             <BeginStoryboard x:Name="OnWindowLoaded_BeginStoryboard" Storyboard="{StaticResource OnWindowLoaded}"/>
         </EventTrigger>
     </Window.Triggers>
-    <Border x:Name="windowBorder" RenderTransformOrigin="0.5,0.5">
+    <Border x:Name="windowBorder" RenderTransformOrigin="0.5,0.5" Width="400" Height="400" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Border.RenderTransform>
             <TransformGroup>
                 <ScaleTransform ScaleX="0" ScaleY="0" />
