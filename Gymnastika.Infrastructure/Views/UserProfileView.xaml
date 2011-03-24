@@ -191,7 +191,7 @@
         </EventTrigger>
     </Window.Triggers>
     <StackPanel HorizontalAlignment="Center" Width="360" VerticalAlignment="Center">
-        <Border x:Name="windowBorder" Background="{StaticResource WindowBackgroundBrush}" CornerRadius="45,0,45,45" RenderTransformOrigin="0.5,0.5">
+        <Border x:Name="windowBorder" Background="{StaticResource WindowBackgroundBrush}" behaviors:ClipBehavior.CornerRadius="45,0,45,45" RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="0" ScaleY="0"/>
@@ -230,7 +230,7 @@
                     <Image Source="/Gymnastika.Infrastructure;component/Images/back.png" Height="28" d:LayoutOverrides="Height" Width="28"/>
                 </Button>
                 <TabControl SelectedIndex="{Binding InitialTabIndex}" Style="{DynamicResource UserProfileTab}" ItemContainerStyle="{DynamicResource UserProfileTabItemStyle}" Background="White" Grid.Row="1" 
-                              Margin="0,0,0,40" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                              Margin="0,0,0,10" ScrollViewer.VerticalScrollBarVisibility="Disabled">
                     <TabItem>
                         <TabItem.Header>
                             <TextBlock Text="登录" FontSize="15" MouseEnter="HeaderTextBlock_MouseEnter" MouseLeave="HeaderTextBlock_MouseLeave" />

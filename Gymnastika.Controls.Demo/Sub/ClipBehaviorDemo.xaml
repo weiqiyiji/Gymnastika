@@ -4,6 +4,15 @@
         xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
         Title="ClipBehaviorDemo" WindowState="Maximized">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Border behaviors:ClipBehavior.CornerRadius="40" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border Grid.Row="1" behaviors:ClipBehavior.CornerRadius="40,0,40,0" Background="Green" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border Grid.Row="2" behaviors:ClipBehavior.CornerRadius="0,40,0,40" Background="Blue" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border Grid.Row="3" behaviors:ClipBehavior.CornerRadius="20,40,0,40" Background="Gray" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
     </Grid>
 </Window>
