@@ -11,6 +11,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         ISportsPanelViewModel SportsPanelViewModel { get; }
         ISportViewModel SportViewModel { get; }
         ISportsPlanViewModel PlanViewModel { get; }
+        ISportCalorieChartViewModel CalorieChartViewModel { get; }
     }
 
     public class CompositePanelViewModel : ICompositePanelViewModel
@@ -19,6 +20,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
         ISportsPanelViewModel _sportsPanelModel;
         ISportViewModel _sportViewModel;
         ISportsPlanViewModel _planViewModel;
+        ISportCalorieChartViewModel _calorieChartViewModel;
+
+        public ISportCalorieChartViewModel CalorieChartViewModel
+        {
+            get { return _calorieChartViewModel; }
+            private set { _calorieChartViewModel = value; } 
+        }
 
         public ICategoriesPanelViewModel CategoriesPanelViewModel 
         {
@@ -45,18 +53,25 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public CompositePanelViewModel(ICategoriesPanelViewModel categoriesPanelViewModel,
             ISportsPanelViewModel sportsPanelViewModel,
             ISportViewModel sportViewModel,
-            ISportsPlanViewModel sportsPlanViewModel)
+            ISportsPlanViewModel sportsPlanViewModel,
+            ISportCalorieChartViewModel calorieChartViewModel)
         {
             CategoriesPanelViewModel = categoriesPanelViewModel;
             SportsPanelViewModel = sportsPanelViewModel;
             SportViewModel = sportViewModel;
             PlanViewModel = sportsPlanViewModel;
+            CalorieChartViewModel = calorieChartViewModel;
             CategoriesPanelViewModel.CategorySelectedEvent += OnSelectedCategoryChanged;
             SportsPanelViewModel.Category = CategoriesPanelViewModel.CurrentSelectedItem;
-            //=>
-            //    {
-            //        SportsPanelViewModel. = CategoriesPanelViewModel.CurrentSelectedItem;
-            //    };
+            CalorieChartViewModel.RequestAddToPlanEvent += OnAddToPlan;
+
+            PlanViewModel.SetPlan(DateTime.Now);
+
+        }
+
+        void OnAddToPlan(object sender, AddToPlanEventArgs args)
+        {
+            PlanViewModel.AddPlanItem(args.Item);
         }
 
         public void OnSelectedCategoryChanged(object sender, EventArgs e)

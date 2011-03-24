@@ -22,8 +22,12 @@
     		<ColumnDefinition Width="0.12*"/>
     	</Grid.ColumnDefinitions>
 		<StackPanel Margin="4,0,0,0" Orientation="Horizontal">
-    		<Border BorderThickness="0.5" BorderBrush="#FF7C836B" Width="30" HorizontalAlignment="Left" Height="18">
-    			<TextBlock x:Name="Time" Text="9:30" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+    		<Border BorderThickness="0.5" BorderBrush="#FF7C836B" Width="45" HorizontalAlignment="Left" Height="18">
+    			<TextBlock x:Name="Time" VerticalAlignment="Center" HorizontalAlignment="Center">
+    				<Run Text="{Binding Hour}"></Run>			
+					<Run Text=":"></Run>
+					<Run Text="{Binding Minute}"></Run>
+				</TextBlock>
     			 		
     			<!--</TextBlock>Text="{Binding Time}" />-->
     		</Border>

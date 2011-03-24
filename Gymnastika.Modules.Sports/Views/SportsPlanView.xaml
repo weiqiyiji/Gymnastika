@@ -59,7 +59,7 @@
     			</ListBox>
     			<my:SurfaceButton Content="保存" Command="{Binding SubmitCommand}" Margin="0,8.305,0,8" x:Name="Save" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" />
     			<my:SurfaceButton Content="还原" Command="{Binding CancelCommand}" x:Name="Cancel" Margin="0,8,79,8.305" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" />
-    			<control:AnimatedProgressBar x:Name="calorieBar" Orientation="Vertical" Value="0" Maximum="2000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4"  >
+    			<control:AnimatedProgressBar x:Name="calorieBar" Orientation="Vertical" Value="0" Maximum="3000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4"  >
     				<control:AnimatedProgressBar.RenderTransform>
     					<TransformGroup>
     						<ScaleTransform/>
