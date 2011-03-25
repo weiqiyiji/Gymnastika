@@ -140,7 +140,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _currentWeek = value;
                     DateTime sunday = Facilities.MathFacility.Sunday(value);
                     DateTime sat = sunday.AddDays(6);
-                    DayRange = String.Format("{0}年 {1}月{2}日-{3}月{4}日",sunday.Year,sunday.Month, sunday.Day, sat.Month, sat.Day);
+                    DayRange = String.Format("{0}年{1}月{2}日- {5}年{3}月{4}日",sunday.Year,sunday.Month, sunday.Day, sat.Month, sat.Day,sat.Year);
                     RaisePropertyChanged(() => CurrentWeek);
                 }
             }
