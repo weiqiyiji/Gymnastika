@@ -7,6 +7,7 @@ using Gymnastika.Modules.Meals.XModels.XCategoryDataModels;
 using Gymnastika.Modules.Meals.XModels.XDietPlanModels;
 using System.IO;
 using System.Xml.Serialization;
+using Gymnastika.Modules.Meals.XModels.XFoodLibraryModels;
 
 namespace Gymnastika.Modules.Meals.XDataHelpers
 {
@@ -15,19 +16,34 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
         private readonly string _foodDataFilePath;
         private readonly string _categoryDataFilePath;
         private readonly string _dietPlanDataFielPath;
+        private readonly string _foodLibraryFilePath;
 
         private XFoodData _xFoodData;
         private XCategoryData _xCategoryData;
         private XDietPlanData _xDietPlanData;
+        private XFoodLibrary _xFoodLibrary;
 
         public XDataFileManager()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
             string dataDirectory = currentDirectory + "\\Datas\\";
 
-            _foodDataFilePath = dataDirectory + "foods.xml";
+            //_foodDataFilePath = dataDirectory + "foods.xml";
             _categoryDataFilePath = dataDirectory + "categories.xml";
             _dietPlanDataFielPath = dataDirectory + "dietplans.xml";
+
+            _foodLibraryFilePath = dataDirectory + "foods.xml";
+        }
+
+        public XFoodLibrary GetFoodLibrary()
+        {
+            using (Stream stream = GetStream(_foodLibraryFilePath))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(XFoodLibrary));
+                _xFoodLibrary = (XFoodLibrary)serializer.Deserialize(stream);
+            }
+
+            return _xFoodLibrary;
         }
 
         public XFoodData GetFoodData()

@@ -25,8 +25,7 @@ namespace Gymnastika.Migrations
             SchemaBuilder.CreateTable(
                 TableName,
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
-                    .Column<string>("Name")
-                    .Column<string>("ImageUri"));
+                    .Column<string>("Name"));
         }
             
         public void Down()

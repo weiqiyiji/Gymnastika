@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Gymnastika.Modules.Meals.Views
 {
@@ -19,9 +20,19 @@ namespace Gymnastika.Modules.Meals.Views
     /// </summary>
     public partial class LoadDataView
     {
+        DispatcherTimer _animationTimer;
         public LoadDataView()
         {
             InitializeComponent();
+            _animationTimer = new DispatcherTimer();
+            _animationTimer.Interval = TimeSpan.FromSeconds(5);
+            _animationTimer.Tick += Timer_Tick;
+            _animationTimer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            this.Visibility = System.Windows.Visibility.Collapsed;
         }
     }
 }

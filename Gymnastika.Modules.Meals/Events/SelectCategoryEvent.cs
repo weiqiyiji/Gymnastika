@@ -7,7 +7,7 @@ using Microsoft.Practices.Prism.Events;
 
 namespace Gymnastika.Modules.Meals.Events
 {
-    public class SelectCategoryEvent : CompositePresentationEvent<SubCategory>
+    public class SelectCategoryEvent : CompositePresentationEvent<Category>
     {
     }
 }

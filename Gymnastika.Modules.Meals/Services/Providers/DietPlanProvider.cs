@@ -29,6 +29,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             _repository.Update(dietPlan);
         }
 
+        public void Delete(DietPlan dietPlan)
+        {
+            _repository.Delete(dietPlan);
+        }
+
         public IEnumerable<DietPlan> GetDietPlans(int userId)
         {
             return _repository.Fetch(dp => dp.User.Id == userId);

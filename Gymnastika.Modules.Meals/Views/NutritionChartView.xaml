@@ -3,33 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="clr-namespace:Gymnastika.Modules.Meals.Controls"
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <!--<UserControl.Resources>
-    <ResourceDictionary>
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="NutritionChartItemView.xaml" />
-    </ResourceDictionary.MergedDictionaries>
-        
-    </ResourceDictionary>
-    </UserControl.Resources>-->
 
     <Grid>
-        <Border x:Name="DietPlanCalorieValueBorder" Background="Black" HorizontalAlignment="Left" />
-    <ItemsControl ItemsSource="{Binding NutritionChartItems}">
-        <ItemsControl.ItemContainerStyle>
-            <Style TargetType="FrameworkElement">
-                <Setter Property="Margin" Value="2" />
-            </Style>
-        </ItemsControl.ItemContainerStyle>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate DataType="{x:Type viewModel:NutritionChartItemViewModel}">
-                    <view:NutritionChartItemView />
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-    </ItemsControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Border Grid.ColumnSpan="2" Background="White"></Border>
+        <Border Grid.RowSpan="2" Background="White"></Border>
+        <Border Grid.ColumnSpan="2" Grid.RowSpan="2" Padding="10,0,10,0" CornerRadius="50" Background="White">
+            <ItemsControl ItemsSource="{Binding NutritionChartItems}">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="FrameworkElement">
+                        <Setter Property="Margin" Value="2" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type viewModel:NutritionChartItemViewModel}">
+                        <view:NutritionChartItemView />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Border>
     </Grid>
 </UserControl>

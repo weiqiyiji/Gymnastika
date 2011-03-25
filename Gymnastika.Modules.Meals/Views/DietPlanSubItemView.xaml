@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="Gymnastika.Modules.Meals.Views.DietPlanSubItemView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="FoodItemView.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <SolidColorBrush x:Key="LeftHeaderBackground" Color="#94E0B1" />
+
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            
+            <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        
+        <Border Background="{StaticResource LeftHeaderBackground}">
+            <TextBlock Grid.RowSpan="2" Text="{Binding MealName}" Width="15" TextWrapping="Wrap" Foreground="White" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Rectangle Visibility="{Binding IsFirstItem, Converter={StaticResource BooleanToVisibilityConverter}}" Fill="White" Height="20" VerticalAlignment="Top" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
+
+            <ItemsControl Margin="15,0,10,0" HorizontalContentAlignment="Center" Grid.Row="1" ItemsSource="{Binding Foods, IsAsync=True}" ItemTemplate="{StaticResource DietPlanItemFood}">
+                <!--<ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel ItemWidth="80" Width="160" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>-->
+            </ItemsControl>
+
+        </Grid>
+
+
+        <Image Grid.Column="1" Visibility="{Binding IsFirstItem, Converter={StaticResource BoolToVisibilityConverter}}" Width="7" Height="7" VerticalAlignment="Top" HorizontalAlignment="Left" Source="/Gymnastika.Modules.Meals;component/Images/TopTriangle.png" />
+        <Image Grid.Column="1" Visibility="{Binding IsLastItem, Converter={StaticResource BoolToVisibilityConverter}}" Width="7" Height="7" VerticalAlignment="Bottom" HorizontalAlignment="Left" Source="/Gymnastika.Modules.Meals;component/Images/BottomTriangle.png" />
+    </Grid>
+</UserControl>

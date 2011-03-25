@@ -18,13 +18,13 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public DietPlanSubListViewModel(IDietPlanSubListView view)
         {
             _subTotalCalories = 0;
-            DietPlanSubList = new ObservableCollection<FoodItemViewModel>();
+            FoodItems = new ObservableCollection<FoodItemViewModel>();
             View = view;
         }
 
         public IDietPlanSubListView View { get; set; }
 
-        public ObservableCollection<FoodItemViewModel> DietPlanSubList { get; set; }
+        public ObservableCollection<FoodItemViewModel> FoodItems { get; set; }
 
         public string MealName { get; set; }
 
@@ -49,18 +49,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             Refresh(foodItem);
 
-            DietPlanSubList.Add(foodItem);
+            FoodItems.Add(foodItem);
 
             SubTotalCalories += foodItem.Calories;
-
-            //LoadNutritionData();
-
-            //OnDietPlanListPropertyChanged();
         }
 
         public event EventHandler DietPlanListPropertyChanged;
 
-        public IList<NutritionalElement> Nutritions { get; set; }
+        public IList<NutritionElement> Nutritions { get; set; }
 
         #region IDropTarget Members
 
@@ -82,13 +78,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
             FoodItemViewModel targetFoodItem = targetDietPlanSubList.FirstOrDefault(f => f.Name == foodItem.Name);
             if (targetFoodItem == null)
             {
-                targetDietPlanSubList.Add(foodItem);
-                Refresh(foodItem);
-                SubTotalCalories += foodItem.Calories;
-
-                LoadNutritionData();
-
-                OnDietPlanListPropertyChanged();
+                AddFoodToPlan(foodItem);
+                foodItem.LoadNutritionElementData();
+                foodItem.Amount = 100;
             }
             else
             {
@@ -100,27 +92,27 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void LoadNutritionData()
         {
-            Nutritions = new List<NutritionalElement>();
+            Nutritions = new List<NutritionElement>();
 
-            for (int i = 0; i < DietPlanSubList.Count; i++)
+            for (int i = 0; i < FoodItems.Count; i++)
             {
                 if (i == 0)
                 {
-                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                    for (int j = 0; j < FoodItems[i].Nutritions.Count; j++)
                     {
-                        Nutritions.Add(new NutritionalElement
+                        Nutritions.Add(new NutritionElement
                         {
-                            Name = DietPlanSubList[i].Nutritions[j].Name,
-                            Value = DietPlanSubList[i].Nutritions[j].Value
+                            Name = FoodItems[i].Nutritions[j].Name,
+                            Value = FoodItems[i].Nutritions[j].Value
                         });
                     }
                 }
                 else
                 {
-                    if (DietPlanSubList[i].Nutritions == null) continue;
-                    for (int j = 0; j < DietPlanSubList[i].Nutritions.Count; j++)
+                    if (FoodItems[i].Nutritions == null) continue;
+                    for (int j = 0; j < FoodItems[i].Nutritions.Count; j++)
                     {
-                        Nutritions[j].Value += DietPlanSubList[i].Nutritions[j].Value;
+                        Nutritions[j].Value += FoodItems[i].Nutritions[j].Value;
                     }
                 }
             }
@@ -138,7 +130,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             foodItem.DeleteFoodFromPlan -= DeleteFoodFromPlan;
             foodItem.DietPlanSubListPropertyChanged -= DietPlanSubListPropertyChanged;
 
-            DietPlanSubList.Remove(foodItem);
+            FoodItems.Remove(foodItem);
 
             SubTotalCalories -= foodItem.Calories;
 
@@ -160,7 +152,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             decimal subTotalCalories = 0;
 
-            foreach (var foodItem in DietPlanSubList)
+            foreach (var foodItem in FoodItems)
             {
                 subTotalCalories += foodItem.Calories;
             }

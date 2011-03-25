@@ -65,14 +65,6 @@ namespace Gymnastika.Modules.Sports
 
             INavigationRegion region = _navigationManager.Regions[RegionName];
             
-            //历史计划
-            region.Add(
-                new NavigationDescriptor()
-                {
-                    Header = "本周计划",
-                    ViewName = NavigationNames.PlanPanel,
-                    ViewResolver = () => _container.Resolve<CompostieChartView>(),
-                });
 
             //创建计划
             region.Add(
@@ -81,22 +73,17 @@ namespace Gymnastika.Modules.Sports
                     Header = "定制运动计划",
                     ViewName = NavigationNames.CreatePlanPanel,
                     ViewResolver = () => _container.Resolve<CompositePanel>(),
-                    //States = new List<ViewState>()
-                    //{
-                    //    new ViewState()
-                    //    {
-                    //        Header = "制定计划",
-                    //        Name = "CreatePlan",
-                    //    },
-                    //    new ViewState()
-                    //    { 
-                    //        Header = "查看运动详情",
-                    //        Name = "SportDetail",
-                    //    },
-
-                    //},
-                    //StateChanging = _container.Resolve<CompositePanel>().StateChanging,
                 });
+
+            //本周计划
+            region.Add(
+                new NavigationDescriptor()
+                {
+                    Header = "本周计划",
+                    ViewName = NavigationNames.PlanPanel,
+                    ViewResolver = () => _container.Resolve<CompostieChartView>(),
+                });
+
             //图表
             region.Add(
                 new NavigationDescriptor()

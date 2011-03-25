@@ -17,6 +17,10 @@ using System.Globalization;
 using Gymnastika.Data;
 using Microsoft.Practices.Prism.Regions;
 using Gymnastika.Common;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Meals.Events;
+using Gymnastika.Services.Models;
+using System.Windows;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -26,30 +30,38 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private readonly IWorkEnvironment _workEnvironment;
         private readonly ISessionManager _sessionManager;
         private readonly IUnityContainer _container;
+        private readonly IEventAggregator _eventAggregator;
         private string _searchString;
+        private DateTime _createdDate;
+        private ICommand _saveCommand;
         private ICommand _searchCommand;
-        private ICommand _showSavedDietPlanCommand;
-        private ICommand _showRecommendedDietPlanCommand;
 
         public MealsManagementViewModel(
             IMealsManagementView view,
             ICategoryListViewModel categoryListViewModel,
-            IFoodListViewModel foodListViewModel,
-            ICreateDietPlanViewModel createDietPlanViewModel,
+            IDietPlanListViewModel dietPlanListViewModel,
             INutritionChartViewModel nutritionChartViewModel,
+            IPositionedFoodViewModel positionedFoodViewModel,
+            IDietPlanNutritionChartViewModel dietPlanNutritionChartViewModel,
             IFoodService foodService,
             IWorkEnvironment workEnvironment,
             ISessionManager sessionManager,
-            IUnityContainer container)
+            IUnityContainer container,
+            IEventAggregator eventAggregator)
         {
             CategoryListViewModel = categoryListViewModel;
-            FoodListViewModel = foodListViewModel;
-            CreateDietPlanViewModel = createDietPlanViewModel;
+            DietPlanListViewModel = dietPlanListViewModel;
             NutritionChartViewModel = nutritionChartViewModel;
+            PositionedFoodViewModel = positionedFoodViewModel;
+            DietPlanNutritionChartViewModel = dietPlanNutritionChartViewModel;
+            CreatedDate = DateTime.Now;
+            TotalCalories = DietPlanListViewModel.TotalCalories;
             _foodService = foodService;
             _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
             _container = container;
+            _eventAggregator = eventAggregator;
+            CurrentUser = _sessionManager.GetCurrentSession().AssociatedUser;
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
                 InMemoryFoods = _foodService.FoodProvider.GetAll();
@@ -57,11 +69,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
+
+            _eventAggregator.GetEvent<SelectDateEvent>().Subscribe(SelectDateEventHandler);
+        }
+
+        private void SelectDateEventHandler(DateTime dateTime)
+        {
+            CreatedDate = dateTime;
         }
 
         #region IMealsManagementViewModel Members
 
         public IMealsManagementView View { get; set; }
+
+        public SelectDateView SelectDateView { get; set; }
 
         public string SearchString
         {
@@ -79,6 +100,51 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
+        public DateTime CreatedDate
+        {
+            get
+            {
+                return _createdDate.Date;
+            }
+            set
+            {
+                if (_createdDate != value)
+                {
+                    _createdDate = value;
+                    RaisePropertyChanged("CreatedDate");
+                }
+            }
+        }
+
+        public User CurrentUser { get; set; }
+
+        public string UserName
+        {
+            get
+            {
+                return CurrentUser.UserName;
+            }
+            set
+            {
+                if (CurrentUser.UserName != value)
+                {
+                    CurrentUser.UserName = value;
+                    RaisePropertyChanged("UserName");
+                }
+            }
+        }
+
+        public ICommand SaveCommand
+        {
+            get
+            {
+                if (_saveCommand == null)
+                    _saveCommand = new DelegateCommand(Save);
+
+                return _saveCommand;
+            }
+        }
+
         public ICommand SearchCommand
         {
             get
@@ -90,26 +156,37 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public ICommand ShowSavedDietPlanCommand
+        private ICommand _showMyFavoriteCommand;
+
+        public ICommand ShowMyFavoriteCommand
         {
             get
             {
-                if (_showSavedDietPlanCommand == null)
-                    _showSavedDietPlanCommand = new DelegateCommand(ShowSavedDietPlan);
+                if (_showMyFavoriteCommand == null)
+                    _showMyFavoriteCommand = new DelegateCommand(ShowMyFavorite);
 
-                return _showSavedDietPlanCommand;
+                return _showMyFavoriteCommand;
             }
         }
 
-        public ICommand ShowRecommendedDietPlanCommand
+        private ICommand _selectDateCommand;
+
+        public ICommand SelectDateCommand
         {
             get
             {
-                if (_showRecommendedDietPlanCommand == null)
-                    _showRecommendedDietPlanCommand = new DelegateCommand(ShowRecommendedDietPlan);
+                if (_selectDateCommand == null)
+                    _selectDateCommand = new DelegateCommand(ShowSelectDateView);
 
-                return _showRecommendedDietPlanCommand;
+                return _selectDateCommand;
             }
+        }
+
+        private void ShowSelectDateView()
+        {
+            SelectDateView = _container.Resolve<SelectDateView>();
+            SelectDateView.Owner = Application.Current.MainWindow;
+            SelectDateView.ShowDialog();
         }
 
         public IEnumerable<Food> InMemoryFoods { get; set; }
@@ -118,15 +195,47 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICategoryListViewModel CategoryListViewModel { get; set; }
 
-        public IFoodListViewModel FoodListViewModel { get; set; }
+        //public IFoodListViewModel CategoryListViewModel.FoodListViewModel { get; set; }
 
-        public ICreateDietPlanViewModel CreateDietPlanViewModel { get; set; }
+        private IDietPlanListViewModel _dietPlanListViewModel;
+        public IDietPlanListViewModel DietPlanListViewModel
+        {
+            get
+            {
+                return _dietPlanListViewModel;
+            }
+            set
+            {
+                if (_dietPlanListViewModel != value)
+                {
+                    _dietPlanListViewModel = value;
+                    RaisePropertyChanged("DietPlanListViewModel");
+                }
+            }
+        }
 
-        public ISelectDietPlanViewModel SavedDietPlanViewModel { get; set; }
+        private decimal _totalCalories;
+        public decimal TotalCalories
+        {
+            get
+            {
+                return _totalCalories;
+            }
+            set
+            {
+                if (_totalCalories != value)
+                {
+                    _totalCalories = value;
+                    RaisePropertyChanged("TotalCalories");
+                }
+            }
+        }
 
-        public ISelectDietPlanViewModel RecommendedDietPlanViewModel { get; set; }
+        public IDietPlanNutritionChartViewModel DietPlanNutritionChartViewModel { get; set; }
 
         public INutritionChartViewModel NutritionChartViewModel { get; set; }
+
+        public IPositionedFoodViewModel PositionedFoodViewModel { get; set; }
 
         #endregion
 
@@ -145,50 +254,16 @@ namespace Gymnastika.Modules.Meals.ViewModels
         //    return false;
         //}
 
-        private void InitializeSavedDietPlanViewModel()
+        private void ShowMyFavorite()
         {
-            SavedDietPlanViewModel = _container.Resolve<ISelectDietPlanViewModel>();
-            SavedDietPlanViewModel.PlanType = PlanType.CreatedDietPlan;
-            SavedDietPlanViewModel.Apply += new EventHandler(ApplySavedDietPlan);
-            SavedDietPlanViewModel.Initialize();
-        }
-
-        private void InitializeRecommendedDietPlanViewModel()
-        {
-            RecommendedDietPlanViewModel = _container.Resolve<ISelectDietPlanViewModel>();
-            RecommendedDietPlanViewModel.PlanType = PlanType.RecommendedDietPlan;
-            RecommendedDietPlanViewModel.Apply += new EventHandler(ApplyRecommendedDietPlan);
-            RecommendedDietPlanViewModel.Initialize();
-        }
-
-        private void ApplySavedDietPlan(object sender, EventArgs e)
-        {
-            CreateDietPlanViewModel.DietPlanListViewModel = _container.Resolve<IDietPlanListViewModel>();
-
-            for (int i = 0; i < 6; i++)
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                foreach (var foodItem in SavedDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
-                {
-                    CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
-                }
+                CategoryListViewModel.FoodListViewModel.FavoriteFood = _foodService.FavoriteFoodProvider.Get(CurrentUser.Id);
+                if (CategoryListViewModel.FoodListViewModel.FavoriteFood != null)
+                    CategoryListViewModel.FoodListViewModel.FavoriteFood.Foods = _foodService.FoodProvider.GetFoods(CategoryListViewModel.FoodListViewModel.FavoriteFood).ToList();
             }
 
-            SavedDietPlanViewModel.View.CloseView();
-        }
-
-        private void ApplyRecommendedDietPlan(object sender, EventArgs e)
-        {
-            CreateDietPlanViewModel.DietPlanListViewModel = _container.Resolve<IDietPlanListViewModel>();
-
-            for (int i = 0; i < 6; i++)
-            {
-                foreach (var foodItem in RecommendedDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].DietPlanSubList)
-                {
-                    CreateDietPlanViewModel.DietPlanListViewModel.DietPlanList[i].AddFoodToPlan(foodItem);
-                }
-            }
-
-            RecommendedDietPlanViewModel.View.CloseView();
+            CategoryListViewModel.FoodListViewModel.ShowMyFavoriteResult();
         }
 
         private void SearchKeyDown(object sender, KeyEventArgs e)
@@ -202,37 +277,47 @@ namespace Gymnastika.Modules.Meals.ViewModels
             BindingExpression binding = View.GetBindingSearchString();
             binding.UpdateSource();
 
-            SearchResults = new Collection<Food>();
-            foreach (var food in InMemoryFoods)
+            using (var scope = _workEnvironment.GetWorkContextScope())
             {
-                string filter = SearchString.ToUpper(CultureInfo.InvariantCulture);
-
-                if (food.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filter))
-                    SearchResults.Add(food);
+                CategoryListViewModel.FoodListViewModel.SearchFoods = _foodService.FoodProvider.GetFoods(SearchString);
             }
 
-            FoodListViewModel.CurrentFoods = SearchResults;
-            FoodListViewModel.ShowSearchResult();
+            CategoryListViewModel.FoodListViewModel.ShowSearchResult();
         }
 
-        private void ShowSavedDietPlan()
+        private void Save()
         {
-            InitializeSavedDietPlanViewModel();
+            DietPlan dietPlan = new DietPlan();
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                dietPlan.User = _sessionManager.GetCurrentSession().AssociatedUser;
+                dietPlan.PlanType = PlanType.CreatedDietPlan;
+                dietPlan.CreatedDate = CreatedDate;
+                dietPlan.SubDietPlans = new List<SubDietPlan>();
+                _foodService.DietPlanProvider.Create(dietPlan);
+                for (int i = 0; i < 3; i++)
+                {
+                    SubDietPlan subDietPlan = new SubDietPlan();
+                    //subDietPlan.DietPlan = dietPlan;
+                    subDietPlan.DietPlanItems = new List<DietPlanItem>();
+                    _foodService.SubDietPlanProvider.Create(subDietPlan);
+                    foreach (var foodItem in DietPlanListViewModel.DietPlanList[i].FoodItems)
+                    {
+                        DietPlanItem dietPlanItem = new DietPlanItem();
+                        dietPlanItem.Food = foodItem.Food;
+                        dietPlanItem.Amount = foodItem.Amount;
+                        //dietPlanItem.SubDietPlan = subDietPlan;
+                        _foodService.DietPlanItemProvider.Create(dietPlanItem);
+                        subDietPlan.DietPlanItems.Add(dietPlanItem);
+                        _foodService.DietPlanItemProvider.Update(dietPlanItem);
+                    }
+                    dietPlan.SubDietPlans.Add(subDietPlan);
+                    _foodService.SubDietPlanProvider.Update(subDietPlan);
+                }
+            }
+            System.Windows.MessageBox.Show("已保存");
 
-            ShowSelectDietPlan(SavedDietPlanViewModel);
-        }
-
-        private void ShowRecommendedDietPlan()
-        {
-            InitializeRecommendedDietPlanViewModel();
-
-            ShowSelectDietPlan(RecommendedDietPlanViewModel);
-        }
-
-        private void ShowSelectDietPlan(ISelectDietPlanViewModel selectDietPlanViewModel)
-        {
-            selectDietPlanViewModel.View.ShowView();
-            selectDietPlanViewModel.DietPlanListViewModel.View.ExpandAll();
+            _eventAggregator.GetEvent<NotifyHistoryDietPlanChangedEvent>().Publish(dietPlan);
         }
     }
 }

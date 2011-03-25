@@ -9,13 +9,5 @@ namespace Gymnastika.Modules.Meals.Controllers
     {
         bool IsLoaded { get; }
         void Load();
-        void LoadCategoryData();
-        void LoadSubCategoryData();
-        void LoadFoodData();
-        void LoadNutritionalElementData();
-        void LoadIntroductionData();
-        void LoadDietPlanData();
-        void LoadSubDietPlanData();
-        void LoadDietPlanItemData();
     }
 }

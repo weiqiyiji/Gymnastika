@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -238,14 +239,14 @@
                                         <VisualState x:Name="MouseOver">
                                             <Storyboard>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MouseOverBorder">
-                                                    <EasingDoubleKeyFrame KeyTime="0" Value="85"/>
+                                                    <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
                                                 </DoubleAnimationUsingKeyFrames>
                                                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="MouseOverBorder">
-                                                    <EasingDoubleKeyFrame KeyTime="0" Value="82"/>
+                                                    <EasingDoubleKeyFrame KeyTime="0" Value="50"/>
                                                 </DoubleAnimationUsingKeyFrames>
-                                                <DoubleAnimationUsingKeyFrames Duration="0:0:0.01" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MouseOverStrip">
-                                                    <EasingDoubleKeyFrame KeyTime="0" Value="15"/>
-                                                </DoubleAnimationUsingKeyFrames>
+                                                <!--<DoubleAnimationUsingKeyFrames Duration="0:0:0.01" Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="MouseOverStrip">
+                                                    <EasingDoubleKeyFrame KeyTime="0" Value="10"/>
+                                                </DoubleAnimationUsingKeyFrames>-->
                                             </Storyboard>
                                         </VisualState>
                                         <VisualState x:Name="Disabled"/>
@@ -274,7 +275,7 @@
                                         <VisualState x:Name="SelectedUnfocused"/>
                                     </VisualStateGroup>
                                 </VisualStateManager.VisualStateGroups>
-                                <Border x:Name="Bd" Height="150" Width="400" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" HorizontalAlignment="Left" CornerRadius="16" Margin="5" Background="{StaticResource ItemBackground}" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="Height">
+                                <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" HorizontalAlignment="Left" Background="White" Opacity="0.9" RenderTransformOrigin="0.5,0.5" d:LayoutOverrides="Height">
                                     <Border.RenderTransform>
                                         <TransformGroup>
                                             <ScaleTransform/>
@@ -284,7 +285,7 @@
                                         </TransformGroup>
                                     </Border.RenderTransform>
                                     <Grid>
-                                        <Border x:Name="MouseOverBorder" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Stretch" CornerRadius="0,16,16,0" Background="#9bb70d" Width="0">
+                                        <Border x:Name="MouseOverBorder" BorderBrush="{x:Null}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Background="#9bb70d" Width="0">
                                             <Border.RenderTransform>
                                                 <TransformGroup>
                                                     <ScaleTransform/>
@@ -294,7 +295,7 @@
                                                 </TransformGroup>
                                             </Border.RenderTransform>
                                             <Grid>
-                                                <Border x:Name="MouseOverStrip" Width="0" VerticalAlignment="Stretch" Background="{StaticResource ItemBackground}" HorizontalAlignment="Left" Margin="-15,0,0,0"/>
+                                                <Border x:Name="MouseOverStrip" Width="0" VerticalAlignment="Stretch" Background="White" Opacity="0.9" HorizontalAlignment="Left" />
                                                 <Grid>
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="*" />
@@ -327,8 +328,8 @@
                                                 </TextBlock>
                                             </Grid>
                                         </Border>-->
-                                        <Border HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="10" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" >
-                                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Width="500"/>
+                                        <Border HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" >
+                                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Width="250" />
                                         </Border>
                                     </Grid>
                                 </Border>
@@ -343,7 +344,7 @@
                 </Setter>
             </Style>
 
-            <Style x:Key="FirstItemStyle">
+            <!--<Style x:Key="FirstItemStyle">
                 <Setter Property="ListBoxItem.Background" Value="#d9d6cf" />
             </Style>
             <Style x:Key="SecondItemStyle">
@@ -372,77 +373,135 @@
             </Style>
             <Style x:Key="TenthItemStyle">
                 <Setter Property="ListBoxItem.Background" Value="#4a6aa3" />
+            </Style>-->
+
+
+
+            <Style x:Key="ListBoxStyle2" TargetType="{x:Type ListBox}">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+                <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+                <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBox}">
+
+                                <Border x:Name="Bd" CornerRadius="50" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="White" Padding="0" SnapsToDevicePixels="true">
+                                    <!--<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}" Margin="10">-->
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="10"/>
+                                    <!--</ScrollViewer>-->
+                                </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsGrouping" Value="true">
+                                    <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
 
 
-            
+
+            <Style x:Key="ListBoxItemStyle2" TargetType="{x:Type ListBoxItem}">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Padding" Value="2"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsSelected" Value="true">
+                                    <Setter Property="Background" Value="#F2F8E6"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+
+
+
+            <Style x:Key="MyFavoriteButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="Chrome" BorderThickness="3" BorderBrush="#94E0B1" Background="#94E0B1" SnapsToDevicePixels="true" CornerRadius="4">
+                                <ContentPresenter x:Name="BT" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Foreground" Value="#94E0B1"/>
+                                    <Setter Property="Background" TargetName="Chrome" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
         </ResourceDictionary>
     </UserControl.Resources>
-    
-    <Grid>
+    <Grid Margin="0,15,0,15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Background="White" Margin="0,0,100,0" />
+        <Border Background="White" Grid.Row="1" Margin="100,0,0,0" />
+        <Border Grid.Row="0" Grid.RowSpan="2" CornerRadius="100" Background="White" >
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <surface:SurfaceButton Grid.Row="0" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <ListBox Grid.Row="2" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Margin="100,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}"
-                     ScrollViewer.CanContentScroll="False" ItemTemplate="{StaticResource FoodListItem}" Style="{StaticResource FoodListBoxStyle}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}"
-                     SelectionChanged="FoodList_SelectionChanged">
-                <!--<ListBox.ItemContainerStyleSelector>
-                    <controls:FoodListItemStyleSelector FirstItemStyle="{StaticResource FirstItemStyle}"
-                                                        SecondItemStyle="{StaticResource SecondItemStyle}"
-                                                        ThirdItemStyle="{StaticResource ThirdItemStyle}"
-                                                        FourthItemStyle="{StaticResource FourthItemStyle}"
-                                                        FifthItemStyle="{StaticResource FifthItemStyle}"
-                                                        SixthItemStyle="{StaticResource SixthItemStyle}"
-                                                        SeventhItemStyle="{StaticResource SeventhItemStyle}"
-                                                        EighthItemStyle="{StaticResource EighthItemStyle}"
-                                                        NinthItemStyle="{StaticResource NinthItemStyle}"
-                                                        TenthItemStyle="{StaticResource TenthItemStyle}" />
-                </ListBox.ItemContainerStyleSelector>-->
-                <!--<ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                        </Grid>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>-->
-                <dd:DragDrop.DragAdornerTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <Image Source="{Binding MiddleImageUri}" Width="70" HorizontalAlignment="Center"/>
-                            <TextBlock Text="{Binding Name, Converter={StaticResource TextConverter}}" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </dd:DragDrop.DragAdornerTemplate>
-            </ListBox>
-            <Grid Grid.Row="1" HorizontalAlignment="Center">
+                <Button Style="{StaticResource MyFavoriteButtonStyle}" Margin="15,15,0,0" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Left" />
+        <ListBox Width="250" Margin="0,0,10,10" Grid.Row="1" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList, IsAsync=True}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Background="{x:Null}" BorderBrush="{x:Null}"
+                     ItemTemplate="{StaticResource FoodListItem}" Style="{StaticResource ListBoxStyle2}" ItemContainerStyle="{StaticResource ListBoxItemStyle2}"
+                     SelectionChanged="FoodList_SelectionChanged" dd:DragDrop.DragAdornerTemplate="{StaticResource FoodListItem}">
+        </ListBox>
+            <Grid Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <surface:SurfaceButton x:Name="PreviousPageButtion" Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
-                <TextBlock Grid.Column="1" VerticalAlignment="Center" Foreground="Black">
+                <control:ImageButton x:Name="PreviousPageButtion" Grid.Column="0" Command="{Binding ShowPreviousPageCommand}" 
+                                     ImageMode="Switchover" ImageSource="/Gymnastika.Modules.Meals;Component/Images/previous.png"
+                                     MouseOverImageSource="/Gymnastika.Modules.Meals;Component/Images/previous.png"
+                                     MousePressedImageSource="/Gymnastika.Modules.Meals;Component/Images/previous_down.png"/>
+                <TextBlock Margin="5,0" Grid.Column="1" Foreground="{StaticResource GrayText}" VerticalAlignment="Center">
                     <TextBlock Text="第" />
                     <TextBlock Text="{Binding CurrentPage}" />
                     <TextBlock Text="/" />
                     <TextBlock Text="{Binding PageCount}" />
                     <TextBlock Text="页" />
                 </TextBlock>
-                <surface:SurfaceButton x:Name="NextPageButton" Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
+                <control:ImageButton x:Name="NextPageButton" Grid.Column="2" Command="{Binding ShowNextPageCommand}" 
+                                     ImageMode="Switchover" ImageSource="/Gymnastika.Modules.Meals;Component/Images/next.png"
+                                     MouseOverImageSource="/Gymnastika.Modules.Meals;Component/Images/next.png"
+                                     MousePressedImageSource="/Gymnastika.Modules.Meals;Component/Images/next_down.png"/>
             </Grid>
+        </Grid>
+        </Border>
     </Grid>
 </UserControl>

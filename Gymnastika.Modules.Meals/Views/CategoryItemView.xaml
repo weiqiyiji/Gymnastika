@@ -55,6 +55,5 @@
         
     </UserControl.Resources>
 
-    <ListBox x:Name="SubCateogyrListBox" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding SubCategoryItems}"
-             DisplayMemberPath="Name" SelectionChanged="SubCateogyrListBox_SelectionChanged" />
+    <ListBox x:Name="SubCateogyrListBox" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding SubCategoryItems}" />
 </UserControl>

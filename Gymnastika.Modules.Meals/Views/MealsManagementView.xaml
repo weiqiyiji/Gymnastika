@@ -5,44 +5,146 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:inputToolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
-             xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
-             mc:Ignorable="d" Background="Transparent"
-             d:DesignHeight="300" d:DesignWidth="300">
-	<!--<UserControl.Background>
-        <ImageBrush ImageSource="/Gymnastika.Modules.Meals;component/Images/mainview_bg.jpg" />
-    </UserControl.Background>-->
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
+             mc:Ignorable="d" Background="#c4cfb8"
+             d:DesignHeight="300" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#535749" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="#FFE4E7D6" />
+        </Style>
+
+        <Style x:Key="CreatedDateButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Foreground" Value="#7D846C"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Chrome" BorderThickness="1" BorderBrush="#7D846C" Background="#c4cfb8" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="BT" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="BorderBrush" TargetName="Chrome" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <Style x:Key="SaveButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Foreground" Value="#7D846C"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Chrome" Width="100" Height="100" BorderThickness="3" BorderBrush="White" Background="White" SnapsToDevicePixels="true" CornerRadius="50">
+                            <ContentPresenter x:Name="BT" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="#7D846C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+        
+        
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-            <controls:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <inputToolkit:AutoCompleteBox x:Name="SearchBox" IsTextCompletionEnabled="False" Width="400" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="700" />
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Margin="10,0,0,0" Padding="15" Grid.Column="0" Content="{Binding CategoryListViewModel.View}" />
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            
+        <Grid Grid.Row="0" Margin="15,15,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Foreground="#7D846C" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="{Binding UserName}" />
+                <TextBlock Text="的饮食计划" />
+            </TextBlock>
+                <Button HorizontalAlignment="Left"  Width="100" Style="{StaticResource CreatedDateButtonStyle}" Grid.Column="1" Content="{Binding CreatedDate}" Command="{Binding SelectDateCommand}"  Height="25" />
+            <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
+                <control:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <inputToolkit:AutoCompleteBox x:Name="SearchBox" Foreground="{StaticResource GrayText}"  BorderThickness="0" IsTextCompletionEnabled="False" Height="20" Width="200" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
                                           FilterMode="Custom" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ItemsSource="{Binding InMemoryFoods}" PreviewKeyDown="SearchBox_KeyDown">
-                <inputToolkit:AutoCompleteBox.ItemTemplate>
-                    <DataTemplate>
+                    <inputToolkit:AutoCompleteBox.ItemTemplate>
+                        <DataTemplate>
                             <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </inputToolkit:AutoCompleteBox.ItemTemplate>
-            </inputToolkit:AutoCompleteBox>
-        </StackPanel>
-        <Grid Grid.Row="1">
+                        </DataTemplate>
+                    </inputToolkit:AutoCompleteBox.ItemTemplate>
+                        <!--<inputToolkit:AutoCompleteBox.ItemContainerStyle>
+                            <Style>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="true">
+                                        <Setter Property=""
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </inputToolkit:AutoCompleteBox.ItemContainerStyle>-->
+                    </inputToolkit:AutoCompleteBox>
+                    <!--<TextBox x:Name="SearchBox" Style="{StaticResource TextBoxStyle}" PreviewKeyDown="SearchBox_KeyDown" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" Width="150" Margin="0, 8, 0, 8" Height="20" />-->
+            </StackPanel>
+        </Grid>
+
+            <Border Grid.Row="1">
+        <ContentControl Content="{Binding DietPlanListViewModel.View}" />
+            </Border>
+
+            <Grid Grid.Row="2" Margin="0,0,0,15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ContentControl Content="{Binding CategoryListViewModel.View}" />
-            <ContentControl Grid.Column="1" Content="{Binding FoodListViewModel.View}" />
-            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                <ContentControl Content="{Binding CreateDietPlanViewModel.View}" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <surface:SurfaceButton Content="已存食谱" Command="{Binding ShowSavedDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                    <surface:SurfaceButton Content="推荐食谱" Command="{Binding ShowRecommendedDietPlanCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                </StackPanel>
-                <ContentControl Content="{Binding NutritionChartViewModel.View}" />
-            </StackPanel>
-		</Grid>
-	</Grid>
+                <Grid Margin="10,0,0,0" Height="200" Width="280" >
+                    <ContentControl Canvas.ZIndex="0" Content="{Binding NutritionChartViewModel.View}" />
+                    <ContentControl Canvas.ZIndex="1" Content="{Binding PositionedFoodViewModel.View}" />
+                </Grid>
+                <ContentControl Margin="10,0,0,0" Height="200" Width="280" Grid.Column="1" Content="{Binding DietPlanNutritionChartViewModel.View}" />
+                <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Button Style="{StaticResource SaveButtonStyle}" Grid.Row="1" Content="保存" Command="{Binding SaveCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Grid>
 </UserControl>

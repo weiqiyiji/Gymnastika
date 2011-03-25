@@ -39,18 +39,6 @@ namespace Gymnastika.Modules.Meals.Views
             }
         }
 
-        public void ExpandAll()
-        {
-            TraverseChildItemsControls(DietPlanList);
-            DietPlanList.SelectionMode = AccordionSelectionMode.OneOrMore;
-            DietPlanList.SelectAll();
-        }
-
-        public void CollapseAll()
-        {
-            DietPlanList.UnselectAll();
-        }
-
         #endregion
 
         private void TraverseChildItemsControls(DependencyObject obj)

@@ -11,6 +11,7 @@ namespace Gymnastika.Modules.Meals.Services.Providers
     {
         void Create(DietPlan dietPlan);
         void Update(DietPlan dietPlan);
+        void Delete(DietPlan dietPlan);
         IEnumerable<DietPlan> GetDietPlans(int userId);
         IEnumerable<DietPlan> GetRecommendedDietPlans();
         DietPlan Get(User user, int skip);

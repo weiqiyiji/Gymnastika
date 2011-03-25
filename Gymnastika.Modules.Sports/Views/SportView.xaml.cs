@@ -19,7 +19,7 @@ namespace Gymnastika.Modules.Sports.Views
     /// <summary>
     /// Interaction logic for SportView.xaml
     /// </summary>
-    public partial class SportView : UserControl , ISportView
+    public partial class SportView : Window, ISportView
     {
         public SportView()
         {
@@ -32,9 +32,15 @@ namespace Gymnastika.Modules.Sports.Views
             get { return DataContext as ISportViewModel; }
             set { DataContext = value; }
         }
+
+        private void surfaceButton1_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 
     public interface ISportView
     {
+
     }
 }

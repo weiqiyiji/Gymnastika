@@ -19,27 +19,11 @@ namespace Gymnastika.Modules.Meals.Views
     /// <summary>
     /// Interaction logic for NutritionChartItemView.xaml
     /// </summary>
-    public partial class NutritionChartItemView : INutritionChartItemView
+    public partial class NutritionChartItemView : UserControl
     {
         public NutritionChartItemView()
         {
             InitializeComponent();
         }
-
-        #region INutritionChartItemView Members
-
-        public INutritionChartItemViewModel Context
-        {
-            get
-            {
-                return this.DataContext as INutritionChartItemViewModel;  
-            }
-            set
-            {
-                this.DataContext = value;
-            }
-        }
-
-        #endregion
     }
 }

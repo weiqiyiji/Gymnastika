@@ -43,9 +43,9 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Get(f => f.Name == name);
         }
 
-        public IEnumerable<Food> GetFoods(SubCategory subCategory)
+        public IEnumerable<Food> GetFoods(Category category)
         {
-            return _repository.Fetch(f => f.SubCategory == subCategory);
+            return _repository.Fetch(f => f.Category == category);
         }
 
         public IEnumerable<Food> GetFoods(FavoriteFood favoriteFood)
@@ -58,14 +58,14 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Get(f => f.DietPlanItems.Contains(dietPlanItem));
         }
 
-        public IEnumerable<Food> GetFoods(SubCategory subCategory, int skip, int count)
+        public IEnumerable<Food> GetFoods(Category category, int skip, int count)
         {
-            return _repository.Fetch(f => f.SubCategory == subCategory, of => of.Asc(f => f.Id), skip, count);
+            return _repository.Fetch(f => f.Category == category, of => of.Asc(f => f.Id), skip, count);
         }
 
-        public int Count(SubCategory subCategory)
+        public int Count(Category category)
         {
-            return _repository.Count(f => f.SubCategory == subCategory);
+            return _repository.Count(f => f.Category == category);
         }
 
         #endregion
