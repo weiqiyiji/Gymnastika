@@ -19,41 +19,42 @@ namespace Gymnastika.Sync.Schedule
 {
     public class RemindManager
     {
-        private ObservableCollection<ScheduleItem> _scheduleItems;
-        private IList<TimerMetadata> _metadataCollection;
+        private readonly IList<TimerMetadata> _metadataCollection;
+        private readonly IRepository<Gymnastika.Sync.Models.ScheduleItem> _scheduleRepository;
+        private readonly IRepository<Connection> _connectionRepository;
 
-        public RemindManager()
+        public RemindManager(
+            IRepository<Connection> connectionRepository,
+            IRepository<Gymnastika.Sync.Models.ScheduleItem> scheduleRepository)
         {
+            _connectionRepository = connectionRepository;
+            _scheduleRepository = scheduleRepository;
             _metadataCollection = new List<TimerMetadata>();
-            _scheduleItems = new ObservableCollection<ScheduleItem>();
-            _scheduleItems.CollectionChanged += OnScheduleItemsChanged;
         }
 
-        private void OnScheduleItemsChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void SetTimer(Models.ScheduleItem item, DateTime startTime)
         {
-            if (e.Action == NotifyCollectionChangedAction.Add)
+            DateTime now = DateTime.Now;
+
+            TimeSpan countDown = startTime - now;
+
+            Connection connection = _connectionRepository.Get(x => x.Id == item.ConnectionId);
+
+            Timer timer = new Timer();
+            timer.Interval = countDown.TotalMilliseconds;
+            timer.Elapsed += OnTimerElapsed;
+            timer.Enabled = true;
+
+            TimerMetadata metadata = new TimerMetadata
             {
-                DateTime now = DateTime.Now;
-                IRepository<Connection> connectionRepository = ServiceLocator.Current.GetInstance<IRepository<Connection>>();
+                Timer = timer,
+                Schedule = item,
+                TargetUri = connection.Target.Uri
+            };
 
-                foreach (ScheduleItem item in e.NewItems)
-                {
-                    TimeSpan countDown = item.StartTime - now;
-                    Connection connection = connectionRepository.Get(x => x.Id == item.ConnectionId);
-                    var source = connection.Source.NetworkAdapters.Count();
-                    var target = connection.Target.Uri;
+            _metadataCollection.Add(metadata);
 
-                    Timer timer = new Timer();
-                    TimerMetadata metadata = new TimerMetadata(timer, item);
-                    metadata.Connection = connection;
-                    _metadataCollection.Add(metadata);
-
-                    timer.Interval = countDown.TotalMilliseconds;
-                    timer.Elapsed += OnTimerElapsed;
-                    timer.Enabled = true;
-                    timer.Start();
-                }
-            }
+            timer.Start();
         }
 
         private void OnTimerElapsed(object sender, ElapsedEventArgs e)
@@ -63,23 +64,26 @@ namespace Gymnastika.Sync.Schedule
             timer.Stop();
             timer.Elapsed -= OnTimerElapsed;
 
-            byte[] payload = PreparePayload(metadata);
+            byte[] payload = PreparePayload(metadata.Schedule);
             var utility = new NotificationSenderUtility();
             utility.SendRawNotification(
-                new List<Uri>() { new Uri(metadata.Connection.Target.Uri) }, payload, null);
+                new List<Uri>() { new Uri(metadata.TargetUri) }, payload, null);
 
             _metadataCollection.Remove(metadata);
         }
 
-        private byte[] PreparePayload(TimerMetadata metadata)
+        private byte[] PreparePayload(Models.ScheduleItem schedule)
         {
             MemoryStream stream = new MemoryStream();
 
             XDocument doc = new XDocument(
-                new XElement("plan",
+                new XElement("schedule",
+                    new XAttribute("id", schedule.Id),
                     new XElement("connection",
-                        new XAttribute("id", metadata.Connection.Id)),
-                    new XElement("data", metadata.ScheduleItem.Message)));
+                        new XAttribute("id", schedule.ConnectionId)),
+                    new XElement("user",
+                        new XAttribute("id", schedule.UserId)),
+                    new XElement("data", schedule.Message)));
 
             doc.Save(stream);
             byte[] payload = stream.ToArray();
@@ -88,9 +92,20 @@ namespace Gymnastika.Sync.Schedule
             return payload;
         }
 
-        public void Add(ScheduleItem scheduleItem)
+        public int Add(Communication.ScheduleItem scheduleItem)
         {
-            _scheduleItems.Add(scheduleItem);
+            Models.ScheduleItem persistSchedule = new Models.ScheduleItem() 
+            { 
+                UserId = scheduleItem.UserId,
+                ConnectionId = scheduleItem.ConnectionId,
+                StartTime = scheduleItem.StartTime.ToString(),
+                Message = scheduleItem.Message
+            };
+
+            _scheduleRepository.Create(persistSchedule);
+            SetTimer(persistSchedule, scheduleItem.StartTime);
+
+            return persistSchedule.Id;
         }
     }
 }
