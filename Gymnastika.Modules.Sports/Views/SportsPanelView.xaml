@@ -14,13 +14,6 @@
              Background="#FFD4DEC1"
 			 d:DesignWidth="800" d:DesignHeight ="600">
 	<UserControl.Resources>
-		<ItemsPanelTemplate x:Key="ItemsPanelTemplate">
-			<WrapPanel>
-				<WrapPanel.CacheMode>
-					<BitmapCache SnapsToDevicePixels="True"/>
-				</WrapPanel.CacheMode>
-			</WrapPanel>
-		</ItemsPanelTemplate>
 		<Style x:Key="ButtonFocusVisual">
 			<Setter Property="Control.Template">
 				<Setter.Value>
@@ -119,14 +112,19 @@
 			<RowDefinition Height="0.025*"/>
 		</Grid.RowDefinitions>
 		<Border Background="White" CornerRadius="40" Margin="0,0,0,-1.5" Grid.ColumnSpan="5" Grid.RowSpan="2">
-			<ItemsControl x:Name="sportlist" HorizontalContentAlignment="Stretch" ItemsSource="{Binding ViewModels}" ItemsPanel="{DynamicResource ItemsPanelTemplate}" Margin="40">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<local:SportCardView/>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</Border>
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" SelectedItem="{Binding SelectedSport}" x:Name="sportlist" HorizontalContentAlignment="Stretch" ItemsSource="{Binding ViewModels}" Margin="40">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:SportCardView/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
 		<Button x:Name="NextPage" Background="Transparent" Command="{Binding NextPageCommand}" Content="下一页" Grid.Row="3" Style="{DynamicResource NextPageButtonStyle}" Grid.Column="4" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="4" Foreground="#FF7C836B" />
 		<Button x:Name="LastPage" Background="Transparent" Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="3" Style="{DynamicResource LastPageButtonStyle}" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="4" Foreground="#FF7C836B" />
 		<TextBlock Foreground="White" FontSize="14" x:Name="MaxPage" Grid.Row="4" Grid.Column="3" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" HorizontalAlignment="Left" Grid.RowSpan="3" VerticalAlignment="Top">
