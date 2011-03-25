@@ -14,13 +14,6 @@
              Background="#FFD4DEC1"
 			 d:DesignWidth="800" d:DesignHeight ="600">
 	<UserControl.Resources>
-		<ItemsPanelTemplate x:Key="ItemsPanelTemplate">
-			<WrapPanel>
-				<WrapPanel.CacheMode>
-					<BitmapCache SnapsToDevicePixels="True"/>
-				</WrapPanel.CacheMode>
-			</WrapPanel>
-		</ItemsPanelTemplate>
 		<Style x:Key="ButtonFocusVisual">
 			<Setter Property="Control.Template">
 				<Setter.Value>
@@ -100,6 +93,55 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+		<Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+			<Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+			<Setter Property="Padding" Value="2,0,0,0"/>
+			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type ListBoxItem}">
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="Storyboard1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Bd">
+									<EasingColorKeyFrame KeyTime="0:0:0.2" Value="#FFF2F8E6"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard2">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="Bd">
+									<EasingColorKeyFrame KeyTime="0:0:0.2" Value="#00F2F8E6"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
+						<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" Background="Transparent">
+							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<MultiTrigger>
+								<MultiTrigger.Conditions>
+									<Condition Property="IsSelected" Value="true"/>
+									<Condition Property="Selector.IsSelectionActive" Value="false"/>
+								</MultiTrigger.Conditions>
+								<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+							</MultiTrigger>
+							<Trigger Property="IsEnabled" Value="false">
+								<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+							</Trigger>
+							<Trigger Property="Selector.IsSelected" Value="True">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+								</Trigger.EnterActions>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</UserControl.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -119,14 +161,19 @@
 			<RowDefinition Height="0.025*"/>
 		</Grid.RowDefinitions>
 		<Border Background="White" CornerRadius="40" Margin="0,0,0,-1.5" Grid.ColumnSpan="5" Grid.RowSpan="2">
-			<ItemsControl x:Name="sportlist" HorizontalContentAlignment="Stretch" ItemsSource="{Binding ViewModels}" ItemsPanel="{DynamicResource ItemsPanelTemplate}" Margin="40">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<local:SportCardView/>
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</Border>
+            <ListBox FocusVisualStyle="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0" SelectedItem="{Binding SelectedSport}" x:Name="sportlist" HorizontalContentAlignment="Stretch" ItemsSource="{Binding ViewModels}" Margin="40" ItemContainerStyle="{DynamicResource ListBoxItemStyle}">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:SportCardView/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
 		<Button x:Name="NextPage" Background="Transparent" Command="{Binding NextPageCommand}" Content="下一页" Grid.Row="3" Style="{DynamicResource NextPageButtonStyle}" Grid.Column="4" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="4" Foreground="#FF7C836B" />
 		<Button x:Name="LastPage" Background="Transparent" Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="3" Style="{DynamicResource LastPageButtonStyle}" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="4" Foreground="#FF7C836B" />
 		<TextBlock Foreground="White" FontSize="14" x:Name="MaxPage" Grid.Row="4" Grid.Column="3" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" HorizontalAlignment="Left" Grid.RowSpan="3" VerticalAlignment="Top">

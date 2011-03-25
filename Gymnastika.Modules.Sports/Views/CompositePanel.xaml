@@ -8,33 +8,89 @@
              xmlns:my1="clr-namespace:Gymnastika.Modules.Sports.Views" 
              xmlns:my2="clr-namespace:FluidKit.Controls;assembly=FluidKit"
              xmlns:my3="http://schemas.microsoft.com/surface/2008"
-             xmlns:FluidKit_Experimental="clr-namespace:FluidKit.Experimental;assembly=FluidKit" x:Class="Gymnastika.Modules.Sports.Views.CompositePanel" 
+             xmlns:FluidKit_Experimental="clr-namespace:FluidKit.Experimental;assembly=FluidKit" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Modules.Sports.Views.CompositePanel" 
              mc:Ignorable="d" 
              BorderBrush="Transparent" 
              BorderThickness="1"
              Background="#FFD4DEC1" d:DesignHeight="700" d:DesignWidth="1000" FontFamily="黑体"
              >
+	<UserControl.Resources>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="OnMouseEnter1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+									<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FFF2F8E6"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="OnMouseLeave1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+									<EasingColorKeyFrame KeyTime="0:0:0.1"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
+						<Grid x:Name="grid" Background="#00D4DEC1">
+							<Microsoft_Windows_Themes:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RenderDefaulted="{TemplateBinding IsDefaulted}" SnapsToDevicePixels="true" RoundCorners="False" Visibility="Collapsed"/>
+							<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+						</Grid>
+						<ControlTemplate.Triggers>
+							<EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="grid">
+								<BeginStoryboard Storyboard="{StaticResource OnMouseEnter1}"/>
+								<BeginStoryboard x:Name="OnMouseLeave1_BeginStoryboard" Storyboard="{StaticResource OnMouseLeave1}"/>
+							</EventTrigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</UserControl.Resources>
     <Border Margin="20">
 		<Grid>
 			<Grid.RowDefinitions>
 				<RowDefinition Height="0.069*" />
 				<RowDefinition Height="0.045*"/>
 				<RowDefinition Height="0.494*" />
-                <RowDefinition Height="0.022*" />
-                <RowDefinition Height="0.37*" />
+                <RowDefinition Height="0.015*" />
+                <RowDefinition Height="0.377*" />
 			</Grid.RowDefinitions>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="0.056*" />
 				<ColumnDefinition Width="0.236*" />
-				<ColumnDefinition Width="0.04*"/>
-				<ColumnDefinition Width="0.302*" />
+				<ColumnDefinition Width="0.011*"/>
+				<ColumnDefinition Width="0.331*" />
 				<ColumnDefinition Width="0.035*"/>
 				<ColumnDefinition Width="0.068*"/>
 				<ColumnDefinition Width="0.236*"/>
 				<ColumnDefinition Width="0.027*" />
 			</Grid.ColumnDefinitions>
 			<my1:SportsPlanView DataContext="{Binding PlanViewModel}" x:Name="sportsPlanView"  Grid.RowSpan="3" Grid.ColumnSpan="2" />
-			<my1:CategoriesPanelView DataContext="{Binding CategoriesPanelViewModel}" x:Name="categoriesPanelView" Grid.Column="3" Grid.Row="1" Margin="49.2,0,65,0" Grid.ColumnSpan="4" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment, GridBox" />
+			<my1:CategoriesPanelView DataContext="{Binding CategoriesPanelViewModel}" x:Name="categoriesPanelView" Grid.Column="3" Grid.Row="1" Margin="49.2,0,65,-2" Grid.ColumnSpan="4" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" d:LayoutOverrides="VerticalAlignment, GridBox" />
 			<my1:SportsPanelView DataContext="{Binding SportsPanelViewModel}" x:Name="sportsPanelView" RenderTransformOrigin="0.5,0.5" Grid.Column="3" Grid.RowSpan="3" Grid.Row="2" Grid.ColumnSpan="4">
 				<my1:SportsPanelView.RenderTransform>
 					<TransformGroup>
@@ -45,14 +101,10 @@
 					</TransformGroup>
 				</my1:SportsPanelView.RenderTransform>
 			</my1:SportsPanelView>
-            <my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" DataContext="{Binding CalorieChartViewModel}" Width="Auto" Height="Auto"/>
-			<TextBlock FontSize="20" Grid.Column="3" Margin="4,2.345,109.212,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center" Foreground="#FF828970">
-				<Run Text="{Binding PlanViewModel.User.UserName}"/>
-				<Run Text=" "/>
-				<Run Text="的运动计划"/>
-			</TextBlock>
+            <my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" DataContext="{Binding CalorieChartViewModel}" Width="Auto" Height="Auto" VerticalAlignment="Top"/>
+			<TextBlock FontSize="20" Grid.Column="3" Margin="4,2.345,109.212,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center" Foreground="#FF828970"><Run Text="{Binding PlanViewModel.User.UserName}"/><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text="的运动计划"/></TextBlock>
 			<Border Grid.Column="3" BorderBrush="#FF7C836B" BorderThickness="1" Width="100" Height="30" Margin="0,9.584,3.466,5.818" HorizontalAlignment="Right" d:LayoutOverrides="Width">
-				<Button Background="{x:Null}" BorderBrush="{x:Null}">
+				<Button Background="{x:Null}" BorderBrush="{x:Null}" Style="{DynamicResource ButtonStyle}" BorderThickness="0" Focusable="False" IsTabStop="False">
 					<TextBlock x:Name="Time" FontSize="14" TextWrapping="Wrap" Text="{Binding PlanViewModel.Date}" Foreground="#FF7C836B" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 				</Button>
 			</Border>

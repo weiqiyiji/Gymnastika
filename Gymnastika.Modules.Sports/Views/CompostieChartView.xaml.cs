@@ -33,7 +33,7 @@ namespace Gymnastika.Modules.Sports.Views
         private void InitializeViewModels()
         {
             planListView.ViewModel = _planListViewModel;
-            _planListViewModel.SelectedItemChangedEvent += OnSelectedItemChanged;
+           // _planListViewModel.SelectedItemChangedEvent += OnSelectedItemChanged;
         }
 
         public void OnSelectedItemChanged(object sender, EventArgs args)

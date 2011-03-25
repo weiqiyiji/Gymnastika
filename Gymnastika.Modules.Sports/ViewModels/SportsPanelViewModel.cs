@@ -52,6 +52,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         string SearchName { set; get; }
 
+        event EventHandler<SportEventArgs> SelectedSportChangedEvent;
         event EventHandler<SportEventArgs> RequestAddToFavorateEvent;
         event EventHandler<SportEventArgs> RequestAddToPlanEvent;
         event EventHandler<SportEventArgs> RequestShowDetailEvent;
@@ -394,9 +395,18 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     _selectedSport = value;
                     RaisePropertyChanged(() => SelectedSport);
+                    RaiseSelectedChangedEvent();
                 }
             }
         }
+
+        void RaiseSelectedChangedEvent()
+        {
+            if (SelectedSportChangedEvent != null)
+                SelectedSportChangedEvent(this, new SportEventArgs() { Sport = SelectedSport.Sport });
+        }
+
+        public event EventHandler<SportEventArgs> SelectedSportChangedEvent = delegate { };
 
         public event EventHandler<SportEventArgs> RequestAddToFavorateEvent = delegate { };
 

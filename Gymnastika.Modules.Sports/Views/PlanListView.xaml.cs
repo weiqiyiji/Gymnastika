@@ -16,6 +16,7 @@ using Microsoft.Practices.Unity;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Common.Navigation;
 using System.Windows.Media.Animation;
+using Microsoft.Surface.Presentation.Controls;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -35,65 +36,11 @@ namespace Gymnastika.Modules.Sports.Views
             set { DataContext = value; }
         }
     }
-        //private void SetViewModel()
-        //{
-        //    try
-        //    {
-        //        IServiceLocator servicelocator = ServiceLocator.Current;
-        //        if (servicelocator != null)
-        //            ViewModel = servicelocator.GetInstance<IPlanListViewModel>();
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //    }
-        //}
-
-
-    
-    //    void OnSelectedItemChange(object d, EventArgs args)
-    //    {
-    //        UpdateState();
-    //    }
-
-    //    void UpdateState()
-    //    {
-    //        //if (planDetailView != null && ViewModel != null && planDetailView.ViewModel != ViewModel.SelectedItem)
-    //        //    planDetailView.ViewModel = ViewModel.SelectedItem;
-    //    }
-
-    //    public bool IsExpanded
-    //    {
-    //        get { return (bool)GetValue(IsExpandedProperty); }
-    //        private set { SetValue(IsExpandedProperty, value); }
-    //    }
-
-    //    public static readonly DependencyProperty IsExpandedProperty =
-    //        DependencyProperty.Register("IsExpanded", typeof(bool), typeof(PlanListView), new PropertyMetadata(false));
-        
-    //    public void Expand()
-    //    {
-    //        if (IsExpanded == false)
-    //        {
-    //            IsExpanded = true;
-    //            (FindResource("FlyOutStoryboard") as Storyboard).Begin();
-    //        }
-    //    }
-
-    //    public void Minimize()
-    //    {
-    //        if (IsExpanded == true)
-    //        {
-    //            IsExpanded = false;
-    //            (FindResource("FlyInStoryboard") as Storyboard).Begin();
-    //        }
-    //    }
-
-    //}
-
-    //public interface IPlanListView
+    //public class SurfaceListBoxWithoutHighlight : SurfaceListBox
     //{
-    //    void Expand();
-    //    void Minimize();
+    //    protected override DependencyObject GetContainerForItemOverride()
+    //    {
+    //        return base.GetContainerForItemOverride() as Grid);
+    //    }
     //}
 }
