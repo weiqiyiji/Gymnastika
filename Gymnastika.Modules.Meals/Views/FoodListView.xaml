@@ -382,9 +382,9 @@
                 <Setter Property="BorderBrush" Value="{x:Null}"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
-                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
-                <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+                <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
+                <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
                 <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
                 <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -393,9 +393,9 @@
                         <ControlTemplate TargetType="{x:Type ListBox}">
 
                                 <Border x:Name="Bd" CornerRadius="50" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="White" Padding="0" SnapsToDevicePixels="true">
-                                    <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}" Margin="10">
-                                        <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                    </ScrollViewer>
+                                    <!--<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}" Margin="10">-->
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="10"/>
+                                    <!--</ScrollViewer>-->
                                 </Border>
 
                             <ControlTemplate.Triggers>
@@ -414,7 +414,7 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                 <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                <Setter Property="Padding" Value="10"/>
+                <Setter Property="Padding" Value="2"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -432,7 +432,32 @@
             </Style>
 
             <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
-            
+
+
+
+            <Style x:Key="MyFavoriteButtonStyle" TargetType="{x:Type Button}">
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="1"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border x:Name="Chrome" BorderThickness="3" BorderBrush="#94E0B1" Background="#94E0B1" SnapsToDevicePixels="true" CornerRadius="4">
+                                <ContentPresenter x:Name="BT" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="true">
+                                    <Setter Property="Foreground" Value="#94E0B1"/>
+                                    <Setter Property="Background" TargetName="Chrome" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Margin="0,15,0,15">
@@ -449,9 +474,9 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-        <surface:SurfaceButton Margin="15,15,0,0" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Left" />
-        <ListBox Margin="0,0,10,20" Grid.Row="1" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList, IsAsync=True}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Background="{x:Null}" BorderBrush="{x:Null}"
-                     ScrollViewer.CanContentScroll="False" ItemTemplate="{StaticResource FoodListItem}" Style="{StaticResource ListBoxStyle2}" ItemContainerStyle="{StaticResource ListBoxItemStyle2}"
+                <Button Style="{StaticResource MyFavoriteButtonStyle}" Margin="15,15,0,0" Content="我的食物库" Command="{Binding ShowMyFavoriteCommand}" HorizontalAlignment="Left" />
+        <ListBox Width="250" Margin="0,0,10,10" Grid.Row="1" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList, IsAsync=True}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Background="{x:Null}" BorderBrush="{x:Null}"
+                     ItemTemplate="{StaticResource FoodListItem}" Style="{StaticResource ListBoxStyle2}" ItemContainerStyle="{StaticResource ListBoxItemStyle2}"
                      SelectionChanged="FoodList_SelectionChanged" dd:DragDrop.DragAdornerTemplate="{StaticResource FoodListItem}">
         </ListBox>
             <Grid Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,15">
@@ -460,15 +485,21 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <surface:SurfaceButton x:Name="PreviousPageButtion" Grid.Column="0" Content="上一页" Command="{Binding ShowPreviousPageCommand}" />
-                    <TextBlock Grid.Column="1" Foreground="{StaticResource GrayText}" VerticalAlignment="Center">
+                <control:ImageButton x:Name="PreviousPageButtion" Grid.Column="0" Command="{Binding ShowPreviousPageCommand}" 
+                                     ImageMode="Switchover" ImageSource="/Gymnastika.Modules.Meals;Component/Images/previous.png"
+                                     MouseOverImageSource="/Gymnastika.Modules.Meals;Component/Images/previous.png"
+                                     MousePressedImageSource="/Gymnastika.Modules.Meals;Component/Images/previous_down.png"/>
+                <TextBlock Margin="5,0" Grid.Column="1" Foreground="{StaticResource GrayText}" VerticalAlignment="Center">
                     <TextBlock Text="第" />
                     <TextBlock Text="{Binding CurrentPage}" />
                     <TextBlock Text="/" />
                     <TextBlock Text="{Binding PageCount}" />
                     <TextBlock Text="页" />
                 </TextBlock>
-                <surface:SurfaceButton x:Name="NextPageButton" Grid.Column="2" Content="下一页" Command="{Binding ShowNextPageCommand}" />
+                <control:ImageButton x:Name="NextPageButton" Grid.Column="2" Command="{Binding ShowNextPageCommand}" 
+                                     ImageMode="Switchover" ImageSource="/Gymnastika.Modules.Meals;Component/Images/next.png"
+                                     MouseOverImageSource="/Gymnastika.Modules.Meals;Component/Images/next.png"
+                                     MousePressedImageSource="/Gymnastika.Modules.Meals;Component/Images/next_down.png"/>
             </Grid>
         </Grid>
         </Border>

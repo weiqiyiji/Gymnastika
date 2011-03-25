@@ -309,7 +309,7 @@
             </layoutToolkit:Accordion.ContentTemplate>
         </layoutToolkit:Accordion>-->
 
-        <Border Background="White" Padding="10" CornerRadius="10" Margin="15">
+        <Border Background="White" Padding="10" CornerRadius="10,10,0,0" Margin="10,15,0,10">
         <ItemsControl x:Name="DietPlanList" ItemsSource="{Binding DietPlanList, IsAsync=True}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

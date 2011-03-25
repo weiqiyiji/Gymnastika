@@ -88,11 +88,11 @@
     <Compile Include="Converters\BoolToBackgroundConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DecimalConverter.cs" />
-    <Compile Include="Converters\NutritionToBackgroundConverter.cs" />
     <Compile Include="Converters\NutritionToForegroundConverter.cs" />
     <Compile Include="Converters\TextConverter.cs" />
-    <Compile Include="Converters\WidthToBackgroundConverter.cs" />
+    <Compile Include="Converters\WidthToForegroundConverter.cs" />
     <Compile Include="Events\ApplyRecommendedDietPlanEvent.cs" />
+    <Compile Include="Events\DeleteDietPlanEvent.cs" />
     <Compile Include="Events\DietPlanNutritionChangedEvent.cs" />
     <Compile Include="Events\NotifyHistoryDietPlanChangedEvent.cs" />
     <Compile Include="Events\SelectDateEvent.cs" />
@@ -399,11 +399,17 @@
     <Resource Include="Images\BMI.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\delete.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\BottomTriangle.png" />
     <Resource Include="Images\TopTriangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\add.png" />
+    <Resource Include="Images\delete.png" />
+    <Resource Include="Images\delete_down.png" />
+    <Resource Include="Images\next.png" />
+    <Resource Include="Images\next_down.png" />
+    <Resource Include="Images\previous.png" />
+    <Resource Include="Images\previous_down.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

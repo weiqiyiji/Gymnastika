@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
-        <converter:NutritionToForegroundConverter x:Key="NutritionToForegroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
-        <converter:NutritionToBackgroundConverter x:Key="NutritionToBackgroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
+        <converter:NutritionToForegroundConverter x:Key="NutritionToBarForegroundConverter" CalorieBrush="#E9AE8B" CarbohydrateBrush="#DAEE7E" FatBrush="#ADEB9A" ProteinBrush="#B0E2D0" />
+        <converter:NutritionToForegroundConverter x:Key="NutritionToTextForegroundConverter" CalorieBrush="#bd4f4f" CarbohydrateBrush="#989131" FatBrush="#51923d" ProteinBrush="#398484" />
     </UserControl.Resources>
             <Grid Margin="5">
             <Grid.ColumnDefinitions>
@@ -17,7 +18,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Column="1" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}" VerticalAlignment="Bottom">
+        <TextBlock Grid.Column="1" Foreground="{StaticResource GrayText}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}" VerticalAlignment="Bottom">
                 <TextBlock.LayoutTransform>
     					<TransformGroup>
     						<ScaleTransform/>
@@ -27,23 +28,9 @@
     					</TransformGroup>
                     </TextBlock.LayoutTransform>    
             </TextBlock>
-        <Border Grid.Column="0" Height="{Binding CurrentFirstFoodNutritionWidth}" Background="{Binding NutritionName, Converter={StaticResource NutritionToBackgroundConverter}}" Width="15" VerticalAlignment="Bottom" MaxHeight="250">
-                <!--<Border.Background>
-                    <MultiBinding Converter="{StaticResource WidthToBackgroundConverter}">
-                        <Binding Path="NutritionName"></Binding>
-                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Height"></Binding>
-                    </MultiBinding>
-                </Border.Background>-->
-            </Border>
-        <Border Grid.Column="2" Height="{Binding CurrentSecondFoodNutritionWidth}" Background="{Binding NutritionName, Converter={StaticResource NutritionToBackgroundConverter}}" Width="15" VerticalAlignment="Bottom" MaxHeight="250">
-                <!--<Border.Background>
-                    <MultiBinding Converter="{StaticResource WidthToBackgroundConverter}">
-                        <Binding Path="NutritionName"></Binding>
-                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Height"></Binding>
-                    </MultiBinding>
-                </Border.Background>-->
-            </Border>
-        <TextBlock Grid.Column="0" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding FirstFoodName}" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <control:AnimatedProgressBar Maximum="{Binding MaximunNutritionValue}"  Grid.Column="0" Height="250" Orientation="Vertical" TargetValue="{Binding PositionedFoodNutritionValue}" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToBarForegroundConverter}}" Width="15" VerticalAlignment="Bottom" />
+        <control:AnimatedProgressBar Maximum="{Binding MaximunNutritionValue}"  Grid.Column="2" Height="250" Orientation="Vertical" TargetValue="{Binding SelectedFoodNutritionValue}" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToBarForegroundConverter}}" Width="15" VerticalAlignment="Bottom" />
+                <TextBlock Grid.Column="0" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToTextForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding PositionedFoodName}" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <TextBlock.LayoutTransform>
     					<TransformGroup>
     						<ScaleTransform/>
@@ -53,7 +40,7 @@
     					</TransformGroup>
                     </TextBlock.LayoutTransform>
                 </TextBlock>
-        <TextBlock Grid.Column="2" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding SecondFoodName}" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Grid.Column="2" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToTextForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding SelectedFoodName}" HorizontalAlignment="Center" VerticalAlignment="Top">
                     <TextBlock.LayoutTransform>
     					<TransformGroup>
     						<ScaleTransform/>
@@ -63,7 +50,7 @@
     					</TransformGroup>
                     </TextBlock.LayoutTransform>
         </TextBlock>
-        <TextBlock Grid.Column="0" Foreground="White" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NewFirstFoodNutritionValue}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <TextBlock Grid.Column="0" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToTextForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding PositionedFoodNutritionValue}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <TextBlock.LayoutTransform>
     					<TransformGroup>
     						<ScaleTransform/>
@@ -73,7 +60,7 @@
     					</TransformGroup>
                     </TextBlock.LayoutTransform>
         </TextBlock>
-        <TextBlock Grid.Column="2" Foreground="White" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NewSecondFoodNutritionValue}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+        <TextBlock Grid.Column="2" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToTextForegroundConverter}}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding SelectedFoodNutritionValue}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
                     <TextBlock.LayoutTransform>
     					<TransformGroup>
     						<ScaleTransform/>

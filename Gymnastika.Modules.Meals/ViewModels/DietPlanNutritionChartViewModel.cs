@@ -37,8 +37,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _minTotalCalorie = _beautyWeight / 0.45 * 10;
             _maxTotalCalorie = _beautyWeight / 0.45 * 13;
 
-            _nutritionMinMaxValues = new double[] { _minTotalCalorie, _maxTotalCalorie, _minTotalCalorie * 0.7 / 4, _maxTotalCalorie * 0.7 / 4, 
-                _minTotalCalorie * 0.15 / 9, _maxTotalCalorie * 0.15 / 9, _minTotalCalorie * 0.15 / 4, _maxTotalCalorie * 0.15 / 4 };
+            _nutritionMinMaxValues = new double[] { _minTotalCalorie, _maxTotalCalorie, _minTotalCalorie * 0.6 / 4, _maxTotalCalorie * 0.6 / 4, 
+                _minTotalCalorie * 0.2 / 9, _maxTotalCalorie * 0.2 / 9, _minTotalCalorie * 0.2 / 4, _maxTotalCalorie * 0.2 / 4 };
 
             DietPlanNutritionChartItems = new List<DietPlanNutritionChartItemViewModel>();
             
@@ -80,8 +80,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             for (int i = 0; i < 4; i++)
             {
-                DietPlanNutritionChartItems[i].OldDietPlanNutritionValue = DietPlanNutritionChartItems[i].DietPlanNutritionValue;
-
                 string nutritionName = NutritionNames.FirstOrDefault(n => n == DietPlanNutritionChartItems[i].NutritionName);
 
                 if (!String.IsNullOrEmpty(nutritionName))
@@ -98,8 +96,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     DietPlanNutritionChartItems[i].DietPlanNutritionValue = 0;
                 }
-                
-                DietPlanNutritionChartItems[i].BeginDietPlanAnimation();
             }
         }
 

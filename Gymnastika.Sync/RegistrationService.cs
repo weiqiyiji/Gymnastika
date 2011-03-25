@@ -121,7 +121,6 @@ namespace Gymnastika.Sync
                 _connectionRepository.Create(connection);
             }
 
-            SetStatusCode(HttpStatusCode.Created);
             return connection.Id.ToString();
         }
 

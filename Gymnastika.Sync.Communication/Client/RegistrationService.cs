@@ -14,11 +14,12 @@ namespace Gymnastika.Sync.Communication.Client
     {
         private const string RegisterBaseUri = "reg";
         private const string RegisterUri = "reg_desktop";
+        private const string ConnectingUri = "connect?src_id={0}&desc_id={1}";
         private readonly string _baseAddress;
 
         public RegistrationService()
         {
-            _baseAddress = Configuration.GetConfiguration("ServiceBaseUri");
+            _baseAddress = new Uri(new Uri(Configuration.GetConfiguration("ServiceBaseUri")), RegisterBaseUri).AbsoluteUri;
         }
 
         public const int ResponseError = -1;
@@ -30,10 +31,21 @@ namespace Gymnastika.Sync.Communication.Client
                 NetworkAdapterCollection networkAdapters = NetworkAdapterHelper.GetAdapters();
 
                 HttpResponseMessage response = client.Post(
-                    new Uri(new Uri(_baseAddress), RegisterBaseUri + "/" + RegisterUri),
+                    _baseAddress + "/" + RegisterUri,
                     HttpContentExtensions.CreateDataContract<NetworkAdapterCollection>(networkAdapters));
 
                 return new ResponseMessage(response, HttpStatusCode.Created);
+            }
+        }
+
+        public ResponseMessage Connect(string srcId, string targetId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.Get(
+                    _baseAddress + "/" + string.Format(ConnectingUri, srcId, targetId));
+
+                return new ResponseMessage(response, HttpStatusCode.OK);
             }
         }
     }

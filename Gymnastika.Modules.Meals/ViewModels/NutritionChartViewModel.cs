@@ -19,27 +19,25 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public class NutritionChartViewModel : NotificationObject, INutritionChartViewModel
     {
         private string[] NutritionNames = new string[] { "热量(大卡)", "碳水化合物(克)", "脂肪(克)", "蛋白质(克)" };
-        private readonly ISessionManager _sessionManager;
         private readonly IEventAggregator _eventAggregator;
+        private IList<NutritionChartItemViewModel> _nutritionChartItem;
+        private readonly ISessionManager _sessionManager;
         private readonly User _user;
         private readonly int _beautyWeight;
-        private readonly double _minTotalCalorie;
-        private readonly double _maxTotalCalorie;
-        private readonly double[] _nutritionMinMaxValues;
-        private IList<NutritionChartItemViewModel> _nutritionChartItem;
+        private readonly double _totalCalorie;
+        private readonly double[] _nutritionMaxValues;
 
         public NutritionChartViewModel(INutritionChartView view,
             IEventAggregator eventAggregator,
             ISessionManager sessionManager)
         {
             _sessionManager = sessionManager;
+            _eventAggregator = eventAggregator;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _beautyWeight = (_user.Height * _user.Height / 10000) * 19;
-            _minTotalCalorie = _beautyWeight / 0.45 * 10;
-            _maxTotalCalorie = _beautyWeight / 0.45 * 13;
+            _totalCalorie = _beautyWeight / 0.45 * 13;
 
-            _nutritionMinMaxValues = new double[] { _minTotalCalorie, _maxTotalCalorie, _minTotalCalorie * 0.7 / 4, _maxTotalCalorie * 0.7 / 4, 
-                _minTotalCalorie * 0.15 / 9, _maxTotalCalorie * 0.15 / 9, _minTotalCalorie * 0.15 / 4, _maxTotalCalorie * 0.15 / 4 };
+            _nutritionMaxValues = new double[] { _totalCalorie, _totalCalorie * 0.6 / 4, _totalCalorie * 0.2 / 9, _totalCalorie * 0.2 / 4 };
 
             NutritionChartItems = new List<NutritionChartItemViewModel>();
             
@@ -47,14 +45,13 @@ namespace Gymnastika.Modules.Meals.ViewModels
             {
                 NutritionChartItemViewModel nutritionChartItem = new NutritionChartItemViewModel();
                 nutritionChartItem.NutritionName = NutritionNames[i];
-                nutritionChartItem.MinTotalNutritionValue = _nutritionMinMaxValues[2 * i];
-                nutritionChartItem.MaxTotalNutritionValue = _nutritionMinMaxValues[2 * i + 1];
+                nutritionChartItem.TotalNutritionValue = _nutritionMaxValues[i];
                 NutritionChartItems.Add(nutritionChartItem);
             }
             
             _eventAggregator = eventAggregator;
-            _eventAggregator.GetEvent<PositionedFoodNutritionChangedEvent>().Subscribe(FirstFoodNutritionChangedHandler);
-            _eventAggregator.GetEvent<SelectedFoodNutritionChangedEvent>().Subscribe(SecondFoodNutritionChangedHandler);
+            _eventAggregator.GetEvent<PositionedFoodNutritionChangedEvent>().Subscribe(PositionedFoodNutritionChangedHandler);
+            _eventAggregator.GetEvent<SelectedFoodNutritionChangedEvent>().Subscribe(SelectedFoodNutritionChangedHandler);
             View = view;
             View.Context = this;
         }
@@ -81,12 +78,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        private void FirstFoodNutritionChangedHandler(IList<NutritionElement> nutritions)
+        private void PositionedFoodNutritionChangedHandler(IList<NutritionElement> nutritions)
         {
             for (int i = 0; i < 4; i++)
             {
-                NutritionChartItems[i].OldDietPlanNutritionValue = NutritionChartItems[i].NewFirstFoodNutritionValue;
-
                 string nutritionName = NutritionNames.FirstOrDefault(n => n == NutritionChartItems[i].NutritionName);
 
                 if (!String.IsNullOrEmpty(nutritionName))
@@ -95,26 +90,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     {
                         if (nutrition.Name == nutritionName)
                         {
-                            NutritionChartItems[i].FirstFoodName = nutrition.Food.Name;
-                            NutritionChartItems[i].NewFirstFoodNutritionValue = (double)nutrition.Value;
+                            NutritionChartItems[i].PositionedFoodName = nutrition.Food.Name;
+                            NutritionChartItems[i].PositionedFoodNutritionValue = (double)nutrition.Value;
                         }
                     }
                 }
                 else
                 {
-                    NutritionChartItems[i].NewFirstFoodNutritionValue = 0;
+                    NutritionChartItems[i].PositionedFoodNutritionValue = 0;
                 }
-                
-                NutritionChartItems[i].BeginFirstFoodAnimation();
             }
         }
 
-        private void SecondFoodNutritionChangedHandler(IList<NutritionElement> nutritions)
+        private void SelectedFoodNutritionChangedHandler(IList<NutritionElement> nutritions)
         {
             for (int i = 0; i < 4; i++)
             {
-                NutritionChartItems[i].OldSecondFoodNutritionValue = NutritionChartItems[i].NewSecondFoodNutritionValue;
-
                 string nutritionName = NutritionNames.FirstOrDefault(n => n == NutritionChartItems[i].NutritionName);
 
                 if (!String.IsNullOrEmpty(nutritionName))
@@ -123,17 +114,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     {
                         if (nutrition.Name == nutritionName)
                         {
-                            NutritionChartItems[i].SecondFoodName = nutrition.Food.Name;
-                            NutritionChartItems[i].NewSecondFoodNutritionValue = (double)nutrition.Value;
+                            NutritionChartItems[i].SelectedFoodName = nutrition.Food.Name;
+                            NutritionChartItems[i].SelectedFoodNutritionValue = (double)nutrition.Value;
                         }
                     }
                 }
                 else
                 {
-                    NutritionChartItems[i].NewSecondFoodNutritionValue = 0;
+                    NutritionChartItems[i].SelectedFoodNutritionValue = 0;
                 }
-
-                NutritionChartItems[i].BeginSecondFoodAnimation();
             }
         }
     }

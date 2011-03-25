@@ -221,12 +221,12 @@
 
         <SolidColorBrush x:Key="ListBorder" Color="#828790"/>
         <Style x:Key="ListBoxStyle1" TargetType="{x:Type ListBox}">
-            <Setter Property="Background" Value="#FFD4DEC1"/>
+            <Setter Property="Background" Value="{x:Null}"/>
             <Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
-            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Hidden"/>
             <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
             <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
             <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
@@ -235,9 +235,9 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBox}">
                         <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
-                            <ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                            </ScrollViewer>
+                            <!--<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">-->
+                                <ItemsPresenter Margin="0" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <!--</ScrollViewer>-->
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsGrouping" Value="true">
@@ -252,16 +252,49 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
             <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Padding" Value="5,7,3,7"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Path x:Name="TopRounder" Opacity="0" Fill="White" Width="7" Height="7" HorizontalAlignment="Right">
+                            <Path.Data>
+                                <CombinedGeometry GeometryCombineMode="Exclude">
+                                    <CombinedGeometry.Geometry1>
+                                        <RectangleGeometry Rect="0,0 7,7" />
+                                    </CombinedGeometry.Geometry1>
+                                    <CombinedGeometry.Geometry2>
+                                        <EllipseGeometry Center="0,0" RadiusX="7" RadiusY="7" />
+                                    </CombinedGeometry.Geometry2>
+                                </CombinedGeometry>
+                            </Path.Data>
+                        </Path>
+                        <Border x:Name="Bd" Grid.Row="1" CornerRadius="7,0,0,7" Width="25"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
                             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                         </Border>
+                            <Path x:Name="BottomRounder" Opacity="0" Grid.Row="2"  Fill="White" Width="7" Height="7" HorizontalAlignment="Right">
+                                <Path.Data>
+                                    <CombinedGeometry GeometryCombineMode="Exclude">
+                                        <CombinedGeometry.Geometry1>
+                                            <RectangleGeometry Rect="0,0 7,7" />
+                                        </CombinedGeometry.Geometry1>
+                                        <CombinedGeometry.Geometry2>
+                                            <EllipseGeometry Center="0,7" RadiusX="7" RadiusY="7" />
+                                        </CombinedGeometry.Geometry2>
+                                    </CombinedGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="true">
                                 <Setter Property="Background" TargetName="Bd" Value="White"/>
+                                <Setter Property="Opacity" TargetName="TopRounder" Value="1"/>
+                                <Setter Property="Opacity" TargetName="BottomRounder" Value="1"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -280,11 +313,12 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <ListBox Margin="15,15,0,15"  x:Name="CategoryListBox" ItemsSource="{Binding Categories, IsAsync=True}" ItemContainerStyle="{StaticResource ListBoxItemStyle1}"
+        <ListBox Margin="15,15,0,15" Background="#c4cfb8" x:Name="CategoryListBox" ItemsSource="{Binding Categories, IsAsync=True}" ItemContainerStyle="{StaticResource ListBoxItemStyle1}"
              Style="{StaticResource ListBoxStyle1}" IsSynchronizedWithCurrentItem="True" SelectionChanged="CategoryListBox_SelectionChanged" >
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" Foreground="#7D846C" HorizontalAlignment="Center" >
+                   
+                        <TextBlock Text="{Binding Name}" Foreground="#7D846C" HorizontalAlignment="Center" >
                         <TextBlock.LayoutTransform>
     											<TransformGroup>
     												<ScaleTransform/>
@@ -293,7 +327,8 @@
     												<TranslateTransform/>
     											</TransformGroup>
     										</TextBlock.LayoutTransform>
-                    </TextBlock>
+                        </TextBlock>
+                        
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

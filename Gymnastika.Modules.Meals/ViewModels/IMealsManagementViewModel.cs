@@ -19,7 +19,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         IEnumerable<Food> InMemoryFoods { get; set; }
         ICollection<Food> SearchResults { get; set; }
         ICategoryListViewModel CategoryListViewModel { get; set; }
-        IFoodListViewModel FoodListViewModel { get; set; }
+        //IFoodListViewModel FoodListViewModel { get; set; }
         INutritionChartViewModel NutritionChartViewModel { get; set; }
         IPositionedFoodViewModel PositionedFoodViewModel { get; set; }
     }

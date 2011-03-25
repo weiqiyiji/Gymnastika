@@ -13,5 +13,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
         IList<CategoryItemViewModel> CategoryItems { get; set; }
         Category SelectedCategoryItem { get; set; }
         IEnumerable<Category> Categories { get; set; }
+        IFoodListViewModel FoodListViewModel { get; set; }
     }
 }

@@ -36,17 +36,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Rectangle Height="20" Fill="Transparent" Visibility="{Binding IsFirstItem, Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Rectangle Visibility="{Binding IsFirstItem, Converter={StaticResource BooleanToVisibilityConverter}}" Fill="White" Height="20" VerticalAlignment="Top" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
 
-            <ItemsControl Margin="5,0,20,0" Grid.Row="1" ItemsSource="{Binding Foods, IsAsync=True}" ItemTemplate="{StaticResource DietPlanItemFood}">
-                <ItemsControl.ItemsPanel>
+            <ItemsControl Margin="15,0,10,0" HorizontalContentAlignment="Center" Grid.Row="1" ItemsSource="{Binding Foods, IsAsync=True}" ItemTemplate="{StaticResource DietPlanItemFood}">
+                <!--<ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <WrapPanel ItemWidth="70" Width="140" />
+                        <WrapPanel ItemWidth="80" Width="160" />
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                </ItemsControl.ItemsPanel>-->
             </ItemsControl>
 
-            <Rectangle Grid.Row="2" Fill="Transparent" Height="20" Visibility="{Binding IsLastItem, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
 
 

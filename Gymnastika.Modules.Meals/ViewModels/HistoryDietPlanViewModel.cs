@@ -56,6 +56,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             View = view;
             View.Context = this;
             _eventAggregator.GetEvent<NotifyHistoryDietPlanChangedEvent>().Subscribe(NotifyHistoryDietPlanChangedEventHandler);
+            //_eventAggregator.GetEvent<DeleteDietPlanEvent>().Subscribe(DeleteDietPlanEvnetHanlder);
         }
 
         #region IHistoryDietPlanViewModel Members
@@ -86,6 +87,11 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
             DietPlanItemViewModel dietPlanItem = new DietPlanItemViewModel(dietPlan);
             HistoryDietPlans.Add(dietPlanItem);
+        }
+
+        private void DeleteDietPlanEvnetHanlder(DietPlanItemViewModel dietPlanItem)
+        {
+            HistoryDietPlans.Remove(dietPlanItem);
         }
     }
 }

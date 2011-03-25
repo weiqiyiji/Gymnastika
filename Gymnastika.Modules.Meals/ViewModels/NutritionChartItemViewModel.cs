@@ -13,305 +13,83 @@ namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class NutritionChartItemViewModel : NotificationObject
     {
-        private const double RefreshInterval = 0.2;
-        private string _firstFoodName;
-        private string _secondFoodName;
-        DispatcherTimer _firstFoodNutritionAnimationTimer;
-        DispatcherTimer _secondFoodNutritionAnimationTimer;
-        private double _newFirstFoodNutritionValue;
-        private double _newSecondFoodNutritionValue;
-        private double _minTotalNutritionValue;
-        private double _maxTotalNutritionValue;
-        private double _oldDietPlanNutritionValue;
-        private double _oldSecondFoodNutritionValue;
-        private double _currentSecondFoodNutritionWidth;
-        private double _currentDietPlanNutritionWidth;
+        private string _positionedFoodName;
+        private string _selectedFoodName;
+        private double _positionedFoodNutritionValue;
+        private double _selectedFoodNutritionValue;
 
         public NutritionChartItemViewModel()
         {
-            NewFirstFoodNutritionValue = 0.0;
-            OldDietPlanNutritionValue = 0.0;
-            NewSecondFoodNutritionValue = 0.0;
-            OldSecondFoodNutritionValue = 0.0;
-            CurrentFirstFoodNutritionWidth = 0.0;
-            CurrentSecondFoodNutritionWidth = 0.0;
+            PositionedFoodNutritionValue = 0.0;
+            SelectedFoodNutritionValue = 0.0;
         }
 
         public string NutritionName { get; set; }
 
-        public string FirstFoodName
+        public double TotalNutritionValue { get; set; }
+
+        public double MaximunNutritionValue { get { return TotalNutritionValue / 2; } }
+
+        public string PositionedFoodName
         {
             get
             {
-                return _firstFoodName;
+                return _positionedFoodName;
             }
             set
             {
-                if (_firstFoodName != value)
+                if (_positionedFoodName != value)
                 {
-                    _firstFoodName = value;
-                    RaisePropertyChanged("FirstFoodName");
+                    _positionedFoodName = value;
+                    RaisePropertyChanged("PositionedFoodName");
                 }
             }
         }
 
-        public string SecondFoodName
+        public string SelectedFoodName
         {
             get
             {
-                return _secondFoodName;
+                return _selectedFoodName;
             }
             set
             {
-                if (_secondFoodName != value)
+                if (_selectedFoodName != value)
                 {
-                    _secondFoodName = value;
-                    RaisePropertyChanged("SecondFoodName");
+                    _selectedFoodName = value;
+                    RaisePropertyChanged("SelectedFoodName");
                 }
             }
         }
-
-        public double MinTotalNutritionValue
+        public double PositionedFoodNutritionValue
         {
             get
             {
-                return _minTotalNutritionValue;
+                return _positionedFoodNutritionValue;
             }
             set
             {
-                if (_minTotalNutritionValue != value)
+                if (_positionedFoodNutritionValue != value)
                 {
-                    _minTotalNutritionValue = value;
-                    RaisePropertyChanged("MinTotalNutritionValue");
+                    _positionedFoodNutritionValue = value;
+                    RaisePropertyChanged("PositionedFoodNutritionValue");
                 }
             }
         }
 
-        public double MaxTotalNutritionValue
+        public double SelectedFoodNutritionValue
         {
             get
             {
-                return _maxTotalNutritionValue;
+                return _selectedFoodNutritionValue;
             }
             set
             {
-                if (_maxTotalNutritionValue != value)
+                if (_selectedFoodNutritionValue != value)
                 {
-                    _maxTotalNutritionValue = value;
-                    RaisePropertyChanged("MaxTotalNutritionValue");
+                    _selectedFoodNutritionValue = value;
+                    RaisePropertyChanged("SelectedFoodNutritionValue");
                 }
-            }
-        }
-
-        public double NewFirstFoodNutritionValue
-        {
-            get
-            {
-                return _newFirstFoodNutritionValue;
-            }
-            set
-            {
-                if (_newFirstFoodNutritionValue != value)
-                {
-                    _newFirstFoodNutritionValue = value;
-                    RaisePropertyChanged("NewFirstFoodNutritionValue");
-                }
-            }
-        }
-
-        public double OldDietPlanNutritionValue
-        {
-            get
-            {
-                return _oldDietPlanNutritionValue;
-            }
-            set
-            {
-                if (_oldDietPlanNutritionValue != value)
-                {
-                    _oldDietPlanNutritionValue = value;
-                    RaisePropertyChanged("OldDietPlanNutritionValue");
-                }
-            }
-        }
-
-        public double NewSecondFoodNutritionValue
-        {
-            get
-            {
-                return _newSecondFoodNutritionValue;
-            }
-            set
-            {
-                if (_newSecondFoodNutritionValue != value)
-                {
-                    _newSecondFoodNutritionValue = value;
-                    RaisePropertyChanged("NewSecondFoodNutritionValue");
-                }
-            }
-        }
-
-        public double OldSecondFoodNutritionValue
-        {
-            get
-            {
-                return _oldSecondFoodNutritionValue;
-            }
-            set
-            {
-                if (_oldSecondFoodNutritionValue != value)
-                {
-                    _oldSecondFoodNutritionValue = value;
-                    RaisePropertyChanged("OldSecondFoodNutritionValue");
-                }
-            }
-        }
-
-        public double OldFirstFoodNutritionWidth
-        {
-            get
-            {
-                return (500 / MinTotalNutritionValue * OldDietPlanNutritionValue);
-            }
-        }
-
-        public double NewFirstFoodNutritionWidth
-        {
-            get
-            {
-                return (500 / MinTotalNutritionValue * NewFirstFoodNutritionValue);
-            }
-        }
-
-        public double CurrentFirstFoodNutritionWidth
-        {
-            get
-            {
-                return _currentDietPlanNutritionWidth;
-            }
-            set
-            {
-                if (_currentDietPlanNutritionWidth != value)
-                {
-                    _currentDietPlanNutritionWidth = value;
-                    RaisePropertyChanged("CurrentFirstFoodNutritionWidth");
-                }
-            }
-        }
-
-        public double OldSecondFoodNutritionWidth
-        {
-            get
-            {
-                return (500 / MinTotalNutritionValue * OldSecondFoodNutritionValue);
-            }
-        }
-
-        public double NewSecondFoodNutritionWidth
-        {
-            get
-            {
-                return (500 / MinTotalNutritionValue * NewSecondFoodNutritionValue);
-            }
-        }
-
-        public double CurrentSecondFoodNutritionWidth
-        {
-            get
-            {
-                return _currentSecondFoodNutritionWidth;
-            }
-            set
-            {
-                if (_currentSecondFoodNutritionWidth != value)
-                {
-                    _currentSecondFoodNutritionWidth = value;
-                    RaisePropertyChanged("CurrentSecondFoodNutritionWidth");
-                }
-            }
-        }
-
-        public void BeginFirstFoodAnimation()
-        {
-            _firstFoodNutritionAnimationTimer = new DispatcherTimer();
-            _firstFoodNutritionAnimationTimer.Interval = TimeSpan.FromMilliseconds(RefreshInterval);
-            _firstFoodNutritionAnimationTimer.Tick += FirstFoodNutritionTimer_Tick;
-            _firstFoodNutritionAnimationTimer.Start();
-        }
-
-        public void BeginSecondFoodAnimation()
-        {
-            _secondFoodNutritionAnimationTimer = new DispatcherTimer();
-            _secondFoodNutritionAnimationTimer.Interval = TimeSpan.FromMilliseconds(RefreshInterval);
-            _secondFoodNutritionAnimationTimer.Tick += SecondFoodNutritionTimer_Tick;
-            _secondFoodNutritionAnimationTimer.Start();
-        }
-
-        private void FirstFoodNutritionTimer_Tick(object sender, EventArgs e)
-        {
-            if (OldFirstFoodNutritionWidth.CompareTo(NewFirstFoodNutritionWidth) < 0)
-            {
-                double tempWidth = CurrentFirstFoodNutritionWidth + 1.0;
-                if (tempWidth > 250)
-                {
-                    CurrentFirstFoodNutritionWidth = 250;
-                    _firstFoodNutritionAnimationTimer.Stop();
-                    return;
-                }
-
-                CurrentFirstFoodNutritionWidth = tempWidth;
-
-                if (CurrentFirstFoodNutritionWidth >= NewFirstFoodNutritionWidth)
-                    _firstFoodNutritionAnimationTimer.Stop();
-            }
-            else
-            {
-                double tempWidth = CurrentFirstFoodNutritionWidth - 1.0;
-                if (tempWidth < 0)
-                {
-                    CurrentFirstFoodNutritionWidth = 0;
-                    _firstFoodNutritionAnimationTimer.Stop();
-                    return;
-                }
-
-                CurrentFirstFoodNutritionWidth = tempWidth;
-
-                if (CurrentFirstFoodNutritionWidth <= NewFirstFoodNutritionWidth)
-                    _firstFoodNutritionAnimationTimer.Stop();
-            }
-        }
-
-        private void SecondFoodNutritionTimer_Tick(object sender, EventArgs e)
-        {
-            if (OldSecondFoodNutritionWidth.CompareTo(NewSecondFoodNutritionWidth) < 0)
-            {
-                double tempWidth = CurrentSecondFoodNutritionWidth + 1.0;
-                if (tempWidth > 250)
-                {
-                    CurrentSecondFoodNutritionWidth = 250;
-                    _secondFoodNutritionAnimationTimer.Stop();
-                    return;
-                }
-
-                CurrentSecondFoodNutritionWidth = CurrentSecondFoodNutritionWidth + 1.0;
-
-                if (CurrentSecondFoodNutritionWidth >= NewSecondFoodNutritionWidth)
-                    _secondFoodNutritionAnimationTimer.Stop();
-            }
-            else
-            {
-                double tempWidth = CurrentSecondFoodNutritionWidth - 1.0;
-                if (tempWidth < 0)
-                {
-                    CurrentSecondFoodNutritionWidth = 0;
-                    _secondFoodNutritionAnimationTimer.Stop();
-                    return;
-                }
-
-                CurrentSecondFoodNutritionWidth = tempWidth;
-
-                if (CurrentSecondFoodNutritionWidth <= NewSecondFoodNutritionWidth)
-                    _secondFoodNutritionAnimationTimer.Stop();
             }
         }
     }

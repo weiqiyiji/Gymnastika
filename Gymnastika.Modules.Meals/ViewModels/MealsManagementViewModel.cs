@@ -62,10 +62,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _container = container;
             _eventAggregator = eventAggregator;
             CurrentUser = _sessionManager.GetCurrentSession().AssociatedUser;
-            //using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-            //{
-            //    InMemoryFoods = _foodService.FoodProvider.GetAll();
-            //}
+            using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
+            {
+                InMemoryFoods = _foodService.FoodProvider.GetAll();
+            }
             View = view;
             View.Context = this;
             View.SearchKeyDown += new KeyEventHandler(SearchKeyDown);
@@ -195,7 +195,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICategoryListViewModel CategoryListViewModel { get; set; }
 
-        public IFoodListViewModel FoodListViewModel { get; set; }
+        //public IFoodListViewModel CategoryListViewModel.FoodListViewModel { get; set; }
 
         private IDietPlanListViewModel _dietPlanListViewModel;
         public IDietPlanListViewModel DietPlanListViewModel
@@ -258,12 +258,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                FoodListViewModel.FavoriteFood = _foodService.FavoriteFoodProvider.Get(CurrentUser.Id);
-                if (FoodListViewModel.FavoriteFood != null)
-                    FoodListViewModel.FavoriteFood.Foods = _foodService.FoodProvider.GetFoods(FoodListViewModel.FavoriteFood).ToList();
+                CategoryListViewModel.FoodListViewModel.FavoriteFood = _foodService.FavoriteFoodProvider.Get(CurrentUser.Id);
+                if (CategoryListViewModel.FoodListViewModel.FavoriteFood != null)
+                    CategoryListViewModel.FoodListViewModel.FavoriteFood.Foods = _foodService.FoodProvider.GetFoods(CategoryListViewModel.FoodListViewModel.FavoriteFood).ToList();
             }
 
-            FoodListViewModel.ShowMyFavoriteResult();
+            CategoryListViewModel.FoodListViewModel.ShowMyFavoriteResult();
         }
 
         private void SearchKeyDown(object sender, KeyEventArgs e)
@@ -279,10 +279,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             using (var scope = _workEnvironment.GetWorkContextScope())
             {
-                FoodListViewModel.SearchFoods = _foodService.FoodProvider.GetFoods(SearchString);
+                CategoryListViewModel.FoodListViewModel.SearchFoods = _foodService.FoodProvider.GetFoods(SearchString);
             }
 
-            FoodListViewModel.ShowSearchResult();
+            CategoryListViewModel.FoodListViewModel.ShowSearchResult();
         }
 
         private void Save()

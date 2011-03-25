@@ -6,8 +6,9 @@
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
+             xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
              xmlns:ec="http://schemas.microsoft.com/expression/2010/controls" x:Class="Gymnastika.Modules.Meals.Views.DietPlanItemView"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <ControlTemplate x:Key="ScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
@@ -210,6 +211,7 @@
             <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
             <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
             <Setter Property="Padding" Value="0"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -232,71 +234,84 @@
 
         <SolidColorBrush x:Key="WhiteText" Color="White" />
         <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+
+
+
+        <Style x:Key="GreenButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Chrome" BorderThickness="3" BorderBrush="#94E0B1" Background="#94E0B1" SnapsToDevicePixels="true" CornerRadius="4">
+                            <ContentPresenter x:Name="BT" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Foreground" Value="#94E0B1"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        
+        <DataTemplate DataType="{x:Type viewModel:DietPlanSubItemViewModel}">
+            <view:DietPlanSubItemView />
+        </DataTemplate>
+        
+        
     </UserControl.Resources>
-    
-    <Grid VerticalAlignment="Top">
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Margin="10" Height="70" d:IsHidden="True">
+        <Grid Margin="0,10,0,8" Height="75">
             <Grid.RowDefinitions>
-            	<RowDefinition Height="*" />
-            	<RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-            	<ColumnDefinition Width="*" />
-            	<ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Border CornerRadius="30" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}" />
+            <Border CornerRadius="35" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}" />
             <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource HeaderBackground}" />
 
-            <TextBlock Grid.ColumnSpan="2" Foreground="{StaticResource WhiteText}" Text="{Binding CreatedDate}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-            <TextBlock Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource WhiteText}" VerticalAlignment="Center" HorizontalAlignment="Center" ><InlineUIContainer>
+            <TextBlock Margin="30,0,0,5" Grid.ColumnSpan="2" Foreground="{StaticResource WhiteText}" Text="{Binding CreatedDate}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+            <TextBlock Margin="30,5,0,0" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource WhiteText}" VerticalAlignment="Top" HorizontalAlignment="Left" ><InlineUIContainer>
             		<TextBlock Text="总摄入量：（" />
             	</InlineUIContainer><Run Text=" "/><InlineUIContainer>
             		<TextBlock Text="{Binding TotalCalorie}" />
             	</InlineUIContainer><Run Text=" "/><InlineUIContainer>
             		<TextBlock Text="大卡）" />
             	</InlineUIContainer></TextBlock>
-            <surface:SurfaceButton Grid.RowSpan="2" Grid.ColumnSpan="2" Command="{Binding ApplyCommand}" Content="{Binding ButtonContent}" VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
 
 
-        <Grid Grid.Row="1" Margin="10,0,10,0">
-            <Grid.RowDefinitions>
-            	<RowDefinition Height="*" />
-            	<RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-            	<ColumnDefinition Width="*" />
-            	<ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            
-            <Border Grid.Row="0" Grid.Column="0" Background="{StaticResource BodyBackgruond}"/>
-            <Border Grid.Row="1" Grid.Column="1" Background="{StaticResource BodyBackgruond}"/>
+        <Grid Grid.Row="1">
 
-            <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" CornerRadius="70" Background="{StaticResource BodyBackgruond}">
-                <ListBox Style="{StaticResource ListBoxStyle}" Background="Transparent" ItemsSource="{Binding DietPlanSubItems, IsAsync=True}" 
+            <Border behaviors:ClipBehavior.CornerRadius="70" Height="630" Width="245" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource BodyBackgruond}">
+                <Grid>
+                    <Rectangle HorizontalAlignment="Left" Width="30" Fill="{StaticResource HeaderBackground}" />
+                    <surface:SurfaceListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0" Background="Transparent" ItemsSource="{Binding DietPlanSubItems, IsAsync=True}" 
                          ItemContainerStyle="{StaticResource ListBoxItemStyle}">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type viewModel:DietPlanSubItemViewModel}">
-                            <view:DietPlanSubItemView />
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </surface:SurfaceListBox>
+                    <Rectangle Fill="White" Height="60" VerticalAlignment="Bottom" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
+                    <StackPanel Canvas.ZIndex="1"  Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" >
+                        <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding DeleteCommand}" Content="删除" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                        <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding ApplyCommand}" Content="{Binding ButtonContent}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
             </Border>
-            
+
         </Grid>
-        <!--<Grid Background="White" Grid.Row="1" Clip="M0,1.1955949E-13 L70,1.1955949E-13 L150,1.1955949E-13 L230,1.1955949E-13 C268.65994,-2.2351741E-06 300,31.340065 300,69.999998 L300,99.999998 L300,130 L300,200 L230,200 L150,200 L70,200 C31.340067,200 0,168.65993 0,130 L0,99.999998 L0,69.999998 z">
-        	<Grid.ColumnDefinitions>
-        		<ColumnDefinition Width="*"/>
-        		<ColumnDefinition Width="*"/>
-        	</Grid.ColumnDefinitions>
-        	<Grid.RowDefinitions>
-        		<RowDefinition Height="*"/>
-        		<RowDefinition Height="*"/>
-        	</Grid.RowDefinitions>
-        </Grid>-->
     </Grid>
 </UserControl>

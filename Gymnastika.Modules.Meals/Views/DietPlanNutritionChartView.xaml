@@ -7,9 +7,9 @@
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="15,0,0,15" Width="270">
+    <Grid>
         <Border Background="White" HorizontalAlignment="Right" VerticalAlignment="Top" Width="50" Height="50" />
-    <Border Background="White" Padding="20" CornerRadius="50" >
+    <Border Background="White" Padding="16" CornerRadius="50" >
         <ItemsControl ItemsSource="{Binding DietPlanNutritionChartItems}">
             <ItemsControl.ItemContainerStyle>
                 <Style TargetType="FrameworkElement">

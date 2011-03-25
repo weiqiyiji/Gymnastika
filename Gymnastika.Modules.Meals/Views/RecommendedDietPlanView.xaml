@@ -6,10 +6,10 @@
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" Background="#c4cfb8"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <surface:SurfaceListBox Background="Transparent" VerticalContentAlignment="Top" ItemsSource="{Binding RecommendedDietPlans, IsAsync=True}">
+        <surface:SurfaceListBox Background="Transparent" VerticalContentAlignment="Stretch" ItemsSource="{Binding RecommendedDietPlans, IsAsync=True}">
             <surface:SurfaceListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />

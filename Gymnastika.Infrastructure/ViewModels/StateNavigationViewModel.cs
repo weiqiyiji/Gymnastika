@@ -25,8 +25,6 @@ namespace Gymnastika.ViewModels
             _navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
             _navigationService.NavigationStart += OnNavigationStart;
         }
-        
-        private string _header;
 
         public string Header
         {

@@ -26,17 +26,17 @@ namespace Gymnastika.Modules.Meals.Views
         {
             InitializeComponent();
 
-            //SearchBox.ItemFilter = (search, item) =>
-            //{
-            //    Food food = item as Food;
-            //    if (food != null)
-            //    {
-            //        string filter = search.ToUpper(CultureInfo.InvariantCulture);
-            //        return (food.Name.ToUpper(CultureInfo.InvariantCulture).StartsWith(filter));
-            //    }
+            SearchBox.ItemFilter = (search, item) =>
+            {
+                Food food = item as Food;
+                if (food != null)
+                {
+                    string filter = search.ToUpper(CultureInfo.InvariantCulture);
+                    return (food.Name.ToUpper(CultureInfo.InvariantCulture).StartsWith(filter));
+                }
 
-            //    return false;
-            //};
+                return false;
+            };
         }
 
         #region IMealsManagementView Members
@@ -55,6 +55,7 @@ namespace Gymnastika.Modules.Meals.Views
 
         public BindingExpression GetBindingSearchString()
         {
+            //return SearchBox.GetBindingExpression(TextBox.TextProperty);
             return SearchBox.GetBindingExpression(AutoCompleteBox.TextProperty);
         }
 

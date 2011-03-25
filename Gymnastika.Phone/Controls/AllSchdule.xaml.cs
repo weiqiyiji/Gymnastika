@@ -23,20 +23,54 @@ namespace Gymnastika.Phone.Controls
         public AllSchdule()
         {
             InitializeComponent();
-            gestureListener=GestureService.GetGestureListener(AllSchduleList);
+            gestureListener = GestureService.GetGestureListener(AllSchdulePanel);
             gestureListener.Hold += new EventHandler<Microsoft.Phone.Controls.GestureEventArgs>(gestureListener_Hold);
             gestureListener.DoubleTap += new EventHandler<GestureEventArgs>(gestureListener_DoubleTap);
-            for (int i = 0; i < 10; i++)    
+            SchduleItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SchduleItems_CollectionChanged);
+            for (int i = 0; i < 10; i++)
             {
                 SchduleItems.Add(new ScheduleItem()
                 {
-                   // Icon = new BitmapImage(new Uri("/Gymnastika.Phone;component/Images/appbar.check.rest.png", UriKind.Relative)),
+                     Icon = new BitmapImage(new Uri("/Gymnastika.Phone;component/Images/appbar.check.rest.png", UriKind.Relative)),
                     Name = "test" + i.ToString(),
                     Status = ScheduleItemStatus.Active,
                     Time = DateTime.Now.AddMinutes(i * i)
                 });
             }
-            AllSchduleList.ItemsSource = SchduleItems;
+            //  AllSchduleList.ItemsSource = SchduleItems;
+
+        }
+        void SchduleItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (ScheduleItem item in e.NewItems)
+                    {
+                        AllSchdulePanel.Children.Add(new SchduleListItem(AllSchdulePanel.Children.Count, item));
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    List<SchduleListItem> listItems = new List<SchduleListItem>();
+                    foreach (ScheduleItem item in e.OldItems)
+                    {
+                        for (int i = 0; i < AllSchdulePanel.Children.Count; i++)
+                            if (AllSchdulePanel.Children[i] is SchduleListItem)
+                            {
+                                if (((SchduleListItem)AllSchdulePanel.Children[i]).Equals(item))
+                                {
+                                    AllSchdulePanel.Children.RemoveAt(i);
+                                    i--;
+                                }
+                            }
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    AllSchdulePanel.Children.Clear();
+                    break;
+            }
 
         }
 
@@ -46,17 +80,17 @@ namespace Gymnastika.Phone.Controls
         }
         void OpenMenu()
         {
-            if (AllSchduleList.SelectedItem == null)
-                return;
-            ScheduleItem item = AllSchduleList.SelectedItem as ScheduleItem;
-            PopupMenu.PopupMenu menu = new PopupMenu.PopupMenu(AllSchduleList);
-            menu.Title = item.Name;
-            menu.Items.Add(new PopupMenu.MenuItem() { Text = "标记为完成" });
-            menu.Items.Add(new PopupMenu.MenuItem() { Text = "推迟" });
-            menu.Items.Add(new PopupMenu.MenuItem() { Text = "放弃" });
-            menu.Items.Add(new PopupMenu.MenuItem() { Text = "详细信息" });
-            menu.MenuClick += new PopupMenu.PopupMenu.MenuClickHandler(menu_MenuClick);
-            menu.Open();
+            //if (AllSchduleList.SelectedItem == null)
+            //    return;
+            //ScheduleItem item = AllSchduleList.SelectedItem as ScheduleItem;
+            //PopupMenu.PopupMenu menu = new PopupMenu.PopupMenu(AllSchduleList);
+            //menu.Title = item.Name;
+            //menu.Items.Add(new PopupMenu.MenuItem() { Text = "标记为完成" });
+            //menu.Items.Add(new PopupMenu.MenuItem() { Text = "推迟" });
+            //menu.Items.Add(new PopupMenu.MenuItem() { Text = "放弃" });
+            //menu.Items.Add(new PopupMenu.MenuItem() { Text = "详细信息" });
+            //menu.MenuClick += new PopupMenu.PopupMenu.MenuClickHandler(menu_MenuClick);
+            //menu.Open();
         }
         void gestureListener_Hold(object sender, Microsoft.Phone.Controls.GestureEventArgs e)
         {
@@ -65,16 +99,8 @@ namespace Gymnastika.Phone.Controls
 
         void menu_MenuClick(object sender, int MenuID, PopupMenu.MenuItem Menu)
         {
-            
+
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ScheduleItem item = AllSchduleList.SelectedItem as ScheduleItem;
-            if (item != null)
-            {
-                item.Time = item.Time.AddMinutes(5);
-            }
-        }
     }
 }

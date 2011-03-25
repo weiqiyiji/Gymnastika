@@ -10,6 +10,8 @@ using Microsoft.Practices.Prism.Events;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Modules.Meals.Events;
 using Gymnastika.Common.Navigation;
+using Gymnastika.Modules.Meals.Services;
+using Gymnastika.Data;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -69,19 +71,43 @@ namespace Gymnastika.Modules.Meals.ViewModels
             get
             {
                 if (_applyCommand == null)
-                    _applyCommand = new DelegateCommand(OnApply);
+                    _applyCommand = new DelegateCommand(Apply);
 
                 return _applyCommand;
             }
         }
 
-        private void OnApply()
+        private ICommand _deleteCommand;
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                    _deleteCommand = new DelegateCommand(Delete);
+
+                return _deleteCommand;
+            }
+        }
+
+        private void Apply()
         {
             INavigationService navigationService = ServiceLocator.Current.GetInstance<INavigationService>();
             navigationService.RequestNavigate(NavigationNames.ShellRegion, NavigationNames.CreateDietPlanView);
 
             IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
             eventAggregator.GetEvent<ApplyRecommendedDietPlanEvent>().Publish(DietPlan);
+        }
+
+        private void Delete()
+        {
+            IFoodService foodService = ServiceLocator.Current.GetInstance<IFoodService>();
+            IWorkEnvironment workEnvironment = ServiceLocator.Current.GetInstance<IWorkEnvironment>();
+            using (var scope = workEnvironment.GetWorkContextScope())
+            {
+                foodService.DietPlanProvider.Delete(DietPlan);
+            }
+            IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            eventAggregator.GetEvent<DeleteDietPlanEvent>().Publish(this);
         }
     }
 }
