@@ -49,32 +49,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public string CategoryName
         {
-            get { return Food.SubCategory.Name; }
+            get { return Food.Category.Name; }
         }
 
-        public string SubCategoryName
+        public IEnumerable<NutritionElement> NutritionalElements
         {
-            get { return Food.SubCategory.Category.Name; }
-        }
-
-        public IEnumerable<NutritionalElement> NutritionalElements
-        {
-            get { return Food.NutritionalElements; }
-        }
-
-        public IEnumerable<Introduction> Introductions
-        {
-            get { return Food.Introductions; }
+            get { return Food.NutritionElements; }
         }
 
         public void Initialize()
         {
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
-                Food.NutritionalElements = _foodService.NutritionalElementProvider.GetNutritionalElements(Food).ToList();
-                Food.Introductions = _foodService.IntroductionProvider.GetIntroductions(Food).ToList();
-                Food.SubCategory = _foodService.SubCategoryProvider.Get(Food);
-                Food.SubCategory.Category = _foodService.CategoryProvider.Get(Food.SubCategory);
+                Food.NutritionElements = _foodService.NutritionElementProvider.GetNutritionElements(Food).ToList();
+                Food.Category = _foodService.CategoryProvider.Get(Food);
             }
         }
 

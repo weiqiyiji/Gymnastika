@@ -11,7 +11,5 @@ namespace Gymnastika.Modules.Meals.Views
     public interface INutritionChartView
     {
         INutritionChartViewModel Context { get; set; }
-        void DietPlanCalorieValueChangeAnimation(double oldValue, double newValue);
-        void DietPlanCalorieValueChangeAnimation(AnimationTimeline animation);
     }
 }

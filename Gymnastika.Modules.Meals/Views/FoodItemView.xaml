@@ -2,65 +2,122 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
                     xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
                     xmlns:surface="http://schemas.microsoft.com/surface/2008"
                     mc:Ignorable="d">
     <converter:TextConverter x:Key="TextConverter" />
+    
+    <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
 
     <DataTemplate x:Key="DietPlanSubListItem">
         <Grid>
+            <Grid.Background>
+                <Binding Path="Background">
+                    <Binding.RelativeSource>
+                        <RelativeSource Mode="FindAncestor" AncestorType="{x:Type ListBoxItem}" />
+                    </Binding.RelativeSource>
+                </Binding>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="110" />
-                <ColumnDefinition Width="50" />
-                <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Border BorderThickness="1" Width="45" Height="45" CornerRadius="4" Margin="2">
-                <Image Width="43" Height="43" Source="{Binding SmallImageUri}">
-                </Image>
-            </Border>
-            <TextBlock Grid.Column="1" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" />
-            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" >
-                <TextBox Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" Width="50" />
-                <TextBlock Text="克" VerticalAlignment="Center" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Grid.ColumnSpan="2" Width="150" Height="120" Source="{Binding LargeImageUri}">
+            </Image>
+            <control:ImageButton Grid.Column="1" Command="{Binding DeleteFoodFromPlanCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                 ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete.png"
+                                 MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete.png" 
+                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete_down.png" />
+            <TextBlock Grid.Row="1" Grid.Column="0" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" >
+                <TextBox Text="{Binding Amount}" Foreground="{StaticResource GrayText}" Width="30" />
+                <TextBlock Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" />
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center" Grid.Column="3" VerticalAlignment="Center">
-                <TextBlock Text="{Binding Calories}" />
-                <TextBlock Text="大卡" />
-            </TextBlock>
-            <surface:SurfaceButton Grid.Column="4" Content="X" Command="{Binding DeleteFoodFromPlanCommand}" VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
     </DataTemplate>
 
     <DataTemplate x:Key="FoodListItem">
         <Grid>
+            <Grid.Background>
+                <Binding Path="Background">
+                    <Binding.RelativeSource>
+                        <RelativeSource Mode="FindAncestor" AncestorType="{x:Type ListBoxItem}" />
+                    </Binding.RelativeSource>
+                </Binding>
+            </Grid.Background>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="0.4*" />
-                <ColumnDefinition Width="0.6*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Border BorderThickness="1" Width="132" Height="132" CornerRadius="4" Margin="2">
-                <Image Width="130" Height="130" Source="{Binding MiddleImageUri}">
-                    <!--<Image.Clip>
-                        <RectangleGeometry Rect="0, 0, 150, 150" RadiusX="4" RadiusY="4" />
-                    </Image.Clip>-->
-                </Image>
-            </Border>
-            <Border Grid.Column="1" BorderThickness="1" CornerRadius="4" Margin="2">
+            <control:ImageButton Margin="7,0,0,0"  ImageMode="Switchover" Grid.Column="0" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                 ImageSource="/Gymnastika.Modules.Meals;component/Images/add.png"
+                                 MouseOverImageSource="/Gymnastika.Modules.Meals;component/Images/add.png"
+                                 MousePressedImageSource="/Gymnastika.Modules.Meals;component/Images/add.png"/>
+            <Image Grid.Column="1" Width="50" Height="50" Margin="10,0,3,0" Source="{Binding SmallImageUri}">
+            </Image>
+            <Border Grid.Column="2" BorderThickness="1" CornerRadius="4" Margin="2">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center"  Text="{Binding Name, Converter={StaticResource TextConverter}}" />
-                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Label Grid.Row="0" Foreground="{StaticResource GrayText}" HorizontalAlignment="Left" VerticalAlignment="Center" Content="{Binding Name, Converter={StaticResource TextConverter}}" />
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <Label Foreground="{StaticResource GrayText}" Content="{Binding Calorie}" />
+                        <Label Foreground="{StaticResource GrayText}" Content="大卡（每100克）" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="PositionedFoodItem">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+        
+            <Border BorderThickness="1" Width="45" Height="45" CornerRadius="4" Margin="2">
+                <Image Width="43" Height="43" Source="{Binding SmallImageUri}">
+                </Image>
+            </Border>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Center"  Text="{Binding Name, Converter={StaticResource TextConverter}}" />
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center">
                         <TextBlock Text="{Binding Calorie}" />
                         <TextBlock Text="大卡（每100克）" />
                     </TextBlock>
-                    <!--<surface:SurfaceButton Grid.Row="2" Content="{Binding ChangeMyFavoriteButtonContent}" Command="{Binding ChangeMyFavoriteCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
-                </Grid>
-            </Border>
+        </Grid>
+    </DataTemplate>
+    
+    <DataTemplate x:Key="DietPlanItemFood">
+        <Grid Margin="30,5">
+            <Grid.Background>
+                <Binding Path="Background">
+                    <Binding.RelativeSource>
+                        <RelativeSource Mode="FindAncestor" AncestorType="{x:Type ListBoxItem}" />
+                    </Binding.RelativeSource>
+                </Binding>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+                <Image Width="100" Height="80" Source="{Binding LargeImageUri}">
+                </Image>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" >
+                <TextBlock Margin="10,0,0,0" Grid.Row="1" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+            
+                <TextBlock Margin="10,0,0,0"  Text="{Binding Number}" Foreground="{StaticResource GrayText}" VerticalAlignment="Center"/>
+                <TextBlock Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center"/>
+            </StackPanel>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

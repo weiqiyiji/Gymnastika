@@ -56,9 +56,12 @@
     <Compile Include="AnimatedListPanel.cs" />
     <Compile Include="AnimatedProgressBar.cs" />
     <Compile Include="AnimatedTabControl.cs" />
+    <Compile Include="Behaviors\CircleProvider.cs" />
     <Compile Include="Behaviors\ClipBehavior.cs" />
     <Compile Include="Behaviors\CloseWindowBehavior.cs" />
+    <Compile Include="Behaviors\GeometryProvider.cs" />
     <Compile Include="Behaviors\PasswordBindingBehavior.cs" />
+    <Compile Include="Behaviors\RectangleProvider.cs" />
     <Compile Include="Behaviors\WatermarkBehavior.cs" />
     <Compile Include="CheckButtonGroup.cs" />
     <Compile Include="CheckButtonGroupItem.cs" />

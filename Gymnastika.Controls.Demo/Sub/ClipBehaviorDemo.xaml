@@ -3,6 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
         Title="ClipBehaviorDemo" WindowState="Maximized">
+    <Window.Resources>
+        <behaviors:RectangleProvider x:Key="rectangleProvider1" CornerRadius="40" />
+        <behaviors:RectangleProvider x:Key="rectangleProvider2" CornerRadius="40,0,40,0" />
+        <behaviors:RectangleProvider x:Key="rectangleProvider3" CornerRadius="20,40,0,40" />
+        <behaviors:CircleProvider x:Key="circleProvider" Corner="{x:Static behaviors:CircleProvider.TopLeft}" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -10,9 +16,9 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Border behaviors:ClipBehavior.CornerRadius="40" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
-        <Border Grid.Row="1" behaviors:ClipBehavior.CornerRadius="40,0,40,0" Background="Green" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
-        <Border Grid.Row="2" behaviors:ClipBehavior.CornerRadius="0,40,0,40" Background="Blue" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
-        <Border Grid.Row="3" behaviors:ClipBehavior.CornerRadius="20,40,0,40" Background="Gray" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider1}" Background="Red" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border Grid.Row="1" behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider2}" Background="Green" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border Grid.Row="2" behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider3}" Background="Blue" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
+        <Border Grid.Row="3" behaviors:ClipBehavior.Provider="{StaticResource circleProvider}" Background="Gray" HorizontalAlignment="Center" VerticalAlignment="Stretch" Width="400" />
     </Grid>
 </Window>

@@ -16,9 +16,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         string ImageUri { get; }
         string Calorie { get; }
         string CategoryName { get; }
-        string SubCategoryName { get; }
-        IEnumerable<NutritionalElement> NutritionalElements { get; }
-        IEnumerable<Introduction> Introductions { get; }
+        IEnumerable<NutritionElement> NutritionalElements { get; }
         void Initialize();
     }
 }

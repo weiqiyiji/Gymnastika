@@ -10,8 +10,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public interface ICategoryListViewModel
     {
         ICategoryListView View { get; set; }
-        IList<ICategoryItemViewModel> CategoryItems { get; set; }
+        IList<CategoryItemViewModel> CategoryItems { get; set; }
         Category SelectedCategoryItem { get; set; }
         IEnumerable<Category> Categories { get; set; }
+        IFoodListViewModel FoodListViewModel { get; set; }
     }
 }

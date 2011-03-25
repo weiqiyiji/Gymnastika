@@ -13,17 +13,13 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual string SmallImageUri { get; set; }
 
-        public virtual string MiddleImageUri { get; set; }
-
         public virtual string LargeImageUri { get; set; }
 
         public virtual decimal Calorie { get; set; }
 
-        public virtual IList<NutritionalElement> NutritionalElements { get; set; }
+        public virtual IList<NutritionElement> NutritionElements { get; set; }
 
-        public virtual IList<Introduction> Introductions { get; set; }
-
-        public virtual SubCategory SubCategory { get; set; }
+        public virtual Category Category { get; set; }
 
         public virtual IList<DietPlanItem> DietPlanItems { get; set; }
 

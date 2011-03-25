@@ -31,43 +31,27 @@ namespace Gymnastika.Modules.Meals.Controllers
 
         #region ILoadDataController Members
 
+        private bool _isLoaded;
         public bool IsLoaded
         {
             get 
-            { 
-                return false;
+            {
+                using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
+                {
+                    _isLoaded = (_foodService.CategoryProvider.count() != 0);
+                }
+                return _isLoaded;
             }
         }
 
         public void Load()
         {
-            //ActiveLoadDataView();
-
-            //ThreadDelegate backGroundLoader = new ThreadDelegate(_dataSource.Store);
-            //backGroundLoader.BeginInvoke(null, null);
-
-
-            //Thread.Sleep(60 * 60 * 1000);
-
-            //_loadDataView.Close();
-
-            //LoadCategoryData();
-            //LoadFoodData();
-            //LoadDietPlanData();
+            LoadCategoryData();
+            LoadFoodData();
+            LoadNutritionalElementData();
         }
 
         #endregion
-
-        private delegate void ThreadDelegate();
-
-        private void ActiveLoadDataView()
-        {
-            //IRegion displayRegion = _regionManager.Regions[RegionNames.DisplayRegion];
-
-            //displayRegion.Add(_loadDataView);
-            //displayRegion.Activate(_loadDataView);
-            _loadDataView.Show();
-        }
 
         public void LoadCategoryData()
         {
@@ -76,17 +60,6 @@ namespace Gymnastika.Modules.Meals.Controllers
                 foreach (var category in _dataSource.Categories)
                 {
                     _foodService.CategoryProvider.Create(category);
-                }
-            }
-        }
-
-        public void LoadSubCategoryData()
-        {
-            using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            {
-                foreach (var subCategory in _dataSource.SubCategories)
-                {
-                    _foodService.SubCategoryProvider.Create(subCategory);
                 }
             }
         }
@@ -104,59 +77,11 @@ namespace Gymnastika.Modules.Meals.Controllers
 
         public void LoadNutritionalElementData()
         {
-            //using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            //{
-            //    foreach (var nutrionalElement in _dataSource.NutritionalElements)
-            //    {
-            //        _foodService.NutritionalElementProvider.Create(nutrionalElement);
-            //    }
-            //}
-            IList<NutritionalElement> nutritionalElements = new List<NutritionalElement>(_dataSource.NutritionalElements);
-            
             using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
             {
-                for (int i = 0; i < 10000; i++)
+                foreach (var nutrionalElement in _dataSource.NutritionalElements)
                 {
-                    _foodService.NutritionalElementProvider.Create(nutritionalElements[i]);
-                }
-            }
-            using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            {
-                for (int i = 10000; i < 20000; i++)
-                {
-                    _foodService.NutritionalElementProvider.Create(nutritionalElements[i]);
-                }
-            }
-            using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            {
-                for (int i = 20000; i < 30000; i++)
-                {
-                    _foodService.NutritionalElementProvider.Create(nutritionalElements[i]);
-                }
-            }
-            using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            {
-                for (int i = 30000; i < 40000; i++)
-                {
-                    _foodService.NutritionalElementProvider.Create(nutritionalElements[i]);
-                }
-            }
-            using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            {
-                for (int i = 40000; i < 45532; i++)
-                {
-                    _foodService.NutritionalElementProvider.Create(nutritionalElements[i]);
-                }
-            }
-        }
-        
-        public void LoadIntroductionData()
-        {
-            using (IWorkContextScope scope = _workEnviroment.GetWorkContextScope())
-            {
-                foreach (var introduction in _dataSource.Introductions)
-                {
-                    _foodService.IntroductionProvider.Create(introduction);
+                    _foodService.NutritionElementProvider.Create(nutrionalElement);
                 }
             }
         }

@@ -9,10 +9,8 @@ namespace Gymnastika.Modules.Meals.Services
     public interface IFoodService
     {
         ICategoryProvider CategoryProvider { get; set; }
-        ISubCategoryProvider SubCategoryProvider { get; set; }
         IFoodProvider FoodProvider { get; set; }
-        IIntroductionProvider IntroductionProvider { get; set; }
-        INutritionalElementProvider NutritionalElementProvider { get; set; }
+        INutritionElementProvider NutritionElementProvider { get; set; }
         IDietPlanProvider DietPlanProvider { get; set; }
         ISubDietPlanProvider SubDietPlanProvider { get; set; }
         IDietPlanItemProvider DietPlanItemProvider { get; set; }

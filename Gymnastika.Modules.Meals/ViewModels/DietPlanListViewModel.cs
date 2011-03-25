@@ -21,10 +21,23 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public DietPlanListViewModel(IDietPlanListView view, IEventAggregator eventAggregator)
         {
-            _eventAggregator = eventAggregator;
             View = view;
             View.Context = this;
-            InitializeDietPlanList();
+
+            TotalCalories = 0;
+            CanAnimated = true;
+            IList<string> mealNames = new List<string> { "早餐", "中餐", "晚餐" };
+
+            DietPlanList = new List<IDietPlanSubListViewModel>(3);
+            for (int i = 0; i < 3; i++)
+            {
+                IDietPlanSubListViewModel dietPlanSubList = ServiceLocator.Current.GetInstance<IDietPlanSubListViewModel>();
+                dietPlanSubList.MealName = mealNames[i];
+                dietPlanSubList.DietPlanListPropertyChanged += new EventHandler(DietPlanListPropertyChanged);
+                DietPlanList.Add(dietPlanSubList);
+            }
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<ApplyRecommendedDietPlanEvent>().Subscribe(ApplyRecommendedDietPlanEventHandler);
         }
 
         #region IDietPlanViewModel Members
@@ -49,26 +62,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IList<IDietPlanSubListViewModel> DietPlanList { get; set; }
 
-        public IList<NutritionalElement> Nutritions { get; set; }
+        public IList<NutritionElement> Nutritions { get; set; }
+
+        public DietPlan DietPlan { get; set; }
+
+        public event EventHandler DietPlanNutritionChanged;
+
+        public bool CanAnimated { get; set; }
 
         #endregion
-
-        private void InitializeDietPlanList()
-        {
-            _totalCalories = 0;
-
-            DietPlanList = new List<IDietPlanSubListViewModel>(6);
-
-            IList<string> mealNames = new List<string> { "早餐", "上午加餐", "中餐", "中午加餐", "晚餐" , "晚上加餐"};
-
-            for (int i = 0; i < 6; i++)
-            {
-                IDietPlanSubListViewModel dietPlanSubList = ServiceLocator.Current.GetInstance<IDietPlanSubListViewModel>();
-                dietPlanSubList.MealName = mealNames[i];
-                dietPlanSubList.DietPlanListPropertyChanged += new EventHandler(DietPlanListPropertyChanged);
-                DietPlanList.Add(dietPlanSubList);
-            }
-        }
 
         private void DietPlanListPropertyChanged(object sender, EventArgs e)
         {
@@ -81,20 +83,23 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             TotalCalories = totalCalories;
 
-            Nutritions = new List<NutritionalElement>();
+            Nutritions = new List<NutritionElement>();
 
+            bool canAdd = false;
             for (int i = 0; i < DietPlanList.Count; i++)
             {
-                if (i == 0)
+                if (!canAdd)
                 {
+                    if (DietPlanList[i].Nutritions == null) continue;
                     for (int j = 0; j < DietPlanList[i].Nutritions.Count; j++)
                     {
-                        Nutritions.Add(new NutritionalElement
+                        Nutritions.Add(new NutritionElement
                         {
                             Name = DietPlanList[i].Nutritions[j].Name,
                             Value = DietPlanList[i].Nutritions[j].Value
                         });
                     }
+                    canAdd = true;
                 }
                 else
                 {
@@ -106,7 +111,35 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 }
             }
 
-            _eventAggregator.GetEvent<DietPlanNutritionChangeEvent>().Publish(Nutritions);
+            if (CanAnimated)
+                _eventAggregator.GetEvent<DietPlanNutritionChangedEvent>().Publish(Nutritions);
+                //OnDietPlanNutritionChanged();
+        }
+
+        private void OnDietPlanNutritionChanged()
+        {
+            if (DietPlanNutritionChanged != null)
+                DietPlanNutritionChanged(this, new EventArgs());
+        }
+
+        private void ApplyRecommendedDietPlanEventHandler(DietPlan dietPlan)
+        {
+            DietPlan = dietPlan;
+            CanAnimated = false;
+            for (int i = 0; i < 3; i++)
+            {
+                DietPlanList[i].FoodItems.Clear();
+                foreach (var dietPlanItem in DietPlan.SubDietPlans[i].DietPlanItems)
+                {
+                    FoodItemViewModel foodItem = new FoodItemViewModel(dietPlanItem.Food);
+                    DietPlanList[i].AddFoodToPlan(foodItem);
+                    foodItem.LoadNutritionElementData();
+                    foodItem.Amount = dietPlanItem.Amount;
+                }
+            }
+            _eventAggregator.GetEvent<DietPlanNutritionChangedEvent>().Publish(Nutritions);
+            //OnDietPlanNutritionChanged();
+            CanAnimated = true;
         }
     }
 }

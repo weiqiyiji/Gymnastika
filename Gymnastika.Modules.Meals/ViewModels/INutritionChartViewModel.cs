@@ -9,6 +9,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
     public interface INutritionChartViewModel
     {
         INutritionChartView View { get; set; }
-        IList<INutritionChartItemViewModel> NutritionChartItems { get; set; }
+        IList<NutritionChartItemViewModel> NutritionChartItems { get; set; }
     }
 }

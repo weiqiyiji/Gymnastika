@@ -57,8 +57,8 @@ namespace Gymnastika.Modules.Meals.Widgets
             _height = _user.Height;
             _weight = _user.Weight;
 
-            IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
-            _regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
+            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
+            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
         }
 
         #region IWidget Members

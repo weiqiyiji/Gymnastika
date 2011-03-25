@@ -55,6 +55,7 @@ namespace Gymnastika.Modules.Meals.Views
 
         public BindingExpression GetBindingSearchString()
         {
+            //return SearchBox.GetBindingExpression(TextBox.TextProperty);
             return SearchBox.GetBindingExpression(AutoCompleteBox.TextProperty);
         }
 
