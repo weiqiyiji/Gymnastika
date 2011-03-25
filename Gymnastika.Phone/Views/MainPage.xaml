@@ -30,12 +30,14 @@
             <!--Panorama item two-->
             <controls:PanoramaItem Header="任务列表">
                 <Grid>
-                    <my:AllSchdule></my:AllSchdule>
+                    <my:AllSchdule x:Name="schduleList"></my:AllSchdule>
                 </Grid>
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="健康评分">
                 <Grid>
-                    <my:ScoreViewer Margin="1,0" x:Name="scoreViewer1" Width="418" Height="498" />
+                    <my:ScoreViewer Margin="1,0" x:Name="scoreViewer" Width="418" Height="498" />
+                    <Button Content="更新" Height="81" Margin="17,398,0,0" Name="button1" VerticalAlignment="Top" HorizontalAlignment="Left" Width="185" Click="button1_Click" />
+                    <Button Content="Reset" Height="80" HorizontalAlignment="Left" Margin="212,401,0,0" Name="button2" VerticalAlignment="Top" Width="191" Click="button2_Click" />
                 </Grid>
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="微博">

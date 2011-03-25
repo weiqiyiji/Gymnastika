@@ -13,19 +13,19 @@
     	<TextBlock HorizontalAlignment="Left" Margin="8,54,0,0" TextWrapping="Wrap" Text="卡路里摄入量：" VerticalAlignment="Top" Width="175" FontSize="24"/>
     	<TextBlock HorizontalAlignment="Left" Margin="8,105,0,0" TextWrapping="Wrap" Text="卡路里消耗量：" VerticalAlignment="Top" Width="175" FontSize="24"/>
     	<TextBlock HorizontalAlignment="Left" Margin="31,156,0,0" TextWrapping="Wrap" Text="计划完成度：" Width="152" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" FontSize="24"/>
-    	<TextBlock HorizontalAlignment="Left" Margin="81,0,0,186" TextWrapping="Wrap" Text="分数：" Width="94" FontSize="29.333" Height="41" VerticalAlignment="Bottom"/>
-    	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,54,21,0" VerticalAlignment="Top" CornerRadius="8" Background="#96DCDCDC">
-    		<Border BorderThickness="2" Margin="-2,-2,86,-2" CornerRadius="8" Background="#FF681818"/>
+    	<TextBlock HorizontalAlignment="Left" Margin="89,0,0,186" TextWrapping="Wrap" Text="分数：" Width="94" FontSize="29.333" Height="41" VerticalAlignment="Bottom"/>
+    	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,54,21,0" VerticalAlignment="Top" CornerRadius="8" Background="#96DCDCDC" Name="inBorderOuter" Opacity="0.5">
+    		<Border BorderThickness="2" Margin="-2,-2,0,-2" CornerRadius="8" Background="#FF681818" Name="inBorder" HorizontalAlignment="Left" Opacity="0.75" Width="36" />
     	</Border>
-    	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,105,21,0" VerticalAlignment="Top" Background="#96DCDCDC" CornerRadius="8">
-    		<Border BorderThickness="2" Margin="-2,-2,39,-2" CornerRadius="8" Background="#FF27853A"/>
+    	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,105,21,0" VerticalAlignment="Top" Background="#96DCDCDC" CornerRadius="8" Name="outBorderOuter" Opacity="0.5">
+    		<Border BorderThickness="2" Margin="-2,-2,0,-2" CornerRadius="8" Background="#FF27853A" Name="outBorder" HorizontalAlignment="Left" Width="126" Opacity="0.745" d:LayoutOverrides="HorizontalAlignment" />
     	</Border>
-    	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,156,21,0" VerticalAlignment="Top" Background="#96DCDCDC" CornerRadius="8">
-    		<Border BorderThickness="2" Margin="-2,-2,103,-2" CornerRadius="8" Background="#FF11617C"/>
-    	</Border>
-    	<TextBlock Margin="0,161,30,0" TextWrapping="Wrap" Text="0%" TextAlignment="Right" Foreground="#FF0E0552" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="113"/>
-    	<TextBlock Margin="0,110,30,0" TextWrapping="Wrap" Text="0 大卡" TextAlignment="Right" Foreground="#FF003B03" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="113"/>
-    	<TextBlock Margin="166,0,98,174" TextWrapping="Wrap" Text="0" VerticalAlignment="Bottom" FontSize="48" Foreground="#FF4E3FFF"/>
-    	<TextBlock Margin="0,58,30,0" TextWrapping="Wrap" Text="0 大卡" TextAlignment="Right" Foreground="#FFB43F3F" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="111"/>
+    	<Border BorderBrush="White" BorderThickness="2" Height="35" Margin="183,156,21,0" VerticalAlignment="Top" Background="#96DCDCDC" CornerRadius="8" Name="competionBorderOuter" Opacity="0.5">
+    		<Border BorderThickness="2" Margin="-2,-2,0,-2" CornerRadius="8" Background="#FF11617C" Name="compeletionBorder" HorizontalAlignment="Left" Width="219" Opacity="0.75"></Border>
+        </Border>
+        <TextBlock Margin="0,110,30,0" TextWrapping="Wrap" Text="0 大卡" TextAlignment="Right" Foreground="#FF003B03" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="113" Name="txtOutCalorie" />
+    	<TextBlock Margin="186,0,78,176" TextWrapping="Wrap" Text="0" FontSize="48" Foreground="#FF4E3FFF" Name="txtScore" VerticalAlignment="Bottom" />
+    	<TextBlock Margin="0,58,30,0" TextWrapping="Wrap" Text="0 大卡" TextAlignment="Right" Foreground="#FFB43F3F" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Width="111" Name="txtInCalorie" />
+        <TextBlock TextWrapping="Wrap" Text="0%" TextAlignment="Right" Foreground="#FF0E0552" Height="25" Width="113" Name="txtProgress" Margin="0,161,32,0" VerticalAlignment="Top" HorizontalAlignment="Right" />
     </Grid>
 </UserControl>
