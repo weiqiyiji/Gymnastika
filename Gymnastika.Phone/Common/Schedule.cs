@@ -23,10 +23,11 @@ namespace Gymnastika.Phone.Common
     }
     public class ScheduleItem:DependencyObject
     {
-        public FrameworkElement Content;
+        //public FrameworkElement Content;
         public ScheduleItem()
         {
-            Content = new SchduleListItem(0, this);
+           // Content = new SchduleListItem(0, this);
+            this.Duration = TimeSpan.FromSeconds(0);
         }
         private static string TranslateStatus(ScheduleItemStatus status)
         {
@@ -46,13 +47,17 @@ namespace Gymnastika.Phone.Common
 
             }
         }
-        internal delegate void StatusChangedHandler(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus);
-        internal event StatusChangedHandler StatusChange;
+        public static DependencyProperty NameProperty = DependencyProperty.Register("NameProperty", typeof(string), typeof(ScheduleItem), null);
+        public static DependencyProperty TimeProperty = DependencyProperty.Register("TimeProperty", typeof(DateTime), typeof(ScheduleItem), null);
+        public event EventHandler ScheduleContentChagned;
+        public delegate void StatusChangedHandler(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus);
+        public event StatusChangedHandler StatusChange;
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Name { get { return (string)this.GetValue(NameProperty); } set { this.SetValue(NameProperty, value); if (ScheduleContentChagned != null) ScheduleContentChagned(this, new EventArgs()); } }
         public DateTime OriginTime { get; set; }
+        public Duration Duration { get; set; }
         private DateTime m_Time;
-        public DateTime Time { get { return m_Time > OriginTime ? m_Time : OriginTime; } set { m_Time = value; this.SetValue(TimeTextProperty, Time.ToString("HH:mm:ss")); } }
+        public DateTime Time { get { return m_Time > OriginTime ? m_Time : OriginTime; } set { m_Time = value; this.SetValue(TimeTextProperty, Time.ToString("HH:mm:ss")); if (ScheduleContentChagned != null)ScheduleContentChagned(this, new EventArgs()); } }
         private ScheduleItemStatus m_Status;
         public ScheduleItemStatus Status
         {
@@ -60,12 +65,15 @@ namespace Gymnastika.Phone.Common
             set
             {
                 ScheduleItemStatus old = m_Status;
-                this.SetValue(StatusTextProperty, TranslateStatus(Status));
+                
                 m_Status = value;
+                this.SetValue(StatusTextProperty, TranslateStatus(m_Status));
                 if (StatusChange != null)
                 {
                     StatusChange.Invoke(this, old, value);
                 }
+                if (ScheduleContentChagned != null)
+                    ScheduleContentChagned(this, new EventArgs());
             }
         }
         public ImageSource Icon { get; set; }

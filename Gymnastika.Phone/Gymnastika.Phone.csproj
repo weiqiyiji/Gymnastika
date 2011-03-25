@@ -67,6 +67,7 @@
     <Reference Include="System.Net" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animations\GradientStopAnimation.cs" />
@@ -145,6 +146,9 @@
     <Compile Include="PushNotification\PushNotification.cs" />
     <Compile Include="PushNotification\PushNotificationService.cs" />
     <Compile Include="PushNotification\TileNotification.cs" />
+    <Compile Include="Sync\ConnectionHelper.cs" />
+    <Compile Include="Sync\DesktopAccessPoint.cs" />
+    <Compile Include="Sync\DesktopAccessPointCollection.cs" />
     <Compile Include="Transitions\FadeRollIn.cs" />
     <Compile Include="Transitions\FadeRollMode.cs" />
     <Compile Include="Transitions\FadeRollOut.cs" />

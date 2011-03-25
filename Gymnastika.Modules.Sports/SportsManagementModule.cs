@@ -71,7 +71,7 @@ namespace Gymnastika.Modules.Sports
                 {
                     Header = "本周计划",
                     ViewName = NavigationNames.PlanPanel,
-                    ViewResolver = ()=>_container.Resolve<PlanListView>(),
+                    ViewResolver = () => _container.Resolve<CompostieChartView>(),
                 });
 
             //创建计划
@@ -81,21 +81,21 @@ namespace Gymnastika.Modules.Sports
                     Header = "定制运动计划",
                     ViewName = NavigationNames.CreatePlanPanel,
                     ViewResolver = () => _container.Resolve<CompositePanel>(),
-                    States = new List<ViewState>()
-                    {
-                        new ViewState()
-                        {
-                            Header = "制定计划",
-                            Name = "CreatePlan",
-                        },
-                        new ViewState()
-                        { 
-                            Header = "查看运动详情",
-                            Name = "SportDetail",
-                        },
+                    //States = new List<ViewState>()
+                    //{
+                    //    new ViewState()
+                    //    {
+                    //        Header = "制定计划",
+                    //        Name = "CreatePlan",
+                    //    },
+                    //    new ViewState()
+                    //    { 
+                    //        Header = "查看运动详情",
+                    //        Name = "SportDetail",
+                    //    },
 
-                    },
-                    StateChanging = _container.Resolve<CompositePanel>().StateChanging,
+                    //},
+                    //StateChanging = _container.Resolve<CompositePanel>().StateChanging,
                 });
             //图表
             region.Add(
@@ -167,13 +167,14 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportsPlanViewModel, SportsPlanViewModel>()
                 .RegisterType<IPlanListViewModel, PlanListViewModel>()
                 .RegisterType<ISportViewModel, SportViewModel>()
-                .RegisterType<ICompositePanelViewModel,CompositePanelViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<ISportCalorieChartViewModel,SportCalorieChartViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ICompositePanelViewModel, CompositePanelViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ISportCalorieChartViewModel, SportCalorieChartViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType < IPlanDetailViewModel,PlanDetailViewModel>(new ContainerControlledLifetimeManager())
                 //Views
                 .RegisterType<ISportsPanelView, SportsPanelView>()
                 .RegisterType<ICategoriesPanelView, CategoriesPanelView>()
                 .RegisterType<ISportsPlanView, SportsPlanView>()
-
+                .RegisterType<CompostieChartView>(new ContainerControlledLifetimeManager())
                 .RegisterType<PlanListView>(new ContainerControlledLifetimeManager())
                 .RegisterType<CompositePanel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ChartView>(new ContainerControlledLifetimeManager());

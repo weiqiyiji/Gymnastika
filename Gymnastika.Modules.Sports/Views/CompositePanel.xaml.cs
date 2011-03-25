@@ -41,15 +41,6 @@ namespace Gymnastika.Modules.Sports.Views
         public void StateChanging(ViewState targetState)
         {
             string viewname = targetState.Name;
-            //switch (viewname)
-            //{
-            //    case "CreatePlan":
-            //        Expand();
-            //        break;
-            //    case "SportDetail":
-            //        Minimize();
-            //        break;
-            //}
         }
 
         private void AutoCompleteBox_KeyDown(object sender, KeyEventArgs e)

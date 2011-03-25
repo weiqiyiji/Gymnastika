@@ -140,7 +140,7 @@
 			<Run FontSize="50" Text="{Binding CurrentPage, Mode=OneWay}"/>
 			<Run Text="页"/>
 			</TextBlock>
-		<TextBlock Grid.Column="3" Grid.Row="3" TextWrapping="Wrap" FontSize="14" RenderTransformOrigin="0.5,0.5" Foreground="{Binding Foreground, ElementName=MaxPage}" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<TextBlock Grid.Column="3" Grid.Row="3" TextWrapping="Wrap" FontSize="14" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFDFDFD">
 			<TextBlock.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>

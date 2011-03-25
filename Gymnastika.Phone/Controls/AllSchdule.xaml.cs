@@ -19,25 +19,17 @@ namespace Gymnastika.Phone.Controls
     {
         GestureListener gestureListener;
 
-        ObservableCollection<ScheduleItem> SchduleItems = new ObservableCollection<ScheduleItem>();
+        public ObservableCollection<ScheduleItem> SchduleItems { get; private set; }
+
         public AllSchdule()
         {
             InitializeComponent();
             gestureListener = GestureService.GetGestureListener(AllSchdulePanel);
             gestureListener.Hold += new EventHandler<Microsoft.Phone.Controls.GestureEventArgs>(gestureListener_Hold);
             gestureListener.DoubleTap += new EventHandler<GestureEventArgs>(gestureListener_DoubleTap);
+            SchduleItems = new ObservableCollection<ScheduleItem>();
             SchduleItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SchduleItems_CollectionChanged);
-            for (int i = 0; i < 10; i++)
-            {
-                SchduleItems.Add(new ScheduleItem()
-                {
-                     Icon = new BitmapImage(new Uri("/Gymnastika.Phone;component/Images/appbar.check.rest.png", UriKind.Relative)),
-                    Name = "test" + i.ToString(),
-                    Status = ScheduleItemStatus.Active,
-                    Time = DateTime.Now.AddMinutes(i * i)
-                });
-            }
-            //  AllSchduleList.ItemsSource = SchduleItems;
+
 
         }
         void SchduleItems_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

@@ -15,6 +15,8 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
 using Microsoft.Phone.Controls.Primitives;
 using Gymnastika.Phone.UserProfile;
+using System.IO;
+using System.Text;
 
 namespace Gymnastika.Phone.Views
 {
@@ -43,6 +45,19 @@ namespace Gymnastika.Phone.Views
             this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(LoginPage_ManipulationStarted);
             CurrentOffsetY = 0;
             Arrange(CurrentOffsetY);
+
+            Sync.DesktopAccessPointCollection collection = new Sync.DesktopAccessPointCollection();
+            collection.Add(new Uri("http://test.com"));
+            collection.Add(new Uri("http://test2.com"));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (StreamReader reader = new StreamReader(ms,Encoding.UTF8))
+                {
+                    collection.Serialize(ms);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    string xml = reader.ReadToEnd();
+                }
+            }
 
         }
         void AddUser(UserProfile.Profile profile)

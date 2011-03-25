@@ -121,6 +121,7 @@
     <Compile Include="Models\SportsPlanItem.cs" />
     <Compile Include="Validations\TimeExpressionValidation.cs" />
     <Compile Include="ViewModels\CompositePanelViewModel.cs" />
+    <Compile Include="ViewModels\PlanDetailViewModel.cs" />
     <Compile Include="ViewModels\SportCalorieChartViewModel.cs" />
     <Compile Include="Views\ChartView.xaml.cs">
       <DependentUpon>ChartView.xaml</DependentUpon>
@@ -145,6 +146,9 @@
     <Compile Include="ViewModels\SportsPlanViewModel.cs" />
     <Compile Include="ViewModels\SportsPanelViewModel.cs" />
     <Compile Include="ViewModels\SportViewModel.cs" />
+    <Compile Include="Views\CompostieChartView.xaml.cs">
+      <DependentUpon>CompostieChartView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PlanDetailView.xaml.cs">
       <DependentUpon>PlanDetailView.xaml</DependentUpon>
     </Compile>
@@ -187,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CompostieChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

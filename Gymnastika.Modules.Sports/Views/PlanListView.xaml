@@ -10,7 +10,9 @@
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" 
              xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts"
-             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters">
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
+			 xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+			>
             
     <UserControl.Resources>
         <converter:NotNullConverter x:Key="NotNullConverter"/>
@@ -121,11 +123,11 @@
                 <ColumnDefinition Width="0.145*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.117*" />
-                <RowDefinition Height="0.319*" />
-                <RowDefinition Height="0.564*" />
+                <RowDefinition Height="45*" />
+                <RowDefinition Height="107*" />
+                <RowDefinition Height="231*" />
             </Grid.RowDefinitions>
-            <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" HorizontalAlignment="Right" d:IsHidden="True" d:IsLocked="True" >
+            <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" HorizontalAlignment="Right" >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -135,7 +137,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label x:Name="label" Content="的运动计划" Grid.Column="2" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF7C836B" d:IsHidden="True" d:IsLocked="True" >
+            <Label x:Name="label" Content="的运动计划" Grid.Column="2" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF7C836B" >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -145,7 +147,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Margin="0,0,0,1" d:IsHidden="True" d:IsLocked="True">
+            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black">
                 <my:SurfaceListBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -156,66 +158,34 @@
                 </my:SurfaceListBox.RenderTransform>
                 <my:SurfaceListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid d:DesignHeight="397" Width="200">
+                        <Grid  behaviors:ClipBehavior.CornerRadius="70,0,70,0" d:DesignHeight="397" Width="200" Height="397" Background="White">
+                        	<Grid.ColumnDefinitions>
+                        		<ColumnDefinition Width="0.21*"/>
+                        		<ColumnDefinition Width="0.79*"/>
+                        	</Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="0.668*"/>
-                                <RowDefinition Height="0.093*"/>
-                                <RowDefinition Height="0.239*"/>
+                                <RowDefinition Height="0.088*"/>
+                                <RowDefinition Height="0.912*"/>
                             </Grid.RowDefinitions>
-                            <Grid Width="Auto"  Background="{x:Null}" Margin="0,0.25,0,0" VerticalAlignment="Stretch" Grid.RowSpan="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="41"/>
-                                    <ColumnDefinition Width="112.63"/>
-                                    <ColumnDefinition Width="28.007"/>
-                                    <ColumnDefinition Width="18.363"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="0.05*"/>
-                                    <RowDefinition Height="0.103*"/>
-                                    <RowDefinition Height="0.847*"/>
-                                </Grid.RowDefinitions>
-                                <Rectangle Fill="#FF94E0B1" Height="Auto" Grid.Row="0" Grid.RowSpan="3" StrokeThickness="0" VerticalAlignment="Stretch" Panel.ZIndex="-1" HorizontalAlignment="Stretch" Width="Auto"/>
-                                <ItemsControl x:Name="PlanItems" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Row="2" Grid.ColumnSpan="3">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border  Width="200" Height="40" >
-                                                <Grid Margin="0,0,0,10">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="50"/>
-                                                        <ColumnDefinition Width="0.207*"/>
-                                                        <ColumnDefinition Width="0.793*"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <TextBlock x:Name="Time" Text="{Binding Time}" HorizontalAlignment="Left" Foreground="#FFE2F7EA" FontSize="14" FontFamily="黑体"/>
-                                                    <TextBlock x:Name="SportName" Text="{Binding SportName}" HorizontalAlignment="Left" Margin="0,0,28.95,0" Grid.Column="2" Foreground="#FF7C836B" FontSize="14" FontFamily="黑体" Width="Auto"/>
-                                                </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
-                                <TextBlock x:Name="DayOfWeek" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding DayOfWeekDes}" VerticalAlignment="Stretch" Height="Auto" Grid.ColumnSpan="1" FontFamily="黑体" FontSize="24" Foreground="#FF94E0B1" Grid.Column="1" Margin="0" Grid.RowSpan="1" Grid.Row="1"/>
-                                <Rectangle Grid.ColumnSpan="4" Fill="White" Margin="0" Grid.RowSpan="3" StrokeThickness="0" RadiusY="40.667" RadiusX="40.667" Panel.ZIndex="-2"/>
-
-                            </Grid>
-                            <Grid Grid.Row="1" Panel.ZIndex="-3" Grid.RowSpan="2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="41"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Stretch" Width="Auto" Margin="0,0,-0.4,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.491*"/>
-                                        <ColumnDefinition Width="0.509*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="0.483*"/>
-                                        <RowDefinition Height="0.517*"/>
-                                    </Grid.RowDefinitions>
-                                    <Ellipse HorizontalAlignment="Stretch" Margin="0" Width="Auto" Fill="#FF94E0B1" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-                                    <Rectangle Fill="#FF94E0B1" RadiusY="0" RadiusX="0" Grid.RowSpan="1" Grid.ColumnSpan="2"/>
-                                    <Rectangle Fill="#FF94E0B1" RadiusY="0" RadiusX="0" Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Grid.Row="1"/>
-                                </Grid>
-                                <Rectangle Fill="White" StrokeThickness="0" RadiusY="0" RadiusX="0" Margin="0.4,0,0,0" Grid.Column="1"/>
-                            </Grid>
+                        	<Rectangle Fill="#FF94E0B1" Height="Auto" Grid.Row="0" Grid.RowSpan="2" StrokeThickness="0" VerticalAlignment="Stretch" Panel.ZIndex="-1" HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
+                        	<ItemsControl x:Name="PlanItems" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="1">
+                        		<ItemsControl.ItemTemplate>
+                        			<DataTemplate>
+                        				<Border  Width="200" Height="40" >
+                        					<Grid Margin="0,0,0,10">
+                        						<Grid.ColumnDefinitions>
+                        							<ColumnDefinition Width="50"/>
+                        							<ColumnDefinition Width="0.207*"/>
+                        							<ColumnDefinition Width="0.793*"/>
+                        						</Grid.ColumnDefinitions>
+                        						<TextBlock x:Name="Time" Text="{Binding Time}" HorizontalAlignment="Left" Foreground="#FFE2F7EA" FontSize="14" FontFamily="黑体"/>
+                        						<TextBlock x:Name="SportName" Text="{Binding SportName}" HorizontalAlignment="Left" Margin="0,0,28.95,0" Grid.Column="2" Foreground="#FF7C836B" FontSize="14" FontFamily="黑体" Width="Auto"/>
+                        					</Grid>
+                        				</Border>
+                        			</DataTemplate>
+                        		</ItemsControl.ItemTemplate>
+                        	</ItemsControl>
+                        	<TextBlock x:Name="DayOfWeek" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DayOfWeekDes}" VerticalAlignment="Stretch" Height="Auto" Grid.ColumnSpan="1" FontFamily="黑体" FontSize="24" Foreground="#FF94E0B1" Grid.Column="1" Margin="0" Grid.RowSpan="1" Grid.Row="0"/>
                         </Grid>
                     </DataTemplate>
                 </my:SurfaceListBox.ItemTemplate>
@@ -225,7 +195,7 @@
                     </ItemsPanelTemplate>
                 </my:SurfaceListBox.ItemsPanel>
             </my:SurfaceListBox>
-            <my:SurfaceButton Content="下一周" Height="23" Command="{Binding NextWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="NextWeek" VerticalAlignment="Center" Width="75" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" d:IsHidden="True" d:IsLocked="True" >
+            <my:SurfaceButton Content="下一周" Height="23" Command="{Binding NextWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="NextWeek" VerticalAlignment="Center" Width="75" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
                 <my:SurfaceButton.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -235,7 +205,7 @@
                     </TransformGroup>
                 </my:SurfaceButton.RenderTransform>
             </my:SurfaceButton>
-            <my:SurfaceButton Content="上一周" Height="23" Command="{Binding LastWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="LastWeek" VerticalAlignment="Center" Width="75" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" d:IsHidden="True" d:IsLocked="True" >
+            <my:SurfaceButton Content="上一周" Height="23" Command="{Binding LastWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="LastWeek" VerticalAlignment="Center" Width="75" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" >
                 <my:SurfaceButton.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -245,7 +215,7 @@
                     </TransformGroup>
                 </my:SurfaceButton.RenderTransform>
             </my:SurfaceButton>
-            <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="4" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Height="9" VerticalContentAlignment="Center" Foreground="#FF929A81" d:IsHidden="True" d:IsLocked="True" >
+            <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="4" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Height="9" VerticalContentAlignment="Center" Foreground="#FF929A81" >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -255,7 +225,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <vc:Chart ToolTipEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent" Name="chart1" Grid.ColumnSpan="7" Theme="Theme3" d:IsHidden="True" d:IsLocked="True" Margin="-1,0,1,0" Grid.Row="1">
+            <vc:Chart ToolTipEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent" Name="chart1" Grid.ColumnSpan="7" Theme="Theme3" Grid.Row="1">
                 <vc:Chart.AxesX>
                     <vc:Axis LineThickness="1" Interval="1" >
                         <vc:Axis.Grids>
@@ -270,9 +240,7 @@
                 <vc:Chart.Series>
                     <vc:DataSeries RenderAs="Spline" BorderColor="Transparent"  Bevel="False" BorderThickness="0"  LabelFontFamily="黑体" LineStyle="Solid" LineThickness="1" LabelLineEnabled="False"  MarkerSize="5" MarkerType="Circle" ShadowEnabled="False">
                         <vc:DataSeries.DataPoints>
-                            <vc:DataPoint AxisXLabel="星期日" YValue="{Binding  CalorieOfSunday, Mode=OneWay}">
-                               
-                            </vc:DataPoint> 
+                            <vc:DataPoint AxisXLabel="星期日" YValue="{Binding  CalorieOfSunday, Mode=OneWay}"/>
                             <vc:DataPoint AxisXLabel="星期一" YValue="{Binding  CalorieOfMonday, Mode=OneWay}"/>
                             <vc:DataPoint AxisXLabel="星期二" YValue="{Binding  CalorieOfTuesday, Mode=OneWay}"/>
                             <vc:DataPoint AxisXLabel="星期三" YValue="{Binding  CalorieOfWednesday, Mode=OneWay}"/>
@@ -283,7 +251,6 @@
                     </vc:DataSeries>
                 </vc:Chart.Series>
             </vc:Chart>
-            <view:PlanDetailView x:Name="planDetailView" Grid.RowSpan="2" Grid.ColumnSpan="7" Margin="1,-1,-1,1" />
         </Grid>
     </Border>
 </UserControl>

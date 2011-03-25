@@ -14,15 +14,13 @@
     </UserControl.Resources>
     <Border x:Name="borderRoot" CornerRadius="8" BorderBrush="White" BorderThickness="2" Background="#19FFFFFF" Margin="0,0,0,4">
         <Grid x:Name="LayoutRoot" Margin="0,0,0,-2" >
-            <TextBlock Margin="8,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Left" Width="120" Foreground="#FF625E5E" Name="txtTime"><Run Text="13:10 - 13:3"/><Run Text="0"/></TextBlock>
-            <TextBlock Margin="68,44,22,0" TextWrapping="Wrap" Text="TextBlockkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk" VerticalAlignment="Top" Height="48" Foreground="#FFC1FF5A"/>
-            <TextBlock HorizontalAlignment="Right" Height="32" Margin="0,95,9,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="132" Foreground="#FF494341" Name="txtStatus" />
+            <TextBlock Margin="8,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF625E5E" Name="txtTime" HorizontalAlignment="Left"><Run Text="13:10 - 13:3"/><Run Text="0"/></TextBlock>
+            <TextBlock Margin="68,44,22,0" TextWrapping="Wrap" Text="TextBlock                                                  name" VerticalAlignment="Top" Height="51" Foreground="White" Name="txtName" FontSize="24" />
+            <TextBlock HorizontalAlignment="Right" Height="32" Margin="0,95,9,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="132" Foreground="#FF3A52DA" Name="txtStatus" />
             <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top"/>
-            <Border CornerRadius="5" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top" Margin="8,127,8,0" Height="117" Background="#3FFFFFFF" Name="borderDetails">
-                <ScrollViewer>
-				<StackPanel Height="113" Margin="0,0,7,0" Name="stackPanel1" VerticalAlignment="Top"  />
-            </ScrollViewer>
-			</Border>
+            <Border CornerRadius="5" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top" Margin="8,127,8,0" Height="117" Background="#3FFFFFFF" Name="DetailBorder">
+                <ScrollViewer/>
+            </Border>
         </Grid>
     </Border>
 </UserControl>
