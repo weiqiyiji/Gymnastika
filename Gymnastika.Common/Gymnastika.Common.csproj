@@ -63,6 +63,7 @@
     <Compile Include="Configuration\ShellSettings.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs" />
+    <Compile Include="Logging\FileLogger.cs" />
     <Compile Include="Navigation\NavigationContainer.cs" />
     <Compile Include="Navigation\INavigationContainerAccessor.cs" />
     <Compile Include="Navigation\INavigationManager.cs" />

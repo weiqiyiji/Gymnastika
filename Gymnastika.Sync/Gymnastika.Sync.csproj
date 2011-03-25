@@ -92,6 +92,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migration\Migration_ScheduleItems_20110325170440.cs" />
+    <Compile Include="Migration\Migration_ScheduleItems_20110325165740.cs" />
     <Compile Include="Migration\Migration_Connections_20110318215110.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +106,7 @@
     <Compile Include="Migration\Migration_PhoneClients_20110318214639.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Migration\Migration_ScheduleItems_20110325155140.cs" />
     <Compile Include="Migration\Migration_Users_20110322155719.cs" />
     <Compile Include="Models\DesktopClient.cs" />
     <Compile Include="Models\NetworkAdapter.cs" />
@@ -123,6 +126,7 @@
     <Compile Include="Infrastructure\WebEnvironment.cs" />
     <Compile Include="Models\Connection.cs" />
     <Compile Include="Models\PhoneClient.cs" />
+    <Compile Include="Models\ScheduleItem.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="RegistrationService.cs" />
     <Compile Include="Global.asax.cs">

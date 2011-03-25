@@ -7,201 +7,250 @@
              d:DesignHeight="385" d:DesignWidth="601"
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" 
              xmlns:my="http://schemas.microsoft.com/surface/2008"
-             xmlns:local="clr-namespace:Gymnastika.Modules.Sports" >
+             xmlns:local="clr-namespace:Gymnastika.Modules.Sports"
+             xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" 
+             xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
+			 xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+			>
+            
     <UserControl.Resources>
+        <converter:NotNullConverter x:Key="NotNullConverter"/>
         <Storyboard x:Key="FlyOutStoryboard">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="label">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="NextWeek">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LastWeek">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DateRange">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="UserName">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="label">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="NextWeek">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="LastWeek">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="DateRange">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UserName">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="label">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="NextWeek">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LastWeek">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DateRange">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
-        	</ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="label">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="NextWeek">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LastWeek">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DateRange">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="637"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="UserName">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="label">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="NextWeek">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="LastWeek">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="DateRange">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="#00000000"/>
+            </ColorAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UserName">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="label">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="NextWeek">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LastWeek">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DateRange">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Collapsed}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="FlyInStoryboard">
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="label">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="NextWeek">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LastWeek">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DateRange">
-        		<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
-        	</DoubleAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="UserName">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="label">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="NextWeek">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="LastWeek">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="DateRange">
-        		<EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
-        	</ColorAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UserName">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="label">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="NextWeek">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LastWeek">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-        	</ObjectAnimationUsingKeyFrames>
-        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DateRange">
-        		<DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
-        	</ObjectAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="label">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="NextWeek">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="LastWeek">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="DateRange">
+                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="0"/>
+            </DoubleAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="UserName">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="label">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="NextWeek">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="LastWeek">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
+            </ColorAnimationUsingKeyFrames>
+            <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="DateRange">
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
+            </ColorAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UserName">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="label">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="NextWeek">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="LastWeek">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DateRange">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.3" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
         </Storyboard>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="199*" />
-            <ColumnDefinition Width="93*" />
-            <ColumnDefinition Width="130*" />
-            <ColumnDefinition Width="92*" />
-            <ColumnDefinition Width="87*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="45*" />
-            <RowDefinition Height="55*" />
-            <RowDefinition Height="285*" />
-        </Grid.RowDefinitions>
-        <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <Label x:Name="label" Content="的运动计划" Grid.Column="1" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
-            <Label.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Label.RenderTransform>
-        </Label>
-        <my:SurfaceListBox SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="5" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Margin="0,0,0,1">
-            <my:SurfaceListBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </my:SurfaceListBox.RenderTransform>
-            <my:SurfaceListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Height="360" Width="285">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.064*"/>
-                            <RowDefinition Height="0.936*"/>
-                        </Grid.RowDefinitions>
-                        <ItemsControl x:Name="PlanItems" ItemsSource="{Binding SportsPlanItemViewModels}" Margin="0" Grid.Row="1">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Height="81" Width="263">
-                                        <TextBlock x:Name="Time" Text="{Binding Time}" HorizontalAlignment="Left"/>
-                                        <TextBlock x:Name="SportName" Text="{Binding SportName}" HorizontalAlignment="Right" Margin="0"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <TextBlock x:Name="DayOfWeek" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding DayOfWeekDes}" VerticalAlignment="Stretch"/>
-                    </Grid>
-                </DataTemplate>
-            </my:SurfaceListBox.ItemTemplate>
-            <my:SurfaceListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </my:SurfaceListBox.ItemsPanel>
-        </my:SurfaceListBox>
-        <my:SurfaceButton Content="下一周" Height="23" Command="{Binding NextWeekCommand}" HorizontalAlignment="Right" Margin="0,12,7,0" x:Name="NextWeek" VerticalAlignment="Top" Width="75" Grid.Column="4" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
-            <my:SurfaceButton.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </my:SurfaceButton.RenderTransform>
-        </my:SurfaceButton>
-        <my:SurfaceButton Content="上一周" Height="23" Command="{Binding LastWeekCommand}" HorizontalAlignment="Right" Margin="0,12,12,0" x:Name="LastWeek" VerticalAlignment="Top" Width="75" Grid.Column="3" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
-            <my:SurfaceButton.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </my:SurfaceButton.RenderTransform>
-        </my:SurfaceButton>
-        <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="2" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
-        	<Label.RenderTransform>
-        		<TransformGroup>
-        			<ScaleTransform/>
-        			<SkewTransform/>
-        			<RotateTransform/>
-        			<TranslateTransform/>
-        		</TransformGroup>
-        	</Label.RenderTransform>
-        </Label>
-    </Grid>
+    <Border Background="#FFD4DEC1">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.148*" />
+                <ColumnDefinition Width="0.183*"/>
+                <ColumnDefinition Width="0.155*" />
+                <ColumnDefinition Width="0.111*" />
+                <ColumnDefinition Width="0.223*"/>
+                <ColumnDefinition Width="0.035*" />
+                <ColumnDefinition Width="0.145*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45*" />
+                <RowDefinition Height="107*" />
+                <RowDefinition Height="231*" />
+            </Grid.RowDefinitions>
+            <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" HorizontalAlignment="Right" >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <Label x:Name="label" Content="的运动计划" Grid.Column="2" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" HorizontalAlignment="Center" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="#FF7C836B" >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black">
+                <my:SurfaceListBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </my:SurfaceListBox.RenderTransform>
+                <my:SurfaceListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid  behaviors:ClipBehavior.CornerRadius="70,0,70,0" d:DesignHeight="397" Width="200" Height="397" Background="White">
+                        	<Grid.ColumnDefinitions>
+                        		<ColumnDefinition Width="0.21*"/>
+                        		<ColumnDefinition Width="0.79*"/>
+                        	</Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.088*"/>
+                                <RowDefinition Height="0.912*"/>
+                            </Grid.RowDefinitions>
+                        	<Rectangle Fill="#FF94E0B1" Height="Auto" Grid.Row="0" Grid.RowSpan="2" StrokeThickness="0" VerticalAlignment="Stretch" Panel.ZIndex="-1" HorizontalAlignment="Stretch" Width="Auto" Margin="0"/>
+                        	<ItemsControl x:Name="PlanItems" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Row="1" Grid.ColumnSpan="2" Margin="0" Grid.RowSpan="1">
+                        		<ItemsControl.ItemTemplate>
+                        			<DataTemplate>
+                        				<Border  Width="200" Height="40" >
+                        					<Grid Margin="0,0,0,10">
+                        						<Grid.ColumnDefinitions>
+                        							<ColumnDefinition Width="50"/>
+                        							<ColumnDefinition Width="0.207*"/>
+                        							<ColumnDefinition Width="0.793*"/>
+                        						</Grid.ColumnDefinitions>
+                        						<TextBlock x:Name="Time" Text="{Binding Time}" HorizontalAlignment="Left" Foreground="#FFE2F7EA" FontSize="14" FontFamily="黑体"/>
+                        						<TextBlock x:Name="SportName" Text="{Binding SportName}" HorizontalAlignment="Left" Margin="0,0,28.95,0" Grid.Column="2" Foreground="#FF7C836B" FontSize="14" FontFamily="黑体" Width="Auto"/>
+                        					</Grid>
+                        				</Border>
+                        			</DataTemplate>
+                        		</ItemsControl.ItemTemplate>
+                        	</ItemsControl>
+                        	<TextBlock x:Name="DayOfWeek" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DayOfWeekDes}" VerticalAlignment="Stretch" Height="Auto" Grid.ColumnSpan="1" FontFamily="黑体" FontSize="24" Foreground="#FF94E0B1" Grid.Column="1" Margin="0" Grid.RowSpan="1" Grid.Row="0"/>
+                        </Grid>
+                    </DataTemplate>
+                </my:SurfaceListBox.ItemTemplate>
+                <my:SurfaceListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </my:SurfaceListBox.ItemsPanel>
+            </my:SurfaceListBox>
+            <my:SurfaceButton Content="下一周" Height="23" Command="{Binding NextWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="NextWeek" VerticalAlignment="Center" Width="75" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
+                <my:SurfaceButton.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </my:SurfaceButton.RenderTransform>
+            </my:SurfaceButton>
+            <my:SurfaceButton Content="上一周" Height="23" Command="{Binding LastWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="LastWeek" VerticalAlignment="Center" Width="75" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" >
+                <my:SurfaceButton.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </my:SurfaceButton.RenderTransform>
+            </my:SurfaceButton>
+            <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="4" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Height="9" VerticalContentAlignment="Center" Foreground="#FF929A81" >
+                <Label.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Label.RenderTransform>
+            </Label>
+            <vc:Chart ToolTipEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent" Name="chart1" Grid.ColumnSpan="7" Theme="Theme3" Grid.Row="1">
+                <vc:Chart.AxesX>
+                    <vc:Axis LineThickness="1" Interval="1" >
+                        <vc:Axis.Grids>
+                            <vc:ChartGrid></vc:ChartGrid>
+                        </vc:Axis.Grids>
+                    </vc:Axis>
+                </vc:Chart.AxesX>
+                <vc:Chart.AxesY>
+                    <vc:Axis  Interval="1000"  AxisMinimum="0" LineThickness="0" >
+                    </vc:Axis>
+                </vc:Chart.AxesY>
+                <vc:Chart.Series>
+                    <vc:DataSeries RenderAs="Spline" BorderColor="Transparent"  Bevel="False" BorderThickness="0"  LabelFontFamily="黑体" LineStyle="Solid" LineThickness="1" LabelLineEnabled="False"  MarkerSize="5" MarkerType="Circle" ShadowEnabled="False">
+                        <vc:DataSeries.DataPoints>
+                            <vc:DataPoint AxisXLabel="星期日" YValue="{Binding  CalorieOfSunday, Mode=OneWay}"/>
+                            <vc:DataPoint AxisXLabel="星期一" YValue="{Binding  CalorieOfMonday, Mode=OneWay}"/>
+                            <vc:DataPoint AxisXLabel="星期二" YValue="{Binding  CalorieOfTuesday, Mode=OneWay}"/>
+                            <vc:DataPoint AxisXLabel="星期三" YValue="{Binding  CalorieOfWednesday, Mode=OneWay}"/>
+                            <vc:DataPoint AxisXLabel="星期四" YValue="{Binding  CalorieOfThursday, Mode=OneWay}"/>
+                            <vc:DataPoint AxisXLabel="星期五" YValue="{Binding  CalorieOfFriday, Mode=OneWay}"/>
+                            <vc:DataPoint AxisXLabel="星期六" YValue="{Binding  CalorieOfSaturday, Mode=OneWay}"/>
+                        </vc:DataSeries.DataPoints>
+                    </vc:DataSeries>
+                </vc:Chart.Series>
+            </vc:Chart>
+        </Grid>
+    </Border>
 </UserControl>

@@ -21,6 +21,7 @@ using Gymnastika.Modules.Sports.Services.Factories;
 using Gymnastika.Services.Session;
 using Gymnastika.Modules.Sports.Facilities;
 using Gymnastika.Services.Models;
+using Gymnastika.Modules.Sports.Events;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -55,7 +56,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
         IList<SportsPlanItem> ItemsBuffer { get; }
 
         IList<SportsPlanItem> RemoveBuffer { get; }
+
+        bool SetPlan(DateTime date);
+
+        void AddPlanItem(SportsPlanItem item);
+
+        double? TotalCalories { get; }
     }
+
 
     public class SportsPlanViewModel : NotificationObject, ISportsPlanViewModel, IDropTarget
     {
@@ -65,8 +73,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         IPlanItemProvider _itemProvider;
         ISportProvider _sportProvider;
         ISessionManager _sessionManager;
+        IEventAggregator _eventAggregator;
 
-        public SportsPlanViewModel(SportsPlan plan,ISessionManager sessionManager,ISportProvider sportProvider,ISportsPlanProvider planProvider,IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory)
+        public SportsPlanViewModel(SportsPlan plan, ISessionManager sessionManager, ISportProvider sportProvider, ISportsPlanProvider planProvider, IPlanItemProvider itemProvider, ISportsPlanItemViewModelFactory factory,IEventAggregator eventAggregator)
         {
             _sportProvider = sportProvider;
             _planProvider = planProvider;
@@ -75,6 +84,41 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _sessionManager = sessionManager;
             SportsPlanItemViewModels.CollectionChanged += ItemsChanged;
             SportsPlan = plan;
+            _eventAggregator = eventAggregator;
+        }
+
+        public void AddPlanItem(SportsPlanItem item)
+        {
+            if (item !=  null && !ItemsBuffer.Contains(item))
+            {
+                ISportsPlanItemViewModel viewmodel = CreateViewmodel(item);
+                SportsPlanItemViewModels.Add(viewmodel);
+            }
+        }
+
+        public bool SetPlan(DateTime date)
+        {
+            SportsPlan plan = null;
+            using (_planProvider.GetContextScope())
+            {
+                plan = _planProvider.FetchFirstOrDefault(date);
+                if (plan != null)
+                {
+                    plan.SportsPlanItems = _itemProvider.All().ToList();
+                    foreach (var item in plan.SportsPlanItems)
+                        item.Sport = _sportProvider.Get(item.Sport.Id);
+                }
+            }
+            if (plan != null)
+            {
+                this.SportsPlan = plan;
+                return true;
+            }
+            else
+            {
+                this.SportsPlan = new SportsPlan() { User = this.User };
+                return false;
+            }
         }
 
         public DateTime DateTime
@@ -206,16 +250,22 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public void DragOver(DropInfo dropInfo)
         {
-            Sport sport = null;
+            //Sport sport = null;
 
-            if (dropInfo.Data is ISportCardViewModel)
-                sport = (dropInfo.Data as ISportCardViewModel).Sport;
-            else if (dropInfo.Data is Sport)
-                sport = dropInfo.Data as Sport;
+            //if (dropInfo.Data is ISportCardViewModel)
+            //    sport = (dropInfo.Data as ISportCardViewModel).Sport;
+            //else if (dropInfo.Data is Sport)
+            //    sport = dropInfo.Data as Sport;
 
-            if (sport != null)
+            //if (sport != null)
+            //{
+            //    dropInfo.Effects = DragDropEffects.Copy;
+            //    dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
+            //}
+            SportsPlanItem item = dropInfo.Data as SportsPlanItem;
+            if (item != null)
             {
-                dropInfo.Effects = DragDropEffects.Copy;
+                dropInfo.Effects = DragDropEffects.All;
                 dropInfo.DropTargetAdorner = DropTargetAdorners.Insert;
             }
         }
@@ -236,7 +286,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         private ISportsPlanItemViewModel CreateViewmodel(SportsPlanItem item)
         {
             var viewmodel = _factory.Create(item);
-            viewmodel.Item.Duration = 30;
+            //viewmodel.Item.Duration = 30;
             viewmodel.RequestCancleEvent += OnItemCancleRequest;
             viewmodel.PropertyChanged += ItemPropertyChanged;
             return viewmodel;
@@ -261,11 +311,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public void Drop(DropInfo dropInfo)
         {
-            Sport sourceItem = dropInfo.Data as Sport;
-            object target = dropInfo.TargetItem;
-            SportsPlanItem item = new SportsPlanItem() { Sport = sourceItem };
-            ISportsPlanItemViewModel viewmodel = CreateViewmodel(item);
-            SportsPlanItemViewModels.Add(viewmodel);
+
+            SportsPlanItem item = dropInfo.Data as SportsPlanItem;
+            AddPlanItem(item);
         }
 
 
@@ -359,9 +407,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
                         item.Id = 0;
                     }
                 }
+                SportsPlan.SportsPlanItems.Clear();
+
                 if (SportsPlan.Id == 0)
                 {
-                    SportsPlan.SportsPlanItems = new List<SportsPlanItem>();
                     SportsPlan.User = User;
                     _planProvider.Create(SportsPlan);
                 }
@@ -370,12 +419,15 @@ namespace Gymnastika.Modules.Sports.ViewModels
                 {
                     item.SportsPlan = SportsPlan;
                     _itemProvider.CreateOrUpdate(item);
+                    SportsPlan.SportsPlanItems.Add(item);
                 }
 
-                SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
+               // SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
                 
-                _planProvider.CreateOrUpdate(SportsPlan);
+               // _planProvider.CreateOrUpdate(SportsPlan);
+
             }
+            _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Publish(SportsPlan);
         }
 
         void Sumbmit()

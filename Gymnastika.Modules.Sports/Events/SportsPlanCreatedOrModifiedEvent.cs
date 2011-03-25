@@ -7,7 +7,7 @@ using Gymnastika.Modules.Sports.Models;
 
 namespace Gymnastika.Modules.Sports.Events
 {
-    class ShowSportsDetailEvent : CompositePresentationEvent<Sport>
+    public class SportsPlanCreatedOrModifiedEvent : CompositePresentationEvent<SportsPlan>
     {
     }
 }

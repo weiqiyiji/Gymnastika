@@ -20,15 +20,24 @@
 								</ColorAnimationUsingKeyFrames>
 							</Storyboard>
 						</ControlTemplate.Resources>
-                        <Grid Width="100" >
+                        <Grid Width="100" Height="35" >
                         	<Grid.RowDefinitions>
-                        		<RowDefinition Height="0.55*"/>
-                        		<RowDefinition Height="0.45*"/>
+                        		<RowDefinition Height="0.895*"/>
+                        		<RowDefinition Height="0.105*"/>
                         	</Grid.RowDefinitions>
-							<Border x:Name="grid" Background="Black" Width="Auto" CornerRadius="8" Grid.RowSpan="2">
-								<TextBlock Text="{Binding Name}" Foreground="Black" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+							<Border  Background="{x:Null}" Width="Auto" CornerRadius="0" Grid.RowSpan="1" Margin="0">
+								<TextBlock Text="{Binding Name}" FontSize="26.667" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="Auto" Margin="0" Height="Auto" />
 							</Border>
-							<Rectangle Fill="{Binding Background, ElementName=grid}" Height="Auto" Margin="0,2.25,0,-2.25" Stroke="{x:Null}" VerticalAlignment="Stretch" Grid.Row="1" Panel.ZIndex="-1"/>
+							<Grid x:Name="grid" Grid.RowSpan="2" Clip="M100,34.987203 L100,35.000001 L99.657027,35.000001 C99.734511,35 99.811769,34.998245 99.888782,34.994758 z M16.655151,0 L82.864522,0 C87.293372,0 90.883669,4.3652229 90.883669,9.750001 L90.883669,22.36296 L90.960732,22.959867 C91.957234,29.883763 95.472915,35 99.657027,35.000001 L90.883669,35.000001 L90.67805,35.000001 L82.864522,35.000001 L16.655151,35.000001 L8.8416234,35.000001 L8.6360037,35.000001 L0,35.000001 L0,34.853334 L0.2285331,34.798218 C4.3488138,33.713104 7.6546939,28.36223 8.5814461,21.442545 L8.6360037,20.990147 L8.6360037,9.750001 C8.6360048,4.3652229 12.226299,0 16.655151,0 z" Background="#FFFBFBFB" Panel.ZIndex="-1">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="0.501*"/>
+									<ColumnDefinition Width="0.499*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="0.507*"/>
+									<RowDefinition Height="0.493*"/>
+								</Grid.RowDefinitions>
+							</Grid>
 						</Grid>
                             <ControlTemplate.Triggers>
 							<Trigger Property="Selector.IsSelected" Value="False">
@@ -61,9 +70,7 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ListBox}">
-						<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}" Background="{x:Null}">
-							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-						</ScrollViewer>
+						<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
 						<ControlTemplate.Triggers>
 							<Trigger Property="IsEnabled" Value="false"/>
 							<Trigger Property="IsGrouping" Value="true">
@@ -76,7 +83,7 @@
 		</Style>
 	</UserControl.Resources>
 
-    <ListBox IsSynchronizedWithCurrentItem="True" x:Name="categorylist" HorizontalAlignment="Stretch" ItemsSource="{Binding Categories}"  HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}"  Background="Red" BorderBrush="{x:Null}" Foreground="{x:Null}" VerticalContentAlignment="Stretch" BorderThickness="0" Style="{DynamicResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged" >
+    <ListBox IsSynchronizedWithCurrentItem="True" x:Name="categorylist" HorizontalAlignment="Stretch" ItemsSource="{Binding Categories}"  HorizontalContentAlignment="Stretch" ItemContainerStyle="{StaticResource ResourceKey=ListBoxItemStyle}"  Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF888F76" VerticalContentAlignment="Stretch" BorderThickness="0" Style="{DynamicResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged" >
 		<ListBox.ItemsPanel>
 				<ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>

@@ -1,39 +1,112 @@
-﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.PlanDetailView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="309" d:DesignWidth="530" >
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" xmlns:Visifire_Charts="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts" x:Class="Gymnastika.Modules.Sports.Views.PlanDetailView"
+             d:DesignHeight="309" d:DesignWidth="530" mc:Ignorable="d">
 	<UserControl.Resources>
+        <converter:CalorieDecriptionConverter x:Key="CalorieDecriptionConverter"/>
+        <converter:FullPathConverter x:Key="FullPathConverter"/>
+        <converter:HourMinuteToStringConverter x:Key="HourMinuteToStringConverter"/>
 		<DataTemplate x:Key="PlanItemTemplate">
-			<Grid Height="112" Width="224">
+			<Grid Height="81" Width="336">
 				<Grid.RowDefinitions>
-					<RowDefinition Height="0.432*"/>
-					<RowDefinition Height="0.568*"/>
+					<RowDefinition Height="0.074*"/>
+					<RowDefinition Height="0.135*"/>
+					<RowDefinition Height="0.551*"/>
+					<RowDefinition Height="0.147*"/>
+					<RowDefinition Height="0.093*"/>
 				</Grid.RowDefinitions>
 				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="0.125*"/>
-					<ColumnDefinition Width="0.089*"/>
-					<ColumnDefinition Width="0.125*"/>
-					<ColumnDefinition Width="0.661*"/>
+					<ColumnDefinition Width="Auto" MinWidth="56.672"/>
+					<ColumnDefinition Width="0.041*"/>
+					<ColumnDefinition Width="0.23*"/>
+					<ColumnDefinition Width="0.051*"/>
+					<ColumnDefinition Width="0.623*"/>
+					<ColumnDefinition Width="0.055*"/>
 				</Grid.ColumnDefinitions>
-				<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Hour}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Margin="0"/>
+                <TextBlock x:Name="Time" VerticalAlignment="Center" Margin="0,8,0,0" Grid.Row="2" d:LayoutOverrides="Height" HorizontalAlignment="Center" Foreground="#FFABC49B">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{StaticResource ResourceKey=HourMinuteToStringConverter}">
+                            <Binding Path="Hour"/>
+                            <Binding Path="Minute"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Image x:Name="Image" Grid.ColumnSpan="3" Grid.Column="1" Margin="10,10,10,0" Source="{Binding Sport.ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}" Grid.RowSpan="4" Grid.Row="0"/>
+                <Grid Grid.Column="4" Margin="0" Grid.RowSpan="5">
+                	<Grid.RowDefinitions>
+                		<RowDefinition Height="0.483*"/>
+                		<RowDefinition Height="0.517*"/>
+                	</Grid.RowDefinitions>
+                    <TextBlock x:Name="SportName" Margin="0" TextWrapping="Wrap" Text="{Binding Sport.Name}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Foreground="#FF848B74" FontSize="12"/>
+                    <TextBlock x:Name="Calorie" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Stretch" Grid.Row="1" Foreground="#FF9DA290" FontSize="12">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource ResourceKey=CalorieDecriptionConverter}">
+                                <Binding Path="Sport.Calories"/>
+                                <Binding Path="Sport.Minutes"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+				<!--<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Hour}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Margin="0"/>
 				<TextBlock HorizontalAlignment="Stretch" Margin="0" TextWrapping="Wrap" Text="{Binding Sport.Name}" VerticalAlignment="Stretch" Grid.ColumnSpan="4" Grid.Row="1"/>
 				<TextBlock HorizontalAlignment="center" TextWrapping="Wrap" Text=":" VerticalAlignment="center" Height="Auto" Width="Auto" Margin="0" Grid.Column="1"/>
-				<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Minute}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Grid.Column="2"/>
+				<TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Minute}" VerticalAlignment="Stretch" Height="Auto" Width="Auto" Grid.Column="2"/>-->
 			</Grid>
 		</DataTemplate>
 	</UserControl.Resources>
-    <Grid>
+    <Grid Margin="10">
     	<Grid.RowDefinitions>
-    		<RowDefinition Height="0.178*"/>
-    		<RowDefinition Height="0.822*"/>
-    	</Grid.RowDefinitions>
+    		<RowDefinition Height="0.586*"/>
+            <RowDefinition Height="0.414*" />
+        </Grid.RowDefinitions>
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0.319*"/>
-    		<ColumnDefinition Width="0.681*"/>
+    		<ColumnDefinition Width="0.089*"/>
+    		<ColumnDefinition Width="0.131*"/>
+            <ColumnDefinition Width="0.08*" />
+            <ColumnDefinition Width="0.019*"/>
+            <ColumnDefinition Width="0.681*"/>
     	</Grid.ColumnDefinitions>
-    	<ListBox x:Name="Plan" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Background="{x:Null}" Grid.RowSpan="2" ItemTemplate="{DynamicResource PlanItemTemplate}"/>
+        <Grid xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+
+behaviors:ClipBehavior.CornerRadius="0,70,0,70" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="White">
+            <Grid.ColumnDefinitions>
+    			<ColumnDefinition Width="0.183*"/>
+    			<ColumnDefinition Width="0.817*"/>
+    		</Grid.ColumnDefinitions>
+            <ListBox  x:Name="planListBox" BorderThickness="0" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Background="{x:Null}" ItemTemplate="{DynamicResource PlanItemTemplate}" Grid.ColumnSpan="2" Panel.ZIndex="1" />
+    		<Rectangle Fill="#FF94E0B1" />
+        </Grid>
+        <Visifire_Charts:Chart x:Name="chart" AnimationEnabled="True" AnimatedUpdate="True" Grid.Column="4" Background="{x:Null}" Margin="0,34.917,0,0">
+            <Visifire_Charts:Chart.Titles>
+                <Visifire_Charts:Title Text="今日卡路里走势" FontFamily="微软雅黑"/>
+            </Visifire_Charts:Chart.Titles>
+            <Visifire_Charts:Chart.AxesY>
+                <Visifire_Charts:Axis/>
+            </Visifire_Charts:Chart.AxesY>
+            <Visifire_Charts:Chart.AxesX>
+                <Visifire_Charts:Axis Title=""></Visifire_Charts:Axis>
+            </Visifire_Charts:Chart.AxesX>
+            <Visifire_Charts:Chart.Series>
+                <Visifire_Charts:DataSeries Bevel="False" LegendText="各时段卡路里变化" ShadowEnabled="False" BorderThickness="0" RenderAs="Line" ></Visifire_Charts:DataSeries>
+                <Visifire_Charts:DataSeries Bevel="False" LegendText="总卡路里走势" MarkerScale="0.5" ShadowEnabled="False" RenderAs="Line" ></Visifire_Charts:DataSeries>
+            </Visifire_Charts:Chart.Series>
+        </Visifire_Charts:Chart>
+        <Visifire_Charts:Chart Bevel="False" ShadowEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="{x:Null}" Name="chart1" Grid.Column="4" Grid.Row="1">
+            <Visifire_Charts:Chart.AxesX>
+                <Visifire_Charts:Axis Title="" />
+            </Visifire_Charts:Chart.AxesX>
+            <Visifire_Charts:Chart.AxesY>
+                <Visifire_Charts:Axis/>
+            </Visifire_Charts:Chart.AxesY>
+            <Visifire_Charts:Chart.Series>
+                <Visifire_Charts:DataSeries Bevel="False" BorderThickness="0"/>
+            </Visifire_Charts:Chart.Series>
+            <Visifire_Charts:Chart.Titles>
+                <Visifire_Charts:Title FontFamily="微软雅黑" Text="计划项比较" />
+            </Visifire_Charts:Chart.Titles>
+        </Visifire_Charts:Chart>
+        <Border Grid.Column="4" Margin="0,1,0,0" BorderBrush="#FF828971" BorderThickness="0.5" Width="130" Height="30" d:LayoutOverrides="Height" HorizontalAlignment="Left" VerticalAlignment="Top">
+        	<Label Content="{Binding Date}" Background="{x:Null}" Foreground="#FF828971" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+        </Border>
+        <Button Content="上一天" Command="{Binding LastDayCommand}" Height="23" HorizontalAlignment="Left" Margin="221.93,8,0,0" x:Name="button2" VerticalAlignment="Top" Width="45" d:LayoutOverrides="VerticalAlignment" Grid.Column="4" />
+        <Button Content="下一天" Command="{Binding NextDayCommand}" Height="23" Margin="0,7.917,8,0" x:Name="button1" VerticalAlignment="Top" Grid.Column="4" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="47.9" />
     </Grid>
 </UserControl>

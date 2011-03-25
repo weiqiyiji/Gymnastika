@@ -22,26 +22,11 @@ namespace Gymnastika.Modules.Sports.Views
     /// <summary>
     /// Interaction logic for PlanListView.xaml
     /// </summary>
-    public partial class PlanListView : UserControl, IPlanListView
+    public partial class PlanListView : UserControl
     {
-
         public PlanListView()
         {
             InitializeComponent();
-            SetViewModel();
-        }
-
-        private void SetViewModel()
-        {
-            try
-            {
-                IServiceLocator servicelocator = ServiceLocator.Current;
-                if (servicelocator != null)
-                    ViewModel = servicelocator.GetInstance<IPlanListViewModel>();
-            }catch(Exception)
-            {
-
-            }
         }
 
         public IPlanListViewModel ViewModel
@@ -49,42 +34,66 @@ namespace Gymnastika.Modules.Sports.Views
             get { return DataContext as IPlanListViewModel; }
             set { DataContext = value; }
         }
+    }
+        //private void SetViewModel()
+        //{
+        //    try
+        //    {
+        //        IServiceLocator servicelocator = ServiceLocator.Current;
+        //        if (servicelocator != null)
+        //            ViewModel = servicelocator.GetInstance<IPlanListViewModel>();
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //    }
+        //}
 
 
+    
+    //    void OnSelectedItemChange(object d, EventArgs args)
+    //    {
+    //        UpdateState();
+    //    }
 
-        public bool IsExpanded
-        {
-            get { return (bool)GetValue(IsExpandedProperty); }
-            private set { SetValue(IsExpandedProperty, value); }
-        }
+    //    void UpdateState()
+    //    {
+    //        //if (planDetailView != null && ViewModel != null && planDetailView.ViewModel != ViewModel.SelectedItem)
+    //        //    planDetailView.ViewModel = ViewModel.SelectedItem;
+    //    }
 
-        // Using a DependencyProperty as the backing store for IsExpanded.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty IsExpandedProperty =
-            DependencyProperty.Register("IsExpanded", typeof(bool), typeof(PlanListView), new PropertyMetadata(false));
+    //    public bool IsExpanded
+    //    {
+    //        get { return (bool)GetValue(IsExpandedProperty); }
+    //        private set { SetValue(IsExpandedProperty, value); }
+    //    }
+
+    //    public static readonly DependencyProperty IsExpandedProperty =
+    //        DependencyProperty.Register("IsExpanded", typeof(bool), typeof(PlanListView), new PropertyMetadata(false));
         
-        public void Expand()
-        {
-            if (IsExpanded == false)
-            {
-                IsExpanded = true;
-                (FindResource("FlyOutStoryboard") as Storyboard).Begin();
-                //LastWeek.BeginAnimation(LastWeek.RenderTransform
-            }
-        }
+    //    public void Expand()
+    //    {
+    //        if (IsExpanded == false)
+    //        {
+    //            IsExpanded = true;
+    //            (FindResource("FlyOutStoryboard") as Storyboard).Begin();
+    //        }
+    //    }
 
-        public void Minimize()
-        {
-            if (IsExpanded == true)
-            {
-                IsExpanded = false;
-                (FindResource("FlyInStoryboard") as Storyboard).Begin();
-            }
-        }
+    //    public void Minimize()
+    //    {
+    //        if (IsExpanded == true)
+    //        {
+    //            IsExpanded = false;
+    //            (FindResource("FlyInStoryboard") as Storyboard).Begin();
+    //        }
+    //    }
 
-    }
+    //}
 
-    public interface IPlanListView
-    {
-
-    }
+    //public interface IPlanListView
+    //{
+    //    void Expand();
+    //    void Minimize();
+    //}
 }

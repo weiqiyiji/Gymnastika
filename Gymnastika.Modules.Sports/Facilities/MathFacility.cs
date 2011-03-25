@@ -46,6 +46,11 @@ namespace Gymnastika.Modules.Sports.Facilities
         {
             return Sunday(new DateTime(year, month, day));
         }
+
+        static public bool TheSameDay(SportsPlan plan1, SportsPlan plan2)
+        {
+            return plan1.Year == plan2.Year && plan1.Month == plan2.Month && plan1.Day == plan2.Day;
+        }
     }
 
 }
