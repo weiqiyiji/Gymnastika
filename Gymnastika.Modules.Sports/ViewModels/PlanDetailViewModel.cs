@@ -19,6 +19,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         event EventHandler PlanChangedEvent;
         DelegateCommand NextDayCommand { get; }
         DelegateCommand LastDayCommand { get; }
+        string Date { get; }
     }
 
     public class PlanDetailViewModel : NotificationObject , IPlanDetailViewModel
@@ -38,6 +39,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Subscribe(OnPlanChanged);
         }
 
+        public string Date
+        {
+            get 
+            {
+                DateTime date = new DateTime(SportsPlan.Year, SportsPlan.Month, SportsPlan.Day);
+                return DateFacility.GetShortDate(date) + " " + DateFacility.GetDayName(date.DayOfWeek); 
+            }
+        }
 
         DelegateCommand _nextDayCommand;
         public DelegateCommand NextDayCommand 
@@ -113,6 +122,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _sportsPlan = plan;
             PlanChangedEvent(this, EventArgs.Empty);
             RaisePropertyChanged(() => SportsPlan);
+            RaisePropertyChanged(() => Date);
         }
 
         public event EventHandler PlanChangedEvent = delegate { };

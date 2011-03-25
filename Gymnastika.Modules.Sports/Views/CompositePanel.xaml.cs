@@ -34,8 +34,24 @@ namespace Gymnastika.Modules.Sports.Views
 
         public ICompositePanelViewModel ViewModel
         {
-            set { DataContext = value; }
+            set 
+            {
+                DataContext = value;
+                value.CalorieChartViewModel.RequestShowDetailEvent += OnRequestShowDetailEvent;
+                
+            }
             get { return DataContext as ICompositePanelViewModel; }
+        }
+
+        void OnRequestShowDetailEvent(object sender, ShowSportsDetailEventArgs args)
+        {
+            var viewmdel = ViewModel.SportViewModel;
+            viewmdel.Sport = args.Sport;
+            SportView window = new SportView();
+            window.DataContext = viewmdel;
+            window.Owner = Application.Current.MainWindow;
+            window.ShowDialog();
+
         }
 
         public void StateChanging(ViewState targetState)

@@ -103,23 +103,22 @@
 	</UserControl.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.135*"/>
-			<ColumnDefinition Width="0.112*"/>
-			<ColumnDefinition Width="0.21*"/>
-			<ColumnDefinition Width="0.042*"/>
-			<ColumnDefinition Width="0.269*"/>
-			<ColumnDefinition Width="0.094*"/>
-			<ColumnDefinition Width="0.138*"/>
+			<ColumnDefinition Width="0.247*"/>
+			<ColumnDefinition Width="0.221*"/>
+			<ColumnDefinition Width="0.023*"/>
+			<ColumnDefinition Width="0.277*"/>
+			<ColumnDefinition Width="0.232*"/>
 		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="0.807*"/>
+			<RowDefinition Height="0.78*"/>
+			<RowDefinition Height="0.03*"/>
+			<RowDefinition Height="0.015*"/>
+			<RowDefinition Height="0.067*"/>
 			<RowDefinition Height="0.02*"/>
-			<RowDefinition Height="0.033*"/>
-			<RowDefinition Height="0.055*"/>
-			<RowDefinition Height="0.043*"/>
-			<RowDefinition Height="0.042*"/>
+			<RowDefinition Height="0.063*"/>
+			<RowDefinition Height="0.025*"/>
 		</Grid.RowDefinitions>
-		<Border Background="White" CornerRadius="40" Margin="0,0,0,-1.5" Grid.ColumnSpan="7">
+		<Border Background="White" CornerRadius="40" Margin="0,0,0,-1.5" Grid.ColumnSpan="5" Grid.RowSpan="2">
 			<ItemsControl x:Name="sportlist" HorizontalContentAlignment="Stretch" ItemsSource="{Binding ViewModels}" ItemsPanel="{DynamicResource ItemsPanelTemplate}" Margin="40">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
@@ -128,19 +127,19 @@
 				</ItemsControl.ItemTemplate>
 			</ItemsControl>
 		</Border>
-		<Button x:Name="NextPage" Background="Transparent" Command="{Binding NextPageCommand}" Content="下一页" Grid.Row="2" Style="{DynamicResource NextPageButtonStyle}" Grid.Column="6" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="4" Foreground="#FF7C836B" />
-		<Button x:Name="LastPage" Background="Transparent" Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="2" Style="{DynamicResource LastPageButtonStyle}" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="4" Foreground="#FF7C836B" />
-		<TextBlock Foreground="White" FontSize="14" x:Name="MaxPage" Grid.Row="3" Grid.Column="4" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" HorizontalAlignment="Left" Grid.RowSpan="2" VerticalAlignment="Bottom">
+		<Button x:Name="NextPage" Background="Transparent" Command="{Binding NextPageCommand}" Content="下一页" Grid.Row="3" Style="{DynamicResource NextPageButtonStyle}" Grid.Column="4" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Right" Grid.RowSpan="4" Foreground="#FF7C836B" />
+		<Button x:Name="LastPage" Background="Transparent" Content="上一页" Command="{Binding PreviousPageCommand}" Grid.Row="3" Style="{DynamicResource LastPageButtonStyle}" Width="100" Height="103.797" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.RowSpan="4" Foreground="#FF7C836B" />
+		<TextBlock Foreground="White" FontSize="14" x:Name="MaxPage" Grid.Row="4" Grid.Column="3" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" HorizontalAlignment="Left" Grid.RowSpan="3" VerticalAlignment="Top">
 			<Run>共</Run>
 			<Run FontSize="50" Text="{Binding MaxPage, Mode=OneWay}"></Run>
 			<Run>页</Run>
 			</TextBlock>
-		<TextBlock Foreground="#FFFDFDFC" FontSize="14" x:Name="CurrentPage" Grid.Row="2" Grid.Column="2" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" Margin="77.66,0,0,0" Grid.RowSpan="2" d:LayoutOverrides="GridBox, VerticalMargin" VerticalAlignment="Top" Height="52.8" HorizontalAlignment="Right">
+		<TextBlock Foreground="#FFFDFDFC" FontSize="14" x:Name="CurrentPage" Grid.Row="1" Grid.Column="1" RenderTransformOrigin="0.5,0.5" FontWeight="Bold" Grid.RowSpan="4" HorizontalAlignment="Right" Margin="0" d:LayoutOverrides="GridBox" VerticalAlignment="Bottom">
 			<Run Text="第" />
 			<Run FontSize="50" Text="{Binding CurrentPage, Mode=OneWay}"/>
 			<Run Text="页"/>
 			</TextBlock>
-		<TextBlock Grid.Column="3" Grid.Row="3" TextWrapping="Wrap" FontSize="14" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="#FFFDFDFD">
+		<TextBlock Grid.Column="2" Grid.Row="4" TextWrapping="Wrap" FontSize="14" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" Margin="4.71,-3.339,7.71,-3.139" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Center">
 			<TextBlock.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>

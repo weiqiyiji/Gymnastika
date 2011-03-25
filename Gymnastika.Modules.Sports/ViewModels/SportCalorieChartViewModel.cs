@@ -18,6 +18,11 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public SportsPlanItem Item;
     }
 
+    public class ShowSportsDetailEventArgs: EventArgs
+    {
+        public Sport Sport;
+    }
+
     public interface ISportCalorieChartViewModel
     {
         int CaloriePerHour { get; }
@@ -35,6 +40,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
         DelegateCommand ShowDetailCommand { get; }
 
         event EventHandler<AddToPlanEventArgs> RequestAddToPlanEvent;
+
+        event EventHandler<ShowSportsDetailEventArgs> RequestShowDetailEvent;
 
         int Hour { get;set; }
 
@@ -85,14 +92,22 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get
             {
                 if (_showDetailCommand == null)
-                    _showDetailCommand = new DelegateCommand(ShowDetail);
+                    _showDetailCommand = new DelegateCommand(ShowDetail,CanShowDetail);
                 return
                     _showDetailCommand;
             }
         }
 
+        public event EventHandler<ShowSportsDetailEventArgs> RequestShowDetailEvent = delegate { };
+
+        bool CanShowDetail()
+        {
+            return Sport != null;
+        }
         void ShowDetail()
         {
+            if (RequestShowDetailEvent != null)
+                RequestShowDetailEvent(this, new ShowSportsDetailEventArgs() { Sport = this.Sport });
         }
 
         public void DragOver(DropInfo dropInfo)

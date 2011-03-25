@@ -52,20 +52,21 @@
 			</Grid>
 		</DataTemplate>
 	</UserControl.Resources>
-    <Grid>
+    <Grid Margin="10">
     	<Grid.RowDefinitions>
-    		<RowDefinition Height="55*"/>
-    		<RowDefinition Height="106*"/>
-            <RowDefinition Height="148*" />
+    		<RowDefinition Height="0.586*"/>
+            <RowDefinition Height="0.414*" />
         </Grid.RowDefinitions>
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="88*"/>
-            <ColumnDefinition Width="81*" />
-            <ColumnDefinition Width="361*"/>
+    		<ColumnDefinition Width="0.089*"/>
+    		<ColumnDefinition Width="0.131*"/>
+            <ColumnDefinition Width="0.08*" />
+            <ColumnDefinition Width="0.019*"/>
+            <ColumnDefinition Width="0.681*"/>
     	</Grid.ColumnDefinitions>
         <Grid xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
 
-behaviors:ClipBehavior.CornerRadius="70,0,70,0" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,41,0,0" Background="White">
+behaviors:ClipBehavior.CornerRadius="0,70,0,70" Grid.RowSpan="2" Grid.ColumnSpan="3" Background="White">
             <Grid.ColumnDefinitions>
     			<ColumnDefinition Width="0.183*"/>
     			<ColumnDefinition Width="0.817*"/>
@@ -73,7 +74,7 @@ behaviors:ClipBehavior.CornerRadius="70,0,70,0" Grid.RowSpan="3" Grid.ColumnSpan
             <ListBox  x:Name="planListBox" BorderThickness="0" ItemsSource="{Binding SportsPlan.SportsPlanItems}" Background="{x:Null}" ItemTemplate="{DynamicResource PlanItemTemplate}" Grid.ColumnSpan="2" Panel.ZIndex="1" />
     		<Rectangle Fill="#FF94E0B1" />
         </Grid>
-        <Visifire_Charts:Chart x:Name="chart" AnimationEnabled="True" AnimatedUpdate="True" Grid.Column="2" Grid.RowSpan="2" Background="{x:Null}">
+        <Visifire_Charts:Chart x:Name="chart" AnimationEnabled="True" AnimatedUpdate="True" Grid.Column="4" Background="{x:Null}" Margin="0,34.917,0,0">
             <Visifire_Charts:Chart.Titles>
                 <Visifire_Charts:Title Text="今日卡路里走势" FontFamily="微软雅黑"/>
             </Visifire_Charts:Chart.Titles>
@@ -88,7 +89,7 @@ behaviors:ClipBehavior.CornerRadius="70,0,70,0" Grid.RowSpan="3" Grid.ColumnSpan
                 <Visifire_Charts:DataSeries Bevel="False" LegendText="总卡路里走势" MarkerScale="0.5" ShadowEnabled="False" RenderAs="Line" ></Visifire_Charts:DataSeries>
             </Visifire_Charts:Chart.Series>
         </Visifire_Charts:Chart>
-        <Visifire_Charts:Chart Bevel="False" ShadowEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="{x:Null}" Name="chart1" Grid.Column="2" Grid.Row="2">
+        <Visifire_Charts:Chart Bevel="False" ShadowEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="{x:Null}" Name="chart1" Grid.Column="4" Grid.Row="1">
             <Visifire_Charts:Chart.AxesX>
                 <Visifire_Charts:Axis Title="" />
             </Visifire_Charts:Chart.AxesX>
@@ -102,7 +103,10 @@ behaviors:ClipBehavior.CornerRadius="70,0,70,0" Grid.RowSpan="3" Grid.ColumnSpan
                 <Visifire_Charts:Title FontFamily="微软雅黑" Text="计划项比较" />
             </Visifire_Charts:Chart.Titles>
         </Visifire_Charts:Chart>
-        <Button Content="上一天" Command="{Binding LastDayCommand}" Height="23" HorizontalAlignment="Left" Margin="12,12,0,0" Name="button2" VerticalAlignment="Top" Width="75" />
-        <Button Content="下一天" Command="{Binding NextDayCommand}" Height="23" HorizontalAlignment="Left" Margin="6,12,0,0" Name="button1" VerticalAlignment="Top" Width="75" Grid.Column="1" />
+        <Border Grid.Column="4" Margin="0,1,0,0" BorderBrush="#FF828971" BorderThickness="0.5" Width="130" Height="30" d:LayoutOverrides="Height" HorizontalAlignment="Left" VerticalAlignment="Top">
+        	<Label Content="{Binding Date}" Background="{x:Null}" Foreground="#FF828971" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+        </Border>
+        <Button Content="上一天" Command="{Binding LastDayCommand}" Height="23" HorizontalAlignment="Left" Margin="221.93,8,0,0" x:Name="button2" VerticalAlignment="Top" Width="45" d:LayoutOverrides="VerticalAlignment" Grid.Column="4" />
+        <Button Content="下一天" Command="{Binding NextDayCommand}" Height="23" Margin="0,7.917,8,0" x:Name="button1" VerticalAlignment="Top" Grid.Column="4" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="47.9" />
     </Grid>
 </UserControl>

@@ -271,6 +271,9 @@
   <ItemGroup>
     <Folder Include="Services\Controller\" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\search.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
