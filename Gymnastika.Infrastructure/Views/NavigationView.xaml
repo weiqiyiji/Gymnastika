@@ -27,7 +27,7 @@
             </Grid>
 			<DataTemplate.Triggers>
 				<DataTrigger Binding="{Binding IsSelected}" Value="True">
-					<Setter TargetName="header" Property="Background" Value="#89D9A8" />
+					<Setter TargetName="header" Property="Background" Value="#94E0B1" />
 				</DataTrigger>
 			</DataTemplate.Triggers>
         </DataTemplate>

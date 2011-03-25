@@ -7,9 +7,9 @@ namespace Gymnastika.Sync.Communication
 {
     public class ScheduleItem
     {
+        public int UserId { get; set; }
         public int ConnectionId { get; set; }
         public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        public object Message { get; set; }
+        public string Message { get; set; }
     }
 }

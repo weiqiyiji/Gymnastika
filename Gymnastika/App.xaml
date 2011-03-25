@@ -208,12 +208,48 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
-                            <Border CornerRadius="8" 
+                        	<ControlTemplate.Resources>
+                        		<Storyboard x:Key="IsPressed_EnterAction">
+                        			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="border">
+                        				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="5"/>
+                        			</DoubleAnimationUsingKeyFrames>
+                        			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="border">
+                        				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="5"/>
+                        			</DoubleAnimationUsingKeyFrames>
+                        		</Storyboard>
+                        		<Storyboard x:Key="IsPressed_ExitAction">
+                        			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="border">
+                        				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                        			</DoubleAnimationUsingKeyFrames>
+                        			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)" Storyboard.TargetName="border">
+                        				<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+                        			</DoubleAnimationUsingKeyFrames>
+                        		</Storyboard>
+                        	</ControlTemplate.Resources>
+                            <Border x:Name="border" CornerRadius="8" 
                                 Background="{TemplateBinding Background}" 
-                                Padding="{TemplateBinding Padding}">
+                                Padding="{TemplateBinding Padding}" RenderTransformOrigin="0.5,0.5">
+                            	<Border.RenderTransform>
+                            		<TransformGroup>
+                            			<ScaleTransform/>
+                            			<SkewTransform/>
+                            			<RotateTransform/>
+                            			<TranslateTransform/>
+                            		</TransformGroup>
+                            	</Border.RenderTransform>
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                             </Border>
+                        	<ControlTemplate.Triggers>
+                        		<Trigger Property="IsPressed" Value="True">
+                        			<Trigger.ExitActions>
+                        				<BeginStoryboard x:Name="IsPressed_ExitAction_BeginStoryboard" Storyboard="{StaticResource IsPressed_ExitAction}"/>
+                        			</Trigger.ExitActions>
+                        			<Trigger.EnterActions>
+                        				<BeginStoryboard x:Name="IsPressed_EnterAction_BeginStoryboard" Storyboard="{StaticResource IsPressed_EnterAction}"/>
+                        			</Trigger.EnterActions>
+                        		</Trigger>
+                        	</ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>

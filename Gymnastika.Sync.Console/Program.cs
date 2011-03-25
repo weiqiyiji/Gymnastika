@@ -8,10 +8,10 @@ using System.Xml.Serialization;
 using Microsoft.Http;
 using Gymnastika.Sync.Communication.Client;
 using System.Xml.Linq;
+using System.Runtime.Serialization;
 
 namespace Gymnastika.Sync.Console
 {
-
     class Program
     {
         private const string RegisterUri = "reg_desktop";
@@ -28,33 +28,29 @@ namespace Gymnastika.Sync.Console
         {
             string targetid = System.Console.ReadLine();
 
-            NetworkAdapterCollection networkAdapters = NetworkAdapterHelper.GetAdapters();
+            var registrationService = new RegistrationService();
+            var registrationResponse = registrationService.Register();
 
-            HttpClient client = new HttpClient(_baseAddress);
-            HttpResponseMessage response = client.Post(
-                _baseAddress + "/reg/" + RegisterUri,
-                HttpContentExtensions.CreateDataContract<NetworkAdapterCollection>(networkAdapters));
+            string srcId = PureString(registrationResponse.Response.Content.ReadAsString());
 
-            string id = PureString(response.Content.ReadAsString());
+            var connectResponse = registrationService.Connect(srcId, targetid);
+            string connectionId = PureString(connectResponse.Response.Content.ReadAsString());
 
-            client = new HttpClient();
-            response = client.Get(_baseAddress + "/reg/" + string.Format(ConnectUri, id, targetid));
-            string connectionId = PureString(response.Content.ReadAsString());
-            Plan plan = new Plan();
-            DateTime beginTime = DateTime.Now.AddSeconds(10);
-            plan.ScheduleItems = new ScheduleItemCollection()
+            DateTime beginTime = DateTime.Now.AddSeconds(30);
+            var scheduleItems = new ScheduleItemCollection()
                                  {
                                     new ScheduleItem()
                                     {
+                                        UserId = 1,
                                         ConnectionId = int.Parse(connectionId),
                                         StartTime = beginTime,
-                                        EndTime = beginTime,
                                         Message = "Hello"
                                     }
                                  };
-            response = client.Post(
-                _baseAddress + "/schedule/add",
-                HttpContentExtensions.CreateDataContract<Plan>(plan));
+
+            var scheduleService = new ScheduleService();
+            var scheduleResponse = scheduleService.AddSchedule(scheduleItems);
+            var taskList = scheduleResponse.Response.Content.ReadAsDataContract<TaskList>();
         }
     }
 }

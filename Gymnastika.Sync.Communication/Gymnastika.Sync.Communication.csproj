@@ -64,6 +64,7 @@
     <Compile Include="Plan.cs" />
     <Compile Include="ScheduleItem.cs" />
     <Compile Include="ScheduleItemCollection.cs" />
+    <Compile Include="TaskList.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -250,22 +250,20 @@
     <Resource Include="Images\widget_mouseover.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\right_normal.png" />
+    <Resource Include="Images\left_pressed.png" />
     <Resource Include="Images\right_pressed.png" />
-    <Resource Include="Images\newuser_normal.png" />
     <Resource Include="Images\newuser_pressed.png" />
+    <Resource Include="Images\right_normal.png" />
+    <Resource Include="Images\newuser_normal.png" />
     <Resource Include="Images\start_bg.jpg" />
     <Resource Include="Images\back.png" />
     <Resource Include="Images\datewidget_icon.png" />
     <Content Include="Images\hover_widgetboxbtn.png" />
     <Resource Include="Images\left_normal.png" />
-    <Resource Include="Images\left_pressed.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
     <Content Include="Images\pressed_widgetboxbtn.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Host\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
