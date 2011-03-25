@@ -118,7 +118,6 @@ namespace Gymnastika.Modules.Sports.Views
         void Refresh()
         {
             UpdateChart();
-            Chart
             //chart.RaiseEvent(new RoutedEventArgs(Chart.LoadedEvent, chart));
         }
 
