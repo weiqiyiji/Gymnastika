@@ -123,9 +123,9 @@
                 <ColumnDefinition Width="0.145*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.117*" />
-                <RowDefinition Height="0.319*" />
-                <RowDefinition Height="0.564*" />
+                <RowDefinition Height="45*" />
+                <RowDefinition Height="107*" />
+                <RowDefinition Height="231*" />
             </Grid.RowDefinitions>
             <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" HorizontalAlignment="Right" >
                 <Label.RenderTransform>
@@ -147,7 +147,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Margin="0,0,0,1">
+            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="7" RenderTransformOrigin="0.5,0.5" OpacityMask="Black">
                 <my:SurfaceListBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -158,7 +158,7 @@
                 </my:SurfaceListBox.RenderTransform>
                 <my:SurfaceListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid  behaviors:ClipBehavior.CornerRadius="40" d:DesignHeight="397" Width="200" Height="397" Background="White">
+                        <Grid  behaviors:ClipBehavior.CornerRadius="70,0,70,0" d:DesignHeight="397" Width="200" Height="397" Background="White">
                         	<Grid.ColumnDefinitions>
                         		<ColumnDefinition Width="0.21*"/>
                         		<ColumnDefinition Width="0.79*"/>
@@ -225,7 +225,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <vc:Chart ToolTipEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent" Name="chart1" Grid.ColumnSpan="7" Theme="Theme3" Margin="-1,0,1,0" Grid.Row="1">
+            <vc:Chart ToolTipEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent" Name="chart1" Grid.ColumnSpan="7" Theme="Theme3" Grid.Row="1">
                 <vc:Chart.AxesX>
                     <vc:Axis LineThickness="1" Interval="1" >
                         <vc:Axis.Grids>
@@ -240,9 +240,7 @@
                 <vc:Chart.Series>
                     <vc:DataSeries RenderAs="Spline" BorderColor="Transparent"  Bevel="False" BorderThickness="0"  LabelFontFamily="黑体" LineStyle="Solid" LineThickness="1" LabelLineEnabled="False"  MarkerSize="5" MarkerType="Circle" ShadowEnabled="False">
                         <vc:DataSeries.DataPoints>
-                            <vc:DataPoint AxisXLabel="星期日" YValue="{Binding  CalorieOfSunday, Mode=OneWay}">
-                               
-                            </vc:DataPoint> 
+                            <vc:DataPoint AxisXLabel="星期日" YValue="{Binding  CalorieOfSunday, Mode=OneWay}"/>
                             <vc:DataPoint AxisXLabel="星期一" YValue="{Binding  CalorieOfMonday, Mode=OneWay}"/>
                             <vc:DataPoint AxisXLabel="星期二" YValue="{Binding  CalorieOfTuesday, Mode=OneWay}"/>
                             <vc:DataPoint AxisXLabel="星期三" YValue="{Binding  CalorieOfWednesday, Mode=OneWay}"/>
@@ -253,7 +251,6 @@
                     </vc:DataSeries>
                 </vc:Chart.Series>
             </vc:Chart>
-            <view:PlanDetailView x:Name="planDetailView" Grid.RowSpan="2" Grid.ColumnSpan="7" />
         </Grid>
     </Border>
 </UserControl>

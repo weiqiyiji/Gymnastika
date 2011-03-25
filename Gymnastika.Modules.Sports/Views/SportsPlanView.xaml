@@ -16,7 +16,7 @@
         <converter:FullPathConverter x:Key="FullPathConverter"/>
         <converter:ToIntConverter x:Key="ToIntConverter"/>
     </UserControl.Resources>
-    <Grid xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" behaviors:ClipBehavior.CornerRadius="40" Background="#FFFDFDFD">
+    <Grid xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" behaviors:ClipBehavior.CornerRadius="70,0,70,0" Background="#FFFDFDFD">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="0.035*" />
 			<RowDefinition Height="0.08*"/>
