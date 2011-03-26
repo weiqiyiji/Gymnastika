@@ -17,6 +17,8 @@ using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Common.Navigation;
 using System.Windows.Media.Animation;
 using Gymnastika.Modules.Sports.Models;
+using System.Windows.Threading;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -25,10 +27,18 @@ namespace Gymnastika.Modules.Sports.Views
     /// </summary>
     public partial class CompositePanel : UserControl
     {
-        public CompositePanel(ICompositePanelViewModel viewmodel)
+        public CompositePanel()
         {
-            ViewModel = viewmodel;
             InitializeComponent();
+            LoadViewModel();
+        }
+
+        void LoadViewModel()
+        {
+            AsychronousLoadHelper.AsychronousResolve<ICompositePanelViewModel>((model) =>
+                {
+                    ViewModel = model;
+                }, this.Dispatcher);
         }
 
         public ICompositePanelViewModel ViewModel

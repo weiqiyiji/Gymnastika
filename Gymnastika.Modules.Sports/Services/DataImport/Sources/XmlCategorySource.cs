@@ -55,39 +55,26 @@ namespace Gymnastika.Modules.Sports.DataImport.Sources
         public IEnumerable<SportsCategory> GetData()
         {
             XmlDocument doc = LoadXmlFile();
-            IList<Sport> sports = new List<Sport>();
-            var sportNodes = doc.FirstChild.ChildNodes;
 
-            foreach (XmlNode node in sportNodes)
+            IList<SportsCategory> categories = new List<SportsCategory>();
+            foreach (XmlNode node in doc.FirstChild.ChildNodes)
             {
-                Sport sport = new Sport();
-                sport.Brief = "";
-
-                var nodes = node.ChildNodes;
-                sport.ImageUri = SaveDir + nodes.Item(1).InnerText;
-                sport.Name = nodes.Item(2).InnerText;
-                sport.Calories = Int32.Parse(nodes.Item(3).InnerText);
-                sport.Minutes = Int32.Parse(nodes.Item(4).InnerText);
-                sport.IntroductionUri = nodes.Item(5).InnerText;
-                sports.Add(sport);
-            }
-            return new List<SportsCategory>()
+                SportsCategory category = new SportsCategory() { Sports = new List<Sport>() };
+                categories.Add(category);
+                category.Name = node.Attributes[0].InnerText;
+                foreach (XmlNode spt in node.ChildNodes)
                 {
-                    new SportsCategory()
-                    {
-                        Name = "跑步",
-                        Note = "来自Yaotiao",
-                        Sports = sports,
-                        ImageUri = SaveDir + "Category.jpg"
-                    },
-                    new SportsCategory()
-                    {
-                        Name = "运动",
-                        Note = "来自Yaotiao",
-                        Sports = sports,
-                        ImageUri = SaveDir + "Category.jpg"
-                    },
-                };
+                    var sport = new Sport();
+                    var nodes = spt.ChildNodes;
+                    sport.ImageUri = SaveDir + nodes.Item(1).InnerText;
+                    sport.Name = nodes.Item(2).InnerText;
+                    sport.Calories = Int32.Parse(nodes.Item(3).InnerText);
+                    sport.Minutes = Int32.Parse(nodes.Item(4).InnerText);
+                    sport.IntroductionUri = nodes.Item(5).InnerText;
+                    category.Sports.Add(sport);
+                }
+            }
+            return categories;
         }
 
         #endregion
