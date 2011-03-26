@@ -13,10 +13,10 @@
              Orientation="0.0" CanRotate="False">
     <s:ScatterViewItem.Style>
         <Style TargetType="{x:Type s:ScatterViewItem}">
-            <!--<Setter Property="MinWidth" Value="{Binding Path=Content.MinWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
+            <Setter Property="MinWidth" Value="{Binding Path=Content.MinWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
             <Setter Property="MinHeight" Value="{Binding Path=Content.MinHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
             <Setter Property="MaxWidth" Value="{Binding Path=Content.MaxWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
-            <Setter Property="MaxHeight" Value="{Binding Path=Content.MaxHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>-->
+            <Setter Property="MaxHeight" Value="{Binding Path=Content.MaxHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
             <Setter Property="IsContainerActive" Value="{Binding Path=Content.IsActive,RelativeSource={RelativeSource Self}, Mode=OneWayToSource}"/>
             <Setter Property="Width" Value="{Binding Path=Content.Width, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>
             <Setter Property="Height" Value="{Binding Path=Content.Height, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>
@@ -49,10 +49,10 @@
             <BeginStoryboard Storyboard="{StaticResource OnMouseLeave}"/>
         </EventTrigger>
     </s:ScatterViewItem.Triggers>
-    <Grid Background="Transparent">
+    <Grid Background="Blue">
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Opacity="0" x:Name="stackPanel" 
                     VerticalAlignment="Stretch" HorizontalAlignment="Right" 
@@ -71,12 +71,6 @@
                 Stretch="Uniform" Padding="0" Click="OnCloseButtonClick"/>
         </StackPanel>
         <Border Grid.Row="1" Background="Transparent" Padding="2,8,2,2">
-            <!--<Border.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFB4B4B4" Offset="0.009"/>
-                    <GradientStop Color="#FF7C7C7C" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.BorderBrush>-->
             <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Widgets:IWidgetHost}}}"  />
         </Border>
     </Grid>
