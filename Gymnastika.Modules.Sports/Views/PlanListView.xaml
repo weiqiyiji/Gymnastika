@@ -325,7 +325,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.ColumnSpan="8" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" ItemContainerStyle="{DynamicResource SurfaceListBoxItemStyle}">
+            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels, IsAsync=True}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.ColumnSpan="8" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" ItemContainerStyle="{DynamicResource SurfaceListBoxItemStyle}">
                 <my:SurfaceListBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>

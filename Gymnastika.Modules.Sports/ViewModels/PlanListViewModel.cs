@@ -68,16 +68,16 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory,IEventAggregator eventAggregator)
         {
+            CurrentWeek = DateTime.Now;
             _planProvider = planProvider;
             _itemProvider = itemProvider;
             _sessionManager = sessionManager;
             _planFactory = planFactory;
             _sportProvider = sportProvider;
-            ViewModels.CollectionChanged += OnPlansChanged;
-            CurrentWeek = DateTime.Now;
+            _viewModels.CollectionChanged += OnPlansChanged;
+
             _aggregator = eventAggregator;
             _aggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Subscribe(OnSportsPlanModified);
-            GotoWeek(CurrentWeek);
         }
 
         void OnSportsPlanModified(SportsPlan plan)
@@ -214,10 +214,19 @@ namespace Gymnastika.Modules.Sports.ViewModels
             get { return DateTime.Now; }
         }
 
+        bool IsLoaded = false;
         ObservableCollection<ISportsPlanViewModel> _viewModels = new ObservableCollection<ISportsPlanViewModel>();
         public ObservableCollection<ISportsPlanViewModel> ViewModels
         {
-            get { return _viewModels; }
+            get 
+            {
+                if (IsLoaded == false)
+                {
+                    IsLoaded = true;
+                    GotoWeek(CurrentWeek);
+                }
+                return _viewModels; 
+            }
         }
 
         ObservableCollection<SportsPlan> _plansInMemory;

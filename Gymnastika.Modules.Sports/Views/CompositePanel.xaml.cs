@@ -29,7 +29,6 @@ namespace Gymnastika.Modules.Sports.Views
         {
             ViewModel = viewmodel;
             InitializeComponent();
-
         }
 
         public ICompositePanelViewModel ViewModel
