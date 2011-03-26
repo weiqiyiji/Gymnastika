@@ -51,8 +51,8 @@
     </s:ScatterViewItem.Triggers>
     <Grid Background="Blue">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"  />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Opacity="0" x:Name="stackPanel" 
                     VerticalAlignment="Stretch" HorizontalAlignment="Right" 
@@ -70,7 +70,7 @@
                 MousePressedImageSource="/Gymnastika.Widgets;component/Images/close.png" 
                 Stretch="Uniform" Padding="0" Click="OnCloseButtonClick"/>
         </StackPanel>
-        <Border Grid.Row="1" Background="Transparent" Padding="2,8,2,2" >
+        <Border Grid.Row="1" Background="Transparent" Padding="2,8,2,2">
             <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Widgets:IWidgetHost}}}"  />
         </Border>
     </Grid>

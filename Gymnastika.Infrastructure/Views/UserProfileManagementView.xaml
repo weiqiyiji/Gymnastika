@@ -176,13 +176,13 @@
                     </Grid>
                 </Border>
                 <Border Grid.Row="2" Style="{StaticResource RowSeperatorStyle}" VerticalAlignment="Top">
-                    <Grid>
-                        <Ellipse Margin="0,0,6,0" HorizontalAlignment="Right" Width="260" Height="260" StrokeThickness="0" VerticalAlignment="Top">
+                    <Grid Margin="20,0,6,0">
+                        <Ellipse Margin="0" HorizontalAlignment="Right" Width="260" Height="260" StrokeThickness="0" VerticalAlignment="Top">
                             <Ellipse.Fill>
                                 <SolidColorBrush Color="{DynamicResource MainBackground}"/>
                             </Ellipse.Fill>
                         </Ellipse>
-                        <Rectangle HorizontalAlignment="Right" Height="130" Margin="0,0,6,0" StrokeThickness="0" VerticalAlignment="Top" Width="130">
+                        <Rectangle HorizontalAlignment="Right" Height="130" Margin="0" StrokeThickness="0" VerticalAlignment="Top" Width="130">
                             <Rectangle.Fill>
                                 <SolidColorBrush Color="{DynamicResource MainBackground}"/>
                             </Rectangle.Fill>
