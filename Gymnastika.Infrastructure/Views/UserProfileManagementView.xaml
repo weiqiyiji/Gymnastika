@@ -106,6 +106,28 @@
                 </EventTrigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <Style x:Key="SaveButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Foreground" Value="#7D846C"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Chrome" Width="100" Height="100" BorderThickness="3" BorderBrush="White" Background="White" SnapsToDevicePixels="true" CornerRadius="50">
+                            <ContentPresenter x:Name="BT" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" TargetName="Chrome" Value="#7D846C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Border CornerRadius="6" HorizontalAlignment="Center" VerticalAlignment="Center">
         <s:SurfaceScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -222,7 +244,7 @@
                     </Grid>
                 </Border>
                 <Border Grid.Row="2" Style="{StaticResource RowSeperatorStyle}" Margin="0" Grid.Column="1">
-                    <Button Content="保存设置" Command="{Binding SaveProfileCommand}" Template="{DynamicResource BounceButton}" Width="110" HorizontalAlignment="Right" Margin="0,67,32,123" Foreground="#FF787C6B" Height="110" Cursor="Hand"/>
+                    <Button Content="保存设置" Command="{Binding SaveProfileCommand}" Style="{StaticResource SaveButtonStyle}" HorizontalAlignment="Right" Margin="0,67,32,123" Cursor="Hand"/>
                 </Border>
             </Grid>
         </s:SurfaceScrollViewer>
