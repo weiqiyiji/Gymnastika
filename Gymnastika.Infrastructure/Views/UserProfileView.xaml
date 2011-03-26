@@ -181,6 +181,7 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+        <behaviors:RectangleProvider x:Key="rectangleProvider" CornerRadius="45,0,45,45" />
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="v:UserProfileView.RoutedClosing">
@@ -191,7 +192,7 @@
         </EventTrigger>
     </Window.Triggers>
     <StackPanel HorizontalAlignment="Center" Width="360" VerticalAlignment="Center">
-        <Border x:Name="windowBorder" Background="{StaticResource WindowBackgroundBrush}" behaviors:ClipBehavior.CornerRadius="45,0,45,45" RenderTransformOrigin="0.5,0.5">
+        <Border x:Name="windowBorder" Background="{StaticResource WindowBackgroundBrush}" behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider}" RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="0" ScaleY="0"/>

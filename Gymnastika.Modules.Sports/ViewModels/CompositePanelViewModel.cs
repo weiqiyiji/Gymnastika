@@ -62,11 +62,17 @@ namespace Gymnastika.Modules.Sports.ViewModels
             PlanViewModel = sportsPlanViewModel;
             CalorieChartViewModel = calorieChartViewModel;
             CategoriesPanelViewModel.CategorySelectedEvent += OnSelectedCategoryChanged;
+            SportsPanelViewModel.SelectedSportChangedEvent += OnSelectedSportChanged;
             SportsPanelViewModel.Category = CategoriesPanelViewModel.CurrentSelectedItem;
             CalorieChartViewModel.RequestAddToPlanEvent += OnAddToPlan;
 
             PlanViewModel.SetPlan(DateTime.Now);
 
+        }
+
+        void OnSelectedSportChanged(object sender, SportEventArgs args)
+        {
+            _calorieChartViewModel.Sport = args.Sport;
         }
 
         void OnAddToPlan(object sender, AddToPlanEventArgs args)

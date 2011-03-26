@@ -31,7 +31,7 @@
     			 		
     			<!--</TextBlock>Text="{Binding Time}" />-->
     		</Border>
-    		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Margin="25,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" />
+    		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Margin="25,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14.667" />
     	</StackPanel>
 		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF286226" Style="{DynamicResource NavigationButtonStyle}" Grid.Column="1" Margin="0" HorizontalAlignment="Right" Width="11.5" d:LayoutOverrides="Height" />
 	</Grid>

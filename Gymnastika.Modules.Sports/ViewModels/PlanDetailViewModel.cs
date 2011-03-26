@@ -49,7 +49,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         }
 
         DelegateCommand _nextDayCommand;
-        public DelegateCommand NextDayCommand 
+        public DelegateCommand NextDayCommand
         {
             get
             {

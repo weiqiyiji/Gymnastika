@@ -15,12 +15,12 @@
 	</ResourceDictionary>
 </UserControl.Resources>
     <Border>
-		<Grid Cursor="Hand" Background="#662EC8DC" Margin="10" ClipToBounds="True">
+		<Grid Cursor="Hand" Margin="10" ClipToBounds="True">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="75*" />
 				<RowDefinition Height="25*"/>
 			</Grid.RowDefinitions>
-			<TextBlock x:Name="Name" Foreground="#FF8D947F" Text="{Binding Name}" Grid.Row="1" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center"/>
+			<TextBlock x:Name="Name" Foreground="#FF8D947F" Text="{Binding Name}" Grid.Row="1" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True" TextWrapping="Wrap"/>
 			<Image Stretch="Uniform" SnapsToDevicePixels="True" x:Name="Picture" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}, IsAsync=false}">
 				<dd:DragDrop.DragAdornerTemplate>
 					<DataTemplate>
