@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Gymnastika_Controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" x:Class="Gymnastika.Modules.Sports.Views.SportCalorieChartView" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="#FFD4DEC1"
+             d:DesignHeight="300" d:DesignWidth="300"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
             dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Width="280" Height="280"

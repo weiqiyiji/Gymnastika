@@ -11,8 +11,7 @@
              xmlns:FluidKit_Experimental="clr-namespace:FluidKit.Experimental;assembly=FluidKit" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Modules.Sports.Views.CompositePanel" 
              mc:Ignorable="d" 
              BorderBrush="Transparent" 
-             BorderThickness="1"
-             Background="#FFD4DEC1" d:DesignHeight="700" d:DesignWidth="1000" FontFamily="黑体"
+             BorderThickness="1" d:DesignHeight="700" d:DesignWidth="1000" FontFamily="黑体"
              >
 	<UserControl.Resources>
 		<Style x:Key="ButtonFocusVisual">

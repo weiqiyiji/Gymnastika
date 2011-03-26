@@ -11,7 +11,7 @@
              xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
 			 xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanView"
              mc:Ignorable="d"
-             Foreground="#FFADB2A3" Background="#FFD4DEC1"
+             Foreground="#FFADB2A3"
 			 d:DesignWidth="400" d:DesignHeight="600"
 			 >
     <UserControl.Resources>

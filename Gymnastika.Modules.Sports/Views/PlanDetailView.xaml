@@ -1,6 +1,5 @@
-﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" xmlns:Visifire_Charts="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts" x:Class="Gymnastika.Modules.Sports.Views.PlanDetailView"
-             d:DesignHeight="309" d:DesignWidth="530" mc:Ignorable="d"
-             xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls">
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters" xmlns:Visifire_Charts="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts" xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Modules.Sports.Views.PlanDetailView"
+             d:DesignHeight="509" d:DesignWidth="730" mc:Ignorable="d">
 	<UserControl.Resources>
         <behaviors:RectangleProvider x:Key="rectangleProvider" CornerRadius="0,100,0,100" />
         <converter:CalorieDecriptionConverter x:Key="CalorieDecriptionConverter"/>
@@ -67,6 +66,63 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+		<Style x:Key="ButtonFocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+		<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+			<GradientStop Color="#F3F3F3" Offset="0"/>
+			<GradientStop Color="#EBEBEB" Offset="0.5"/>
+			<GradientStop Color="#DDDDDD" Offset="0.5"/>
+			<GradientStop Color="#CDCDCD" Offset="1"/>
+		</LinearGradientBrush>
+		<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+		<Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+			<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+			<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+			<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+			<Setter Property="HorizontalContentAlignment" Value="Center"/>
+			<Setter Property="VerticalContentAlignment" Value="Center"/>
+			<Setter Property="Padding" Value="1"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="{x:Type Button}">
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="Storyboard1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+									<EasingColorKeyFrame KeyTime="0" Value="#FF94E0B1"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard2">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+									<EasingColorKeyFrame KeyTime="0" Value="White"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
+						<Border x:Name="border" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" Background="White" CornerRadius="1000000000">
+							<ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Height="Auto" Width="Auto" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+						</Border>
+						<ControlTemplate.Triggers>
+							<Trigger Property="IsPressed" Value="True">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+								</Trigger.EnterActions>
+							</Trigger>
+						</ControlTemplate.Triggers>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</UserControl.Resources>
     <Grid Margin="10">
     	<Grid.RowDefinitions>
@@ -100,8 +156,7 @@
                 <Visifire_Charts:Title  Background="Transparent" Text="今日卡路里走势" FontFamily="微软雅黑"/>
             </Visifire_Charts:Chart.Titles>
             <Visifire_Charts:Chart.AxesY>
-                <Visifire_Charts:Axis Background="Transparent">
-                </Visifire_Charts:Axis>
+                <Visifire_Charts:Axis Background="Transparent"/>
             </Visifire_Charts:Chart.AxesY>
             <Visifire_Charts:Chart.AxesX>
                 <Visifire_Charts:Axis Background="Transparent">
@@ -111,12 +166,12 @@
                 </Visifire_Charts:Axis>
             </Visifire_Charts:Chart.AxesX>
             <Visifire_Charts:Chart.Series>
-                    <Visifire_Charts:DataSeries Bevel="False" LegendText="卡路里变化" ShadowEnabled="False" BorderThickness="0" RenderAs="Line" ></Visifire_Charts:DataSeries>
-                    <Visifire_Charts:DataSeries Bevel="False" LegendText="总卡路" MarkerScale="0.5" ShadowEnabled="False" RenderAs="Line" ></Visifire_Charts:DataSeries>
+                    <Visifire_Charts:DataSeries Bevel="False" LegendText="卡路里变化" ShadowEnabled="False" BorderThickness="0" RenderAs="Line" />
+                    <Visifire_Charts:DataSeries Bevel="False" LegendText="总卡路里" MarkerScale="0.5" ShadowEnabled="False" RenderAs="Line" />
           </Visifire_Charts:Chart.Series>
         </Visifire_Charts:Chart>
 
-        <Visifire_Charts:Chart Theme="Theme3" Bevel="False" ShadowEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent"  BorderThickness="0" Name="chart1" Grid.Column="2" Grid.Row="1" FontFamily="黑体" FontSize="14.667">
+        <Visifire_Charts:Chart Theme="Theme3" Bevel="False" ShadowEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent"  BorderThickness="0" x:Name="chart1" Grid.Column="2" Grid.Row="1" FontFamily="黑体" FontSize="14.667">
             <Visifire_Charts:Chart.AxesX>
                 <Visifire_Charts:Axis Background="Transparent" Title="" />
             </Visifire_Charts:Chart.AxesX>
@@ -130,7 +185,7 @@
                 <Visifire_Charts:Title Background="Transparent" FontFamily="黑体" Text="计划项比较" />
             </Visifire_Charts:Chart.Titles>
         </Visifire_Charts:Chart>
-        <Button Content="上一天" Command="{Binding LastDayCommand}" Height="23" HorizontalAlignment="Left" Margin="221.93,8,0,0" x:Name="button2" VerticalAlignment="Top" Width="45" d:LayoutOverrides="VerticalAlignment" Grid.Column="2" />
-        <Button Content="下一天" Command="{Binding NextDayCommand}" Height="23" Margin="0,7.917,8,0" x:Name="button1" VerticalAlignment="Top" Grid.Column="2" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="47.9" />
+        <Button Content="昨天" Command="{Binding LastDayCommand}" Height="40" Margin="0" x:Name="LastDay" VerticalAlignment="Top" d:LayoutOverrides="VerticalAlignment" Grid.Column="2" HorizontalAlignment="Left" Width="40" Style="{DynamicResource ButtonStyle}" FontFamily="黑体" FontSize="14.667" Foreground="#FF8D947F" />
+        <Button Content="明天" Command="{Binding NextDayCommand}" Height="{Binding Height, ElementName=LastDay}" Margin="0" x:Name="NextDay" VerticalAlignment="Top" Grid.Column="2" d:LayoutOverrides="VerticalAlignment" HorizontalAlignment="Right" Width="{Binding Width, ElementName=LastDay}" FontSize="14.667" FontFamily="黑体" Style="{DynamicResource ButtonStyle}" Foreground="#FF8D947F" />
     </Grid>
 </UserControl>

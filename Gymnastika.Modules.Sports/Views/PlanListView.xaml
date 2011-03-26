@@ -287,7 +287,7 @@
     		</Setter>
     	</Style>
     </UserControl.Resources>
-    <Border Background="#FFD4DEC1" Margin="10">
+    <Border Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.017*" />
@@ -373,7 +373,7 @@
                     </ItemsPanelTemplate>
                 </my:SurfaceListBox.ItemsPanel>
             </my:SurfaceListBox>
-            <Button   Content="下周" Command="{Binding NextWeekCommand}" x:Name="NextWeek" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Grid.Row="1" FontSize="12" Foreground="#FF8D947F" Background="White" Style="{DynamicResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30" >
+            <Button   Content="下周" Command="{Binding NextWeekCommand}" x:Name="NextWeek" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Grid.Row="1" FontSize="12" Foreground="#FF8D947F" Background="White" Style="{DynamicResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="40" >
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -383,7 +383,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button Content="上周"  Command="{Binding LastWeekCommand}" x:Name="LastWeek" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" Foreground="#FF7C836B" Background="White" Style="{DynamicResource ButtonStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" >
+            <Button Content="上周"  Command="{Binding LastWeekCommand}" x:Name="LastWeek" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" Foreground="#FF7C836B" Background="White" Style="{DynamicResource ButtonStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="40" Height="40" >
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
