@@ -35,7 +35,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _beautyWeight = (_user.Height * _user.Height / 10000) * 19;
             _minTotalCalorie = _beautyWeight / 0.45 * 10;
-            _maxTotalCalorie = _beautyWeight / 0.45 * 13;
+            _maxTotalCalorie = _beautyWeight / 0.45 * 15;
 
             _nutritionMinMaxValues = new double[] { _minTotalCalorie, _maxTotalCalorie, _minTotalCalorie * 0.6 / 4, _maxTotalCalorie * 0.6 / 4, 
                 _minTotalCalorie * 0.2 / 9, _maxTotalCalorie * 0.2 / 9, _minTotalCalorie * 0.2 / 4, _maxTotalCalorie * 0.2 / 4 };

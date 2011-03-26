@@ -91,6 +91,7 @@
     <Compile Include="Converters\NutritionToForegroundConverter.cs" />
     <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="Converters\WidthToForegroundConverter.cs" />
+    <Compile Include="Events\AmountChangedEvent.cs" />
     <Compile Include="Events\ApplyRecommendedDietPlanEvent.cs" />
     <Compile Include="Events\DeleteDietPlanEvent.cs" />
     <Compile Include="Events\DietPlanNutritionChangedEvent.cs" />

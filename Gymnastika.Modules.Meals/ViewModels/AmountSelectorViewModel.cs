@@ -3,15 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Practices.Prism.ViewModel;
+using Gymnastika.Modules.Meals.Views;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Meals.Events;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
     public class AmountSelectorViewModel : NotificationObject
     {
-        public AmountSelectorViewModel()
+        private readonly IEventAggregator _eventAggregator;
+
+        public AmountSelectorViewModel(AmountSelectorView view, IEventAggregator eventAggregator)
         {
-            CurrentValue = 0;
+            _eventAggregator = eventAggregator;
+            _currentValue = 0;
+            View = view;
+            View.Model = this;
         }
+
+        public AmountSelectorView View { get; set; }
 
         private int _currentValue;
         public int CurrentValue
@@ -26,6 +36,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     _currentValue = value;
                     RaisePropertyChanged("CurrentValue");
+                    _eventAggregator.GetEvent<AmountChangedEvent>().Publish(_currentValue);
                 }
             }
         }

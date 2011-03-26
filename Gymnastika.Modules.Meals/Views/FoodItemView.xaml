@@ -36,7 +36,7 @@
                                  MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete_down.png" />
             <TextBlock Grid.Row="1" Grid.Column="0" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" >
-                <view:AmountSelectorView />
+                <ContentControl Content="{Binding AmountSelector.View}" />
                 <TextBlock Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>

@@ -25,9 +25,11 @@ namespace Gymnastika.Modules.Meals.Views
         public AmountSelectorView()
         {
             InitializeComponent();
+            this.MouseMove += new MouseEventHandler(TestControl_MouseMove);
+            this.MouseLeftButtonDown += new MouseButtonEventHandler(TestControl_MouseLeftButtonDown);
+            this.MouseLeftButtonUp += new MouseButtonEventHandler(TestControl_MouseLeftButtonUp);
         }
 
-        [Dependency]
         public AmountSelectorViewModel Model
         {
             get { return this.DataContext as AmountSelectorViewModel; }
@@ -41,6 +43,32 @@ namespace Gymnastika.Modules.Meals.Views
         private void UserControl_ManipulationDelta(object sender, ManipulationDeltaEventArgs e)
         {
             Model.CurrentValue = (int)e.DeltaManipulation.Translation.Y;
+        }
+
+        double oy, orginValue;
+        bool IsMouseDown = false;
+
+        void TestControl_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            IsMouseDown = false;
+            this.ReleaseMouseCapture();
+        }
+
+        void TestControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            oy = e.GetPosition(this).Y;
+
+            orginValue = Model.CurrentValue;
+            IsMouseDown = true;
+            this.CaptureMouse();
+        }
+
+        void TestControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (IsMouseDown)
+            {
+                Model.CurrentValue = (int)(orginValue - (e.GetPosition(this).Y - oy) / 15);
+            }
         }
     }
 }

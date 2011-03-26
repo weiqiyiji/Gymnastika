@@ -44,13 +44,16 @@ namespace Gymnastika.Modules.Meals.Widgets
             using (var scope = _workEnvironment.GetWorkContextScope())
             {
                 DietPlan = _foodService.DietPlanProvider.Get(_currentUser, DateTime.Today);
-                DietPlan.SubDietPlans = DietPlan.SubDietPlans.ToList();
-                foreach (var subDietPlan in DietPlan.SubDietPlans)
+                if (DietPlan != null)
                 {
-                    subDietPlan.DietPlanItems = subDietPlan.DietPlanItems.ToList();
-                    foreach (var dietPlanItem in subDietPlan.DietPlanItems)
+                    DietPlan.SubDietPlans = DietPlan.SubDietPlans.ToList();
+                    foreach (var subDietPlan in DietPlan.SubDietPlans)
                     {
-                        dietPlanItem.Food = _foodService.FoodProvider.Get(dietPlanItem);
+                        subDietPlan.DietPlanItems = subDietPlan.DietPlanItems.ToList();
+                        foreach (var dietPlanItem in subDietPlan.DietPlanItems)
+                        {
+                            dietPlanItem.Food = _foodService.FoodProvider.Get(dietPlanItem);
+                        }
                     }
                 }
             }

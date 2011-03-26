@@ -9,6 +9,9 @@ using Microsoft.Practices.Prism.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Data;
 using Gymnastika.Modules.Meals.Services;
+using Gymnastika.Modules.Meals.Views;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Meals.Events;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -20,12 +23,26 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _deleteFoodFromPlanCommand;
         private ICommand _changeMyFavoriteCommand;
         private ICommand _showFoodDetailCommand;
+        private readonly IEventAggregator _eventAggregator;
 
         public FoodItemViewModel(Food food)
         {
             Food = food;
             ChangeMyFavoriteButtonContent = "+ 收藏";
-            AmountSelector = new AmountSelectorViewModel();
+            _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            _eventAggregator.GetEvent<AmountChangedEvent>().Subscribe(AmountChangedEventHanlder);
+            AmountSelector = ServiceLocator.Current.GetInstance<AmountSelectorViewModel>();
+        }
+
+        private void AmountChangedEventHanlder(int currentValue)
+        {
+            Calories = Calorie * Amount / 100;
+            for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+            {
+                Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
+                Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
+            }
+            OnDietPlanSubListPropertyChanged();
         }
 
         public void LoadNutritionElementData()
@@ -90,7 +107,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get 
             {
-                //return Decimal.Round(_amount); 
+                //return Decimal.Round(_amount);
                 return (decimal)AmountSelector.CurrentValue;
             }
             set
