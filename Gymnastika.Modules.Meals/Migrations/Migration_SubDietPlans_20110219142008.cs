@@ -28,7 +28,8 @@ namespace Gymnastika.Migrations
             SchemaBuilder.CreateTable(
                 TableName,
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
-                    .Column<string>("Name")
+                    .Column<int>("Score")
+                    .Column<bool>("Mark")
                     .Column<int>("DietPlanId"));
 
             SchemaBuilder.CreateForeignKey(

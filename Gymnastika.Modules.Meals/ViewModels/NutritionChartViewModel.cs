@@ -43,9 +43,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             
             for (int i = 0; i < 4; i++)
             {
-                NutritionChartItemViewModel nutritionChartItem = new NutritionChartItemViewModel();
-                nutritionChartItem.NutritionName = NutritionNames[i];
-                nutritionChartItem.TotalNutritionValue = _nutritionMaxValues[i];
+                NutritionChartItemViewModel nutritionChartItem = new NutritionChartItemViewModel(NutritionNames[i], _nutritionMaxValues[i]);
                 NutritionChartItems.Add(nutritionChartItem);
             }
             
@@ -99,6 +97,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     NutritionChartItems[i].PositionedFoodNutritionValue = 0;
                 }
+
+                NutritionChartItems[i].Refresh();
             }
         }
 
@@ -123,6 +123,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     NutritionChartItems[i].SelectedFoodNutritionValue = 0;
                 }
+
+                NutritionChartItems[i].Refresh();
             }
         }
     }

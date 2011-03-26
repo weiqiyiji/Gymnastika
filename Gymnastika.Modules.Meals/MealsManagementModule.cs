@@ -53,6 +53,7 @@ namespace Gymnastika.Modules.Meals
         private void RegisterWidgets()
         {
             _widgetMananger.Add(typeof(BMIWidget));
+            _widgetMananger.Add(typeof(TodayDietPlanWidget));
         }
 
         private void RegisterServices()

@@ -9,6 +9,10 @@ namespace Gymnastika.Modules.Meals.Models
     {
         public virtual int Id { get; set; }
 
+        public virtual int Score { get; set; }
+
+        public virtual bool Mark { get; set; }
+
         public virtual DietPlan DietPlan { get; set; }
 
         public virtual IList<DietPlanItem> DietPlanItems { get; set; }

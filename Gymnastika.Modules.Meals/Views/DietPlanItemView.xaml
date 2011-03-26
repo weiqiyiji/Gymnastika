@@ -304,6 +304,7 @@
             <Border behaviors:ClipBehavior.Provider="{StaticResource RectangleProvider}" Height="630" Width="245" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource BodyBackgruond}">
                 <Grid>
                     <Rectangle HorizontalAlignment="Left" Width="30" Fill="{StaticResource HeaderBackground}" />
+                    <Rectangle Fill="White" Height="20" VerticalAlignment="Top" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
                     <surface:SurfaceListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0" Background="Transparent" ItemsSource="{Binding DietPlanSubItems, IsAsync=True}" 
                          ItemContainerStyle="{StaticResource ListBoxItemStyle}">
                     </surface:SurfaceListBox>

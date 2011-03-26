@@ -16,6 +16,7 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         IEnumerable<DietPlan> GetRecommendedDietPlans();
         DietPlan Get(User user, int skip);
         DietPlan Get(PlanType planType, int skip);
+        DietPlan Get(User user, DateTime createdDate);
         int count(User user);
         int count(PlanType planType);
     }

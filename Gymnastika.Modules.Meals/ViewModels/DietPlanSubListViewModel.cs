@@ -71,7 +71,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         void IDropTarget.Drop(DropInfo dropInfo)
         {
-            FoodItemViewModel foodItem = new FoodItemViewModel(((FoodItemViewModel)dropInfo.Data).Food); ;
+            FoodItemViewModel foodItem = new FoodItemViewModel(((FoodItemViewModel)dropInfo.Data).Food);
 
             ObservableCollection<FoodItemViewModel> targetDietPlanSubList = (ObservableCollection<FoodItemViewModel>)dropInfo.TargetCollection;
             

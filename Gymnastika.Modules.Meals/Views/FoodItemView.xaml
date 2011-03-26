@@ -4,6 +4,7 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                     xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
                     xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
+                    xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
                     xmlns:surface="http://schemas.microsoft.com/surface/2008"
                     mc:Ignorable="d">
     <converter:TextConverter x:Key="TextConverter" />
@@ -35,7 +36,7 @@
                                  MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete_down.png" />
             <TextBlock Grid.Row="1" Grid.Column="0" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" >
-                <TextBox Text="{Binding Amount}" Foreground="{StaticResource GrayText}" Width="30" />
+                <view:AmountSelectorView />
                 <TextBlock Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>

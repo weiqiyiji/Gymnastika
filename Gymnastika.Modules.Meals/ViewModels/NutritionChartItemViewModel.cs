@@ -17,9 +17,13 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private string _selectedFoodName;
         private double _positionedFoodNutritionValue;
         private double _selectedFoodNutritionValue;
+        private double _maximunNutritionValue;
 
-        public NutritionChartItemViewModel()
+        public NutritionChartItemViewModel(string nutritionName, double totalNutritionValue)
         {
+            NutritionName = nutritionName;
+            TotalNutritionValue = totalNutritionValue;
+            MaximunNutritionValue = TotalNutritionValue / 2;
             PositionedFoodNutritionValue = 0.0;
             SelectedFoodNutritionValue = 0.0;
         }
@@ -28,7 +32,21 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public double TotalNutritionValue { get; set; }
 
-        public double MaximunNutritionValue { get { return TotalNutritionValue / 2; } }
+        public double MaximunNutritionValue
+        {
+            get
+            {
+                return _maximunNutritionValue;
+            }
+            set
+            {
+                if (_maximunNutritionValue != value)
+                {
+                    _maximunNutritionValue = value;
+                    RaisePropertyChanged("MaximunNutritionValue");
+                }
+            }
+        }
 
         public string PositionedFoodName
         {
@@ -91,6 +109,19 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     RaisePropertyChanged("SelectedFoodNutritionValue");
                 }
             }
+        }
+
+        public void Refresh()
+        {
+            MaximunNutritionValue = MaxOfThree(MaximunNutritionValue, PositionedFoodNutritionValue, SelectedFoodNutritionValue);
+        }
+
+        private double MaxOfThree(double one, double two, double three)
+        {
+            if (one >= two)
+                return one >= three ? one : three;
+            else
+                return two >= three ? two : three;
         }
     }
 }

@@ -8,8 +8,124 @@
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              mc:Ignorable="d" Background="#c4cfb8"
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="SurfaceListBoxItemStyle" TargetType="{x:Type surface:SurfaceListBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                        <GradientStop Color="#19000000" Offset="0.269"/>
+                        <GradientStop Color="#00000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource FindAncestor, AncestorLevel=1, AncestorType={x:Type ItemsControl}}}"/>
+            <Setter Property="Padding" Value="10,5,5,5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type surface:SurfaceListBoxItem}">
+                        <ControlTemplate.Resources>
+                            <Storyboard x:Key="Press">
+                                <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="surfaceShadowChrome">
+        							<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        						</DoubleAnimationUsingKeyFrames>-->
+                                <!--<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="surfaceShadowChrome">
+        							<SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="-5"/>
+        						</ThicknessAnimationUsingKeyFrames>-->
+                            </Storyboard>
+                            <Storyboard x:Key="Release">
+                                <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="surfaceShadowChrome">
+        							<SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+        							<SplineDoubleKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.3" Value="0"/>
+        						</DoubleAnimationUsingKeyFrames>-->
+                                <!--<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="surfaceShadowChrome">
+        							<SplineThicknessKeyFrame KeyTime="0" Value="-5"/>
+        							<SplineThicknessKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.3" Value="-1"/>
+        						</ThicknessAnimationUsingKeyFrames>-->
+                            </Storyboard>
+                            <Storyboard x:Key="Select">
+                                <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="RenderOverlay">
+        							<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        						</DoubleAnimationUsingKeyFrames>-->
+                            </Storyboard>
+                            <Storyboard x:Key="Unselect">
+                                <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="RenderOverlay">
+        							<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        						</DoubleAnimationUsingKeyFrames>-->
+                            </Storyboard>
+                        </ControlTemplate.Resources>
+                        <Grid Margin="0" MinWidth="30" MinHeight="30" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                            <Border x:Name="Item" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="2" Margin="0" Opacity="1" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <Border x:Name="RenderOverlay" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" Opacity="0" Padding="{TemplateBinding Padding}"/>
+                            <ContentPresenter x:Name="Content" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsEnabled="True" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="surfaceShadowChrome">
+        										<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        									</DoubleAnimationUsingKeyFrames>-->
+                                            <!--<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="surfaceShadowChrome">
+        										<SplineThicknessKeyFrame KeyTime="0:0:0.1" Value="-5"/>
+        									</ThicknessAnimationUsingKeyFrames>-->
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="surfaceShadowChrome">
+        										<SplineDoubleKeyFrame KeyTime="0" Value="1"/>
+        										<SplineDoubleKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.3" Value="0"/>
+        									</DoubleAnimationUsingKeyFrames>
+        									<ThicknessAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="surfaceShadowChrome">
+        										<SplineThicknessKeyFrame KeyTime="0" Value="-5"/>
+        										<SplineThicknessKeyFrame KeySpline="0.5,0.5,0.5,1" KeyTime="0:0:0.3" Value="-1"/>
+        									</ThicknessAnimationUsingKeyFrames>-->
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="RenderOverlay">
+        										<SplineDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        									</DoubleAnimationUsingKeyFrames>-->
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!--<DoubleAnimationUsingKeyFrames BeginTime="0" Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="RenderOverlay">
+        										<SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        									</DoubleAnimationUsingKeyFrames>-->
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="#FF7C7C7C"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <surface:SurfaceListBox Background="Transparent" VerticalContentAlignment="Stretch" ItemsSource="{Binding RecommendedDietPlans, IsAsync=True}">
+        <surface:SurfaceListBox ItemContainerStyle="{StaticResource SurfaceListBoxItemStyle}" Background="Transparent" VerticalContentAlignment="Stretch" ItemsSource="{Binding RecommendedDietPlans, IsAsync=True}">
             <surface:SurfaceListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />

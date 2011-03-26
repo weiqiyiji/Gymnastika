@@ -137,6 +137,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Services\Providers\SubDietPlanProvider.cs" />
+    <Compile Include="ViewModels\AmountSelectorViewModel.cs" />
     <Compile Include="ViewModels\CategoryItemViewModel.cs" />
     <Compile Include="ViewModels\CategoryListViewModel.cs" />
     <Compile Include="ViewModels\DietPlanItemViewModel.cs" />
@@ -170,6 +171,9 @@
     <Compile Include="ViewModels\SelectDietPlanViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SingleDietPlanViewModel.cs" />
+    <Compile Include="Views\AmountSelectorView.xaml.cs">
+      <DependentUpon>AmountSelectorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BMIIntroductionView.xaml.cs">
       <DependentUpon>BMIIntroductionView.xaml</DependentUpon>
     </Compile>
@@ -253,6 +257,9 @@
     <Compile Include="Widgets\BMIWidget.xaml.cs">
       <DependentUpon>BMIWidget.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\TodayDietPlanWidget.xaml.cs">
+      <DependentUpon>TodayDietPlanWidget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XDataHelpers\XDataFileManager.cs" />
     <Compile Include="XDataHelpers\XDataRepository.cs" />
     <Compile Include="XModels\XCategoryDataModels\XCategory.cs" />
@@ -295,6 +302,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AmountSelectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BMIIntroductionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -391,6 +402,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\TodayDietPlanWidget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\search.png" />
@@ -410,6 +425,9 @@
     <Resource Include="Images\next_down.png" />
     <Resource Include="Images\previous.png" />
     <Resource Include="Images\previous_down.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\DietPlan.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
