@@ -12,8 +12,11 @@
 			 x:Class="Gymnastika.Modules.Sports.Views.SportsPanelView"
              mc:Ignorable="d" 
              Background="#FFD4DEC1"
-			 d:DesignWidth="800" d:DesignHeight ="600">
+			 d:DesignWidth="800" d:DesignHeight ="600"
+			 xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls">
 	<UserControl.Resources>
+		<behaviors:CircleProvider x:Key="circleProvider1" Corner="{x:Static behaviors:CircleProvider.TopRight}" />
+		<behaviors:CircleProvider x:Key="circleProvider2" Corner="{x:Static behaviors:CircleProvider.TopLeft}" />
 		<Style x:Key="ButtonFocusVisual">
 			<Setter Property="Control.Template">
 				<Setter.Value>
@@ -37,24 +40,60 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="Storyboard1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+									<EasingColorKeyFrame KeyTime="0" Value="#FF89D9A8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard2">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+									<EasingColorKeyFrame KeyTime="0" Value="#0089D9A8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard3">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FFC8C8C8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard4">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FF7C836B"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
 							<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="Foreground" Value="#ADADAD"/>
+							<Trigger Property="IsEnabled" Value="False">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard4_BeginStoryboard" Storyboard="{StaticResource Storyboard4}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard x:Name="Storyboard3_BeginStoryboard" Storyboard="{StaticResource Storyboard3}"/>
+								</Trigger.EnterActions>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+								</Trigger.EnterActions>
 							</Trigger>
 						</ControlTemplate.Triggers>
-						<Grid Margin="0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="0.52*"/>
-								<ColumnDefinition Width="0.48*"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="0.495*"/>
-								<RowDefinition Height="0.505*"/>
-							</Grid.RowDefinitions>
-							<Border BorderThickness="0" Panel.ZIndex="-1" Background="White" CornerRadius="0" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" Margin="0" Grid.Column="1"/>
-							<Ellipse  Panel.ZIndex="-1" Fill="White"  Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-							<ContentPresenter HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="Auto" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-						</Grid>
+						<UserControl x:Name="userControl" Margin="0">
+							<Grid Background="White"  behaviors:ClipBehavior.Provider="{StaticResource circleProvider1}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="0.52*"/>
+									<ColumnDefinition Width="0.48*"/>
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="0.495*"/>
+									<RowDefinition Height="0.505*"/>
+								</Grid.RowDefinitions>
+								<Border x:Name="border" Background="#0089D9A8"  behaviors:ClipBehavior.Provider="{StaticResource circleProvider1}" Margin="10" Grid.ColumnSpan="2" Grid.RowSpan="2" BorderThickness="1" BorderBrush="{x:Null}"/>
+								<ContentPresenter HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Height="Auto" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+							</Grid>
+						</UserControl>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
@@ -71,7 +110,29 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
-						<Grid Margin="0">
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="Storyboard1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+									<EasingColorKeyFrame KeyTime="0" Value="#FF89D9A8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard2">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="border">
+									<EasingColorKeyFrame KeyTime="0" Value="#0089D9A8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard3">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FFC8C8C8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard4">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FF7C836B"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
+						<Grid Margin="0" behaviors:ClipBehavior.Provider="{StaticResource circleProvider2}" Background="White">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="0.498*"/>
 								<ColumnDefinition Width="0.502*"/>
@@ -80,13 +141,27 @@
 								<RowDefinition Height="0.496*"/>
 								<RowDefinition Height="0.504*"/>
 							</Grid.RowDefinitions>
-							<Ellipse Fill="White" Panel.ZIndex="-1"  Margin="0" HorizontalAlignment="Stretch" Height="Auto" VerticalAlignment="Stretch" Width="Auto" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-							<Border BorderBrush="{x:Null}" BorderThickness="1" Background="White" Grid.RowSpan="1" Grid.ColumnSpan="1" Panel.ZIndex="-1" Grid.Column="0" HorizontalAlignment="Stretch" Margin="0,0,-0.382,0" Width="Auto"/>
-							<ContentPresenter HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+							<Border x:Name="border" behaviors:ClipBehavior.Provider="{StaticResource circleProvider2}" Margin="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Background="#0089D9A8"/>
+							<UserControl x:Name="userControl" VerticalAlignment="Stretch" VerticalContentAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2">
+								<ContentPresenter HorizontalAlignment="Center" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
+							</UserControl>
 						</Grid>
 						<ControlTemplate.Triggers>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="Foreground" Value="#ADADAD"/>
+							<Trigger Property="IsPressed" Value="True">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+								</Trigger.EnterActions>
+							</Trigger>
+							<Trigger Property="IsEnabled" Value="False">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard4_BeginStoryboard" Storyboard="{StaticResource Storyboard4}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard x:Name="Storyboard3_BeginStoryboard" Storyboard="{StaticResource Storyboard3}"/>
+								</Trigger.EnterActions>
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -186,7 +261,7 @@
 			<Run FontSize="50" Text="{Binding CurrentPage, Mode=OneWay}"/>
 			<Run Text="页"/>
 			</TextBlock>
-		<TextBlock Grid.Column="2" Grid.Row="4" TextWrapping="Wrap" FontSize="14" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" Margin="4.71,-3.339,7.71,-3.139" d:LayoutOverrides="Width, Height" VerticalAlignment="Center" HorizontalAlignment="Center">
+		<TextBlock Grid.Column="2" Grid.Row="5" TextWrapping="Wrap" FontSize="14" RenderTransformOrigin="0.5,0.5" Foreground="#FFFDFDFD" Margin="7.707,-7.679,4.704,0" VerticalAlignment="Top" d:LayoutOverrides="Width">
 			<TextBlock.RenderTransform>
 				<TransformGroup>
 					<ScaleTransform/>

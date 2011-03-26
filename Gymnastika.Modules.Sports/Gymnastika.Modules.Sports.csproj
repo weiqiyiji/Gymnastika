@@ -274,6 +274,12 @@
   <ItemGroup>
     <Resource Include="Resources\Images\search.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Grid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Close.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

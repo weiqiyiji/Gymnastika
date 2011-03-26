@@ -123,7 +123,7 @@ namespace Gymnastika.Modules.Sports.Views
 
         double GetCalories(SportsPlanItem item)
         {
-            return item.Sport.Calories / item.Sport.Minutes * item.Minute;
+            return item.Sport.Calories / item.Sport.Minutes * item.Duration;
         }
 
 

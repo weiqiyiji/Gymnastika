@@ -61,50 +61,52 @@
 			<BeginStoryboard Storyboard="{StaticResource OnLoaded1}"/>
 		</EventTrigger>
 	</Window.Triggers>
-    <Border Background="#F2BEF1E9" CornerRadius="70">
-		<Grid Margin="10">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="0.237*"/>
-				<RowDefinition Height="0.763*"/>
-			</Grid.RowDefinitions>
-			<Grid>
-				<Grid.RowDefinitions>
-					<RowDefinition Height="49*" />
-					<RowDefinition Height="48*" />
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="129*"/>
-					<ColumnDefinition Width="285*" />
-				</Grid.ColumnDefinitions>
-				<Image Stretch="Uniform" x:Name="Image" Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" d:IsHidden="True" >
-					<Image.RenderTransform>
-						<TransformGroup>
-							<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
-							<SkewTransform/>
-							<RotateTransform/>
-							<TranslateTransform X="1" Y="1"/>
-						</TransformGroup>
-					</Image.RenderTransform>
-				</Image>
-				<TextBlock x:Name="Title"  FontSize="30" TextWrapping="Wrap" Text="{Binding Name}" Grid.Column="1" />
-				<TextBlock Grid.Column="1" x:Name="textBlock1" Grid.Row="1">
-					<TextBlock.Text>
-						<MultiBinding Converter="{StaticResource ResourceKey=CalorieDecriptionConverter}">
-							<Binding Path="Minutes"/>
-							<Binding Path="Calories"/>
-						</MultiBinding>
-					</TextBlock.Text>
-				</TextBlock>
-				<my:SurfaceButton  Content="关闭" Grid.Column="1" Height="23" Margin="0,7,13,0" x:Name="surfaceButton1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" Click="surfaceButton1_Click" />
-            </Grid>
-            <FlowDocumentReader ViewingMode="Scroll" x:Name="flowDocumentReader" Document="{Binding IntroductionUri, Converter={StaticResource ResourceKey=RtfConverter}, IsAsync=True}" Grid.Row="1">
-				<FlowDocumentReader.OpacityMask>
-					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-						<GradientStop Color="Black" Offset="0"/>
-						<GradientStop Color="White" Offset="1"/>
-					</LinearGradientBrush>
-				</FlowDocumentReader.OpacityMask>
-			</FlowDocumentReader>
-		</Grid>
+    <Border Background="#E5FFFFFF" CornerRadius="70" Margin="0">
+		<Border Margin="40" CornerRadius="70">
+    		<Grid>
+    			<Grid.RowDefinitions>
+    				<RowDefinition Height="0.237*"/>
+    				<RowDefinition Height="0.763*"/>
+    			</Grid.RowDefinitions>
+    			<Grid>
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="49*" />
+    					<RowDefinition Height="48*" />
+    				</Grid.RowDefinitions>
+    				<Grid.ColumnDefinitions>
+    					<ColumnDefinition Width="129*"/>
+    					<ColumnDefinition Width="285*" />
+    				</Grid.ColumnDefinitions>
+    				<Image Stretch="Uniform" x:Name="Image" Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}" Grid.RowSpan="2" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" d:IsHidden="True" >
+    					<Image.RenderTransform>
+    						<TransformGroup>
+    							<ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+    							<SkewTransform/>
+    							<RotateTransform/>
+    							<TranslateTransform X="1" Y="1"/>
+    						</TransformGroup>
+    					</Image.RenderTransform>
+    				</Image>
+    				<TextBlock x:Name="Title"  FontSize="30" TextWrapping="Wrap" Text="{Binding Name}" Grid.Column="1" />
+    				<TextBlock Grid.Column="1" x:Name="textBlock1" Grid.Row="1">
+    					<TextBlock.Text>
+    						<MultiBinding Converter="{StaticResource ResourceKey=CalorieDecriptionConverter}">
+    							<Binding Path="Minutes"/>
+    							<Binding Path="Calories"/>
+    						</MultiBinding>
+    					</TextBlock.Text>
+    				</TextBlock>
+    				<my:SurfaceButton  Content="关闭" Grid.Column="1" Height="23" Margin="0,7,13,0" x:Name="surfaceButton1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" Click="surfaceButton1_Click" />
+    			</Grid>
+    			<FlowDocumentReader ViewingMode="Scroll" x:Name="flowDocumentReader" Document="{Binding IntroductionUri, Converter={StaticResource ResourceKey=RtfConverter}, IsAsync=True}" Grid.Row="1">
+                    <FlowDocumentReader.OpacityMask>
+    					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+    						<GradientStop Color="Black" Offset="0"/>
+    						<GradientStop Color="White" Offset="1"/>
+    					</LinearGradientBrush>
+    				</FlowDocumentReader.OpacityMask>
+    			</FlowDocumentReader>
+    		</Grid>
+    	</Border>
 	</Border>
 </Window>

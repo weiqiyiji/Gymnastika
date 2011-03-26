@@ -1,20 +1,24 @@
-﻿<UserControl x:Class="Gymnastika.Modules.Sports.Views.PlanListView"
+﻿<UserControl
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="385" d:DesignWidth="601"
-             xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" FontSize="16" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views" 
              xmlns:my="http://schemas.microsoft.com/surface/2008"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports"
              xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0" 
              xmlns:vc="clr-namespace:Visifire.Charts;assembly=WPFVisifire.Charts"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
 			 xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
-			>
+             xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Modules.Sports.Views.PlanListView" 
+             mc:Ignorable="d" 
+             d:DesignHeight="385" d:DesignWidth="601"
+             FontSize="16"
+             >
             
     <UserControl.Resources>
+        <behaviors:CircleProvider x:Key="circleProvider" Corner="0" />
+        <behaviors:RectangleProvider x:Key="rectangleProvider" CornerRadius="0,100,0,100" />
         <converter:NotNullConverter x:Key="NotNullConverter"/>
         <Storyboard x:Key="FlyOutStoryboard">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="UserName">
@@ -89,7 +93,7 @@
                 <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
             </ColorAnimationUsingKeyFrames>
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="LastWeek">
-                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
+                <EasingColorKeyFrame KeyTime="0:0:0.3" Value="White"/>
             </ColorAnimationUsingKeyFrames>
             <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.OpacityMask).(SolidColorBrush.Color)" Storyboard.TargetName="DateRange">
                 <EasingColorKeyFrame KeyTime="0:0:0.3" Value="Black"/>
@@ -224,23 +228,84 @@
         		</Setter.Value>
         	</Setter>
         </Style>
+    	<Style x:Key="ButtonFocusVisual">
+    		<Setter Property="Control.Template">
+    			<Setter.Value>
+    				<ControlTemplate>
+    					<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
+    	<LinearGradientBrush x:Key="ButtonNormalBackground" EndPoint="0,1" StartPoint="0,0">
+    		<GradientStop Color="#F3F3F3" Offset="0"/>
+    		<GradientStop Color="#EBEBEB" Offset="0.5"/>
+    		<GradientStop Color="#DDDDDD" Offset="0.5"/>
+    		<GradientStop Color="#CDCDCD" Offset="1"/>
+    	</LinearGradientBrush>
+    	<SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
+    	<Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+    		<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+    		<Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource ButtonNormalBorder}"/>
+    		<Setter Property="BorderThickness" Value="1"/>
+    		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+    		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+    		<Setter Property="VerticalContentAlignment" Value="Center"/>
+    		<Setter Property="Padding" Value="1"/>
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="{x:Type Button}">
+    					<ControlTemplate.Resources>
+    						<Storyboard x:Key="Storyboard1">
+    							<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+    								<EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF94E0B1"/>
+    							</ColorAnimationUsingKeyFrames>
+    						</Storyboard>
+    						<Storyboard x:Key="Storyboard2">
+    							<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)" Storyboard.TargetName="grid">
+    								<EasingColorKeyFrame KeyTime="0:0:0.2" Value="White"/>
+    							</ColorAnimationUsingKeyFrames>
+    						</Storyboard>
+    					</ControlTemplate.Resources>
+    					<Border x:Name="grid" Margin="0" Background="White" CornerRadius="1000">
+    						<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+    					</Border>
+    					<ControlTemplate.Triggers>
+    						<Trigger Property="IsPressed" Value="True">
+    							<Trigger.ExitActions>
+    								<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+    							</Trigger.ExitActions>
+    							<Trigger.EnterActions>
+    								<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+    							</Trigger.EnterActions>
+    							<Setter Property="Background" TargetName="grid" Value="White"/>
+    						</Trigger>
+    					</ControlTemplate.Triggers>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
     </UserControl.Resources>
-    <Border Background="#FFD4DEC1">
+    <Border Background="#FFD4DEC1" Margin="10">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.148*" />
-                <ColumnDefinition Width="0.196*"/>
+                <ColumnDefinition Width="0.017*" />
+            	<ColumnDefinition Width="0.074*"/>
+                <ColumnDefinition Width="0.253*"/>
                 <ColumnDefinition Width="0.215*"/>
                 <ColumnDefinition Width="0.261*"/>
-                <ColumnDefinition Width="0.035*" />
-                <ColumnDefinition Width="0.145*" />
+                <ColumnDefinition Width="0.088*" />
+                <ColumnDefinition Width="0.073*" />
+            	<ColumnDefinition Width="0.019*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.099*" />
-                <RowDefinition Height="0.285*" />
+                <RowDefinition Height="0.016*" />
+            	<RowDefinition Height="0.061*"/>
+                <RowDefinition Height="0.307*" />
                 <RowDefinition Height="0.616*" />
             </Grid.RowDefinitions>
-            <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,4.808,0" >
+            <Label x:Name="UserName" Content="{Binding User.UserName}" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Foreground="#FF7C836B" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Grid.Column="2" HorizontalAlignment="Right" Margin="0" Grid.Row="1" d:LayoutOverrides="Height" FontSize="13.333" VerticalAlignment="Center" >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -250,7 +315,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <Label x:Name="label" Content="的运动计划" Grid.Column="2" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" HorizontalAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF7C836B" Margin="0" d:LayoutOverrides="Height" >
+            <Label x:Name="label" Content="的运动计划" Grid.Column="3" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" HorizontalAlignment="Left" VerticalContentAlignment="Center" Foreground="#FF7C836B" Margin="0" d:LayoutOverrides="Height" FontSize="13.333" Grid.Row="1" >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -260,7 +325,7 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.ColumnSpan="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" ItemContainerStyle="{DynamicResource SurfaceListBoxItemStyle}">
+            <my:SurfaceListBox BorderBrush="Transparent" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" x:Name="PlanList" ItemsSource="{Binding ViewModels}" Background="Transparent"  ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Row="3" Grid.ColumnSpan="8" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" ItemContainerStyle="{DynamicResource SurfaceListBoxItemStyle}">
                 <my:SurfaceListBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -271,7 +336,7 @@
                 </my:SurfaceListBox.RenderTransform>
                 <my:SurfaceListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid  behaviors:ClipBehavior.CornerRadius="0,70,0,70" d:DesignHeight="397" Width="200" Height="Auto" Background="White">
+                        <Grid behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider}" d:DesignHeight="397" Width="200" Height="Auto" Background="White">
                         	<Grid.ColumnDefinitions>
                         		<ColumnDefinition Width="0.21*"/>
                         		<ColumnDefinition Width="0.79*"/>
@@ -287,9 +352,9 @@
                         				<Border  Width="200" Height="40" >
                         					<Grid Margin="0,0,0,10">
                         						<Grid.ColumnDefinitions>
-                        							<ColumnDefinition Width="50"/>
-                        							<ColumnDefinition Width="0.207*"/>
-                        							<ColumnDefinition Width="0.793*"/>
+                        							<ColumnDefinition Width="42.667"/>
+                        							<ColumnDefinition Width="0.089*"/>
+                        							<ColumnDefinition Width="0.911*"/>
                         						</Grid.ColumnDefinitions>
                         						<TextBlock x:Name="Time" Text="{Binding Time}" HorizontalAlignment="Left" Foreground="#FFE2F7EA" FontSize="14" FontFamily="黑体"/>
                         						<TextBlock x:Name="SportName" Text="{Binding SportName}" HorizontalAlignment="Left" Margin="0,0,28.95,0" Grid.Column="2" Foreground="#FF7C836B" FontSize="14" FontFamily="黑体" Width="Auto"/>
@@ -298,7 +363,7 @@
                         			</DataTemplate>
                         		</ItemsControl.ItemTemplate>
                         	</ItemsControl>
-                        	<TextBlock x:Name="DayOfWeek" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DayOfWeekDes}" VerticalAlignment="Stretch" Height="Auto" Grid.ColumnSpan="1" FontFamily="黑体" FontSize="24" Foreground="#FF94E0B1" Grid.Column="1" Margin="3,0,0,0" Grid.RowSpan="1" Grid.Row="0"/>
+                        	<TextBlock x:Name="DayOfWeek" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding DayOfWeekDes}" VerticalAlignment="Stretch" Height="Auto" Grid.ColumnSpan="1" FontFamily="黑体" FontSize="18.667" Foreground="#FF94E0B1" Grid.Column="1" Margin="0" Grid.RowSpan="1" Grid.Row="0"/>
                         </Grid>
                     </DataTemplate>
                 </my:SurfaceListBox.ItemTemplate>
@@ -308,27 +373,27 @@
                     </ItemsPanelTemplate>
                 </my:SurfaceListBox.ItemsPanel>
             </my:SurfaceListBox>
-            <my:SurfaceButton Content="下一周" Height="23" Command="{Binding NextWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="NextWeek" VerticalAlignment="Center" Width="75" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" >
-                <my:SurfaceButton.RenderTransform>
+            <Button   Content="下周" Command="{Binding NextWeekCommand}" x:Name="NextWeek" Grid.Column="6" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" Grid.Row="1" FontSize="12" Foreground="#FF8D947F" Background="White" Style="{DynamicResource ButtonStyle}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="30" Width="30" >
+                <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform/>
                         <RotateTransform/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </my:SurfaceButton.RenderTransform>
-            </my:SurfaceButton>
-            <my:SurfaceButton Content="上一周" Height="23" Command="{Binding LastWeekCommand}" HorizontalAlignment="Center" Margin="0" x:Name="LastWeek" VerticalAlignment="Center" Width="75" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" >
-                <my:SurfaceButton.RenderTransform>
+                </Button.RenderTransform>
+            </Button>
+            <Button Content="上周"  Command="{Binding LastWeekCommand}" x:Name="LastWeek" RenderTransformOrigin="0.507,0.467" OpacityMask="Black" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="12" Foreground="#FF7C836B" Background="White" Style="{DynamicResource ButtonStyle}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Width="30" Height="30" >
+                <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
                         <SkewTransform/>
                         <RotateTransform/>
                         <TranslateTransform/>
                     </TransformGroup>
-                </my:SurfaceButton.RenderTransform>
-            </my:SurfaceButton>
-            <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="3" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" VerticalContentAlignment="Center" Foreground="#FF929A81" >
+                </Button.RenderTransform>
+            </Button>
+            <Label Content="{Binding DayRange}" x:Name="DateRange" Grid.Column="4" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" VerticalContentAlignment="Center" Foreground="#FF929A81" Grid.Row="1" VerticalAlignment="Center" FontSize="13.333" >
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -338,30 +403,34 @@
                     </TransformGroup>
                 </Label.RenderTransform>
             </Label>
-            <vc:Chart ToolTipEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" Background="Transparent" Name="chart1" Grid.ColumnSpan="6" Theme="Theme3" Grid.Row="1">
+            <vc:Chart   ZoomingEnabled="False" AnimatedUpdate="True" AnimationEnabled="True" x:Name="chart1" Grid.ColumnSpan="8" Theme="Theme3" Grid.Row="2" Background="{x:Null}">
                 <vc:Chart.AxesX>
-                    <vc:Axis LineThickness="1" Interval="1" >
-                        <vc:Axis.Grids>
-                            <vc:ChartGrid></vc:ChartGrid>
-                        </vc:Axis.Grids>
-                    </vc:Axis>
+                	<vc:Axis LineThickness="1" >
+                		<vc:Axis.Grids>
+                			<vc:ChartGrid Background="Transparent" Interval="0.05" AnimationEnabled="True"/>
+                		</vc:Axis.Grids>
+                	</vc:Axis>
                 </vc:Chart.AxesX>
                 <vc:Chart.AxesY>
-                    <vc:Axis  Interval="1000"  AxisMinimum="0" LineThickness="0" >
+                    <vc:Axis LineThickness="0.1">
+                        <vc:Axis.Grids>
+                            <vc:ChartGrid Background="Transparent" IsEnabled="False" AnimationEnabled="True">    
+							</vc:ChartGrid>
+                        </vc:Axis.Grids>
                     </vc:Axis>
                 </vc:Chart.AxesY>
                 <vc:Chart.Series>
-                    <vc:DataSeries RenderAs="Spline" BorderColor="Transparent"  Bevel="False" BorderThickness="0"  LabelFontFamily="黑体" LineStyle="Solid" LineThickness="1" LabelLineEnabled="False"  MarkerSize="5" MarkerType="Circle" ShadowEnabled="False">
-                        <vc:DataSeries.DataPoints>
-                            <vc:DataPoint AxisXLabel="星期日" YValue="{Binding  CalorieOfSunday, Mode=OneWay}"/>
-                            <vc:DataPoint AxisXLabel="星期一" YValue="{Binding  CalorieOfMonday, Mode=OneWay}"/>
-                            <vc:DataPoint AxisXLabel="星期二" YValue="{Binding  CalorieOfTuesday, Mode=OneWay}"/>
-                            <vc:DataPoint AxisXLabel="星期三" YValue="{Binding  CalorieOfWednesday, Mode=OneWay}"/>
-                            <vc:DataPoint AxisXLabel="星期四" YValue="{Binding  CalorieOfThursday, Mode=OneWay}"/>
-                            <vc:DataPoint AxisXLabel="星期五" YValue="{Binding  CalorieOfFriday, Mode=OneWay}"/>
-                            <vc:DataPoint AxisXLabel="星期六" YValue="{Binding  CalorieOfSaturday, Mode=OneWay}"/>
-                        </vc:DataSeries.DataPoints>
-                    </vc:DataSeries>
+                	<vc:DataSeries RenderAs="Spline" BorderColor="Transparent"  Bevel="False" BorderThickness="0"  LabelFontFamily="黑体" LineStyle="Solid" LineThickness="1" LabelLineEnabled="False"  MarkerSize="5" MarkerType="Circle" ShadowEnabled="False">
+                		<vc:DataSeries.DataPoints>
+                			<vc:DataPoint AxisXLabel="星期日" YValue="{Binding CalorieOfSunday, Mode=OneWay}"/>
+                			<vc:DataPoint AxisXLabel="星期一" YValue="{Binding CalorieOfMonday, Mode=OneWay}"/>
+                			<vc:DataPoint AxisXLabel="星期二" YValue="{Binding CalorieOfTuesday, Mode=OneWay}"/>
+                			<vc:DataPoint AxisXLabel="星期三" YValue="{Binding CalorieOfWednesday, Mode=OneWay}"/>
+                			<vc:DataPoint AxisXLabel="星期四" YValue="{Binding CalorieOfThursday, Mode=OneWay}"/>
+                			<vc:DataPoint AxisXLabel="星期五" YValue="{Binding CalorieOfFriday, Mode=OneWay}"/>
+                			<vc:DataPoint AxisXLabel="星期六" YValue="{Binding CalorieOfSaturday, Mode=OneWay}"/>
+                		</vc:DataSeries.DataPoints>
+                	</vc:DataSeries>
                 </vc:Chart.Series>
             </vc:Chart>
         </Grid>
