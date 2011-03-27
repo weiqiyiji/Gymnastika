@@ -51,6 +51,15 @@ namespace Gymnastika.Sync.Console
             var scheduleService = new ScheduleService();
             var scheduleResponse = scheduleService.AddSchedule(scheduleItems);
             var taskList = scheduleResponse.Response.Content.ReadAsDataContract<TaskList>();
+
+            foreach(var task in taskList)
+            {
+                scheduleService.CompleteTask(task.TaskId);
+            }
+
+            taskList = scheduleService.GetCompletedTasks(1).Response.Content.ReadAsDataContract<TaskList>();
+
+            taskList = scheduleService.GetTodayPlans(1).Response.Content.ReadAsDataContract<TaskList>();
         }
     }
 }

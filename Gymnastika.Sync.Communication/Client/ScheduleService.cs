@@ -45,7 +45,18 @@ namespace Gymnastika.Sync.Communication.Client
             using (HttpClient client = new HttpClient())
             {
                 HttpResponseMessage response = client.Get(
-                    _baseAddress + "completed?user_id=" + userId);
+                    _baseAddress + "/completed?user_id=" + userId);
+
+                return new ResponseMessage(response, HttpStatusCode.OK);
+            }
+        }
+
+        public ResponseMessage GetTodayPlans(int userId)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.Get(
+                    _baseAddress + "/get_today_plans?user_id=" + userId);
 
                 return new ResponseMessage(response, HttpStatusCode.OK);
             }

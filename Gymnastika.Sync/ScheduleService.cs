@@ -43,11 +43,36 @@ namespace Gymnastika.Sync
                         string.Format("Schedule has wrong time range: startTime={0}, now={1}", scheduleItem.StartTime, now),
                         HttpStatusCode.BadRequest);
 
-                int taskId = _remindManager.Add(scheduleItem);
-                taskList.Add(new Task() { StartTime = scheduleItem.StartTime, TaskId = taskId, Message = scheduleItem.Message });
+                Models.ScheduleItem persistSchedule = new Models.ScheduleItem()
+                {
+                    UserId = scheduleItem.UserId,
+                    ConnectionId = scheduleItem.ConnectionId,
+                    StartTime = scheduleItem.StartTime,
+                    Message = scheduleItem.Message
+                };
+
+                _scheduleRepository.Create(persistSchedule);
+                _remindManager.Add(persistSchedule);
+                taskList.Add(new Task() { StartTime = scheduleItem.StartTime, TaskId = persistSchedule.Id, Message = scheduleItem.Message });
             }
 
             return taskList;
+        }
+
+        [WebGet(UriTemplate = "get_today_plans?user_id={userId}")]
+        public TaskList GetTodayPlans(int userId)
+        {
+            IEnumerable<Gymnastika.Sync.Models.ScheduleItem> schedules =
+                _scheduleRepository.Fetch(x => true).Where(x => IsToday(x.StartTime));
+
+            TaskList list = new TaskList();
+
+            foreach (var item in schedules)
+            {
+                list.Add(new Task() { StartTime = item.StartTime, TaskId = item.Id, Message = item.Message });
+            }
+
+            return list;
         }
 
         [WebGet(UriTemplate = "complete?id={id}")]
@@ -73,11 +98,14 @@ namespace Gymnastika.Sync
             var completeTasks = _scheduleRepository.Fetch(x => x.UserId == userId && x.IsComplete == true);
             foreach (var schedule in completeTasks)
             {
-                var startTime = DateTime.Parse(schedule.StartTime);
-
-                if (IsToday(startTime))
+                if (IsToday(schedule.StartTime))
                 {
-                    taskList.Add(new Task() { StartTime = startTime, TaskId = schedule.Id });
+                    taskList.Add(new Task() 
+                    { 
+                        StartTime = schedule.StartTime, 
+                        TaskId = schedule.Id, 
+                        Message = schedule.Message 
+                    });
                 }
             }
 
