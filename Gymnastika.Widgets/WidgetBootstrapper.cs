@@ -12,11 +12,11 @@ namespace Gymnastika.Widgets
 {
     public class WidgetBootstrapper : IWidgetBootstrapper
     {
-        private readonly IUnityContainer _container;
+        protected IUnityContainer Container { get; set; }
 
         public WidgetBootstrapper(IUnityContainer container)
         {
-            _container = container;
+            Container = container;
         }
 
         public void Run()
@@ -26,9 +26,9 @@ namespace Gymnastika.Widgets
             ConfigureBehaviorMappings();
         }
 
-        private void RegisterDependencies()
+        protected virtual void RegisterDependencies()
         {
-            _container
+            Container
                 .RegisterType<ContainerAdapterMappings>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetContainer, WidgetContainer>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetManager, WidgetManager>(new ContainerControlledLifetimeManager())
@@ -36,21 +36,19 @@ namespace Gymnastika.Widgets
                 .RegisterType<IWidgetContainerAccessor, WidgetContainerAccessor>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetHostFactory, DefaultWidgetHostFactory>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetContainerAdapter, CanvasWidgetContainerAdapter>("Canvas", new ContainerControlledLifetimeManager())
-                .RegisterType<IWidgetContainerAdapter, ScatterViewWidgetContainerAdapter>("ScatterView", new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetContainerInitializer, WidgetContainerInitializer>(new ContainerControlledLifetimeManager())
                 .RegisterType<IWidgetContainerBehaviorFactory, WidgetContainerBehaviorFactory>(new ContainerControlledLifetimeManager());
         }
 
-        private void ConfigureContainerAdapterMappings()
+        protected virtual void ConfigureContainerAdapterMappings()
         {
-            ContainerAdapterMappings adapterMappings = _container.Resolve<ContainerAdapterMappings>();
-            adapterMappings.RegisterMapping(typeof(Canvas), _container.Resolve<IWidgetContainerAdapter>("Canvas"));
-            adapterMappings.RegisterMapping(typeof(ScatterView), _container.Resolve<IWidgetContainerAdapter>("ScatterView"));
+            ContainerAdapterMappings adapterMappings = Container.Resolve<ContainerAdapterMappings>();
+            adapterMappings.RegisterMapping(typeof(Canvas), Container.Resolve<IWidgetContainerAdapter>("Canvas"));
         }
         
-        private void ConfigureBehaviorMappings()
+        protected virtual void ConfigureBehaviorMappings()
         {
-            IWidgetContainerBehaviorFactory factory = _container.Resolve<IWidgetContainerBehaviorFactory>();
+            IWidgetContainerBehaviorFactory factory = Container.Resolve<IWidgetContainerBehaviorFactory>();
             factory
                 .Register(CreateWidgetHostBehavior.BehaviorKey, typeof (CreateWidgetHostBehavior))
                 .Register(DragWidgetBehavior.BehaviorKey, typeof(DragWidgetBehavior))

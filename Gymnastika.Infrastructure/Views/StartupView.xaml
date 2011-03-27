@@ -125,5 +125,12 @@
             MouseOverImageSource="/Gymnastika.Infrastructure;component/Images/newuser_normal.png"
             MousePressedImageSource="/Gymnastika.Infrastructure;component/Images/newuser_pressed.png"/>
 
+        <toolkit:BusyIndicator x:Name="Indicator" DisplayAfter="0" Grid.RowSpan="3" Panel.ZIndex="1000" BusyContent="初始化中..." IsBusy="false">
+            <toolkit:BusyIndicator.OverlayStyle>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Setter Property="Fill" Value="#CF000000" />
+                </Style>
+            </toolkit:BusyIndicator.OverlayStyle>
+        </toolkit:BusyIndicator>
     </Grid>
 </UserControl>

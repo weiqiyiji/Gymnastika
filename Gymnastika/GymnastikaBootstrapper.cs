@@ -103,7 +103,7 @@ namespace Gymnastika
                 .RegisterType<ISessionLocator, SessionLocator>(new ContainerControlledLifetimeManager())
                 .RegisterType<ITransactionManager, TransactionManager>()
                 .RegisterType(typeof (IRepository<>), typeof (Repository<>))
-                .RegisterType<IWidgetBootstrapper, WidgetBootstrapper>()
+                .RegisterType<IWidgetBootstrapper, GymnastikaWidgetBootstrapper>()
                 .RegisterType<IWorkEnvironment, WorkEnvironment>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISessionManager, SessionManager>(new ContainerControlledLifetimeManager())
                 .RegisterType<ConnectionStore>(new ContainerControlledLifetimeManager())

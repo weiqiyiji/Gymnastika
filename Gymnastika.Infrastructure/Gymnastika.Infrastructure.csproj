@@ -149,6 +149,10 @@
     <Compile Include="Views\DefaultWidgetPanel.xaml.cs">
       <DependentUpon>DefaultWidgetPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\GymnastikaWidgetBootstrapper.cs" />
+    <Compile Include="Widgets\IStateAware.cs" />
+    <Compile Include="Widgets\ScatterViewWidgetContainerAdapter.cs" />
+    <Compile Include="Widgets\StateAwareBehavior.cs" />
   </ItemGroup>
   <ItemGroup>
     <DesignData Include="DesignData\NavigationRegions.xaml">
