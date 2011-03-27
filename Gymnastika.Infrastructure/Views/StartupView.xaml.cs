@@ -14,6 +14,10 @@ using System.Windows.Shapes;
 using Gymnastika.ViewModels;
 using Gymnastika.Views;
 using System.Windows.Controls.Primitives;
+using Microsoft.Practices.Prism.Regions;
+using System.ComponentModel;
+using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Views
 {
@@ -22,8 +26,6 @@ namespace Gymnastika.Views
     /// </summary>
     public partial class StartupView : UserControl, IStartupView
     {
-
-
         public static bool GetIsCenter(DependencyObject obj)
         {
             return (bool)obj.GetValue(IsCenterProperty);
@@ -42,7 +44,6 @@ namespace Gymnastika.Views
         {
             InitializeComponent();
             Model = model;
-            this.Loaded += new RoutedEventHandler(StartupView_Loaded);
         }
 
         public bool IsBusy
@@ -51,13 +52,8 @@ namespace Gymnastika.Views
             set { SetValue(IsBusyProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for IsBusy.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty IsBusyProperty =
             DependencyProperty.Register("IsBusy", typeof(bool), typeof(StartupView), new UIPropertyMetadata(false));
-
-        void StartupView_Loaded(object sender, RoutedEventArgs e)
-        {
-        }    
 
         public StartupViewModel Model
         {
@@ -98,5 +94,14 @@ namespace Gymnastika.Views
                 SetIsCenter(container, true);
             }
         }
+
+        #region IStartupView Members
+
+        public void ShowBusyIndicator()
+        {
+            this.Indicator.IsBusy = true;
+        }
+
+        #endregion
     }
 }

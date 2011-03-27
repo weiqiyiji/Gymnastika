@@ -78,8 +78,6 @@ namespace Gymnastika.Widgets
             this.dateLabel.Text = DateTime.Now.ToString("HH : mm");
         }
 
-        #region IDisposable Members
-
         public void Dispose()
         {
             _timer.Stop();
@@ -88,7 +86,5 @@ namespace Gymnastika.Widgets
             _secondTimer.Stop();
             _secondTimer.Elapsed -= _secondTimer_Elapsed;
         }
-
-        #endregion
     }
 }

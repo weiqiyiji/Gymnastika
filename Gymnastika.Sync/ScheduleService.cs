@@ -44,7 +44,7 @@ namespace Gymnastika.Sync
                         HttpStatusCode.BadRequest);
 
                 int taskId = _remindManager.Add(scheduleItem);
-                taskList.Add(new Task() { StartTime = scheduleItem.StartTime, TaskId = taskId });
+                taskList.Add(new Task() { StartTime = scheduleItem.StartTime, TaskId = taskId, Message = scheduleItem.Message });
             }
 
             return taskList;

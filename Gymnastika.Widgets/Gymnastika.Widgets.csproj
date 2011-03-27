@@ -77,7 +77,6 @@
     <Compile Include="IWidgetBootstrapper.cs" />
     <Compile Include="Migration\Migration_WidgetInstances_20110312155044.cs" />
     <Compile Include="Models\WidgetInstance.cs" />
-    <Compile Include="ScatterViewWidgetContainerAdapter.cs" />
     <Compile Include="WidgetBootstrapper.cs" />
     <Compile Include="WidgetMetadataAttribute.cs" />
     <Compile Include="Infrastructure\IWidgetHostAware.cs" />

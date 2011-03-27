@@ -53,13 +53,5 @@
                 </TransformGroup>
             </ContentControl.RenderTransform>    
         </ContentControl>
-
-        <toolkit:BusyIndicator x:Name="Indicator" DisplayAfter="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Panel.ZIndex="1000" BusyContent="初始化中..." IsBusy="{Binding IsInitializing}">
-            <toolkit:BusyIndicator.OverlayStyle>
-                <Style TargetType="{x:Type Rectangle}">
-                    <Setter Property="Fill" Value="#CF000000" />
-                </Style>
-            </toolkit:BusyIndicator.OverlayStyle>
-        </toolkit:BusyIndicator>
     </Grid>
 </UserControl>

@@ -15,6 +15,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Views;
 using Microsoft.Practices.Unity;
 using Gymnastika.Common.Navigation;
+using System.Threading;
 
 namespace Gymnastika.ViewModels
 {
@@ -47,10 +48,8 @@ namespace Gymnastika.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
-            IsInitializing = true;
             LoadModules();
             Initialize();
-            IsInitializing = false;
         }
         
         private bool _isInitializing;
