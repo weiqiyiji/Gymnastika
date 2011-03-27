@@ -9,8 +9,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     d:DesignHeight="236" d:DesignWidth="239" BorderBrush="{x:Null}" BorderThickness="0">
-    <Border BorderBrush="White" BorderThickness="2" CornerRadius="4" Background="#FF0B6481">
-    <Grid x:Name="LayoutRoot" Margin="0">
+    <Border BorderBrush="White" BorderThickness="2" CornerRadius="10" Background="#C510262D">
+    <Grid x:Name="LayoutRoot" Margin="6,0,6,6">
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="93*" />

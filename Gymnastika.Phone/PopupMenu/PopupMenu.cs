@@ -21,6 +21,7 @@ namespace Gymnastika.Phone.PopupMenu
         FrameworkElement _owner;
         double width, height;
         public string Title { get; set; }
+       // public object Tag { get; set; }
         public PopupMenu(FrameworkElement Owner)
         {
             InitalizeRootVisual();
@@ -63,7 +64,11 @@ namespace Gymnastika.Phone.PopupMenu
         PopupMenuLayer menuLayer;
         private List<MenuItem> m_Items = new List<MenuItem>();
         public List<MenuItem> Items { get { return m_Items; } }
-
+        public MenuItem AddItem(MenuItem item)
+        {
+            Items.Add(item);
+            return item;
+        }
         public delegate void MenuClickHandler(object sender, int MenuID, MenuItem Menu);
         public event MenuClickHandler MenuClick;
         public void Open()
@@ -93,7 +98,7 @@ namespace Gymnastika.Phone.PopupMenu
             Point point = SafeTransformToVisual(_owner, _rootVisual).Transform(new Point());
 
             _overlay.Children.Add(new Button());
-            _overlay.MouseLeftButtonDown += new MouseButtonEventHandler(_overlay_MouseLeftButtonDown);
+            _overlay.MouseLeftButtonUp+=new MouseButtonEventHandler(_overlay_MouseLeftButtonUp);
 
 
             TransformGroup transforms = new TransformGroup();
@@ -155,6 +160,13 @@ namespace Gymnastika.Phone.PopupMenu
             Focus();
         }
 
+        void _overlay_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            this.CaptureMouse();
+            if (e.OriginalSource == this || e.OriginalSource == contentLayer)
+                Close();
+        }
+
         void _rootVisual_OrientationChanged(object sender, OrientationChangedEventArgs e)
         {
             Close();
@@ -162,8 +174,10 @@ namespace Gymnastika.Phone.PopupMenu
 
         void menuLayer_MenuClick(object sender, int MenuID)
         {
+            Items[MenuID].OnClick();
             if (MenuClick != null)
                 MenuClick(this, MenuID, Items[MenuID]);
+
             Close();
         }
 
@@ -211,11 +225,6 @@ namespace Gymnastika.Phone.PopupMenu
                 contentLayer = null;
             }
             menuLayer = null;
-        }
-        void _overlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.OriginalSource == this || e.OriginalSource == contentLayer)
-                Close();
         }
         private static GeneralTransform SafeTransformToVisual(UIElement element, UIElement visual)
         {
