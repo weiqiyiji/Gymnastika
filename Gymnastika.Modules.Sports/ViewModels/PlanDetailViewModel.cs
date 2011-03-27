@@ -9,6 +9,8 @@ using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Events;
 using Gymnastika.Modules.Sports.Facilities;
 using Microsoft.Practices.Prism.Commands;
+using System.Collections.ObjectModel;
+using Gymnastika.Modules.Sports.Extensions;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -20,6 +22,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
         DelegateCommand NextDayCommand { get; }
         DelegateCommand LastDayCommand { get; }
         string Date { get; }
+        ObservableCollection<SportsPlanItem> Items { get; }
     }
 
     public class PlanDetailViewModel : NotificationObject , IPlanDetailViewModel
@@ -117,12 +120,24 @@ namespace Gymnastika.Modules.Sports.ViewModels
             }
         }
 
+        public ObservableCollection<SportsPlanItem> Items 
+        {
+            get
+            {
+                if (SportsPlan != null)
+                    return SportsPlan.SportsPlanItems.ToObservableCollection();
+                else
+                    return null; 
+            }
+        }
+
         void UpdatePlan(SportsPlan plan)
         {
             _sportsPlan = plan;
             PlanChangedEvent(this, EventArgs.Empty);
             RaisePropertyChanged(() => SportsPlan);
             RaisePropertyChanged(() => Date);
+            RaisePropertyChanged(() => Items);
         }
 
         public event EventHandler PlanChangedEvent = delegate { };

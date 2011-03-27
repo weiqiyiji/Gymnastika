@@ -141,6 +141,11 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Data\XmlData\Introductions\慢走%28一小时4公里%29.rtf" />
+    <None Include="Data\XmlData\Introductions\慢跑%28一小时9公里%29.rtf" />
+    <None Include="Data\XmlData\Introductions\散步.rtf" />
+    <None Include="Data\XmlData\Introductions\瑜伽_瑜珈%28一般性舒展运动%29.rtf" />
+    <None Include="Data\XmlData\Introductions\看电视.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -192,6 +197,13 @@
   <ItemGroup>
     <Resource Include="Images\mainview_bg.jpg" />
     <Resource Include="Images\mainview_bg2.jpg" />
+    <Resource Include="Data\XmlData\Category.jpg" />
+    <Resource Include="Data\XmlData\Images\慢走%28一小时4公里%29.jpg" />
+    <Resource Include="Data\XmlData\Images\慢跑%28一小时9公里%29.jpg" />
+    <Resource Include="Data\XmlData\Images\散步.jpg" />
+    <Resource Include="Data\XmlData\Images\瑜伽_瑜珈%28一般性舒展运动%29.jpg" />
+    <Resource Include="Data\XmlData\Images\看电视.jpg" />
+    <Resource Include="Data\XmlData\SportData.xml" />
     <Content Include="Images\defaultavatar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

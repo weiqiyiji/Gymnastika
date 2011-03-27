@@ -13,16 +13,23 @@ namespace Gymnastika.Modules.Sports.Converters
 
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            int hour = (int)values[0];
-            int minute = (int)values[1];
-            if (IsTimeValid(hour, minute))
+            try
             {
-                return string.Format("{0}:{1}", hour.ToString(), minute.ToString("00"));
+                int hour = (int)values[0];
+                int minute = (int)values[1];
+                if (IsTimeValid(hour, minute))
+                {
+                    return string.Format("{0}:{1}", hour.ToString(), minute.ToString("00"));
+                }
+                else
+                {
+                    return "";
+                    throw new Exception("Invalid Time Range");
+                }
             }
-            else
+            catch
             {
-                return "";
-                throw new Exception("Invalid Time Range");
+                return "0:00";
             }
         }
 

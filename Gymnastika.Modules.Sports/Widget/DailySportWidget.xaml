@@ -34,5 +34,6 @@
         	<TextBlock Text="{Binding Time}" x:Name="Time" VerticalAlignment="Bottom"/>
     	</StackPanel>
         <UserControl Content="{Binding}" ContentTemplate="{StaticResource ResourceKey=WithPlanTemplate}"/>
+        <Button Content="Button" Height="23" Name="button1" Width="75" Click="button1_Click" />
     </StackPanel>
 </UserControl>

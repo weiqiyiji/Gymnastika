@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
              xmlns:converters="clr-namespace:Gymnastika.Modules.Sports.Converters" 
     		xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" 
-    		xmlns:Custom="http://schemas.microsoft.com/surface/2008" x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
-             mc:Ignorable="d"  x:Name="Root" Height="28" Foreground="#FF9DA290" 
+    		xmlns:Custom="http://schemas.microsoft.com/surface/2008"
+			 x:Class="Gymnastika.Modules.Sports.Views.SportsPlanItemView" 
+			 mc:Ignorable="d"  x:Name="Root" Height="28" Foreground="#FF9DA290" 
 			 d:DesignWidth="300"
 			 FontSize="10">
     <UserControl.Resources>
@@ -33,6 +34,9 @@
     		</Border>
     		<TextBlock x:Name="运动名称" TextWrapping="Wrap" Text="{Binding SportName}" Margin="25,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="14.667" />
     	</StackPanel>
-		<Custom:SurfaceButton Content="X" Command="{Binding CancelCommand}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF286226" Style="{DynamicResource NavigationButtonStyle}" Grid.Column="1" Margin="0" HorizontalAlignment="Right" Width="11.5" d:LayoutOverrides="Height" />
+            <controls:ImageButton Grid.Column="1" Command="{Binding CancelCommand}" VerticalAlignment="Center" HorizontalAlignment="Right"
+                                 ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close.png"
+                                 MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close.png"
+                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close.png" VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center"/>
 	</Grid>
 </UserControl>

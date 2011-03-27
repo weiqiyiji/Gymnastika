@@ -15,6 +15,7 @@ using Gymnastika.Modules.Sports.ViewModels;
 using Visifire.Charts;
 using Gymnastika.Modules.Sports.Models;
 using Gymnastika.Common.Extensions;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -26,8 +27,15 @@ namespace Gymnastika.Modules.Sports.Views
         public PlanDetailView()
         {
             InitializeComponent();
+            LoadViewModel();
         }
-
+        void LoadViewModel()
+        {
+            AsychronousLoadHelper.AsychronousResolve<IPlanDetailViewModel>((model) =>
+            {
+                ViewModel = model;
+            }, this.Dispatcher);
+        }
 
         public IPlanDetailViewModel ViewModel
         {
@@ -123,7 +131,7 @@ namespace Gymnastika.Modules.Sports.Views
 
         double GetCalories(SportsPlanItem item)
         {
-            return item.Sport.Calories / item.Sport.Minutes * item.Minute;
+            return item.Sport.Calories / item.Sport.Minutes * item.Duration;
         }
 
 

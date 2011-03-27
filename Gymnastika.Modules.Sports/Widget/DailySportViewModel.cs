@@ -8,6 +8,9 @@ using Gymnastika.Modules.Sports.Models;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Timers;
 using Gymnastika.Services.Models;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Sports.Events;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Widget
 {
@@ -24,25 +27,32 @@ namespace Gymnastika.Modules.Sports.Widget
         readonly ISportsPlanProvider _sportsPlanProvider;
         readonly ISessionManager _sessionManager;
         readonly ISportProvider _sportProvider;
+        readonly IEventAggregator _eventAggregator;
+
         Timer _timer;
-        public DailySportViewModel(ISportsPlanProvider sportsPlanProvider,ISportProvider sportProvider,ISessionManager sessionManager)
+
+        public DailySportViewModel(ISportsPlanProvider sportsPlanProvider,ISportProvider sportProvider,ISessionManager sessionManager,IEventAggregator eventAggregator)
         {
             _sportsPlanProvider = sportsPlanProvider;
             _sessionManager = sessionManager;
             _sportProvider = sportProvider;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Subscribe(OnSportsPlanCreateOrUpdate);
+        }
+
+        void Refresh()
+        {
+            Plan = LoadPlan(User, Time);
         }
 
         SportsPlan _plan;
         public SportsPlan Plan
         {
             get { return _plan; }
-            set
+            private set
             {
-                if (_plan != value)
-                {
-                    _plan = value;
-                    RaisePropertyChanged(() => Plan);
-                }
+                _plan = value;
+                RaisePropertyChanged(() => Plan);
             }
         }
 
@@ -76,7 +86,7 @@ namespace Gymnastika.Modules.Sports.Widget
             _timer = new Timer(1);
             _timer.Start();
             _timer.Elapsed += OnTimer;
-            Plan = LoadPlan(User,Time);
+            Refresh();
             
         }
 
@@ -99,6 +109,15 @@ namespace Gymnastika.Modules.Sports.Widget
             //plan.User = User;
             return plan;
         }
-    
+
+
+
+        void OnSportsPlanCreateOrUpdate(SportsPlan plan)
+        {
+            if(MathFacility.TheSameDay(Time,plan))
+            {
+                Refresh();
+            }
+        }
     }
 }
