@@ -24,10 +24,13 @@ namespace Gymnastika.Modules.Sports.Facilities
             resolveHandler.BeginInvoke(asyCallback, null);
         }
 
+        
+
         public static void AsychronousCall(Action handler)
         {
             AsyncCallback callback = (result) => { };
             handler.BeginInvoke(callback, null);
         }
+
     }
 }

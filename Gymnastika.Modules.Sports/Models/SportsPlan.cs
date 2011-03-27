@@ -18,6 +18,7 @@ namespace Gymnastika.Modules.Sports.Models
             Month = now.Month;
             Day = now.Day;
             SportsPlanItems = new List<SportsPlanItem>();
+            SynchronizedToServer = false;
         }
 
         public virtual int Id { set; get; }
@@ -31,6 +32,8 @@ namespace Gymnastika.Modules.Sports.Models
         public virtual int Score { get; set; }
 
         public virtual IList<SportsPlanItem> SportsPlanItems { get; set; }
+
+        public virtual bool SynchronizedToServer { get; set; }
 
         public virtual User User { get; set; }
     }

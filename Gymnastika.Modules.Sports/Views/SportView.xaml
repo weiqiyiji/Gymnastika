@@ -96,7 +96,7 @@
     						</MultiBinding>
     					</TextBlock.Text>
     				</TextBlock>
-    				<my:SurfaceButton  Content="关闭" Grid.Column="1" Height="23" Margin="0,7,13,0" x:Name="surfaceButton1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" Click="surfaceButton1_Click" />
+    				<Button  Content="关闭" Grid.Column="1" Height="23" Margin="0,7,13,0" x:Name="surfaceButton1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" Click="surfaceButton1_Click" />
     			</Grid>
     			<FlowDocumentReader ViewingMode="Scroll" x:Name="flowDocumentReader" Document="{Binding IntroductionUri, Converter={StaticResource ResourceKey=RtfConverter}, IsAsync=True}" Grid.Row="1">
                     <FlowDocumentReader.OpacityMask>

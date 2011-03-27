@@ -79,6 +79,7 @@
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -93,6 +94,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Communication\CommunicationManager.cs" />
+    <Compile Include="Communication\Helpers\ContractObjectSerializer.cs" />
+    <Compile Include="Communication\Tasks\SportsPlanTaskItem.cs" />
     <Compile Include="ConfigFile.cs" />
     <Compile Include="Converters\CalorieDecriptionConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
@@ -111,9 +115,8 @@
     <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
-    <Compile Include="Facilities\PlanFormatter.cs" />
     <Compile Include="NavigationNames.cs" />
-    <Compile Include="Services\Communication\CommunicationService.cs" />
+    <Compile Include="Communication\Services\CommunicationService.cs" />
     <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Services\DataImport\Importers\CategoryImporter.cs" />
     <Compile Include="Services\DataImport\DataImportManager.cs" />
@@ -274,9 +277,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Images\Sport.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Services\Controller\" />
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +287,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Sport.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

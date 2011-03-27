@@ -14,14 +14,6 @@ using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Widget
 {
-    //public interface IDailySportViewModel
-    //{
-    //    SportsPlan Plan { get; }
-    //    User User { get; }
-    //    DateTime Time { get; }
-    //    void Run();
-    //}
-
     public class DailySportViewModel : NotificationObject
     {
         readonly ISportsPlanProvider _sportsPlanProvider;
@@ -43,6 +35,7 @@ namespace Gymnastika.Modules.Sports.Widget
         void Refresh()
         {
             Plan = LoadPlan(User, Time);
+            RaisePropertyChanged(() => Plan.SportsPlanItems);
         }
 
         SportsPlan _plan;

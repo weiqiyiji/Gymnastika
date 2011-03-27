@@ -13,9 +13,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gymnastika.Widgets;
 using Gymnastika.Modules.Sports.Models;
-using Gymnastika.Modules.Sports.Services.Communication;
 using Gymnastika.Sync.Communication.Client;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Modules.Sports.Communication.Services;
 
 namespace Gymnastika.Modules.Sports.Widget
 {
@@ -42,15 +42,5 @@ namespace Gymnastika.Modules.Sports.Widget
 
         #endregion
 
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            CommunicationService service = new CommunicationService();
-            Action<ResponseMessage> handler = (s) =>
-                {
-                    MessageBox.Show(s.Response.Content.ReadAsString());
-                };
-            var connectionStore = ServiceLocator.Current.GetInstance<ConnectionStore>();
-            service.SendPlan(_model.Plan, connectionStore.ConnectionId, handler);
-        }
     }
 }
