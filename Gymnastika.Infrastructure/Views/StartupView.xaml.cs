@@ -38,14 +38,22 @@ namespace Gymnastika.Views
         public static readonly DependencyProperty IsCenterProperty =
             DependencyProperty.RegisterAttached("IsCenter", typeof(bool), typeof(StartupView), new UIPropertyMetadata(false));
 
-        
-
         public StartupView(StartupViewModel model)
         {
             InitializeComponent();
             Model = model;
             this.Loaded += new RoutedEventHandler(StartupView_Loaded);
         }
+
+        public bool IsBusy
+        {
+            get { return (bool)GetValue(IsBusyProperty); }
+            set { SetValue(IsBusyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsBusy.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsBusyProperty =
+            DependencyProperty.Register("IsBusy", typeof(bool), typeof(StartupView), new UIPropertyMetadata(false));
 
         void StartupView_Loaded(object sender, RoutedEventArgs e)
         {

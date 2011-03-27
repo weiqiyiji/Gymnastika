@@ -50,12 +50,18 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WPFToolkit.Extended">
+      <HintPath>..\Libs\WPFToolkit.Extended.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Sub\BusyIndicatorDemo.xaml.cs">
+      <DependentUpon>BusyIndicatorDemo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Sub\CheckButtonGroupDemo.xaml.cs">
       <DependentUpon>CheckButtonGroupDemo.xaml</DependentUpon>
     </Compile>
@@ -83,6 +89,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Sub\BusyIndicatorDemo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Sub\CheckButtonGroupDemo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

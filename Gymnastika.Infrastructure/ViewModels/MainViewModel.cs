@@ -47,8 +47,25 @@ namespace Gymnastika.ViewModels
 
         public void OnNavigatedTo(NavigationContext navigationContext)
         {
+            IsInitializing = true;
             LoadModules();
             Initialize();
+            IsInitializing = false;
+        }
+        
+        private bool _isInitializing;
+
+        public bool IsInitializing
+        {
+            get { return _isInitializing; }
+            set
+            {
+                if (_isInitializing != value)
+                {
+                    _isInitializing = value;
+                    RaisePropertyChanged("IsInitializing");
+                }
+            }
         }
 
         private const string NormalRegion = "NormalRegion";

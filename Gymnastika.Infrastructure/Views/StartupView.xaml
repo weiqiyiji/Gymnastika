@@ -6,6 +6,7 @@
              xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
              xmlns:s="http://schemas.microsoft.com/surface/2008"
              xmlns:f="clr-namespace:FluidKit.Controls;assembly=FluidKit"
+             xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
              xmlns:cov="clr-namespace:Gymnastika.Controls.Converters;assembly=Gymnastika.Controls"
              xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Views.StartupView"
              mc:Ignorable="d" 
@@ -70,7 +71,6 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
-
         <f:ElementFlow VerticalAlignment="Bottom" HorizontalAlignment="Center" Click="OnSelectorClick"
                        Height="300" Width="{Binding ActualWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Grid}}}" SelectionChanged="OnSelectionChanged"
                        d:DataContext="{d:DesignData Source=/DesignData/Users.xaml}" 
@@ -124,5 +124,6 @@
             ImageSource="/Gymnastika.Infrastructure;component/Images/newuser_normal.png"
             MouseOverImageSource="/Gymnastika.Infrastructure;component/Images/newuser_normal.png"
             MousePressedImageSource="/Gymnastika.Infrastructure;component/Images/newuser_pressed.png"/>
+
     </Grid>
 </UserControl>
