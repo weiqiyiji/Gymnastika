@@ -103,7 +103,9 @@
     <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
+    <Compile Include="Facilities\PlanFormatter.cs" />
     <Compile Include="NavigationNames.cs" />
+    <Compile Include="Services\Communication\CommunicationService.cs" />
     <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Services\DataImport\Importers\CategoryImporter.cs" />
     <Compile Include="Services\DataImport\DataImportManager.cs" />
