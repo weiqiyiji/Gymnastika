@@ -19,7 +19,9 @@ namespace Gymnastika.Phone.Common
         Suspend,
         Pending,
         Active,
-        Aborted
+        Aborted,
+        Normal,
+        Forward
     }
     public class ScheduleItem:DependencyObject
     {
@@ -28,6 +30,9 @@ namespace Gymnastika.Phone.Common
         {
            // Content = new SchduleListItem(0, this);
             this.Duration = TimeSpan.FromSeconds(0);
+            OriginTime = DateTime.MinValue;
+            m_Status = ScheduleItemStatus.Normal;
+            
         }
         private static string TranslateStatus(ScheduleItemStatus status)
         {
@@ -42,6 +47,12 @@ namespace Gymnastika.Phone.Common
                     return "已完成";
                 case ScheduleItemStatus.Pending:
                     return "推迟中";
+                case ScheduleItemStatus.Suspend:
+                    return "暂停中";
+                case ScheduleItemStatus.Normal:
+                    return "未开始";
+                case ScheduleItemStatus.Forward:
+                    return "提前";
                 default:
                     return "未知状态";
 
@@ -57,7 +68,7 @@ namespace Gymnastika.Phone.Common
         public DateTime OriginTime { get; set; }
         public Duration Duration { get; set; }
         private DateTime m_Time;
-        public DateTime Time { get { return m_Time > OriginTime ? m_Time : OriginTime; } set { m_Time = value; this.SetValue(TimeTextProperty, Time.ToString("HH:mm:ss")); if (ScheduleContentChagned != null)ScheduleContentChagned(this, new EventArgs()); } }
+        public DateTime Time { get { return m_Time; } set { m_Time = value; if (OriginTime == DateTime.MinValue) OriginTime = value; ;this.SetValue(TimeTextProperty, Time.ToString("HH:mm:ss")); if (ScheduleContentChagned != null)ScheduleContentChagned(this, new EventArgs()); } }
         private ScheduleItemStatus m_Status;
         public ScheduleItemStatus Status
         {
@@ -83,6 +94,17 @@ namespace Gymnastika.Phone.Common
         public double Point { get; set; }
         public static readonly DependencyProperty StatusTextProperty = DependencyProperty.Register("StatusText", typeof(string), typeof(ScheduleItem), new PropertyMetadata(""));
         public static readonly DependencyProperty TimeTextProperty = DependencyProperty.Register("TimeText", typeof(string), typeof(ScheduleItem), new PropertyMetadata(""));
+        public void Delay(TimeSpan time)
+        {
+
+            this.Time += time;
+            if (this.Time > this.OriginTime)
+                this.Status = ScheduleItemStatus.Pending;
+            else if (this.Time < this.OriginTime)
+                this.Status = ScheduleItemStatus.Forward;
+            else
+                this.Status = ScheduleItemStatus.Normal;
+        }
     }
     #endregion
     public  class Schedule
@@ -116,10 +138,9 @@ namespace Gymnastika.Phone.Common
         }
         public  void Delay(ScheduleItem Item, TimeSpan Span)
         {
-            if (Item.Time < Item.OriginTime)
-                Item.Time = Item.OriginTime;
-            Item.Time += Span;
+            Item.Delay(Span);
         }
+        
         public void Suspend(ScheduleItem Item)
         {
             UpdateStatus(Item, ScheduleItemStatus.Suspend);

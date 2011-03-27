@@ -6,11 +6,20 @@
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}" BorderBrush="#FF070707" Loaded="UserControl_Loaded" Height="259">
+    Foreground="{StaticResource PhoneForegroundBrush}" BorderBrush="#FF070707" Loaded="UserControl_Loaded" Height="259" xmlns:my="clr-namespace:Gymnastika.Phone.Controls">
     <UserControl.Resources>
         <DataTemplate x:Key="SchduleDetailItem">
             <Grid d:DesignWidth="173" d:DesignHeight="93"/>
         </DataTemplate>
+        <SolidColorBrush x:Key="BgActive" Color="#330DFF11"/>
+        <SolidColorBrush x:Key="BgDone" Color="#192678FB"/>
+        <SolidColorBrush x:Key="BgAborted" Color="#33FF0C00"/>
+		<SolidColorBrush x:Key="BgPending" Color="#33FDFF00"/>
+		<SolidColorBrush x:Key="BgSuspend" Color="#33FF00F5"/>
+		<SolidColorBrush x:Key="BgForward" Color="#33232323"/>
+        <SolidColorBrush x:Key="BgNormal" Color="#19FFFFFF"/>
+		<SolidColorBrush x:Key="FgIn" Color="#FFFD2E00"/>
+		<SolidColorBrush x:Key="FgOut" Color="#FF0D6801"/>
     </UserControl.Resources>
     <Border x:Name="borderRoot" CornerRadius="8" BorderBrush="White" BorderThickness="2" Background="#19FFFFFF" Margin="0,0,0,4">
         <Grid x:Name="LayoutRoot" Margin="0,0,0,-2" >
@@ -19,8 +28,9 @@
             <TextBlock HorizontalAlignment="Right" Height="32" Margin="0,95,9,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="132" Foreground="#FF3A52DA" Name="txtStatus" />
             <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top"/>
             <Border CornerRadius="5" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top" Margin="8,127,8,0" Height="117" Background="#3FFFFFFF" Name="DetailBorder">
-                <ScrollViewer/>
+                <ScrollViewer></ScrollViewer>
             </Border>
+            <TextBlock Margin="8,95,0,0" TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Left" Width="246" Height="30" VerticalAlignment="Top" Name="txtCalorie" />
         </Grid>
     </Border>
 </UserControl>

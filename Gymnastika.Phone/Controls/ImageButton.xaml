@@ -7,7 +7,6 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="45" d:DesignWidth="207" xmlns:my="clr-namespace:Gymnastika.Phone.Controls">
-    
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}"></Grid>
+    d:DesignHeight="480" d:DesignWidth="480" Width="48" Height="32" BorderBrush="{x:Null}">
+    <Grid Height="Auto" Name="grid1" Width="Auto" />
 </UserControl>

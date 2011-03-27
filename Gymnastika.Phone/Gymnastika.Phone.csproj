@@ -78,6 +78,7 @@
     <Compile Include="Common\DefualtTransition.cs" />
     <Compile Include="Common\Grade.cs" />
     <Compile Include="Common\MicroBlog.cs" />
+    <Compile Include="Common\SchduleListener.cs" />
     <Compile Include="Common\Schedule.cs" />
     <Compile Include="Common\User.cs" />
     <Compile Include="Common\Util.cs" />
@@ -127,6 +128,9 @@
     <Compile Include="Controls\SportsManager.xaml.cs">
       <DependentUpon>SportsManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimeSpanSelector.xaml.cs">
+      <DependentUpon>TimeSpanSelector.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\UserCenter.xaml.cs">
       <DependentUpon>UserCenter.xaml</DependentUpon>
     </Compile>
@@ -146,9 +150,13 @@
     <Compile Include="PushNotification\PushNotification.cs" />
     <Compile Include="PushNotification\PushNotificationService.cs" />
     <Compile Include="PushNotification\TileNotification.cs" />
+    <Compile Include="Sync\Connection.cs" />
     <Compile Include="Sync\ConnectionHelper.cs" />
     <Compile Include="Sync\DesktopAccessPoint.cs" />
     <Compile Include="Sync\DesktopAccessPointCollection.cs" />
+    <Compile Include="Sync\Meal.cs" />
+    <Compile Include="Sync\MealPlan.cs" />
+    <Compile Include="Sync\Test.cs" />
     <Compile Include="Transitions\FadeRollIn.cs" />
     <Compile Include="Transitions\FadeRollMode.cs" />
     <Compile Include="Transitions\FadeRollOut.cs" />
@@ -191,8 +199,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ImageButton.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\MapView\MapContainer.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -231,6 +239,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\SportsManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimeSpanSelector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,6 +292,8 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Controls\1.png" />
+    <Resource Include="Controls\2.png" />
     <Resource Include="Images\wave.jpg" />
     <Resource Include="Images\200852993034844_2.jpg" />
     <Resource Include="Images\add.png" />
@@ -305,6 +319,7 @@
     <Resource Include="Images\combobutton-right.png" />
     <Resource Include="Images\infobar.png" />
     <Resource Include="Images\VGA-Wallpaper026.jpg" />
+    <Resource Include="Images\UpDownSelectorBackground.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
