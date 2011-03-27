@@ -87,16 +87,28 @@
     						</TransformGroup>
     					</Image.RenderTransform>
     				</Image>
-    				<TextBlock x:Name="Title"  FontSize="30" TextWrapping="Wrap" Text="{Binding Name}" Grid.Column="1" />
-    				<TextBlock Grid.Column="1" x:Name="textBlock1" Grid.Row="1">
-    					<TextBlock.Text>
-    						<MultiBinding Converter="{StaticResource ResourceKey=CalorieDecriptionConverter}">
-    							<Binding Path="Minutes"/>
-    							<Binding Path="Calories"/>
-    						</MultiBinding>
-    					</TextBlock.Text>
-    				</TextBlock>
-    				<Button  Content="关闭" Grid.Column="1" Height="23" Margin="0,7,13,0" x:Name="surfaceButton1" VerticalAlignment="Top" HorizontalAlignment="Right" Width="55" Click="surfaceButton1_Click" />
+    				<TextBlock x:Name="Title"  FontSize="30" TextWrapping="Wrap" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left" />
+                    <Gymnastika_Controls:ImageButton ImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close_up.png"
+                     MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close_up.png" MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close_down.png" Click="surfaceButton1_Click" Content="ImageButton" Width="61" HorizontalAlignment="Right" Margin="0,0,0,8" Grid.Column="1" />
+                    <Grid Grid.Column="1" Grid.Row="1" Margin="0">
+                    	<Grid.RowDefinitions>
+                    		<RowDefinition Height="0.464*"/>
+                    		<RowDefinition Height="0.536*"/>
+                    	</Grid.RowDefinitions>
+                    	<TextBlock x:Name="Calorie" Grid.RowSpan="2" Foreground="#FFEF8686">
+                            <Run Text="每小时消耗"/>
+                            <Run FontSize="14" Text="{Binding CaloriePerMinute}"/>
+                            <Run Text="大卡"/>
+                        </TextBlock>
+                        <Gymnastika_Controls:AnimatedProgressBar TargetValue="{Binding CaloriePerMinute}" Maximum="1000" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Panel.ZIndex="-1" Margin="0" BorderThickness="0" BorderBrush="{x:Null}" Grid.Row="1" Background="{x:Null}">
+                        	<Gymnastika_Controls:AnimatedProgressBar.Foreground>
+                        		<LinearGradientBrush EndPoint="0.978,0.516" StartPoint="0.011,0.489">
+                        			<GradientStop Color="#FFEB8484" Offset="0"/>
+                        			<GradientStop Color="#FFE5AB89" Offset="1"/>
+                        		</LinearGradientBrush>
+                        	</Gymnastika_Controls:AnimatedProgressBar.Foreground>
+                    	</Gymnastika_Controls:AnimatedProgressBar>
+                    </Grid>
     			</Grid>
     			<FlowDocumentReader ViewingMode="Scroll" x:Name="flowDocumentReader" Document="{Binding IntroductionUri, Converter={StaticResource ResourceKey=RtfConverter}, IsAsync=True}" Grid.Row="1">
                     <FlowDocumentReader.OpacityMask>
