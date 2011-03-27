@@ -10,36 +10,28 @@
              x:Class="Gymnastika.Widgets.Views.WidgetHost"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300" Background="Transparent"
-             Orientation="0.0" CanRotate="False">
+             Orientation="0.0" CanRotate="False" CanScale="False">
     <s:ScatterViewItem.Style>
         <Style TargetType="{x:Type s:ScatterViewItem}">
+            <Setter Property="IsContainerActive" Value="{Binding Path=Content.IsActive,RelativeSource={RelativeSource Self}, Mode=OneWayToSource}"/>
             <!--<Setter Property="MinWidth" Value="{Binding Path=Content.MinWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
             <Setter Property="MinHeight" Value="{Binding Path=Content.MinHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
             <Setter Property="MaxWidth" Value="{Binding Path=Content.MaxWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
-            <Setter Property="MaxHeight" Value="{Binding Path=Content.MaxHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>-->
-            <Setter Property="IsContainerActive" Value="{Binding Path=Content.IsActive,RelativeSource={RelativeSource Self}, Mode=OneWayToSource}"/>
+            <Setter Property="MaxHeight" Value="{Binding Path=Content.MaxHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
             <Setter Property="Width" Value="{Binding Path=Content.Width, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>
-            <Setter Property="Height" Value="{Binding Path=Content.Height, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>
+            <Setter Property="Height" Value="{Binding Path=Content.Height, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>-->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type s:ScatterViewItem}">
-                        <ContentPresenter />
+                        <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </s:ScatterViewItem.Style>
     <s:ScatterViewItem.Resources>
-        <Storyboard x:Key="OnMouseEnter">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
-                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
-        <Storyboard x:Key="OnMouseLeave">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="stackPanel">
-                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-            </DoubleAnimationUsingKeyFrames>
-        </Storyboard>
+        <Storyboard x:Key="OnMouseEnter"/>
+        <Storyboard x:Key="OnMouseLeave"/>
     </s:ScatterViewItem.Resources>
     <s:ScatterViewItem.Triggers>
         <EventTrigger RoutedEvent="Mouse.MouseEnter">
@@ -49,34 +41,18 @@
             <BeginStoryboard Storyboard="{StaticResource OnMouseLeave}"/>
         </EventTrigger>
     </s:ScatterViewItem.Triggers>
-    <Grid Background="Transparent">
+    <Grid Background="#000000FF" Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Opacity="0" x:Name="stackPanel" 
-                    VerticalAlignment="Stretch" HorizontalAlignment="Right" 
-                    Orientation="Horizontal">
-            <controls:ImageButton 
-                Content="ImageButton" Width="21" Height="21" Margin="3" Padding="0" 
-                HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" 
-                ImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" 
-                MouseOverImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" 
-                MousePressedImageSource="/Gymnastika.Widgets;component/Images/no-pin.png" Stretch="Uniform"/>
-            <controls:ImageButton 
-                Content="ImageButton" Width="21" Height="21" Margin="3" 
-                ImageSource="/Gymnastika.Widgets;component/Images/close.png" 
-                MouseOverImageSource="/Gymnastika.Widgets;component/Images/close.png"
-                MousePressedImageSource="/Gymnastika.Widgets;component/Images/close.png" 
-                Stretch="Uniform" Padding="0" Click="OnCloseButtonClick"/>
-        </StackPanel>
+        <controls:ImageButton 
+    		Content="ImageButton" Width="22" Height="22" Margin="0,3,3,3" ImageMode="Switchover"
+    		ImageSource="/Gymnastika.Widgets;component/Images/close_normal.png" 
+    		MouseOverImageSource="/Gymnastika.Widgets;component/Images/close_normal.png"
+    		MousePressedImageSource="/Gymnastika.Widgets;component/Images/close_pressed.png" 
+    		Stretch="Uniform" Padding="0" Click="OnCloseButtonClick" HorizontalAlignment="Right" RenderTransformOrigin="10.476,0.762"/>
         <Border Grid.Row="1" Background="Transparent" Padding="2,8,2,2">
-            <!--<Border.BorderBrush>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FFB4B4B4" Offset="0.009"/>
-                    <GradientStop Color="#FF7C7C7C" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.BorderBrush>-->
             <ContentControl Content="{Binding Widget, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Widgets:IWidgetHost}}}"  />
         </Border>
     </Grid>

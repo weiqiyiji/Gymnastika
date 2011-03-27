@@ -25,6 +25,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             Food = food;
             ChangeMyFavoriteButtonContent = "+ 收藏";
+            AmountSelector = new AmountSelectorViewModel();
         }
 
         public void LoadNutritionElementData()
@@ -45,6 +46,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 }
             }
         }
+
+        public AmountSelectorViewModel AmountSelector { get; set; }
 
         public Food Food { get; set; }
 
@@ -87,22 +90,31 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get 
             {
-                return Decimal.Round(_amount); 
+                //return Decimal.Round(_amount); 
+                return (decimal)AmountSelector.CurrentValue;
             }
             set
             {
-                if (_amount != value)
+                //if (_amount != value)
+                //{
+                //    _amount = value;
+                //    RaisePropertyChanged("Amount");
+                //    Calories = Calorie * Amount / 100;
+                //    for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+                //    {
+                //        Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
+                //        Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
+                //    }
+                //    OnDietPlanSubListPropertyChanged();
+                //}
+                AmountSelector.CurrentValue = (int)value;
+                Calories = Calorie * Amount / 100;
+                for (int i = 0; i < NutritionalElements.ToList().Count; i++)
                 {
-                    _amount = value;
-                    RaisePropertyChanged("Amount");
-                    Calories = Calorie * Amount / 100;
-                    for (int i = 0; i < NutritionalElements.ToList().Count; i++)
-                    {
-                        Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
-                        Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
-                    }
-                    OnDietPlanSubListPropertyChanged();
+                    Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
+                    Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
                 }
+                OnDietPlanSubListPropertyChanged();
             }
         }
 

@@ -28,8 +28,6 @@ namespace Gymnastika.Widgets
             container.WidgetHosts.CollectionChanged += WidgetHosts_CollectionChanged;
         }
 
-
-
         public static WidgetDescriptor GetDescriptor(DependencyObject obj)
         {
             return (WidgetDescriptor)obj.GetValue(DescriptorProperty);

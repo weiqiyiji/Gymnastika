@@ -3,9 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Foreground="White">
-    <Grid>
-        <TextBlock x:Name="dateLabel" HorizontalAlignment="Center" VerticalAlignment="Center" />        
+             mc:Ignorable="d">
+    <Grid Width="200" Height="200">
+    	<Grid.Background>
+    		<ImageBrush ImageSource="/Gymnastika.Infrastructure;component/Images/datewidget_bg.png"/>
+    	</Grid.Background>
+        <Line x:Name="second" X1="100" Y1="5" X2="100" Y2="100" Stroke="#FF535749" RenderTransformOrigin="0.5,0.5">
+        	<Line.RenderTransform>
+        		<RotateTransform />     	
+			</Line.RenderTransform>      
+		</Line>
+        <Ellipse Fill="#FFF4F4F5" Width="140" Height="140" Stroke="#FF535749" StrokeThickness="2"/>
+        <TextBlock x:Name="dateLabel" FontSize="26.667" Foreground="#FF535749" HorizontalAlignment="Center" VerticalAlignment="Center" />        
     </Grid>
 </UserControl>

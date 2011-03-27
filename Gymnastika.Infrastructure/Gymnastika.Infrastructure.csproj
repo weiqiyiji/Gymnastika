@@ -250,6 +250,8 @@
     <Resource Include="Images\widget_mouseover.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\datewidget_icon.png" />
+    <Resource Include="Images\datewidget_bg.png" />
     <Resource Include="Images\left_pressed.png" />
     <Resource Include="Images\right_pressed.png" />
     <Resource Include="Images\newuser_pressed.png" />
@@ -257,7 +259,6 @@
     <Resource Include="Images\newuser_normal.png" />
     <Resource Include="Images\start_bg.jpg" />
     <Resource Include="Images\back.png" />
-    <Resource Include="Images\datewidget_icon.png" />
     <Content Include="Images\hover_widgetboxbtn.png" />
     <Resource Include="Images\left_normal.png" />
     <Content Include="Images\normal_widgetboxbtn.png" />
