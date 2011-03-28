@@ -40,7 +40,7 @@
             	</Grid>
             </DataTemplate>
             <DataTemplate x:Key="WithPlanTemplate">
-                <ListBox ItemsSource="{Binding Plan.SportsPlanItems}" ItemTemplate="{StaticResource ResourceKey=PlanItemTemplate}" Margin="0,5,0,0" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" ScrollViewer.CanContentScroll="True" Style="{DynamicResource ListBoxStyle}" ItemsPanel="{DynamicResource ItemsPanelTemplate}"  />
+                <ListBox BorderThickness="0" ItemsSource="{Binding Plan.SportsPlanItems}" ItemTemplate="{StaticResource ResourceKey=PlanItemTemplate}" Margin="0,5,0,0" Background="{x:Null}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" ScrollViewer.CanContentScroll="True" Style="{DynamicResource ListBoxStyle}" ItemsPanel="{DynamicResource ItemsPanelTemplate}"  />
             </DataTemplate>
             <Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             	<Setter Property="Background" Value="Transparent"/>

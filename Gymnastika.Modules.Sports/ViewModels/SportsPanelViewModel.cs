@@ -223,7 +223,14 @@ namespace Gymnastika.Modules.Sports.ViewModels
         public IList<Sport> SportsInMemory 
         {
             get { return _sportsInMemory; }
-            set { _sportsInMemory = value; }
+            set
+            {
+                if (_sportsInMemory != value)
+                {
+                    _sportsInMemory = value;
+                    RaisePropertyChanged(() => SportsInMemory);
+                }
+            }
         }
 
         Func<Sport,bool> InvalidatePredicate(Func<Sport,bool> predicate)
