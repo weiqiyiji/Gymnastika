@@ -36,13 +36,15 @@ namespace Gymnastika.Phone
         public static string LoginServiceUri = "profile/logon";
         public static string LogoutSericeUri = "profile/logout?username={0}";
         public static string GetUserInfoServiceUri = "";
-        public static string GetMealPlanServiceUri = "";
-        public static string GetSportPlanServiceUri = "";
+        public static string GetPlanOfTodayServiceUri = "schedule/get_today_plans?user_id={0}";
         public static string UpdateMealStatusServiceUri = "";
         public static string UpdateMealPlanStatusServiceUri = "";
         public static string UpdateSportServiceUri = "";
         public static string UpdateSportPlanServiceUri = "";
-        public static Uri ServerUri = new Uri("http://localhost:1962/");
+        public static string CompeleteTaskUri = "schedule/complete?id={0}";
+
+        public static Uri ServerUri = new Uri("http://localhost/gym/");
+        
         public static Uri GetServerPathUri(string path)
         {
             return new Uri(ServerUri, path);

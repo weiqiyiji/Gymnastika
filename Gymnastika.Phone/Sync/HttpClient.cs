@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Text;
 
 namespace Gymnastika.Phone.Sync
 {
@@ -27,55 +28,59 @@ namespace Gymnastika.Phone.Sync
             public Uri Uri { get; set; }
             public Exception Error { get; set; }
             public object UserToken { get; set; }
-            public Stream ResponseStream { get; set; }
-            public long ResponseLength { get; set; }
             public string Result { get; set; }
         }
         public event EventHandler<GetCompeletedArgs> GetCompeleted;
         public void Post(Uri uri, string xml, object UserToken)
         {
-            WebClient client = new WebClient();
-            client.UploadStringCompleted += new UploadStringCompletedEventHandler((s, e) =>
+            HttpWebRequest request = HttpWebRequest.CreateHttp(uri);
+            request.Method = "POST";
+            request.ContentType = "application/xml";
+            request.BeginGetRequestStream(new AsyncCallback((r) =>
             {
-                if (PostCompeleted != null)
+
+                Stream requestStream = request.EndGetRequestStream(r);
+                if (xml != null)
                 {
-                    PostCompeletedArgs arg = new PostCompeletedArgs() { UserToken = UserToken, Error = e.Error, Uri = uri };
-                    if (e.Error == null && !e.Cancelled)
-                    {
-                        arg.Result = e.Result;
-                    }
-                    PostCompeleted(this, arg);
+                    byte[] data = Encoding.UTF8.GetBytes(xml);
+                    requestStream.Write(data, 0, data.Length);
+                    requestStream.Flush();
+                    requestStream.Close();
                 }
+                request.BeginGetResponse(new AsyncCallback((r2) =>
+                {
+                    Exception ex = null;
+                     HttpWebResponse response =null;
+                
+                     try
+                     {
+                         response = (HttpWebResponse)request.EndGetResponse(r2);
+                     }
+                     catch (Exception e)
+                     {
+                         ex = e;
+                     }
+                    if (PostCompeleted != null)
+                    {
+                        PostCompeletedArgs arg = new PostCompeletedArgs()
+                        {
+                            Error = ex,
+                            Uri = uri,
+                            UserToken = UserToken
+                        };
+                        if (ex == null)
+                        {
+                            using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
+                            {
+                                arg.Result = reader.ReadToEnd();
+                            }
+                        }
+                        PostCompeleted(this, arg);
+                    }
+                }
+                ), null);
             }
-            );
-            client.UploadStringAsync(uri, xml);
-
-            //HttpWebRequest request = HttpWebRequest.CreateHttp(uri);
-            //request.Method = "POST";
-            //request.BeginGetRequestStream(new AsyncCallback((r) =>
-            //{
-
-            //    Stream requestStream = request.EndGetRequestStream(r);
-            //    if (data != null)
-            //    {
-            //        requestStream.Write(data, 0, data.Length);
-            //        requestStream.Flush();
-            //    }
-            //    request.BeginGetResponse(new AsyncCallback((r2) =>
-            //    {
-            //        HttpWebResponse response = (HttpWebResponse)request.EndGetResponse(r2);
-            //        if (PostCompeleted != null)
-            //            PostCompeleted(this, new PostCompeletedArgs()
-            //            {
-            //                Uri = uri,
-            //                UserToken = UserToken,
-            //                ResponseLength = response.ContentLength,
-            //                ResponseStream = response.GetResponseStream()
-            //            });
-            //    }
-            //    ), null);
-            //}
-            //), null);
+            ), null);
         }
         public void Get(Uri uri, object UserToken)
         {

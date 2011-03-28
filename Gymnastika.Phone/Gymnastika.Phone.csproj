@@ -162,6 +162,8 @@
     <Compile Include="Sync\Meal.cs" />
     <Compile Include="Sync\MealPlan.cs" />
     <Compile Include="Sync\PlanSync.cs" />
+    <Compile Include="Sync\SchduleList.cs" />
+    <Compile Include="Sync\SchduleService.cs" />
     <Compile Include="Sync\UserProfileService.cs" />
     <Compile Include="Sync\Sport.cs" />
     <Compile Include="Sync\SportPlan.cs" />

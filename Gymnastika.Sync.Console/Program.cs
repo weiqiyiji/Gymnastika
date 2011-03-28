@@ -26,6 +26,10 @@ namespace Gymnastika.Sync.Console
 
         static void Main(string[] args)
         {
+
+            var profile = new UserProfileService();
+            var test = profile.Test("test", "password");
+            System.Console.WriteLine(test.Response.Content.ReadAsString());
             string targetid = System.Console.ReadLine();
 
             var registrationService = new RegistrationService();

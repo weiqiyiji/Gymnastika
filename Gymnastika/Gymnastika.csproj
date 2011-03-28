@@ -53,6 +53,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\Libs\log4net.dll</HintPath>
@@ -256,6 +259,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\logo.ico" />
     <Resource Include="Images\mainview_bg.jpg" />
     <Resource Include="Images\mainview_bg2.jpg" />
     <Resource Include="Data\Sport\SportData.xml" />

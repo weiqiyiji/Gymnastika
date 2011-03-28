@@ -121,6 +121,7 @@ namespace Gymnastika.Phone.UserProfile
                                     Gender = (Gender)Reader.ReadByte(),
                                     Height = Reader.ReadDouble(),
                                     Weight = Reader.ReadDouble(),
+                                    UserId=Reader.ReadString(),
                                     Icon=GetUserIcon(Username)
                                 };
                             }
@@ -163,6 +164,7 @@ namespace Gymnastika.Phone.UserProfile
                     Writer.Write((byte)Profile.Gender);
                     Writer.Write(Profile.Height);
                     Writer.Write(Profile.Weight);
+                    Writer.Write(Profile.UserId);
                     if (Profile.Icon is BitmapSource)
                     {
                         StoreUserIcon(Profile.Username, Profile.Icon as BitmapSource);

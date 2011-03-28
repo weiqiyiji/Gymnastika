@@ -27,9 +27,9 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,14,12,0">
-        	<Grid x:Name="SignInPanel" d:IsHidden="True">
+        	<Grid x:Name="SignInPanel">
             <RadioButton Content="登录" Height="72" HorizontalAlignment="Left" Margin="10,10,0,0" Name="rbSignIn" VerticalAlignment="Top" Checked="rbSignIn_Checked" IsChecked="{x:Null}" />
-            <RadioButton Content="创建" Height="72" HorizontalAlignment="Left" Margin="130,10,0,0" Name="rbRegister" VerticalAlignment="Top" Checked="rbRegister_Checked" />
+            <RadioButton Content="创建" Height="72" HorizontalAlignment="Left" Margin="130,10,0,0" Name="rbRegister" VerticalAlignment="Top" Checked="rbRegister_Checked" Visibility="Collapsed" />
             <TextBox Height="72" Margin="101,93,17,0" Name="txtUsername" Text="" VerticalAlignment="Top" LostFocus="txtUsername_LostFocus" TextChanged="txtUsername_TextChanged"/>
             <PasswordBox Height="72" Margin="101,175,17,0" Name="txtPassword" VerticalAlignment="Top" Password="" LostFocus="txtPassword_LostFocus" PasswordChanged="txtPassword_PasswordChanged"/>
             <PasswordBox Height="72" Margin="101,257,17,0" Name="txtPasswordRepeat" VerticalAlignment="Top" Visibility="Collapsed" LostFocus="txtPasswordRepeat_LostFocus" PasswordChanged="txtPasswordRepeat_PasswordChanged"/>
@@ -42,7 +42,7 @@
             <Button Content="下一步" Height="72" HorizontalAlignment="Right" Margin="0,0,17,21" Name="btnNext" VerticalAlignment="Bottom" Width="166" Click="btnNext_Click" IsEnabled="False" />
             <Button Content="返回" HorizontalAlignment="Left" Margin="6,0,0,21" Name="btnGoBack" Width="160" Height="72" VerticalAlignment="Bottom" Click="btnGoBack_Click" />
         	</Grid>
-			<Grid x:Name="SignInProgressPanel">
+			<Grid x:Name="SignInProgressPanel" d:IsHidden="True">
 				<ProgressBar x:Name="pbProcessing" Height="30" Margin="77,269,67,0" VerticalAlignment="Top" IsIndeterminate="True"/>
 				<TextBlock x:Name="txtProcessingText" Height="46" Margin="60,219,67,0" TextWrapping="Wrap" Text="处理中..." VerticalAlignment="Top" TextAlignment="Center" FontSize="29.333"/>
 				<Button Content="取消" Margin="122,303,96,250" Name="btnCancel" Click="btnCancel_Click" />
