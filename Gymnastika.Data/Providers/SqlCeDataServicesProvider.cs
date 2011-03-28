@@ -77,7 +77,7 @@ namespace Gymnastika.Data.Providers
             var persistence = MsSqlCeConfiguration.Standard;
 
 #if DEBUG
-            persistence = persistence.ShowSql().FormatSql();
+            //persistence = persistence.ShowSql().FormatSql();
 #endif
 
             if (createDatabase)

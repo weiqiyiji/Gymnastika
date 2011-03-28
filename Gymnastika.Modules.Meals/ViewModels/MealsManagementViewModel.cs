@@ -285,6 +285,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 dietPlan.PlanType = PlanType.CreatedDietPlan;
                 dietPlan.CreatedDate = CreatedDate;
                 dietPlan.SubDietPlans = new List<SubDietPlan>();
+                var tempDietPlan = _foodService.DietPlanProvider.Get(CurrentUser, CreatedDate);
+                if (tempDietPlan != null)
+                    _foodService.DietPlanProvider.Delete(tempDietPlan);
                 _foodService.DietPlanProvider.Create(dietPlan);
                 for (int i = 0; i < 3; i++)
                 {

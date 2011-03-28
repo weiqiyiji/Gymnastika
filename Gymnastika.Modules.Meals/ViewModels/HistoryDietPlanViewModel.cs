@@ -71,20 +71,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void NotifyHistoryDietPlanChangedEventHandler(DietPlan dietPlan)
         {
-            foreach (var historyDietPlan in HistoryDietPlans)
-            {
-                if (historyDietPlan.CreatedDate == dietPlan.CreatedDate.ToString("yyyy-MM-dd"))
-                {
-                    HistoryDietPlans.Remove(historyDietPlan);
+            //foreach (var historyDietPlan in HistoryDietPlans)
+            //{
+            //    if (historyDietPlan.CreatedDate == dietPlan.CreatedDate.ToString("yyyy-MM-dd"))
+            //    {
+            //        HistoryDietPlans.Remove(historyDietPlan);
 
-                    using (var scope = _workEnvironment.GetWorkContextScope())
-                    {
-                        _foodService.DietPlanProvider.Delete(historyDietPlan.DietPlan);
-                    }
+            //        using (var scope = _workEnvironment.GetWorkContextScope())
+            //        {
+            //            _foodService.DietPlanProvider.Delete(historyDietPlan.DietPlan);
+            //        }
 
-                    break;
-                }
-            }
+            //        break;
+            //    }
+            //}
             DietPlanItemViewModel dietPlanItem = new DietPlanItemViewModel(dietPlan);
             HistoryDietPlans.Add(dietPlanItem);
         }

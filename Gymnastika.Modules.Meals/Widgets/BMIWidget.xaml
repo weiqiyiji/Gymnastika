@@ -6,45 +6,58 @@
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="GreenColor" Color="#89D9A8" />
+
+        <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+    </UserControl.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <TextBlock Text="您当前的BMI值：" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <TextBlock Grid.Row="1" Text="您的标准体重：" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <TextBlock Grid.Row="2" Text="您的美体体重：" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <TextBlock Grid.Row="3" Text="您的基本代谢：" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <!--<TextBlock Grid.Row="4" Text="健康建议：" VerticalAlignment="Center" HorizontalAlignment="Center" />-->
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock x:Name="BMILabel" FontWeight="Bold" Foreground="Red" />
-        </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <TextBlock Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
-            <TextBlock x:Name="NormalWeightLabel" FontWeight="Bold" Foreground="Red" />
+        <Border Background="White" Width="350" Height="150" CornerRadius="75" >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
+                    <TextBlock Text="标准体重：" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Grid.Column="1" Foreground="{StaticResource GrayText}" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <TextBlock x:Name="NormalWeightLabel" FontWeight="Bold" Foreground="{StaticResource GreenColor}" />
             <Run Text="公斤" />
         </TextBlock>
-        </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock x:Name="BeautyWeightLabel" FontWeight="Bold" Foreground="Red" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
+                    <TextBlock Grid.Row="1" Foreground="{StaticResource GrayText}" Text="美体体重：" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Foreground="{StaticResource GrayText}" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="BeautyWeightLabel" FontWeight="Bold" Foreground="{StaticResource GreenColor}" />
             <Run Text="公斤" />
         </TextBlock>
-        <TextBlock Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock x:Name="NormalMetabolismLabel" FontWeight="Bold" Foreground="Red" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal">
+                    <TextBlock Grid.Row="2" Foreground="{StaticResource GrayText}" Text="基本代谢：" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Foreground="{StaticResource GrayText}" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="NormalMetabolismLabel" FontWeight="Bold" Foreground="{StaticResource GreenColor}" />
             <Run Text="卡路里" />
         </TextBlock>
-        <TextBlock Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" x:Name="SuggestionLabel"  HorizontalAlignment="Center" VerticalAlignment="Center" />
-        <!--<surface:SurfaceButton Grid.Row="5" Grid.ColumnSpan="2" x:Name="BMIIntroduction" Content="什么是BMI" Click="BMIIntroduction_Click" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                </StackPanel>
+            </Grid>
+        </Border>
+        <Border Background="{StaticResource GreenColor}" HorizontalAlignment="Left" CornerRadius="75" Height="150" Width="150" >
+            <Grid>
+                <!--<Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>-->
+                <TextBlock Text="BMI=" Foreground="White" FontSize="14" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="21,34,91,96" />
+                <TextBlock Grid.Row="1" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                    <TextBlock x:Name="BMILabel" Text="22" FontWeight="Bold" Foreground="White" />
+                 </TextBlock>
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

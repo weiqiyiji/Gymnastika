@@ -9,6 +9,7 @@ using Gymnastika.Modules.Meals.Communication.Tasks;
 using System.Runtime.Serialization;
 using System.IO;
 using Gymnastika.Modules.Meals.Helpers;
+using System.Collections;
 
 namespace Gymnastika.Modules.Meals.Communication.Services
 {
@@ -35,15 +36,17 @@ namespace Gymnastika.Modules.Meals.Communication.Services
                     {
                         UserId = dietPlan.User.Id,
                         ConnectionId = _connectionStore.ConnectionId,
-                        StartTime = taskItem.StartTime,
+                        //StartTime = taskItem.StartTime,
+                        StartTime = DateTime.Now.AddSeconds(10),
                         Message = TransferTaskItemToXml(taskItem)
+                        //Message = "hello"
                     };
                     scheduleItems.Add(scheduleItem);
                 }
-                var scheduleService = new ScheduleService();
 
                 AsychronousLoadHelper.AsychronousCall(() =>
                 {
+                    var scheduleService = new ScheduleService();
                     var response = scheduleService.AddSchedule(scheduleItems);
                     callback(response, dietPlan);
                 });
@@ -74,7 +77,8 @@ namespace Gymnastika.Modules.Meals.Communication.Services
                        Score = subDietPlan.Score,
                        StartTime = subDietPlan.StartTime
                    };
-                List<FoodTaskItem> foodTasks = new List<FoodTaskItem>();
+                FoodTaskList foodTasks = new FoodTaskList();
+                //FoodTaskItem[] foodTasks = new FoodTaskItem[] { };
                 foreach (var dietPlanItem in subDietPlan.DietPlanItems)
                 {
                     FoodTaskItem foodTaskItem = new FoodTaskItem()

@@ -58,7 +58,7 @@ namespace Gymnastika.Modules.Meals.Widgets
         public void Initialize()
         {
             InitializeBMI();
-            InitializeSuggestion();
+            //InitializeSuggestion();
             InitializeNormalWeight();
             InitializeBeatyWeight();
             InitializeNormalMetabolism();
@@ -73,22 +73,22 @@ namespace Gymnastika.Modules.Meals.Widgets
             BMILabel.Text = "" + Decimal.Round(BMI, 1).ToString();
         }
 
-        private void InitializeSuggestion()
-        {
-            if (BMI < 15) { SuggestionLabel.Text = "您太瘦了哦，应去做个体检，增加营养。"; }
+        //private void InitializeSuggestion()
+        //{
+        //    if (BMI < 15) { SuggestionLabel.Text = "您太瘦了哦，应去做个体检，增加营养。"; }
 
-            else if (BMI >= 15 && BMI < 18) { SuggestionLabel.Text = "您过度苗条，应增加营养和锻炼。"; }
+        //    else if (BMI >= 15 && BMI < 18) { SuggestionLabel.Text = "您过度苗条，应增加营养和锻炼。"; }
 
-            else if (BMI >= 18 && BMI < 22) { SuggestionLabel.Text = "恭喜！！您是标准身材,注意保持。"; }
+        //    else if (BMI >= 18 && BMI < 22) { SuggestionLabel.Text = "恭喜！！您是标准身材,注意保持。"; }
 
-            else if (BMI >= 22 && BMI < 25) { SuggestionLabel.Text = "您是健康体重,但已不苗条，小心哦~"; }
+        //    else if (BMI >= 22 && BMI < 25) { SuggestionLabel.Text = "您是健康体重,但已不苗条，小心哦~"; }
 
-            else if (BMI >= 25 && BMI < 30) { SuggestionLabel.Text = "您超重了，应该立即减肥！"; }
+        //    else if (BMI >= 25 && BMI < 30) { SuggestionLabel.Text = "您超重了，应该立即减肥！"; }
 
-            else if (BMI >= 30 && BMI < 40) { SuggestionLabel.Text = "您太胖了哦，减肥已是您的头等大事！"; }
+        //    else if (BMI >= 30 && BMI < 40) { SuggestionLabel.Text = "您太胖了哦，减肥已是您的头等大事！"; }
 
-            else { SuggestionLabel.Text = "您非常胖，肥胖将危及您的健康！"; }
-        }
+        //    else { SuggestionLabel.Text = "您非常胖，肥胖将危及您的健康！"; }
+        //}
 
         private void InitializeNormalWeight()
         {

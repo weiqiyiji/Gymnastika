@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
+using System.Collections;
 
 namespace Gymnastika.Modules.Meals.Communication.Tasks
 {
@@ -19,6 +20,8 @@ namespace Gymnastika.Modules.Meals.Communication.Tasks
         public int Score { get; set; }
 
         [DataMember]
-        public List<FoodTaskItem> FoodTasks { get; set; }
+        public FoodTaskList FoodTasks { get; set; }
+        //[DataMember]
+        //public FoodTaskItem[] FoodTasks { get; set; }
     }
 }
