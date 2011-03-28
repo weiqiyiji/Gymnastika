@@ -85,8 +85,8 @@ namespace Gymnastika.Controls
             }
 
             var resSize = new Size(width, height);
-
-            return MeasureOverride(resSize);
+            //return resSize;
+            return base.MeasureOverride(resSize);
         }
 
         protected override Size ArrangeOverride(Size arrangeSize)
@@ -147,7 +147,7 @@ namespace Gymnastika.Controls
             
             
             }
-
+            //return arrangeSize;
             return base.ArrangeOverride(arrangeSize);
         }
 
