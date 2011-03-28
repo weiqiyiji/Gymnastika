@@ -84,6 +84,9 @@ namespace Gymnastika.Modules.Sports.ViewModels
         {
             if (RequestAddToPlanEvent != null)
                 RequestAddToPlanEvent(this, new AddToPlanEventArgs() { Item = GetPlanItem() });
+            int min = this.Minute + Duration;
+            Minute = min % 60;
+            Hour = (Hour + min / 60) % 24;
         }
 
         DelegateCommand _showDetailCommand;

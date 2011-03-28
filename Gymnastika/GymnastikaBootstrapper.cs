@@ -21,6 +21,7 @@ using Gymnastika.Services.Session;
 using Gymnastika.Common.Navigation;
 using System.ComponentModel;
 using Gymnastika.Sync.Communication.Client;
+using System;
 
 namespace Gymnastika
 {
@@ -55,14 +56,19 @@ namespace Gymnastika
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            RegistrationService service = new RegistrationService();
-            ResponseMessage response = service.Register();
-            if (!response.HasError)
+            try
             {
-                ConnectionStore store = Container.Resolve<ConnectionStore>();
-                store.SaveAssignedInfo(
-                    int.Parse(StringHelper.GetPureString(response.Response.Content.ReadAsString())));
+                RegistrationService service = new RegistrationService();
+                ResponseMessage response = service.Register();
+                if (!response.HasError)
+                {
+                    ConnectionStore store = Container.Resolve<ConnectionStore>();
+                    store.SaveAssignedInfo(
+                        int.Parse(StringHelper.GetPureString(response.Response.Content.ReadAsString())));
+                }
             }
+            catch (Exception)
+            { }
         }
 
         private void MigrateData()

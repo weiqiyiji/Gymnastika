@@ -142,10 +142,11 @@
         	</Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
     			<ColumnDefinition Width="45"/>
-    			<ColumnDefinition Width="0.456*"/>
-    			<ColumnDefinition Width="0.544*"/>
-    		</Grid.ColumnDefinitions>
-            <ListBox  x:Name="planListBox" BorderThickness="0" ItemsSource="{Binding Items}" Background="{x:Null}" ItemTemplate="{DynamicResource PlanItemTemplate}" Grid.ColumnSpan="3" Panel.ZIndex="1" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" Grid.Row="2" />
+    			<ColumnDefinition Width="77*"/>
+    			<ColumnDefinition Width="66*"/>
+                <ColumnDefinition Width="25*" />
+            </Grid.ColumnDefinitions>
+            <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" x:Name="planListBox" BorderThickness="0" ItemsSource="{Binding Items}" Background="{x:Null}" ItemTemplate="{DynamicResource PlanItemTemplate}" Grid.ColumnSpan="3" Panel.ZIndex="1" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" Grid.Row="2" />
     		<Rectangle Fill="#FF94E0B1" Grid.RowSpan="3" />
     		<Border BorderThickness="0.5" Grid.Row="1" Grid.Column="1">
     			<Label Content="{Binding Date}" Background="{x:Null}" Foreground="#FF94E0B1" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="16"/>

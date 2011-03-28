@@ -13,8 +13,12 @@
              mc:Ignorable="d"
              Foreground="#FFADB2A3"
 			 d:DesignWidth="400" d:DesignHeight="600"
-			 >
+			>
     <UserControl.Resources>
+        <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary Source="Pack://Application:,,,/Gymnastika.Modules.Sports;component/Themes/ScrollBarStyle.xaml"/>
+        </ResourceDictionary.MergedDictionaries>
         <behaviors:RectangleProvider x:Key="rectangleProvider" CornerRadius="0,100,0,100" />
         <converter:FullPathConverter x:Key="FullPathConverter"/>
         <converter:ToIntConverter x:Key="ToIntConverter"/>
@@ -27,22 +31,9 @@
         	<Setter Property="Template">
         		<Setter.Value>
         			<ControlTemplate TargetType="{x:Type ListBoxItem}">
-        				<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-        					<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        				<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true" Height="35" Width="Auto">
+        					<ContentPresenter HorizontalAlignment="Stretch" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="Stretch" Height="35" Width="Auto"/>
         				</Border>
-        				<ControlTemplate.Triggers>
-        					<MultiTrigger>
-        						<MultiTrigger.Conditions>
-        							<Condition Property="IsSelected" Value="true"/>
-        							<Condition Property="Selector.IsSelectionActive" Value="false"/>
-        						</MultiTrigger.Conditions>
-        						<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-        						<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-        					</MultiTrigger>
-        					<Trigger Property="IsEnabled" Value="false">
-        						<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-        					</Trigger>
-        				</ControlTemplate.Triggers>
         			</ControlTemplate>
         		</Setter.Value>
         	</Setter>
@@ -115,6 +106,39 @@
     			</Setter.Value>
     		</Setter>
     	</Style>
+    	<SolidColorBrush x:Key="ListBorder" Color="#828790"/>
+    	<Style x:Key="ListBoxStyle" TargetType="{x:Type ListBox}">
+    		<Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+    		<Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>
+    		<Setter Property="BorderThickness" Value="1"/>
+    		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+    		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+    		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+    		<Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+    		<Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+    		<Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+    		<Setter Property="VerticalContentAlignment" Value="Center"/>
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="{x:Type ListBox}">
+    					<Border x:Name="Bd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="1" SnapsToDevicePixels="true">
+    						<ScrollViewer Focusable="false" Padding="{TemplateBinding Padding}">
+    							<ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+    						</ScrollViewer>
+    					</Border>
+    					<ControlTemplate.Triggers>
+    						<Trigger Property="IsEnabled" Value="false">
+    							<Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+    						</Trigger>
+    						<Trigger Property="IsGrouping" Value="true">
+    							<Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+    						</Trigger>
+    					</ControlTemplate.Triggers>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider}" Background="#FFFDFDFD">
 		<Grid.RowDefinitions>
@@ -130,23 +154,24 @@
 			<ColumnDefinition Width="0.869*"/>
 			<ColumnDefinition Width="0.064*"/>
 		</Grid.ColumnDefinitions>
-		<ListBox BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" Grid.Column="1" Grid.Row="2" Margin="0" Grid.RowSpan="2" ItemContainerStyle="{DynamicResource ListBoxItemStyle}">
-			<dd:DragDrop.DragAdornerTemplate>
-				<DataTemplate>
-					<Image Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}"/>
-				</DataTemplate>
-			</dd:DragDrop.DragAdornerTemplate>
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<local:SportsPlanItemView/>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-			<ListBox.ItemsPanel>
-				<ItemsPanelTemplate>
-					<control:AnimatedListPanel/>
-				</ItemsPanelTemplate>
-			</ListBox.ItemsPanel>
-		</ListBox>
+    	<ListBox Grid.Column="1" Margin="0" Grid.Row="2" Grid.RowSpan="2" BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" Style="{DynamicResource ListBoxStyle}">
+    		<dd:DragDrop.DragAdornerTemplate>
+    			<DataTemplate>
+    				<Image Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}"/>
+    			</DataTemplate>
+    		</dd:DragDrop.DragAdornerTemplate>
+    		<ListBox.ItemTemplate>
+    			<DataTemplate>
+    				<local:SportsPlanItemView/>
+    			</DataTemplate>
+    		</ListBox.ItemTemplate>
+    		<ListBox.ItemsPanel>
+    			<ItemsPanelTemplate>
+                    <control:AnimatedListPanel/>
+                    <!--<StackPanel/>-->
+    			</ItemsPanelTemplate>
+    		</ListBox.ItemsPanel>
+    	</ListBox>
     	<Button Content="保存" Command="{Binding SubmitCommand}" Margin="0,15.305,0,10.805" x:Name="Save" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Width="61.166" Style="{DynamicResource ButtonStyle}" Foreground="White" />
     	<Button Content="还原" Command="{Binding CancelCommand}" x:Name="Cancel" Margin="0,15.305,79,10.805" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" Width="{Binding Width, ElementName=Save}" Height="{Binding Height, ElementName=Save}" Style="{DynamicResource ButtonStyle}" Foreground="White" />
 		<control:AnimatedProgressBar x:Name="calorieBar" Orientation="Vertical" Value="0" Maximum="3000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4"  >

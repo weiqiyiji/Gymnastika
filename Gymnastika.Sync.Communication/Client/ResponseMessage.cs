@@ -19,7 +19,7 @@ namespace Gymnastika.Sync.Communication.Client
             if ((StatusCode & expectedStatusCode) != expectedStatusCode)
             {
                 HasError = true;
-                ErrorMessage = StringHelper.GetPureString(response.Content.ReadAsString());
+                ErrorMessage = response.Content.ReadAsString();
             }
         }
 

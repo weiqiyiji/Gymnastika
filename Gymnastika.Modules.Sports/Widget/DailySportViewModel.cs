@@ -14,22 +14,12 @@ using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Widget
 {
-    //public interface IDailySportViewModel
-    //{
-    //    SportsPlan Plan { get; }
-    //    User User { get; }
-    //    DateTime Time { get; }
-    //    void Run();
-    //}
-
     public class DailySportViewModel : NotificationObject
     {
         readonly ISportsPlanProvider _sportsPlanProvider;
         readonly ISessionManager _sessionManager;
         readonly ISportProvider _sportProvider;
         readonly IEventAggregator _eventAggregator;
-
-        Timer _timer;
 
         public DailySportViewModel(ISportsPlanProvider sportsPlanProvider,ISportProvider sportProvider,ISessionManager sessionManager,IEventAggregator eventAggregator)
         {
@@ -40,9 +30,15 @@ namespace Gymnastika.Modules.Sports.Widget
             _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Subscribe(OnSportsPlanCreateOrUpdate);
         }
 
+        public DateTime Today
+        {
+            get { return DateTime.Now; }
+        }
+
         void Refresh()
         {
-            Plan = LoadPlan(User, Time);
+            Plan = LoadPlan(User, Today);
+            RaisePropertyChanged(() => Plan.SportsPlanItems);
         }
 
         SportsPlan _plan;
@@ -61,13 +57,9 @@ namespace Gymnastika.Modules.Sports.Widget
             get { return _sessionManager.GetCurrentSession().AssociatedUser; }
         }
 
-        void OnTimer(object sender, ElapsedEventArgs e)
-        {
-            Time = DateTime.Now;
-        }
-
-        DateTime _time;
-        public DateTime Time
+        
+        string _time;
+        public string Time
         {
             get { return _time; }
             set
@@ -82,10 +74,7 @@ namespace Gymnastika.Modules.Sports.Widget
 
         public void Run()
         {
-            Time = DateTime.Now;
-            _timer = new Timer(1);
-            _timer.Start();
-            _timer.Elapsed += OnTimer;
+            Time = DateFacility.GetDayName(DateTime.Now.DayOfWeek);
             Refresh();
             
         }
@@ -114,7 +103,7 @@ namespace Gymnastika.Modules.Sports.Widget
 
         void OnSportsPlanCreateOrUpdate(SportsPlan plan)
         {
-            if(MathFacility.TheSameDay(Time,plan))
+            if(MathFacility.TheSameDay(DateTime.Now,plan))
             {
                 Refresh();
             }

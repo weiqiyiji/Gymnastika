@@ -16,6 +16,8 @@ namespace Gymnastika.Sync.Communication.Client
         {
             ConnectionId = connectionId;
             IsConnectionEstablished = true;
+            if (OnConnectionEstablished != null)
+                OnConnectionEstablished(this, EventArgs.Empty);
         }
 
         public void SaveAssignedInfo(int id)
@@ -23,5 +25,7 @@ namespace Gymnastika.Sync.Communication.Client
             AssignedId = id;
             IsRegistered = true;
         }
+
+        public event EventHandler OnConnectionEstablished;
     }
 }

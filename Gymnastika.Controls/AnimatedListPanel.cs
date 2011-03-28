@@ -9,14 +9,13 @@ using System.Diagnostics;
 
 namespace Gymnastika.Controls
 {
-	public class AnimatedListPanel : StackPanel
+	public class AnimatedListPanel : Panel
 	{
         public AnimatedListPanel()
         {
             Delay = 0.1;
             XDuration = 0.6;
             YDuration = 1;
-            
         }
 
 
@@ -61,35 +60,31 @@ namespace Gymnastika.Controls
             new PropertyMetadata(true));
 
 
-        protected override Size MeasureOverride(Size availableSize)
+        protected override Size MeasureOverride(Size constraint)
         {
-            var availableWidth = double.IsPositiveInfinity(availableSize.Width)
-                ? 0
-                : availableSize.Width;
-
-            var availableHeight = double.IsPositiveInfinity(availableSize.Height)
-                ? double.MaxValue
-                : availableSize.Height;
-
-            //width:0 or availableHeight
-            var width = 0d;
-            var height = 0d;
-
-
+            double width = 0;
+            double height = 0;
+            double distance = ItemsDistance;
             foreach (ContentControl child in InternalChildren)
             {
-                child.Measure(new Size(availableWidth, double.MaxValue));
-                height += child.DesiredSize.Height + ItemsDistance;
-                width = width > child.DesiredSize.Width ? width : child.DesiredSize.Width;
+                child.Measure(constraint);
+                Size ds = child.DesiredSize;
+                width = Math.Max(width, ds.Width);
+                height += distance + ds.Height;
             }
-
-            var resSize = new Size(width, height);
-
-            return resSize;
+            height = Math.Max(height - distance, 0);
+            height = Math.Min(height, constraint.Height);
+            width = Math.Min(width, constraint.Width);
+            //Height += 100;
+            //return base.MeasureOverride(new Size(width,height));
+            return new Size(width, height);
         }
+
+
 
         protected override Size ArrangeOverride(Size arrangeSize)
         {
+            //return base.ArrangeOverride(arrangeSize);
             //start point
             var itemsDistance = ItemsDistance;
             var currentTop = 0d;
@@ -146,8 +141,8 @@ namespace Gymnastika.Controls
             
             
             }
-
             return arrangeSize;
+            //return base.ArrangeOverride(arrangeSize);
         }
 
 		private TranslateTransform GetTranslateTransformFromGroup(TransformGroup combinedTransform)

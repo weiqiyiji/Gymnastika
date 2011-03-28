@@ -64,12 +64,18 @@ namespace Gymnastika.Sync.Schedule
             timer.Stop();
             timer.Elapsed -= OnTimerElapsed;
 
-            byte[] payload = PreparePayload(metadata.Schedule);
-            var utility = new NotificationSenderUtility();
-            utility.SendRawNotification(
-                new List<Uri>() { new Uri(metadata.TargetUri) }, payload, null);
-
-            _metadataCollection.Remove(metadata);
+            try
+            {
+                byte[] payload = PreparePayload(metadata.Schedule);
+                var utility = new NotificationSenderUtility();
+                utility.SendRawNotification(
+                    new List<Uri>() { new Uri(metadata.TargetUri) }, payload, null);
+            }
+            catch(Exception) {}
+            finally
+            {
+                _metadataCollection.Remove(metadata);
+            }
         }
 
         private byte[] PreparePayload(Models.ScheduleItem schedule)
@@ -92,20 +98,9 @@ namespace Gymnastika.Sync.Schedule
             return payload;
         }
 
-        public int Add(Communication.ScheduleItem scheduleItem)
+        public void Add(Gymnastika.Sync.Models.ScheduleItem scheduleItem)
         {
-            Models.ScheduleItem persistSchedule = new Models.ScheduleItem() 
-            { 
-                UserId = scheduleItem.UserId,
-                ConnectionId = scheduleItem.ConnectionId,
-                StartTime = scheduleItem.StartTime.ToString(),
-                Message = scheduleItem.Message
-            };
-
-            _scheduleRepository.Create(persistSchedule);
-            SetTimer(persistSchedule, scheduleItem.StartTime);
-
-            return persistSchedule.Id;
+            SetTimer(scheduleItem, scheduleItem.StartTime);
         }
     }
 }
