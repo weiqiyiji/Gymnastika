@@ -9,6 +9,9 @@
              d:DesignHeight="410" d:DesignWidth="414" ShowInTaskbar="False" xmlns:my="http://schemas.microsoft.com/surface/2008" Background="{x:Null}" WindowStyle="None" WindowStartupLocation="CenterOwner" AllowsTransparency="True" Width="800" Height="700" Opacity="0.98">
     <Window.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Pack://Application:,,,/Gymnastika.Modules.Sports;component/Themes/ScrollBarStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <converter:RtfUriToDocumentConverter x:Key="RtfConverter"/>
             <converter:FullPathConverter x:Key="FullPathConverter"/>
             <converter:CalorieDecriptionConverter x:Key="CalorieDecriptionConverter"/>
@@ -96,9 +99,9 @@
                     		<RowDefinition Height="0.536*"/>
                     	</Grid.RowDefinitions>
                     	<TextBlock x:Name="Calorie" Grid.RowSpan="2" Foreground="#FFEF8686">
-                            <Run Text="每小时消耗"/>
-                            <Run FontSize="14" Text="{Binding CaloriePerMinute}"/>
-                            <Run Text="大卡"/>
+                            <Run Text="每小时消耗 " FontSize="14"/>
+                            <Run FontSize="18" Text="{Binding CaloriePerMinute, Mode=OneWay}"/>
+                            <Run Text="大卡" FontSize="14"/>
                         </TextBlock>
                         <Gymnastika_Controls:AnimatedProgressBar TargetValue="{Binding CaloriePerMinute}" Maximum="1000" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" Panel.ZIndex="-1" Margin="0" BorderThickness="0" BorderBrush="{x:Null}" Grid.Row="1" Background="{x:Null}">
                         	<Gymnastika_Controls:AnimatedProgressBar.Foreground>

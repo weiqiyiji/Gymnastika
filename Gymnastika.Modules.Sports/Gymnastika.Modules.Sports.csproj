@@ -98,6 +98,7 @@
     <Compile Include="Communication\Helpers\ContractObjectSerializer.cs" />
     <Compile Include="Communication\Tasks\SportsPlanTaskItem.cs" />
     <Compile Include="ConfigFile.cs" />
+    <Compile Include="Converters\BoolVisibilityConverter.cs" />
     <Compile Include="Converters\CalorieDecriptionConverter.cs" />
     <Compile Include="Converters\DateTimeToDateConverter.cs" />
     <Compile Include="Converters\DateTimeToTimeConverter.cs" />
@@ -193,6 +194,10 @@
     <Compile Include="Widget\DailySportViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Themes\ScrollBarStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
