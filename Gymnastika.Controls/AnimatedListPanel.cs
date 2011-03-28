@@ -63,6 +63,7 @@ namespace Gymnastika.Controls
 
         protected override Size MeasureOverride(Size availableSize)
         {
+            
             var availableWidth = double.IsPositiveInfinity(availableSize.Width)
                 ? 0
                 : availableSize.Width;
@@ -85,7 +86,7 @@ namespace Gymnastika.Controls
 
             var resSize = new Size(width, height);
 
-            return resSize;
+            return MeasureOverride(resSize);
         }
 
         protected override Size ArrangeOverride(Size arrangeSize)
@@ -147,7 +148,7 @@ namespace Gymnastika.Controls
             
             }
 
-            return arrangeSize;
+            return base.ArrangeOverride(arrangeSize);
         }
 
 		private TranslateTransform GetTranslateTransformFromGroup(TransformGroup combinedTransform)
