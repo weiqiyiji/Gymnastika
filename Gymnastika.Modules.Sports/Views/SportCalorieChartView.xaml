@@ -5,13 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" xmlns:Gymnastika_Controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls" x:Class="Gymnastika.Modules.Sports.Views.SportCalorieChartView" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" Background="#FFD4DEC1"
+             d:DesignHeight="300" d:DesignWidth="300"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
             dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" Width="280" Height="280"
             xmlns:validationRule="clr-namespace:Gymnastika.Modules.Sports.Validations" Foreground="#FF7C836B"
+            xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
             >
 	<UserControl.Resources>
+        <behaviors:CircleProvider x:Key="circleProvider" Corner="{x:Static behaviors:CircleProvider.TopRight}" />
         <converter:HourMinuteToStringConverter x:Key="HourMinuteToStringConverter"/>
         <converter:FullPathConverter x:Key="FullPathConverter"/>
         <converter:ToIntConverter x:Key="ToIntConverter"/>
@@ -43,16 +45,57 @@
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type Button}">
-						<Grid Background="{x:Null}" HorizontalAlignment="Stretch" Margin="-2,-2,2,2" VerticalAlignment="Stretch" >
-							<Ellipse x:Name="ellipse" Fill="#FF94E0B1" />
-							<ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-						
+						<ControlTemplate.Resources>
+							<Storyboard x:Key="Storyboard1">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="ellipse_inner">
+									<EasingColorKeyFrame KeyTime="0" Value="White"/>
+								</ColorAnimationUsingKeyFrames>
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FF89D9A8"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard2">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FFEEFAF3"/>
+								</ColorAnimationUsingKeyFrames>
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" Storyboard.TargetName="ellipse_inner">
+									<EasingColorKeyFrame KeyTime="0" Value="Transparent"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard3">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#33FFFFFF"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+							<Storyboard x:Key="Storyboard4">
+								<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" Storyboard.TargetName="userControl">
+									<EasingColorKeyFrame KeyTime="0" Value="#FFEEFAF3"/>
+								</ColorAnimationUsingKeyFrames>
+							</Storyboard>
+						</ControlTemplate.Resources>
+						<Grid Background="{x:Null}" HorizontalAlignment="Stretch" Margin="0" VerticalAlignment="Stretch" >
+							<Ellipse x:Name="ellipse" Fill="#FF89D9A8" Panel.ZIndex="-2" />
+							<UserControl x:Name="userControl">
+								<ContentPresenter RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Height="Auto" Width="Auto" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</UserControl>
+							<Ellipse x:Name="ellipse_inner" Fill="Transparent" Margin="3" Panel.ZIndex="-1" />
 						</Grid>
 						<ControlTemplate.Triggers>
-							<Trigger Property="IsKeyboardFocused" Value="true"/>
-							<Trigger Property="ToggleButton.IsChecked" Value="true"/>
-							<Trigger Property="IsEnabled" Value="false">
-								<Setter Property="Foreground" Value="#ADADAD"/>
+							<Trigger Property="IsEnabled" Value="False">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard4_BeginStoryboard" Storyboard="{StaticResource Storyboard4}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard x:Name="Storyboard3_BeginStoryboard" Storyboard="{StaticResource Storyboard3}"/>
+								</Trigger.EnterActions>
+							</Trigger>
+							<Trigger Property="IsPressed" Value="True">
+								<Trigger.ExitActions>
+									<BeginStoryboard x:Name="Storyboard2_BeginStoryboard" Storyboard="{StaticResource Storyboard2}"/>
+								</Trigger.ExitActions>
+								<Trigger.EnterActions>
+									<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+								</Trigger.EnterActions>
 							</Trigger>
 						</ControlTemplate.Triggers>
 					</ControlTemplate>
@@ -60,34 +103,32 @@
 			</Setter>
 		</Style>
 	</UserControl.Resources>
-    <Grid Height="280" Width="280">
+    <Grid Background="White" behaviors:ClipBehavior.Provider="{StaticResource circleProvider}" >
     	<Grid.ColumnDefinitions>
-    		<ColumnDefinition Width="0.125*"/>
-    		<ColumnDefinition Width="0.102*"/>
-    		<ColumnDefinition Width="0.161*"/>
-    		<ColumnDefinition Width="0.039*"/>
-    		<ColumnDefinition Width="0.117*"/>
-    		<ColumnDefinition Width="0.041*"/>
-    		<ColumnDefinition Width="0.035*"/>
-    		<ColumnDefinition Width="0.1*"/>
-    		<ColumnDefinition Width="0.237*"/>
-    		<ColumnDefinition Width="0.043*"/>
+    		<ColumnDefinition Width="0.109*"/>
+    		<ColumnDefinition Width="0.094*"/>
+    		<ColumnDefinition Width="0.156*"/>
+    		<ColumnDefinition Width="0.02*"/>
+    		<ColumnDefinition Width="0.257*"/>
+    		<ColumnDefinition Width="0.131*"/>
+    		<ColumnDefinition Width="0.19*"/>
+    		<ColumnDefinition Width="0.019*"/>
+    		<ColumnDefinition Width="0.024*"/>
     	</Grid.ColumnDefinitions>
     	<Grid.RowDefinitions>
     		<RowDefinition Height="0.04*"/>
     		<RowDefinition Height="0.11*"/>
-    		<RowDefinition Height="0.08*"/>
-    		<RowDefinition Height="0.075*"/>
-    		<RowDefinition Height="0.008*"/>
-    		<RowDefinition Height="0.075*"/>
-    		<RowDefinition Height="0.106*"/>
-    		<RowDefinition Height="0.123*"/>
-    		<RowDefinition Height="0.123*"/>
-    		<RowDefinition Height="0.26*"/>
+    		<RowDefinition Height="0.067*"/>
+    		<RowDefinition Height="0.062*"/>
+    		<RowDefinition Height="0.014*"/>
+    		<RowDefinition Height="0.064*"/>
+    		<RowDefinition Height="0.254*"/>
+    		<RowDefinition Height="0.157*"/>
+    		<RowDefinition Height="0.232*"/>
     	</Grid.RowDefinitions>
-		<Ellipse Fill="White"  Grid.RowSpan="10" Grid.ColumnSpan="10"/>
-		<Border BorderThickness="0,1" Background="White" Grid.Column="4" Panel.ZIndex="-1" Grid.ColumnSpan="6" Grid.RowSpan="7"></Border>
-        <Gymnastika_Controls:AnimatedProgressBar TargetValue="{Binding CaloriePerHour}" x:Name="animatedProgressBar" Maximum="1000" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="9" Background="{x:Null}" Grid.Row="2">
+		<!--<Ellipse Fill="White"  Grid.RowSpan="10" Grid.ColumnSpan="10"/>
+		<Border BorderThickness="0,1" Background="White" Grid.Column="4" Panel.ZIndex="-1" Grid.ColumnSpan="6" Grid.RowSpan="7"></Border>-->
+        <Gymnastika_Controls:AnimatedProgressBar TargetValue="{Binding CaloriePerHour}" x:Name="animatedProgressBar" Maximum="1000" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="7" Background="{x:Null}" Grid.Row="2">
     		<Gymnastika_Controls:AnimatedProgressBar.Foreground>
     			<LinearGradientBrush EndPoint="1,0.432" StartPoint="-0.026,0.46">
     				<GradientStop Color="#FFE9AE8B" Offset="0"/>
@@ -106,16 +147,16 @@
     		</Gymnastika_Controls:AnimatedProgressBar.RenderTransform>
     	</Gymnastika_Controls:AnimatedProgressBar>
         <Button Command="{Binding AddToPlanCommand}"
-                Content="添加" Style="{DynamicResource ButtonStyle}" Grid.Row="6" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="4" Foreground="#FFEEFAF3" FontSize="24" Margin="0,2,0,-2"/>
-        <Button  Command="{Binding ShowDetailCommand}" Content="详细" Style="{DynamicResource ButtonStyle}" Grid.Row="8" Grid.Column="6" Foreground="#FFEEFAF3" FontSize="14.667" Grid.ColumnSpan="2" VerticalContentAlignment="Stretch"/>
-        <Border Grid.ColumnSpan="9" Grid.Row="1">
+                Content="添加" Style="{DynamicResource ButtonStyle}" Grid.Row="6" Grid.Column="4" Foreground="#FFEEFAF3" FontSize="24" Margin="0" Height="64" Width="64" Background="{x:Null}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Button  Command="{Binding ShowDetailCommand}" Content="详细" Style="{DynamicResource ButtonStyle}" Grid.Row="7" Grid.Column="5" Foreground="#FFEEFAF3" FontSize="14.667" VerticalContentAlignment="Center" Height="34" Width="34" Background="{x:Null}" Margin="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <Border Grid.ColumnSpan="7" Grid.Row="1">
         	<TextBlock TextWrapping="Wrap" Foreground="{Binding Foreground, ElementName=animatedProgressBar}" FontSize="14.667" Height="39.593" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0"><Run Text="每小时消耗"/><Run Text=" "/><Run FontSize="30" Text="{Binding Value, Converter={StaticResource ResourceKey=ToIntConverter}, ElementName=animatedProgressBar}"/><Run Text=" "/><Run Text="大卡"/></TextBlock>
         </Border>
-        <Border Grid.ColumnSpan="5" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="3" Width="159" >
+        <Border Grid.ColumnSpan="3" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="3" Width="159" >
         	<TextBlock x:Name="Name" TextWrapping="Wrap" Foreground="#FFE8A488" Text="{Binding Sport.Name}" FontSize="16" HorizontalAlignment="Right" />
         </Border>
-        <Border x:Name="TimeBorder" BorderBrush="#FF7C836B" BorderThickness="1" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
-        	<TextBox x:Name="Time" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" >
+        <Border x:Name="TimeBorder" BorderBrush="#FF7C836B" BorderThickness="0.5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
+        	<TextBox x:Name="Time" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" >
         		<MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ResourceKey=HourMinuteToStringConverter}">
         			<MultiBinding.ValidationRules>
         				<validationRule:TimeExpressionValidation/>
@@ -125,12 +166,12 @@
         		</MultiBinding>
         	</TextBox>
         </Border>
-        <Border Grid.ColumnSpan="5" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="3" Width="159" >
+        <Border Grid.ColumnSpan="3" Grid.Column="4" HorizontalAlignment="Right" Grid.Row="3" Width="159" >
         	<TextBlock x:Name="Name1" TextWrapping="Wrap" Foreground="#FFE8A488" Text="{Binding Sport.Name}" FontSize="16" HorizontalAlignment="Right" />
         </Border>
-        <Border x:Name="DurationBorder" BorderBrush="#FF7C836B" BorderThickness="1" Grid.Row="5" Grid.Column="2" Margin="0,0.5,0,0">
-        	<TextBox x:Name="Duration" Text="{Binding Duration}" Foreground="#FF7C836B" VerticalContentAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+        <Border x:Name="DurationBorder" BorderBrush="#FF7C836B" BorderThickness="0.5" Grid.Row="5" Grid.Column="2" Margin="0,0.5,0,0">
+        	<TextBox x:Name="Duration" Text="{Binding Duration}" Foreground="#FF7C836B" VerticalContentAlignment="Center" Margin="0" VerticalAlignment="Center" BorderThickness="0"/>
         </Border>
-        <TextBlock Grid.Column="4" Grid.Row="5" TextWrapping="Wrap" Text="分钟" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="4" Grid.Row="5" TextWrapping="Wrap" Text="分钟" VerticalAlignment="Center" HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

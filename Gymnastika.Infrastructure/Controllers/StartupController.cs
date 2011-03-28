@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Gymnastika.Common;
 using Gymnastika.Events;
 using Gymnastika.Services.Contracts;
@@ -12,6 +13,8 @@ using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
 using Gymnastika.Common.Navigation;
+using System.Threading;
+using System.ComponentModel;
 
 namespace Gymnastika.Controllers
 {
@@ -76,7 +79,7 @@ namespace Gymnastika.Controllers
                 displayRegion.RequestNavigate(new Uri("MainView", UriKind.Relative));
             }
         }
-
+        
         public void RequestLogOn(string userName)
         {
             OpenProfileWindow(userName, UserProfileViewModel.LogOnTabIndex);

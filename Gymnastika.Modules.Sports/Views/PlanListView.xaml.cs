@@ -17,6 +17,7 @@ using Microsoft.Practices.ServiceLocation;
 using Gymnastika.Common.Navigation;
 using System.Windows.Media.Animation;
 using Microsoft.Surface.Presentation.Controls;
+using Gymnastika.Modules.Sports.Facilities;
 
 namespace Gymnastika.Modules.Sports.Views
 {
@@ -28,6 +29,15 @@ namespace Gymnastika.Modules.Sports.Views
         public PlanListView()
         {
             InitializeComponent();
+            LoadViewModel();
+        }
+
+        void LoadViewModel()
+        {
+            AsychronousLoadHelper.AsychronousResolve<IPlanListViewModel>((model) =>
+            {
+                ViewModel = model;
+            }, this.Dispatcher);
         }
 
         public IPlanListViewModel ViewModel
@@ -36,11 +46,4 @@ namespace Gymnastika.Modules.Sports.Views
             set { DataContext = value; }
         }
     }
-    //public class SurfaceListBoxWithoutHighlight : SurfaceListBox
-    //{
-    //    protected override DependencyObject GetContainerForItemOverride()
-    //    {
-    //        return base.GetContainerForItemOverride() as Grid);
-    //    }
-    //}
 }

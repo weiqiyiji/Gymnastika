@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Sync.Console", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Phone.ConnectionSample", "Gymnastika.Phone.ConnectionSample\Gymnastika.Phone.ConnectionSample.csproj", "{F2887C61-8ABF-4425-9CBE-B6D5501BF1C7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E801775-C9C2-4AC3-9C13-C9EF45F37E17}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gymnastika.vsmdi
@@ -164,7 +166,6 @@ Global
 		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BCDE98F0-7BAB-4AC3-87FD-4399179B0DF4}.Release|Any CPU.Build.0 = Release|Any CPU

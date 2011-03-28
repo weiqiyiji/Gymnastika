@@ -7,8 +7,9 @@
         xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
         xmlns:core="clr-namespace:Gymnastika.Common;assembly=Gymnastika.Common"
         xmlns:nav="clr-namespace:Gymnastika.Common.Navigation;assembly=Gymnastika.Common"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
         xmlns:prism="clr-namespace:Microsoft.Practices.Prism.Regions;assembly=Microsoft.Practices.Prism"
-        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300" Background="#D2D6CB">
+        mc:Ignorable="d" d:DesignWidth="300" d:DesignHeight="300" Background="#FFC4CFB8">
     <UserControl.Resources>
         <f:SlideTransition x:Key="SlideTransition" />
         <f:CubeTransition x:Key="CubeTransition" />

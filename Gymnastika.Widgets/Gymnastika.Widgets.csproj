@@ -77,7 +77,6 @@
     <Compile Include="IWidgetBootstrapper.cs" />
     <Compile Include="Migration\Migration_WidgetInstances_20110312155044.cs" />
     <Compile Include="Models\WidgetInstance.cs" />
-    <Compile Include="ScatterViewWidgetContainerAdapter.cs" />
     <Compile Include="WidgetBootstrapper.cs" />
     <Compile Include="WidgetMetadataAttribute.cs" />
     <Compile Include="Infrastructure\IWidgetHostAware.cs" />
@@ -168,6 +167,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\widget_selected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\close_normal.png" />
+    <Resource Include="Images\close_pressed.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

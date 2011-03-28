@@ -203,7 +203,10 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         private int GetPageNumber(int Count)
         {
-            return Count / MaxItemsPerPage + ((Count != 0 && Count % MaxItemsPerPage != 0) ? 1 : 0);
+            int number = Count / MaxItemsPerPage + ((Count != 0 && Count % MaxItemsPerPage != 0) ? 1 : 0);
+            if (number <= 0)
+                number = 1;
+            return number;
         }
 
         bool CanGotoPage(int page)

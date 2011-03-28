@@ -20,6 +20,8 @@ using Gymnastika.Modules.Sports.DataImport.Sources;
 using Gymnastika.Modules.Sports.DataImport;
 using Gymnastika.Modules.Sports.Widget;
 using Gymnastika.Common.Navigation;
+using Gymnastika.Modules.Sports.Facilities;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -46,7 +48,6 @@ namespace Gymnastika.Modules.Sports
 
         public void Initialize()
         {
-            //return;
             RegisterDependencies();
 
             ImportData();
@@ -54,9 +55,24 @@ namespace Gymnastika.Modules.Sports
             RegisterWidgets();
 
             RegisterNavigations();
+
+            AsychronousInit();
         }
 
         #endregion
+
+        void AsychronousInit()
+        {
+            Action handler = LoadDependencies;
+            AsychronousLoadHelper.AsychronousCall(handler);
+        }
+
+        void LoadDependencies()
+        {
+            //_container.Resolve<CompositePanel>();
+            //_container.Resolve<PlanDetailViewModel>();
+            //_container.Resolve<PlanListViewModel>();
+        }
 
         private void RegisterNavigations()
         {
@@ -81,7 +97,7 @@ namespace Gymnastika.Modules.Sports
                 {
                     Header = "本周计划",
                     ViewName = NavigationNames.PlanPanel,
-                    ViewResolver = () => _container.Resolve<CompostieChartView>(),
+                    ViewResolver = () => _container.Resolve<PlanListView>(),
                 });
 
             //图表
@@ -156,12 +172,11 @@ namespace Gymnastika.Modules.Sports
                 .RegisterType<ISportViewModel, SportViewModel>()
                 .RegisterType<ICompositePanelViewModel, CompositePanelViewModel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ISportCalorieChartViewModel, SportCalorieChartViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType < IPlanDetailViewModel,PlanDetailViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<IPlanDetailViewModel,PlanDetailViewModel>(new ContainerControlledLifetimeManager())
                 //Views
                 .RegisterType<ISportsPanelView, SportsPanelView>()
                 .RegisterType<ICategoriesPanelView, CategoriesPanelView>()
                 .RegisterType<ISportsPlanView, SportsPlanView>()
-                .RegisterType<CompostieChartView>(new ContainerControlledLifetimeManager())
                 .RegisterType<PlanListView>(new ContainerControlledLifetimeManager())
                 .RegisterType<CompositePanel>(new ContainerControlledLifetimeManager())
                 .RegisterType<ChartView>(new ContainerControlledLifetimeManager());

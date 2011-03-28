@@ -50,6 +50,14 @@
     </Reference>
     <Reference Include="Microsoft.Expression.Controls" />
     <Reference Include="Microsoft.Expression.Drawing" />
+    <Reference Include="Microsoft.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Http.Extensions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Microsoft.Http.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Prism.dll</HintPath>
@@ -99,10 +107,13 @@
     <Compile Include="Converters\ToIntConverter.cs" />
     <Compile Include="Converters\UriToDocumentConverter.cs" />
     <Compile Include="Events\SportsPlanCreatedOrModifiedEvent.cs" />
+    <Compile Include="Facilities\AsychronousLoadHelper.cs" />
     <Compile Include="Facilities\DateFacility.cs" />
     <Compile Include="Facilities\MathFacility.cs" />
     <Compile Include="Facilities\PathFacility.cs" />
+    <Compile Include="Facilities\PlanFormatter.cs" />
     <Compile Include="NavigationNames.cs" />
+    <Compile Include="Services\Communication\CommunicationService.cs" />
     <Compile Include="Services\Factories\SportsPlanViewModelFactory.cs" />
     <Compile Include="Services\DataImport\Importers\CategoryImporter.cs" />
     <Compile Include="Services\DataImport\DataImportManager.cs" />
@@ -146,9 +157,6 @@
     <Compile Include="ViewModels\SportsPlanViewModel.cs" />
     <Compile Include="ViewModels\SportsPanelViewModel.cs" />
     <Compile Include="ViewModels\SportViewModel.cs" />
-    <Compile Include="Views\CompostieChartView.xaml.cs">
-      <DependentUpon>CompostieChartView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlanDetailView.xaml.cs">
       <DependentUpon>PlanDetailView.xaml</DependentUpon>
     </Compile>
@@ -191,10 +199,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Generic.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CompostieChartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,6 +264,10 @@
       <Project>{4B324C5F-5644-4833-B42E-A5EAC025A7E1}</Project>
       <Name>Gymnastika.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gymnastika.Sync.Communication\Gymnastika.Sync.Communication.csproj">
+      <Project>{B7CA2F0B-DCAC-409D-A2B3-78974C063569}</Project>
+      <Name>Gymnastika.Sync.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Gymnastika.Widgets\Gymnastika.Widgets.csproj">
       <Project>{D285460E-3869-4C25-ABFE-A863A890FBA3}</Project>
       <Name>Gymnastika.Widgets</Name>
@@ -273,6 +281,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Grid.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -11,8 +11,7 @@
              xmlns:FluidKit_Experimental="clr-namespace:FluidKit.Experimental;assembly=FluidKit" xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="Gymnastika.Modules.Sports.Views.CompositePanel" 
              mc:Ignorable="d" 
              BorderBrush="Transparent" 
-             BorderThickness="1"
-             Background="#FFD4DEC1" d:DesignHeight="700" d:DesignWidth="1000" FontFamily="黑体"
+             BorderThickness="1" d:DesignHeight="700" d:DesignWidth="1000" FontFamily="黑体"
              >
 	<UserControl.Resources>
 		<Style x:Key="ButtonFocusVisual">
@@ -101,7 +100,7 @@
 					</TransformGroup>
 				</my1:SportsPanelView.RenderTransform>
 			</my1:SportsPanelView>
-            <my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" DataContext="{Binding CalorieChartViewModel}" Width="Auto" Height="Auto" VerticalAlignment="Top"/>
+            <my1:SportCalorieChartView Grid.Row="4" x:Name="sportCalorieChartView" Grid.Column="1" DataContext="{Binding CalorieChartViewModel}" Width="Auto" Height="Auto"/>
 			<TextBlock FontSize="20" Grid.Column="3" Margin="4,2.345,109.212,0" d:LayoutOverrides="HorizontalAlignment" VerticalAlignment="Center" Foreground="#FF828970"><Run Text="{Binding PlanViewModel.User.UserName}"/><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text="的运动计划"/></TextBlock>
 			<Border Grid.Column="3" BorderBrush="#FF7C836B" BorderThickness="1" Width="100" Height="30" Margin="0,9.584,3.466,5.818" HorizontalAlignment="Right" d:LayoutOverrides="Width">
 				<Button Background="{x:Null}" BorderBrush="{x:Null}" Style="{DynamicResource ButtonStyle}" BorderThickness="0" Focusable="False" IsTabStop="False">

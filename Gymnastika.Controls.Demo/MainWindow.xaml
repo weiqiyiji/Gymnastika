@@ -9,6 +9,7 @@
             <Button Content="SlidePanel" Click="Button_Click" HorizontalAlignment="Stretch" />
             <Button Content="CheckButtonGroup" Click="Button_Click" HorizontalAlignment="Stretch" />
             <Button Content="ClipBehavior" Click="Button_Click" HorizontalAlignment="Stretch" />
+            <Button Content="BusyIndicator" Click="Button_Click" HorizontalAlignment="Stretch" />
         </StackPanel>
     </Grid>
 </Window>

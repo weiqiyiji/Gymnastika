@@ -25,6 +25,11 @@ namespace Gymnastika.Phone.Sync
         {
             accessPoints.Add(new DesktopAccessPoint() { Uri = PointUri });
         }
+        public void Add(string uri)
+        {
+            Add(new Uri(uri));
+        }
+        public int Count { get { return accessPoints.Count; } }
         public bool Remove(DesktopAccessPoint Point)
         {
             return accessPoints.Remove(Point);
@@ -51,7 +56,11 @@ namespace Gymnastika.Phone.Sync
         {
             return accessPoints.GetEnumerator();
         }
-
+        public DesktopAccessPoint this[int index]
+        {
+            get { return accessPoints[index]; }
+            set { accessPoints[index] = value; }
+        }
         public void Serialize(Stream Target)
         {
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(DesktopAccessPointCollection));

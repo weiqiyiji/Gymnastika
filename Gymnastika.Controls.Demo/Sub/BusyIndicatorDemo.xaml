@@ -1,0 +1,15 @@
+﻿<Window x:Class="Gymnastika.Controls.Demo.Sub.BusyIndicatorDemo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit.Extended"
+        Title="BusyIndicator" Height="300" Width="300">
+    <Grid>
+        <toolkit:BusyIndicator BusyContent="Busy..." IsBusy="True">
+            <toolkit:BusyIndicator.OverlayStyle>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Setter Property="Fill" Value="#CF000000" />
+                </Style>
+            </toolkit:BusyIndicator.OverlayStyle>
+        </toolkit:BusyIndicator>
+    </Grid>
+</Window>

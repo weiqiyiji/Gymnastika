@@ -15,6 +15,7 @@ using Microsoft.Practices.Prism.ViewModel;
 using Gymnastika.Views;
 using Microsoft.Practices.Unity;
 using Gymnastika.Common.Navigation;
+using System.Threading;
 
 namespace Gymnastika.ViewModels
 {
@@ -49,6 +50,21 @@ namespace Gymnastika.ViewModels
         {
             LoadModules();
             Initialize();
+        }
+        
+        private bool _isInitializing;
+
+        public bool IsInitializing
+        {
+            get { return _isInitializing; }
+            set
+            {
+                if (_isInitializing != value)
+                {
+                    _isInitializing = value;
+                    RaisePropertyChanged("IsInitializing");
+                }
+            }
         }
 
         private const string NormalRegion = "NormalRegion";

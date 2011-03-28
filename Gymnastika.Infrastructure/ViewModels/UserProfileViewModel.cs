@@ -222,7 +222,22 @@ namespace Gymnastika.ViewModels
                 }
             }
         }
-				
+        
+        private bool _hasError;
+
+        public bool HasError
+        {
+            get { return _hasError; }
+            set
+            {
+                if (_hasError != value)
+                {
+                    _hasError = value;
+                    RaisePropertyChanged("HasError");
+                }
+            }
+        }
+							
         private ICommand _backCommand;
 
         public ICommand BackCommand
@@ -285,6 +300,11 @@ namespace Gymnastika.ViewModels
             {
                 GoBack(savedUser);
             }
+            else
+            {
+                HasError = true;
+                ErrorMessage = _userService.ErrorString;
+            }
 
             _lockLogOn = false;
         }
@@ -324,6 +344,8 @@ namespace Gymnastika.ViewModels
 		
 	    private void GoBack(User user)
         {
+            HasError = false;
+            ErrorMessage = null;
             NotifyClose = true;
             _eventAggregator.GetEvent<LogOnCompleteEvent>().Publish(user);
 	    }
