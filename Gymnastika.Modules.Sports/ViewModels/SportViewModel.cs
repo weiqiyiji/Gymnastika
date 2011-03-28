@@ -22,6 +22,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         double Calories { get; }
 
+        int CaloriePerMinute { get; }
+
         int Minutes { get; }
 
         string IntroductionUri { get; }
@@ -57,6 +59,11 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     RaisePropertyChanged("");
                 }
             }
+        }
+
+        public int CaloriePerMinute
+        {
+            get { return Minutes == 0 ? 0 : (int)Calories / Minutes * 60; }
         }
 
         public string ImageUri

@@ -22,6 +22,11 @@ using Gymnastika.Modules.Sports.Widget;
 using Gymnastika.Common.Navigation;
 using Gymnastika.Modules.Sports.Facilities;
 using Microsoft.Practices.ServiceLocation;
+using Gymnastika.Modules.Sports.Communication.Services;
+using Gymnastika.Sync.Communication.Client;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Sports.Events;
+using Gymnastika.Modules.Sports.Communication;
 
 namespace Gymnastika.Modules.Sports
 {
@@ -56,23 +61,16 @@ namespace Gymnastika.Modules.Sports
 
             RegisterNavigations();
 
-            AsychronousInit();
+            SychronousInit();
         }
 
         #endregion
 
-        void AsychronousInit()
+        void SychronousInit()
         {
-            Action handler = LoadDependencies;
-            AsychronousLoadHelper.AsychronousCall(handler);
+           CommunicationManager manager = _container.Resolve<CommunicationManager>();
         }
 
-        void LoadDependencies()
-        {
-            //_container.Resolve<CompositePanel>();
-            //_container.Resolve<PlanDetailViewModel>();
-            //_container.Resolve<PlanListViewModel>();
-        }
 
         private void RegisterNavigations()
         {
@@ -163,7 +161,7 @@ namespace Gymnastika.Modules.Sports
                 .RegisterInstance<ISportCardViewModelFactory>(new SportCardViewModelFactory())
                 .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
                 .RegisterType<ISportsPlanViewModelFactory, SportsPlanViewModelFactory>()
-
+                .RegisterType<CommunicationService>(new ContainerControlledLifetimeManager())
                 //ViewModels
                 .RegisterType<ICategoriesPanelViewModel, CategoriesPanelViewModel>()
                 .RegisterType<ISportsPanelViewModel, SportsPanelViewModel>()
@@ -183,6 +181,5 @@ namespace Gymnastika.Modules.Sports
        }
 
         #endregion
-    
     }
 }

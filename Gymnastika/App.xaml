@@ -10,6 +10,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Gymnastika.Infrastructure;component/Styles/ActionButton.xaml" />
+                <ResourceDictionary Source="/Gymnastika.Modules.Sports;component/Themes/ScrollBarStyle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
             <cov:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
