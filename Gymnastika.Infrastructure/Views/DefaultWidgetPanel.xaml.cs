@@ -78,10 +78,13 @@ namespace Gymnastika.Views
                 if (Math.Abs(current.X - _startPosition.X) > SystemParameters.MinimumHorizontalDragDistance ||
                     Math.Abs(current.Y - _startPosition.Y) > SystemParameters.MinimumVerticalDragDistance)
                 {
-                    DataObject obj = new DataObject(
-                        DataFormats.GetDataFormat(WidgetDataFormat).Name,
-                        widgetBox.SelectedItem);
-                    DragDrop.DoDragDrop(this, obj, DragDropEffects.Move);
+                    if (widgetBox.SelectedItem != null)
+                    {
+                        DataObject obj = new DataObject(
+                            DataFormats.GetDataFormat(WidgetDataFormat).Name,
+                            widgetBox.SelectedItem);
+                        DragDrop.DoDragDrop(this, obj, DragDropEffects.Move);
+                    }
                 }
                 _isDragging = false;
             }

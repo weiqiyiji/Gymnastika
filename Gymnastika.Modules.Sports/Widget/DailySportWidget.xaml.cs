@@ -22,7 +22,7 @@ namespace Gymnastika.Modules.Sports.Widget
     /// <summary>
     /// Interaction logic for DailySportWidget.xaml
     /// </summary>
-    [WidgetMetadata("每日运动计划", "/Gymnastika.Modules.Sports;component/Resources/Images/Sport.png")]
+    [WidgetMetadata("运动", "/Gymnastika.Modules.Sports;component/Resources/Images/Sport.png")]
     public partial class DailySportWidget : UserControl , IWidget
     {
         DailySportViewModel _model;
