@@ -153,7 +153,8 @@ namespace Gymnastika.Phone.PushNotification
 
         private void SubscribeToService()
         {
-            string theUri = String.Format("http://localhost/gym/reg/reg_phone?uri={0}", _httpChannel.ChannelUri.ToString());
+           
+            string theUri = String.Format("/reg/reg_phone?uri={0}",HttpUtility.UrlEncode( _httpChannel.ChannelUri.ToString()));
             WebClient client = new WebClient();
             client.DownloadStringCompleted += (s, e) =>
             {
@@ -167,7 +168,7 @@ namespace Gymnastika.Phone.PushNotification
                 else
                     Trace("Registration failed: " + e.Error.Message);
             };
-            client.DownloadStringAsync(new Uri(theUri));
+            client.DownloadStringAsync(Config.GetServerPathUri(theUri));
         }
 
         private void RaiseSubscribeCompleted(int id)
