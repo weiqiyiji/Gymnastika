@@ -16,6 +16,18 @@ namespace Gymnastika.Phone.Sync
 {
     public class ConnectionHelper
     {
+      
+        public class CheckAccessPointCompeletedArg:EventArgs
+        {
+            public DesktopAccessPoint AccessPoint { get;private set; }
+            public bool Succussful { get; private set; }
+            internal CheckAccessPointCompeletedArg(DesktopAccessPoint AccessPoint,bool Successful)
+            {
+                this.AccessPoint = AccessPoint;
+                this.Succussful = Succussful;
+            }
+        }
+        public event EventHandler<CheckAccessPointCompeletedArg> CheckAccessPointCompeleted;
         static Uri[] GetDesktopAccessPoints()
         {
             WebClient client = new WebClient();
@@ -28,6 +40,10 @@ namespace Gymnastika.Phone.Sync
             client.OpenReadAsync(new Uri(Config.ServerUri, "/GetAddrs?username="), autoReset);
             autoReset.WaitOne();
             return uris.ToArray();
+        }
+        public void CheckAccessPoint(DesktopAccessPoint AccessPoint)
+        {
+            
         }
     }
 }

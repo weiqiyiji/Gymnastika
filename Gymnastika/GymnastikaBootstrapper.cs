@@ -56,9 +56,9 @@ namespace Gymnastika
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            RegistrationService service = new RegistrationService();
             try
             {
+                RegistrationService service = new RegistrationService();
                 ResponseMessage response = service.Register();
                 if (!response.HasError)
                 {
@@ -68,9 +68,7 @@ namespace Gymnastika
                 }
             }
             catch (Exception)
-            { 
-            
-            }
+            { }
         }
 
         private void MigrateData()

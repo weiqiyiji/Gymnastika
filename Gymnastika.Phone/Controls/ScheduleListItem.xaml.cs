@@ -11,36 +11,37 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Gymnastika.Phone.Common;
 using Microsoft.Phone.Controls;
-using System.Windows.Documents;
 namespace Gymnastika.Phone.Controls
 {
     public partial class SchduleListItem : UserControl
     {
 
+        #region DependencyProperties
         public static DependencyProperty SelectedProperty = DependencyProperty.Register(
-            "SelectedProperty", typeof(bool), typeof(SchduleListItem), new PropertyMetadata(
-                new PropertyChangedCallback((obj, prop) =>
-                    {
-                        if (prop.NewValue.Equals(true))
-                        {
-                            if (obj is SchduleListItem)
-                            {
-                                SchduleListItem item = obj as SchduleListItem;
-                                if (item.Parent is Panel)
-                                {
-                                    Panel parent = item.Parent as Panel;
-                                    foreach (Control ctl in parent.Children)
-                                    {
-                                        if (ctl is SchduleListItem && !ctl.Equals(item))
-                                        {
-                                            ((SchduleListItem)ctl).Selected = false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    )));
+           "SelectedProperty", typeof(bool), typeof(SchduleListItem), new PropertyMetadata(
+               new PropertyChangedCallback((obj, prop) =>
+                   {
+                       if (prop.NewValue.Equals(true))
+                       {
+                           if (obj is SchduleListItem)
+                           {
+                               SchduleListItem item = obj as SchduleListItem;
+                               if (item.Parent is Panel)
+                               {
+                                   Panel parent = item.Parent as Panel;
+                                   foreach (Control ctl in parent.Children)
+                                   {
+                                       if (ctl is SchduleListItem && !ctl.Equals(item))
+                                       {
+                                           ((SchduleListItem)ctl).Selected = false;
+                                       }
+                                   }
+                               }
+                           }
+                       }
+                   }
+                   ))); 
+        #endregion
         public bool Selected
         {
             get
@@ -77,7 +78,7 @@ namespace Gymnastika.Phone.Controls
             }
         }
         private EventHandler ItemContentChanged;
-        public ScheduleItem Item
+        public ScheduleItem Schedule
         {
             get { return m_Item; }
             set {
@@ -145,17 +146,41 @@ namespace Gymnastika.Phone.Controls
             {
                 AnimateHeight(txtStatus.Height + txtStatus.Margin.Top + 8);
             }
-            if (Item != null)
+            if (Schedule != null)
             {
-                txtStatus.Text = Item.StatusText;
-                if (Item.Duration.HasTimeSpan && Item.Duration.TimeSpan.TotalSeconds > 0)
+                txtStatus.Text = Schedule.StatusText;
+                if (Schedule.Duration.HasTimeSpan && Schedule.Duration.TimeSpan.TotalSeconds > 0)
                     txtTime.Text = string.Format("{0} - {1}",
-                        Item.Time.ToString("HH:mm:ss"),
-                        Item.Time.Add(Item.Duration.TimeSpan).ToString("HH:mm:ss"));
+                        Schedule.Time.ToString("HH:mm:ss"),
+                        Schedule.Time.Add(Schedule.Duration.TimeSpan).ToString("HH:mm:ss"));
                 else
-                    txtTime.Text = Item.Time.ToString("HH:mm:ss");
-                txtName.Text = Item.Name;
+                    txtTime.Text = Schedule.Time.ToString("HH:mm:ss");
+                txtName.Text = Schedule.Name;
+
+                
+                string resName = "Bg" + Enum.GetName(typeof(ScheduleItemStatus), Schedule.Status);
+                if (Resources.Contains(resName)&&Resources[resName] is Brush)
+                {
+
+                    borderRoot.Background = Resources[resName] as Brush;
+                }
+                else
+                    borderRoot.Background = Resources["BgNormal"] as Brush;
+                if (Schedule.Calorie > 0)
+                {
+                    txtCalorie.Text = string.Format("卡路里摄入：{0} 大卡", Schedule.Calorie);
+                    txtCalorie.Foreground = Resources["FgIn"] as Brush;
+ 
+                }
+                else if (Schedule.Calorie < 0)
+                {
+                    txtCalorie.Text = string.Format("卡路里消耗：{0} 大卡", -Schedule.Calorie);
+                    txtCalorie.Foreground = Resources["FgOut"] as Brush;
+                }
+                txtCalorie.Visibility = Schedule.Calorie != 0 ? Visibility.Visible : Visibility.Collapsed;
             }
+
+           
         }
         public SchduleListItem()
         {
@@ -170,24 +195,35 @@ namespace Gymnastika.Phone.Controls
 
         void gestureListener_Tap(object sender, GestureEventArgs e)
         {
-
             FrameworkElement fe = e.OriginalSource as FrameworkElement;
-            while (fe!=null)
+            bool flag = false;
+            while (fe != null)
             {
-                if (fe.Equals(DetailBorder))
-                    return;
-                fe = fe.Parent as FrameworkElement;
-                if (this.Equals(fe))
+                if (fe.Equals(borderRoot))
+                {
+                    flag = true;
                     break;
+                }
+                else if (fe.Equals(DetailBorder))
+                {
+                    flag = false;
+                    break;
+                }
+                fe = fe.Parent as FrameworkElement;
             }
-                this.Selected = !this.Selected;
+            if (!flag)
+                return;
+            Rect rc = new Rect(0, 0, DetailBorder.RenderSize.Width, DetailBorder.RenderSize.Height);
+            if (rc.Contains(e.GetPosition(DetailBorder)))
+                return;
+            this.Selected = !this.Selected;
            
         }
         public SchduleListItem(int Index, ScheduleItem Item)
             : this()
         {
             this.Index = Index;
-            this.Item = Item;
+            this.Schedule = Item;
             this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(SchduleListItem_ManipulationStarted);
             this.ManipulationCompleted += new EventHandler<ManipulationCompletedEventArgs>(SchduleListItem_ManipulationCompleted);
 
@@ -206,7 +242,6 @@ namespace Gymnastika.Phone.Controls
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

@@ -13,9 +13,19 @@ namespace Gymnastika.Phone.PopupMenu
 {
     public class MenuItem
     {
+        public class MenuClickArg:EventArgs
+        {
+            public MenuItem  Item { get;internal set; }
+
+        }
         internal delegate void PopMenuItemClick(object sender);
         public ImageSource Icon{get;set;}
         public string Text { get; set; }
-
+        public event EventHandler<MenuClickArg> Click;
+        internal void OnClick()
+        {
+            if (Click != null)
+                Click(this, new MenuClickArg(){Item=this});
+        }
     }
 }

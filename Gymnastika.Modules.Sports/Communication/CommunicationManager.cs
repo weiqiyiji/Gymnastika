@@ -153,6 +153,7 @@ namespace Gymnastika.Modules.Sports.Communication
             if (connectionStore != null)
             {
                 AsychronousLoadHelper.AsychronousCall(SendMessage);
+                UpdatePlans();
             }
         }
 
@@ -203,6 +204,11 @@ namespace Gymnastika.Modules.Sports.Communication
         void UpdateCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             IList<SportsPlan> plans = (e.Result as IList<SportsPlan>);
+            using (_sportsPlanProvider.GetContextScope())
+            {
+                plans = plans.Select(s => _sportsPlanProvider.GetWithOutDelay(s.Id)).ToList();
+            }
+
             SportsPlanCreatedOrModifiedEvent evt = _aggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>();
             foreach (var plan in plans)
             {

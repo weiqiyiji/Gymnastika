@@ -13,13 +13,16 @@
 	mc:Ignorable="d" d:DesignHeight="768" d:DesignWidth="480"
 	shell:SystemTray.IsVisible="True">
 	<phone:PhoneApplicationPage.Resources>
-		<ControlTemplate x:Key="SchduleListTemplate" TargetType="ListBox">
-
-		</ControlTemplate>
+		<ResourceDictionary>
+			<ControlTemplate x:Key="SchduleListTemplate" TargetType="ListBox"/>
+		</ResourceDictionary>
 	</phone:PhoneApplicationPage.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto"/>
 			<RowDefinition Height="*"/>
@@ -32,27 +35,8 @@
 				<ColumnDefinition Width="400" />
 				<ColumnDefinition Width="77*" />
 			</Grid.ColumnDefinitions>
-			<!--<ListBox Margin="0,0,0,0" Name="AllSchduleList" >
-				<ListBox.ItemContainerStyle>
-					<Style TargetType="ListBoxItem">
-						<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-					</Style>
-				</ListBox.ItemContainerStyle>
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<Border CornerRadius="15" Background="#342F2F2F" Margin="0,0,31,6" BorderBrush="#DBFFFFFF" BorderThickness="1">
-						<Grid >
-							<StackPanel Margin="0">
-								<TextBlock HorizontalAlignment="Left" Margin="8,0,0,0" TextWrapping="Wrap" Text="{Binding TimeText}" FontSize="21.333" Foreground="#FF505050"/>
-								<TextBlock Margin="19,0,47,0" TextWrapping="Wrap" Text="{Binding Name}" FontSize="29.333"/>
-								<TextBlock TextWrapping="Wrap" Text="{Binding StatusText}" TextAlignment="Right" Margin="0,0,11,13" FontSize="18.667" Foreground="#FF143262"/>
-							</StackPanel>
-						</Grid>
-						</Border>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>-->
 			<ScrollViewer>
+				
 				<StackPanel Name="AllSchdulePanel" Margin="0,0,9,0" />
 			</ScrollViewer>
 		</Grid>
