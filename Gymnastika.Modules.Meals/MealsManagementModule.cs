@@ -55,7 +55,7 @@ namespace Gymnastika.Modules.Meals
         {
             _widgetMananger.Add(typeof(BMIWidget));
             _widgetMananger.Add(typeof(TodayDietPlanWidget));
-            _widgetMananger.Add(typeof(OneKeyScoreWidget));
+            //_widgetMananger.Add(typeof(OneKeyScoreWidget));
         }
 
         private void RegisterServices()
