@@ -56,7 +56,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             View = view;
             View.Context = this;
             _eventAggregator.GetEvent<NotifyHistoryDietPlanChangedEvent>().Subscribe(NotifyHistoryDietPlanChangedEventHandler);
-            //_eventAggregator.GetEvent<DeleteDietPlanEvent>().Subscribe(DeleteDietPlanEvnetHanlder);
+            _eventAggregator.GetEvent<DeleteDietPlanEvent>().Subscribe(DeleteDietPlanEvnetHanlder);
         }
 
         #region IHistoryDietPlanViewModel Members

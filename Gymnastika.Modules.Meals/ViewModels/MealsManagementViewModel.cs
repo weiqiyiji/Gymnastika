@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 using Gymnastika.Modules.Meals.Views;
 using Microsoft.Practices.Prism.ViewModel;
 using System.Windows.Input;
@@ -21,6 +22,9 @@ using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Meals.Events;
 using Gymnastika.Services.Models;
 using System.Windows;
+using Gymnastika.Sync.Communication;
+using Gymnastika.Sync.Communication.Client;
+using Gymnastika.Modules.Meals.Communication.Services;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -31,6 +35,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private readonly ISessionManager _sessionManager;
         private readonly IUnityContainer _container;
         private readonly IEventAggregator _eventAggregator;
+        private readonly CommunicationService _communicationService;
         private string _searchString;
         private DateTime _createdDate;
         private ICommand _saveCommand;
@@ -47,7 +52,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             IWorkEnvironment workEnvironment,
             ISessionManager sessionManager,
             IUnityContainer container,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            CommunicationService communicationService)
         {
             CategoryListViewModel = categoryListViewModel;
             DietPlanListViewModel = dietPlanListViewModel;
@@ -61,6 +67,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _sessionManager = sessionManager;
             _container = container;
             _eventAggregator = eventAggregator;
+            _communicationService = communicationService;
             CurrentUser = _sessionManager.GetCurrentSession().AssociatedUser;
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
@@ -195,8 +202,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public ICategoryListViewModel CategoryListViewModel { get; set; }
 
-        //public IFoodListViewModel CategoryListViewModel.FoodListViewModel { get; set; }
-
         private IDietPlanListViewModel _dietPlanListViewModel;
         public IDietPlanListViewModel DietPlanListViewModel
         {
@@ -239,21 +244,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        //private bool ValidateExistSavedDietPlans()
-        //{
-        //    int userId = _sessionManager.GetCurrentSession().AssociatedUser.Id;
-
-        //    IEnumerable<DietPlan> savedDietPlans;
-        //    using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
-        //    {
-        //        savedDietPlans = _foodService.DietPlanProvider.GetDietPlans(userId);
-        //    }
-
-        //    if (savedDietPlans.Count() != 0) return true;
-
-        //    return false;
-        //}
-
         private void ShowMyFavorite()
         {
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
@@ -288,6 +278,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private void Save()
         {
             DietPlan dietPlan = new DietPlan();
+            IList<string> mealNames = new List<string> { "早餐", "中餐", "晚餐" };
             using (IWorkContextScope scope = _workEnvironment.GetWorkContextScope())
             {
                 dietPlan.User = _sessionManager.GetCurrentSession().AssociatedUser;
@@ -299,6 +290,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     SubDietPlan subDietPlan = new SubDietPlan();
                     //subDietPlan.DietPlan = dietPlan;
+                    subDietPlan.MealName = mealNames[i];
+                    subDietPlan.Score = i == 0 ? 10 : 20;
+                    subDietPlan.Mark = false;
+                    subDietPlan.StartTime = SelectDateTime(i);
                     subDietPlan.DietPlanItems = new List<DietPlanItem>();
                     _foodService.SubDietPlanProvider.Create(subDietPlan);
                     foreach (var foodItem in DietPlanListViewModel.DietPlanList[i].FoodItems)
@@ -317,7 +312,45 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
             System.Windows.MessageBox.Show("已保存");
 
+            _communicationService.SendTasks(dietPlan, OnSendTasksCallback);
+
             _eventAggregator.GetEvent<NotifyHistoryDietPlanChangedEvent>().Publish(dietPlan);
+        }
+
+        private void OnSendTasksCallback(ResponseMessage response, DietPlan dietPlan)
+        {
+            if (!response.HasError)
+            {
+                var taskList = response.Response.Content.ReadAsDataContract<TaskList>();
+
+                using (var scope = _workEnvironment.GetWorkContextScope())
+                {
+                    var sortedTaskList = taskList.OrderBy(c => c.StartTime).ToList();
+                    for (int i = 0; i < taskList.Count; i++)
+                    {
+                        DietPlanTask dietPlanTask = new DietPlanTask();
+                        dietPlanTask.TaskId = sortedTaskList[i].TaskId;
+                        dietPlanTask.SubDietPlanId = dietPlan.SubDietPlans[i].Id;
+
+                        _foodService.DietPlanTaskProvider.Create(dietPlanTask);
+                    }
+                }
+            }
+        }
+
+        private DateTime SelectDateTime(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    return new DateTime(CreatedDate.Year, CreatedDate.Month, CreatedDate.Day, 8, 0, 0);
+                case 1:
+                    return new DateTime(CreatedDate.Year, CreatedDate.Month, CreatedDate.Day, 12, 0, 0);
+                case 2:
+                    return new DateTime(CreatedDate.Year, CreatedDate.Month, CreatedDate.Day, 18, 0, 0);
+                default:
+                    return DateTime.Now;
+            }
         }
     }
 }

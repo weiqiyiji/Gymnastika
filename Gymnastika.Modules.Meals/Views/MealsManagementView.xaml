@@ -6,6 +6,7 @@
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
              xmlns:inputToolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
              xmlns:toolkit="clr-namespace:Microsoft.Windows.Controls;assembly=WPFToolkit"
              mc:Ignorable="d" Background="#c4cfb8"
              d:DesignHeight="300" d:DesignWidth="400">
@@ -69,6 +70,7 @@
 
         <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
         
+        <converter:DateConverter x:Key="DateConverter" />
         
     </UserControl.Resources>
     <Grid>
@@ -96,10 +98,13 @@
                 <TextBlock Text="{Binding UserName}" />
                 <TextBlock Text="的饮食计划" />
             </TextBlock>
-                <Button HorizontalAlignment="Left"  Width="100" Style="{StaticResource CreatedDateButtonStyle}" Grid.Column="1" Content="{Binding CreatedDate}" Command="{Binding SelectDateCommand}"  Height="25" />
+                <Button HorizontalAlignment="Left"  Width="100" Style="{StaticResource CreatedDateButtonStyle}" Grid.Column="1" Content="{Binding CreatedDate, Converter={StaticResource DateConverter}}" Command="{Binding SelectDateCommand}"  Height="25" />
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal">
-                <control:ImageButton Command="{Binding SearchCommand}" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <inputToolkit:AutoCompleteBox x:Name="SearchBox" Foreground="{StaticResource GrayText}"  BorderThickness="0" IsTextCompletionEnabled="False" Height="20" Width="200" Margin="0, 8, 0, 8" HorizontalAlignment="Left"
+                    <control:ImageButton Command="{Binding SearchCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                         ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png"
+                                         MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png"
+                                         MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/search.png"/>
+                <inputToolkit:AutoCompleteBox x:Name="SearchBox" Foreground="{StaticResource GrayText}"  BorderThickness="0" IsTextCompletionEnabled="False" Height="22" Width="200" Margin="10, 8, 0, 8" HorizontalAlignment="Left"
                                           FilterMode="Custom" Text="{Binding SearchString, Mode=TwoWay, UpdateSourceTrigger=Explicit}" ItemsSource="{Binding InMemoryFoods}" PreviewKeyDown="SearchBox_KeyDown">
                     <inputToolkit:AutoCompleteBox.ItemTemplate>
                         <DataTemplate>

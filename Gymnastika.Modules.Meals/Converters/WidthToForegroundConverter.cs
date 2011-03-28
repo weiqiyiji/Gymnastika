@@ -11,28 +11,28 @@ namespace Gymnastika.Modules.Meals.Converters
     {
         public Brush CalorieLowLevelBrush { get; set; }
 
-        public Brush CalorieMediumLevelBrush { get; set; }
+        //public Brush CalorieMediumLevelBrush { get; set; }
 
         public Brush CalorieHighLevelBrush { get; set; }
 
 
         public Brush CarbohydrateLowLevelBrush { get; set; }
 
-        public Brush CarbohydrateMediumLevelBrush { get; set; }
+        //public Brush CarbohydrateMediumLevelBrush { get; set; }
 
         public Brush CarbohydrateHighLevelBrush { get; set; }
 
 
         public Brush FatLowLevelBrush { get; set; }
 
-        public Brush FatMediumLevelBrush { get; set; }
+        //public Brush FatMediumLevelBrush { get; set; }
 
         public Brush FatHighLevelBrush { get; set; }
 
 
         public Brush ProteinLowLevelBrush { get; set; }
 
-        public Brush ProteinMediumLevelBrush { get; set; }
+        //public Brush ProteinMediumLevelBrush { get; set; }
 
         public Brush ProteinHighLevelBrush { get; set; }
 
@@ -50,31 +50,23 @@ namespace Gymnastika.Modules.Meals.Converters
                 case "热量(大卡)":
                     if (dietPlanNutritionValue < minTotalNutritionValue)
                         return CalorieLowLevelBrush;
-                    else if (dietPlanNutritionValue > maxTotalNutritionValue)
-                        return CalorieHighLevelBrush;
                     else
-                        return CalorieMediumLevelBrush;
+                        return CalorieHighLevelBrush;
                 case "碳水化合物(克)":
                     if (dietPlanNutritionValue < minTotalNutritionValue)
                         return CarbohydrateLowLevelBrush;
-                    else if (dietPlanNutritionValue > maxTotalNutritionValue)
-                        return CarbohydrateHighLevelBrush;
                     else
-                        return CarbohydrateMediumLevelBrush;
+                        return CarbohydrateHighLevelBrush;
                 case "脂肪(克)":
                     if (dietPlanNutritionValue < minTotalNutritionValue)
                         return FatLowLevelBrush;
-                    else if (dietPlanNutritionValue > minTotalNutritionValue)
-                        return FatHighLevelBrush;
                     else
-                        return FatMediumLevelBrush;
+                        return FatHighLevelBrush;
                 case "蛋白质(克)":
                     if (dietPlanNutritionValue < minTotalNutritionValue)
                         return ProteinLowLevelBrush;
-                    else if (dietPlanNutritionValue > maxTotalNutritionValue)
-                        return ProteinHighLevelBrush;
                     else
-                        return ProteinMediumLevelBrush;
+                        return ProteinHighLevelBrush;
                 default:
                     return null;
             }

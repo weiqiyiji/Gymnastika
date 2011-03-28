@@ -478,7 +478,12 @@
         <ListBox Width="250" Margin="0,0,10,10" Grid.Row="1" x:Name="FoodList" ItemsSource="{Binding CurrentPageFoodList, IsAsync=True}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" Background="{x:Null}" BorderBrush="{x:Null}"
                      ItemTemplate="{StaticResource FoodListItem}" Style="{StaticResource ListBoxStyle2}" ItemContainerStyle="{StaticResource ListBoxItemStyle2}"
                      SelectionChanged="FoodList_SelectionChanged" dd:DragDrop.DragAdornerTemplate="{StaticResource FoodListItem}">
-        </ListBox>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <control:AnimatedListPanel ItemsDistance="1" />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
             <Grid Grid.Row="2" HorizontalAlignment="Right" Margin="0,0,15,15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

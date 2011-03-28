@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
-             mc:Ignorable="d" Width="200" Height="500"
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <view:DietPlanItemView />
+        <ContentControl Content="{Binding TodayDietPlanViewModel.View}">
+        </ContentControl>
     </Grid>
 </UserControl>

@@ -27,7 +27,7 @@ namespace Gymnastika.Modules.Meals.Widgets
     /// <summary>
     /// Interaction logic for BMIWidget.xaml
     /// </summary>
-    [WidgetMetadata("BMI", "/Gymnastika.Modules.Meals;component/Images/BMI.jpg")]
+    [WidgetMetadata("BMI", "/Gymnastika.Modules.Meals;component/Images/BMI.png")]
     public partial class BMIWidget : IWidget
     {
         private readonly ISessionManager _sessionManager;
@@ -37,28 +37,20 @@ namespace Gymnastika.Modules.Meals.Widgets
         private readonly int _weight;
         private decimal BMI;
 
-        private readonly IRegionManager _regionManager;
-        //private readonly ILoadDataController _loadDataController;
-
         public BMIWidget(ISessionManager sessionManager,
             IRegionManager regionManager,
             IUnityContainer container
-            //,ILoadDataController loadDataController
             )
         {
             InitializeComponent();
 
-            //_loadDataController = loadDataController;
 
             _container = container;
             _sessionManager = sessionManager;
-            _regionManager = regionManager;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _height = _user.Height;
             _weight = _user.Weight;
 
-            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
-            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
         }
 
         #region IWidget Members
@@ -124,59 +116,5 @@ namespace Gymnastika.Modules.Meals.Widgets
             IBMIIntroductionView BMIIntroductionView = _container.Resolve<IBMIIntroductionView>();
             BMIIntroductionView.ShowView();
         }
-
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            IRegion mainRegion = _regionManager.Regions[RegionNames.MainRegion];
-            mainRegion.RequestNavigate(new Uri("MealsManagementView", UriKind.Relative)); 
-        }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadCategoryData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadSubCategoryData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_2(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadFoodData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_3(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadNutritionalElementData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_4(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadIntroductionData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_5(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadDietPlanData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_6(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadSubDietPlanData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_7(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadDietPlanItemData();
-        //    MessageBox.Show("已保存");
-        //}
     }
 }

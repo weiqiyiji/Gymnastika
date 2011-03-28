@@ -11,9 +11,7 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual string Name { get; set; }
 
-        public virtual string SmallImageUri { get; set; }
-
-        public virtual string LargeImageUri { get; set; }
+        public virtual string ImageUri { get; set; }
 
         public virtual decimal Calorie { get; set; }
 

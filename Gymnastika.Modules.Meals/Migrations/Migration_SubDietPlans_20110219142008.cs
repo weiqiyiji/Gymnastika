@@ -30,6 +30,8 @@ namespace Gymnastika.Migrations
                 t => t.Column<int>("Id", c => c.PrimaryKey().Identity())
                     .Column<int>("Score")
                     .Column<bool>("Mark")
+                    .Column<DateTime>("StartTime")
+                    .Column<string>("MealName")
                     .Column<int>("DietPlanId"));
 
             SchemaBuilder.CreateForeignKey(

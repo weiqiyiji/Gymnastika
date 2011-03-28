@@ -11,10 +11,10 @@
         <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
         <converter:NutritionToForegroundConverter x:Key="NutritionToForegroundConverter" CalorieBrush="#bd4f4f" CarbohydrateBrush="#989131" FatBrush="#51923d" ProteinBrush="#398484" />
         <converter:WidthToForegroundConverter x:Key="WidthToForegroundConverter"
-                                              CalorieLowLevelBrush="#E9AE8B" CalorieMediumLevelBrush="#EC9A88" CalorieHighLevelBrush="#EF8686"
-                                              CarbohydrateLowLevelBrush="#E2F289" CarbohydrateMediumLevelBrush="#E5E97F" CarbohydrateHighLevelBrush="#E7E076"
-                                              FatLowLevelBrush="#ADEB9A" FatMediumLevelBrush="#A3EA8F" FatHighLevelBrush="#9AE985"
-                                              ProteinLowLevelBrush="#B0E2D0" ProteinMediumLevelBrush="#9FDCD3" ProteinHighLevelBrush="#8ED6D6" />
+                                              CalorieLowLevelBrush="#E9AE8B" CalorieHighLevelBrush="#EF8686"
+                                              CarbohydrateLowLevelBrush="#E2F289" CarbohydrateHighLevelBrush="#E7E076"
+                                              FatLowLevelBrush="#ADEB9A" FatHighLevelBrush="#9AE985"
+                                              ProteinLowLevelBrush="#B0E2D0" ProteinHighLevelBrush="#8ED6D6" />
     </UserControl.Resources>
 
     <Grid>
@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <control:AnimatedProgressBar Maximum="{Binding MaximunTotalNutritionValue}" Width="250" Grid.Row="1" Height="22" HorizontalAlignment="Left" TargetValue="{Binding DietPlanNutritionValue}" >
+        <control:AnimatedProgressBar Maximum="{Binding MaxTotalNutritionValue}" Width="250" Grid.Row="1" Height="22" HorizontalAlignment="Left" TargetValue="{Binding DietPlanNutritionValue}" >
             <control:AnimatedProgressBar.Foreground>
                 <MultiBinding Converter="{StaticResource WidthToForegroundConverter}">
                     <Binding Path="NutritionName"></Binding>

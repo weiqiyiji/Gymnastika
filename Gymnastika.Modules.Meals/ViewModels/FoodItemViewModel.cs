@@ -23,26 +23,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private ICommand _deleteFoodFromPlanCommand;
         private ICommand _changeMyFavoriteCommand;
         private ICommand _showFoodDetailCommand;
-        private readonly IEventAggregator _eventAggregator;
 
         public FoodItemViewModel(Food food)
         {
             Food = food;
             ChangeMyFavoriteButtonContent = "+ 收藏";
-            _eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-            _eventAggregator.GetEvent<AmountChangedEvent>().Subscribe(AmountChangedEventHanlder);
-            AmountSelector = ServiceLocator.Current.GetInstance<AmountSelectorViewModel>();
-        }
-
-        private void AmountChangedEventHanlder(int currentValue)
-        {
-            Calories = Calorie * Amount / 100;
-            for (int i = 0; i < NutritionalElements.ToList().Count; i++)
-            {
-                Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
-                Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
-            }
-            OnDietPlanSubListPropertyChanged();
+            FormatString = "{0:F0}";
         }
 
         public void LoadNutritionElementData()
@@ -64,7 +50,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
-        public AmountSelectorViewModel AmountSelector { get; set; }
+        public string FormatString { get; set; }
 
         public Food Food { get; set; }
 
@@ -75,12 +61,12 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public string SmallImageUri
         {
-            get { return Food.SmallImageUri; }
+            get { return Food.ImageUri; }
         }
 
         public string LargeImageUri
         {
-            get { return Food.LargeImageUri; }
+            get { return Food.ImageUri; }
         }
 
         public IEnumerable<NutritionElement> NutritionalElements { get; set; }
@@ -107,31 +93,31 @@ namespace Gymnastika.Modules.Meals.ViewModels
         {
             get 
             {
-                //return Decimal.Round(_amount);
-                return (decimal)AmountSelector.CurrentValue;
+                return Decimal.Round(_amount);
+                //return (decimal)AmountSelector.CurrentValue;
             }
             set
             {
-                //if (_amount != value)
-                //{
-                //    _amount = value;
-                //    RaisePropertyChanged("Amount");
-                //    Calories = Calorie * Amount / 100;
-                //    for (int i = 0; i < NutritionalElements.ToList().Count; i++)
-                //    {
-                //        Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
-                //        Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
-                //    }
-                //    OnDietPlanSubListPropertyChanged();
-                //}
-                AmountSelector.CurrentValue = (int)value;
-                Calories = Calorie * Amount / 100;
-                for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+                if (_amount != value)
                 {
-                    Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
-                    Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
+                    _amount = value;
+                    RaisePropertyChanged("Amount");
+                    Calories = Calorie * Amount / 100;
+                    for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+                    {
+                        Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
+                        Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
+                    }
+                    OnDietPlanSubListPropertyChanged();
                 }
-                OnDietPlanSubListPropertyChanged();
+                //AmountSelector.CurrentValue = (int)value;
+                //Calories = Calorie * Amount / 100;
+                //for (int i = 0; i < NutritionalElements.ToList().Count; i++)
+                //{
+                //    Nutritions[i].Name = NutritionalElements.ToList()[i].Name;
+                //    Nutritions[i].Value = NutritionalElements.ToList()[i].Value * Amount / 100;
+                //}
+                //OnDietPlanSubListPropertyChanged();
             }
         }
 
