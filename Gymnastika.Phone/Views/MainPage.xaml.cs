@@ -11,71 +11,42 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Gymnastika.Phone.Common;
+using Gymnastika.Phone.PushNotification;
+using Gymnastika.Phone.Sync;
 namespace Gymnastika.Phone.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        PushNotificationService pushNotificationService = new PushNotificationService();
+        PlanSync sync = new PlanSync();
         SchduleListener listener = new SchduleListener();
         public MainPage()
         {
             Common.DefualtTransition.SetNavigationTransition(this);
-            InitializeComponent();
-            schduleList.SchduleItems.Add(
-                new Common.ScheduleItem()
-                {
-                    Time = DateTime.Now+TimeSpan.FromSeconds(30),
-                    Duration = TimeSpan.FromSeconds(30),
-                    Name = "早餐",
-                    Point = 7,
-                    Calorie = 80,
-                });
-            schduleList.SchduleItems.Add(
-                    new Common.ScheduleItem()
-                    {
-                        Time =DateTime.Now+TimeSpan.FromSeconds(100),
-                        Duration = TimeSpan.FromMinutes(1),
-                        Name = "走路去教室",
-                        Point = 7,
-                        Calorie = -34,
-                    });
-            schduleList.SchduleItems.Add(
-        new Common.ScheduleItem()
-        {
-            Time =DateTime.Now+TimeSpan.FromMinutes(1),
-            Duration = TimeSpan.FromSeconds(60),
-            Name = "坐着上课",
-            Point = 10,
-            Calorie = -20,
-        });
-
-            schduleList.SchduleItems.Add(
-            new Common.ScheduleItem()
-            {
-                Time = DateTime.Now+TimeSpan.FromMinutes(2),
-                Duration = TimeSpan.FromSeconds(5),
-                Name = "睡着上课",
-                Point = 5,
-                Calorie = -10,
-            });
-            schduleList.SchduleItems.Add(
-                new Common.ScheduleItem()
-                {
-                    Time = DateTime.Now +TimeSpan.FromMinutes(3),
-                    Duration = TimeSpan.FromMinutes(2),
-                    Name = "午餐",
-                    Point = 5,
-                    Calorie = 170,
-                });
-            schduleList.Sort();
-            foreach (ScheduleItem item in schduleList.SchduleItems)
-            {
-                listener.Children.Add(item);
-            }
+            //pushNotificationService.ErrorOccurred += new EventHandler<Microsoft.Phone.Notification.NotificationChannelErrorEventArgs>(pushNotificationService_ErrorOccurred);
+            //pushNotificationService.HttpNotificationReceived += new EventHandler<Microsoft.Phone.Notification.HttpNotificationEventArgs>(pushNotificationService_HttpNotificationReceived);
+            //pushNotificationService.SubscribeCompleted += new EventHandler<SubscribeCompletedEventArgs>(pushNotificationService_SubscribeCompleted);
+            
             listener.ScheduleBegin += new EventHandler<SchduleListener.ScheduleArg>(listener_ScheduleBegin);
             listener.ScheduleCompelted += new EventHandler<SchduleListener.ScheduleArg>(listener_ScheduleCompelted);
             listener.ScheduleStatusChagned += new EventHandler<SchduleListener.ScheduleStatusChangedArg>(listener_ScheduleStatusChagned);
             listener.Start(this.Dispatcher);
-          
+            
+        }
+
+        void pushNotificationService_SubscribeCompleted(object sender, SubscribeCompletedEventArgs e)
+        {  
+            
+        }
+
+        void pushNotificationService_HttpNotificationReceived(object sender, Microsoft.Phone.Notification.HttpNotificationEventArgs e)
+        {
+           
+        }
+
+        void pushNotificationService_ErrorOccurred(object sender, Microsoft.Phone.Notification.NotificationChannelErrorEventArgs e)
+        {
+            
         }
 
         void listener_ScheduleStatusChagned(object sender, SchduleListener.ScheduleStatusChangedArg e)

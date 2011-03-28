@@ -30,9 +30,22 @@ namespace Gymnastika.Phone
         /// </summary>
         public static string StoredProfileIconFilename = StoredProfileIconFolder + "\\{0}.jpg";
 
-        public static string RegistrationServiceUri = "http://localhost/gym/reg_phone?uri={0}";
+        public static string RegistrationServiceUri = "/reg/reg_phone?uri={0}";
 
-        public static Uri ServerUri = new Uri("http://localhost");
 
+        public static string LoginServiceUri = "logon";
+        public static string LogoutSericeUri = "";
+        public static string GetUserInfoServiceUri = "";
+        public static string GetMealPlanServiceUri = "";
+        public static string GetSportPlanServiceUri = "";
+        public static string UpdateMealStatusServiceUri = "";
+        public static string UpdateMealPlanStatusServiceUri = "";
+        public static string UpdateSportServiceUri = "";
+        public static string UpdateSportPlanServiceUri = "";
+        public static Uri ServerUri = new Uri("http://localhost:1962/");
+        public static Uri GetServerPathUri(string path)
+        {
+            return new Uri(ServerUri, path);
+        }
     }
 }
