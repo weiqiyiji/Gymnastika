@@ -76,10 +76,10 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="700" />
+            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <ContentControl Margin="10,0,0,0" Padding="15" Grid.Column="0" Content="{Binding CategoryListViewModel.View}" />
+        <ContentControl Margin="30,0,0,0" Padding="15" Grid.Column="0" Content="{Binding CategoryListViewModel.View}" />
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -135,18 +135,18 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-                <Grid Margin="10,0,0,0" Height="200" Width="280" >
+                <Grid Margin="10,0,0,0" Height="200" Width="320" >
                     <ContentControl Canvas.ZIndex="0" Content="{Binding NutritionChartViewModel.View}" />
                     <ContentControl Canvas.ZIndex="1" Content="{Binding PositionedFoodViewModel.View}" />
                 </Grid>
-                <ContentControl Margin="10,0,0,0" Height="200" Width="280" Grid.Column="1" Content="{Binding DietPlanNutritionChartViewModel.View}" />
+                <ContentControl Margin="10,0,0,0" Height="200" Width="320" Grid.Column="1" Content="{Binding DietPlanNutritionChartViewModel.View}" />
                 <Grid Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <Button Style="{StaticResource SaveButtonStyle}" Grid.Row="1" Content="保存" Command="{Binding SaveCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    <Button Margin="10,0,0,0" Style="{StaticResource SaveButtonStyle}" Grid.Row="1" Content="保存" Command="{Binding SaveCommand}" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Grid>
             </Grid>
 

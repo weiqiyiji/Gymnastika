@@ -288,7 +288,7 @@
             <Border CornerRadius="35" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}" />
             <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource HeaderBackground}" />
 
-            <TextBlock Margin="30,0,0,5" Grid.ColumnSpan="2" Foreground="{StaticResource WhiteText}" Text="{Binding CreatedDate}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+            <TextBlock Margin="30,0,0,5" Grid.ColumnSpan="2" Foreground="{StaticResource WhiteText}" Text="{Binding DisplayName}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
             <TextBlock Margin="30,5,0,0" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource WhiteText}" VerticalAlignment="Top" HorizontalAlignment="Left" ><InlineUIContainer>
             		<TextBlock Text="总摄入量：（" />
             	</InlineUIContainer><Run Text=" "/><InlineUIContainer>
@@ -301,7 +301,7 @@
 
         <Grid Grid.Row="1">
 
-            <Border behaviors:ClipBehavior.Provider="{StaticResource RectangleProvider}" Height="630" Width="245" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource BodyBackgruond}">
+            <Border behaviors:ClipBehavior.Provider="{StaticResource RectangleProvider}" Height="685" Width="245" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource BodyBackgruond}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

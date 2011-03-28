@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <control:AnimatedProgressBar Maximum="{Binding MaxTotalNutritionValue}" Width="250" Grid.Row="1" Height="22" HorizontalAlignment="Left" TargetValue="{Binding DietPlanNutritionValue}" >
+        <control:AnimatedProgressBar Maximum="{Binding MaxTotalNutritionValue}" Width="280" Grid.Row="1" Height="22" HorizontalAlignment="Left" TargetValue="{Binding DietPlanNutritionValue}" >
             <control:AnimatedProgressBar.Foreground>
                 <MultiBinding Converter="{StaticResource WidthToForegroundConverter}">
                     <Binding Path="NutritionName"></Binding>
@@ -34,7 +34,7 @@
         </control:AnimatedProgressBar>
         <TextBlock Grid.Row="1" Margin="2,0,0,0" Foreground="{Binding NutritionName, Converter={StaticResource NutritionToForegroundConverter}}" Text="{Binding DietPlanNutritionValue}" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-        <TextBlock Foreground="{StaticResource GrayText}" FontSize="10" FontWeight="Bold" FontFamily="Segoe UI" Text="{Binding NutritionName}" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+        <TextBlock Foreground="{StaticResource GrayText}" Text="{Binding NutritionName}" Margin="10,0,10,0" HorizontalAlignment="Left" VerticalAlignment="Center">
         </TextBlock>
     </Grid>
 </UserControl>

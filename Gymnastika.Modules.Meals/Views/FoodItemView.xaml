@@ -8,7 +8,7 @@
                     xmlns:surface="http://schemas.microsoft.com/surface/2008"
                     mc:Ignorable="d">
     <converter:TextConverter x:Key="TextConverter" />
-    
+
     <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
 
     <DataTemplate x:Key="DietPlanSubListItem">
@@ -26,7 +26,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="25" />
             </Grid.RowDefinitions>
             <Image Grid.Row="0" Grid.ColumnSpan="2" Width="150" Height="120" Source="{Binding LargeImageUri}">
             </Image>
@@ -36,9 +36,9 @@
                                  MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete_down.png" />
             <TextBlock Grid.Row="1" Grid.Column="0" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
             <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" >
-                <control:NumericUpDownControl Value="{Binding Amount, Mode=TwoWay}" Format="{Binding FormatString}" MinValue="0" Width="100" />
+                <control:NumericUpDownControl Value="{Binding Amount, Mode=TwoWay}" Format="{Binding FormatString}" MinValue="0" Width="50" Height="20" />
                 <!--<ContentControl Content="{Binding AmountSelector.View}" />-->
-                <TextBlock Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" />
+                <TextBlock Margin="5,0,0,0" Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" />
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -61,7 +61,7 @@
                                  ImageSource="/Gymnastika.Modules.Meals;component/Images/add.png"
                                  MouseOverImageSource="/Gymnastika.Modules.Meals;component/Images/add.png"
                                  MousePressedImageSource="/Gymnastika.Modules.Meals;component/Images/add.png"/>
-            <Image Grid.Column="1" Width="50" Height="50" Margin="10,0,3,0" Source="{Binding SmallImageUri}">
+            <Image Grid.Column="1" Width="60" Height="50" Margin="10,0,3,0" Source="{Binding SmallImageUri}">
             </Image>
             <Border Grid.Column="2" BorderThickness="1" CornerRadius="4" Margin="2">
                 <Grid>
@@ -78,7 +78,7 @@
             </Border>
         </Grid>
     </DataTemplate>
-    
+
     <DataTemplate x:Key="PositionedFoodItem">
         <Grid>
             <Grid.RowDefinitions>
@@ -86,7 +86,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-        
+
             <Border BorderThickness="1" Width="45" Height="45" CornerRadius="4" Margin="2">
                 <Image Width="43" Height="43" Source="{Binding SmallImageUri}">
                 </Image>
@@ -98,7 +98,7 @@
                     </TextBlock>
         </Grid>
     </DataTemplate>
-    
+
     <DataTemplate x:Key="DietPlanItemFood">
         <Grid Margin="30,5">
             <Grid.Background>
@@ -112,14 +112,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-                <Image Width="100" Height="80" Source="{Binding LargeImageUri}">
-                </Image>
-            <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" >
-                <TextBlock Margin="10,0,0,0" Grid.Row="1" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
-            
-                <TextBlock Margin="10,0,0,0"  Text="{Binding Number}" Foreground="{StaticResource GrayText}" VerticalAlignment="Center"/>
-                <TextBlock Text="克" Foreground="{StaticResource GrayText}" VerticalAlignment="Center"/>
-            </StackPanel>
+            <Image Width="100" Height="80" Source="{Binding LargeImageUri}">
+            </Image>
+            <Grid Grid.Row="1" VerticalAlignment="Center" >
+                <TextBlock Margin="2,0,0,0" Grid.Row="1" Foreground="{StaticResource GrayText}" Text="{Binding Name, Converter={StaticResource TextConverter}}" VerticalAlignment="Center" HorizontalAlignment="Left" />
+
+                <TextBlock Margin="0,0,2,0" Foreground="{StaticResource GrayText}" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock  Text="{Binding Number}"/>
+                <TextBlock Text="克"/>
+                </TextBlock>
+            </Grid>
         </Grid>
     </DataTemplate>
 </ResourceDictionary>

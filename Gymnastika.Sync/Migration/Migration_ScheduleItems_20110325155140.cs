@@ -28,7 +28,7 @@ namespace Gymnastika.Migrations
                 x => x.Column<int>("Id", c => c.PrimaryKey().Identity())
                       .Column<int>("UserId")
                       .Column<int>("ConnectionId")
-                      .Column<string>("Message"));
+                      .Column<string>("Message", c => c.WithLength(8000)));
         }
             
         public void Down()

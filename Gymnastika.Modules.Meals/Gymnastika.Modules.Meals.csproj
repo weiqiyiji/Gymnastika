@@ -108,7 +108,7 @@
     <Compile Include="Events\ApplyRecommendedDietPlanEvent.cs" />
     <Compile Include="Events\DeleteDietPlanEvent.cs" />
     <Compile Include="Events\DietPlanNutritionChangedEvent.cs" />
-    <Compile Include="Events\NotifyHistoryDietPlanChangedEvent.cs" />
+    <Compile Include="Events\AddOrModifiedDietPlanEvent.cs" />
     <Compile Include="Events\SelectDateEvent.cs" />
     <Compile Include="Events\SelectedFoodNutritionChangedEvent.cs" />
     <Compile Include="Events\SelectCategoryEvent.cs" />
@@ -445,6 +445,8 @@
     <Resource Include="Images\DietPlan.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\close_down.png" />
     <Content Include="Images\一键打分.PNG" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

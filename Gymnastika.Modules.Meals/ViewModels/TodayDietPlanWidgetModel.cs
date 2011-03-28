@@ -8,29 +8,52 @@ using Gymnastika.Services.Session;
 using Gymnastika.Services.Models;
 using Gymnastika.Modules.Meals.Models;
 using Microsoft.Practices.ServiceLocation;
+using Microsoft.Practices.Prism.Events;
+using Gymnastika.Modules.Meals.Events;
+using Microsoft.Practices.Prism.ViewModel;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class TodayDietPlanWidgetModel
+    public class TodayDietPlanWidgetModel : NotificationObject
     {
         private readonly IFoodService _foodService;
         private readonly IWorkEnvironment _workEnvironment;
         private readonly ISessionManager _sessionManager;
+        private readonly IEventAggregator _eventAggregator;
         private readonly User _currentUser;
 
         public TodayDietPlanWidgetModel(IFoodService foodService, 
             IWorkEnvironment workEnvironment,
-            ISessionManager sessionManager)
+            ISessionManager sessionManager,
+            IEventAggregator eventAggregator)
         {
             _foodService = foodService;
             _workEnvironment = workEnvironment;
             _sessionManager = sessionManager;
             _currentUser = _sessionManager.GetCurrentSession().AssociatedUser;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.GetEvent<AddOrModifiedDietPlanEvent>().Subscribe(AddOrModifiedDietPlanEventHandler);
         }
 
         public DietPlan DietPlan { get; set; }
 
-        public ITodayDietPlanViewModel TodayDietPlanViewModel { get; set; }
+
+        private ITodayDietPlanViewModel _todayDietPlanViewModel;
+        public ITodayDietPlanViewModel TodayDietPlanViewModel
+        {
+            get
+            {
+                return _todayDietPlanViewModel;
+            }
+            set
+            {
+                if (_todayDietPlanViewModel != value)
+                {
+                    _todayDietPlanViewModel = value;
+                    RaisePropertyChanged("TodayDietPlanViewModel");
+                }
+            }
+        }
 
         public void Initialize()
         {
@@ -52,10 +75,20 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
             if (DietPlan != null)
             {
-                TodayDietPlanViewModel = ServiceLocator.Current.GetInstance<ITodayDietPlanViewModel>();
-                TodayDietPlanViewModel.DietPlan = DietPlan;
-                TodayDietPlanViewModel.Initialize();
+                InitializeTodayDietPlan(DietPlan);
             }
+        }
+
+        private void AddOrModifiedDietPlanEventHandler(DietPlan dietPlan)
+        {
+            InitializeTodayDietPlan(dietPlan);
+        }
+
+        private void InitializeTodayDietPlan(DietPlan dietPlan)
+        {
+            TodayDietPlanViewModel = ServiceLocator.Current.GetInstance<ITodayDietPlanViewModel>();
+            TodayDietPlanViewModel.DietPlan = dietPlan;
+            TodayDietPlanViewModel.Initialize();
         }
     }
 }

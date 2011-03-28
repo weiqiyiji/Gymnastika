@@ -148,7 +148,7 @@ namespace Gymnastika.Controls
                         value = MaxValue.Value;
                 if (CheckValue != null)
                     value = CheckValue(this, value);
-                lblValue.Content = string.Format(Format, value);
+                lblValue.Text = string.Format(Format, value);
                 this.SetValue(ValueProperty, value);
             }
         }

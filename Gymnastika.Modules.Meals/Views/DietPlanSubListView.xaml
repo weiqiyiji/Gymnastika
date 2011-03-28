@@ -214,7 +214,7 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
                 <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-                <Setter Property="Padding" Value="0"/>
+                <Setter Property="Padding" Value="10"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type ListBoxItem}">
@@ -245,7 +245,7 @@
                             <TextBlock Text="大卡）" />
                         </TextBlock>
         </StackPanel>
-        <ListBox x:Name="SubDietPlanList" Grid.Row="1" Height="400" Margin="10,0" Width="200" Background="White" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding FoodItems, IsAsync=True}" ItemTemplate="{StaticResource DietPlanSubListItem}" 
+        <ListBox x:Name="SubDietPlanList" Grid.Row="1" Height="495" Margin="10,0" Width="225" Background="White" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding FoodItems, IsAsync=True}" ItemTemplate="{StaticResource DietPlanSubListItem}" 
              dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.DragAdornerTemplate="{StaticResource DietPlanSubListItem}" ItemContainerStyle="{StaticResource ListBoxItemStyle}">
     </ListBox>
     </Grid>

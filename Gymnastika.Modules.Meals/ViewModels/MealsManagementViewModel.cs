@@ -317,7 +317,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             _communicationService.SendTasks(dietPlan, OnSendTasksCallback);
 
-            _eventAggregator.GetEvent<NotifyHistoryDietPlanChangedEvent>().Publish(dietPlan);
+            _eventAggregator.GetEvent<AddOrModifiedDietPlanEvent>().Publish(dietPlan);
         }
 
         private void OnSendTasksCallback(ResponseMessage response, DietPlan dietPlan)

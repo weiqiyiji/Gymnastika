@@ -34,6 +34,8 @@
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
         </Storyboard>
+
+        <SolidColorBrush x:Key="GreenColor" Color="#94E0B1" />
     </Window.Resources>
     <Window.Triggers>
         <EventTrigger RoutedEvent="view:DietPlanReminderView.RoutedClosing">
@@ -43,10 +45,10 @@
             <BeginStoryboard x:Name="OnWindowLoaded_BeginStoryboard" Storyboard="{StaticResource OnWindowLoaded}"/>
         </EventTrigger>
     </Window.Triggers>
-    <Border x:Name="windowBorder" CornerRadius="10" BorderBrush="#94E0B1" BorderThickness="3" Background="White" RenderTransformOrigin="0.5,0.5" Width="200" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+    <Border x:Name="windowBorder" CornerRadius="10" BorderBrush="#94E0B1" BorderThickness="3" Background="{StaticResource GreenColor}" RenderTransformOrigin="0.5,0.5" Width="200" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center">
         <Border.RenderTransform>
             <TransformGroup>
-                <ScaleTransform ScaleX="0" ScaleY="0" />
+                <ScaleTransform ScaleX="0" ScaleY="0"/>
                 <SkewTransform/>
                 <RotateTransform/>
                 <TranslateTransform/>
@@ -59,16 +61,16 @@
             </Grid.RowDefinitions>
 
             <control:ImageButton Command="{Binding CloseCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"
-                                 ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete.png"
-                                 MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete.png" 
-                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/delete_down.png" />
-            <Grid Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                 ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close.png"
+                                 MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close.png" 
+                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close_down.png" />
+            <Grid Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <ItemsControl ItemsSource="{Binding NutritionNames}" Foreground="#94E0B1" />
-                <TextBlock Grid.Row="1" Text="含量超标，注意哦！" Foreground="#94E0B1" />
+                <ItemsControl ItemsSource="{Binding NutritionNames}" Foreground="White" />
+                <TextBlock Grid.Row="1" Text="含量超标，注意哦！" Foreground="White" />
             </Grid>
         </Grid>
     </Border>
