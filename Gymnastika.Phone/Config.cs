@@ -33,8 +33,8 @@ namespace Gymnastika.Phone
         public static string RegistrationServiceUri = "/reg/reg_phone?uri={0}";
 
 
-        public static string LoginServiceUri = "logon";
-        public static string LogoutSericeUri = "";
+        public static string LoginServiceUri = "profile/logon";
+        public static string LogoutSericeUri = "profile/logout?username={0}";
         public static string GetUserInfoServiceUri = "";
         public static string GetMealPlanServiceUri = "";
         public static string GetSportPlanServiceUri = "";

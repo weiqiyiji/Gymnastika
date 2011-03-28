@@ -8,10 +8,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Runtime.Serialization;
 
-namespace Gymnastika.Phone.Sync
+namespace Gymnastika.Sync.Communication.Client
 {
-   
     public class LogOnInfo
     {
         public string UserName { get; set; }
