@@ -12,7 +12,6 @@ using System.Runtime.Serialization;
 
 namespace Gymnastika.Phone.Sync
 {
-    [DataContract(Namespace="")]
     public class Food
     {
         [DataMember]

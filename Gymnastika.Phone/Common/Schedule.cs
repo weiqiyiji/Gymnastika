@@ -14,6 +14,7 @@ using Gymnastika.Phone.Sync;
 using Gymnastika.Sync;
 using System.Xml.Linq;
 using Gymnastika.Sync.Communication;
+using Gymnastika.Modules.Meals.Communication.Tasks;
 namespace Gymnastika.Phone.Common
 {
     #region sub class
@@ -168,22 +169,24 @@ namespace Gymnastika.Phone.Common
                     newItem.Details.Add(string.Format("{0}:每 {1} 分钟消耗卡路里 {2} 大卡。", sport.SportName, sport.Minutes, sport.Calories));
                     result.Add(newItem);
                 }
-                else if (string.Compare(element.Name.LocalName, "FoodTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
+                else if (string.Compare(element.Name.LocalName, "DietPlanTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
                 {
                     DietPlanTaskItem diet = DataContractHelper.Decontract<DietPlanTaskItem>(t.Message);
                     double Calorie = 0;
                     string detail = "";
+                    
                     ScheduleItem newItem = new ScheduleItem()
                     {
                         Name = GetDietNameFromTime(diet.StartTime),
                         Point = diet.Score,
                         ID = t.TaskId,
+                        Time=diet.StartTime,
                         Details = new List<string>()
                     };
                     foreach (FoodTaskItem foodTask in diet.FoodTasks)
                     {
                         Calorie += foodTask.Calorie;
-                        newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName, foodTask.Calorie));
+                        newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName,foodTask.Amount+"克", foodTask.Calorie));
                     }
                     newItem.Calorie = Calorie;
                     //     newItem.Details = detail;

@@ -31,7 +31,6 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Background="{x:Null}">
             <Button Content="添加账户" Height="72" Name="btnAddAccount" Width="160" Margin="151,0,145,0" VerticalAlignment="Bottom" Click="btnAddAccount_Click"/>
-            <Button Content="Button" Height="66" HorizontalAlignment="Left" Margin="321,541,0,0" Name="button1" VerticalAlignment="Top" Width="140" Click="button1_Click" />
             <Border CornerRadius="20" BorderThickness="2" BorderBrush="White" Margin="60,0,55,76">
             <ScrollViewer HorizontalContentAlignment="Stretch" Margin="6" Name="scrollViewer1">
                 <StackPanel Height="Auto" Name="spUsers" Width="Auto" Margin="3"></StackPanel>
