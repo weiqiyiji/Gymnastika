@@ -408,7 +408,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     }
                 }
                 SportsPlan.SportsPlanItems.Clear();
-
+                SportsPlan.SynchronizedToServer = false;
                 if (SportsPlan.Id == 0)
                 {
                     SportsPlan.User = User;
@@ -430,8 +430,21 @@ namespace Gymnastika.Modules.Sports.ViewModels
             _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Publish(SportsPlan);
         }
 
+        void Score()
+        {
+            foreach (var item in SportsPlan.SportsPlanItems)
+            {
+                if (TotalCalories.Value != 0)
+                    item.Score = item.Sport.Calories * (double)item.Duration * 100d / TotalCalories.Value / (double)item.Sport.Minutes;
+                else
+                    item.Score = 0;
+            }
+        }
+
         void Sumbmit()
         {
+
+            Score();
             SavePlanToRepository();
             
 

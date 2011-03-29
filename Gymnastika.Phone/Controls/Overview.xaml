@@ -20,15 +20,17 @@
                 <TextBlock FontFamily="Segoe WP Light" FontSize="40" Height="54" Name="txtSchduleTitle" Text="计划" VerticalAlignment="Top" Margin="18,0,10,0" />
                 <TextBlock FontFamily="Segoe WP Light" FontSize="40" Grid.Row="1" Height="56" Name="txtMicroBlogTitle" Text=" " VerticalAlignment="Top" Margin="18,0,10,0" />
                 <TextBlock Margin="12,54,10,6" Name="txtSchdule" Text="" FontFamily="Comic Sans MS" FontSize="18" />
-                <TextBlock Grid.Row="1" Margin="18,77,0,73" Name="txtSync" Text="同步中..." FontFamily="Comic Sans MS" FontSize="18" HorizontalAlignment="Left" Width="184" />
+                <TextBlock Grid.Row="1" Margin="18,77,0,73" Name="txtSync" Text="同步中..." FontFamily="Comic Sans MS" FontSize="18" HorizontalAlignment="Left" Width="184" Visibility="Collapsed" />
                 <TextBlock Height="37" HorizontalAlignment="Left" Margin="18,60,0,0" Name="textBlock1" Text="下个计划：" VerticalAlignment="Top" Width="101" />
                 <TextBlock Height="37" HorizontalAlignment="Left" Margin="115,60,0,0" Name="txtSchduleName" Text="计划名称" VerticalAlignment="Top" Width="325" />
                 <TextBlock Height="27" HorizontalAlignment="Left" Margin="58,103,0,0" Name="lblTime" Text="时间：" VerticalAlignment="Top" Width="61" Foreground="#FF4B4B4B" />
                 <TextBlock Height="27" HorizontalAlignment="Left" Margin="115,103,0,0" Name="txtSchduleTime" Text="XX:XX , XX小时XX分以后" VerticalAlignment="Top" Width="325" Foreground="#FF4B4B4B" />
                 <Button Content="同步计划" Height="72" HorizontalAlignment="Right" Margin="0,77,12,0" Name="btnSync" VerticalAlignment="Top" Width="160" Grid.Row="1" Click="button1_Click" />
-                <ProgressBar Height="21" Margin="12,0,172,52" Grid.Row="1" VerticalAlignment="Bottom" Name="pbSync" IsIndeterminate="True" />
+                <ProgressBar Height="21" Margin="12,0,172,52" Grid.Row="1" VerticalAlignment="Bottom" Name="pbSync" IsIndeterminate="True" Visibility="Collapsed" />
             </Grid>
             <Image Height="104" HorizontalAlignment="Left" Margin="6,6,0,0" Name="Avatar" Stretch="Uniform" VerticalAlignment="Top" Width="121" Source="/Gymnastika.Phone;component/Avatar3.jpg" />
+            <TextBlock HorizontalAlignment="Left" Height="34" Margin="12,0,0,15" TextWrapping="Wrap" Text="设备ID：" VerticalAlignment="Bottom" Width="88"/>
+            <TextBlock Height="28" Margin="96,0,117,22" TextWrapping="Wrap" Text="更新中..." VerticalAlignment="Bottom" Name="txtID" />
         </Grid>
     </Grid>
 </UserControl>

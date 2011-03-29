@@ -156,7 +156,11 @@ namespace Gymnastika.Phone.Controls
                 else
                     txtTime.Text = Schedule.Time.ToString("HH:mm:ss");
                 txtName.Text = Schedule.Name;
-
+                spDetails.Children.Clear();
+                foreach (string detail in Schedule.Details)
+                {
+                    spDetails.Children.Add(new TextBlock() { Text = detail,Foreground=new SolidColorBrush(Colors.Black),FontSize=22,Margin=new Thickness(5,2,2,2) });
+                }
                 
                 string resName = "Bg" + Enum.GetName(typeof(ScheduleItemStatus), Schedule.Status);
                 if (Resources.Contains(resName)&&Resources[resName] is Brush)

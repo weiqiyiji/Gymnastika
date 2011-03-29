@@ -26,9 +26,10 @@ namespace Gymnastika.Phone.Views
         private List<UserProfile.Profile> Users = new List<UserProfile.Profile>();
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+
             ClearUserList();
-            if (State.ContainsKey("ActiveProfile"))
-                UserProfileManager.ActiveProfile = State["ActiveProfile"] as Profile;
+            //if (State.ContainsKey("ActiveProfile"))
+            //    UserProfileManager.ActiveProfile = State["ActiveProfile"] as Profile;
             
             foreach (UserProfile.Profile p in UserProfileManager.GetAllStoredProfiles())
             {

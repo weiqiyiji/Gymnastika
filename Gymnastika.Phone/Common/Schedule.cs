@@ -114,7 +114,7 @@ namespace Gymnastika.Phone.Common
     #endregion
     public class Schedule
     {
-        public class SchduleEventArgs:EventArgs
+        public class SchduleEventArgs : EventArgs
         {
             public ScheduleItem Item { get; set; }
         }
@@ -131,26 +131,141 @@ namespace Gymnastika.Phone.Common
             HttpClient client = new HttpClient();
             client.GetCompeleted += new EventHandler<HttpClient.GetCompeletedArgs>(client_GetCompeleted);
             client.Get(Config.GetServerPathUri(
-                string.Format(Config.GetPlanOfTodayServiceUri, userID)),null);
+                string.Format(Config.GetPlanOfTodayServiceUri, userID)), null);
         }
-        static int ParseSchdule(string xml)
+        static string GetDietNameFromTime(DateTime Time)
         {
+            int[] dietTime = new int[] { 8, 12, 18 };
+            string[] dietName = new string[] { "早餐", "午餐", "晚餐" };
+            for (int i = 0; i < dietTime.Length; i++)
+            {
+                if (dietTime[i] == Time.Hour)
+                    return dietName[i];
+            }
+            return "加餐";
+        }
+        public static List<ScheduleItem> ParseSchduleItems(string xml)
+        {
+            List<ScheduleItem> result = new List<ScheduleItem>();
             TaskList list = DataContractHelper.Decontract<TaskList>(xml);
-            Clear();
             foreach (Task t in list)
             {
-                XDocument doc = XDocument.Parse(t.Message);
-                
+
+                XElement element = XElement.Parse(t.Message);
+                if (string.Compare(element.Name.LocalName, "SportsPlanTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
+                {
+                    SportsPlanTaskItem sport = DataContractHelper.Decontract<SportsPlanTaskItem>(t.Message);
+                    ScheduleItem newItem = new ScheduleItem()
+                    {
+                        Time = sport.Time,
+                        Name = sport.SportName,
+                        Calorie = -sport.Calories / sport.Minutes * sport.Duration,
+                        Duration = TimeSpan.FromMinutes(sport.Duration),
+                        ID = t.TaskId,
+                        Point = sport.Score,
+                        Details = new List<string>()
+                    };
+                    newItem.Details.Add(string.Format("{0}:每 {1} 分钟消耗卡路里 {2} 大卡。", sport.SportName, sport.Minutes, sport.Calories));
+                    result.Add(newItem);
+                }
+                else if (string.Compare(element.Name.LocalName, "FoodTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
+                {
+                    DietPlanTaskItem diet = DataContractHelper.Decontract<DietPlanTaskItem>(t.Message);
+                    double Calorie = 0;
+                    string detail = "";
+                    ScheduleItem newItem = new ScheduleItem()
+                    {
+                        Name = GetDietNameFromTime(diet.StartTime),
+                        Point = diet.Score,
+                        ID = t.TaskId,
+                        Details = new List<string>()
+                    };
+                    foreach (FoodTaskItem foodTask in diet.FoodTasks)
+                    {
+                        Calorie += foodTask.Calorie;
+                        newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName, foodTask.Calorie));
+                    }
+                    newItem.Calorie = Calorie;
+                    //     newItem.Details = detail;
+                    result.Add(newItem);
+                }
             }
-            return 0;
+            return result;
+        }
+        public static ScheduleItem GetScheduleItemById(int Id)
+        {
+            foreach (ScheduleItem item in m_Items)
+            {
+                if (item.ID == Id)
+                    return item;
+            }
+            return null;
+        }
+        public static int ParseSchdule(string xml)
+        {
+            //int count = 0;
+            List<ScheduleItem> items = ParseSchduleItems(xml);
+            foreach (ScheduleItem item in items)
+            {
+                AddItem(item);
+            }
+            
+            return items.Count;
+            //TaskList list = DataContractHelper.Decontract<TaskList>(xml);
+            //foreach (Task t in list)
+            //{
+               
+            //    XElement element = XElement.Parse(t.Message);
+            //    if (string.Compare(element.Name.LocalName, "SportsPlanTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
+            //    {
+            //        SportsPlanTaskItem sport = DataContractHelper.Decontract<SportsPlanTaskItem>(t.Message);
+            //        ScheduleItem newItem = new ScheduleItem()
+            //        {
+            //            Time = sport.Time,
+            //            Name = sport.SportName,
+            //            Calorie = -sport.Calories/ sport.Minutes*sport.Duration,
+            //            Duration = TimeSpan.FromMinutes(sport.Duration),
+            //            ID = t.TaskId,
+            //            Point = sport.Score,
+            //            Details = new List<string>()
+            //        };
+            //        newItem.Details.Add(string.Format("{0}:每 {1} 分钟消耗卡路里 {2} 大卡。", sport.SportName, sport.Minutes, sport.Calories));
+            //        AddItem(newItem);
+            //        count++;
+            //    }
+            //    else if (string.Compare(element.Name.LocalName, "FoodTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
+            //    {
+            //        DietPlanTaskItem diet = DataContractHelper.Decontract<DietPlanTaskItem>(t.Message);
+            //        double Calorie = 0;
+            //        string detail = "";
+            //        ScheduleItem newItem = new ScheduleItem()
+            //            {
+            //                Name = GetDietNameFromTime(diet.StartTime),
+            //                Point = diet.Score,
+            //                ID =t.TaskId,
+            //                Details = new List<string>()
+            //            };
+            //        foreach (FoodTaskItem foodTask in diet.FoodTasks)
+            //        {
+            //            Calorie += foodTask.Calorie;
+            //            newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName, foodTask.Calorie));
+            //        }
+            //        newItem.Calorie = Calorie;
+            //   //     newItem.Details = detail;
+            //        AddItem(newItem);
+            //        count++;
+            //    }
+            //}
+            //return count;
         }
         static void client_GetCompeleted(object sender, HttpClient.GetCompeletedArgs e)
         {
             if (e.Error == null)
             {
-              int count=  ParseSchdule(e.Result);
-              if (SyncCompleted != null)
-                  SyncCompleted(true, count);
+                Clear();
+                int count = ParseSchdule(e.Result);
+                if (SyncCompleted != null)
+                    SyncCompleted(true, count);
             }
             else
             {
@@ -189,8 +304,9 @@ namespace Gymnastika.Phone.Common
                 if (m_Items[i].Time <= DateTime.Now && m_Items[i + 1].Time >= DateTime.Now)
                     return m_Items[i];
             }
-            if (m_Items[m_Items.Count - 1].Time >= DateTime.Now)
-                return m_Items[m_Items.Count - 1];
+            if (m_Items.Count > 0)
+                if (m_Items[m_Items.Count - 1].Time >= DateTime.Now)
+                    return m_Items[m_Items.Count - 1];
             return null;
         }
         public static ScheduleItem AddItem(ScheduleItem Item)

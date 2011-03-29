@@ -17,11 +17,12 @@ namespace Gymnastika.Phone.Common
 {
     public class Util
     {
+        public static PushNotification.PushNotificationService pushNotificationService = new PushNotification.PushNotificationService();
         private static string[] WeekDays;
         public static Network.LongAlive LA;
         static Util()
         {
-            WeekDays = new string[] { "Sunday", "Monday", "Thuesday", "Wednesday", "Thursday ", "Friday", "Satuarday" };
+            WeekDays = new string[] { "星期日", "星期一", "星期二", "星期三", "星期四 ", "星期五", "星期六" };
         }
         public static string GetWeekDay()
         {

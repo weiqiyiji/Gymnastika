@@ -156,7 +156,9 @@
     <Compile Include="PopupMenu\ConnectionHelper.cs" />
     <Compile Include="Sync\DesktopAccessPoint.cs" />
     <Compile Include="Sync\DesktopAccessPointCollection.cs" />
+    <Compile Include="Sync\DietPlanTaskItem.cs" />
     <Compile Include="Sync\Food.cs" />
+    <Compile Include="Sync\FoodTaskItem.cs" />
     <Compile Include="Sync\HttpClient.cs" />
     <Compile Include="Sync\LogOnInfo.cs" />
     <Compile Include="Sync\Meal.cs" />

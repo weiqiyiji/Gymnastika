@@ -26,9 +26,11 @@
             <TextBlock Margin="8,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF625E5E" Name="txtTime" HorizontalAlignment="Left"><Run Text="13:10 - 13:3"/><Run Text="0"/></TextBlock>
             <TextBlock Margin="68,44,22,0" TextWrapping="Wrap" Text="TextBlock                                                  name" VerticalAlignment="Top" Height="51" Foreground="White" Name="txtName" FontSize="24" />
             <TextBlock HorizontalAlignment="Right" Height="32" Margin="0,95,9,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="132" Foreground="#FF3A52DA" Name="txtStatus" />
-            <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top" Visibility="Collapsed"/>
             <Border CornerRadius="5" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top" Margin="8,127,8,0" Height="117" Background="#3FFFFFFF" Name="DetailBorder">
-                <ScrollViewer></ScrollViewer>
+                <ScrollViewer>
+                    <StackPanel Height="Auto" Name="spDetails" Width="Auto" />
+                </ScrollViewer>
             </Border>
             <TextBlock Margin="8,95,0,0" TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Left" Width="246" Height="30" VerticalAlignment="Top" Name="txtCalorie" />
         </Grid>

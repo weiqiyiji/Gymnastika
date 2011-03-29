@@ -22,12 +22,26 @@ namespace Gymnastika.Modules.Sports.Communication.Services
         public void SendPlan(SportsPlan plan, int connectionId, Action<ResponseMessage, SportsPlan> callback)
         {
             var scheduleItems = new ScheduleItemCollection();
+
+            double totalCalories = 0;
             foreach (var item in plan.SportsPlanItems)
             {
+                totalCalories += item.Sport.Calories *  (double)item.Duration / (double)item.Sport.Minutes;
+            }
+            foreach (var item in plan.SportsPlanItems)
+            {
+                item.Score = item.Sport.Calories * (double)item.Duration / (double)item.Sport.Minutes * 100d / totalCalories;
+            }
+
+            foreach (var item in plan.SportsPlanItems)
+            {
+                
                 var scheduleItem = new ScheduleItem();
                 scheduleItem.UserId = plan.User.Id;
                 scheduleItem.ConnectionId = connectionId;
                 scheduleItem.StartTime = new DateTime(plan.Year, plan.Month, plan.Day, item.Hour, item.Minute, 0);
+                if (DateTime.Now > scheduleItem.StartTime)
+                    continue;
                 DataContractSerializer sr = new DataContractSerializer(typeof(SportsPlanTaskItem));
                 MemoryStream stream = new MemoryStream();
 
@@ -38,7 +52,8 @@ namespace Gymnastika.Modules.Sports.Communication.Services
                     Duration = item.Duration,
                     Time = scheduleItem.StartTime,
                     SportName = item.Sport.Name,
-                    Id = item.Id
+                    Id = item.Id,
+                    Score = item.Score,
                 };
 
                 scheduleItem.Message = ContractObjectSerializer.Serialize(taskItem);

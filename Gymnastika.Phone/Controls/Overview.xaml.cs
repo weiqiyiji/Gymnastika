@@ -26,24 +26,33 @@ namespace Gymnastika.Phone.Controls
             Schedule.SyncCompleted += new Schedule.SyncCompeletedEventHandler(Schedule_SyncCompleted);
             updateTimer = new Timer(new TimerCallback(Update));
             updateTimer.Change(TimeSpan.FromSeconds(0), TimeSpan.FromSeconds(5));
+            Util.pushNotificationService.SubscribeCompleted += new EventHandler<PushNotification.SubscribeCompletedEventArgs>(pushNotificationService_SubscribeCompleted);
+        }
+
+        void pushNotificationService_SubscribeCompleted(object sender, PushNotification.SubscribeCompletedEventArgs e)
+        {
+            txtID.Text = e.AssignedId.ToString();
         }
         void Update(object Timer)
         {
-            Common.ScheduleItem item = Common.Schedule.GetNextSchduleItem();
-            if (item != null)
+            this.Dispatcher.BeginInvoke(delegate
             {
-                txtSchduleName.Text = item.Name;
-                txtSchduleTime.Text = item.TimeText;
-                txtSchduleTime.Visibility = Visibility.Visible;
-                lblTime.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                txtSchduleName.Text = "没有需要执行的计划了。";
-                txtSchduleTime.Visibility = Visibility.Collapsed;
-                lblTime.Visibility = Visibility.Collapsed;
-            }
-            txtDayOfWeek.Text = Util.GetWeekDay();
+                Common.ScheduleItem item = Common.Schedule.GetNextSchduleItem();
+                if (item != null)
+                {
+                    txtSchduleName.Text = item.Name;
+                    txtSchduleTime.Text = item.TimeText;
+                    txtSchduleTime.Visibility = Visibility.Visible;
+                    lblTime.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    txtSchduleName.Text = "没有需要执行的计划了。";
+                    txtSchduleTime.Visibility = Visibility.Collapsed;
+                    lblTime.Visibility = Visibility.Collapsed;
+                }
+                txtDayOfWeek.Text = Util.GetWeekDay();
+            });
         }
         void Schedule_SyncCompleted(bool Successful, int SceduleCount)
         {

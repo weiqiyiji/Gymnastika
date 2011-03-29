@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Gymnastika.Modules.Sports.Communication.Tasks
+namespace Gymnastika.Phone.Sync
 {
     [DataContract(Namespace = "")]
     public class SportsPlanTaskItem
@@ -26,5 +26,8 @@ namespace Gymnastika.Modules.Sports.Communication.Tasks
 
         [DataMember]
         public int Minutes { get; set; }
+
+        [DataMember]
+        public double Score { get; set; }
     }
 }

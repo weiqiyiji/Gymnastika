@@ -31,7 +31,25 @@ namespace Gymnastika.Phone.Controls
             SchduleItems = new ObservableCollection<ScheduleItem>();
             SchduleItems.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(SchduleItems_CollectionChanged);
             OpenMenuGesture = new EventHandler<GestureEventArgs>(OpenMenuGestureEntry);
+            Common.Schedule.ItemsCleared += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemsCleared);
+            Common.Schedule.ItemAdded += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemAdded);
+            Common.Schedule.ItemRemoved += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemRemoved);
+        }
 
+        void Schedule_ItemRemoved(object sender, Schedule.SchduleEventArgs e)
+        {
+            SchduleItems.Remove(e.Item);
+        }
+
+        void Schedule_ItemAdded(object sender, Schedule.SchduleEventArgs e)
+        {
+            SchduleItems.Add(e.Item);
+            Sort();
+        }
+
+        void Schedule_ItemsCleared(object sender, Schedule.SchduleEventArgs e)
+        {
+            SchduleItems.Clear();
         }
         private class SchduleComparision : IComparer<SchduleListItem>
         {
@@ -128,40 +146,40 @@ namespace Gymnastika.Phone.Controls
             menu.Title = Item.Schedule.Name;
             menu.AddItem(new PopupMenu.MenuItem() { Text = "标记为完成" }).Click += new EventHandler<PopupMenu.MenuItem.MenuClickArg>((sender, e) =>
             { Item.Schedule.Status = ScheduleItemStatus.Done; });
-            menu.AddItem(new PopupMenu.MenuItem() { Text = "推迟/提前" }).Click += new EventHandler<PopupMenu.MenuItem.MenuClickArg>((sender, e) =>
-            {
-                Popup popup = new Popup();
-                Canvas overlay = new Canvas();
-                FrameworkElement _root = App.Current.RootVisual as FrameworkElement;
-                Size screenSize = new Size(_root.ActualWidth, _root.ActualHeight);
-                WriteableBitmap bmp = new WriteableBitmap((int)screenSize.Width, (int)screenSize.Height);
-                bmp.Render(_root, null);
-                bmp.Invalidate();
-                Image contentLayer = new Image() { Source = bmp };
-                TimeSpanSelector selector = new TimeSpanSelector();
-                contentLayer.MouseLeftButtonDown += new MouseButtonEventHandler((sender_, e_) =>
-                {
-                    popup.IsOpen = false;
-                    TimeSpan span = selector.Value;
-                    if (Item.Schedule.Time + span < DateTime.Now)
-                    {
-                        MessageBox.Show("不能将计划项提前到当前时间之前。");
-                        return;
-                    }
-                    if (span.TotalMinutes != 0)
-                    {
-                        Item.Schedule.Delay(span);
-                        Sort();
-                    }
-                }
-                );
-                overlay.Children.Add(contentLayer);
-                overlay.Children.Add(selector);
-                selector.SetValue(Canvas.LeftProperty, screenSize.Width / 2 - selector.Width / 2);
-                selector.SetValue(Canvas.TopProperty, screenSize.Height / 2 - selector.Height / 2);
-                popup.Child = overlay;
-                popup.IsOpen = true;
-            });
+            //menu.AddItem(new PopupMenu.MenuItem() { Text = "推迟/提前" }).Click += new EventHandler<PopupMenu.MenuItem.MenuClickArg>((sender, e) =>
+            //{
+            //    Popup popup = new Popup();
+            //    Canvas overlay = new Canvas();
+            //    FrameworkElement _root = App.Current.RootVisual as FrameworkElement;
+            //    Size screenSize = new Size(_root.ActualWidth, _root.ActualHeight);
+            //    WriteableBitmap bmp = new WriteableBitmap((int)screenSize.Width, (int)screenSize.Height);
+            //    bmp.Render(_root, null);
+            //    bmp.Invalidate();
+            //    Image contentLayer = new Image() { Source = bmp };
+            //    TimeSpanSelector selector = new TimeSpanSelector();
+            //    contentLayer.MouseLeftButtonDown += new MouseButtonEventHandler((sender_, e_) =>
+            //    {
+            //        popup.IsOpen = false;
+            //        TimeSpan span = selector.Value;
+            //        if (Item.Schedule.Time + span < DateTime.Now)
+            //        {
+            //            MessageBox.Show("不能将计划项提前到当前时间之前。");
+            //            return;
+            //        }
+            //        if (span.TotalMinutes != 0)
+            //        {
+            //            Item.Schedule.Delay(span);
+            //            Sort();
+            //        }
+            //    }
+            //    );
+            //    overlay.Children.Add(contentLayer);
+            //    overlay.Children.Add(selector);
+            //    selector.SetValue(Canvas.LeftProperty, screenSize.Width / 2 - selector.Width / 2);
+            //    selector.SetValue(Canvas.TopProperty, screenSize.Height / 2 - selector.Height / 2);
+            //    popup.Child = overlay;
+            //    popup.IsOpen = true;
+            //});
             menu.AddItem(new PopupMenu.MenuItem() { Text = "放弃" }).Click += new EventHandler<PopupMenu.MenuItem.MenuClickArg>((sender, e) =>
             { Item.Schedule.Status = ScheduleItemStatus.Aborted; });
             menu.MenuClick += new PopupMenu.PopupMenu.MenuClickHandler(menu_MenuClick);
