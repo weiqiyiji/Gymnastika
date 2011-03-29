@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" Width="100" Height="30"
+             mc:Ignorable="d" Width="100" Height="30" Background="Red"
              d:DesignHeight="300" d:DesignWidth="300" ManipulationStarting="UserControl_ManipulationStarting" ManipulationDelta="UserControl_ManipulationDelta">
     <Grid>
         <TextBox Name="AmountTextBox" Text="{Binding CurrentValue}" Height="20" Width="50" />

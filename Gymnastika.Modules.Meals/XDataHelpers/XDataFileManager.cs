@@ -26,7 +26,7 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
         public XDataFileManager()
         {
             string currentDirectory = Directory.GetCurrentDirectory();
-            string dataDirectory = currentDirectory + "\\Datas\\";
+            string dataDirectory = currentDirectory + "\\Data\\Food\\Data\\";
 
             //_foodDataFilePath = dataDirectory + "foods.xml";
             _categoryDataFilePath = dataDirectory + "categories.xml";

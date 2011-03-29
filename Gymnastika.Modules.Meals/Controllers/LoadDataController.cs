@@ -16,14 +16,12 @@ namespace Gymnastika.Modules.Meals.Controllers
     {
         private readonly IFoodService _foodService;
         private readonly IWorkEnvironment _workEnviroment;
-        private readonly LoadDataView _loadDataView;
         private readonly XDataHelpers.XDataRepository _dataSource;
 
-        public LoadDataController(IFoodService foodService, IWorkEnvironment workEnvironment, LoadDataView loadDataView)
+        public LoadDataController(IFoodService foodService, IWorkEnvironment workEnvironment)
         {
             _foodService = foodService;
             _workEnviroment = workEnvironment;
-            _loadDataView = loadDataView;
 
             _dataSource = new XDataHelpers.XDataRepository(_foodService, _workEnviroment);
             _dataSource.ExtractDatas();
@@ -49,6 +47,9 @@ namespace Gymnastika.Modules.Meals.Controllers
             LoadCategoryData();
             LoadFoodData();
             LoadNutritionalElementData();
+            LoadDietPlanData();
+            LoadSubDietPlanData();
+            LoadDietPlanItemData();
         }
 
         #endregion

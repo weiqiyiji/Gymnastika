@@ -15,5 +15,6 @@ namespace Gymnastika.Modules.Meals.Services
         ISubDietPlanProvider SubDietPlanProvider { get; set; }
         IDietPlanItemProvider DietPlanItemProvider { get; set; }
         IFavoriteFoodProvider FavoriteFoodProvider { get; set; }
+        IDietPlanTaskProvider DietPlanTaskProvider { get; set; }
     }
 }

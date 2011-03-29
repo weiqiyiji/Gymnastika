@@ -33,6 +33,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Fetch(sdp => sdp.DietPlan == dietPlan);
         }
 
+        public SubDietPlan Get(int id)
+        {
+            return _repository.Get(id);
+        }
+
         #endregion
     }
 }

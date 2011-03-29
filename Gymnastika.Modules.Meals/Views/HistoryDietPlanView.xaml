@@ -125,7 +125,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <surface:SurfaceListBox ItemContainerStyle="{StaticResource SurfaceListBoxItemStyle}" Background="Transparent" VerticalContentAlignment="Top" ItemsSource="{Binding HistoryDietPlans, IsAsync=True}">
+        <surface:SurfaceListBox ScrollViewer.VerticalScrollBarVisibility="Disabled" ItemContainerStyle="{StaticResource SurfaceListBoxItemStyle}" Background="Transparent" VerticalContentAlignment="Top" ItemsSource="{Binding HistoryDietPlans, IsAsync=True}">
             <surface:SurfaceListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal" />

@@ -15,6 +15,7 @@ using Gymnastika.Modules.Meals.Widgets;
 using Gymnastika.Data;
 using Gymnastika.Modules.Meals.Controllers;
 using Gymnastika.Common.Navigation;
+using Gymnastika.Modules.Meals.Communication.Services;
 
 namespace Gymnastika.Modules.Meals
 {
@@ -54,18 +55,21 @@ namespace Gymnastika.Modules.Meals
         {
             _widgetMananger.Add(typeof(BMIWidget));
             _widgetMananger.Add(typeof(TodayDietPlanWidget));
+            //_widgetMananger.Add(typeof(OneKeyScoreWidget));
         }
 
         private void RegisterServices()
         {
-            _container.RegisterType<IFoodService, FoodService>()
+            _container.RegisterType<IFoodService, FoodService>(new ContainerControlledLifetimeManager())
                 .RegisterType<ICategoryProvider, CategoryProvider>()
                 .RegisterType<IFoodProvider, FoodProvider>()
                 .RegisterType<INutritionElementProvider, NutritionElementProvider>()
                 .RegisterType<IFavoriteFoodProvider, FavoriteFoodProvider>()
                 .RegisterType<IDietPlanProvider, DietPlanProvider>()
                 .RegisterType<ISubDietPlanProvider, SubDietPlanProvider>()
-                .RegisterType<IDietPlanItemProvider, DietPlanItemProvider>();
+                .RegisterType<IDietPlanItemProvider, DietPlanItemProvider>()
+                .RegisterType<IDietPlanTaskProvider, DietPlanTaskProvider>()
+                .RegisterInstance(typeof(CommunicationService), new ContainerControlledLifetimeManager());
         }
 
         private void RegisterViews()
@@ -80,10 +84,11 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<ICategoryListView, CategoryListView>()
                 .RegisterType<INutritionChartView, NutritionChartView>()
                 .RegisterType<IDietPlanNutritionChartView, DietPlanNutritionChartView>()
-                .RegisterType<ISingleDietPlanView, SingleDietPlanView>()
                 .RegisterType<IPositionedFoodView, PositionedFoodView>()
                 .RegisterType<IRecommendedDietPlanView, RecommendedDietPlanView>(new ContainerControlledLifetimeManager())
-                .RegisterType<IHistoryDietPlanView, HistoryDietPlanView>(new ContainerControlledLifetimeManager());
+                .RegisterType<IHistoryDietPlanView, HistoryDietPlanView>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITodayDietPlanView, TodayDietPlanView>()
+                .RegisterType(typeof(SelectDateView));;
         }
 
         private void RegisterViewModels()
@@ -97,10 +102,10 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<ICategoryListViewModel, CategoryListViewModel>()
                 .RegisterType<INutritionChartViewModel, NutritionChartViewModel>()
                 .RegisterType<IDietPlanNutritionChartViewModel, DietPlanNutritionChartViewModel>()
-                .RegisterType<ISingleDietPlanViewModel, SingleDietPlanViewModel>()
                 .RegisterType<IPositionedFoodViewModel, PositionedFoodViewModel>()
                 .RegisterType<IRecommendedDietPlanViewModel, RecommendedDietPlanViewModel>(new ContainerControlledLifetimeManager())
-                .RegisterType<IHistoryDietPlanViewModel, HistoryDietPlanViewModel>(new ContainerControlledLifetimeManager());
+                .RegisterType<IHistoryDietPlanViewModel, HistoryDietPlanViewModel>(new ContainerControlledLifetimeManager())
+                .RegisterType<ITodayDietPlanViewModel, TodayDietPlanViewModel>();
         }
 
         private void RegisterNavigation()
@@ -133,13 +138,10 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterController()
         {
-            _container.RegisterType(typeof(SelectDateView));
             _container.RegisterType<ILoadDataController, LoadDataController>();
             var loadDataController = _container.Resolve<ILoadDataController>();
             if (!loadDataController.IsLoaded)
                 _container.Resolve<ILoadDataController>().Load();
-                //.RegisterType(typeof(LoadDataView))
-                //.RegisterType(typeof(Shell), new ContainerControlledLifetimeManager()
         }
     }
 }

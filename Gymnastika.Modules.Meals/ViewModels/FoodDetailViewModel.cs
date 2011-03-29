@@ -39,7 +39,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public string ImageUri
         {
-            get { return Food.LargeImageUri; }
+            get { return Food.ImageUri; }
         }
 
         public string Calorie

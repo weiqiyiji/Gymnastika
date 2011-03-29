@@ -55,8 +55,8 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
             View = view;
             View.Context = this;
-            _eventAggregator.GetEvent<NotifyHistoryDietPlanChangedEvent>().Subscribe(NotifyHistoryDietPlanChangedEventHandler);
-            //_eventAggregator.GetEvent<DeleteDietPlanEvent>().Subscribe(DeleteDietPlanEvnetHanlder);
+            _eventAggregator.GetEvent<AddOrModifiedDietPlanEvent>().Subscribe(AddOrModifiedDietPlanEventHandler);
+            _eventAggregator.GetEvent<DeleteDietPlanEvent>().Subscribe(DeleteDietPlanEventHanlder);
         }
 
         #region IHistoryDietPlanViewModel Members
@@ -69,27 +69,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         #endregion
 
-        private void NotifyHistoryDietPlanChangedEventHandler(DietPlan dietPlan)
+        private void AddOrModifiedDietPlanEventHandler(DietPlan dietPlan)
         {
-            foreach (var historyDietPlan in HistoryDietPlans)
+            DietPlanItemViewModel dietPlanItemViewModel = new DietPlanItemViewModel(dietPlan);
+            HistoryDietPlans.Add(dietPlanItemViewModel);
+
+            foreach (var dietPlanItem in HistoryDietPlans)
             {
-                if (historyDietPlan.CreatedDate == dietPlan.CreatedDate.ToString("yyyy-MM-dd"))
+                if (dietPlanItem.CreatedDate == dietPlan.CreatedDate.ToString("yyyy-MM-dd"))
                 {
-                    HistoryDietPlans.Remove(historyDietPlan);
-
-                    using (var scope = _workEnvironment.GetWorkContextScope())
-                    {
-                        _foodService.DietPlanProvider.Delete(historyDietPlan.DietPlan);
-                    }
-
+                    HistoryDietPlans.Remove(dietPlanItem);
                     break;
                 }
             }
-            DietPlanItemViewModel dietPlanItem = new DietPlanItemViewModel(dietPlan);
-            HistoryDietPlans.Add(dietPlanItem);
         }
 
-        private void DeleteDietPlanEvnetHanlder(DietPlanItemViewModel dietPlanItem)
+        private void DeleteDietPlanEventHanlder(DietPlanItemViewModel dietPlanItem)
         {
             HistoryDietPlans.Remove(dietPlanItem);
         }

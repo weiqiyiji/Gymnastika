@@ -1,0 +1,77 @@
+﻿<Window x:Class="Gymnastika.Modules.Meals.Views.DietPlanReminderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
+             mc:Ignorable="d"  WindowStyle="None" WindowStartupLocation="CenterScreen"
+             d:DesignHeight="300" d:DesignWidth="300"
+             Width="300" Height="200"
+             AllowsTransparency="True" Background="Transparent">
+    <Window.Resources>
+        <Storyboard x:Key="OnWindowLoaded">
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="windowBorder" To="1">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="windowBorder" To="1">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseOut" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Key="OnWindowClosing" Completed="OnWindowClosingStoryboard_Completed">
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="windowBorder" To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" Storyboard.TargetName="windowBorder" To="0">
+                <DoubleAnimation.EasingFunction>
+                    <ElasticEase EasingMode="EaseIn" Oscillations="2" Springiness="5"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+        </Storyboard>
+
+        <SolidColorBrush x:Key="GreenColor" Color="#94E0B1" />
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="view:DietPlanReminderView.RoutedClosing">
+            <BeginStoryboard x:Name="OnWindowClosing_BeginStoryboard" Storyboard="{StaticResource OnWindowClosing}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+            <BeginStoryboard x:Name="OnWindowLoaded_BeginStoryboard" Storyboard="{StaticResource OnWindowLoaded}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Border x:Name="windowBorder" CornerRadius="10" BorderBrush="#94E0B1" BorderThickness="3" Background="{StaticResource GreenColor}" RenderTransformOrigin="0.5,0.5" Width="200" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Border.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform ScaleX="0" ScaleY="0"/>
+                <SkewTransform/>
+                <RotateTransform/>
+                <TranslateTransform/>
+            </TransformGroup>
+        </Border.RenderTransform>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <control:ImageButton Command="{Binding CloseCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                 ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close.png"
+                                 MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close.png" 
+                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close_down.png" />
+            <Grid Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ItemsControl ItemsSource="{Binding NutritionNames}" Foreground="White" />
+                <TextBlock Grid.Row="1" Text="含量超标，注意哦！" Foreground="White" />
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
