@@ -120,7 +120,8 @@ namespace Gymnastika.Phone.Views
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-
+            Sync.UserProfileService up = new Sync.UserProfileService();
+            up.LogOut("test");
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)

@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Phone.Connection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E801775-C9C2-4AC3-9C13-C9EF45F37E17}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Phone.Connection.Test", "Gymnastika.Phone.Connection.Test\Gymnastika.Phone.Connection.Test.csproj", "{EE697649-F864-4B72-BA1B-99D72F5A6871}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gymnastika.vsmdi
@@ -188,6 +190,7 @@ Global
 		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D285460E-3869-4C25-ABFE-A863A890FBA3}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -218,6 +221,7 @@ Global
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Debug|Mixed Platforms.Deploy.0 = Debug|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFE1C7DD-6E19-42A9-9491-883187D7BAE5}.Release|Any CPU.Build.0 = Release|Any CPU
@@ -258,6 +262,17 @@ Global
 		{F2887C61-8ABF-4425-9CBE-B6D5501BF1C7}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F2887C61-8ABF-4425-9CBE-B6D5501BF1C7}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
 		{F2887C61-8ABF-4425-9CBE-B6D5501BF1C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Debug|x86.ActiveCfg = Debug|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Debug|x86.Build.0 = Debug|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Release|Any CPU.ActiveCfg = Release|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Release|Mixed Platforms.Build.0 = Release|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Release|x86.ActiveCfg = Release|x86
+		{EE697649-F864-4B72-BA1B-99D72F5A6871}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

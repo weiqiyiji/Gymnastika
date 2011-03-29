@@ -7,7 +7,7 @@
              xmlns:dd="clr-namespace:GongSolutions.Wpf.DragDrop;assembly=GongSolutions.Wpf.DragDrop"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
              xmlns:local="clr-namespace:Gymnastika.Modules.Sports.Views"
-             xmlns:surface="http://schemas.microsoft.com/surface/2008" Width="160" Height="160"
+             xmlns:surface="http://schemas.microsoft.com/surface/2008" Width="170" Height="160"
              x:Name="root" Foreground="{x:Null}">
 <UserControl.Resources>
 	<ResourceDictionary>
@@ -15,12 +15,12 @@
 	</ResourceDictionary>
 </UserControl.Resources>
     <Border>
-		<Grid Cursor="Hand" Margin="10" ClipToBounds="True">
+		<Grid Cursor="Hand" Margin="0" ClipToBounds="True">
 			<Grid.RowDefinitions>
-				<RowDefinition Height="75*" />
-				<RowDefinition Height="25*"/>
+				<RowDefinition Height="0.872*" />
+				<RowDefinition Height="0.128*"/>
 			</Grid.RowDefinitions>
-			<TextBlock x:Name="Name" Foreground="#FF8D947F" Text="{Binding Name}" Grid.Row="1" FontSize="15" FontWeight="Bold" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True" TextWrapping="Wrap"/>
+			<TextBlock x:Name="Name" Foreground="#FF8D947F" Text="{Binding Name}" Grid.Row="1" FontSize="13.333" FontWeight="Bold" HorizontalAlignment="Center" Grid.IsSharedSizeScope="True" TextWrapping="Wrap"/>
 			<Image Stretch="Uniform" SnapsToDevicePixels="True" x:Name="Picture" dd:DragDrop.IsDragSource="True" dd:DragDrop.DragHandler="{Binding}" Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}, IsAsync=false}">
 				<dd:DragDrop.DragAdornerTemplate>
 					<DataTemplate>

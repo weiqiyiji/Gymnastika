@@ -30,6 +30,7 @@ namespace Gymnastika.Migrations
                                                        .Column<int>("Month")
                                                        .Column<int>("Day")
                                                        .Column<int>("Score")
+                                                       .Column<bool>("SynchronizedToServer")
                                                        .Column<int>("UserId"));
 
             SchemaBuilder.CreateForeignKey(Users_FK, TableName, new string[] { "UserId" }, UserTable, new String[] { "Id" });

@@ -89,7 +89,7 @@ namespace Gymnastika.Sync.Schedule
                         new XAttribute("id", schedule.ConnectionId)),
                     new XElement("user",
                         new XAttribute("id", schedule.UserId)),
-                    new XElement("data", schedule.Message)));
+                    new XElement("data", XElement.Parse(schedule.Message))));
 
             doc.Save(stream);
             byte[] payload = stream.ToArray();

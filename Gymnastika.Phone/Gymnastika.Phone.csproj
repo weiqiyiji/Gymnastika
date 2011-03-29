@@ -75,8 +75,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\DataContractHelper.cs" />
     <Compile Include="Common\DefualtTransition.cs" />
     <Compile Include="Common\Grade.cs" />
+    <Compile Include="Common\HttpExtenstion.cs" />
     <Compile Include="Common\MicroBlog.cs" />
     <Compile Include="Common\SchduleListener.cs" />
     <Compile Include="Common\Schedule.cs" />
@@ -151,11 +153,18 @@
     <Compile Include="PushNotification\PushNotificationService.cs" />
     <Compile Include="PushNotification\TileNotification.cs" />
     <Compile Include="Sync\Connection.cs" />
-    <Compile Include="Sync\ConnectionHelper.cs" />
+    <Compile Include="PopupMenu\ConnectionHelper.cs" />
     <Compile Include="Sync\DesktopAccessPoint.cs" />
     <Compile Include="Sync\DesktopAccessPointCollection.cs" />
+    <Compile Include="Sync\Food.cs" />
+    <Compile Include="Sync\HttpClient.cs" />
+    <Compile Include="Sync\LogOnInfo.cs" />
     <Compile Include="Sync\Meal.cs" />
     <Compile Include="Sync\MealPlan.cs" />
+    <Compile Include="Sync\PlanSync.cs" />
+    <Compile Include="Sync\UserProfileService.cs" />
+    <Compile Include="Sync\Sport.cs" />
+    <Compile Include="Sync\SportPlan.cs" />
     <Compile Include="Sync\Test.cs" />
     <Compile Include="Transitions\FadeRollIn.cs" />
     <Compile Include="Transitions\FadeRollMode.cs" />
