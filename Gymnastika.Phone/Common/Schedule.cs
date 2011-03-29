@@ -28,6 +28,11 @@ namespace Gymnastika.Phone.Common
         Normal,
         Forward
     }
+    public enum ScheduleItemType
+    {
+        Sports,
+        Diets
+    }
     public class ScheduleItem : DependencyObject
     {
         //public FrameworkElement Content;
@@ -40,6 +45,7 @@ namespace Gymnastika.Phone.Common
 
         }
         public List<string> Details { get; set; }
+        public ScheduleItemType  Type { get; set; }
         private static string TranslateStatus(ScheduleItemStatus status)
         {
 
@@ -166,6 +172,7 @@ namespace Gymnastika.Phone.Common
                         Point = sport.Score,
                         Details = new List<string>()
                     };
+                    newItem.Type = ScheduleItemType.Sports;
                     newItem.Details.Add(string.Format("{0}:每 {1} 分钟消耗卡路里 {2} 大卡。", sport.SportName, sport.Minutes, sport.Calories));
                     result.Add(newItem);
                 }
@@ -189,6 +196,7 @@ namespace Gymnastika.Phone.Common
                         newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName,foodTask.Amount+"克", foodTask.Calorie));
                     }
                     newItem.Calorie = Calorie;
+                    newItem.Type = ScheduleItemType.Diets;
                     //     newItem.Details = detail;
                     result.Add(newItem);
                 }

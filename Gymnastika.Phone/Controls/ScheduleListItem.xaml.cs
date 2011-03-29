@@ -182,6 +182,10 @@ namespace Gymnastika.Phone.Controls
                     txtCalorie.Foreground = Resources["FgOut"] as Brush;
                 }
                 txtCalorie.Visibility = Schedule.Calorie != 0 ? Visibility.Visible : Visibility.Collapsed;
+                if (Schedule.Type == ScheduleItemType.Sports)
+                    imgIcon.Source = Resources["IconSport"] as ImageSource;
+                else
+                    imgIcon.Source = Resources["IconDiet"] as ImageSource;
             }
 
            

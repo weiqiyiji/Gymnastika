@@ -310,8 +310,12 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Controls\0130-5178b.png" />
     <Resource Include="Controls\1.png" />
     <Resource Include="Controls\2.png" />
+    <Resource Include="Controls\20080811164713673.png" />
+    <Resource Include="Controls\diet.png" />
+    <Resource Include="Controls\sport.png" />
     <Resource Include="Images\wave.jpg" />
     <Resource Include="Images\200852993034844_2.jpg" />
     <Resource Include="Images\add.png" />

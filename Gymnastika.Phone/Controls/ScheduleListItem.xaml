@@ -20,6 +20,8 @@
         <SolidColorBrush x:Key="BgNormal" Color="#19FFFFFF"/>
 		<SolidColorBrush x:Key="FgIn" Color="#FFFD2E00"/>
 		<SolidColorBrush x:Key="FgOut" Color="#FF0D6801"/>
+		<BitmapImage x:Key="IconSport">sport.png</BitmapImage>
+		<BitmapImage x:Key="IconDiet">diet.png</BitmapImage>
     </UserControl.Resources>
     <Border x:Name="borderRoot" CornerRadius="8" BorderBrush="White" BorderThickness="2" Background="#19FFFFFF" Margin="0,0,0,4">
         <Grid x:Name="LayoutRoot" Margin="0,0,0,-2" >
@@ -32,6 +34,7 @@
                     <StackPanel Height="Auto" Name="spDetails" Width="Auto" />
                 </ScrollViewer>
             </Border>
+            <Image Height="51" HorizontalAlignment="Left" Margin="11,44,0,0" x:Name="imgIcon" VerticalAlignment="Top" Width="50" Source="0130-5178b.png" CacheMode="BitmapCache" />
             <TextBlock Margin="8,95,0,0" TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Left" Width="246" Height="30" VerticalAlignment="Top" Name="txtCalorie" />
         </Grid>
     </Border>

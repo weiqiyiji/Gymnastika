@@ -7,7 +7,6 @@ using System.Collections;
 
 namespace Gymnastika.Modules.Meals.Communication.Tasks
 {
-    [DataContract(Namespace="")]
     public class DietPlanTaskItem
     {
         [DataMember]
