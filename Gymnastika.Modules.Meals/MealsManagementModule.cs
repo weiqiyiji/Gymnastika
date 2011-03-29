@@ -87,7 +87,8 @@ namespace Gymnastika.Modules.Meals
                 .RegisterType<IPositionedFoodView, PositionedFoodView>()
                 .RegisterType<IRecommendedDietPlanView, RecommendedDietPlanView>(new ContainerControlledLifetimeManager())
                 .RegisterType<IHistoryDietPlanView, HistoryDietPlanView>(new ContainerControlledLifetimeManager())
-                .RegisterType<ITodayDietPlanView, TodayDietPlanView>();
+                .RegisterType<ITodayDietPlanView, TodayDietPlanView>()
+                .RegisterType(typeof(SelectDateView));;
         }
 
         private void RegisterViewModels()
@@ -137,7 +138,6 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterController()
         {
-            _container.RegisterType(typeof(SelectDateView));
             _container.RegisterType<ILoadDataController, LoadDataController>();
             var loadDataController = _container.Resolve<ILoadDataController>();
             if (!loadDataController.IsLoaded)
