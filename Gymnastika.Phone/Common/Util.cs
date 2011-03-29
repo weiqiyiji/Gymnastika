@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Windows.Media.Imaging;
 using System.IO;
 using Microsoft.Phone.Controls;
+using System.Xml.Linq;
 
 namespace Gymnastika.Phone.Common
 {
@@ -74,6 +75,9 @@ namespace Gymnastika.Phone.Common
                 return new Size(width, height);
             }
         }
-
+        public static string GetXmlPureString(string input)
+        {
+            return XElement.Parse(input).Value;
+        }
     }
 }

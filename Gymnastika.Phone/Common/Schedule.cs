@@ -10,6 +10,10 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Collections.Generic;
 using Gymnastika.Phone.Controls;
+using Gymnastika.Phone.Sync;
+using Gymnastika.Sync;
+using System.Xml.Linq;
+using Gymnastika.Sync.Communication;
 namespace Gymnastika.Phone.Common
 {
     #region sub class
@@ -23,21 +27,22 @@ namespace Gymnastika.Phone.Common
         Normal,
         Forward
     }
-    public class ScheduleItem:DependencyObject
+    public class ScheduleItem : DependencyObject
     {
         //public FrameworkElement Content;
         public ScheduleItem()
         {
-           // Content = new SchduleListItem(0, this);
+            // Content = new SchduleListItem(0, this);
             this.Duration = TimeSpan.FromSeconds(0);
             OriginTime = DateTime.MinValue;
             m_Status = ScheduleItemStatus.Normal;
-            
+
         }
+        public List<string> Details { get; set; }
         private static string TranslateStatus(ScheduleItemStatus status)
         {
-            
-            switch(status)
+
+            switch (status)
             {
                 case ScheduleItemStatus.Aborted:
                     return "被终止";
@@ -76,7 +81,7 @@ namespace Gymnastika.Phone.Common
             set
             {
                 ScheduleItemStatus old = m_Status;
-                
+
                 m_Status = value;
                 this.SetValue(StatusTextProperty, TranslateStatus(m_Status));
                 if (StatusChange != null)
@@ -107,45 +112,128 @@ namespace Gymnastika.Phone.Common
         }
     }
     #endregion
-    public  class Schedule
+    public class Schedule
     {
-
+        public class SchduleEventArgs:EventArgs
+        {
+            public ScheduleItem Item { get; set; }
+        }
+        public delegate void SyncCompeletedEventHandler(bool Successful, int SceduleCount);
         public delegate void ItemStatusChangedHandler(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus);
-        public event ItemStatusChangedHandler ItemStatusChanged;
-        private  List<ScheduleItem> m_Items = new List<ScheduleItem>();
-        public  ScheduleItem[] GetAllSchedules()
+        public static event ItemStatusChangedHandler ItemStatusChanged;
+        public static event EventHandler<SchduleEventArgs> ItemRemoved;
+        public static event EventHandler<SchduleEventArgs> ItemAdded;
+        public static event EventHandler<SchduleEventArgs> ItemsCleared;
+        private static List<ScheduleItem> m_Items = new List<ScheduleItem>();
+        public static event SyncCompeletedEventHandler SyncCompleted;
+        public static void SyncPlan(string userID)
+        {
+            HttpClient client = new HttpClient();
+            client.GetCompeleted += new EventHandler<HttpClient.GetCompeletedArgs>(client_GetCompeleted);
+            client.Get(Config.GetServerPathUri(
+                string.Format(Config.GetPlanOfTodayServiceUri, userID)),null);
+        }
+        static int ParseSchdule(string xml)
+        {
+            TaskList list = DataContractHelper.Decontract<TaskList>(xml);
+            Clear();
+            foreach (Task t in list)
+            {
+                XDocument doc = XDocument.Parse(t.Message);
+                
+            }
+            return 0;
+        }
+        static void client_GetCompeleted(object sender, HttpClient.GetCompeletedArgs e)
+        {
+            if (e.Error == null)
+            {
+              int count=  ParseSchdule(e.Result);
+              if (SyncCompleted != null)
+                  SyncCompleted(true, count);
+            }
+            else
+            {
+                if (SyncCompleted != null)
+                    SyncCompleted(false, 0);
+                App.Current.RootVisual.Dispatcher.BeginInvoke(
+                    delegate { MessageBox.Show("同步计划列表失败。"); });
+            }
+        }
+        public static ScheduleItem[] GetAllSchedules()
         {
             List<ScheduleItem> items = new List<ScheduleItem>();
             return m_Items.ToArray();
         }
-        public ScheduleItem AddItem(ScheduleItem Item)
+        private class SchduleComparision : IComparer<ScheduleItem>
+        {
+            public int Compare(ScheduleItem x, ScheduleItem y)
+            {
+                if (x.Time > y.Time)
+                    return 1;
+                else if (x.Time < y.Time)
+                    return -1;
+                else
+                    return 0;
+            }
+        }
+        public static void Sort()
+        {
+            m_Items.Sort(new SchduleComparision());
+        }
+        public static ScheduleItem GetNextSchduleItem()
+        {
+            Sort();
+            for (int i = 0; i < m_Items.Count - 1; i++)
+            {
+                if (m_Items[i].Time <= DateTime.Now && m_Items[i + 1].Time >= DateTime.Now)
+                    return m_Items[i];
+            }
+            if (m_Items[m_Items.Count - 1].Time >= DateTime.Now)
+                return m_Items[m_Items.Count - 1];
+            return null;
+        }
+        public static ScheduleItem AddItem(ScheduleItem Item)
         {
             Item.StatusChange += new ScheduleItem.StatusChangedHandler(Item_StatusChange);
+            if (ItemAdded != null)
+                ItemAdded(Item, new SchduleEventArgs() { Item = Item });
             m_Items.Add(Item);
             return Item;
         }
-
-        void Item_StatusChange(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus)
+        public static void Clear()
+        {
+            m_Items.Clear();
+            if (ItemsCleared != null)
+                ItemsCleared(null, new SchduleEventArgs());
+        }
+        public static void Remove(ScheduleItem Item)
+        {
+            m_Items.Remove(Item);
+            if (ItemRemoved != null)
+                ItemRemoved(null, new SchduleEventArgs() { Item = Item });
+        }
+        static void Item_StatusChange(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus)
         {
             if (ItemStatusChanged != null)
             {
                 ItemStatusChanged.Invoke(sender, OldStatus, NewStatus);
             }
         }
-        public  void UpdateStatus(ScheduleItem Item, ScheduleItemStatus Status)
+        public static void UpdateStatus(ScheduleItem Item, ScheduleItemStatus Status)
         {
             Item.Status = Status;
         }
-        public  void Delay(ScheduleItem Item, TimeSpan Span)
+        public static void Delay(ScheduleItem Item, TimeSpan Span)
         {
             Item.Delay(Span);
         }
-        
-        public void Suspend(ScheduleItem Item)
+
+        public static void Suspend(ScheduleItem Item)
         {
             UpdateStatus(Item, ScheduleItemStatus.Suspend);
         }
-        public  void GiveUp(ScheduleItem Item)
+        public static void GiveUp(ScheduleItem Item)
         {
             UpdateStatus(Item, ScheduleItemStatus.Aborted);
         }

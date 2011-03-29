@@ -11,10 +11,11 @@ using System.Windows.Shapes;
 using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
-
+using Gymnastika.Phone.Sync;
+using System.Runtime.Serialization;
 namespace Gymnastika.Phone.UserProfile
 {
-
+    [DataContract]
     public class Profile
     {
         #region Static Members
@@ -66,39 +67,17 @@ namespace Gymnastika.Phone.UserProfile
         }
 
 
-        public delegate void SignInCompeleted(string Username, Exception error);
+        public delegate void SignInCompeleted(string Username, string UserID, Exception error);
 
         public static void SignIn(string Username, string Password, SignInCompeleted Callback)
         {
-            HttpWebRequest request = HttpWebRequest.CreateHttp(
-                new Uri(Config.ServerUri,
-                    string.Format("/LoginIn.aspx?u=wp7&username={0}&pwd={1}", HttpUtility.UrlEncode(Username),
-                    HttpUtility.UrlEncode(Password))));
-            request.BeginGetResponse(
-                new AsyncCallback(
-                    (r) =>
-                    {
-                        HttpWebResponse httpResponse = (HttpWebResponse)request.EndGetResponse(r);
-                        using (StreamReader reader = new StreamReader(httpResponse.GetResponseStream()))
-                        {
-                            string response = reader.ReadToEnd();
-                            if (response.Contains(","))
-                            {
-                                string[] strs = new string[2];
-                                strs[0] = response.Substring(0, response.IndexOf(",")).ToLower();
-                                strs[1] = response.Substring(response.IndexOf(",") + 1);
-                                if (strs[0] == "ok")
-                                    Callback(Username, null);
-                                else if (strs[0] == "failed")
-                                    Callback(Username, new Exception(strs[1]));
-                                else
-                                    Callback(Username, new Exception("未知回复。"));
-                            }
-                            else
-                                Callback(Username, new Exception("未知回复。"));
-                        }
-                    }
-            ), request);
+            UserProfileService profileService = new UserProfileService();
+            profileService.LogOn(Username, Password,
+                new EventHandler<UserProfileService.LogOnCompeletedArgs>((s, e) =>
+                {
+                    UserProfileManager.StoreProfice(new Profile(Username, Password) { UserId = e.Id });
+                    Callback(Username, e.Id, e.Successful ? null : new Exception(e.Message));
+                }));
         }
         #endregion
         #region Events
@@ -109,7 +88,11 @@ namespace Gymnastika.Phone.UserProfile
         public event OnLoginErrorHandler OnLoginError;
         public event OnLoginProgressChangedHandler OnLoginProgressChanged;
         #endregion
+        [DataMember]
+        public string UserId { get; set; }
+        [DataMember]
         public string Username { get; set; }
+        [DataMember]
         public string Password { get; set; }
         public ImageSource Icon { get; set; }
         public bool AutoLogin { get; set; }
@@ -155,14 +138,10 @@ namespace Gymnastika.Phone.UserProfile
         {
             IsOnline = false;
             SignIn(Username, Password, new SignInCompeleted(
-                (str, ex) =>
-                { OnLoginCompeleted(this, ex != null); }
+                (str, message, ex) =>
+                {
+                    OnLoginCompeleted(this, ex != null); }
                 ));
-
-            //Thread th = new Thread(doLogin);
-            //th.Start();
-            //UpdateLoginPorgress("正在登录...");
-
         }
         private void UpdateLoginPorgress(string msg)
         {

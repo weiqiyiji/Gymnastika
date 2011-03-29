@@ -412,7 +412,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
 
         void RaiseSelectedChangedEvent()
         {
-            if (SelectedSportChangedEvent != null)
+            if (SelectedSportChangedEvent != null&&SelectedSport!=null)
                 SelectedSportChangedEvent(this, new SportEventArgs() { Sport = SelectedSport.Sport });
         }
 

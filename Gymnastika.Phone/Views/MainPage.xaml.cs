@@ -13,6 +13,7 @@ using Microsoft.Phone.Controls;
 using Gymnastika.Phone.Common;
 using Gymnastika.Phone.PushNotification;
 using Gymnastika.Phone.Sync;
+using System.Threading;
 namespace Gymnastika.Phone.Views
 {
     public partial class MainPage : PhoneApplicationPage
@@ -20,35 +21,16 @@ namespace Gymnastika.Phone.Views
         PushNotificationService pushNotificationService = new PushNotificationService();
         PlanSync sync = new PlanSync();
         SchduleListener listener = new SchduleListener();
+        Timer UpdateSchduleTimer;
         public MainPage()
         {
+            InitializeComponent();
             Common.DefualtTransition.SetNavigationTransition(this);
-            //pushNotificationService.ErrorOccurred += new EventHandler<Microsoft.Phone.Notification.NotificationChannelErrorEventArgs>(pushNotificationService_ErrorOccurred);
-            //pushNotificationService.HttpNotificationReceived += new EventHandler<Microsoft.Phone.Notification.HttpNotificationEventArgs>(pushNotificationService_HttpNotificationReceived);
-            //pushNotificationService.SubscribeCompleted += new EventHandler<SubscribeCompletedEventArgs>(pushNotificationService_SubscribeCompleted);
-            
-            listener.ScheduleBegin += new EventHandler<SchduleListener.ScheduleArg>(listener_ScheduleBegin);
-            listener.ScheduleCompelted += new EventHandler<SchduleListener.ScheduleArg>(listener_ScheduleCompelted);
-            listener.ScheduleStatusChagned += new EventHandler<SchduleListener.ScheduleStatusChangedArg>(listener_ScheduleStatusChagned);
-            listener.Start(this.Dispatcher);
-            
         }
-
-        void pushNotificationService_SubscribeCompleted(object sender, SubscribeCompletedEventArgs e)
-        {  
-            
-        }
-
-        void pushNotificationService_HttpNotificationReceived(object sender, Microsoft.Phone.Notification.HttpNotificationEventArgs e)
+        void UpdateSchdule(object timer)
         {
-           
+            Common.Schedule.SyncPlan(UserProfile.UserProfileManager.ActiveProfile.UserId);
         }
-
-        void pushNotificationService_ErrorOccurred(object sender, Microsoft.Phone.Notification.NotificationChannelErrorEventArgs e)
-        {
-            
-        }
-
         void listener_ScheduleStatusChagned(object sender, SchduleListener.ScheduleStatusChangedArg e)
         {
             MessageBox.Show(string.Format("{0} status changed from {1} to {2}.", e.Item.Name, e.OldStatus, e.NewStatus));
@@ -83,6 +65,11 @@ namespace Gymnastika.Phone.Views
         {
             scoreViewer.ScoreItems.Clear();
             scoreViewer.FinishChange();
+        }
+
+        private void button3_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateSchdule(null);
         }
     }
 }
