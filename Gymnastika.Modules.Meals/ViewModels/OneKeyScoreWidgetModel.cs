@@ -64,7 +64,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _eventAggregator.GetEvent<SendOneKeyScoreEvent>().Publish(null);
             TodayTaskItems = new List<TaskItem>();
             _communicationService.GetCompletedTasks(_user.Id, OnGetCompletedTasksCallback);
-
         }
 
         private void RecieveOneKeyScoreEventHandler(List<TaskItem> taskItems)

@@ -96,6 +96,7 @@
     <Compile Include="Controllers\LoadDataController.cs" />
     <Compile Include="Controls\ChartRowTemplateSelector.cs" />
     <Compile Include="Controls\FoodListItemStyleSelector.cs" />
+    <Compile Include="Converters\BMIValueToForegroundConverter.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToBackgroundConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />

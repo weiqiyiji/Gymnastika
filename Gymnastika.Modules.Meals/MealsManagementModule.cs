@@ -110,7 +110,7 @@ namespace Gymnastika.Modules.Meals
 
         private void RegisterNavigation()
         {
-            _navigationManager.AddRegionIfMissing(NavigationNames.ShellRegion, "健康饮食");
+            _navigationManager.AddRegionIfMissing(NavigationNames.ShellRegion, "饮食");
             _navigationManager.Regions[NavigationNames.ShellRegion].Add(
                 new NavigationDescriptor()
                 {
