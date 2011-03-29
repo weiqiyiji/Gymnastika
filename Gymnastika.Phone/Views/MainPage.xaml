@@ -44,7 +44,6 @@
                 <Grid />
             </controls:PanoramaItem>
         </controls:Panorama>
-        <Button Content="Button" Height="74" HorizontalAlignment="Left" Margin="251,148,0,0" Name="button3" VerticalAlignment="Top" Width="141" Click="button3_Click" />
     </Grid>
 
     <!--Panorama-based applications should not show an ApplicationBar-->

@@ -79,7 +79,7 @@ namespace Gymnastika.Phone.Views
             this.Dispatcher.BeginInvoke(delegate
             {
                 UserProfileManager.ActiveProfile = sender as Profile;
-                NavigationService.Navigate(Pages.GetPageUri<MainPage>());
+              NavigationService.Navigate(Pages.GetPageUri<MainPage>());
             });
         }
 

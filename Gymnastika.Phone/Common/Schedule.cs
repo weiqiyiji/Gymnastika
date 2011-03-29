@@ -11,6 +11,9 @@ using System.Windows.Shapes;
 using System.Collections.Generic;
 using Gymnastika.Phone.Controls;
 using Gymnastika.Phone.Sync;
+using Gymnastika.Sync;
+using System.Xml.Linq;
+using Gymnastika.Sync.Communication;
 namespace Gymnastika.Phone.Common
 {
     #region sub class
@@ -35,6 +38,7 @@ namespace Gymnastika.Phone.Common
             m_Status = ScheduleItemStatus.Normal;
 
         }
+        public List<string> Details { get; set; }
         private static string TranslateStatus(ScheduleItemStatus status)
         {
 
@@ -110,10 +114,18 @@ namespace Gymnastika.Phone.Common
     #endregion
     public class Schedule
     {
-
+        public class SchduleEventArgs:EventArgs
+        {
+            public ScheduleItem Item { get; set; }
+        }
+        public delegate void SyncCompeletedEventHandler(bool Successful, int SceduleCount);
         public delegate void ItemStatusChangedHandler(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus);
         public static event ItemStatusChangedHandler ItemStatusChanged;
+        public static event EventHandler<SchduleEventArgs> ItemRemoved;
+        public static event EventHandler<SchduleEventArgs> ItemAdded;
+        public static event EventHandler<SchduleEventArgs> ItemsCleared;
         private static List<ScheduleItem> m_Items = new List<ScheduleItem>();
+        public static event SyncCompeletedEventHandler SyncCompleted;
         public static void SyncPlan(string userID)
         {
             HttpClient client = new HttpClient();
@@ -121,18 +133,29 @@ namespace Gymnastika.Phone.Common
             client.Get(Config.GetServerPathUri(
                 string.Format(Config.GetPlanOfTodayServiceUri, userID)),null);
         }
-        static void ParseSchdule(string xml)
+        static int ParseSchdule(string xml)
         {
-
+            TaskList list = DataContractHelper.Decontract<TaskList>(xml);
+            Clear();
+            foreach (Task t in list)
+            {
+                XDocument doc = XDocument.Parse(t.Message);
+                
+            }
+            return 0;
         }
         static void client_GetCompeleted(object sender, HttpClient.GetCompeletedArgs e)
         {
-            if (e.Error != null)
+            if (e.Error == null)
             {
-                ParseSchdule(e.Result);
+              int count=  ParseSchdule(e.Result);
+              if (SyncCompleted != null)
+                  SyncCompleted(true, count);
             }
             else
             {
+                if (SyncCompleted != null)
+                    SyncCompleted(false, 0);
                 App.Current.RootVisual.Dispatcher.BeginInvoke(
                     delegate { MessageBox.Show("同步计划列表失败。"); });
             }
@@ -173,10 +196,23 @@ namespace Gymnastika.Phone.Common
         public static ScheduleItem AddItem(ScheduleItem Item)
         {
             Item.StatusChange += new ScheduleItem.StatusChangedHandler(Item_StatusChange);
+            if (ItemAdded != null)
+                ItemAdded(Item, new SchduleEventArgs() { Item = Item });
             m_Items.Add(Item);
             return Item;
         }
-
+        public static void Clear()
+        {
+            m_Items.Clear();
+            if (ItemsCleared != null)
+                ItemsCleared(null, new SchduleEventArgs());
+        }
+        public static void Remove(ScheduleItem Item)
+        {
+            m_Items.Remove(Item);
+            if (ItemRemoved != null)
+                ItemRemoved(null, new SchduleEventArgs() { Item = Item });
+        }
         static void Item_StatusChange(object sender, ScheduleItemStatus OldStatus, ScheduleItemStatus NewStatus)
         {
             if (ItemStatusChanged != null)

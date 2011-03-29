@@ -12,9 +12,10 @@ using System.Threading;
 using System.IO;
 using System.Text.RegularExpressions;
 using Gymnastika.Phone.Sync;
+using System.Runtime.Serialization;
 namespace Gymnastika.Phone.UserProfile
 {
-
+    [DataContract]
     public class Profile
     {
         #region Static Members
@@ -87,8 +88,11 @@ namespace Gymnastika.Phone.UserProfile
         public event OnLoginErrorHandler OnLoginError;
         public event OnLoginProgressChangedHandler OnLoginProgressChanged;
         #endregion
+        [DataMember]
         public string UserId { get; set; }
+        [DataMember]
         public string Username { get; set; }
+        [DataMember]
         public string Password { get; set; }
         public ImageSource Icon { get; set; }
         public bool AutoLogin { get; set; }
@@ -135,7 +139,8 @@ namespace Gymnastika.Phone.UserProfile
             IsOnline = false;
             SignIn(Username, Password, new SignInCompeleted(
                 (str, message, ex) =>
-                { OnLoginCompeleted(this, ex != null); }
+                {
+                    OnLoginCompeleted(this, ex != null); }
                 ));
         }
         private void UpdateLoginPorgress(string msg)

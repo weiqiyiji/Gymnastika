@@ -89,11 +89,13 @@ namespace Gymnastika.Phone.Sync
             {
                 if (GetCompeleted != null)
                 {
-                    GetCompeletedArgs arg = new GetCompeletedArgs() { UserToken = UserToken, Error = e.Error, Uri = uri };
+                    GetCompeletedArgs arg = new GetCompeletedArgs() { UserToken = UserToken, Error = null, Uri = uri };
                     if (e.Error == null && !e.Cancelled)
                     {
                         arg.Result = e.Result;
                     }
+                    else
+                        arg.Error = e.Error;
                     GetCompeleted(this, arg);
                 }
             }

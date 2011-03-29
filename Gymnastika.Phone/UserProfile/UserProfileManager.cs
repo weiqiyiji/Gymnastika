@@ -48,11 +48,11 @@ namespace Gymnastika.Phone.UserProfile
                 path = path.Substring(0, path.Length - 1);
             using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
             {
-                foreach (string subPath in storage.GetDirectoryNames(path+"\\"))
+                foreach (string subPath in storage.GetDirectoryNames(path + "\\"))
                 {
-                    DeleteDirectory(path+"\\"+ subPath);
+                    DeleteDirectory(path + "\\" + subPath);
                 }
-                foreach (string file in storage.GetFileNames(path+"\\"))
+                foreach (string file in storage.GetFileNames(path + "\\"))
                 {
                     storage.DeleteFile(path + "\\" + file);
                 }
@@ -100,7 +100,7 @@ namespace Gymnastika.Phone.UserProfile
                 = IsolatedStorageFile.GetUserStoreForApplication())
             {
 
-                if (Storage.FileExists(string.Format(Config.StoredProfileFilename,Username)))
+                if (Storage.FileExists(string.Format(Config.StoredProfileFilename, Username)))
                 {
                     using (BinaryReader Reader = new BinaryReader(
                         Storage.OpenFile(string.Format(
@@ -121,8 +121,8 @@ namespace Gymnastika.Phone.UserProfile
                                     Gender = (Gender)Reader.ReadByte(),
                                     Height = Reader.ReadDouble(),
                                     Weight = Reader.ReadDouble(),
-                                    UserId=Reader.ReadString(),
-                                    Icon=GetUserIcon(Username)
+                                    UserId = Reader.ReadString(),
+                                    Icon = GetUserIcon(Username)
                                 };
                             }
                             else
@@ -164,7 +164,10 @@ namespace Gymnastika.Phone.UserProfile
                     Writer.Write((byte)Profile.Gender);
                     Writer.Write(Profile.Height);
                     Writer.Write(Profile.Weight);
-                    Writer.Write(Profile.UserId);
+                    if (Profile.UserId == null)
+                        Writer.Write("");
+                    else
+                        Writer.Write(Profile.UserId);
                     if (Profile.Icon is BitmapSource)
                     {
                         StoreUserIcon(Profile.Username, Profile.Icon as BitmapSource);
