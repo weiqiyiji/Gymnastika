@@ -35,12 +35,10 @@ namespace Gymnastika.Modules.Meals.Widgets
         private readonly User _user;
         private readonly int _height;
         private readonly int _weight;
-        private decimal BMI;
 
         public BMIWidget(ISessionManager sessionManager,
             IRegionManager regionManager,
-            IUnityContainer container
-            )
+            IUnityContainer container)
         {
             InitializeComponent();
 
@@ -52,6 +50,12 @@ namespace Gymnastika.Modules.Meals.Widgets
             _weight = _user.Weight;
 
         }
+
+        //public int MinBMIValue { get; set; }
+
+        //public int MaxBMIValue { get; set; }
+
+        public int BMIValue { get; set; }
 
         #region IWidget Members
 
@@ -68,9 +72,9 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeBMI()
         {
-            BMI = _weight / (_height * _height / 10000);
+            BMIValue = _weight / (_height * _height / 10000);
 
-            BMILabel.Text = "" + Decimal.Round(BMI, 1).ToString();
+            BMILabel.Text = "" + Decimal.Round(BMIValue, 1).ToString();
         }
 
         //private void InitializeSuggestion()

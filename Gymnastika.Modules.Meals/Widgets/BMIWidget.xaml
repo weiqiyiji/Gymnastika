@@ -4,12 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:surface="http://schemas.microsoft.com/surface/2008"
+             xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+             xmlns:control="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <SolidColorBrush x:Key="GreenColor" Color="#89D9A8" />
 
         <SolidColorBrush x:Key="GrayText" Color="#7D846C" />
+
+        <!--<converter:BMIValueToForegroundConverter x:Key="BMIValueToForegroundConverter" LowLevelBrush=""-->
+
+        <behaviors:RectangleProvider x:Key="CircleProvider" CornerRadius="75,75,75,75" />
     </UserControl.Resources>
     <Grid>
         <Border Background="White" Width="350" Height="150" CornerRadius="75" >
@@ -46,7 +53,7 @@
                 </StackPanel>
             </Grid>
         </Border>
-        <Border Background="{StaticResource GreenColor}" HorizontalAlignment="Left" CornerRadius="75" Height="150" Width="150" >
+        <Border behaviors:ClipBehavior.Provider="{StaticResource CircleProvider}" Background="{StaticResource GreenColor}" HorizontalAlignment="Left" CornerRadius="75" Height="150" Width="150" >
             <Grid>
                 <!--<Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -56,6 +63,23 @@
                 <TextBlock Grid.Row="1" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" >
                     <TextBlock x:Name="BMILabel" Text="22" FontWeight="Bold" Foreground="White" />
                  </TextBlock>
+                <Grid Background="Transparent" Width="150" Height="10" Margin="-1,100,-1,26" Canvas.ZIndex="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border BorderThickness="1" BorderBrush="{StaticResource GreenColor}" Width="45"/>
+                    <Border Grid.Column="1" BorderThickness="1" BorderBrush="{StaticResource GreenColor}" Width="20"/>
+                    <Border Grid.Column="2" BorderThickness="1" BorderBrush="{StaticResource GreenColor}" Width="30"/>
+                    <Border Grid.Column="3" BorderThickness="1" BorderBrush="{StaticResource GreenColor}" Width="20"/>
+                    <Border Grid.Column="4" BorderThickness="1" BorderBrush="{StaticResource GreenColor}" Width="45"/>
+                    <Border Grid.Column="5" BorderThickness="1" BorderBrush="{StaticResource GreenColor}" Width="45"/>
+                </Grid>
+                <control:AnimatedProgressBar Background="#c4cfb8"  Foreground="White" Maximum="40" Width="150" Height="10" HorizontalAlignment="Center" TargetValue="{Binding BMIValue, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}" Margin="-1,100,-1,26" />
             </Grid>
         </Border>
 

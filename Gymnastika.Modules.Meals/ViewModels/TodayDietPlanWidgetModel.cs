@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Runtime.Serialization;
 using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Data;
 using Gymnastika.Services.Session;
@@ -11,6 +12,9 @@ using Microsoft.Practices.ServiceLocation;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Meals.Events;
 using Microsoft.Practices.Prism.ViewModel;
+using Gymnastika.Modules.Meals.Communication.Services;
+using Gymnastika.Sync.Communication.Client;
+using Gymnastika.Sync.Communication;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -21,6 +25,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
         private readonly ISessionManager _sessionManager;
         private readonly IEventAggregator _eventAggregator;
         private readonly User _currentUser;
+        private readonly CommunicationService _communicationService;
 
         public TodayDietPlanWidgetModel(IFoodService foodService, 
             IWorkEnvironment workEnvironment,
@@ -76,6 +81,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
             if (DietPlan != null)
             {
                 InitializeTodayDietPlan(DietPlan);
+            }
+            else
+            {
+                TodayDietPlanViewModel = ServiceLocator.Current.GetInstance<ITodayDietPlanViewModel>();
             }
         }
 
