@@ -103,7 +103,7 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeBeatyWeight()
         {
-            int BeautyWeight = (_height * _height / 10000) * 19;
+            int BeautyWeight = (int)(((double)_height * (double)_height / 10000d) * 19d);
 
             BeautyWeightLabel.Text = BeautyWeight.ToString();
         }

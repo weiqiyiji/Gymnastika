@@ -16,6 +16,8 @@ using Gymnastika.Common.Extensions;
 using Gymnastika.Modules.Sports.Facilities;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Sports.Events;
+using System.Windows;
+using Gymnastika.Common.Navigation;
 
 namespace Gymnastika.Modules.Sports.ViewModels
 {
@@ -53,8 +55,8 @@ namespace Gymnastika.Modules.Sports.ViewModels
         double CalorieOfThursday { get; }
         double CalorieOfFriday { get; }
         double CalorieOfSaturday { get; }
-        
-    
+
+        DelegateCommand<object> ShowDetailCommand { get; }
     }
 
     public class PlanListViewModel : NotificationObject, IPlanListViewModel
@@ -65,10 +67,13 @@ namespace Gymnastika.Modules.Sports.ViewModels
         readonly ISportsPlanViewModelFactory _planFactory;
         readonly ISportProvider _sportProvider;
         readonly IEventAggregator _aggregator;
-
-        public PlanListViewModel(ISportsPlanProvider planProvider,IPlanItemProvider itemProvider,ISportProvider sportProvider,ISessionManager sessionManager,ISportsPlanViewModelFactory planFactory,IEventAggregator eventAggregator)
+        readonly INavigationService _navigationService;
+        readonly IPlanDetailViewModel _planDetailViewModel;
+        public PlanListViewModel(IPlanDetailViewModel planDetailViewModel, INavigationService navigationService, ISportsPlanProvider planProvider, IPlanItemProvider itemProvider, ISportProvider sportProvider, ISessionManager sessionManager, ISportsPlanViewModelFactory planFactory, IEventAggregator eventAggregator)
         {
             CurrentWeek = DateTime.Now;
+            _planDetailViewModel = planDetailViewModel;
+            _navigationService = navigationService;
             _planProvider = planProvider;
             _itemProvider = itemProvider;
             _sessionManager = sessionManager;
@@ -494,6 +499,25 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _calorieOfSaturday = value;
                     RaisePropertyChanged(() => CalorieOfSaturday);
                 }
+            }
+        }
+        DelegateCommand<Object> _showDetailCommand;
+        public DelegateCommand<Object> ShowDetailCommand
+        {
+            get
+            {
+                if (_showDetailCommand == null)
+                    _showDetailCommand = new DelegateCommand<object>(ShowDetail);
+                return _showDetailCommand;
+            }
+        }
+        void ShowDetail(object o)
+        {
+            SportsPlanViewModel model = o as SportsPlanViewModel;
+            if (o != null)
+            {
+                _planDetailViewModel.SetPlan(model.SportsPlan);
+                _navigationService.RequestNavigate("SportManagementRegion", "ChartPanel");
             }
         }
     }

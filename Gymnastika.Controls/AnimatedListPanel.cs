@@ -125,7 +125,7 @@ namespace Gymnastika.Controls
                     }
                     else
                     {
-                        trans.SetValue(TranslateTransform.XProperty, 0);
+                        trans.SetValue(TranslateTransform.XProperty, 0d);
                     }
                 }
                 

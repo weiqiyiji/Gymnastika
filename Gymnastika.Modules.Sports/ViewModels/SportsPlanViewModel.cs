@@ -101,24 +101,29 @@ namespace Gymnastika.Modules.Sports.ViewModels
             SportsPlan plan = null;
             using (_planProvider.GetContextScope())
             {
-                plan = _planProvider.FetchFirstOrDefault(date);
+                plan = _planProvider.Fetch(date).Where(t => t.User.Id == User.Id).FirstOrDefault();
                 if (plan != null)
                 {
-                    plan.SportsPlanItems = _itemProvider.All().ToList();
+                    plan.SportsPlanItems = _itemProvider.Fetch(t => t.SportsPlan == plan).ToList();
                     foreach (var item in plan.SportsPlanItems)
                         item.Sport = _sportProvider.Get(item.Sport.Id);
                 }
             }
+            ItemsBuffer.Clear();
+            RemoveBuffer.Clear();
             if (plan != null)
             {
                 this.SportsPlan = plan;
+                RaisePropertyChanged(() => Date);
                 return true;
             }
             else
             {
-                this.SportsPlan = new SportsPlan() { User = this.User };
+                this.SportsPlan = new SportsPlan() { User = this.User , Month = date.Month,Year = date.Year,Day = date.Day};
+                RaisePropertyChanged(() => Date);
                 return false;
             }
+            
         }
 
         public DateTime DateTime
@@ -421,10 +426,6 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     _itemProvider.CreateOrUpdate(item);
                     SportsPlan.SportsPlanItems.Add(item);
                 }
-
-               // SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
-                
-               // _planProvider.CreateOrUpdate(SportsPlan);
 
             }
             _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Publish(SportsPlan);
