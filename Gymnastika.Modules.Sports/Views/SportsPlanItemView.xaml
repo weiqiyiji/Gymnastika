@@ -27,7 +27,7 @@
 		<StackPanel Margin="4,0,0,0" Orientation="Horizontal">
     		<Border BorderThickness="0.5" BorderBrush="#FF7C836B" Width="45" HorizontalAlignment="Left" Height="18">
     			<TextBlock x:Name="Time" VerticalAlignment="Center" HorizontalAlignment="Center">
-    				<Run Text="{Binding Hour, Converter={StaticResource DoubleConverter}}"></Run>			
+    				<Run Text="{Binding Hour}"></Run>			
 					<Run Text=":"></Run>
 					<Run Text="{Binding Minute,Converter={StaticResource DoubleConverter}}"></Run>
 				</TextBlock>
