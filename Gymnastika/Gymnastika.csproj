@@ -454,7 +454,9 @@
     <Resource Include="Data\Sport\data\7.png" />
     <Resource Include="Data\Sport\data\8.png" />
     <Resource Include="Data\Sport\data\9.png" />
-    <Resource Include="Data\Sport\SportData.xml" />
+    <Resource Include="Data\Sport\SportData.xml">
+      <SubType>Designer</SubType>
+    </Resource>
     <Content Include="Images\defaultavatar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

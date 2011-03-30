@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gymnastika.Sync.Console", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E801775-C9C2-4AC3-9C13-C9EF45F37E17}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Gymnastika.Setup", "Gymnastika.Setup\Gymnastika.Setup.vdproj", "{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}"
+EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = Gymnastika.vsmdi
@@ -245,6 +247,12 @@ Global
 		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|Mixed Platforms.Build.0 = Release|x86
 		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|x86.ActiveCfg = Release|x86
 		{8F0862A4-21DB-41AB-AA72-7B54DC189307}.Release|x86.Build.0 = Release|x86
+		{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}.Debug|Any CPU.ActiveCfg = Debug
+		{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}.Debug|Mixed Platforms.ActiveCfg = Debug
+		{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}.Debug|x86.ActiveCfg = Debug
+		{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}.Release|Any CPU.ActiveCfg = Release
+		{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}.Release|Mixed Platforms.ActiveCfg = Release
+		{EF69BE9A-7C4D-4AD0-AF90-9AD8B7DA703F}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
