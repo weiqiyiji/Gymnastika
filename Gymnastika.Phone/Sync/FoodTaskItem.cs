@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Gymnastika.Phone.Sync
+namespace Gymnastika.Modules.Meals.Communication.Tasks
 {
     [DataContract]
     public class FoodTaskItem
@@ -21,7 +21,6 @@ namespace Gymnastika.Phone.Sync
         [DataMember]
         public int Amount { get; set; }
     }
-
     [CollectionDataContract]
     public class FoodTaskList : List<FoodTaskItem>
     {

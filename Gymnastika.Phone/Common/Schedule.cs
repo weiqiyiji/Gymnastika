@@ -14,6 +14,7 @@ using Gymnastika.Phone.Sync;
 using Gymnastika.Sync;
 using System.Xml.Linq;
 using Gymnastika.Sync.Communication;
+using Gymnastika.Modules.Meals.Communication.Tasks;
 namespace Gymnastika.Phone.Common
 {
     #region sub class
@@ -27,6 +28,11 @@ namespace Gymnastika.Phone.Common
         Normal,
         Forward
     }
+    public enum ScheduleItemType
+    {
+        Sports,
+        Diets
+    }
     public class ScheduleItem : DependencyObject
     {
         //public FrameworkElement Content;
@@ -39,6 +45,7 @@ namespace Gymnastika.Phone.Common
 
         }
         public List<string> Details { get; set; }
+        public ScheduleItemType  Type { get; set; }
         private static string TranslateStatus(ScheduleItemStatus status)
         {
 
@@ -165,27 +172,31 @@ namespace Gymnastika.Phone.Common
                         Point = sport.Score,
                         Details = new List<string>()
                     };
+                    newItem.Type = ScheduleItemType.Sports;
                     newItem.Details.Add(string.Format("{0}:每 {1} 分钟消耗卡路里 {2} 大卡。", sport.SportName, sport.Minutes, sport.Calories));
                     result.Add(newItem);
                 }
-                else if (string.Compare(element.Name.LocalName, "FoodTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
+                else if (string.Compare(element.Name.LocalName, "DietPlanTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
                 {
                     DietPlanTaskItem diet = DataContractHelper.Decontract<DietPlanTaskItem>(t.Message);
                     double Calorie = 0;
                     string detail = "";
+                    
                     ScheduleItem newItem = new ScheduleItem()
                     {
                         Name = GetDietNameFromTime(diet.StartTime),
                         Point = diet.Score,
                         ID = t.TaskId,
+                        Time=diet.StartTime,
                         Details = new List<string>()
                     };
                     foreach (FoodTaskItem foodTask in diet.FoodTasks)
                     {
                         Calorie += foodTask.Calorie;
-                        newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName, foodTask.Calorie));
+                        newItem.Details.Add(string.Format("{0}({1}) 卡路里量 {2} 大卡", foodTask.FoodName,foodTask.Amount+"克", foodTask.Calorie));
                     }
                     newItem.Calorie = Calorie;
+                    newItem.Type = ScheduleItemType.Diets;
                     //     newItem.Details = detail;
                     result.Add(newItem);
                 }

@@ -6,7 +6,6 @@ using System.Runtime.Serialization;
 
 namespace Gymnastika.Modules.Meals.Communication.Tasks
 {
-    [DataContract]
     public class FoodTaskItem
     {
         [DataMember]
@@ -22,7 +21,6 @@ namespace Gymnastika.Modules.Meals.Communication.Tasks
         public int Amount { get; set; }
     }
 
-    [CollectionDataContract]
     public class FoodTaskList : List<FoodTaskItem>
     {
     }

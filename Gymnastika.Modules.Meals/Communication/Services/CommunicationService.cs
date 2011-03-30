@@ -36,8 +36,8 @@ namespace Gymnastika.Modules.Meals.Communication.Services
                     {
                         UserId = dietPlan.User.Id,
                         ConnectionId = _connectionStore.ConnectionId,
-                        StartTime = taskItem.StartTime,
-                        //StartTime = DateTime.Now.AddSeconds(10),
+                        //StartTime = taskItem.StartTime,
+                        StartTime = DateTime.Now.AddSeconds(10),
                         Message = TransferTaskItemToXml(taskItem)
                         //Message = "hello"
                     };

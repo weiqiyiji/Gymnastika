@@ -5,9 +5,8 @@ using System.Text;
 using System.Runtime.Serialization;
 using System.Collections;
 
-namespace Gymnastika.Phone.Sync
+namespace Gymnastika.Modules.Meals.Communication.Tasks
 {
-    [DataContract(Namespace="")]
     public class DietPlanTaskItem
     {
         [DataMember]
