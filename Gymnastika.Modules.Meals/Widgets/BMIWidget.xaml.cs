@@ -72,9 +72,9 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeBMI()
         {
-            BMIValue = _weight / (_height * _height / 10000);
+            BMIValue = (int)(_weight / ((double)_height * _height / 10000));
 
-            BMILabel.Text = "" + Decimal.Round(BMIValue, 1).ToString();
+            BMILabel.Text = BMIValue.ToString();
         }
 
         //private void InitializeSuggestion()
@@ -96,7 +96,7 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeNormalWeight()
         {
-            int NormalWeight = (_height * _height / 10000) * 22;
+            int NormalWeight = (int)(((double)_height * _height / 10000) * 22);
 
             NormalWeightLabel.Text = NormalWeight.ToString();
         }

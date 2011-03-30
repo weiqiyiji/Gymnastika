@@ -12,10 +12,11 @@ using Gymnastika.Modules.Meals.Events;
 using Gymnastika.Common.Navigation;
 using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Data;
+using Microsoft.Practices.Prism.ViewModel;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class DietPlanItemViewModel
+    public class DietPlanItemViewModel :NotificationObject
     {
         public DietPlanItemViewModel(DietPlan dietPlan)
         {
@@ -70,7 +71,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public string CreatedDate { get; set; }
 
-        public PlanType DietPlanType { get; set; }
+        private PlanType _dietPlanType;
+        public PlanType DietPlanType
+        {
+            get
+            {
+                return _dietPlanType;
+            }
+            set
+            {
+                if (_dietPlanType != value)
+                {
+                    _dietPlanType = value;
+                    RaisePropertyChanged("DietPlanType");
+                }
+            }
+        }
 
         public string ButtonContent { get; set; }
 

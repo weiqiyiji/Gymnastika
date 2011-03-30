@@ -7,10 +7,13 @@
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
              xmlns:ec="http://schemas.microsoft.com/expression/2010/controls" x:Class="Gymnastika.Modules.Meals.Views.DietPlanItemView"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <converter:PlanTypeToVisibilityConverter x:Key="PlanTypeToVisibilityConverter" />
+        
         <ControlTemplate x:Key="ScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
             <Grid x:Name="Grid" Background="{TemplateBinding Background}">
                 <Grid.ColumnDefinitions>
@@ -317,7 +320,7 @@
                         </surface:SurfaceListBox>
                         <Rectangle Fill="White" Height="60" VerticalAlignment="Bottom" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
                         <StackPanel Canvas.ZIndex="1"  Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" >
-                            <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding DeleteCommand}" Content="删除" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0" />
+                            <!--<Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding DeleteCommand}" Visibility="{Binding DietPlanType, Converter={StaticResource PlanTypeToVisibilityConverter}}" Content="删除" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0" />-->
                             <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding ApplyCommand}" Content="{Binding ButtonContent}" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </StackPanel>
                     </Grid>

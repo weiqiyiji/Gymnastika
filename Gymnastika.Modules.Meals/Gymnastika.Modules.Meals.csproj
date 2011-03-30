@@ -103,6 +103,7 @@
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\DecimalConverter.cs" />
     <Compile Include="Converters\NutritionToForegroundConverter.cs" />
+    <Compile Include="Converters\PlanTypeToVisibilityConverter.cs" />
     <Compile Include="Converters\TextConverter.cs" />
     <Compile Include="Converters\WidthToForegroundConverter.cs" />
     <Compile Include="Events\AmountChangedEvent.cs" />

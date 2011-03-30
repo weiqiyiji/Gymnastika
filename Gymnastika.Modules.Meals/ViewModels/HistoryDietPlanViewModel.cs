@@ -33,7 +33,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
             using (var scope = _workEnvironment.GetWorkContextScope())
             {
-                DietPlans = _foodService.DietPlanProvider.GetDietPlans(_sessionManager.GetCurrentSession().AssociatedUser.Id);
+                DietPlans = _foodService.DietPlanProvider.GetDietPlans(_sessionManager.GetCurrentSession().AssociatedUser.Id, 7);
                 foreach (var dietPlan in DietPlans)
                 {
                     dietPlan.SubDietPlans = dietPlan.SubDietPlans.ToList();
@@ -71,9 +71,6 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         private void AddOrModifiedDietPlanEventHandler(DietPlan dietPlan)
         {
-            DietPlanItemViewModel dietPlanItemViewModel = new DietPlanItemViewModel(dietPlan);
-            HistoryDietPlans.Add(dietPlanItemViewModel);
-
             foreach (var dietPlanItem in HistoryDietPlans)
             {
                 if (dietPlanItem.CreatedDate == dietPlan.CreatedDate.ToString("yyyy-MM-dd"))
@@ -82,6 +79,9 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     break;
                 }
             }
+
+            DietPlanItemViewModel dietPlanItemViewModel = new DietPlanItemViewModel(dietPlan);
+            HistoryDietPlans.Add(dietPlanItemViewModel);
         }
 
         private void DeleteDietPlanEventHanlder(DietPlanItemViewModel dietPlanItem)
