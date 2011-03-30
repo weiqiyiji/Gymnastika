@@ -48,7 +48,7 @@ namespace Gymnastika.Controls
 
         private void BeginWidthAnimation()
         {
-            double dt = (Math.Abs(TargetValue - Value) / (Maximum==0?100:Maximum));
+            double dt = (Math.Abs(TargetValue - Value) / (Maximum == 0 ? 1000000 : Maximum));
             double dur = Math.Sqrt(dt) * (Duration-0.4d) + 0.4d ;
             DoubleAnimation valueAni = new DoubleAnimation(ToRange(TargetValue), TimeSpan.FromSeconds(dur));
             valueAni.EasingFunction = new ElasticEase() { EasingMode = System.Windows.Media.Animation.EasingMode.EaseInOut, Oscillations = 0, Springiness = 0.5 };

@@ -63,7 +63,7 @@
             <control:ImageButton Command="{Binding CloseCommand}" VerticalAlignment="Top" HorizontalAlignment="Right"
                                  ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close.png"
                                  MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close.png" 
-                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close_down.png" />
+                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Meals;Component/Images/close_down.png" Panel.ZIndex="1" />
             <Grid Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

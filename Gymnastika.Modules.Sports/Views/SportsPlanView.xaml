@@ -142,11 +142,11 @@
     </UserControl.Resources>
     <Grid behaviors:ClipBehavior.Provider="{StaticResource rectangleProvider}" Background="#FFFDFDFD">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="0.035*" />
-			<RowDefinition Height="0.08*"/>
-			<RowDefinition Height="0.166*"/>
-			<RowDefinition Height="0.615*"/>
-			<RowDefinition Height="0.104*"/>
+			<RowDefinition Height="0.043*" />
+			<RowDefinition Height="47.894"/>
+			<RowDefinition Height="0.203*"/>
+			<RowDefinition Height="0.754*"/>
+			<RowDefinition Height="62.4"/>
 			<RowDefinition Height="0*"/>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
@@ -154,7 +154,7 @@
 			<ColumnDefinition Width="0.869*"/>
 			<ColumnDefinition Width="0.064*"/>
 		</Grid.ColumnDefinitions>
-    	<ListBox Grid.Column="1" Margin="0" Grid.Row="2" Grid.RowSpan="2" BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" Style="{DynamicResource ListBoxStyle}">
+    	<ListBox Grid.Column="1" Margin="0" Grid.Row="2" Grid.RowSpan="2" BorderBrush="Transparent" HorizontalContentAlignment="Stretch" x:Name="Items" Background="Transparent" dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" ItemsSource="{Binding SportsPlanItemViewModels}" ItemContainerStyle="{DynamicResource ListBoxItemStyle}" Style="{DynamicResource ListBoxStyle}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
     		<dd:DragDrop.DragAdornerTemplate>
     			<DataTemplate>
     				<Image Source="{Binding ImageUri, Converter={StaticResource ResourceKey=FullPathConverter}}"/>
