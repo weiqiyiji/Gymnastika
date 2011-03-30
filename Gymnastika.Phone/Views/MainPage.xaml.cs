@@ -16,11 +16,12 @@ using Gymnastika.Phone.Sync;
 using System.Threading;
 using System.IO;
 using System.Text;
+using System.Xml.Linq;
 namespace Gymnastika.Phone.Views
 {
     public partial class MainPage : PhoneApplicationPage
     {
-      
+
         PlanSync sync = new PlanSync();
         SchduleListener listener = new SchduleListener();
         Timer UpdateSchduleTimer;
@@ -30,7 +31,7 @@ namespace Gymnastika.Phone.Views
             Common.DefualtTransition.SetNavigationTransition(this);
             Util.pushNotificationService.SubscribeCompleted += new EventHandler<SubscribeCompletedEventArgs>(pushNotificationService_SubscribeCompleted);
             Util.pushNotificationService.HttpNotificationReceived += new EventHandler<Microsoft.Phone.Notification.HttpNotificationEventArgs>(pushNotificationService_HttpNotificationReceived);
-           listener.ScheduleCompelted+=new EventHandler<SchduleListener.ScheduleArg>(listener_ScheduleCompelted);
+            listener.ScheduleCompelted += new EventHandler<SchduleListener.ScheduleArg>(listener_ScheduleCompelted);
             Common.Schedule.ItemAdded += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemAdded);
             Common.Schedule.ItemRemoved += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemRemoved);
             Common.Schedule.ItemsCleared += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemsCleared);
@@ -41,7 +42,7 @@ namespace Gymnastika.Phone.Views
         void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
         {
             UserProfile.UserProfileManager.ActiveProfile = null;
-            
+
         }
 
         void Schedule_ItemsCleared(object sender, Schedule.SchduleEventArgs e)
@@ -62,30 +63,84 @@ namespace Gymnastika.Phone.Views
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             Util.pushNotificationService.Connect();
+            //ParseNotification("<schedule id=\"15\">" +
+            //                  "<connection id=\"3\"/>" +
+            //                  "<user id=\"1\" />"
+            //                  + "<data>"
+            //                  + "<SportsPlanTaskItem xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">"
+            //                 + "<Calories>300</Calories>"
+            //                 + "<Duration>30</Duration>"
+            //                 + "<Id>21</Id>"
+            //                 + "<Minutes>60</Minutes>"
+            //                 + "<Score>40.72063178677196</Score>"
+            //                 + "<SportName>桌球</SportName>"
+            //                 + "<Time>2011-03-29T17:53:00</Time>"
+            //                 + "</SportsPlanTaskItem>"
+            //                 + "</data>"
+            //                 + "</schedule>");
         }
+        void ParseNotification(string xml)
+        {
+            this.Dispatcher.BeginInvoke(delegate
+            {
+                XDocument doc = XDocument.Parse(xml);
+                int id = 0;
+                foreach (XElement element in doc.Elements())
+                {
 
+                    if (element.Name.LocalName == "schedule")
+                    {
+                        foreach (XAttribute attr in element.Attributes())
+                        {
+                            if (attr.Name.LocalName == "id")
+                                id = int.Parse(attr.Value);
+                        }
+                        foreach (XElement element2 in element.Elements())
+                        {
+                            if (element2.Name.LocalName == "data")
+                            {
+                                Common.ScheduleItem item = Schedule.GetItemFromXml(id, element2.FirstNode.ToString());
+                                OnNotificationItem(item);
+                            }
+                        }
+                    }
+                }
+            });
+
+        }
+        void OnNotificationItem(Common.ScheduleItem Item)
+        {
+            bool flag = false;
+            foreach (var i in Schedule.GetAllSchedules())
+            {
+                if (Item.ID == i.ID)
+                {
+                    flag = true;
+                    Item = i;
+                    break;
+                }
+            }
+            if (!flag)
+                Schedule.AddItem(Item);
+            if (Item.Status != ScheduleItemStatus.Active && Item.Status != ScheduleItemStatus.Done)
+            {
+                if (MessageBox.Show(string.Format("开始{0}?", Item.Name), "提示", MessageBoxButton.OKCancel)==MessageBoxResult.OK)
+                {
+                    Item.Status = ScheduleItemStatus.Active;
+                } 
+            }
+        }
         void pushNotificationService_HttpNotificationReceived(object sender, Microsoft.Phone.Notification.HttpNotificationEventArgs e)
         {
             using (StreamReader reader = new StreamReader(e.Notification.Body, Encoding.UTF8))
             {
-                List<ScheduleItem> items = Schedule.ParseSchduleItems(reader.ReadToEnd());
-                foreach (ScheduleItem item in items)
-                {
-                    ScheduleItem savedItem = Schedule.GetScheduleItemById(item.ID);
-                    if (savedItem != null && savedItem.Status != ScheduleItemStatus.Done)
-                    {
-                        if (MessageBox.Show(string.Format("开始 {0} ?", item.Name), "提醒", MessageBoxButton.OK) ==MessageBoxResult.OK)
-                        {
-                            savedItem.Status = ScheduleItemStatus.Active;
-                        }
-                    }
-                }
+                ParseNotification(reader.ReadToEnd());
             }
         }
 
         void pushNotificationService_SubscribeCompleted(object sender, SubscribeCompletedEventArgs e)
         {
-            
+
         }
         void UpdateSchdule(object timer)
         {
@@ -93,10 +148,10 @@ namespace Gymnastika.Phone.Views
         }
         void listener_ScheduleCompelted(object sender, SchduleListener.ScheduleArg e)
         {
-         PlanSync.CompeleteTask(e.Item.ID,new PlanSync.CompeleteTaskCallback((id,successful)=>
-         {
-             
-         }));  
+            PlanSync.CompeleteTask(e.Item.ID, new PlanSync.CompeleteTaskCallback((id, successful) =>
+            {
+
+            }));
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
