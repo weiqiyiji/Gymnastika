@@ -7,10 +7,13 @@
              xmlns:viewModel="clr-namespace:Gymnastika.Modules.Meals.ViewModels"
              xmlns:view="clr-namespace:Gymnastika.Modules.Meals.Views"
              xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls"
+             xmlns:converter="clr-namespace:Gymnastika.Modules.Meals.Converters"
              xmlns:ec="http://schemas.microsoft.com/expression/2010/controls" x:Class="Gymnastika.Modules.Meals.Views.DietPlanItemView"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
+        <converter:PlanTypeToVisibilityConverter x:Key="PlanTypeToVisibilityConverter" />
+        
         <ControlTemplate x:Key="ScrollViewerControlTemplate" TargetType="{x:Type ScrollViewer}">
             <Grid x:Name="Grid" Background="{TemplateBinding Background}">
                 <Grid.ColumnDefinitions>
@@ -259,8 +262,8 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
-        
+
+
         <DataTemplate DataType="{x:Type viewModel:DietPlanSubItemViewModel}">
             <view:DietPlanSubItemView />
         </DataTemplate>
@@ -288,7 +291,7 @@
             <Border CornerRadius="35" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource HeaderBackground}" />
             <Border Grid.Row="1" Grid.Column="0" Background="{StaticResource HeaderBackground}" />
 
-            <TextBlock Margin="30,0,0,5" Grid.ColumnSpan="2" Foreground="{StaticResource WhiteText}" Text="{Binding CreatedDate}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
+            <TextBlock Margin="30,0,0,5" Grid.ColumnSpan="2" Foreground="{StaticResource WhiteText}" Text="{Binding DisplayName}" VerticalAlignment="Bottom" HorizontalAlignment="Left" />
             <TextBlock Margin="30,5,0,0" Grid.ColumnSpan="2" Grid.Row="1" Foreground="{StaticResource WhiteText}" VerticalAlignment="Top" HorizontalAlignment="Left" ><InlineUIContainer>
             		<TextBlock Text="总摄入量：（" />
             	</InlineUIContainer><Run Text=" "/><InlineUIContainer>
@@ -301,18 +304,26 @@
 
         <Grid Grid.Row="1">
 
-            <Border behaviors:ClipBehavior.Provider="{StaticResource RectangleProvider}" Height="630" Width="245" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource BodyBackgruond}">
+            <Border behaviors:ClipBehavior.Provider="{StaticResource RectangleProvider}" Height="685" Width="245" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Background="{StaticResource BodyBackgruond}">
                 <Grid>
-                    <Rectangle HorizontalAlignment="Left" Width="30" Fill="{StaticResource HeaderBackground}" />
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
                     <Rectangle Fill="White" Height="20" VerticalAlignment="Top" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
-                    <surface:SurfaceListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0" Background="Transparent" ItemsSource="{Binding DietPlanSubItems, IsAsync=True}" 
+
+                    <Rectangle Grid.RowSpan="2" HorizontalAlignment="Left" Width="30" Fill="{StaticResource HeaderBackground}" />
+                    <Grid Grid.Row="1">
+                        <surface:SurfaceListBox ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0" Background="Transparent" ItemsSource="{Binding DietPlanSubItems, IsAsync=True}" 
                          ItemContainerStyle="{StaticResource ListBoxItemStyle}">
-                    </surface:SurfaceListBox>
-                    <Rectangle Fill="White" Height="60" VerticalAlignment="Bottom" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
-                    <StackPanel Canvas.ZIndex="1"  Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" >
-                        <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding DeleteCommand}" Content="删除" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0" />
-                        <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding ApplyCommand}" Content="{Binding ButtonContent}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </StackPanel>
+                        </surface:SurfaceListBox>
+                        <Rectangle Fill="White" Height="60" VerticalAlignment="Bottom" Margin="30,0,0,0" HorizontalAlignment="Stretch" />
+                        <StackPanel Canvas.ZIndex="1"  Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,10,10" >
+                            <!--<Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding DeleteCommand}" Visibility="{Binding DietPlanType, Converter={StaticResource PlanTypeToVisibilityConverter}}" Content="删除" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,10,0" />-->
+                            <Button Style="{StaticResource GreenButtonStyle}" Width="42" Command="{Binding ApplyCommand}" Content="{Binding ButtonContent}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        </StackPanel>
+                    </Grid>
                 </Grid>
             </Border>
 

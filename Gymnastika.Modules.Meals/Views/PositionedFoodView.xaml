@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <ItemsControl Height="200" Width="280" Background="Transparent" ItemsSource="{Binding PositionedFood}"
+        <ItemsControl Height="200" Width="320" Background="Transparent" ItemsSource="{Binding PositionedFood}"
                       dd:DragDrop.IsDropTarget="True" dd:DragDrop.DropHandler="{Binding}" dd:DragDrop.IsDragSource="True"
                       dd:DragDrop.DragAdornerTemplate="{StaticResource FoodListItem}">
             <ItemsControl.ItemTemplate>

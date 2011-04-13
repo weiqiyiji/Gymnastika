@@ -11,7 +11,11 @@ namespace Gymnastika.Modules.Meals.Models
 
         public virtual int Score { get; set; }
 
+        public virtual DateTime StartTime { get; set; }
+
         public virtual bool Mark { get; set; }
+
+        public virtual string MealName { get; set; }
 
         public virtual DietPlan DietPlan { get; set; }
 

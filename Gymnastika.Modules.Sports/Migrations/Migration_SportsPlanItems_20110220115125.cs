@@ -32,6 +32,7 @@ namespace Gymnastika.Migrations
                                                     .Column<int>("Duration")
                                                     .Column<bool>("Completed")
                                                     .Column<int>("SportId")
+                                                    .Column<double>("Score")
                                                     .Column<int>("SportsPlanId"));
 
             SchemaBuilder.CreateForeignKey(Sports_FK, TableName, new string[] { "SportId" }, SportsTable, new string[] { "Id" })

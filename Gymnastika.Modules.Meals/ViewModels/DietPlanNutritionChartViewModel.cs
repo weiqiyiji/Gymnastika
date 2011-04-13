@@ -10,6 +10,8 @@ using Microsoft.Practices.Unity;
 using Gymnastika.Services.Models;
 using Microsoft.Practices.Prism.Events;
 using Gymnastika.Modules.Meals.Events;
+using Microsoft.Practices.ServiceLocation;
+using System.Windows;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -35,7 +37,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _beautyWeight = (_user.Height * _user.Height / 10000) * 19;
             _minTotalCalorie = _beautyWeight / 0.45 * 10;
-            _maxTotalCalorie = _beautyWeight / 0.45 * 13;
+            _maxTotalCalorie = _beautyWeight / 0.45 * 15;
 
             _nutritionMinMaxValues = new double[] { _minTotalCalorie, _maxTotalCalorie, _minTotalCalorie * 0.6 / 4, _maxTotalCalorie * 0.6 / 4, 
                 _minTotalCalorie * 0.2 / 9, _maxTotalCalorie * 0.2 / 9, _minTotalCalorie * 0.2 / 4, _maxTotalCalorie * 0.2 / 4 };
@@ -50,7 +52,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 nutritionChartItem.MaxTotalNutritionValue = _nutritionMinMaxValues[2 * i + 1];
                 DietPlanNutritionChartItems.Add(nutritionChartItem);
             }
-            
+
             View = view;
             View.Context = this;
             _eventAggregator.GetEvent<DietPlanNutritionChangedEvent>().Subscribe(DietPlanNutritionChangedHandler);
@@ -76,8 +78,14 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
         }
 
+        public DietPlanReminderViewModel DietPlanReminderViewModel { get; set; }
+
+        public IList<string> OverMaxValueNutritionNames { get; set; }
+
         public void DietPlanNutritionChangedHandler(IList<NutritionElement> nutritions)
         {
+            OverMaxValueNutritionNames = new List<string>();
+            bool flag = false;
             for (int i = 0; i < 4; i++)
             {
                 string nutritionName = NutritionNames.FirstOrDefault(n => n == DietPlanNutritionChartItems[i].NutritionName);
@@ -96,6 +104,28 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 {
                     DietPlanNutritionChartItems[i].DietPlanNutritionValue = 0;
                 }
+
+                if (DietPlanNutritionChartItems[i].IsOverMaxValue)
+                {
+                    if (DietPlanNutritionChartItems[i].NeedAlert)
+                        flag = true;
+                    DietPlanNutritionChartItems[i].NeedAlert = false;
+                    OverMaxValueNutritionNames.Add(nutritionName);
+
+                }
+                else
+                {
+                    DietPlanNutritionChartItems[i].NeedAlert = true;
+                }
+            }
+
+            if (OverMaxValueNutritionNames.Count != 0 && flag)
+            {
+                DietPlanReminderViewModel = ServiceLocator.Current.GetInstance<DietPlanReminderViewModel>();
+                DietPlanReminderViewModel.NutritionNames = OverMaxValueNutritionNames;
+                DietPlanReminderViewModel.View.Owner = Application.Current.MainWindow;
+                DietPlanReminderViewModel.View.ShowDialog();
+                Application.Current.MainWindow.ReleaseMouseCapture();
             }
         }
 

@@ -26,5 +26,8 @@ namespace Gymnastika.Modules.Sports.Communication.Tasks
 
         [DataMember]
         public int Minutes { get; set; }
+
+        [DataMember]
+        public double Score { get; set; }
     }
 }

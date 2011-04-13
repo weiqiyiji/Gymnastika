@@ -61,6 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ShellSettings.cs" />
+    <Compile Include="Events\RecieveOneKeyScoreEvent.cs" />
+    <Compile Include="Events\SendOneKeyScoreEvent.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\ReadOnlyCollectionExtensions.cs" />
     <Compile Include="Logging\FileLogger.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Utils\ImageHelper.cs" />
     <Compile Include="Utils\UniqueExecuteHelper.cs" />
     <Compile Include="Utils\Inflector.cs" />
+    <Compile Include="Models\TaskItem.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gymnastika.Resources\Gymnastika.Resources.csproj">

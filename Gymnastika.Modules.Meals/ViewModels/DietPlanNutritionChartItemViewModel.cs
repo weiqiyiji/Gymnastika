@@ -16,11 +16,10 @@ namespace Gymnastika.Modules.Meals.ViewModels
         public DietPlanNutritionChartItemViewModel()
         {
             DietPlanNutritionValue = 0.0;
+            NeedAlert = true;
         }
 
         public string NutritionName { get; set; }
-
-        public double MaximunTotalNutritionValue { get { return MinTotalNutritionValue * 1.5; } }
 
         public double MinTotalNutritionValue
         {
@@ -69,5 +68,15 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 }
             }
         }
+
+        public bool IsOverMaxValue
+        {
+            get
+            {
+                return (DietPlanNutritionValue >= MaxTotalNutritionValue);
+            }
+        }
+
+        public bool NeedAlert { get; set; }
     }
 }

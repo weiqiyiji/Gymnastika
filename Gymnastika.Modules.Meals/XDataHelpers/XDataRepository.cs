@@ -37,14 +37,13 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
 
             //_xCategoryData = _dataFileManager.GetCategoryData();
             //_xFoodData = _dataFileManager.GetFoodData();
-            //_xDietPlanData = _dataFileManager.GetDietPlanData();
+            _xDietPlanData = _dataFileManager.GetDietPlanData();
 
             _xFoodLibrary = _dataFileManager.GetFoodLibrary();
 
             string currentDirectory = Directory.GetCurrentDirectory();
-            string imagesDirectory = currentDirectory + "\\Images\\";
-            _categoryImagesDirectory = imagesDirectory + "CategoryImages\\";
-            _foodImagesDirectory = imagesDirectory + "FoodImages\\";
+            string imagesDirectory = currentDirectory + "\\Data\\Food\\";
+            _foodImagesDirectory = imagesDirectory + "Images\\";
         }
 
         //private bool _isStored;
@@ -69,7 +68,7 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
             ExtractFoodLibrary();
             //ExtractCategoryData();
             //ExtractFoodData();
-            //ExtractDietPlanData();
+            ExtractDietPlanData();
         }
 
         private void ExtractFoodLibrary()
@@ -87,8 +86,7 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
                 {
                     Food food = new Food();
                     food.Name = xFood.Name;
-                    food.SmallImageUri = _foodImagesDirectory + xFood.SmallImageUri.Substring(7);
-                    food.LargeImageUri = _foodImagesDirectory + xFood.LargeImageUri.Substring(7);
+                    food.ImageUri = _foodImagesDirectory + xFood.Id + ".png";
                     food.Calorie = xFood.NutritionElements[0].Value;
                     food.Category = category;
                     foreach (var xNutritionElement in xFood.NutritionElements)
@@ -259,6 +257,7 @@ namespace Gymnastika.Modules.Meals.XDataHelpers
                     foreach (var xSubDietPlan in xDietPlan.SubDietPlans)
                     {
                         SubDietPlan subDietPlan = new SubDietPlan();
+                        subDietPlan.StartTime = DateTime.Now;
                         subDietPlan.DietPlanItems = new List<DietPlanItem>();
                         //_foodService.SubDietPlanProvider.Create(subDietPlan);
                         foreach (var xDietPlanItem in xSubDietPlan.DietPlanItems)

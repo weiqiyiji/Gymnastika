@@ -156,7 +156,11 @@ namespace Gymnastika.Phone.Controls
                 else
                     txtTime.Text = Schedule.Time.ToString("HH:mm:ss");
                 txtName.Text = Schedule.Name;
-
+                spDetails.Children.Clear();
+                foreach (string detail in Schedule.Details)
+                {
+                    spDetails.Children.Add(new TextBlock() { Text = detail,Foreground=new SolidColorBrush(Colors.Black),FontSize=22,Margin=new Thickness(5,2,2,2) });
+                }
                 
                 string resName = "Bg" + Enum.GetName(typeof(ScheduleItemStatus), Schedule.Status);
                 if (Resources.Contains(resName)&&Resources[resName] is Brush)
@@ -178,6 +182,10 @@ namespace Gymnastika.Phone.Controls
                     txtCalorie.Foreground = Resources["FgOut"] as Brush;
                 }
                 txtCalorie.Visibility = Schedule.Calorie != 0 ? Visibility.Visible : Visibility.Collapsed;
+                if (Schedule.Type == ScheduleItemType.Sports)
+                    imgIcon.Source = Resources["IconSport"] as ImageSource;
+                else
+                    imgIcon.Source = Resources["IconDiet"] as ImageSource;
             }
 
            

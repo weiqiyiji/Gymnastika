@@ -12,15 +12,17 @@ using Gymnastika.Modules.Meals.Events;
 using Gymnastika.Common.Navigation;
 using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Data;
+using Microsoft.Practices.Prism.ViewModel;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
-    public class DietPlanItemViewModel
+    public class DietPlanItemViewModel :NotificationObject
     {
         public DietPlanItemViewModel(DietPlan dietPlan)
         {
             DietPlan = dietPlan;
             DietPlanType = DietPlan.PlanType;
+            DietPlanName = DietPlan.Name;
             CreatedDate = DietPlan.CreatedDate.ToString("yyyy-MM-dd");
             TotalCalorie = 0;
             IList<string> mealNames = new List<string> { "早餐", "中餐", "晚餐" };
@@ -43,17 +45,25 @@ namespace Gymnastika.Modules.Meals.ViewModels
                 DietPlanSubItems.Add(dietPlanSubItem);
                 TotalCalorie += dietPlanSubItem.SubTotalCalorie;
             }
-            //DietPlanName = DietPlan.Name;
 
-            if (DietPlanType == PlanType.CreatedDietPlan && CreatedDate.CompareTo(DateTime.Now.ToString("yyyy-MM-dd")) >= 0)
+            ButtonContent = "应用";
+            if (DietPlanType == PlanType.CreatedDietPlan)
+            {
+                DisplayName = CreatedDate;
+                if (CreatedDate.CompareTo(DateTime.Now.ToString("yyyy-MM-dd")) >= 0)
                 ButtonContent = "修改";
+            }
             else
-                ButtonContent = "应用";
+            {
+                DisplayName = DietPlanName;
+            }
         }
 
         public DietPlan DietPlan { get; set; }
 
         public IList<DietPlanSubItemViewModel> DietPlanSubItems { get; set; }
+
+        public string DisplayName { get; set; }
 
         public int TotalCalorie { get; set; }
 
@@ -61,7 +71,22 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public string CreatedDate { get; set; }
 
-        public PlanType DietPlanType { get; set; }
+        private PlanType _dietPlanType;
+        public PlanType DietPlanType
+        {
+            get
+            {
+                return _dietPlanType;
+            }
+            set
+            {
+                if (_dietPlanType != value)
+                {
+                    _dietPlanType = value;
+                    RaisePropertyChanged("DietPlanType");
+                }
+            }
+        }
 
         public string ButtonContent { get; set; }
 

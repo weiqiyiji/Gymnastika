@@ -19,7 +19,21 @@ namespace Gymnastika.Sync.Communication.Client
             _baseAddress =
                 new Uri(new Uri(Configuration.GetConfiguration("ServiceBaseUri")), ProfileRelativeUri).AbsoluteUri;
         }
+        public ResponseMessage Test(string userName, string passwrod)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = client.Post("http://localhost:53969/echo.aspx",
+                    HttpContentExtensions.CreateDataContract<LogOnInfo>(
+                        new LogOnInfo()
+                        {
+                            UserName = userName,
+                            Password = passwrod
+                        }));
 
+                return new ResponseMessage(response, HttpStatusCode.OK);
+            }
+        }
         public ResponseMessage LogOn(string userName, string password)
         {
             using(HttpClient client = new HttpClient())

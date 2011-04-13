@@ -13,6 +13,7 @@ namespace Gymnastika.Modules.Meals.Services.Providers
         void Update(DietPlan dietPlan);
         void Delete(DietPlan dietPlan);
         IEnumerable<DietPlan> GetDietPlans(int userId);
+        IEnumerable<DietPlan> GetDietPlans(int userId, int count);
         IEnumerable<DietPlan> GetRecommendedDietPlans();
         DietPlan Get(User user, int skip);
         DietPlan Get(PlanType planType, int skip);

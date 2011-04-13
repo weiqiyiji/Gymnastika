@@ -156,12 +156,21 @@
     <Compile Include="PopupMenu\ConnectionHelper.cs" />
     <Compile Include="Sync\DesktopAccessPoint.cs" />
     <Compile Include="Sync\DesktopAccessPointCollection.cs" />
+    <Compile Include="Sync\DietPlanTaskItem.cs" />
     <Compile Include="Sync\Food.cs" />
+    <Compile Include="Sync\FoodTaskItem.cs" />
     <Compile Include="Sync\HttpClient.cs" />
     <Compile Include="Sync\LogOnInfo.cs" />
     <Compile Include="Sync\Meal.cs" />
     <Compile Include="Sync\MealPlan.cs" />
+    <Compile Include="Sync\Plan.cs" />
     <Compile Include="Sync\PlanSync.cs" />
+    <Compile Include="Sync\SchduleList.cs" />
+    <Compile Include="Sync\SchduleService.cs" />
+    <Compile Include="Sync\ScheduleItem.cs" />
+    <Compile Include="Sync\ScheduleItemCollection.cs" />
+    <Compile Include="Sync\SportsPlanTaskItem.cs" />
+    <Compile Include="Sync\TaskList.cs" />
     <Compile Include="Sync\UserProfileService.cs" />
     <Compile Include="Sync\Sport.cs" />
     <Compile Include="Sync\SportPlan.cs" />
@@ -301,8 +310,12 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Controls\0130-5178b.png" />
     <Resource Include="Controls\1.png" />
     <Resource Include="Controls\2.png" />
+    <Resource Include="Controls\20080811164713673.png" />
+    <Resource Include="Controls\diet.png" />
+    <Resource Include="Controls\sport.png" />
     <Resource Include="Images\wave.jpg" />
     <Resource Include="Images\200852993034844_2.jpg" />
     <Resource Include="Images\add.png" />

@@ -27,7 +27,7 @@ namespace Gymnastika.Modules.Meals.Widgets
     /// <summary>
     /// Interaction logic for BMIWidget.xaml
     /// </summary>
-    [WidgetMetadata("BMI", "/Gymnastika.Modules.Meals;component/Images/BMI.jpg")]
+    [WidgetMetadata("BMI", "/Gymnastika.Modules.Meals;component/Images/BMI.png")]
     public partial class BMIWidget : IWidget
     {
         private readonly ISessionManager _sessionManager;
@@ -35,38 +35,34 @@ namespace Gymnastika.Modules.Meals.Widgets
         private readonly User _user;
         private readonly int _height;
         private readonly int _weight;
-        private decimal BMI;
-
-        private readonly IRegionManager _regionManager;
-        //private readonly ILoadDataController _loadDataController;
 
         public BMIWidget(ISessionManager sessionManager,
             IRegionManager regionManager,
-            IUnityContainer container
-            //,ILoadDataController loadDataController
-            )
+            IUnityContainer container)
         {
             InitializeComponent();
 
-            //_loadDataController = loadDataController;
 
             _container = container;
             _sessionManager = sessionManager;
-            _regionManager = regionManager;
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _height = _user.Height;
             _weight = _user.Weight;
 
-            //IMealsManagementViewModel mealsManagementViewModel = _container.Resolve<IMealsManagementViewModel>();
-            //_regionManager.RegisterViewWithRegion(RegionNames.MainRegion, () => mealsManagementViewModel.View);
         }
+
+        //public int MinBMIValue { get; set; }
+
+        //public int MaxBMIValue { get; set; }
+
+        public int BMIValue { get; set; }
 
         #region IWidget Members
 
         public void Initialize()
         {
             InitializeBMI();
-            InitializeSuggestion();
+            //InitializeSuggestion();
             InitializeNormalWeight();
             InitializeBeatyWeight();
             InitializeNormalMetabolism();
@@ -76,38 +72,38 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeBMI()
         {
-            BMI = _weight / (_height * _height / 10000);
+            BMIValue = (int)(_weight / ((double)_height * _height / 10000));
 
-            BMILabel.Text = "" + Decimal.Round(BMI, 1).ToString();
+            BMILabel.Text = BMIValue.ToString();
         }
 
-        private void InitializeSuggestion()
-        {
-            if (BMI < 15) { SuggestionLabel.Text = "您太瘦了哦，应去做个体检，增加营养。"; }
+        //private void InitializeSuggestion()
+        //{
+        //    if (BMI < 15) { SuggestionLabel.Text = "您太瘦了哦，应去做个体检，增加营养。"; }
 
-            else if (BMI >= 15 && BMI < 18) { SuggestionLabel.Text = "您过度苗条，应增加营养和锻炼。"; }
+        //    else if (BMI >= 15 && BMI < 18) { SuggestionLabel.Text = "您过度苗条，应增加营养和锻炼。"; }
 
-            else if (BMI >= 18 && BMI < 22) { SuggestionLabel.Text = "恭喜！！您是标准身材,注意保持。"; }
+        //    else if (BMI >= 18 && BMI < 22) { SuggestionLabel.Text = "恭喜！！您是标准身材,注意保持。"; }
 
-            else if (BMI >= 22 && BMI < 25) { SuggestionLabel.Text = "您是健康体重,但已不苗条，小心哦~"; }
+        //    else if (BMI >= 22 && BMI < 25) { SuggestionLabel.Text = "您是健康体重,但已不苗条，小心哦~"; }
 
-            else if (BMI >= 25 && BMI < 30) { SuggestionLabel.Text = "您超重了，应该立即减肥！"; }
+        //    else if (BMI >= 25 && BMI < 30) { SuggestionLabel.Text = "您超重了，应该立即减肥！"; }
 
-            else if (BMI >= 30 && BMI < 40) { SuggestionLabel.Text = "您太胖了哦，减肥已是您的头等大事！"; }
+        //    else if (BMI >= 30 && BMI < 40) { SuggestionLabel.Text = "您太胖了哦，减肥已是您的头等大事！"; }
 
-            else { SuggestionLabel.Text = "您非常胖，肥胖将危及您的健康！"; }
-        }
+        //    else { SuggestionLabel.Text = "您非常胖，肥胖将危及您的健康！"; }
+        //}
 
         private void InitializeNormalWeight()
         {
-            int NormalWeight = (_height * _height / 10000) * 22;
+            int NormalWeight = (int)(((double)_height * _height / 10000) * 22);
 
             NormalWeightLabel.Text = NormalWeight.ToString();
         }
 
         private void InitializeBeatyWeight()
         {
-            int BeautyWeight = (_height * _height / 10000) * 19;
+            int BeautyWeight = (int)(((double)_height * (double)_height / 10000d) * 19d);
 
             BeautyWeightLabel.Text = BeautyWeight.ToString();
         }
@@ -124,59 +120,5 @@ namespace Gymnastika.Modules.Meals.Widgets
             IBMIIntroductionView BMIIntroductionView = _container.Resolve<IBMIIntroductionView>();
             BMIIntroductionView.ShowView();
         }
-
-        private void TestButton_Click(object sender, RoutedEventArgs e)
-        {
-            IRegion mainRegion = _regionManager.Regions[RegionNames.MainRegion];
-            mainRegion.RequestNavigate(new Uri("MealsManagementView", UriKind.Relative)); 
-        }
-
-        //private void Button_Click(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadCategoryData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_1(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadSubCategoryData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_2(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadFoodData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_3(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadNutritionalElementData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_4(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadIntroductionData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_5(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadDietPlanData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_6(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadSubDietPlanData();
-        //    MessageBox.Show("已保存");
-        //}
-
-        //private void Button_Click_7(object sender, RoutedEventArgs e)
-        //{
-        //    _loadDataController.LoadDietPlanItemData();
-        //    MessageBox.Show("已保存");
-        //}
     }
 }

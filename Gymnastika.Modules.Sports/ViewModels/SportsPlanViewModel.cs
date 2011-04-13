@@ -101,24 +101,29 @@ namespace Gymnastika.Modules.Sports.ViewModels
             SportsPlan plan = null;
             using (_planProvider.GetContextScope())
             {
-                plan = _planProvider.FetchFirstOrDefault(date);
+                plan = _planProvider.Fetch(date).Where(t => t.User.Id == User.Id).FirstOrDefault();
                 if (plan != null)
                 {
-                    plan.SportsPlanItems = _itemProvider.All().ToList();
+                    plan.SportsPlanItems = _itemProvider.Fetch(t => t.SportsPlan == plan).ToList();
                     foreach (var item in plan.SportsPlanItems)
                         item.Sport = _sportProvider.Get(item.Sport.Id);
                 }
             }
+            ItemsBuffer.Clear();
+            RemoveBuffer.Clear();
             if (plan != null)
             {
                 this.SportsPlan = plan;
+                RaisePropertyChanged(() => Date);
                 return true;
             }
             else
             {
-                this.SportsPlan = new SportsPlan() { User = this.User };
+                this.SportsPlan = new SportsPlan() { User = this.User , Month = date.Month,Year = date.Year,Day = date.Day};
+                RaisePropertyChanged(() => Date);
                 return false;
             }
+            
         }
 
         public DateTime DateTime
@@ -408,7 +413,7 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     }
                 }
                 SportsPlan.SportsPlanItems.Clear();
-
+                SportsPlan.SynchronizedToServer = false;
                 if (SportsPlan.Id == 0)
                 {
                     SportsPlan.User = User;
@@ -422,16 +427,25 @@ namespace Gymnastika.Modules.Sports.ViewModels
                     SportsPlan.SportsPlanItems.Add(item);
                 }
 
-               // SportsPlan.SportsPlanItems.ReplaceBy(ItemsBuffer);
-                
-               // _planProvider.CreateOrUpdate(SportsPlan);
-
             }
             _eventAggregator.GetEvent<SportsPlanCreatedOrModifiedEvent>().Publish(SportsPlan);
         }
 
+        void Score()
+        {
+            foreach (var item in SportsPlan.SportsPlanItems)
+            {
+                if (TotalCalories.Value != 0)
+                    item.Score = item.Sport.Calories * (double)item.Duration * 100d / TotalCalories.Value / (double)item.Sport.Minutes;
+                else
+                    item.Score = 0;
+            }
+        }
+
         void Sumbmit()
         {
+
+            Score();
             SavePlanToRepository();
             
 

@@ -8,6 +8,7 @@ using Gymnastika.Modules.Meals.Services;
 using Gymnastika.Data;
 using Gymnastika.Services.Session;
 using Gymnastika.Modules.Meals.Models;
+using System.Collections.ObjectModel;
 
 namespace Gymnastika.Modules.Meals.ViewModels
 {
@@ -39,7 +40,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
                     }
                 }
             }
-            RecommendedDietPlans = new List<DietPlanItemViewModel>();
+            RecommendedDietPlans = new ObservableCollection<DietPlanItemViewModel>();
             foreach (var dietPlan in DietPlans)
             {
                 DietPlanItemViewModel dietPlanItem = new DietPlanItemViewModel(dietPlan);
@@ -55,7 +56,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
 
         public IEnumerable<DietPlan> DietPlans { get; set; }
 
-        public ICollection<DietPlanItemViewModel> RecommendedDietPlans { get; set; }
+        public ObservableCollection<DietPlanItemViewModel> RecommendedDietPlans { get; set; }
 
         #endregion
     }

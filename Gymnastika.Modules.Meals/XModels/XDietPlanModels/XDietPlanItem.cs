@@ -8,6 +8,9 @@ namespace Gymnastika.Modules.Meals.XModels.XDietPlanModels
 {
     public class XDietPlanItem
     {
+        [XmlAttribute("food-id")]
+        public string FoodId { get; set; }
+
         [XmlAttribute("food-name")]
         public string FoodName { get; set; }
 

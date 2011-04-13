@@ -20,16 +20,21 @@
         <SolidColorBrush x:Key="BgNormal" Color="#19FFFFFF"/>
 		<SolidColorBrush x:Key="FgIn" Color="#FFFD2E00"/>
 		<SolidColorBrush x:Key="FgOut" Color="#FF0D6801"/>
+		<BitmapImage x:Key="IconSport">sport.png</BitmapImage>
+		<BitmapImage x:Key="IconDiet">diet.png</BitmapImage>
     </UserControl.Resources>
     <Border x:Name="borderRoot" CornerRadius="8" BorderBrush="White" BorderThickness="2" Background="#19FFFFFF" Margin="0,0,0,4">
         <Grid x:Name="LayoutRoot" Margin="0,0,0,-2" >
             <TextBlock Margin="8,4,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FF625E5E" Name="txtTime" HorizontalAlignment="Left"><Run Text="13:10 - 13:3"/><Run Text="0"/></TextBlock>
             <TextBlock Margin="68,44,22,0" TextWrapping="Wrap" Text="TextBlock                                                  name" VerticalAlignment="Top" Height="51" Foreground="White" Name="txtName" FontSize="24" />
             <TextBlock HorizontalAlignment="Right" Height="32" Margin="0,95,9,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="132" Foreground="#FF3A52DA" Name="txtStatus" />
-            <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Margin="8,42,0,0" Source="/ApplicationIcon.png" Stretch="Uniform" Width="56" Height="52" VerticalAlignment="Top" Visibility="Collapsed"/>
             <Border CornerRadius="5" BorderBrush="White" BorderThickness="1" VerticalAlignment="Top" Margin="8,127,8,0" Height="117" Background="#3FFFFFFF" Name="DetailBorder">
-                <ScrollViewer></ScrollViewer>
+                <ScrollViewer>
+                    <StackPanel Height="Auto" Name="spDetails" Width="Auto" />
+                </ScrollViewer>
             </Border>
+            <Image Height="51" HorizontalAlignment="Left" Margin="11,44,0,0" x:Name="imgIcon" VerticalAlignment="Top" Width="50" Source="0130-5178b.png" CacheMode="BitmapCache" />
             <TextBlock Margin="8,95,0,0" TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Left" Width="246" Height="30" VerticalAlignment="Top" Name="txtCalorie" />
         </Grid>
     </Border>

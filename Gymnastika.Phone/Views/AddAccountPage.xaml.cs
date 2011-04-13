@@ -367,18 +367,22 @@ namespace Gymnastika.Phone.Views
         {
             pbProcessing.Visibility = Visibility.Visible;
             Profile.SignIn(Username, Password,
-                new Profile.SignInCompeleted((user, error) =>
+                new Profile.SignInCompeleted((user,message,error) =>
                     {
-                        pbProcessing.Visibility = Visibility.Collapsed;
-                        if (error == null)
+                        this.Dispatcher.BeginInvoke(delegate
                         {
-                            UserProfileManager.ActiveProfile = UserProfileManager.GetStoredProfile(Username);
-                            NavigationService.GoBack();
-                        }
-                        else
-                        {
-                            txtProcessingText.Text = string.Format("{0} 登录失败：{1}", user, error.Message);
-                        }
+                            pbProcessing.Visibility = Visibility.Collapsed;
+                            if (error == null)
+                            {
+                                UserProfileManager.ActiveProfile = UserProfileManager.GetStoredProfile(Username);
+                              
+                                NavigationService.GoBack();
+                            }
+                            else
+                            {
+                                txtProcessingText.Text = string.Format("{0} 登录失败：{1}", user, message);
+                            }
+                        });
                     }
             ));
         }
@@ -422,7 +426,8 @@ namespace Gymnastika.Phone.Views
         void transitionProressIn_Completed(object sender, EventArgs e)
         {
             SignInProgressPanel.OpacityMask = null;
-            Register(txtUsername.Text, txtPassword.Password);
+            SignIn(txtUsername.Text, txtPassword.Password);
+           // Register(txtUsername.Text, txtPassword.Password);
         }
 
 

@@ -15,10 +15,10 @@ namespace Gymnastika.Phone.Sync
 {
     public class Test
     {
-        PushNotification.PushNotificationService service = new PushNotification.PushNotificationService();
         public void DoTest()
         {
-            service.Connect();
+            Sync.UserProfileService service = new UserProfileService();
+            service.LogOn("test", "test",new EventHandler<UserProfileService.LogOnCompeletedArgs>((s,e)=>{}));
             
         }
     }

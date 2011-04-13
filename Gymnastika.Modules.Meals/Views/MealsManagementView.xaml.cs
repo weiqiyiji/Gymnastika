@@ -32,7 +32,7 @@ namespace Gymnastika.Modules.Meals.Views
                 if (food != null)
                 {
                     string filter = search.ToUpper(CultureInfo.InvariantCulture);
-                    return (food.Name.ToUpper(CultureInfo.InvariantCulture).StartsWith(filter));
+                    return (food.Name.ToUpper(CultureInfo.InvariantCulture).Contains(filter));
                 }
 
                 return false;

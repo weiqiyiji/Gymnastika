@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="gb2312"?>
+<FoodLibrary>
+<class name="坚果">
+    <food name="核桃" id="2482">
+      <Ingredient name="热量(大卡)" value="328" />
+      <Ingredient name="蛋白质(克)" value="12.8" />
+      <Ingredient name="脂肪(克)" value="29.9" />
+      <Ingredient name="碳水化合物(克)" value="1.8" />
+    </food>
+    <food name="栗子" id="2489">
+      <Ingredient name="热量(大卡)" value="212" />
+      <Ingredient name="蛋白质(克)" value="4.8" />
+      <Ingredient name="脂肪(克)" value="1.5" />
+      <Ingredient name="碳水化合物(克)" value="44.8" />
+    </food>
+    <food name="松子仁" id="2492">
+      <Ingredient name="热量(大卡)" value="698" />
+      <Ingredient name="蛋白质(克)" value="13.4" />
+      <Ingredient name="脂肪(克)" value="70.6" />
+      <Ingredient name="碳水化合物(克)" value="2.2" />
+    </food>
+    <food name="杏仁" id="2494">
+      <Ingredient name="热量(大卡)" value="503" />
+      <Ingredient name="蛋白质(克)" value="19.9" />
+      <Ingredient name="脂肪(克)" value="42.9" />
+      <Ingredient name="碳水化合物(克)" value="9.3" />
+    </food>
+    <food name="榛子" id="2503">
+      <Ingredient name="热量(大卡)" value="542" />
+      <Ingredient name="蛋白质(克)" value="20" />
+      <Ingredient name="脂肪(克)" value="44.8" />
+      <Ingredient name="碳水化合物(克)" value="14.7" />
+    </food>
+    <food name="南瓜子仁" id="2516">
+      <Ingredient name="热量(大卡)" value="566" />
+      <Ingredient name="蛋白质(克)" value="33.2" />
+      <Ingredient name="脂肪(克)" value="48.1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="花生" id="26067">
+      <Ingredient name="热量(大卡)" value="560" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="10.4" />
+      <Ingredient name="碳水化合物(克)" value="0.3" />
+    </food>
+    <food name="恰恰瓜子" id="26254">
+      <Ingredient name="热量(大卡)" value="190" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="16" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="开心果" id="26582">
+      <Ingredient name="热量(大卡)" value="602" />
+      <Ingredient name="蛋白质(克)" value="6" />
+      <Ingredient name="脂肪(克)" value="9.9" />
+      <Ingredient name="碳水化合物(克)" value="0.4" />
+    </food>
+    <food name="黑芝麻" id="26807">
+      <Ingredient name="热量(大卡)" value="100" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.4" />
+    </food>
+  </class>
+  <class name="水果">
+    <food name="鸭梨" id="2360">
+      <Ingredient name="热量(大卡)" value="43" />
+      <Ingredient name="蛋白质(克)" value="0.2" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="10" />
+    </food>
+    <food name="樱桃" id="2406">
+      <Ingredient name="热量(大卡)" value="46" />
+      <Ingredient name="蛋白质(克)" value="1.1" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="9.9" />
+    </food>
+    <food name="紫葡萄" id="2413">
+      <Ingredient name="热量(大卡)" value="43" />
+      <Ingredient name="蛋白质(克)" value="0.7" />
+      <Ingredient name="脂肪(克)" value="0.3" />
+      <Ingredient name="碳水化合物(克)" value="9.3" />
+    </food>
+    <food name="草莓" id="2432">
+      <Ingredient name="热量(大卡)" value="30" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="6" />
+    </food>
+    <food name="柠檬" id="2446">
+      <Ingredient name="热量(大卡)" value="35" />
+      <Ingredient name="蛋白质(克)" value="1.1" />
+      <Ingredient name="脂肪(克)" value="1.2" />
+      <Ingredient name="碳水化合物(克)" value="4.9" />
+    </food>
+    <food name="菠萝" id="2448">
+      <Ingredient name="热量(大卡)" value="41" />
+      <Ingredient name="蛋白质(克)" value="0.5" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="9.5" />
+    </food>
+    <food name="桂圆" id="2453">
+      <Ingredient name="热量(大卡)" value="273" />
+      <Ingredient name="蛋白质(克)" value="5" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="62.8" />
+    </food>
+    <food name="荔枝" id="2456">
+      <Ingredient name="热量(大卡)" value="70" />
+      <Ingredient name="蛋白质(克)" value="0.9" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="16.1" />
+    </food>
+    <food name="芒果" id="2457">
+      <Ingredient name="热量(大卡)" value="32" />
+      <Ingredient name="蛋白质(克)" value="0.6" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="7" />
+    </food>
+    <food name="木瓜" id="2458">
+      <Ingredient name="热量(大卡)" value="27" />
+      <Ingredient name="蛋白质(克)" value="0.4" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="6.2" />
+    </food>
+    <food name="香蕉" id="2460">
+      <Ingredient name="热量(大卡)" value="91" />
+      <Ingredient name="蛋白质(克)" value="1.4" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="20.8" />
+    </food>
+    <food name="枇杷" id="2464">
+      <Ingredient name="热量(大卡)" value="39" />
+      <Ingredient name="蛋白质(克)" value="0.8" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="8.5" />
+    </food>
+    <food name="哈蜜瓜" id="2469">
+      <Ingredient name="热量(大卡)" value="34" />
+      <Ingredient name="蛋白质(克)" value="0.5" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="7.7" />
+    </food>
+    <food name="西瓜" id="2475">
+      <Ingredient name="热量(大卡)" value="25" />
+      <Ingredient name="蛋白质(克)" value="0.6" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="5.5" />
+    </food>
+    <food name="火龙果" id="25496">
+      <Ingredient name="热量(大卡)" value="56.65" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="0.41" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="桃子" id="25871">
+      <Ingredient name="热量(大卡)" value="117.27" />
+      <Ingredient name="蛋白质(克)" value="0.8" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="0.3" />
+    </food>
+    <food name="奇异果" id="26165">
+      <Ingredient name="热量(大卡)" value="30" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="3" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="柚子" id="26387">
+      <Ingredient name="热量(大卡)" value="35" />
+      <Ingredient name="蛋白质(克)" value="0.7" />
+      <Ingredient name="脂肪(克)" value="0.6" />
+      <Ingredient name="碳水化合物(克)" value="12.2" />
+    </food>
+    <food name="橙子" id="26492">
+      <Ingredient name="热量(大卡)" value="47" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+     <food name="苹果" id="26513">
+      <Ingredient name="热量(大卡)" value="80" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+  </class>
+  <class name="汤类">
+   <food name="玉米汤" id="25111">
+      <Ingredient name="热量(大卡)" value="114" />
+      <Ingredient name="蛋白质(克)" value="9" />
+      <Ingredient name="脂肪(克)" value="6" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="银耳红枣羹" id="25663">
+      <Ingredient name="热量(大卡)" value="200" />
+      <Ingredient name="蛋白质(克)" value="3" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="海鲜汤" id="25860">
+      <Ingredient name="热量(大卡)" value="192" />
+      <Ingredient name="蛋白质(克)" value="9" />
+      <Ingredient name="脂肪(克)" value="8" />
+      <Ingredient name="碳水化合物(克)" value="1.4" />
+    </food>
+    <food name="紫菜鸡蛋汤" id="25896">
+      <Ingredient name="热量(大卡)" value="192" />
+      <Ingredient name="蛋白质(克)" value="5" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="芙蓉鲜蔬汤" id="26533">
+      <Ingredient name="热量(大卡)" value="37" />
+      <Ingredient name="蛋白质(克)" value="2.9" />
+      <Ingredient name="脂肪(克)" value="0.6" />
+      <Ingredient name="碳水化合物(克)" value="4.9" />
+    </food>
+    <food name="鲫鱼汤" id="26717">
+      <Ingredient name="热量(大卡)" value="439" />
+      <Ingredient name="蛋白质(克)" value="68.53" />
+      <Ingredient name="脂肪(克)" value="10.84" />
+      <Ingredient name="碳水化合物(克)" value="15.91" />
+    </food>
+    <food name="瓦罐鸡汤" id="2683">
+      <Ingredient name="热量(大卡)" value="27" />
+      <Ingredient name="蛋白质(克)" value="1.3" />
+      <Ingredient name="脂肪(克)" value="2.4" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="青菜粉丝汤" id="26837">
+      <Ingredient name="热量(大卡)" value="100" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="番茄蛋汤" id="27106">
+      <Ingredient name="热量(大卡)" value="150.6" />
+      <Ingredient name="蛋白质(克)" value="11.35" />
+      <Ingredient name="脂肪(克)" value="6.32" />
+      <Ingredient name="碳水化合物(克)" value="13.82" />
+    </food>
+    <food name="绿豆汤" id="27171">
+      <Ingredient name="热量(大卡)" value="358" />
+      <Ingredient name="蛋白质(克)" value="10.8" />
+      <Ingredient name="脂肪(克)" value="0.4" />
+      <Ingredient name="碳水化合物(克)" value="80.95" />
+    </food>
+  </class>
+  <class name="海鲜">
+    <food name="鱼丸" id="26534">
+      <Ingredient name="热量(大卡)" value="15" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="3" />
+	  <Ingredient name="碳水化合物(克)" value="0.8" />
+    </food>
+    <food name="带鱼" id="2812">
+      <Ingredient name="热量(大卡)" value="127" />
+      <Ingredient name="蛋白质(克)" value="17.7" />
+      <Ingredient name="脂肪(克)" value="4.9" />
+      <Ingredient name="碳水化合物(克)" value="3.1" />
+    </food>
+    <food name="海虾" id="2858">
+      <Ingredient name="热量(大卡)" value="79" />
+      <Ingredient name="蛋白质(克)" value="16.8" />
+      <Ingredient name="脂肪(克)" value="0.6" />
+      <Ingredient name="碳水化合物(克)" value="1.5" />
+    </food>
+    <food name="海蟹" id="2870">
+      <Ingredient name="热量(大卡)" value="95" />
+      <Ingredient name="蛋白质(克)" value="13.8" />
+      <Ingredient name="脂肪(克)" value="2.3" />
+      <Ingredient name="碳水化合物(克)" value="4.7" />
+    </food>
+    <food name="扇贝" id="2885">
+      <Ingredient name="热量(大卡)" value="60" />
+      <Ingredient name="蛋白质(克)" value="11.1" />
+      <Ingredient name="脂肪(克)" value="0.6" />
+      <Ingredient name="碳水化合物(克)" value="2.6" />
+    </food>
+    <food name="螺" id="2897">
+      <Ingredient name="热量(大卡)" value="100" />
+      <Ingredient name="蛋白质(克)" value="15.7" />
+      <Ingredient name="脂肪(克)" value="1.2" />
+      <Ingredient name="碳水化合物(克)" value="6.6" />
+    </food>
+    <food name="海参" id="2904">
+      <Ingredient name="热量(大卡)" value="78" />
+      <Ingredient name="蛋白质(克)" value="16.5" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="2.5" />
+    </food>
+    <food name="乌贼" id="2911">
+      <Ingredient name="热量(大卡)" value="84" />
+      <Ingredient name="蛋白质(克)" value="17.4" />
+      <Ingredient name="脂肪(克)" value="1.6" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="鱿鱼" id="2913">
+      <Ingredient name="热量(大卡)" value="75" />
+      <Ingredient name="蛋白质(克)" value="17" />
+      <Ingredient name="脂肪(克)" value="0.8" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="章鱼" id="2916">
+      <Ingredient name="热量(大卡)" value="135" />
+      <Ingredient name="蛋白质(克)" value="18.9" />
+      <Ingredient name="脂肪(克)" value="0.4" />
+      <Ingredient name="碳水化合物(克)" value="14" />
+    </food>
+  </class>
+  <class name="粥类">
+    <food name="粳米粥" id="1841">
+      <Ingredient name="热量(大卡)" value="46" />
+      <Ingredient name="蛋白质(克)" value="1.1" />
+      <Ingredient name="脂肪(克)" value="0.3" />
+      <Ingredient name="碳水化合物(克)" value="9.8" />
+    </food>
+    <food name="小米粥" id="1858">
+      <Ingredient name="热量(大卡)" value="46" />
+      <Ingredient name="蛋白质(克)" value="1.4" />
+      <Ingredient name="脂肪(克)" value="0.7" />
+      <Ingredient name="碳水化合物(克)" value="8.4" />
+    </food>
+    <food name="小豆粥" id="2003">
+      <Ingredient name="热量(大卡)" value="61" />
+      <Ingredient name="蛋白质(克)" value="1.2" />
+      <Ingredient name="脂肪(克)" value="0.4" />
+      <Ingredient name="碳水化合物(克)" value="13.1" />
+    </food>
+    <food name="白米粥" id="25611">
+      <Ingredient name="热量(大卡)" value="5" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="八宝粥" id="25736">
+      <Ingredient name="热量(大卡)" value="440" />
+      <Ingredient name="蛋白质(克)" value="3" />
+      <Ingredient name="脂肪(克)" value="4" />
+      <Ingredient name="碳水化合物(克)" value="0.3" />
+    </food>
+    <food name="黑芝麻糊" id="26031">
+      <Ingredient name="热量(大卡)" value="220" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="牛肉粥" id="26189">
+      <Ingredient name="热量(大卡)" value="399.2" />
+      <Ingredient name="蛋白质(克)" value="17.94" />
+      <Ingredient name="脂肪(克)" value="1.8" />
+      <Ingredient name="碳水化合物(克)" value="78.8" />
+    </food>
+    <food name="玉米粥" id="26428">
+      <Ingredient name="热量(大卡)" value="390" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="皮蛋瘦肉粥" id="26720">
+      <Ingredient name="热量(大卡)" value="300" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="黑米粥" id="27117">
+      <Ingredient name="热量(大卡)" value="66" />
+      <Ingredient name="蛋白质(克)" value="1.73" />
+      <Ingredient name="脂肪(克)" value="0.44" />
+      <Ingredient name="碳水化合物(克)" value="14.77" />
+    </food>
+  </class>
+  <class name="肉类">
+    <food name="猪肉" id="2533">
+      <Ingredient name="热量(大卡)" value="143" />
+      <Ingredient name="蛋白质(克)" value="20.3" />
+      <Ingredient name="脂肪(克)" value="6.2" />
+      <Ingredient name="碳水化合物(克)" value="1.5" />
+    </food>
+    <food name="火腿肠" id="2581">
+      <Ingredient name="热量(大卡)" value="212" />
+      <Ingredient name="蛋白质(克)" value="14" />
+      <Ingredient name="脂肪(克)" value="10.4" />
+      <Ingredient name="碳水化合物(克)" value="15.6" />
+    </food>
+    <food name="香肠" id="2585">
+      <Ingredient name="热量(大卡)" value="508" />
+      <Ingredient name="蛋白质(克)" value="24.1" />
+      <Ingredient name="脂肪(克)" value="40.7" />
+      <Ingredient name="碳水化合物(克)" value="11.2" />
+    </food>
+    <food name="牛肉" id="2602">
+      <Ingredient name="热量(大卡)" value="106" />
+      <Ingredient name="蛋白质(克)" value="20.2" />
+      <Ingredient name="脂肪(克)" value="2.3" />
+      <Ingredient name="碳水化合物(克)" value="1.2" />
+    </food>
+    <food name="羊肉" id="2642">
+      <Ingredient name="热量(大卡)" value="217" />
+      <Ingredient name="蛋白质(克)" value="23.2" />
+      <Ingredient name="脂肪(克)" value="13.8" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="鸡肉" id="2662">
+      <Ingredient name="热量(大卡)" value="167" />
+      <Ingredient name="蛋白质(克)" value="19.3" />
+      <Ingredient name="脂肪(克)" value="9.4" />
+      <Ingredient name="碳水化合物(克)" value="1.3" />
+    </food>
+    <food name="鸭肉" id="26770">
+      <Ingredient name="热量(大卡)" value="240" />
+      <Ingredient name="蛋白质(克)" value="15.5" />
+      <Ingredient name="脂肪(克)" value="19.7" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="鹅肉" id="2711">
+      <Ingredient name="热量(大卡)" value="251" />
+      <Ingredient name="蛋白质(克)" value="17.9" />
+      <Ingredient name="脂肪(克)" value="19.9" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="鸽肉" id="2719">
+      <Ingredient name="热量(大卡)" value="201" />
+      <Ingredient name="蛋白质(克)" value="16.5" />
+      <Ingredient name="脂肪(克)" value="14.2" />
+      <Ingredient name="碳水化合物(克)" value="1.7" />
+    </food>
+    <food name="草鱼" id="2781">
+      <Ingredient name="热量(大卡)" value="113" />
+      <Ingredient name="蛋白质(克)" value="16.6" />
+      <Ingredient name="脂肪(克)" value="5.2" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+  </class>
+  <class name="蔬菜">
+    <food name="马铃薯" id="1765">
+      <Ingredient name="热量(大卡)" value="76" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="16.5" />
+    </food>
+    <food name="胡萝卜" id="2040">
+      <Ingredient name="热量(大卡)" value="43" />
+      <Ingredient name="蛋白质(克)" value="1.4" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="8.9" />
+    </food>
+    <food name="豌豆" id="2024">
+      <Ingredient name="热量(大卡)" value="33" />
+      <Ingredient name="蛋白质(克)" value="1.9" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="6" />
+    </food>
+    <food name="豆腐" id="2052">
+      <Ingredient name="热量(大卡)" value="123" />
+      <Ingredient name="蛋白质(克)" value="13.1" />
+      <Ingredient name="脂肪(克)" value="5" />
+      <Ingredient name="碳水化合物(克)" value="6.5" />
+    </food>
+    <food name="四季豆" id="2053">
+      <Ingredient name="热量(大卡)" value="28" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="0.4" />
+      <Ingredient name="碳水化合物(克)" value="4.2" />
+    </food>
+    <food name="茄子" id="2067">
+      <Ingredient name="热量(大卡)" value="19" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="3.5" />
+    </food>
+    <food name="番茄" id="2068">
+      <Ingredient name="热量(大卡)" value="19" />
+      <Ingredient name="蛋白质(克)" value="0.9" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="3.5" />
+    </food>
+    <food name="柿子" id="2070">
+      <Ingredient name="热量(大卡)" value="13" />
+      <Ingredient name="蛋白质(克)" value="0.6" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="2.4" />
+    </food>
+    <food name="冬瓜" id="2080">
+      <Ingredient name="热量(大卡)" value="11" />
+      <Ingredient name="蛋白质(克)" value="0.4" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="1.9" />
+    </food>
+    <food name="黄瓜" id="2085">
+      <Ingredient name="热量(大卡)" value="15" />
+      <Ingredient name="蛋白质(克)" value="0.8" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="2.4" />
+    </food>
+    <food name="苦瓜" id="2089">
+      <Ingredient name="热量(大卡)" value="19" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="3.5" />
+    </food>
+    <food name="南瓜" id="2090">
+      <Ingredient name="热量(大卡)" value="22" />
+      <Ingredient name="蛋白质(克)" value="0.7" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="4.5" />
+    </food>
+    <food name="韭菜" id="2113">
+      <Ingredient name="热量(大卡)" value="26" />
+      <Ingredient name="蛋白质(克)" value="2.4" />
+      <Ingredient name="脂肪(克)" value="0.4" />
+      <Ingredient name="碳水化合物(克)" value="3.2" />
+    </food>
+    <food name="大白菜" id="2118">
+      <Ingredient name="热量(大卡)" value="17" />
+      <Ingredient name="蛋白质(克)" value="1.5" />
+      <Ingredient name="脂肪(克)" value="0.1" />
+      <Ingredient name="碳水化合物(克)" value="2.4" />
+    </food>
+    <food name="小白菜" id="2124">
+      <Ingredient name="热量(大卡)" value="15" />
+      <Ingredient name="蛋白质(克)" value="1.5" />
+      <Ingredient name="脂肪(克)" value="0.3" />
+      <Ingredient name="碳水化合物(克)" value="1.6" />
+    </food>
+    <food name="花菜" id="2135">
+      <Ingredient name="热量(大卡)" value="24" />
+      <Ingredient name="蛋白质(克)" value="2.1" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="3.4" />
+    </food>
+    <food name="竹笋" id="2169">
+      <Ingredient name="热量(大卡)" value="19" />
+      <Ingredient name="蛋白质(克)" value="2.6" />
+      <Ingredient name="脂肪(克)" value="0.2" />
+      <Ingredient name="碳水化合物(克)" value="1.8" />
+    </food>
+    <food name="香菇" id="2302">
+      <Ingredient name="热量(大卡)" value="211" />
+      <Ingredient name="蛋白质(克)" value="20" />
+      <Ingredient name="脂肪(克)" value="1.2" />
+      <Ingredient name="碳水化合物(克)" value="30.1" />
+    </food>
+    <food name="莲藕" id="25998">
+      <Ingredient name="热量(大卡)" value="52" />
+      <Ingredient name="蛋白质(克)" value="3" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="青椒" id="26065">
+      <Ingredient name="热量(大卡)" value="14" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+  </class>
+  <class name="蛋类">
+    <food name="煎蛋" id="25606">
+      <Ingredient name="热量(大卡)" value="136" />
+      <Ingredient name="蛋白质(克)" value="4" />
+      <Ingredient name="脂肪(克)" value="6" />
+      <Ingredient name="碳水化合物(克)" value="0.3" />
+    </food>
+    <food name="茶叶蛋" id="25742">
+      <Ingredient name="热量(大卡)" value="73" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="3" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="炒蛋" id="25956">
+      <Ingredient name="热量(大卡)" value="180" />
+      <Ingredient name="蛋白质(克)" value="5" />
+      <Ingredient name="脂肪(克)" value="6" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="蒸蛋" id="26079">
+      <Ingredient name="热量(大卡)" value="75" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="3" />
+      <Ingredient name="碳水化合物(克)" value="0.3" />
+    </food>
+    <food name="鸡蛋" id="2759">
+      <Ingredient name="热量(大卡)" value="144" />
+      <Ingredient name="蛋白质(克)" value="13.3" />
+      <Ingredient name="脂肪(克)" value="8.8" />
+      <Ingredient name="碳水化合物(克)" value="2.8" />
+    </food>
+    <food name="松花蛋" id="2769">
+      <Ingredient name="热量(大卡)" value="178" />
+      <Ingredient name="蛋白质(克)" value="14.8" />
+      <Ingredient name="脂肪(克)" value="10.6" />
+      <Ingredient name="碳水化合物(克)" value="5.8" />
+    </food>
+    <food name="鸭蛋" id="2770">
+      <Ingredient name="热量(大卡)" value="180" />
+      <Ingredient name="蛋白质(克)" value="12.6" />
+      <Ingredient name="脂肪(克)" value="13" />
+      <Ingredient name="碳水化合物(克)" value="3.1" />
+    </food>
+    <food name="咸鸭蛋" id="2774">
+      <Ingredient name="热量(大卡)" value="190" />
+      <Ingredient name="蛋白质(克)" value="12.7" />
+      <Ingredient name="脂肪(克)" value="12.7" />
+      <Ingredient name="碳水化合物(克)" value="6.3" />
+    </food>
+    <food name="鹅蛋" id="2775">
+      <Ingredient name="热量(大卡)" value="196" />
+      <Ingredient name="蛋白质(克)" value="11.1" />
+      <Ingredient name="脂肪(克)" value="15.6" />
+      <Ingredient name="碳水化合物(克)" value="2.8" />
+    </food>
+    <food name="鹌鹑蛋" id="2778">
+      <Ingredient name="热量(大卡)" value="160" />
+      <Ingredient name="蛋白质(克)" value="12.8" />
+      <Ingredient name="脂肪(克)" value="11.1" />
+      <Ingredient name="碳水化合物(克)" value="2.1" />
+    </food>
+  </class>
+  <class name="谷类">
+    <food name="烙饼" id="1804">
+      <Ingredient name="热量(大卡)" value="255" />
+      <Ingredient name="蛋白质(克)" value="7.5" />
+      <Ingredient name="脂肪(克)" value="2.3" />
+      <Ingredient name="碳水化合物(克)" value="51" />
+    </food>
+    <food name="糯米" id="1832">
+      <Ingredient name="热量(大卡)" value="348" />
+      <Ingredient name="蛋白质(克)" value="7.3" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="77.5" />
+    </food>
+    <food name="米饭" id="1838">
+      <Ingredient name="热量(大卡)" value="116" />
+      <Ingredient name="蛋白质(克)" value="2.6" />
+      <Ingredient name="脂肪(克)" value="0.3" />
+      <Ingredient name="碳水化合物(克)" value="25.6" />
+    </food>
+    <food name="芝麻汤圆" id="25681">
+      <Ingredient name="热量(大卡)" value="73" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="5" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="米线" id="25762">
+      <Ingredient name="热量(大卡)" value="150" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="米粉" id="25793">
+      <Ingredient name="热量(大卡)" value="348" />
+      <Ingredient name="蛋白质(克)" value="7.2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="77.5" />
+    </food>
+    <food name="玉米" id="25987">
+      <Ingredient name="热量(大卡)" value="196" />
+      <Ingredient name="蛋白质(克)" value="3.8" />
+      <Ingredient name="脂肪(克)" value="2.3" />
+      <Ingredient name="碳水化合物(克)" value="40.2" />
+    </food>
+    <food name="面包" id="26694">
+      <Ingredient name="热量(大卡)" value="312" />
+      <Ingredient name="蛋白质(克)" value="8.3" />
+      <Ingredient name="脂肪(克)" value="5.1" />
+      <Ingredient name="碳水化合物(克)" value="58.1" />
+    </food>
+    <food name="煎饼" id="2935">
+      <Ingredient name="热量(大卡)" value="336" />
+      <Ingredient name="蛋白质(克)" value="7.6" />
+      <Ingredient name="脂肪(克)" value="0.7" />
+      <Ingredient name="碳水化合物(克)" value="74.7" />
+    </food>
+    <food name="燕麦片" id="3011">
+      <Ingredient name="热量(大卡)" value="367" />
+      <Ingredient name="蛋白质(克)" value="15" />
+      <Ingredient name="脂肪(克)" value="6.7" />
+      <Ingredient name="碳水化合物(克)" value="61.6" />
+    </food>
+  </class>
+  <class name="零食">
+    <food name="枣" id="2395">
+      <Ingredient name="热量(大卡)" value="264" />
+      <Ingredient name="蛋白质(克)" value="3.2" />
+      <Ingredient name="脂肪(克)" value="0.5" />
+      <Ingredient name="碳水化合物(克)" value="61.6" />
+    </food>
+    <food name="汉堡包" id="25081">
+      <Ingredient name="热量(大卡)" value="260" />
+      <Ingredient name="蛋白质(克)" value="13" />
+      <Ingredient name="脂肪(克)" value="9" />
+      <Ingredient name="碳水化合物(克)" value="34" />
+    </food>
+    <food name="蛋卷" id="25494">
+      <Ingredient name="热量(大卡)" value="200" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="12" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="蛋挞" id="25607">
+      <Ingredient name="热量(大卡)" value="246" />
+      <Ingredient name="蛋白质(克)" value="3" />
+      <Ingredient name="脂肪(克)" value="9" />
+      <Ingredient name="碳水化合物(克)" value="0.5" />
+    </food>
+    <food name="话梅" id="26585">
+      <Ingredient name="热量(大卡)" value="17" />
+      <Ingredient name="蛋白质(克)" value="1.1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="冰激凌" id="26698">
+      <Ingredient name="热量(大卡)" value="187" />
+      <Ingredient name="蛋白质(克)" value="1.7" />
+      <Ingredient name="脂肪(克)" value="13.6" />
+      <Ingredient name="碳水化合物(克)" value="14.6" />
+    </food>
+    <food name="蛋糕" id="2963">
+      <Ingredient name="热量(大卡)" value="347" />
+      <Ingredient name="蛋白质(克)" value="8.6" />
+      <Ingredient name="脂肪(克)" value="5.1" />
+      <Ingredient name="碳水化合物(克)" value="66.7" />
+    </food>
+    <food name="饼干" id="3027">
+      <Ingredient name="热量(大卡)" value="433" />
+      <Ingredient name="蛋白质(克)" value="9" />
+      <Ingredient name="脂肪(克)" value="12.7" />
+      <Ingredient name="碳水化合物(克)" value="70.6" />
+    </food>
+    <food name="薯片" id="3043">
+      <Ingredient name="热量(大卡)" value="612" />
+      <Ingredient name="蛋白质(克)" value="4" />
+      <Ingredient name="脂肪(克)" value="48.4" />
+      <Ingredient name="碳水化合物(克)" value="40" />
+    </food>
+    <food name="巧克力" id="3167">
+      <Ingredient name="热量(大卡)" value="586" />
+      <Ingredient name="蛋白质(克)" value="4.3" />
+      <Ingredient name="脂肪(克)" value="40.1" />
+      <Ingredient name="碳水化合物(克)" value="51.9" />
+    </food>
+  </class>
+  <class name="面食">
+    <food name="面条" id="1794">
+      <Ingredient name="热量(大卡)" value="284" />
+      <Ingredient name="蛋白质(克)" value="8.3" />
+      <Ingredient name="脂肪(克)" value="0.7" />
+      <Ingredient name="碳水化合物(克)" value="61.1" />
+    </food>
+    <food name="馒头" id="1805">
+      <Ingredient name="热量(大卡)" value="221" />
+      <Ingredient name="蛋白质(克)" value="7" />
+      <Ingredient name="脂肪(克)" value="1.1" />
+      <Ingredient name="碳水化合物(克)" value="45.7" />
+    </food>
+    <food name="花卷" id="25361">
+      <Ingredient name="热量(大卡)" value="110" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="粽子" id="25763">
+      <Ingredient name="热量(大卡)" value="250" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="窝窝头" id="25915">
+      <Ingredient name="热量(大卡)" value="190" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="包子" id="25981">
+      <Ingredient name="热量(大卡)" value="250" />
+      <Ingredient name="蛋白质(克)" value="4" />
+      <Ingredient name="脂肪(克)" value="4" />
+      <Ingredient name="碳水化合物(克)" value="1" />
+    </food>
+    <food name="饺子" id="25982">
+      <Ingredient name="热量(大卡)" value="420" />
+      <Ingredient name="蛋白质(克)" value="5" />
+      <Ingredient name="脂肪(克)" value="4" />
+      <Ingredient name="碳水化合物(克)" value="1" />
+    </food>
+    <food name="荞麦面" id="26632">
+      <Ingredient name="热量(大卡)" value="220" />
+      <Ingredient name="蛋白质(克)" value="1" />
+      <Ingredient name="脂肪(克)" value="3" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="凉面" id="2941">
+      <Ingredient name="热量(大卡)" value="167" />
+      <Ingredient name="蛋白质(克)" value="4.8" />
+      <Ingredient name="脂肪(克)" value="1.7" />
+      <Ingredient name="碳水化合物(克)" value="33.1" />
+    </food>
+    <food name="年糕" id="2948">
+      <Ingredient name="热量(大卡)" value="154" />
+      <Ingredient name="蛋白质(克)" value="3.3" />
+      <Ingredient name="脂肪(克)" value="0.6" />
+      <Ingredient name="碳水化合物(克)" value="33.9" />
+    </food>
+  </class>
+  <class name="饮料">
+    <food name="豆浆" id="1969">
+      <Ingredient name="热量(大卡)" value="14" />
+      <Ingredient name="蛋白质(克)" value="1.8" />
+      <Ingredient name="脂肪(克)" value="0.7" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="咖啡" id="25093">
+      <Ingredient name="热量(大卡)" value="2" />
+      <Ingredient name="蛋白质(克)" value="3" />
+      <Ingredient name="脂肪(克)" value="5" />
+      <Ingredient name="碳水化合物(克)" value="0.3" />
+    </food>
+    <food name="鲜牛奶" id="25657">
+      <Ingredient name="热量(大卡)" value="163" />
+      <Ingredient name="蛋白质(克)" value="2.9" />
+      <Ingredient name="脂肪(克)" value="3.3" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="珍珠奶茶" id="25781">
+      <Ingredient name="热量(大卡)" value="400" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.1" />
+    </food>
+    <food name="芬达" id="25916">
+      <Ingredient name="热量(大卡)" value="32" />
+      <Ingredient name="蛋白质(克)" value="0.5" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="0.9" />
+    </food>
+    <food name="蜂蜜水" id="26181">
+      <Ingredient name="热量(大卡)" value="67" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="3" />
+      <Ingredient name="碳水化合物(克)" value="0.2" />
+    </food>
+    <food name="可口可乐" id="27048">
+      <Ingredient name="热量(大卡)" value="43.02" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="1" />
+      <Ingredient name="碳水化合物(克)" value="11" />
+    </food>
+    <food name="酸奶" id="2735">
+      <Ingredient name="热量(大卡)" value="64" />
+      <Ingredient name="蛋白质(克)" value="2.7" />
+      <Ingredient name="脂肪(克)" value="1.9" />
+      <Ingredient name="碳水化合物(克)" value="9" />
+    </food>
+    <food name="橙汁" id="3048">
+      <Ingredient name="热量(大卡)" value="20" />
+      <Ingredient name="蛋白质(克)" value="2" />
+      <Ingredient name="脂肪(克)" value="2" />
+      <Ingredient name="碳水化合物(克)" value="5.1" />
+    </food>
+    <food name="花茶" id="3072">
+      <Ingredient name="热量(大卡)" value="281" />
+      <Ingredient name="蛋白质(克)" value="27.1" />
+      <Ingredient name="脂肪(克)" value="1.2" />
+      <Ingredient name="碳水化合物(克)" value="40.4" />
+  </food>
+  </class>
+</FoodLibrary>

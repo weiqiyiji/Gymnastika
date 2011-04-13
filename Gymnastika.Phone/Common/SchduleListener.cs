@@ -54,6 +54,7 @@ namespace Gymnastika.Phone.Common
             switch (e.Action)
             {
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    if(e.NewItems!=null)
                     foreach (ScheduleItem item in e.NewItems)
                     {
                         Alerted.Add(item, false);
@@ -61,6 +62,7 @@ namespace Gymnastika.Phone.Common
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    if(e.OldItems!=null)
                     foreach (ScheduleItem item in e.OldItems)
                     {
                         Alerted.Remove(item);
@@ -68,10 +70,12 @@ namespace Gymnastika.Phone.Common
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Replace:
+                    if(e.OldItems!=null)
                     foreach (ScheduleItem item in e.OldItems)
                     {
                         item.StatusChange -= ChildStatusChanged;
                     }
+                    if(e.NewItems!=null)
                     foreach (ScheduleItem item in e.NewItems)
                     {
                         Alerted.Add(item, false);
@@ -79,6 +83,7 @@ namespace Gymnastika.Phone.Common
                     }
                     break;
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Reset:
+                    if(e.OldItems!=null)
                     foreach (ScheduleItem item in e.OldItems)
                     {
                         Alerted.Remove(item);
@@ -93,6 +98,9 @@ namespace Gymnastika.Phone.Common
         {
             if (ScheduleStatusChagned != null)
                 ScheduleStatusChagned(this, new ScheduleStatusChangedArg(sender, OldStatus, NewStatus));
+            if (NewStatus == ScheduleItemStatus.Done)
+                if (ScheduleCompelted != null)
+                    ScheduleCompelted(this, new ScheduleArg(sender));
         }
         public void Start(System.Windows.Threading.Dispatcher dispatcher)
         {

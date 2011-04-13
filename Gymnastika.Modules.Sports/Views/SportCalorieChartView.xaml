@@ -157,7 +157,7 @@
         </Border>
         <Border x:Name="TimeBorder" BorderBrush="#FF7C836B" BorderThickness="0.5" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2">
         	<TextBox x:Name="Time" Foreground="#FF7C836B" VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0" >
-        		<MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource ResourceKey=HourMinuteToStringConverter}">
+        		<MultiBinding UpdateSourceTrigger="LostFocus"  Converter="{StaticResource ResourceKey=HourMinuteToStringConverter}">
         			<MultiBinding.ValidationRules>
         				<validationRule:TimeExpressionValidation/>
         			</MultiBinding.ValidationRules>

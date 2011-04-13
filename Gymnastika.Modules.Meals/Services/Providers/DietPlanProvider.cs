@@ -39,6 +39,11 @@ namespace Gymnastika.Modules.Meals.Services.Providers
             return _repository.Fetch(dp => dp.User.Id == userId);
         }
 
+        public IEnumerable<DietPlan> GetDietPlans(int userId, int count)
+        {
+            return _repository.Fetch(dp => dp.User.Id == userId, odp => odp.Asc(d => d.Id), 0, count);
+        }
+
         public IEnumerable<DietPlan> GetRecommendedDietPlans()
         {
             return _repository.Fetch(dp => dp.PlanType == PlanType.RecommendedDietPlan);

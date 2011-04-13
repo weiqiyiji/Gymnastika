@@ -86,6 +86,15 @@ namespace Gymnastika.Modules.Sports.Views
                 searchCommand.Execute(null);
             }
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SelectDateView window = new SelectDateView();
+            window.Owner = Application.Current.MainWindow;
+            window.ShowDialog();
+            DateTime date = window.Date;
+            ViewModel.PlanViewModel.SetPlan(date);
+        }
     }
     //    ICategoriesPanelViewModel _categoryPanelModel;
     //    ISportsPanelViewModel _sportsPanelModel;

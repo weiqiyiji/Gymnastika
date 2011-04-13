@@ -18,6 +18,7 @@ using Gymnastika.Data;
 using Gymnastika.Modules.Meals.Models;
 using Gymnastika.Services.Session;
 using Gymnastika.Services.Models;
+using Microsoft.Practices.ServiceLocation;
 
 namespace Gymnastika.Modules.Meals.Widgets
 {
@@ -27,47 +28,30 @@ namespace Gymnastika.Modules.Meals.Widgets
     [WidgetMetadata("饮食计划", "/Gymnastika.Modules.Meals;component/Images/DietPlan.png")]
     public partial class TodayDietPlanWidget : IWidget
     {
-        private readonly IFoodService _foodService;
-        private readonly IWorkEnvironment _workEnvironment;
-        private readonly ISessionManager _sessionManager;
-        private readonly User _currentUser;
-
-        public TodayDietPlanWidget(IFoodService foodService, 
-            IWorkEnvironment workEnvironment,
-            ISessionManager sessionManager)
+        public TodayDietPlanWidget(TodayDietPlanWidgetModel model)
         {
-            _foodService = foodService;
-            _workEnvironment = workEnvironment;
-            _sessionManager = sessionManager;
-            _currentUser = _sessionManager.GetCurrentSession().AssociatedUser;
-
-            using (var scope = _workEnvironment.GetWorkContextScope())
-            {
-                DietPlan = _foodService.DietPlanProvider.Get(_currentUser, DateTime.Today);
-                DietPlan.SubDietPlans = DietPlan.SubDietPlans.ToList();
-                foreach (var subDietPlan in DietPlan.SubDietPlans)
-                {
-                    subDietPlan.DietPlanItems = subDietPlan.DietPlanItems.ToList();
-                    foreach (var dietPlanItem in subDietPlan.DietPlanItems)
-                    {
-                        dietPlanItem.Food = _foodService.FoodProvider.Get(dietPlanItem);
-                    }
-                }
-            }
-
             InitializeComponent();
+
+            Model = model;
         }
 
-        public DietPlan DietPlan { get; set; }
-
-        public DietPlanItemViewModel TodayDietPlanViewModel { get; set; }
+        public TodayDietPlanWidgetModel Model
+        {
+            get
+            {
+                return this.DataContext as TodayDietPlanWidgetModel;
+            }
+            set
+            {
+                this.DataContext = value;
+            }
+        }
 
         #region IWidget Members
 
         public void Initialize()
         {
-            if (DietPlan != null)
-                TodayDietPlanViewModel = new DietPlanItemViewModel(DietPlan);
+            Model.Initialize();
         }
 
         #endregion

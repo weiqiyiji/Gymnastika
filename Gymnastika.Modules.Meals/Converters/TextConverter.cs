@@ -47,7 +47,7 @@ namespace Gymnastika.Modules.Meals.Converters
                 if (tempLen > len)
                     break;
             }
-            byte[] mybyte = System.Text.Encoding.Default.GetBytes(inputString);
+            byte[] mybyte = Encoding.Default.GetBytes(inputString);
             if (mybyte.Length > len)
                 tempString += "...";
             return tempString;

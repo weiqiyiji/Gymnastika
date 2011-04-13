@@ -14,7 +14,9 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <converters:TimeToDoubleConverter x:Key="TimeToDoubleConverter"/>
+            <converters:DoubleConverter x:Key="DoubleConverter"/>
         </ResourceDictionary>
+       
     </UserControl.Resources>
     <Grid>
     	<Grid.ColumnDefinitions>
@@ -27,7 +29,7 @@
     			<TextBlock x:Name="Time" VerticalAlignment="Center" HorizontalAlignment="Center">
     				<Run Text="{Binding Hour}"></Run>			
 					<Run Text=":"></Run>
-					<Run Text="{Binding Minute}"></Run>
+					<Run Text="{Binding Minute,Converter={StaticResource DoubleConverter}}"></Run>
 				</TextBlock>
     			 		
     			<!--</TextBlock>Text="{Binding Time}" />-->

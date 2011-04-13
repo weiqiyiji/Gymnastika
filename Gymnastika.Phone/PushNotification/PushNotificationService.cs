@@ -109,7 +109,7 @@ namespace Gymnastika.Phone.PushNotification
                             Trace("Finding channel");
                             _httpChannel = HttpNotificationChannel.Find(ChannelName);
 
-                            if (null != _httpChannel)
+                            if (null != _httpChannel&&_httpChannel.ChannelUri!=null)
                             {
                                 if (_httpChannel.ChannelUri.ToString() == uri)
                                 {
@@ -154,8 +154,9 @@ namespace Gymnastika.Phone.PushNotification
         private void SubscribeToService()
         {
            
-            string theUri = String.Format("/reg/reg_phone?uri={0}",HttpUtility.UrlEncode( _httpChannel.ChannelUri.ToString()));
+            string theUri = String.Format("reg/reg_phone?uri={0}",HttpUtility.UrlEncode( _httpChannel.ChannelUri.ToString()));
             WebClient client = new WebClient();
+            Uri uri = Config.GetServerPathUri(theUri);
             client.DownloadStringCompleted += (s, e) =>
             {
                 if (null == e.Error)
@@ -168,7 +169,7 @@ namespace Gymnastika.Phone.PushNotification
                 else
                     Trace("Registration failed: " + e.Error.Message);
             };
-            client.DownloadStringAsync(Config.GetServerPathUri(theUri));
+            client.DownloadStringAsync(uri);
         }
 
         private void RaiseSubscribeCompleted(int id)

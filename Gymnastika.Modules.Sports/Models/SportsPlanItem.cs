@@ -29,6 +29,8 @@ namespace Gymnastika.Modules.Sports.Models
 
         public virtual Sport Sport { get; set; }
 
+        public virtual double Score { get; set;}
+
         public virtual SportsPlan SportsPlan { get; set; }
     }
 }

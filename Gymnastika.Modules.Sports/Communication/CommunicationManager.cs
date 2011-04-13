@@ -186,7 +186,7 @@ namespace Gymnastika.Modules.Sports.Communication
                     plan.SportsPlanItems = plan.SportsPlanItems.ToList();
                     foreach (var item in plan.SportsPlanItems)
                     {
-                        item.Sport = _sportProvider.Get(item.Id);
+                        item.Sport = _sportProvider.Get(item.Sport.Id);
                     }
                 }
             }

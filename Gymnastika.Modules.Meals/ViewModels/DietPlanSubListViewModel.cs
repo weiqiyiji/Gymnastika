@@ -84,7 +84,7 @@ namespace Gymnastika.Modules.Meals.ViewModels
             }
             else
             {
-                targetFoodItem.Amount += 100;
+                MessageBox.Show("您已经添加此食物");
             }
         }
 

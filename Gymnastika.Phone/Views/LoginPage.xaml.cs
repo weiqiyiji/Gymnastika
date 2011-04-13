@@ -26,7 +26,11 @@ namespace Gymnastika.Phone.Views
         private List<UserProfile.Profile> Users = new List<UserProfile.Profile>();
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
+
             ClearUserList();
+            //if (State.ContainsKey("ActiveProfile"))
+            //    UserProfileManager.ActiveProfile = State["ActiveProfile"] as Profile;
+            
             foreach (UserProfile.Profile p in UserProfileManager.GetAllStoredProfiles())
             {
                 AddUser(p);
@@ -45,8 +49,7 @@ namespace Gymnastika.Phone.Views
             this.ManipulationStarted += new EventHandler<ManipulationStartedEventArgs>(LoginPage_ManipulationStarted);
             CurrentOffsetY = 0;
             Arrange(CurrentOffsetY);
-            Sync.Test test = new Sync.Test();
-            test.DoTest();
+         
         }
         void AddUser(UserProfile.Profile profile)
         {
@@ -74,7 +77,11 @@ namespace Gymnastika.Phone.Views
 
         void Profile_OnLoginCompeleted(object sender, bool successful)
         {
-            NavigationService.Navigate(Pages.GetPageUri<MainPage>());    
+            this.Dispatcher.BeginInvoke(delegate
+            {
+                UserProfileManager.ActiveProfile = sender as Profile;
+              NavigationService.Navigate(Pages.GetPageUri<MainPage>());
+            });
         }
 
         void item_DeleteClick(object sender, EventArgs e)
@@ -120,15 +127,23 @@ namespace Gymnastika.Phone.Views
 
         private void PhoneApplicationPage_Loaded(object sender, RoutedEventArgs e)
         {
-            Sync.UserProfileService up = new Sync.UserProfileService();
-            up.LogOut("test");
+            if (UserProfileManager.ActiveProfile != null)
+                NavigationService.Navigate(Pages.GetPageUri<MainPage>());
         }
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-
             NavigationService.Navigate(Pages.GetPageUri<MainPage>());
         }
-
+        protected override void OnNavigatingFrom(System.Windows.Navigation.NavigatingCancelEventArgs e)
+        {
+            if (State.ContainsKey("ActiveProfile"))
+            {
+                State["ActiveProfile"] = UserProfileManager.ActiveProfile;
+            }else{
+                State.Add("ActiveProfile", UserProfileManager.ActiveProfile);
+            }
+            base.OnNavigatingFrom(e);
+        }
     }
 }
