@@ -172,7 +172,7 @@
     			</ItemsPanelTemplate>
     		</ListBox.ItemsPanel>
     	</ListBox>
-    	<Button Content="保存" Command="{Binding SubmitCommand}" Margin="0,15.305,0,10.805" x:Name="Save" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Width="61.166" Style="{DynamicResource ButtonStyle}" Foreground="White" />
+    	<Button Content="保存" Click="Save_Click" Command="{Binding SubmitCommand}" Margin="0,15.305,0,10.805" x:Name="Save" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" Width="61.166" Style="{DynamicResource ButtonStyle}" Foreground="White" />
     	<Button Content="还原" Command="{Binding CancelCommand}" x:Name="Cancel" Margin="0,15.305,79,10.805" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Right" d:LayoutOverrides="HorizontalAlignment" Width="{Binding Width, ElementName=Save}" Height="{Binding Height, ElementName=Save}" Style="{DynamicResource ButtonStyle}" Foreground="White" />
 		<control:AnimatedProgressBar x:Name="calorieBar" Orientation="Vertical" Value="0" Maximum="3000" TargetValue="{Binding TotalCalories}" BorderBrush="{x:Null}" OpacityMask="{x:Null}" Background="{x:Null}" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4"  >
 			<control:AnimatedProgressBar.RenderTransform>

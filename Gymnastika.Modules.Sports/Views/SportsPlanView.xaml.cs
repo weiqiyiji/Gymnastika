@@ -62,6 +62,11 @@ namespace Gymnastika.Modules.Sports.Views
         }
 
         #endregion
+
+        private void Save_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("保存完毕！");
+        }
     }
     public interface ISportsPlanView
     {
