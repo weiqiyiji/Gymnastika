@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:view="clr-namespace:Gymnastika.Modules.Sports.Views"
-             mc:Ignorable="d" WindowStyle="None" WindowStartupLocation="CenterScreen"
+             mc:Ignorable="d" WindowStartupLocation="CenterScreen"
              d:DesignHeight="300" d:DesignWidth="300" Width="500" Height="500"
-             AllowsTransparency="True" Background="Transparent">
+             AllowsTransparency="True" Background="Transparent"
+            WindowStyle="None"
+			 xmlns:controls="clr-namespace:Gymnastika.Controls;assembly=Gymnastika.Controls">
     <Window.Resources>
         <Storyboard x:Key="OnWindowLoaded">
             <DoubleAnimation Duration="00:00:00.5000000" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" Storyboard.TargetName="windowBorder" To="1">
@@ -236,16 +238,22 @@
             <BeginStoryboard x:Name="OnWindowLoaded_BeginStoryboard" Storyboard="{StaticResource OnWindowLoaded}"/>
         </EventTrigger>
     </Window.Triggers>
-    <Border x:Name="windowBorder" RenderTransformOrigin="0.5,0.5" Width="400" Height="400" VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Border.RenderTransform>
-            <TransformGroup>
-                <ScaleTransform ScaleX="0" ScaleY="0" />
-                <SkewTransform/>
-                <RotateTransform/>
-                <TranslateTransform/>
-            </TransformGroup>
-        </Border.RenderTransform>
-    	<Calendar Style="{StaticResource CalendarStyle1}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedDatesChanged="calendar1_SelectedDatesChanged" />
-    	
-    </Border>
+    <Grid>
+
+        <Border x:Name="windowBorder" Width="400" Height="400" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0" ScaleY="0" />
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Calendar Style="{StaticResource CalendarStyle1}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectedDatesChanged="calendar1_SelectedDatesChanged" />
+        </Border>
+        <controls:ImageButton Click="ImageButton_Click"	ImageMode="Switchover" ImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close.png"
+                                 MouseOverImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close.png"
+                                 MousePressedImageSource="pack://application:,,,/Gymnastika.Modules.Sports;Component/Resources/Images/Close.png" 
+                              VerticalContentAlignment="Center" ScrollViewer.VerticalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" d:LayoutOverrides="GridBox" VerticalAlignment="Top" Margin="0,62,85,0" HorizontalAlignment="Right"/>
+    </Grid>
 </Window>

@@ -92,8 +92,11 @@ namespace Gymnastika.Modules.Sports.Views
             SelectDateView window = new SelectDateView();
             window.Owner = Application.Current.MainWindow;
             window.ShowDialog();
-            DateTime date = window.Date;
-            ViewModel.PlanViewModel.SetPlan(date);
+            if (window.IsSelected && !MathFacility.TheSameDay(window.Date,ViewModel.PlanViewModel.DateTime))
+            {
+                DateTime date = window.Date;
+                ViewModel.PlanViewModel.SetPlan(date);
+            }
         }
     }
     //    ICategoriesPanelViewModel _categoryPanelModel;

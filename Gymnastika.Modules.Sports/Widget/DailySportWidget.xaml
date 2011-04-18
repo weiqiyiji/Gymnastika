@@ -6,8 +6,7 @@
              mc:Ignorable="d"
              xmlns:widget="clr-namespace:Gymnastika.Modules.Sports.Widget" 
              Height="292" 
-             Width="168" 
-             OpacityMask="#CC000000"
+             Width="168"
              xmlns:converter="clr-namespace:Gymnastika.Modules.Sports.Converters"
 			  xmlns:behaviors="clr-namespace:Gymnastika.Controls.Behaviors;assembly=Gymnastika.Controls">
     <UserControl.Resources>

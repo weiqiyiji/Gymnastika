@@ -26,9 +26,15 @@ namespace Gymnastika.Modules.Sports.Views
         //Just a funny name
         private bool _iAmReallyWantToClose = false;
 
+        public bool IsSelected
+        {
+            get;set;
+        }
+
         public SelectDateView()
         {
             InitializeComponent();
+            IsSelected = false;
         }
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -65,9 +71,10 @@ namespace Gymnastika.Modules.Sports.Views
         private void calendar1_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime date = (DateTime)e.AddedItems[0];
-            IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
-            eventAggregator.GetEvent<SportSelectDateEvent>().Publish(date);
+            //IEventAggregator eventAggregator = ServiceLocator.Current.GetInstance<IEventAggregator>();
+            //eventAggregator.GetEvent<SportSelectDateEvent>().Publish(date);
             Date = date;
+            IsSelected = true;
             this.Close();
         }
 
@@ -75,6 +82,12 @@ namespace Gymnastika.Modules.Sports.Views
         {
             get;
             set;
+        }
+
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            IsSelected = false;
+            this.Close();
         }
 
 
