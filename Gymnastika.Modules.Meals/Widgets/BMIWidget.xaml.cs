@@ -35,6 +35,8 @@ namespace Gymnastika.Modules.Meals.Widgets
         private readonly User _user;
         private readonly int _height;
         private readonly int _weight;
+        private readonly int _age;
+        private readonly Gender _gender;
 
         public BMIWidget(ISessionManager sessionManager,
             IRegionManager regionManager,
@@ -48,14 +50,15 @@ namespace Gymnastika.Modules.Meals.Widgets
             _user = _sessionManager.GetCurrentSession().AssociatedUser;
             _height = _user.Height;
             _weight = _user.Weight;
-
+            _age = _user.Age;
+            _gender = _user.Gender;
         }
 
         //public int MinBMIValue { get; set; }
 
         //public int MaxBMIValue { get; set; }
 
-        public int BMIValue { get; set; }
+        public decimal BMIValue { get; set; }
 
         #region IWidget Members
 
@@ -72,7 +75,7 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeBMI()
         {
-            BMIValue = (int)(_weight / ((double)_height * _height / 10000));
+            BMIValue = Decimal.Round((decimal)(_weight / ((double)_height * _height / 10000)), 1);
 
             BMILabel.Text = BMIValue.ToString();
         }
@@ -110,7 +113,16 @@ namespace Gymnastika.Modules.Meals.Widgets
 
         private void InitializeNormalMetabolism()
         {
-            double NormalMetabolism = (_weight * 0.062 + 2.036) * 240;
+            //int NormalMetabolism = (int)((_weight * 0.062 + 2.036) * 240);
+            int NormalMetabolism;
+            if (_gender == Gender.Female)
+            {
+                NormalMetabolism = (int)((65.5 + 9.6 * _weight + 1.9 * _height - 4.7 * _age) * 1.2);
+            }
+            else
+            {
+                NormalMetabolism = (int)((66 + 1.38 * _weight + 5 * _height - 6.8 * _age) * 1.2);
+            }
 
             NormalMetabolismLabel.Text = NormalMetabolism.ToString();
         }

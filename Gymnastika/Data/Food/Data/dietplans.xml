@@ -7,7 +7,7 @@
 					<diet-plan-items>
 						<diet-plan-item food-id="25611" food-name="°×Ã×Öà" amount="100" />
 						<diet-plan-item food-id="1969" food-name="¶¹½¬" amount="100" />
-						<diet-plan-item  food-id="2759" food-name="¼¦µ°" amount="50" />
+						<diet-plan-item  food-id="2759" food-name="¼¦µ°" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
@@ -23,6 +23,7 @@
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 						<diet-plan-item  food-id="2085" food-name="»Æ¹Ï" amount="50" />
 						<diet-plan-item  food-id="25956" food-name="³´µ°" amount="50" />
+						<diet-plan-item  food-id="26720" food-name="Æ¤µ°ÊÝÈâÖà" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 			</sub-diet-plans>
@@ -38,14 +39,14 @@
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="2067" food-name="ÇÑ×Ó" amount="75" />
-						<diet-plan-item  food-id="2858" food-name="º£Ïº" amount="75" />
+						<diet-plan-item  food-id="2067" food-name="ÇÑ×Ó" amount="80" />
+						<diet-plan-item  food-id="2858" food-name="º£Ïº" amount="80" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="26533" food-name="Ü½ÈØÏÊÊßÌÀ" amount="50" />
+						<diet-plan-item  food-id="26533" food-name="Ü½ÈØÏÊÊßÌÀ" amount="80" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 						<diet-plan-item  food-id="2533" food-name="ÖíÈâ" amount="50" />
 					</diet-plan-items>
@@ -57,22 +58,22 @@
 			<sub-diet-plans>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="26720" food-name="Æ¤µ°ÊÝÈâÖà" amount="50" />
-						<diet-plan-item  food-id="25657" food-name="ÏÊÅ£ÄÌ" amount="150" />
+						<diet-plan-item  food-id="25657" food-name="ÏÊÅ£ÄÌ" amount="100" />
 						<diet-plan-item  food-id="2759" food-name="¼¦µ°" amount="50" />
+						<diet-plan-item  food-id="26694" food-name="Ãæ°ü" amount="50" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
 						<diet-plan-item  food-id="2769" food-name="ËÉ»¨µ°" amount="50" />
-						<diet-plan-item  food-id="2533" food-name="ÖíÈâ" amount="100" />
+						<diet-plan-item  food-id="2533" food-name="ÖíÈâ" amount="50" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="26717" food-name="öêÓãÌÀ" amount="60" />
-						<diet-plan-item  food-id="2302" food-name="Ïã¹½" amount="40" />
+						<diet-plan-item  food-id="26837" food-name="Çà²Ë·ÛË¿ÌÀ" amount="100" />
+						<diet-plan-item  food-id="2302" food-name="Ïã¹½" amount="50" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 					</diet-plan-items>
 				</sub-diet-plan>
@@ -84,20 +85,20 @@
 				<sub-diet-plan>
 					<diet-plan-items>
 						<diet-plan-item  food-id="26031" food-name="ºÚÖ¥Âéºý" amount="100" />
-						<diet-plan-item  food-id="26694" food-name="Ãæ°ü" amount="75" />
-						<diet-plan-item  food-id="26513" food-name="Æ»¹û" amount="75" />
+						<diet-plan-item  food-id="26694" food-name="Ãæ°ü" amount="80" />
+						<diet-plan-item  food-id="26513" food-name="Æ»¹û" amount="80" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="2080" food-name="¶¬¹Ï" amount="75" />
-						<diet-plan-item  food-id="2068" food-name="·¬ÇÑ" amount="75" />
+						<diet-plan-item  food-id="2080" food-name="¶¬¹Ï" amount="80" />
+						<diet-plan-item  food-id="2068" food-name="·¬ÇÑ" amount="80" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="25860" food-name="º£ÏÊÌÀ" amount="60" />
+						<diet-plan-item  food-id="25860" food-name="º£ÏÊÌÀ" amount="100" />
 						<diet-plan-item  food-id="2858" food-name="º£Ïº" amount="40" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 					</diet-plan-items>
@@ -109,14 +110,14 @@
 			<sub-diet-plans>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="25361" food-name="»¨¾í" amount="50" />
+						<diet-plan-item  food-id="25361" food-name="»¨¾í" amount="80" />
 						<diet-plan-item  food-id="1858" food-name="Ð¡Ã×Öà" amount="100" />
 						<diet-plan-item  food-id="2759" food-name="¼¦µ°" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="2118" food-name="´ó°×²Ë" amount="50" />
+						<diet-plan-item  food-id="2118" food-name="´ó°×²Ë" amount="100" />
 						<diet-plan-item  food-id="2533" food-name="ÖíÈâ" amount="50" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="100" />
 						<diet-plan-item  food-id="2090" food-name="ÄÏ¹Ï" amount="100" />
@@ -124,9 +125,9 @@
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="25663" food-name="Òø¶úºìÔæ¸þ" amount="60" />
-						<diet-plan-item  food-id="25987" food-name="ÓñÃ×" amount="60" />
-						<diet-plan-item  food-id="2870" food-name="º£Ð·" amount="40" />
+						<diet-plan-item  food-id="25663" food-name="Òø¶úºìÔæ¸þ" amount="100" />
+						<diet-plan-item  food-id="25987" food-name="ÓñÃ×" amount="80" />
+						<diet-plan-item  food-id="2870" food-name="º£Ð·" amount="50" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 					</diet-plan-items>
 				</sub-diet-plan>
@@ -137,23 +138,23 @@
 				<sub-diet-plan>
 					<diet-plan-items>
 						<diet-plan-item  food-id="25742" food-name="²èÒ¶µ°" amount="50" />
-						<diet-plan-item  food-id="1969" food-name="¶¹½¬" amount="120" />
-						<diet-plan-item  food-id="1805" food-name="ÂøÍ·" amount="80" />
+						<diet-plan-item  food-id="1969" food-name="¶¹½¬" amount="150" />
+						<diet-plan-item  food-id="1805" food-name="ÂøÍ·" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
 						<diet-plan-item  food-id="26065" food-name="Çà½·" amount="50" />
 						<diet-plan-item  food-id="1765" food-name="ÂíÁåÊí" amount="50" />
-						<diet-plan-item  food-id="2662" food-name="¼¦Èâ" amount="50" />
+						<diet-plan-item  food-id="2662" food-name="¼¦Èâ" amount="100" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="100" />
 					</diet-plan-items>
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="26837" food-name="Çà²Ë·ÛË¿ÌÀ" amount="40" />
-						<diet-plan-item  food-id="2024" food-name="Íã¶¹" amount="20" />
-						<diet-plan-item  food-id="2135" food-name="»¨²Ë" amount="40" />
+						<diet-plan-item  food-id="26717" food-name="öêÓãÌÀ" amount="50" />
+						<diet-plan-item  food-id="2024" food-name="Íã¶¹" amount="50" />
+						<diet-plan-item  food-id="2135" food-name="»¨²Ë" amount="50" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 					</diet-plan-items>
 				</sub-diet-plan>
@@ -178,9 +179,9 @@
 				</sub-diet-plan>
 				<sub-diet-plan>
 					<diet-plan-items>
-						<diet-plan-item  food-id="2812" food-name="´øÓã" amount="30" />
-						<diet-plan-item  food-id="2052" food-name="¶¹¸¯" amount="30" />
-						<diet-plan-item  food-id="25606" food-name="¼åµ°" amount="40" />
+						<diet-plan-item  food-id="2812" food-name="´øÓã" amount="50" />
+						<diet-plan-item  food-id="2052" food-name="¶¹¸¯" amount="50" />
+						<diet-plan-item  food-id="25606" food-name="¼åµ°" amount="50" />
 						<diet-plan-item  food-id="1838" food-name="Ã×·¹" amount="80" />
 					</diet-plan-items>
 				</sub-diet-plan>
