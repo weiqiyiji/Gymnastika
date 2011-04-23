@@ -40,8 +40,15 @@
                     <Button Content="Reset" Height="80" HorizontalAlignment="Left" Margin="212,401,0,0" Name="button2" VerticalAlignment="Top" Width="191" Click="button2_Click" Visibility="Collapsed" />
                 </Grid>
             </controls:PanoramaItem>
-            <controls:PanoramaItem Header="微博">
-                <Grid />
+            <controls:PanoramaItem Header="查询食品">
+                <Grid>
+                    <StackPanel Height="454" Margin="10,10,10,0" Name="stackPanel1" VerticalAlignment="Top" Width="400">
+                        <my:BarcodeSanner Height="187" x:Name="barcodeSanner1" Width="277" />
+                        <TextBlock Height="30" Name="txtInfo" Text="TextBlock" Margin="10,0" />
+                        <TextBlock Height="30" Name="txtSuggest" Text="TextBlock" Margin="10,0" />
+                        <Button Content="吃掉" Height="72" Name="btnTake" Width="160" Click="btnTake_Click" />
+                    </StackPanel>
+                </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>
     </Grid>

@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Common\DataContractHelper.cs" />
     <Compile Include="Common\DefualtTransition.cs" />
+    <Compile Include="Common\FoodLibrary.cs" />
     <Compile Include="Common\Grade.cs" />
     <Compile Include="Common\HttpExtenstion.cs" />
     <Compile Include="Common\MicroBlog.cs" />
@@ -84,10 +85,14 @@
     <Compile Include="Common\Schedule.cs" />
     <Compile Include="Common\User.cs" />
     <Compile Include="Common\Util.cs" />
+    <Compile Include="Common\ZXingScanner.cs" />
     <Compile Include="Controls\AllSchdule.xaml.cs">
       <DependentUpon>AllSchdule.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\AniScrollViewer.cs" />
+    <Compile Include="Controls\BarcodeSanner.xaml.cs">
+      <DependentUpon>BarcodeSanner.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ChildWindow.cs" />
     <Compile Include="Controls\ChildWindowAutomationPeer.cs" />
     <Compile Include="Controls\DietItem.xaml.cs">
@@ -207,6 +212,10 @@
     <Page Include="Controls\AllSchdule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\BarcodeSanner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\DietItem.xaml">
       <SubType>Designer</SubType>
@@ -343,6 +352,12 @@
     <Resource Include="Images\VGA-Wallpaper026.jpg" />
     <Resource Include="Images\UpDownSelectorBackground.png" />
     <Content Include="SplashScreenImage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZXing.WP7\ZXing.WP7.csproj">
+      <Project>{E7CE033C-CBA0-49D7-8B59-947BFF3E6E0C}</Project>
+      <Name>ZXing.WP7</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />

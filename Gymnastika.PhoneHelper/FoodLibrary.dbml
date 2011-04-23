@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="FoodLibrary" Class="FoodLibraryDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=FoodLibrary;Integrated Security=True;Pooling=False" SettingsObjectName="Gymnastika.PhoneHelper.Properties.Settings" SettingsPropertyName="FoodLibraryConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Foods" Member="Foods">
+    <Type Name="Food">
+      <Column Name="ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Calories" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Protein" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Carbohydrate" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Fat" Type="System.Single" DbType="Real" CanBeNull="true" />
+      <Column Name="Barcode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

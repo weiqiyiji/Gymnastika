@@ -145,5 +145,10 @@ namespace Gymnastika.Phone.Views
             }
             base.OnNavigatingFrom(e);
         }
+
+        private void button1_Click_1(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(Pages.GetPageUri<MainPage>());
+        }
     }
 }

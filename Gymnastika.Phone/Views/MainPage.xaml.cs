@@ -25,6 +25,8 @@ namespace Gymnastika.Phone.Views
         PlanSync sync = new PlanSync();
         SchduleListener listener = new SchduleListener();
         Timer UpdateSchduleTimer;
+        private bool IsScanning = false;
+        private FoodInfo CurrentFood;
         public MainPage()
         {
             InitializeComponent();
@@ -37,6 +39,58 @@ namespace Gymnastika.Phone.Views
             Common.Schedule.ItemsCleared += new EventHandler<Schedule.SchduleEventArgs>(Schedule_ItemsCleared);
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
+            barcodeSanner1.ScanBegin += new EventHandler<Controls.BarcodeScanBeginArgs>(barcodeSanner1_ScanBegin);
+            barcodeSanner1.ScanCompeleted += new EventHandler<Controls.BarcodeScanCompeletedArgs>(barcodeSanner1_ScanCompeleted);
+        }
+        bool CanTakeFood(double calory)
+        {
+            double sum = 0;
+            double caloryNeed = 150;
+            foreach (var t in Schedule.GetAllSchedules())
+            {
+                if (t.Calorie > 0)
+                    sum += t.Calorie;
+            }
+            return sum + calory < caloryNeed;
+        }
+        void barcodeSanner1_ScanCompeleted(object sender, Controls.BarcodeScanCompeletedArgs e)
+        {
+            IsScanning = false;
+            if (!e.Successful)
+            {
+                barcodeSanner1.TestScan();
+                return;
+            }
+            else
+            {
+                FoodLibrary lib = new FoodLibrary(new Uri("http://localhost:998"));
+                lib.GetFoodInfoCompeleted += new EventHandler<GetFoodInfoCompeletedArgs>((s, arg) =>
+                {
+                    if (arg.Barcode == e.Code)
+                    {
+                        CurrentFood = arg.Info;
+                        if (arg.Info == null)
+                        {
+                            txtInfo.Text = "没有找到该食物。";
+                            txtSuggest.Text = "";
+                            btnTake.IsEnabled = false;
+                        }
+                        else
+                        {
+                            txtInfo.Text = arg.Info.ToString();
+                            txtSuggest.Text = CanTakeFood(arg.Info.Calories) ? "您可以吃该食物" : "您最好不要吃该食物";
+                            btnTake.IsEnabled = true;
+                        }
+                    }
+                });
+                lib.GetFoodByBarcodeAsync(e.Code);
+            }
+        }
+
+        void barcodeSanner1_ScanBegin(object sender, Controls.BarcodeScanBeginArgs e)
+        {
+            if (!IsScanning)
+                barcodeSanner1.TestScan();
         }
 
         void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
@@ -63,21 +117,7 @@ namespace Gymnastika.Phone.Views
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             Util.pushNotificationService.Connect();
-            //ParseNotification("<schedule id=\"15\">" +
-            //                  "<connection id=\"3\"/>" +
-            //                  "<user id=\"1\" />"
-            //                  + "<data>"
-            //                  + "<SportsPlanTaskItem xmlns:i=\"http://www.w3.org/2001/XMLSchema-instance\">"
-            //                 + "<Calories>300</Calories>"
-            //                 + "<Duration>30</Duration>"
-            //                 + "<Id>21</Id>"
-            //                 + "<Minutes>60</Minutes>"
-            //                 + "<Score>40.72063178677196</Score>"
-            //                 + "<SportName>桌球</SportName>"
-            //                 + "<Time>2011-03-29T17:53:00</Time>"
-            //                 + "</SportsPlanTaskItem>"
-            //                 + "</data>"
-            //                 + "</schedule>");
+
         }
         void ParseNotification(string xml)
         {
@@ -124,10 +164,10 @@ namespace Gymnastika.Phone.Views
                 Schedule.AddItem(Item);
             if (Item.Status != ScheduleItemStatus.Active && Item.Status != ScheduleItemStatus.Done)
             {
-                if (MessageBox.Show(string.Format("开始{0}?", Item.Name), "提示", MessageBoxButton.OKCancel)==MessageBoxResult.OK)
+                if (MessageBox.Show(string.Format("开始{0}?", Item.Name), "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     Item.Status = ScheduleItemStatus.Active;
-                } 
+                }
             }
         }
         void pushNotificationService_HttpNotificationReceived(object sender, Microsoft.Phone.Notification.HttpNotificationEventArgs e)
@@ -173,6 +213,28 @@ namespace Gymnastika.Phone.Views
         private void button3_Click(object sender, RoutedEventArgs e)
         {
             UpdateSchdule(null);
+        }
+
+        private void btnTake_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurrentFood != null)
+            {
+                ScheduleItem item = Schedule.AddItem(
+                      new ScheduleItem()
+                      {
+                          Name = "加餐：" + CurrentFood.Name,
+                          Calorie = CurrentFood.Calories,
+                          OriginTime = DateTime.Now,
+                      });
+                if (CurrentFood.Calories > 0)
+                    item.Details.Add("卡路里：" + CurrentFood.Calories);
+                if (CurrentFood.Carbohydrate > 0)
+                    item.Details.Add("碳水化合物：" + CurrentFood.Carbohydrate);
+                if (CurrentFood.Fat > 0)
+                    item.Details.Add("脂肪：" + CurrentFood.Fat);
+                if (CurrentFood.Protein > 0)
+                    item.Details.Add("蛋白质：" + CurrentFood.Protein);
+            }
         }
     }
 }
