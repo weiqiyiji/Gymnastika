@@ -32,13 +32,13 @@ namespace Gymnastika.Phone.Common
         {
             StringBuilder sb = new StringBuilder();
             if (Fat > 0)
-                sb.AppendLine("脂肪：" + Fat);
+                sb.AppendLine(string.Format("脂肪：{0:F2}g", Fat));
             if (Calories > 0)
-                sb.AppendLine("卡路里：" + Calories);
+                sb.AppendLine(string.Format("卡路里：{0:F2}大卡", Calories));
             if (Protein > 0)
-                sb.AppendLine("蛋白质:" + Protein);
+                sb.AppendLine(string.Format("蛋白质:{0:F2}g", Protein));
             if (Carbohydrate > 0)
-                sb.AppendLine("碳水化合物：" + Carbohydrate);
+                sb.AppendLine(string.Format("碳水化合物：{0:F2}g", Carbohydrate));
             return sb.ToString();
         }
     }

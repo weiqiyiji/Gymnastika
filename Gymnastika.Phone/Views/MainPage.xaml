@@ -42,12 +42,21 @@
             </controls:PanoramaItem>
             <controls:PanoramaItem Header="查询食品">
                 <Grid>
-                    <StackPanel Height="454" Margin="10,10,10,0" Name="stackPanel1" VerticalAlignment="Top" Width="400">
-                        <my:BarcodeSanner Height="187" x:Name="barcodeSanner1" Width="277" />
-                        <TextBlock Height="30" Name="txtInfo" Text="TextBlock" Margin="10,0" />
-                        <TextBlock Height="30" Name="txtSuggest" Text="TextBlock" Margin="10,0" />
-                        <Button Content="吃掉" Height="72" Name="btnTake" Width="160" Click="btnTake_Click" />
-                    </StackPanel>
+                    <ScrollViewer>
+                        <StackPanel Height="454" Margin="10,10,10,0" Name="stackPanel1" VerticalAlignment="Top" Width="400">
+                            <my:BarcodeSanner Height="187" x:Name="barcodeSanner1" Width="277" />
+                            <TextBlock Height="Auto" Name="txtName" Text="" Margin="10,0" FontSize="36" Foreground="AliceBlue"/>
+                            <TextBlock Height="Auto" Name="txtInfo" Text="" Margin="10,0" />
+                            <TextBlock Height="Auto" Name="txtSuggest" Text="" Margin="10,0" />
+                            <Button Content="吃掉" Height="72" Name="btnTake" Width="160" Click="btnTake_Click" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </controls:PanoramaItem>
+            <controls:PanoramaItem Header="计步器">
+                <Grid>
+                    <my:Pedometer BodyWeight="56" StepLength="50.8" IsRunning="False"   Width="400">
+                    </my:Pedometer>
                 </Grid>
             </controls:PanoramaItem>
         </controls:Panorama>

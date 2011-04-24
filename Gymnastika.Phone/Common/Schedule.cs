@@ -42,7 +42,7 @@ namespace Gymnastika.Phone.Common
             this.Duration = TimeSpan.FromSeconds(0);
             OriginTime = DateTime.MinValue;
             m_Status = ScheduleItemStatus.Normal;
-
+            Details = new List<string>();
         }
         public List<string> Details { get; set; }
         public ScheduleItemType Type { get; set; }
@@ -151,7 +151,7 @@ namespace Gymnastika.Phone.Common
             }
             return "加餐";
         }
-        public static ScheduleItem GetItemFromXml(int id,string xml)
+        public static ScheduleItem GetItemFromXml(int id, string xml)
         {
             XElement element = XElement.Parse(xml);
             if (string.Compare(element.Name.LocalName, "SportsPlanTaskItem", StringComparison.CurrentCultureIgnoreCase) == 0)
@@ -182,7 +182,7 @@ namespace Gymnastika.Phone.Common
                 {
                     Name = GetDietNameFromTime(diet.StartTime),
                     Point = diet.Score,
-                    ID =id,
+                    ID = id,
                     Time = diet.StartTime,
                     Details = new List<string>()
                 };

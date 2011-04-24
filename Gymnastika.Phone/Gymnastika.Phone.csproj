@@ -50,6 +50,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AccelerometerWindowsPhoneClassLibrary">
+      <HintPath>..\Libs\AccelerometerWindowsPhoneClassLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
     <Reference Include="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" />
@@ -83,6 +86,7 @@
     <Compile Include="Common\MicroBlog.cs" />
     <Compile Include="Common\SchduleListener.cs" />
     <Compile Include="Common\Schedule.cs" />
+    <Compile Include="Common\StepCounterService.cs" />
     <Compile Include="Common\User.cs" />
     <Compile Include="Common\Util.cs" />
     <Compile Include="Common\ZXingScanner.cs" />
@@ -122,6 +126,9 @@
     </Compile>
     <Compile Include="Controls\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Pedometer.xaml.cs">
+      <DependentUpon>Pedometer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\ScheduleListItem.xaml.cs">
       <DependentUpon>ScheduleListItem.xaml</DependentUpon>
@@ -252,6 +259,10 @@
     <Page Include="Controls\Overview.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Pedometer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ScheduleListItem.xaml">
       <Generator>MSBuild:Compile</Generator>

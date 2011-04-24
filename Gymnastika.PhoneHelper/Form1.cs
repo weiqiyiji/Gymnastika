@@ -11,6 +11,7 @@ using System.IO;
 using System.Threading;
 using System.Drawing.Imaging;
 using System.Runtime.Serialization;
+using System.Runtime.InteropServices;
 
 namespace Gymnastika.PhoneHelper
 {
@@ -115,13 +116,14 @@ namespace Gymnastika.PhoneHelper
                 return;
             }
             FoodLibraryDataContext foodLibrary = new FoodLibraryDataContext();
-            var food = foodLibrary.Foods.Single(f => f.Barcode == code);
-            if (food != null)
+            try
             {
+                var food = foodLibrary.Foods.Where(f => f.Barcode == code).Single();
+
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
                 Contract(context.Response.OutputStream, new FoodInfo(food));
             }
-            else
+            catch
             {
                 context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             }
@@ -129,13 +131,29 @@ namespace Gymnastika.PhoneHelper
         }
         private void PostPicture(HttpListenerContext context)
         {
-            lock (picture)
+            try
             {
-                picture = new byte[context.Request.ContentLength64];
-                context.Request.InputStream.Read(picture, 0, picture.Length);
+                byte[] buffer = new byte[context.Request.ContentLength64];
+                context.Request.InputStream.Read(buffer, 0, buffer.Length);
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
+                Bitmap bmp = new Bitmap(460, 800);
+
+                BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppRgb);
+                IntPtr ptr = data.Scan0;
+                for (int i = 0; i < buffer.Length; ++i)
+                {
+                    Marshal.WriteByte(ptr, i, buffer[i]);
+                }
+                bmp.UnlockBits(data);
+                DisplayHolder.Image = bmp;
+                ++frame;
             }
-            ++frame;
+            catch { context.Response.StatusCode = (int)HttpStatusCode.BadRequest; }
+
+
+            context.Response.Close();
+
+
         }
         private void BadRequest(HttpListenerContext context)
         {

@@ -41,6 +41,7 @@ namespace Gymnastika.Phone.Views
             this.BackKeyPress += new EventHandler<System.ComponentModel.CancelEventArgs>(MainPage_BackKeyPress);
             barcodeSanner1.ScanBegin += new EventHandler<Controls.BarcodeScanBeginArgs>(barcodeSanner1_ScanBegin);
             barcodeSanner1.ScanCompeleted += new EventHandler<Controls.BarcodeScanCompeletedArgs>(barcodeSanner1_ScanCompeleted);
+
         }
         bool CanTakeFood(double calory)
         {
@@ -77,8 +78,20 @@ namespace Gymnastika.Phone.Views
                         }
                         else
                         {
+                            txtName.Text = arg.Info.Name;
                             txtInfo.Text = arg.Info.ToString();
-                            txtSuggest.Text = CanTakeFood(arg.Info.Calories) ? "您可以吃该食物" : "您最好不要吃该食物";
+                            if (CanTakeFood(arg.Info.Calories))
+                            {
+                                txtSuggest.Text = "您可以吃该食物";
+                                txtSuggest.Foreground = new SolidColorBrush(Colors.Green);
+                            }
+                            else
+                            {
+
+                                txtSuggest.Text = "您最好不要吃该食物";
+                                txtSuggest.Foreground = new SolidColorBrush(Colors.Red);
+                            }
+
                             btnTake.IsEnabled = true;
                         }
                     }
@@ -225,15 +238,16 @@ namespace Gymnastika.Phone.Views
                           Name = "加餐：" + CurrentFood.Name,
                           Calorie = CurrentFood.Calories,
                           OriginTime = DateTime.Now,
+                          Type = ScheduleItemType.Diets
                       });
                 if (CurrentFood.Calories > 0)
-                    item.Details.Add("卡路里：" + CurrentFood.Calories);
+                    item.Details.Add("卡路里：" + CurrentFood.Calories.ToString("0.00") + "大卡");
                 if (CurrentFood.Carbohydrate > 0)
-                    item.Details.Add("碳水化合物：" + CurrentFood.Carbohydrate);
+                    item.Details.Add("碳水化合物：" + CurrentFood.Carbohydrate.ToString("0.00") + "g");
                 if (CurrentFood.Fat > 0)
-                    item.Details.Add("脂肪：" + CurrentFood.Fat);
+                    item.Details.Add("脂肪：" + CurrentFood.Fat.ToString("0.00") + "g");
                 if (CurrentFood.Protein > 0)
-                    item.Details.Add("蛋白质：" + CurrentFood.Protein);
+                    item.Details.Add("蛋白质：" + CurrentFood.Protein.ToString("0.00") + "g");
             }
         }
     }

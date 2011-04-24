@@ -14,7 +14,7 @@
         <Image Name="BarcodeImage" />
         </Border>
         <TextBlock Margin="14,149,11,0" Name="txtResult" Text="扫描结果：" Height="27" VerticalAlignment="Top" />
-        <Border Margin="78,53,76,0" BorderBrush="#FF494949" Background="#905E5E5E" BorderThickness="3" CornerRadius="5" Height="36" VerticalAlignment="Top" >
+        <Border Margin="78,53,76,0" BorderBrush="#FF494949" Background="#D35E5E5E" BorderThickness="3" CornerRadius="5" Height="36" VerticalAlignment="Top" >
 		<TextBlock  Name="textBlock2" Text="点击扫描" TextAlignment="Center"  />
    		</Border>
     </Grid>
