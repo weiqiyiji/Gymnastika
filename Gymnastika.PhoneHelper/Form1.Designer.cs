@@ -57,6 +57,7 @@
             this.DisplayHolder.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.DisplayHolder.TabIndex = 1;
             this.DisplayHolder.TabStop = false;
+            this.DisplayHolder.Click += new System.EventHandler(this.DisplayHolder_Click);
             // 
             // groupBox2
             // 

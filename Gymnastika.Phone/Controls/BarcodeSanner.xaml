@@ -7,15 +7,19 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    d:DesignHeight="179" d:DesignWidth="284">
+    d:DesignHeight="209" d:DesignWidth="331">
 
     <Grid x:Name="LayoutRoot">
-        <Border BorderThickness="3" BorderBrush="White"  Name="borderImage" Margin="7,2,5,0" CornerRadius="3" Height="141" VerticalAlignment="Top">
-        <Image Name="BarcodeImage" />
-        </Border>
-        <TextBlock Margin="14,149,11,0" Name="txtResult" Text="扫描结果：" Height="27" VerticalAlignment="Top" />
-        <Border Margin="78,53,76,0" BorderBrush="#FF494949" Background="#D35E5E5E" BorderThickness="3" CornerRadius="5" Height="36" VerticalAlignment="Top" >
-		<TextBlock  Name="textBlock2" Text="点击扫描" TextAlignment="Center"  />
-   		</Border>
+        <StackPanel>
+            <Grid>
+                <Border BorderThickness="3" BorderBrush="White"  Name="borderImage"  CornerRadius="3" Height="166" VerticalAlignment="Bottom" HorizontalAlignment="Center" Width="238">
+                    <Image Name="BarcodeImage" />
+                </Border>
+                <Border Margin="121,61,110,69" BorderBrush="#FF494949" Background="#D35E5E5E" BorderThickness="3" CornerRadius="5" Width="100">
+                    <TextBlock  Name="textBlock2" Text="点击扫描" TextAlignment="Center"  />
+                </Border>
+            </Grid>
+            <TextBlock Name="txtResult" Text="扫描结果：" Height="27" VerticalAlignment="Bottom" Width="316" />
+        </StackPanel>
     </Grid>
 </UserControl>

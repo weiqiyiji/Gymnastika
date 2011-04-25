@@ -36,6 +36,33 @@ namespace Gymnastika.PhoneHelper
             this.DragDrop += new DragEventHandler(DisplayHolder_DragDrop);
             this.DragOver += new DragEventHandler(DisplayHolder_DragOver);
             GetHttpContext();
+            DisplayHolder.DoubleClick += new EventHandler(DisplayHolder_DoubleClick);
+        }
+        private void SetImage(Image image)
+        {
+            if (image == null)
+                return;
+            if (DisplayHolder.Image != null)
+            {
+                DisplayHolder.Image.Dispose();
+                DisplayHolder.Image = null;
+            }
+            DisplayHolder.Image = image;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                DisplayHolder.Image.Save(ms, ImageFormat.Png);
+                picture = ms.ToArray();
+            }
+            ++frame;
+        }
+        void DisplayHolder_DoubleClick(object sender, EventArgs e)
+        {
+            try
+            {
+                Image img = Clipboard.GetImage();
+                SetImage(img);
+            }
+            catch { }
         }
 
         void DisplayHolder_DragOver(object sender, DragEventArgs e)
@@ -67,18 +94,12 @@ namespace Gymnastika.PhoneHelper
                 if (item == DataFormats.FileDrop)
                 {
                     string filename = (e.Data.GetData(DataFormats.FileDrop) as string[])[0];
-                    if (DisplayHolder.Image != null)
+                    try
                     {
-                        DisplayHolder.Image.Dispose();
-                        DisplayHolder.Image = null;
+                        SetImage(Image.FromFile(filename));
                     }
-                    DisplayHolder.Image = Bitmap.FromFile(filename);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        DisplayHolder.Image.Save(ms, ImageFormat.Png);
-                        picture = ms.ToArray();
-                    }
-                    ++frame;
+                    catch { }
+
                     break;
                 }
             }
@@ -145,7 +166,7 @@ namespace Gymnastika.PhoneHelper
                     Marshal.WriteByte(ptr, i, buffer[i]);
                 }
                 bmp.UnlockBits(data);
-                DisplayHolder.Image = bmp;
+                SetImage(bmp);
                 ++frame;
             }
             catch { context.Response.StatusCode = (int)HttpStatusCode.BadRequest; }
@@ -193,6 +214,11 @@ namespace Gymnastika.PhoneHelper
                HandleContext(listener.EndGetContext(r));
                GetHttpContext();
            }), listener);
+        }
+
+        private void DisplayHolder_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

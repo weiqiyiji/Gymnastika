@@ -103,7 +103,12 @@ namespace Gymnastika.Phone.Views
         void barcodeSanner1_ScanBegin(object sender, Controls.BarcodeScanBeginArgs e)
         {
             if (!IsScanning)
+            {
                 barcodeSanner1.TestScan();
+                txtName.Text = "扫描中...";
+                txtSuggest.Text = "";
+                txtInfo.Text = "";
+            }
         }
 
         void MainPage_BackKeyPress(object sender, System.ComponentModel.CancelEventArgs e)
@@ -130,7 +135,6 @@ namespace Gymnastika.Phone.Views
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
             Util.pushNotificationService.Connect();
-
         }
         void ParseNotification(string xml)
         {

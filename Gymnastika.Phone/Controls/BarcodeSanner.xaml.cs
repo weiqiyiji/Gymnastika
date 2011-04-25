@@ -56,35 +56,46 @@ namespace Gymnastika.Phone.Controls
         public void TestScan()
         {
             scanner.CaptureBitmap();
+            txtResult.Text = "";
         }
         private void CopyImage(WriteableBitmap src, WriteableBitmap to, Rect rcSrc, Rect rcTo)
         {
             double scaleX = (double)rcSrc.Width / rcTo.Width,
                     scaleY = (double)rcSrc.Height / rcTo.Height;
 
-            for (int y = (int)rcTo.Top; y < (int)rcTo.Bottom; ++y)
+            for (int y = (int)rcTo.Top; y < Math.Floor(rcTo.Bottom); ++y)
             {
-                int yOffsetSrc = (int)(rcSrc.Top + y * scaleY) * src.PixelWidth;
+                int yOffsetSrc = (int)(rcSrc.Top + Math.Floor(y * scaleY)) * src.PixelWidth;
                 int yOffsetTo = (int)(rcTo.Top + y) * to.PixelWidth;
-                for (int x = (int)rcTo.Left; x < (int)rcTo.Right; ++x)
+                for (int x = (int)rcTo.Left; x < Math.Floor(rcTo.Right); ++x)
                 {
-                    to.Pixels[yOffsetTo + x] = src.Pixels[yOffsetSrc + (int)(rcSrc.Left + x * scaleX)];
+                    int offset = yOffsetSrc + (int)(rcSrc.Left + x * scaleX);
+                    if (offset >= src.Pixels.Length)
+                        continue;
+                    to.Pixels[yOffsetTo + x] = src.Pixels[offset];
                 }
             }
         }
         WriteableBitmap GetBarcodeImage(WriteableBitmap bitmap, int x1, int y1, int x2, int y2)
         {
             WriteableBitmap final;
+            double scale = BarcodeImage.ActualHeight / BarcodeImage.ActualWidth;
             int cY = (y1 + y2) / 2;
             int w, h;
-            w = (int)(Math.Abs(x2 - x1) * 1.3);
+            w = (int)(Math.Abs(x2 - x1) * 1.1);
             if ((x2 + x1) / 2 - w / 2 < 0)
                 w = (x2 + x1); ;
-            h = (int)((w * 0.8 > bitmap.PixelHeight) ? bitmap.PixelHeight : w * 0.8);
+            h = (int)(w * scale);
+            if (h / 2 > bitmap.PixelHeight - cY)
+            {
+                h = bitmap.PixelHeight * 2 - (y1 + y2);
+            }
+            if (h / 2 > cY)
+                h = cY;
             Rect rcSrc = new Rect((x2 + x1) / 2 - w / 2,
-                (cY - h / 2 < 0) ? 0 : cY - h / 2, w, h
+                cY-h/2, w, h
                 );
-            Rect rcTo = new Rect(0, 0, BarcodeImage.ActualWidth, BarcodeImage.ActualWidth / w * h);
+            Rect rcTo = new Rect(0, 0, BarcodeImage.ActualWidth, BarcodeImage.ActualWidth/w*h);
             final = new WriteableBitmap((int)rcTo.Width, (int)rcTo.Height);
             CopyImage(bitmap, final, rcSrc, rcTo);
             return final;
