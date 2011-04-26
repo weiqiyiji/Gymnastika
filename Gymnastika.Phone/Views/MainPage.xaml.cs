@@ -181,7 +181,7 @@ namespace Gymnastika.Phone.Views
                 Schedule.AddItem(Item);
             if (Item.Status != ScheduleItemStatus.Active && Item.Status != ScheduleItemStatus.Done)
             {
-                if (MessageBox.Show(string.Format("开始{0}?", Item.Name), "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                if (MessageBox.Show(string.Format("开始 {0} ?", Item.Name), "提示", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
                     Item.Status = ScheduleItemStatus.Active;
                 }
@@ -218,6 +218,7 @@ namespace Gymnastika.Phone.Views
             {
                 scoreViewer.ScoreItems.Add(item);
             }
+
             scoreViewer.FinishChange();
         }
 

@@ -36,7 +36,7 @@
                 <StackPanel Height="Auto" Name="spUsers" Width="Auto" Margin="3"></StackPanel>
             </ScrollViewer>
             </Border>
-            <Button Content="Button" Height="50" HorizontalAlignment="Left" Margin="327,542,0,0" Name="button1" VerticalAlignment="Top" Width="111" Click="button1_Click_1" />
+            <Button Content="Button" Height="43" HorizontalAlignment="Left" Margin="411,564,0,0" Name="button1" VerticalAlignment="Top" Width="45" Click="button1_Click_1" />
         </Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Gymnastika.Phone;component/Images/B2.jpg" />

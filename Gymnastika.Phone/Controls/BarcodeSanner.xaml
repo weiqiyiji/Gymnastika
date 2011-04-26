@@ -19,7 +19,7 @@
                     <TextBlock  Name="textBlock2" Text="点击扫描" TextAlignment="Center"  />
                 </Border>
             </Grid>
-            <TextBlock Name="txtResult" Text="扫描结果：" Height="27" VerticalAlignment="Bottom" Width="316" />
+            <TextBlock Name="txtResult" Text="扫描结果：" Height="Auto" VerticalAlignment="Bottom" Width="316" />
         </StackPanel>
     </Grid>
 </UserControl>

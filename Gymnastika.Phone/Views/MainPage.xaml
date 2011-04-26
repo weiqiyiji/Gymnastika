@@ -53,9 +53,9 @@
                     </ScrollViewer>
                 </Grid>
             </controls:PanoramaItem>
-            <controls:PanoramaItem Header="计步器">
+            <controls:PanoramaItem Header="计步器" >
                 <Grid>
-                    <my:Pedometer BodyWeight="56" StepLength="50.8" IsRunning="False"   Width="400">
+                    <my:Pedometer x:Name="Pedometer1" BodyWeight="56" StepLength="50.8" IsRunning="False"   Width="400">
                     </my:Pedometer>
                 </Grid>
             </controls:PanoramaItem>

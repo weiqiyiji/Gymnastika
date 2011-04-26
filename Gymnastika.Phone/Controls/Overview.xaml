@@ -28,7 +28,7 @@
                 <Button Content="同步计划" Height="72" HorizontalAlignment="Right" Margin="0,77,12,0" Name="btnSync" VerticalAlignment="Top" Width="160" Grid.Row="1" Click="button1_Click" />
                 <ProgressBar Height="21" Margin="12,0,172,52" Grid.Row="1" VerticalAlignment="Bottom" Name="pbSync" IsIndeterminate="True" Visibility="Collapsed" />
             </Grid>
-            <Image Height="104" HorizontalAlignment="Left" Margin="6,6,0,0" Name="Avatar" Stretch="Uniform" VerticalAlignment="Top" Width="121" Source="/Gymnastika.Phone;component/Avatar3.jpg" />
+            <Image Height="104" HorizontalAlignment="Left" Margin="6,6,0,0" Name="Avatar" Stretch="Uniform" VerticalAlignment="Top" Width="121" Source="/Gymnastika.Phone;component/Avatar3.jpg" Visibility="Collapsed" />
             <TextBlock HorizontalAlignment="Left" Height="34" Margin="12,0,0,15" TextWrapping="Wrap" Text="设备ID：" VerticalAlignment="Bottom" Width="88"/>
             <TextBlock Height="28" Margin="96,0,117,22" TextWrapping="Wrap" Text="更新中..." VerticalAlignment="Bottom" Name="txtID" />
         </Grid>
