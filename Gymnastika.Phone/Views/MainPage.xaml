@@ -44,7 +44,7 @@
                 <Grid>
                     <ScrollViewer>
                         <StackPanel Height="Auto" Margin="10,10,10,0" Name="stackPanel1" VerticalAlignment="Top" Width="400">
-                            <my:BarcodeSanner Height="187" x:Name="barcodeSanner1"  />
+                            <my:BarcodeSanner Height="200" x:Name="barcodeSanner1"  />
                             <TextBlock Height="Auto" Name="txtName" Text="" Margin="10,0" FontSize="36" Foreground="AliceBlue"/>
                             <TextBlock Height="Auto" Name="txtInfo" Text="" Margin="10,0" />
                             <TextBlock Height="Auto" Name="txtSuggest" FontSize="32" Text="" Margin="10,0" />

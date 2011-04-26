@@ -18,6 +18,7 @@ namespace Gymnastika.PhoneHelper
     public partial class Form1 : Form
     {
         HttpListener listener = new HttpListener();
+        Image CurrentBitmap;
         private long frame = 0;
         private byte[] picture;
         public Form1()
@@ -37,20 +38,57 @@ namespace Gymnastika.PhoneHelper
             this.DragOver += new DragEventHandler(DisplayHolder_DragOver);
             GetHttpContext();
             DisplayHolder.DoubleClick += new EventHandler(DisplayHolder_DoubleClick);
+            //DisplayHolder.Invalidated += new InvalidateEventHandler(DisplayHolder_Invalidated);
+            //DisplayHolder.Paint += new PaintEventHandler(DisplayHolder_Paint);
+        }
+
+        void DisplayHolder_Paint(object sender, PaintEventArgs e)
+        {
+            if (CurrentBitmap != null)
+                e.Graphics.DrawImageUnscaledAndClipped(CurrentBitmap, DisplayHolder.ClientRectangle);
+        }
+
+        void DisplayHolder_Invalidated(object sender, InvalidateEventArgs e)
+        {
+            if (CurrentBitmap != null)
+            {
+                Graphics g = DisplayHolder.CreateGraphics();
+                g.DrawImageUnscaledAndClipped(CurrentBitmap, DisplayHolder.ClientRectangle);
+                g.Dispose();
+            }
+
+
         }
         private void SetImage(Image image)
         {
             if (image == null)
                 return;
-            if (DisplayHolder.Image != null)
+            if (CurrentBitmap != null)
             {
-                DisplayHolder.Image.Dispose();
                 DisplayHolder.Image = null;
+                CurrentBitmap.Dispose();
+                CurrentBitmap = null;
             }
-            DisplayHolder.Image = image;
+            //int dw, dh;
+            //dw = 320;
+            //dh = (int)(320.0 / image.Width * image.Height);
+            //image = image.GetThumbnailImage(dw,dh, null, IntPtr.Zero);
+
+            //CurrentBitmap = new Bitmap(dw , dh );
+            //Graphics g = Graphics.FromImage(CurrentBitmap);
+            //int w = CurrentBitmap.Width, h = CurrentBitmap.Height;
+            //g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Default;
+            //g.DrawImage(image, new Rectangle(0, 0, w, h)
+            //    , new Rectangle(0, 0 , image.Width, image.Height ), GraphicsUnit.Pixel);
+            //g.Flush();
+            //g.Dispose();
+            //image.Save("d:\\t1.jpg");
+            //CurrentBitmap.Save("D:\\t2.jpg");
+            CurrentBitmap = image;
+            DisplayHolder.Image = CurrentBitmap;
             using (MemoryStream ms = new MemoryStream())
             {
-                DisplayHolder.Image.Save(ms, ImageFormat.Png);
+                CurrentBitmap.Save(ms, ImageFormat.Png);
                 picture = ms.ToArray();
             }
             ++frame;
@@ -60,6 +98,7 @@ namespace Gymnastika.PhoneHelper
             try
             {
                 Image img = Clipboard.GetImage();
+
                 SetImage(img);
             }
             catch { }
@@ -157,17 +196,9 @@ namespace Gymnastika.PhoneHelper
                 byte[] buffer = new byte[context.Request.ContentLength64];
                 context.Request.InputStream.Read(buffer, 0, buffer.Length);
                 context.Response.StatusCode = (int)HttpStatusCode.OK;
-                Bitmap bmp = new Bitmap(460, 800);
-
-                BitmapData data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.WriteOnly, PixelFormat.Format32bppRgb);
-                IntPtr ptr = data.Scan0;
-                for (int i = 0; i < buffer.Length; ++i)
-                {
-                    Marshal.WriteByte(ptr, i, buffer[i]);
-                }
-                bmp.UnlockBits(data);
-                SetImage(bmp);
-                ++frame;
+                MemoryStream stream = new MemoryStream(buffer);
+                File.WriteAllBytes("D:\\ttt.jpg", buffer);
+                SetImage(new Bitmap(stream));
             }
             catch { context.Response.StatusCode = (int)HttpStatusCode.BadRequest; }
 
@@ -188,6 +219,7 @@ namespace Gymnastika.PhoneHelper
         }
         private void HandleContext(HttpListenerContext context)
         {
+
             string path = context.Request.Url.AbsolutePath.ToLower();
             if (context.Request.HttpMethod == "GET" && path == "/image/")
             {
@@ -199,7 +231,8 @@ namespace Gymnastika.PhoneHelper
             }
             else if (context.Request.HttpMethod == "POST" && path == "/image/")
             {
-                PostPicture(context);
+                this.Invoke(new Action(() => { PostPicture(context); }));
+
             }
             else
             {
@@ -211,8 +244,10 @@ namespace Gymnastika.PhoneHelper
             listener.BeginGetContext(
            new AsyncCallback((r) =>
            {
-               HandleContext(listener.EndGetContext(r));
+               HttpListenerContext context = listener.EndGetContext(r);
                GetHttpContext();
+               HandleContext(context);
+
            }), listener);
         }
 

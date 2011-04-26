@@ -46,7 +46,7 @@ namespace Gymnastika.Phone.Views
         bool CanTakeFood(double calory)
         {
             double sum = 0;
-            double caloryNeed = 150;
+            double caloryNeed = 200;
             foreach (var t in Schedule.GetAllSchedules())
             {
                 if (t.Calorie > 0)
@@ -72,7 +72,8 @@ namespace Gymnastika.Phone.Views
                         CurrentFood = arg.Info;
                         if (arg.Info == null)
                         {
-                            txtInfo.Text = "没有找到该食物。";
+                            txtName.Text = "没有找到该食物。";
+                            // txtInfo.Text = "没有找到该食物。";
                             txtSuggest.Text = "";
                             btnTake.IsEnabled = false;
                         }
